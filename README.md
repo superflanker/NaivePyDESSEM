@@ -153,13 +153,13 @@ Full API and usage documentation is built with **Sphinx** and available here:
 
 ## 📚 How to Cite
 
-If you use **PyDessem** in teaching or research, please cite:
+If you use **NaivePyDessem** in teaching or research, please cite:
 
 ```bibtex
 @misc{adams2025pydessem,
   author    = {Augusto Mathias Adams},
-  title     = {PyDessem: Didactic Hydrothermal Scheduling with Pyomo},
+  title     = {NaivePyDessem: A pedagogical and modular economic dispatch solver based on Pyomo},
   year      = {2025},
-  howpublished = {\url{https://github.com/superflanker/pydessem}}
+  howpublished = {\url{https://github.com/superflanker/NaivePyDESSEM}}
 }
 ```
