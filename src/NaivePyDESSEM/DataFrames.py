@@ -249,8 +249,8 @@ def add_cost_to_dataframe(df: pd.DataFrame,
     storage_generation = [0.0] * len(T)
 
     if has_storage_model(model):
-        storage_generation = [sum(value(model.storage_eta_d[s] * model.storage_dis[s, t]
-                                        - model.storage_eta_c[s] * model.storage_ch[s, t])
+        storage_generation = [sum(value(model.storage_dis[s, t]
+                                        - model.storage_ch[s, t])
                                   for s in model.SU) for t in model.T]
     # Totais por período
     df['Ge_{Total}'] = [x + y + z + w for x, y, z, w in zip(hydro_generation,
