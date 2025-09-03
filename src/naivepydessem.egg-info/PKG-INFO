@@ -148,13 +148,13 @@ pip install -e .
 ### Solving a model
 
 ```bash
-naivepydessem-solve path/to/case.yaml --out_dir results/ --out_file dispatch.csv
+pydessem-solve path/to/case.yaml --out_dir results/ --out_file dispatch.csv
 ```
 
 ### Plotting results
 
 ```bash
-naivepydessem-plot results/dispatch.csv --mode plot --category G V --plot-style line
+pydessem-plot results/dispatch.csv --mode plot --category G V --plot-style line
 ```
 
 ## 📄 References
