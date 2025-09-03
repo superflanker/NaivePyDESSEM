@@ -217,18 +217,29 @@ def binary_df_to_colored_latex(df: pd.DataFrame,
     """
 
     arr = np.array(df.values, dtype=int)
-    cols = [str(int(c) + 1) for c in df.columns]
 
-    # Formato de colunas: todas centradas
+    def _fmt_col(c):
+        try:
+            return str(int(c) + 1)
+        except Exception:
+            return str(c)
+
+    cols = [_fmt_col(c) for c in df.columns]
     if column_format is None:
-        column_format = "c" * len(cols)
+        column_format = "l" + "c" * len(cols)
 
-    # Cabeçalho
-    header = " & ".join([f"\\textbf{{{c}}}" for c in cols]) + " \\\\"
+    index_header = str(df.index.name) if df.index.name is not None else ""
+    header_cells = ["\\textbf{" + index_header + "}"] + \
+        [f"\\textbf{{{c}}}" for c in cols]
+    header = " & ".join(header_cells) + " \\\\"
 
-    # Constrói linhas
+    def _mathwrap(s: str) -> str:
+        s = str(s)
+        return s if (s.startswith("$") and s.endswith("$")) else f"${s}$"
+
     body_lines = []
     for i in range(arr.shape[0]):
+        row_label = _mathwrap(df.index[i])
         cells_tex = []
         for v in arr[i]:
             if v == 1:
@@ -239,7 +250,8 @@ def binary_df_to_colored_latex(df: pd.DataFrame,
                 cells_tex.append(
                     f"\\cellcolor{{{zero_color}}} \\textcolor{{{zero_color}}}{{{floatfmt.format(v)}}}"
                 )
-        body_lines.append(" & ".join(cells_tex) + " \\\\")
+        # >>> NOVO: prefixa a linha com o rótulo do índice
+        body_lines.append(" & ".join([row_label] + cells_tex) + " \\\\")
     body = "\n".join(body_lines)
 
     # Monta tabela completa
@@ -258,6 +270,7 @@ def binary_df_to_colored_latex(df: pd.DataFrame,
     latex.append(r"}")
     latex.append("\\end{table}")
     return "\n".join(latex)
+
 
 def custom_df_to_latex(df: pd.DataFrame,
                        *,
@@ -344,18 +357,18 @@ def custom_df_to_latex(df: pd.DataFrame,
         """Bold a header cell, preserving and bolding math fragments."""
         s_bold_math = _bold_math_fragments(str(s))
         return r"\textbf{" + s_bold_math + "}"
-
-    # Alinhamento: só colunas de dados (índice omitido)
+    
+    def _mathwrap(s: str) -> str:
+        s = str(s)
+        return s if (s.startswith("$") and s.endswith("$")) else f"${s}$"
+    
     ncols = len(df.columns)
     if column_format is None:
         column_format = "c" * ncols  # todas centradas; ajuste para 'l'/'r' se quiser
 
-    # Cabeçalho (somente nomes das colunas)
-    header_cells = [_bold_header_cell(col) for col in df.columns]
+    header_cells = [_bold_header_cell(_mathwrap(col)) for col in df.columns]
 
-    # Corpo: somente valores; formatação numérica segura
     def _fmt_cell(v):
-        # mantém numéricos com 2 casas, strings/objetos como str(v)
         if isinstance(v, (int, float, np.integer, np.floating)):
             return f"{v:0.2f}"
         return str(v)
@@ -365,7 +378,6 @@ def custom_df_to_latex(df: pd.DataFrame,
         row_cells = [_fmt_cell(v) for v in row.values]
         body_lines.append(" & ".join(row_cells) + r" \\")
 
-    # Monta LaTeX completo
     latex = []
     latex.append(r"\begin{table}[!ht]")
     if size_cmd:

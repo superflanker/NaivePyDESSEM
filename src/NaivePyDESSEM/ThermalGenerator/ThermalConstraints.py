@@ -210,6 +210,8 @@ def thermal_add_startup_shutdown_logic_constraint(m):
     >>> _ = thermal_add_startup_shutdown_logic_constraint(m)
     """
     def _f_shut_start_same_time(m, g, t):
+        if m.has_history:
+            return m.thermal_y0[g] + m.thermal_w0[g] <= 1
         return m.thermal_y[g, t] + m.thermal_w[g, t] <= 1
 
     def _logic(m, g, t):
@@ -252,18 +254,18 @@ def thermal_add_ramps_constraint(m):
     """
     def _up(m, g, t):
         if t == 1:
-            if m.has_history:
+            """if m.has_history:
                 return (m.thermal_p[g, 1] - m.thermal_p0[g]
-                    <= m.thermal_RU[g] + m.thermal_Pmax[g]*m.thermal_y[g, 1])
+                    <= m.thermal_RU[g] + m.thermal_Pmax[g]*m.thermal_y[g, 1])"""
             return Constraint.Skip
         return (m.thermal_p[g, t] - m.thermal_p[g, t-1]
                 <= m.thermal_RU[g] + m.thermal_Pmax[g]*m.thermal_y[g, t])
 
     def _down(m, g, t):
         if t == 1:
-            if m.has_history:
+            """if m.has_history:
                 return (m.thermal_p0[g] - m.thermal_p[g, 1]
-                        <= m.thermal_RD[g] + m.thermal_Pmax[g]*m.thermal_w[g, 1])
+                        <= m.thermal_RD[g] + m.thermal_Pmax[g]*m.thermal_w[g, 1])"""
             return Constraint.Skip
         return (m.thermal_p[g, t-1] - m.thermal_p[g, t]
                 <= m.thermal_RD[g] + m.thermal_Pmax[g]*m.thermal_w[g, t])
@@ -331,6 +333,7 @@ def thermal_add_min_up_down_constraint(m):
                 return Constraint.Skip
 
         start = max(1, t - Td + 1)
+        
         return sum(m.thermal_w[g, tau] for tau in range(start, t+1)) <= 1 - m.thermal_u[g, t]
 
     m.thermal_min_up_constraint = Constraint(m.TG, m.T, rule=_min_up)

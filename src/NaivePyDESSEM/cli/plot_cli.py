@@ -186,7 +186,7 @@ def select_variable_columns(df: pd.DataFrame,
     """
 
     if category == "G":
-        return df.filter(regex=r"^(G_|Deficit).*")
+        return df.filter(regex=r"^(G_|Ge_|Deficit|Demand).*")
     elif category == "Q":
         return df.filter(regex=r"^Q_.*")
     elif category == "S":

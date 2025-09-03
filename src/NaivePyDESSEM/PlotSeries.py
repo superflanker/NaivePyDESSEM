@@ -142,11 +142,15 @@ def plot_series(t: Sequence,
     ...             file="generation.png")
     # Saves a line plot with two curves to 'generation.png'.
     """
+    def _mathwrap(s: str) -> str:
+        s = str(s)
+        return s if (s.startswith("$") and s.endswith("$")) else f"${s}$"
     colors = get_distinct_colors(len(series_dict))
+
     plt.figure(figsize=(8, 5))
     k = 0
     for label, values in series_dict.items():
-        plt.plot(t, values, label="$" + label + "$", linewidth=2, color=colors[k])
+        plt.plot(t, values, label=_mathwrap(label), linewidth=2, color=colors[k])
         k += 1
     plt.title(title, fontsize=14)
     plt.xlabel("Estágio - T (h)", fontsize=12)
@@ -219,8 +223,12 @@ def plot_series_bar(
     ...                 file="out_stacked.png", stacked=True)
     # Produces and saves a stacked bar chart to 'out_stacked.png'.
     """
+    def _mathwrap(s: str) -> str:
+        s = str(s)
+        return s if (s.startswith("$") and s.endswith("$")) else f"${s}$"
+    
     colors = get_distinct_colors(len(series_dict))
-    # prepara diretório
+    
     os.makedirs(os.path.dirname(file) or ".", exist_ok=True)
 
     labels = list(series_dict.keys())
@@ -235,16 +243,15 @@ def plot_series_bar(
     if stacked or S == 1:
         cum = np.zeros(T)
         for i, lab in enumerate(labels):
-            ax.bar(x, data[i], bottom=cum, label= "$" + lab + "$", width=width, color=colors[k])
+            ax.bar(x, data[i], bottom=cum, label= _mathwrap(lab), width=width, color=colors[k])
             cum += data[i]
             k += 1
     else:
-        # barras agrupadas
-        group_width = min(0.95, width)  # largura total do grupo
+        group_width = min(0.95, width)
         bar_w = group_width / max(1, S)
         offsets = (np.arange(S) - (S-1)/2.0) * bar_w
         for i, lab in enumerate(labels):
-            ax.bar(x + offsets[i], data[i], width=bar_w, label=lab)
+            ax.bar(x + offsets[i], data[i], width=bar_w, label=_mathwrap(lab))
 
     ax.set_title(title)
     ax.set_xlabel("Estágio - T (h)")

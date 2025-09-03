@@ -225,9 +225,8 @@ def storage_dispatch_summary(model: ConcreteModel) -> None:
             dispatch = sum(value(model.storage_ch[s, t]) for t in model.T)
             print(
                 f"  {Fore.MAGENTA}{s}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWh")
-        print(f"\n{Fore.YELLOW}Stored Energy:{Style.RESET_ALL}")
+        print(f"\n{Fore.YELLOW}Stored Energy (Delta):{Style.RESET_ALL}")
         for s in model.SU:
             dispatch = sum(value(model.storage_dis[s, t] - model.storage_ch[s, t]) for t in model.T)
             print(f"  {Fore.MAGENTA}{s}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWh")
-        
         
