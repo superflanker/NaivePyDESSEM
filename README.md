@@ -98,13 +98,6 @@ The following Python packages are required to run **NaivePyDESSEM**:
 | `numpy`      | `>=2.2.6`           | [numpy](https://pypi.org/project/numpy/) |
 | `pandas`     | `>=2.3.2`           | [pandas](https://pypi.org/project/pandas/) |
 | `pyomo`      | `>=6.9.3`           | [pyomo](https://pypi.org/project/pyomo/) |
-| `cplex`      | `>=22.1.2.0`        | [cplex](https://pypi.org/project/cplex/) *(IBM proprietary)* |
-| `cyipopt`    | `>=1.6.1`           | [cyipopt](https://pypi.org/project/cyipopt/) |
-| `docplex`    | `>=2.30.251`        | [docplex](https://pypi.org/project/docplex/) |
-| `glpk`       | `>=0.4.8`           | [glpk](https://pypi.org/project/glpk/) |
-| `gurobipy`   | `>=12.0.3`          | [gurobipy](https://pypi.org/project/gurobipy/) *(Gurobi proprietary)* |
-| `highspy`    | `>=1.11.0`          | [highspy](https://pypi.org/project/highspy/) *(HiGHS solver bindings)* |
-
 
 ## 🛠  Installation
 
