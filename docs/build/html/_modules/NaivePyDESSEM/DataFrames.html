@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.DataFrames &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.DataFrames</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDESSEM.DataFrames</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems  </span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Utility: Build Dispatch DataFrame from Pyomo Model Results</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">This utility extracts time series of dispatch decisions from a solved</span>
+<span class="sd">Pyomo model and compiles them into a structured pandas DataFrame. It </span>
+<span class="sd">supports hydropower, thermal generation, renewable sources, and storage </span>
+<span class="sd">systems. The output can be used for reporting, visualization, or export </span>
+<span class="sd">to CSV.</span>
+
+<span class="sd">Main components extracted:</span>
+<span class="sd">- Hydropower: turbined flow, storage volume, generation, spillage.</span>
+<span class="sd">- Thermal: power output, on/off status, startup/shutdown, reserves.</span>
+<span class="sd">- Renewable: available generation by unit.</span>
+<span class="sd">- Storage: charge/discharge power, net injection, state of charge.</span>
+<span class="sd">- System-wide: demand, deficit, cost components (variable, startup, deficit).</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL (2023). DESSEM: Manual de Metodologia.  </span>
+<span class="sd">[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">value</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ModelCheck</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+
+<div class="viewcode-block" id="add_hydro_dispatch_to_dataframe">
+<a class="viewcode-back" href="../../NaivePyDESSEM.html#NaivePyDESSEM.DataFrames.add_hydro_dispatch_to_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_hydro_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                                    <span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append hydropower dispatch results to a pandas DataFrame.</span>
+
+<span class="sd">    This function extracts the turbined flow, storage volume, hydropower</span>
+<span class="sd">    generation, and spillage from a Pyomo model and appends them to the</span>
+<span class="sd">    given DataFrame, one column per unit and variable.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The DataFrame to which the results will be appended. It may be empty.</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        A Pyomo model instance containing hydropower variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        The updated DataFrame including hydropower dispatch results.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">has_hydro_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">h_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">HG</span><span class="p">)</span>
+        <span class="c1"># Garantir alinhamento temporal no DataFrame</span>
+        <span class="k">if</span> <span class="s1">&#39;T&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">!=</span> <span class="n">T</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;The &#39;t&#39; column in df does not match model.T.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span>
+
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Q_</span><span class="se">{{</span><span class="s1">h_</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">hydro_Q</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;V_</span><span class="se">{{</span><span class="s1">h_</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">hydro_V</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;G_</span><span class="se">{{</span><span class="s1">h_</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">hydro_G</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;S_</span><span class="se">{{</span><span class="s1">h_</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">hydro_S</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="add_thermal_dispatch_to_dataframe">
+<a class="viewcode-back" href="../../NaivePyDESSEM.html#NaivePyDESSEM.DataFrames.add_thermal_dispatch_to_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_thermal_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                                      <span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append thermal dispatch results to a pandas DataFrame.</span>
+
+<span class="sd">    This function extracts generation, commitment (on/off), startup, shutdown,</span>
+<span class="sd">    and reserve values from the Pyomo model and appends them to the given</span>
+<span class="sd">    DataFrame. Optional variables such as reserve (`r`), startup (`y`), and</span>
+<span class="sd">    shutdown (`w`) are included if present.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The DataFrame to which the results will be appended. It may be empty.</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        A Pyomo model instance containing thermal generation variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        The updated DataFrame including thermal dispatch results.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">has_thermal_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">TG</span><span class="p">)</span>
+
+        <span class="n">has_r</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;thermal_r&#39;</span><span class="p">)</span>
+        <span class="n">has_y</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;thermal_y&#39;</span><span class="p">)</span>
+        <span class="n">has_w</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;thermal_w&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Garantir alinhamento temporal no DataFrame</span>
+        <span class="k">if</span> <span class="s1">&#39;T&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">!=</span> <span class="n">T</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;The &#39;t&#39; column in df does not match model.T.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span>
+
+        <span class="c1"># Por usina</span>
+        <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;G_</span><span class="se">{{</span><span class="s1">t_</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_p</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;U_</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_u</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])))</span>
+                            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">has_r</span><span class="p">:</span>
+                <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;R_</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_r</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">has_y</span><span class="p">:</span>
+                <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Y_</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_y</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])))</span>
+                                <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">has_w</span><span class="p">:</span>
+                <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;W_</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_w</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])))</span>
+                                <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">has_r</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Res_Total&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_r</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+                               <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="add_renewable_dispatch_to_dataframe">
+<a class="viewcode-back" href="../../NaivePyDESSEM.html#NaivePyDESSEM.DataFrames.add_renewable_dispatch_to_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_renewable_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                                        <span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append renewable generation results to a pandas DataFrame.</span>
+
+<span class="sd">    This function extracts renewable generation values from the Pyomo model</span>
+<span class="sd">    and appends them to the provided DataFrame, one column per renewable unit.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The DataFrame to which the results will be appended.</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        A Pyomo model instance containing renewable generation variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        The updated DataFrame including renewable generation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">has_renewable_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">RU</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">R</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;G_</span><span class="se">{{</span><span class="s1">r_</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">renewable_gen</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="add_storage_dispatch_to_dataframe">
+<a class="viewcode-back" href="../../NaivePyDESSEM.html#NaivePyDESSEM.DataFrames.add_storage_dispatch_to_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_storage_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                                      <span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append storage dispatch results to a pandas DataFrame.</span>
+
+<span class="sd">    This function extracts charging, discharging, net output,</span>
+<span class="sd">    and state of charge (SoC) values from the Pyomo model and</span>
+<span class="sd">    adds them as columns to the DataFrame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The DataFrame to which the results will be appended.</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        A Pyomo model instance containing storage unit variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        The updated DataFrame including storage dispatch results.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">has_storage_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">SU</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">S</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;D_</span><span class="se">{{</span><span class="s1">s_</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;C_</span><span class="se">{{</span><span class="s1">s_</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;G_</span><span class="se">{{</span><span class="s1">s_</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;E_</span><span class="se">{{</span><span class="s1">s_</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">storage_E</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="add_cost_to_dataframe">
+<a class="viewcode-back" href="../../NaivePyDESSEM.html#NaivePyDESSEM.DataFrames.add_cost_to_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_cost_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                          <span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append cost components and total demand/deficit to the DataFrame.</span>
+
+<span class="sd">    This function computes and appends the variable generation cost,</span>
+<span class="sd">    startup cost, deficit cost, and total cost per time period.</span>
+<span class="sd">    It also includes total generation, demand, and deficit series.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The DataFrame to which cost components will be appended.</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        A Pyomo model instance with thermal and system-wide cost variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        The updated DataFrame including cost components and energy balance data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">T</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">has_y</span> <span class="o">=</span> <span class="n">has_thermal_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">has_d</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
+    <span class="n">has_D</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">)</span>
+    <span class="n">has_cost</span> <span class="o">=</span> <span class="n">has_thermal_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">has_def_cost</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;Cdef&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">has_D</span>
+
+    <span class="n">hydro_generation</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">has_hydro_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">hydro_generation</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">hydro_G</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+                                <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">HG</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
+
+    <span class="n">thermal_generation</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">has_thermal_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">thermal_generation</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_p</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+                                  <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">TG</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
+
+    <span class="n">renewable_generation</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">has_renewable_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">renewable_generation</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">renewable_gen</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">RU</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
+
+    <span class="n">storage_generation</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">has_storage_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">storage_generation</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">storage_eta_d</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+                                        <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">storage_eta_c</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+                                  <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">SU</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
+    <span class="c1"># Totais por período</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Ge_</span><span class="si">{Total}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span> <span class="o">+</span> <span class="n">w</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">hydro_generation</span><span class="p">,</span>
+                                                           <span class="n">thermal_generation</span><span class="p">,</span>
+                                                           <span class="n">renewable_generation</span><span class="p">,</span>
+                                                           <span class="n">storage_generation</span><span class="p">)]</span>
+
+    <span class="c1"># Demanda / Déficit</span>
+    <span class="k">if</span> <span class="n">has_d</span><span class="p">:</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Demand&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">has_D</span><span class="p">:</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Deficit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+
+    <span class="n">cost_var</span><span class="p">,</span> <span class="n">cost_start</span><span class="p">,</span> <span class="n">cost_def</span><span class="p">,</span> <span class="n">cost_t</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="c1"># Custos por período (se possível)</span>
+    <span class="k">if</span> <span class="n">has_cost</span> <span class="ow">and</span> <span class="n">has_def_cost</span><span class="p">:</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">TG</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">:</span>
+            <span class="n">c_var_t</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_c</span><span class="p">[</span><span class="n">g</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_p</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
+                          <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_b</span><span class="p">[</span><span class="n">g</span><span class="p">])</span> <span class="o">*</span> <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_p</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="o">+</span>
+                          <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_a</span><span class="p">[</span><span class="n">g</span><span class="p">])</span> <span class="o">*</span>
+                          <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_u</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+                          <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">)</span> <span class="k">if</span> <span class="n">has_cost</span> <span class="k">else</span> <span class="mf">0.0</span>
+            <span class="n">c_start_t</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_SC</span><span class="p">[</span><span class="n">g</span><span class="p">])</span> <span class="o">*</span> <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_y</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+                            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">)</span> <span class="k">if</span> <span class="n">has_y</span> <span class="ow">and</span> <span class="n">has_cost</span> <span class="k">else</span> <span class="mf">0.0</span>
+            <span class="n">c_def_t</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Cdef</span><span class="p">)</span> <span class="o">*</span>
+                       <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">]))</span> <span class="k">if</span> <span class="n">has_def_cost</span> <span class="k">else</span> <span class="mf">0.0</span>
+
+            <span class="n">cost_var</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_var_t</span><span class="p">)</span>
+            <span class="n">cost_start</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_start_t</span><span class="p">)</span>
+            <span class="n">cost_def</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_def_t</span><span class="p">)</span>
+            <span class="n">cost_t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_var_t</span> <span class="o">+</span> <span class="n">c_start_t</span> <span class="o">+</span> <span class="n">c_def_t</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">has_cost</span> <span class="ow">and</span> <span class="n">has_def_cost</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">:</span>
+
+            <span class="n">c_def_t</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Cdef</span><span class="p">)</span> <span class="o">*</span>
+                       <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">]))</span> <span class="k">if</span> <span class="n">has_def_cost</span> <span class="k">else</span> <span class="mf">0.0</span>
+
+            <span class="n">cost_var</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">cost_start</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">cost_def</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_def_t</span><span class="p">)</span>
+            <span class="n">cost_t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_def_t</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cost_var</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">cost_start</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">cost_def</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">cost_t</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cost_var&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_var</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cost_start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_start</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cost_def&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_def</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cost_t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_t</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="build_dispatch_dataframe">
+<a class="viewcode-back" href="../../NaivePyDESSEM.html#NaivePyDESSEM.DataFrames.build_dispatch_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_dispatch_dataframe</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build a full dispatch DataFrame with generation, cost, and balance data.</span>
+
+<span class="sd">    This function aggregates the dispatch results from all subsystems</span>
+<span class="sd">    (hydropower, thermal, renewable, storage) along with cost components</span>
+<span class="sd">    into a single structured pandas DataFrame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        A Pyomo model instance containing subsystem variables and time horizon.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        A DataFrame with all relevant dispatch results and economic metrics.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">add_hydro_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">add_thermal_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">add_renewable_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">add_storage_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">add_cost_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

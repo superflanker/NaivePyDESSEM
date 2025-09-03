@@ -1,0 +1,490 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.Utils &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.Utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDESSEM.Utils</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems  </span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">LaTeX Table Utilities for Pandas DataFrames</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">This module provides helpers to render pandas DataFrames as LaTeX tables with</span>
+<span class="sd">custom styling aimed at scientific and engineering reports. It includes:</span>
+
+<span class="sd">- ``binary_df_to_colored_latex``: Renders a binary matrix (0/1) as a colored</span>
+<span class="sd">  LaTeX table, highlighting ones and zeros with configurable colors and</span>
+<span class="sd">  producing a complete ``table`` environment.</span>
+
+<span class="sd">- ``custom_df_to_latex``: Renders a generic (non-binary) DataFrame as a LaTeX</span>
+<span class="sd">  table with bold headers (and bold math within headers), using ``booktabs``</span>
+<span class="sd">  rules and producing a complete ``table`` environment.</span>
+
+<span class="sd">Both functions omit the DataFrame index from the LaTeX output by design,</span>
+<span class="sd">emitting only the column headers and data cells.</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">binary_df_to_colored_latex  </span>
+<span class="sd">    Render a binary (0/1) DataFrame as a colored LaTeX table. Cells equal to 1  </span>
+<span class="sd">    are filled with ``one_color``; cells equal to 0 use ``zero_color``.  </span>
+<span class="sd">    Non-binary values, if present, are formatted with ``floatfmt`` and not  </span>
+<span class="sd">    color-filled. The index is not included in the output.</span>
+
+<span class="sd">custom_df_to_latex  </span>
+<span class="sd">    Render a generic DataFrame as a LaTeX table using ``booktabs`` rules with a  </span>
+<span class="sd">    bold header row. Inline math fragments in header cells  are additionally set </span>
+<span class="sd">    in bold math using ``bold_math_cmd``.  </span>
+<span class="sd">    The index is not included in the output.</span>
+
+<span class="sd">Parameters (Shared)</span>
+<span class="sd">-------------------</span>
+<span class="sd">df : pandas.DataFrame  </span>
+<span class="sd">    The input table to render. Only the DataFrame **columns** are emitted;  </span>
+<span class="sd">    the index is always omitted from the LaTeX output.</span>
+
+<span class="sd">caption : str, optional  </span>
+<span class="sd">    Caption text for the LaTeX ``table`` environment.</span>
+
+<span class="sd">label : str, optional  </span>
+<span class="sd">    Label for cross-referencing with ``\\ref{...}``.</span>
+
+<span class="sd">column_format : str or None, optional  </span>
+<span class="sd">    Column specification for the LaTeX ``tabular`` environment. If ``None``,  </span>
+<span class="sd">    a default is inferred based on the number of columns (all centered).</span>
+
+<span class="sd">size_cmd : str, optional  </span>
+<span class="sd">    LaTeX size command applied inside the table (e.g., ``\\small``, ``\\scriptsize``).</span>
+
+<span class="sd">Additional Parameters</span>
+<span class="sd">---------------------</span>
+<span class="sd">one_color : str, optional  </span>
+<span class="sd">    (For ``binary_df_to_colored_latex``) LaTeX color name for cells with value 1.</span>
+
+<span class="sd">zero_color : str, optional  </span>
+<span class="sd">    (For ``binary_df_to_colored_latex``) LaTeX background color name for cells  </span>
+<span class="sd">    with value 0.</span>
+
+<span class="sd">floatfmt : str, optional  </span>
+<span class="sd">    (For ``binary_df_to_colored_latex``) Format string for numeric entries that  </span>
+<span class="sd">    are not 0/1 (e.g., ``&quot;{:d}&quot;`` or ``&quot;{:.0f}&quot;``).</span>
+
+<span class="sd">bold_math_cmd : str, optional  </span>
+<span class="sd">    (For ``custom_df_to_latex``) Command for bolding inline math in header cells,  </span>
+<span class="sd">    e.g., ``\\mathbf``, ``\\boldsymbol``, or ``\\bm``. Ensure the corresponding  </span>
+<span class="sd">    LaTeX package is loaded.</span>
+
+<span class="sd">Returns</span>
+<span class="sd">-------</span>
+<span class="sd">str  </span>
+<span class="sd">    A complete LaTeX ``table`` environment (including an inner ``tabular`` and  </span>
+<span class="sd">    a ``\\resizebox{\\textwidth}{!}{...}`` wrapper) ready to paste into a  </span>
+<span class="sd">    LaTeX document.</span>
+
+<span class="sd">Requirements</span>
+<span class="sd">------------</span>
+<span class="sd">- Python packages: ``pandas``, ``numpy``, ``re`` (standard library).</span>
+<span class="sd">- LaTeX packages:</span>
+<span class="sd">  - For both functions: ``graphicx`` (for ``\\resizebox``), ``booktabs`` (for ``custom_df_to_latex``).</span>
+<span class="sd">  - For coloring: ``xcolor`` with the ``table`` option (provides ``\\cellcolor``).  </span>
+<span class="sd">    Colors such as ``oncell`` and ``white`` must be defined in the preamble.</span>
+<span class="sd">  - For bold math: ``amsmath``, ``bm``, or any package compatible with ``bold_math_cmd``.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- Both functions assume the DataFrame columns represent displayable headers.  </span>
+<span class="sd">  If numeric, they are commonly used as time periods. Pre-formatting is advised.</span>
+<span class="sd">- ``binary_df_to_colored_latex`` coerces values to integers for coloring.  </span>
+<span class="sd">  Non-binary values are rendered using ``floatfmt`` but receive no coloring.</span>
+<span class="sd">- ``custom_df_to_latex`` skips escaping in data cells, assuming LaTeX-safe input.</span>
+
+<span class="sd">Examples</span>
+<span class="sd">--------</span>
+<span class="sd">Render a binary status matrix with colored cells:</span>
+
+<span class="sd">&gt;&gt;&gt; import pandas as pd  </span>
+<span class="sd">&gt;&gt;&gt; df = pd.DataFrame([[1, 0, 1], [0, 0, 1]])  </span>
+<span class="sd">&gt;&gt;&gt; tex = binary_df_to_colored_latex(  </span>
+<span class="sd">...     df,  </span>
+<span class="sd">...     caption=&quot;Hourly U, Y, and W variables&quot;,  </span>
+<span class="sd">...     label=&quot;tab:uyw&quot;,  </span>
+<span class="sd">...     one_color=&quot;oncell&quot;,  </span>
+<span class="sd">...     zero_color=&quot;white&quot;,  </span>
+<span class="sd">...     floatfmt=&quot;{:d}&quot;  </span>
+<span class="sd">... )  </span>
+<span class="sd">&gt;&gt;&gt; print(tex.splitlines()[0])  </span>
+<span class="sd">\\begin{table}[!ht]</span>
+
+<span class="sd">Render a numeric table with bold headers and math-aware bolding:</span>
+
+<span class="sd">&gt;&gt;&gt; df2 = pd.DataFrame(  </span>
+<span class="sd">...     [[1.0, 2.0], [3.5, 4.25]],  </span>
+<span class="sd">...     columns=[r&quot;$t=1$&quot;, r&quot;\\(t=2\\)&quot;]  </span>
+<span class="sd">... )  </span>
+<span class="sd">&gt;&gt;&gt; tex2 = custom_df_to_latex(  </span>
+<span class="sd">...     df2,  </span>
+<span class="sd">...     caption=&quot;Example Table&quot;,  </span>
+<span class="sd">...     label=&quot;tab:example&quot;,  </span>
+<span class="sd">...     bold_math_cmd=&quot;\\mathbf&quot;  </span>
+<span class="sd">... )  </span>
+<span class="sd">&gt;&gt;&gt; &quot;\\toprule&quot; in tex2  </span>
+<span class="sd">True</span>
+
+<span class="sd">See Also</span>
+<span class="sd">--------</span>
+<span class="sd">pandas.DataFrame.to_latex : Built-in (less specialized) LaTeX export.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL (2023). DESSEM: Manual de Metodologia.  </span>
+<span class="sd">[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<div class="viewcode-block" id="binary_df_to_colored_latex">
+<a class="viewcode-back" href="../../NaivePyDESSEM.html#NaivePyDESSEM.Utils.binary_df_to_colored_latex">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">binary_df_to_colored_latex</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                               <span class="o">*</span><span class="p">,</span>
+                               <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Variáveis U, Y e W horárias&quot;</span><span class="p">,</span>
+                               <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;tab:bin_table&quot;</span><span class="p">,</span>
+                               <span class="n">one_color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;oncell&quot;</span><span class="p">,</span>
+                               <span class="n">zero_color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                               <span class="n">column_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                               <span class="n">floatfmt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:d}</span><span class="s2">&quot;</span><span class="p">,</span>
+                               <span class="n">size_cmd</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">small&quot;</span>
+                               <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert a binary (0/1) pandas DataFrame into a colored LaTeX table.</span>
+
+<span class="sd">    Cells with value 1 are filled using ``\\cellcolor{one_color}``; zeros keep</span>
+<span class="sd">    the background set by ``zero_color`` (default: white). Row labels are</span>
+<span class="sd">    automatically wrapped in math mode (``$...$``). The returned string</span>
+<span class="sd">    contains a complete LaTeX ``table`` environment with an inner ``tabular``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pandas.DataFrame</span>
+<span class="sd">        Binary matrix to render. The index holds row labels</span>
+<span class="sd">        (e.g., ``&#39;U_{UT_{1}}&#39;``) and the columns are time steps</span>
+<span class="sd">        (e.g., ``0..23``).</span>
+<span class="sd">    caption : str, optional</span>
+<span class="sd">        Caption to place under the table in LaTeX.</span>
+<span class="sd">    label : str, optional</span>
+<span class="sd">        LaTeX label used for ``\\ref{...}``.</span>
+<span class="sd">    one_color : str, optional</span>
+<span class="sd">        Name of a LaTeX color (defined in the document preamble) used to</span>
+<span class="sd">        fill cells equal to 1. Example: ``&quot;oncell&quot;``.</span>
+<span class="sd">    zero_color : str, optional</span>
+<span class="sd">        Background color for cells equal to 0 (default: ``&quot;white&quot;``).</span>
+<span class="sd">    column_format : str or None, optional</span>
+<span class="sd">        Column specification for the ``tabular`` environment</span>
+<span class="sd">        (e.g., ``&quot;l*{24}{c}&quot;``). If ``None``, a default is inferred from the</span>
+<span class="sd">        number of columns.</span>
+<span class="sd">    floatfmt : str, optional</span>
+<span class="sd">        Format string used to render numeric entries (e.g., ``&quot;{:d}&quot;``).</span>
+<span class="sd">    size_cmd : str, optional</span>
+<span class="sd">        LaTeX size command applied inside the table</span>
+<span class="sd">        (e.g., ``&quot;\\small&quot;``, ``&quot;\\scriptsize&quot;``).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        LaTeX code for the complete table, ready to paste into your document.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Requires ``\\usepackage[table]{xcolor}`` (or a package providing</span>
+<span class="sd">      ``\\cellcolor``). Also ensure the color given by ``one_color`` is defined</span>
+<span class="sd">      in the preamble, e.g., ``\\definecolor{oncell}{RGB}{230,240,255}``.</span>
+<span class="sd">    - The function expects a boolean/binary DataFrame. Values other than 0/1</span>
+<span class="sd">      are rendered using ``floatfmt`` and will not be colored.</span>
+<span class="sd">    - Row labels are emitted in math mode: ``$&lt;label&gt;$``.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; latex = binary_df_to_colored_latex(</span>
+<span class="sd">    ...     df,</span>
+<span class="sd">    ...     caption=&quot;Hourly U, Y and W variables&quot;,</span>
+<span class="sd">    ...     label=&quot;tab:uyw&quot;,</span>
+<span class="sd">    ...     one_color=&quot;oncell&quot;,</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; print(latex[:30])</span>
+<span class="sd">    \\begin{table}[ht]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+
+    <span class="c1"># Formato de colunas: todas centradas</span>
+    <span class="k">if</span> <span class="n">column_format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">column_format</span> <span class="o">=</span> <span class="s2">&quot;c&quot;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+
+    <span class="c1"># Cabeçalho</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="s2">&quot; &amp; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">textbf</span><span class="se">{{</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; </span><span class="se">\\\\</span><span class="s2">&quot;</span>
+
+    <span class="c1"># Constrói linhas</span>
+    <span class="n">body_lines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">cells_tex</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">cells_tex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">cellcolor</span><span class="se">{{</span><span class="si">{</span><span class="n">one_color</span><span class="si">}</span><span class="se">}}</span><span class="s2"> </span><span class="se">\\</span><span class="s2">textcolor</span><span class="se">{{</span><span class="si">{</span><span class="n">one_color</span><span class="si">}</span><span class="se">}}{{</span><span class="si">{</span><span class="n">floatfmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cells_tex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">cellcolor</span><span class="se">{{</span><span class="si">{</span><span class="n">zero_color</span><span class="si">}</span><span class="se">}}</span><span class="s2"> </span><span class="se">\\</span><span class="s2">textcolor</span><span class="se">{{</span><span class="si">{</span><span class="n">zero_color</span><span class="si">}</span><span class="se">}}{{</span><span class="si">{</span><span class="n">floatfmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+        <span class="n">body_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &amp; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cells_tex</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; </span><span class="se">\\\\</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">body_lines</span><span class="p">)</span>
+
+    <span class="c1"># Monta tabela completa</span>
+    <span class="n">latex</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">begin</span><span class="si">{table}</span><span class="s2">[!ht]&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">size_cmd</span><span class="p">:</span>
+        <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">size_cmd</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\centering&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">caption</span><span class="se">{{</span><span class="si">{</span><span class="n">caption</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">label</span><span class="se">{{</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\resizebox{\textwidth}{!}{&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">begin</span><span class="se">{{</span><span class="s2">tabular</span><span class="se">}}{{</span><span class="si">{</span><span class="n">column_format</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">end</span><span class="si">{tabular}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">end</span><span class="si">{table}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">latex</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="custom_df_to_latex">
+<a class="viewcode-back" href="../../NaivePyDESSEM.html#NaivePyDESSEM.Utils.custom_df_to_latex">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">custom_df_to_latex</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                       <span class="o">*</span><span class="p">,</span>
+                       <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Table&quot;</span><span class="p">,</span>
+                       <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;tab:table&quot;</span><span class="p">,</span>
+                       <span class="n">column_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">size_cmd</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">small&quot;</span><span class="p">,</span>
+                       <span class="n">bold_math_cmd</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">mathbf&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Render a pandas DataFrame as a LaTeX table with bold header and bold first column.</span>
+
+<span class="sd">    This function produces a complete LaTeX ``table`` environment (with</span>
+<span class="sd">    ``tabular`` inside) using ``booktabs`` rules. The column headers are</span>
+<span class="sd">    boldfaced. The first column (index) is also boldfaced. Any math-mode</span>
+<span class="sd">    fragments inside **bolded** cells (i.e., header cells and first-column</span>
+<span class="sd">    cells) are additionally set in bold math using the chosen command</span>
+<span class="sd">    (default: ``\\boldsymbol``). Inline math is detected if delimited by</span>
+<span class="sd">    ``$...$`` or ``\\(...\\)``. Non-math text in bolded cells is wrapped</span>
+<span class="sd">    with ``\\textbf{...}``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pandas.DataFrame</span>
+<span class="sd">        Table to render. The DataFrame&#39;s index becomes the first (row-label)</span>
+<span class="sd">        column. The index name (if any) is used for the top-left header cell.</span>
+<span class="sd">    caption : str, optional</span>
+<span class="sd">        Caption for the LaTeX table.</span>
+<span class="sd">    label : str, optional</span>
+<span class="sd">        LaTeX label used with ``\\ref{...}``.</span>
+<span class="sd">    column_format : str or None, optional</span>
+<span class="sd">        Column specification for the ``tabular`` environment. If ``None``,</span>
+<span class="sd">        it defaults to left alignment for the first column and centered</span>
+<span class="sd">        alignment for the remaining columns (i.e., ``&quot;l&quot; + &quot;c&quot;*ncols``).</span>
+<span class="sd">    size_cmd : str, optional</span>
+<span class="sd">        A LaTeX size command applied inside the table (e.g., ``&quot;\\small&quot;``,</span>
+<span class="sd">        ``&quot;\\scriptsize&quot;``).</span>
+<span class="sd">    bold_math_cmd : str, optional</span>
+<span class="sd">        Command used to bold math fragments (e.g., ``&quot;\\boldsymbol&quot;`` or</span>
+<span class="sd">        ``&quot;\\bm&quot;``). Ensure the corresponding package is loaded.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        LaTeX code for the complete table, ready to paste into a document.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Requires ``\\usepackage{booktabs}`` and a package providing the chosen</span>
+<span class="sd">      math-bold command (e.g., ``\\usepackage{amsmath}`` for ``\\boldsymbol``,</span>
+<span class="sd">      or ``\\usepackage{bm}`` for ``\\bm``).</span>
+<span class="sd">    - Math detection is applied **only** to bolded cells (header and first</span>
+<span class="sd">      column). Other cells are emitted verbatim (no escaping is performed).</span>
+<span class="sd">    - If a math fragment is *already* bold (e.g., contains ``\\boldsymbol{...}``</span>
+<span class="sd">      or ``\\bm{...}`` or ``\\mathbf{...}``), it is left unchanged.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; df = pd.DataFrame([[1, 2], [3, 4]], index=[r&quot;$x_1$&quot;, r&quot;$x_2$&quot;], columns=[&quot;t=1&quot;, &quot;t=2&quot;])</span>
+<span class="sd">    &gt;&gt;&gt; print(df_to_latex_bold_firstcol_header(df, caption=&quot;Example&quot;, label=&quot;tab:ex&quot;)[:60])</span>
+<span class="sd">    \\begin{table}[!ht]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_bold_math_fragments</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Bold every inline math fragment ($...$ or \(...\)) in text using bold_math_cmd.&quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">repl_dollar</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Match</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="n">inner</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">cmd</span> <span class="ow">in</span> <span class="n">inner</span> <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\boldsymbol{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\bm{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\mathbf{&quot;</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">inner</span><span class="si">}</span><span class="s2">$&quot;</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;$%s</span><span class="se">{{</span><span class="si">{</span><span class="n">inner</span><span class="si">}</span><span class="se">}}</span><span class="s2">$&quot;</span> <span class="o">%</span> <span class="n">bold_math_cmd</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">repl_paren</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Match</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="n">inner</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">cmd</span> <span class="ow">in</span> <span class="n">inner</span> <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\boldsymbol{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\bm{&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\mathbf{&quot;</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="sa">r</span><span class="s2">&quot;\(&quot;</span> <span class="o">+</span> <span class="n">inner</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;\)&quot;</span>
+            <span class="k">return</span> <span class="sa">r</span><span class="s2">&quot;\(&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bold_math_cmd</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;{&quot;</span> <span class="o">+</span> <span class="n">inner</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;}\)&quot;</span>
+
+        <span class="n">s</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\$(.+?)\$&quot;</span><span class="p">,</span> <span class="n">repl_dollar</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">\((.+?)</span><span class="se">\\</span><span class="s2">\)&quot;</span><span class="p">,</span> <span class="n">repl_paren</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_bold_header_cell</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Bold a header cell, preserving and bolding math fragments.&quot;&quot;&quot;</span>
+        <span class="n">s_bold_math</span> <span class="o">=</span> <span class="n">_bold_math_fragments</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+        <span class="k">return</span> <span class="sa">r</span><span class="s2">&quot;\textbf{&quot;</span> <span class="o">+</span> <span class="n">s_bold_math</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span>
+
+    <span class="c1"># Alinhamento: só colunas de dados (índice omitido)</span>
+    <span class="n">ncols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">column_format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">column_format</span> <span class="o">=</span> <span class="s2">&quot;c&quot;</span> <span class="o">*</span> <span class="n">ncols</span>  <span class="c1"># todas centradas; ajuste para &#39;l&#39;/&#39;r&#39; se quiser</span>
+
+    <span class="c1"># Cabeçalho (somente nomes das colunas)</span>
+    <span class="n">header_cells</span> <span class="o">=</span> <span class="p">[</span><span class="n">_bold_header_cell</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+
+    <span class="c1"># Corpo: somente valores; formatação numérica segura</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_fmt_cell</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+        <span class="c1"># mantém numéricos com 2 casas, strings/objetos como str(v)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="n">body_lines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">row_cells</span> <span class="o">=</span> <span class="p">[</span><span class="n">_fmt_cell</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+        <span class="n">body_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &amp; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row_cells</span><span class="p">)</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; </span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Monta LaTeX completo</span>
+    <span class="n">latex</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\begin</span><span class="si">{table}</span><span class="s2">[!ht]&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">size_cmd</span><span class="p">:</span>
+        <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">size_cmd</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\centering&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">caption</span><span class="se">{{</span><span class="si">{</span><span class="n">caption</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">label</span><span class="se">{{</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\resizebox{\textwidth}{!}{&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">begin</span><span class="se">{{</span><span class="s2">tabular</span><span class="se">}}{{</span><span class="si">{</span><span class="n">column_format</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\toprule&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &amp; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">header_cells</span><span class="p">)</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot; </span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\midrule&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">body_lines</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\bottomrule&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\end</span><span class="si">{tabular}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;}&quot;</span><span class="p">)</span>
+    <span class="n">latex</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\end</span><span class="si">{table}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">latex</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

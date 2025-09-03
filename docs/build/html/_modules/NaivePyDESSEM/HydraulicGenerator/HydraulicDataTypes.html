@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Hydraulic System Data Classes for Reservoir Optimization</span>
+<span class="sd">========================================================</span>
+
+<span class="sd">This module defines data classes for modeling structural and operational</span>
+<span class="sd">characteristics of hydroelectric systems in short-term dispatch and</span>
+<span class="sd">unit-commitment studies. The classes are designed to serve as a clean</span>
+<span class="sd">interface between problem data and Pyomo-based optimization models.</span>
+
+<span class="sd">Overview</span>
+<span class="sd">--------</span>
+<span class="sd">Two classes are provided:</span>
+
+<span class="sd">- ``HydraulicUnit``: describes a single hydro plant, including storage bounds,</span>
+<span class="sd">  turbined-flow limits, initial/terminal volumes, natural inflows, cascade</span>
+<span class="sd">  topology, and optional coefficients for alternative FPH (hydropower</span>
+<span class="sd">  production function) modes.</span>
+
+<span class="sd">- ``HydraulicData``: encapsulates system-wide information such as planning</span>
+<span class="sd">  horizon, hourly demand, plant map, and conversion/penalty constants.</span>
+
+<span class="sd">Conventions and Units</span>
+<span class="sd">---------------------</span>
+<span class="sd">- Time is discretized in periods ``t = 1, …, horizon`` (integers).</span>
+<span class="sd">- Discharges (Q, S) are in m^3/s.</span>
+<span class="sd">- Storage volumes (V) are in hm^3.</span>
+<span class="sd">- Demand is in MW.</span>
+<span class="sd">- ``zeta`` typically equals 9.81/1000 to convert head * flow to MW.</span>
+<span class="sd">- ``zeta_vol`` converts flow (m^3/s) into volume (hm^3) over one period</span>
+<span class="sd">  (e.g., 3600/1e6 for hourly steps).</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- Cascade routing: this data layer assumes **no travel time**. If routing</span>
+<span class="sd">  delays are relevant, they should be handled in the modeling layer.</span>
+<span class="sd">- The field ``mode`` is a selector for FPH modeling choices (e.g., constant,</span>
+<span class="sd">  specific, exact, simplified). The interpretation belongs to the modeling</span>
+<span class="sd">  code that consumes these data.</span>
+<span class="sd">- Optional vectors (``a``, ``b``, ``rho``, ``losses``) can parameterize</span>
+<span class="sd">  alternative FPH formulations; their semantics depend on the chosen mode.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL (2023). DESSEM: Manual de Metodologia.  </span>
+<span class="sd">[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
+
+
+<div class="viewcode-block" id="HydraulicUnit">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.HydraulicGenerator.html#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HydraulicUnit</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Hydropower plant data container.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Unique identifier of the hydro plant.</span>
+<span class="sd">    Qmin : float</span>
+<span class="sd">        Minimum allowed turbined flow (m^3/s).</span>
+<span class="sd">    Qmax : float</span>
+<span class="sd">        Maximum allowed turbined flow (m^3/s).</span>
+<span class="sd">    Vmin : float</span>
+<span class="sd">        Minimum storage volume (hm^3).</span>
+<span class="sd">    Vmax : float</span>
+<span class="sd">        Maximum storage volume (hm^3).</span>
+<span class="sd">    Vmeta : float</span>
+<span class="sd">        Terminal target storage at the end of the horizon (hm^3).</span>
+<span class="sd">    Vini : float</span>
+<span class="sd">        Initial storage volume at the beginning of the horizon (hm^3).</span>
+<span class="sd">    afluencia : List[float]</span>
+<span class="sd">        Natural inflow time series (m^3/s); external, 0-based list aligned</span>
+<span class="sd">        with model periods (accessed as ``afluencia[t-1]``).</span>
+<span class="sd">    upstreams : List[str], optional</span>
+<span class="sd">        List of immediate upstream plant names that feed this unit.</span>
+<span class="sd">        Defaults to ``None`` (treated as no upstreams).</span>
+<span class="sd">    a : List[float], optional</span>
+<span class="sd">        Optional coefficient vector associated with an FPH/head submodel</span>
+<span class="sd">        (semantics defined by the chosen ``mode``).</span>
+<span class="sd">    b : List[float], optional</span>
+<span class="sd">        Optional coefficient vector associated with an FPH/head submodel</span>
+<span class="sd">        (semantics defined by the chosen ``mode``).</span>
+<span class="sd">    rho : List[float], optional</span>
+<span class="sd">        Optional weights/coefficients for specific productivity surfaces</span>
+<span class="sd">        (e.g., colina-type fits), depending on the ``mode``.</span>
+<span class="sd">    losses : List[float], optional</span>
+<span class="sd">        Optional coefficients for hydraulic-loss approximations.</span>
+<span class="sd">    pe : float, optional</span>
+<span class="sd">        Specific productivity coefficient (dimensionless multiplier used in</span>
+<span class="sd">        simplified models).</span>
+<span class="sd">    p : float, optional</span>
+<span class="sd">        Global productivity coefficient (used in constant/simplified models;</span>
+<span class="sd">        unit interpretation depends on how head is handled in the FPH).</span>
+<span class="sd">    mode : str, optional</span>
+<span class="sd">        Generation-mode selector. Valid options include</span>
+<span class="sd">        {&quot;constant&quot;, &quot;specific&quot;, &quot;exact&quot;, &quot;simplified&quot;}.</span>
+<span class="sd">        Default is &quot;constant&quot;.</span>
+<span class="sd">    compute_total_inflow : bool, optional</span>
+<span class="sd">        If ``True``, total inflow will include upstream releases in addition</span>
+<span class="sd">        to exogenous natural inflow in expressions that support it.</span>
+<span class="sd">        Default is ``True``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The presence and interpretation of the optional vectors (``a``, ``b``,</span>
+<span class="sd">      ``rho``, ``losses``) are **model-dependent** and only take effect if</span>
+<span class="sd">      the consuming code uses them for the selected ``mode``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Qmin</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">Qmax</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">Vmin</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">Vmax</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">Vmeta</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">Vini</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">afluencia</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+    <span class="n">upstreams</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">rho</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">losses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">pe</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">p</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;constant&quot;</span>
+    <span class="n">compute_total_inflow</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+
+<div class="viewcode-block" id="HydraulicData">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.HydraulicGenerator.html#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">HydraulicData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    System-wide hydropower data for planning and dispatch.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    horizon : int</span>
+<span class="sd">        Number of time periods in the planning horizon.</span>
+<span class="sd">    demand : Dict[int, float]</span>
+<span class="sd">        Mapping from period ``t`` (1-based) to system demand (MW).</span>
+<span class="sd">    units : Dict[str, HydraulicUnit]</span>
+<span class="sd">        Map from plant name to its ``HydraulicUnit`` data structure.</span>
+<span class="sd">    zeta : float, optional</span>
+<span class="sd">        Conversion constant for head–flow to power (typ. 9.81/1000). Default</span>
+<span class="sd">        is ``9.81/1000``; ensure consistency with the FPH used.</span>
+<span class="sd">    zeta_vol : float, optional</span>
+<span class="sd">        Flow-to-volume conversion over one period (hm^3 per (m^3/s)).</span>
+<span class="sd">        Default is ``3600/1e6`` for hourly steps.</span>
+<span class="sd">    Cdef : float, optional</span>
+<span class="sd">        Penalty cost for unmet demand (R$/MWh), to be used by objectives in</span>
+<span class="sd">        optimization models. Default is ``1000.0``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The dictionary ``demand`` is assumed to be 1-based (``t = 1..horizon``).</span>
+<span class="sd">      If your data are 0-based, map them accordingly before constructing this</span>
+<span class="sd">      object.</span>
+<span class="sd">    - The interpretation of ``zeta`` depends on where power conversion is</span>
+<span class="sd">      performed (inside the FPH callable or in the model).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">horizon</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">demand</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">HydraulicUnit</span><span class="p">]</span>
+    <span class="n">zeta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">9.81</span> <span class="o">/</span> <span class="mi">1000</span>
+    <span class="n">zeta_vol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">3600</span> <span class="o">/</span> <span class="mf">1e6</span>
+    <span class="n">Cdef</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1000.0</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

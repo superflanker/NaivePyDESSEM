@@ -1,0 +1,256 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.Storage.StorageEquations &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.Storage.StorageEquations</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDESSEM.Storage.StorageEquations</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems  </span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Storage Model Expression Utilities for Pyomo Optimization</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">This module provides helper functions to construct symbolic expressions</span>
+<span class="sd">related to energy storage systems in Pyomo-based optimization models.</span>
+<span class="sd">These expressions can be incrementally assembled and integrated into</span>
+<span class="sd">constraints (e.g., state-of-charge evolution) or cost functions (e.g.,</span>
+<span class="sd">charging/discharging costs).</span>
+
+<span class="sd">The functions are designed to support modular model construction and</span>
+<span class="sd">hybrid system integration. They can be used in conjunction with other</span>
+<span class="sd">technology modules (e.g., thermal, hydro, renewable) to build power</span>
+<span class="sd">balance constraints and system-wide cost objectives.</span>
+
+<span class="sd">All expressions are symbolic and compatible with Pyomo&#39;s modeling</span>
+<span class="sd">framework. Each function includes safeguards to ensure that required</span>
+<span class="sd">model components exist before attempting to generate expressions.</span>
+
+<span class="sd">Intended Use</span>
+<span class="sd">------------</span>
+<span class="sd">- To append storage-related cost and energy balance expressions to lists</span>
+<span class="sd">  that contribute to the overall objective function and constraint set.</span>
+<span class="sd">- To modularize and standardize storage modeling across different hybrid</span>
+<span class="sd">  energy system configurations.</span>
+
+<span class="sd">Examples</span>
+<span class="sd">--------</span>
+<span class="sd">&gt;&gt;&gt; cost_terms = []</span>
+<span class="sd">&gt;&gt;&gt; add_storage_cost_expression(model, cost_terms)</span>
+<span class="sd">&gt;&gt;&gt; model.TotalCost = Objective(expr=sum(cost_terms), sense=minimize)</span>
+
+<span class="sd">&gt;&gt;&gt; balance_terms = []</span>
+<span class="sd">&gt;&gt;&gt; add_storage_balance_expression(model, t=5, balance_array=balance_terms)</span>
+<span class="sd">&gt;&gt;&gt; model.StorageBalance.add(balance_terms[0])</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- This module assumes that storage behavior is modeled using variables such as:</span>
+<span class="sd">  `storage_E`, `storage_ch`, `storage_dis`, `storage_Eini`,</span>
+<span class="sd">  and parameters like `storage_eta_c`, `storage_eta_d`, and `storage_delta_t`.</span>
+<span class="sd">- The structure is compatible with Pyomo&#39;s ConstraintList and indexed Constraint(T).</span>
+<span class="sd">- Expressions are constructed incrementally and can be combined with other</span>
+<span class="sd">  sources (e.g., thermal, hydro) in hybrid dispatch models.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL (2023). DESSEM: Manual de Metodologia.  </span>
+<span class="sd">[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR..</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span> <span class="n">Expression</span>
+
+
+<div class="viewcode-block" id="add_storage_cost_expression">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.Storage.html#NaivePyDESSEM.Storage.StorageEquations.add_storage_cost_expression">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_storage_cost_expression</span><span class="p">(</span>
+    <span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span>
+    <span class="n">cost_array</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append storage-related cost terms to the total cost expression list.</span>
+
+<span class="sd">    This function is intended as a placeholder or extension point for</span>
+<span class="sd">    including storage system costs in the objective function of a Pyomo model.</span>
+<span class="sd">    Typical terms may include degradation penalties, charging/discharging costs,</span>
+<span class="sd">    or time-of-use price adjustments.</span>
+
+<span class="sd">    If no relevant storage cost expressions are defined or required, the function</span>
+<span class="sd">    simply returns the input list unchanged.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : ConcreteModel</span>
+<span class="sd">        Pyomo model instance containing storage system variables.</span>
+<span class="sd">    cost_array : list of expressions</span>
+<span class="sd">        List of symbolic expressions used to build the total cost function.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of expressions</span>
+<span class="sd">        The input list, optionally extended with storage-related cost expressions.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - This function is designed to be compatible with modular cost composition</span>
+<span class="sd">      involving multiple technologies (e.g., thermal, hydro, storage).</span>
+<span class="sd">    - Actual expressions should be added based on model-specific variables</span>
+<span class="sd">      such as `Pch`, `Pdis`, `SoC`, or energy tariffs if available.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cost_array</span></div>
+
+
+
+<div class="viewcode-block" id="add_storage_balance_expression">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.Storage.html#NaivePyDESSEM.Storage.StorageEquations.add_storage_balance_expression">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_storage_balance_expression</span><span class="p">(</span>
+    <span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span>
+    <span class="n">t</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">balance_array</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append energy balance equations for storage units at time t to the constraint expression list.</span>
+
+<span class="sd">    This function constructs and appends symbolic expressions that enforce the</span>
+<span class="sd">    state-of-charge (SoC) evolution for each storage unit at time step `t`. The energy</span>
+<span class="sd">    balance accounts for charging and discharging flows, adjusted by their respective</span>
+<span class="sd">    efficiencies, and scaled by the time step duration.</span>
+
+<span class="sd">    The function distinguishes between the initial period (`t == 1`), where it uses the</span>
+<span class="sd">    initial energy level `storage_Eini`, and subsequent periods (`t &gt; 1`), where it uses</span>
+<span class="sd">    the SoC from the previous period.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : ConcreteModel</span>
+<span class="sd">        Pyomo model instance containing storage variables and parameters.</span>
+<span class="sd">    t : int</span>
+<span class="sd">        Time index at which the storage energy balance is evaluated.</span>
+<span class="sd">    balance_array : list of expressions</span>
+<span class="sd">        List of constraint expressions to which the storage energy balance equation is appended.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of expressions</span>
+<span class="sd">        The updated list including the storage energy balance constraint at time t.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The expected model components are: SU, T, storage_E</span>
+<span class="sd">    - If any required component is missing, the function returns the input list unchanged.</span>
+<span class="sd">    - The returned expressions can be used with `ConstraintList` or indexed `Constraint(T)`.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; balance_terms = []</span>
+<span class="sd">    &gt;&gt;&gt; add_storage_balance_expression(model, t=1, balance_array=balance_terms)</span>
+<span class="sd">    &gt;&gt;&gt; model.StorageBalance.add(balance_terms[0])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">required</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;SU&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_E&#39;</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
+        <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">storage_eta_d</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> 
+                   <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_eta_c</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span>  <span class="n">m</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">)</span>
+        <span class="n">balance_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">balance_array</span>
+    <span class="k">return</span> <span class="n">balance_array</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

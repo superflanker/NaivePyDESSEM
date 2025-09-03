@@ -1,0 +1,243 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.RenewableGenerator.RenewableVars &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.RenewableGenerator.RenewableVars</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDESSEM.RenewableGenerator.RenewableVars</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Module: Renewable Unit Commitment — Sets, Parameters, and Variables</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">This module provides initialization routines for renewable generation</span>
+<span class="sd">within unit-commitment and dispatch models in Pyomo. It defines the sets,</span>
+<span class="sd">parameters, and decision variables required to incorporate renewable</span>
+<span class="sd">units (e.g., wind or solar) into short-term planning formulations.</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">renewable_add_sets_and_params(m, data)</span>
+<span class="sd">    Initialize sets and parameters for renewable units, including the</span>
+<span class="sd">    renewable unit set and availability profiles ``gbar``.</span>
+<span class="sd">renewable_add_variables(m)</span>
+<span class="sd">    Declare renewable generation decision variables and, if not present,</span>
+<span class="sd">    the deficit variable.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- Availability profiles ``gbar`` are assumed to be exogenous, deterministic,</span>
+<span class="sd">  and aligned with the planning horizon.</span>
+<span class="sd">- The module is designed for integration with hydro and thermal</span>
+<span class="sd">  subsystems, ensuring that common components such as time set ``m.T``,</span>
+<span class="sd">  demand ``m.d``, and deficit penalty ``m.Cdef`` are not redefined if</span>
+<span class="sd">  already present.</span>
+<span class="sd">- Renewable generation is always bounded above by its availability; the</span>
+<span class="sd">  actual capacity constraint should be added separately.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL (2023). DESSEM: Manual de Metodologia.</span>
+<span class="sd">[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">RangeSet</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Param</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span>
+                           <span class="n">NonNegativeReals</span><span class="p">,</span> <span class="n">Binary</span><span class="p">,</span> <span class="n">Reals</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.RenewableDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">RenewableData</span>
+
+
+<div class="viewcode-block" id="renewable_add_sets_and_params">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.RenewableGenerator.html#NaivePyDESSEM.RenewableGenerator.RenewableVars.renewable_add_sets_and_params">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">renewable_add_sets_and_params</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span> 
+                                  <span class="n">data</span><span class="p">:</span> <span class="n">RenewableData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize sets and parameters for renewable units in a Pyomo model.</span>
+
+<span class="sd">    Adds the renewable unit set, the renewable availability parameter</span>
+<span class="sd">    ``renewable_gbar[r,t]``, and ensures that the time set ``m.T``, demand</span>
+<span class="sd">    ``m.d``, and deficit penalty ``m.Cdef`` exist. If those components are</span>
+<span class="sd">    already present in the model, they are not overwritten.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model to which renewable sets and parameters will be added.</span>
+<span class="sd">    data : RenewableData</span>
+<span class="sd">        Input data structure containing the planning horizon, demand profile,</span>
+<span class="sd">        deficit penalty, and renewable units with their availability series.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model with renewable sets and parameters attached.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The set ``m.RU`` indexes renewable units.</span>
+<span class="sd">    - The parameter ``m.renewable_gbar[r,t]`` stores the available generation</span>
+<span class="sd">      (MW) of unit ``r`` at period ``t``.</span>
+<span class="sd">    - The list ``gbar`` in each :class:`RenewableUnit` is assumed to be 0-based,</span>
+<span class="sd">      so initialization uses ``t-1`` when accessing it.</span>
+<span class="sd">    - If the model already contains ``m.T``, ``m.d``, or ``m.Cdef``, they are</span>
+<span class="sd">      left unchanged to allow integration with thermal/hydro subsystems.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_gbar_init</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">gbar</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> 
+    
+    <span class="n">T</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">horizon</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">RangeSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">demand</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;Cdef&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">Cdef</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">Cdef</span>
+        
+    <span class="n">m</span><span class="o">.</span><span class="n">RU</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">R</span><span class="p">)</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">renewable_gbar</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">RU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">_gbar_init</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+
+<div class="viewcode-block" id="renewable_add_variables">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.RenewableGenerator.html#NaivePyDESSEM.RenewableGenerator.RenewableVars.renewable_add_variables">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">renewable_add_variables</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Declare renewable generation and deficit decision variables.</span>
+
+<span class="sd">    Adds the continuous non-negative variable ``m.renewable_gen[r,t]`` for</span>
+<span class="sd">    renewable generation and, if not already present, the deficit variable</span>
+<span class="sd">    ``m.D[t]``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model to which renewable variables will be added.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model with renewable generation and deficit variables.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - ``m.renewable_gen[r,t]`` represents the actual dispatched renewable</span>
+<span class="sd">      generation (MW) for unit ``r`` at time ``t``.</span>
+<span class="sd">    - ``m.D[t]`` represents unmet demand (MW) at time ``t``. It is created</span>
+<span class="sd">      only if not already defined in the model, ensuring compatibility with</span>
+<span class="sd">      other subsystems (thermal, hydro, batteries).</span>
+<span class="sd">    - Both variables are continuous and non-negative.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>          <span class="c1"># déficit</span>
+    
+    <span class="n">m</span><span class="o">.</span><span class="n">renewable_gen</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">RU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

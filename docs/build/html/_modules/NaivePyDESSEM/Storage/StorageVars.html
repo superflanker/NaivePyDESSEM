@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.Storage.StorageVars &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.Storage.StorageVars</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDESSEM.Storage.StorageVars</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Module: Energy Storage — Sets, Parameters, and Variables</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">Provides initialization routines for adding storage-related sets, parameters,</span>
+<span class="sd">and decision variables to Pyomo-based dispatch and unit commitment models.</span>
+<span class="sd">This module ensures a consistent interface for modeling battery energy storage</span>
+<span class="sd">systems (BESS) across different formulations.</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">storage_add_sets_and_params(m, data)</span>
+<span class="sd">    Initialize sets and Pyomo parameters for storage units, including</span>
+<span class="sd">    state-of-charge bounds, initial conditions, power limits, efficiencies,</span>
+<span class="sd">    and time-step duration.</span>
+<span class="sd">storage_add_variables(m)</span>
+<span class="sd">    Declare continuous decision variables for state-of-charge, charging</span>
+<span class="sd">    power, and discharging power. If absent, also define a deficit variable</span>
+<span class="sd">    for feasibility.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- Parameters are namespaced with the prefix ``storage_`` for clarity and</span>
+<span class="sd">  compatibility with other subsystems (hydro, thermal, renewable).</span>
+<span class="sd">- The time-step duration (``delta_t``) converts power (MW) to energy (MWh)</span>
+<span class="sd">  within the state-of-charge balance equation.</span>
+<span class="sd">- The variables are declared as non-negative and continuous. Binary</span>
+<span class="sd">  variables may be added in other modules if mutual exclusion between</span>
+<span class="sd">  charge and discharge is required.</span>
+<span class="sd">  </span>
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL (2023). DESSEM: Manual de Metodologia.  </span>
+<span class="sd">[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">RangeSet</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Param</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span> <span class="n">NonNegativeReals</span><span class="p">,</span> <span class="n">Binary</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.StorageDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">StorageData</span>
+
+
+<div class="viewcode-block" id="storage_add_sets_and_params">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.Storage.html#NaivePyDESSEM.Storage.StorageVars.storage_add_sets_and_params">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">storage_add_sets_and_params</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span>
+                                <span class="n">data</span><span class="p">:</span> <span class="n">StorageData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize storage sets and parameters.</span>
+
+<span class="sd">    Adds the storage unit set, state-of-charge bounds and initial values,</span>
+<span class="sd">    power limits, (dis)charging efficiencies, and the time-step duration.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Target model to be updated.</span>
+<span class="sd">    data : StorageData</span>
+<span class="sd">        Input container with horizon, units, and ``delta_t``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model with storage sets/parameters attached.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - If ``m.T`` already exists it is preserved; otherwise it is created</span>
+<span class="sd">      as ``RangeSet(1, data.horizon)``.</span>
+<span class="sd">    - Parameters are prefixed with ``storage_`` for namespacing.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">horizon</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">RangeSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">demand</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;Cdef&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">Cdef</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">Cdef</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">SU</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">U</span><span class="p">)</span>
+
+    <span class="c1"># Scalar (hours)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;storage_delta_t&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">storage_delta_t</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">delta_t</span><span class="p">)</span>
+
+    <span class="c1"># Per-unit parameters</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_Emin</span> <span class="o">=</span> <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">Emin</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">}</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_Emax</span> <span class="o">=</span> <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">Emax</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">}</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_Eini</span> <span class="o">=</span> <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">Eini</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">}</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_Pch_max</span> <span class="o">=</span> <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">Pch_max</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">}</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_Pdis_max</span> <span class="o">=</span> <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">Pdis_max</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">}</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_eta_c</span> <span class="o">=</span> <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">eta_c</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">}</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_eta_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">eta_d</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">}</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_M</span> <span class="o">=</span> <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">Emax</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+<div class="viewcode-block" id="storage_add_variables">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.Storage.html#NaivePyDESSEM.Storage.StorageVars.storage_add_variables">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">storage_add_variables</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Declare storage decision variables.</span>
+
+<span class="sd">    Adds state-of-charge and charge/discharge power variables. If a deficit</span>
+<span class="sd">    variable does not exist in the model, a non-negative ``D[t]`` is created.</span>
+
+<span class="sd">    Variables</span>
+<span class="sd">    ---------</span>
+<span class="sd">    storage_E[s,t] : NonNegativeReals</span>
+<span class="sd">        Energy stored at the end of period ``t`` (MWh).</span>
+<span class="sd">    storage_ch[s,t] : NonNegativeReals</span>
+<span class="sd">        Charging power (MW) in period ``t``.</span>
+<span class="sd">    storage_dis[s,t] : NonNegativeReals</span>
+<span class="sd">        Discharging power (MW) in period ``t``.</span>
+<span class="sd">    D[t] : NonNegativeReals</span>
+<span class="sd">        Deficit (MW), created only if absent.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Target model (expects sets ``m.SU`` and ``m.T``).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model with storage variables attached.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_E</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_ch</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_dis</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_mode</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">Binary</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

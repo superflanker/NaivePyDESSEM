@@ -1,0 +1,6 @@
+include README.md
+include LICENSE
+recursive-include NaivePyDESSEM *.py
+recursive-include examples *.yaml
+recursive-include docs *.tex *.pdf *.md
+recursive-include NaivePyDESSEM *.yaml

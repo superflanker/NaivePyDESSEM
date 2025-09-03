@@ -1,0 +1,964 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.Storage package &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">NaivePyDESSEM.Storage package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.Storage.StorageBuilder">NaivePyDESSEM.Storage.StorageBuilder module</a><ul>
+<li><a class="reference internal" href="#author">Author</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageBuilder.add_storage_problem"><code class="docutils literal notranslate"><span class="pre">add_storage_problem()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageBuilder.build_storage"><code class="docutils literal notranslate"><span class="pre">build_storage()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.Storage.StorageConstraints">NaivePyDESSEM.Storage.StorageConstraints module</a><ul>
+<li><a class="reference internal" href="#id1">Author</a></li>
+<li><a class="reference internal" href="#id2">Description</a></li>
+<li><a class="reference internal" href="#id3">Functions</a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_energy_balance_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_energy_balance_constraint()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_mutual_exclusion_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_mutual_exclusion_constraint()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_only_balance_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_only_balance_constraint()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_power_limits_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_power_limits_constraint()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_soc_bounds_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_soc_bounds_constraint()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.Storage.StorageDataTypes">NaivePyDESSEM.Storage.StorageDataTypes module</a><ul>
+<li><a class="reference internal" href="#id4">Author</a></li>
+<li><a class="reference internal" href="#id5">Description</a></li>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><code class="docutils literal notranslate"><span class="pre">StorageData</span></code></a><ul>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.Cdef"><code class="docutils literal notranslate"><span class="pre">StorageData.Cdef</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.delta_t"><code class="docutils literal notranslate"><span class="pre">StorageData.delta_t</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.demand"><code class="docutils literal notranslate"><span class="pre">StorageData.demand</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.horizon"><code class="docutils literal notranslate"><span class="pre">StorageData.horizon</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.units"><code class="docutils literal notranslate"><span class="pre">StorageData.units</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit"><code class="docutils literal notranslate"><span class="pre">StorageUnit</span></code></a><ul>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Eini"><code class="docutils literal notranslate"><span class="pre">StorageUnit.Eini</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Emax"><code class="docutils literal notranslate"><span class="pre">StorageUnit.Emax</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Emin"><code class="docutils literal notranslate"><span class="pre">StorageUnit.Emin</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Pch_max"><code class="docutils literal notranslate"><span class="pre">StorageUnit.Pch_max</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Pdis_max"><code class="docutils literal notranslate"><span class="pre">StorageUnit.Pdis_max</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.eta_c"><code class="docutils literal notranslate"><span class="pre">StorageUnit.eta_c</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.eta_d"><code class="docutils literal notranslate"><span class="pre">StorageUnit.eta_d</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.name"><code class="docutils literal notranslate"><span class="pre">StorageUnit.name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.Storage.StorageEquations">NaivePyDESSEM.Storage.StorageEquations module</a><ul>
+<li><a class="reference internal" href="#id6">Author</a></li>
+<li><a class="reference internal" href="#id7">Description</a></li>
+<li><a class="reference internal" href="#intended-use">Intended Use</a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageEquations.add_storage_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_storage_balance_expression()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageEquations.add_storage_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_storage_cost_expression()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.Storage.StorageObjective">NaivePyDESSEM.Storage.StorageObjective module</a><ul>
+<li><a class="reference internal" href="#id8">Author</a></li>
+<li><a class="reference internal" href="#id9">Description</a></li>
+<li><a class="reference internal" href="#id10">Functions</a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageObjective.set_objective_storage"><code class="docutils literal notranslate"><span class="pre">set_objective_storage()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.Storage.StorageVars">NaivePyDESSEM.Storage.StorageVars module</a><ul>
+<li><a class="reference internal" href="#id11">Author</a></li>
+<li><a class="reference internal" href="#id12">Description</a></li>
+<li><a class="reference internal" href="#id13">Functions</a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageVars.storage_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">storage_add_sets_and_params()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageVars.storage_add_variables"><code class="docutils literal notranslate"><span class="pre">storage_add_variables()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.Storage">Module contents</a><ul>
+<li><a class="reference internal" href="#id14">Author</a></li>
+<li><a class="reference internal" href="#id15">Description</a></li>
+<li><a class="reference internal" href="#id16">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.Storage package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/NaivePyDESSEM.Storage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="naivepydessem-storage-package">
+<h1>NaivePyDESSEM.Storage package<a class="headerlink" href="#naivepydessem-storage-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-NaivePyDESSEM.Storage.StorageBuilder">
+<span id="naivepydessem-storage-storagebuilder-module"></span><h2>NaivePyDESSEM.Storage.StorageBuilder module<a class="headerlink" href="#module-NaivePyDESSEM.Storage.StorageBuilder" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Energy Storage — Model Builder</p>
+<section id="author">
+<h3>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="description">
+<h3>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h3>
+<p>High-level builders for storage-only optimization models in Pyomo. This
+module assembles the complete model structure by combining storage sets,
+parameters, variables, constraints, and an optional objective function.</p>
+</section>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>build_storage(data, include_objective=True)</dt><dd><p>Create a new <code class="docutils literal notranslate"><span class="pre">ConcreteModel</span></code> with storage components and, optionally,
+the balance constraint and objective.</p>
+</dd>
+<dt>add_storage_problem(m, data, include_objective=False)</dt><dd><p>Add storage components (sets/params/vars/constraints) to an existing
+model and, optionally, attach the balance constraint and objective.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The default objective minimizes deficit cost (no explicit storage
+operating costs). If you have cycling costs or degradation penalties,
+replace the objective accordingly.</p></li>
+<li><p>For hybrid systems (hydro/thermal/renewables + storage), prefer a
+combined system balance and a joint objective in a higher-level builder.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageBuilder.add_storage_problem">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageBuilder.</span></span><span class="sig-name descname"><span class="pre">add_storage_problem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><span class="pre">StorageData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageBuilder.html#add_storage_problem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageBuilder.add_storage_problem" title="Link to this definition"></a></dt>
+<dd><p>Add storage dispatch problem structure to an existing model.</p>
+<p>This routine initializes storage sets and parameters, declares decision
+variables, and attaches operational constraints. Optionally, it enforces
+a storage-only system balance and adds a deficit-penalizing objective.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Target model to be updated.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><em>StorageData</em></a>) – Input container with horizon, units, and time-step duration.</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, add the storage-only balance constraint and attach the
+deficit objective (default is <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated model with storage components and, optionally, the
+balance constraint and objective.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Constraints added (always):</dt><dd><ul>
+<li><p>Energy (SoC) balance</p></li>
+<li><p>SoC bounds (min/max)</p></li>
+<li><p>Charge/discharge power limits</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>If <code class="docutils literal notranslate"><span class="pre">include_objective=True</span></code>:</dt><dd><ul>
+<li><p>Add storage-only balance: Σ(dis − ch) + D = d</p></li>
+<li><p>Attach deficit objective</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageBuilder.build_storage">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageBuilder.</span></span><span class="sig-name descname"><span class="pre">build_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><span class="pre">StorageData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageBuilder.html#build_storage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageBuilder.build_storage" title="Link to this definition"></a></dt>
+<dd><p>Construct a complete Pyomo model for storage-only dispatch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><em>StorageData</em></a>) – Input container with horizon, storage units, and time-step duration.</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, add the storage-only balance constraint and attach the
+deficit objective (default is <code class="docutils literal notranslate"><span class="pre">True</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new model configured with storage sets/params/vars/constraints and,
+optionally, the balance constraint and objective.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>The model contains:</dt><dd><ul>
+<li><p>Sets: time periods (<code class="docutils literal notranslate"><span class="pre">m.T</span></code>), storage units (<code class="docutils literal notranslate"><span class="pre">m.SU</span></code>)</p></li>
+<li><p>Parameters: SoC bounds/initial, power limits, efficiencies, Δt</p></li>
+<li><p>Variables: SoC, charge, discharge, and (if missing) deficit</p></li>
+<li><p>Constraints: SoC balance, SoC bounds, power limits</p></li>
+<li><p>Optional: system balance and deficit objective</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDESSEM.Storage.StorageConstraints">
+<span id="naivepydessem-storage-storageconstraints-module"></span><h2>NaivePyDESSEM.Storage.StorageConstraints module<a class="headerlink" href="#module-NaivePyDESSEM.Storage.StorageConstraints" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Energy Storage — Constraints</p>
+<section id="id1">
+<h3>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id2">
+<h3>Description<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>This module defines the operational constraints for battery energy storage
+systems (BESS) within Pyomo-based dispatch and unit commitment models.
+The formulation is consistent with the hydraulic and renewable modules,
+ensuring interoperability in hybrid optimization frameworks.</p>
+</section>
+<section id="id3">
+<h3>Functions<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>add_storage_energy_balance_constraint(m)</dt><dd><p>Enforce intertemporal state-of-charge balance with charge/discharge
+efficiencies and time-step duration.</p>
+</dd>
+<dt>add_storage_soc_bounds_constraint(m)</dt><dd><p>Impose minimum and maximum state-of-charge limits.</p>
+</dd>
+<dt>add_storage_power_limits_constraint(m)</dt><dd><p>Impose per-period charging and discharging power limits.</p>
+</dd>
+<dt>add_storage_mutual_exclusion_constraint(m)</dt><dd><p>(Optional) Prohibit simultaneous charging and discharging through a
+big-M formulation with binary mode variables.</p>
+</dd>
+<dt>add_storage_only_balance_constraint(m)</dt><dd><p>Enforce system-wide balance for storage-only models, equating net
+injection plus deficit to the demand at each period.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The efficiencies (<code class="docutils literal notranslate"><span class="pre">eta_c</span></code>, <code class="docutils literal notranslate"><span class="pre">eta_d</span></code>) can be specified per stage or
+derived from a round-trip value split by the user.</p></li>
+<li><p>For hybrid models (hydro, thermal, renewable, storage), the global
+balance should be implemented at a higher builder level.</p></li>
+<li><p>The formulation assumes a fixed period duration <code class="docutils literal notranslate"><span class="pre">delta_t</span></code> in hours,
+used to convert power (MW) to energy (MWh).</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageConstraints.add_storage_energy_balance_constraint">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageConstraints.</span></span><span class="sig-name descname"><span class="pre">add_storage_energy_balance_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageConstraints.html#add_storage_energy_balance_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_energy_balance_constraint" title="Link to this definition"></a></dt>
+<dd><p>Add storage energy (SoC) balance constraints.</p>
+<p>Enforces conservation of energy per unit and period:</p>
+<blockquote>
+<div><p>E[s,1] = Eini[s] + eta_c[s] * ch[s,1] * Δt - (dis[s,1] / eta_d[s]) * Δt
+E[s,t] = E[s,t-1] + eta_c[s] * ch[s,t] * Δt - (dis[s,t] / eta_d[s]) * Δt,  t&gt;1</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Model with sets <code class="docutils literal notranslate"><span class="pre">m.SU</span></code>, <code class="docutils literal notranslate"><span class="pre">m.T</span></code>; variables <code class="docutils literal notranslate"><span class="pre">m.storage_E</span></code>,
+<code class="docutils literal notranslate"><span class="pre">m.storage_ch</span></code>, <code class="docutils literal notranslate"><span class="pre">m.storage_dis</span></code>; per-unit parameters
+<code class="docutils literal notranslate"><span class="pre">m.storage_Eini</span></code>, <code class="docutils literal notranslate"><span class="pre">m.storage_eta_c</span></code>, <code class="docutils literal notranslate"><span class="pre">m.storage_eta_d</span></code>; and
+scalar <code class="docutils literal notranslate"><span class="pre">m.storage_delta_t</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model with constraint block
+<code class="docutils literal notranslate"><span class="pre">m.storage_energy_balance_constraint</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageConstraints.add_storage_mutual_exclusion_constraint">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageConstraints.</span></span><span class="sig-name descname"><span class="pre">add_storage_mutual_exclusion_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageConstraints.html#add_storage_mutual_exclusion_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_mutual_exclusion_constraint" title="Link to this definition"></a></dt>
+<dd><p>(Optional) Prohibit simultaneous charge and discharge.</p>
+<p>Uses a big-M logic with a binary mode variable:</p>
+<blockquote>
+<div><p>storage_ch[s,t]  &lt;=  M[s] * storage_mode[s,t]
+storage_dis[s,t] &lt;=  M[s] * (1 - storage_mode[s,t])</p>
+</div></blockquote>
+<p>Assumes <code class="docutils literal notranslate"><span class="pre">m.storage_mode[s,t]</span></code> (binary) and <code class="docutils literal notranslate"><span class="pre">m.storage_M[s]</span></code> (big-M)
+exist in the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Model with sets <code class="docutils literal notranslate"><span class="pre">m.SU</span></code>, <code class="docutils literal notranslate"><span class="pre">m.T</span></code>; variables <code class="docutils literal notranslate"><span class="pre">m.storage_ch</span></code>,
+<code class="docutils literal notranslate"><span class="pre">m.storage_dis</span></code>, binary <code class="docutils literal notranslate"><span class="pre">m.storage_mode</span></code>; and parameter
+<code class="docutils literal notranslate"><span class="pre">m.storage_M</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model with mutual exclusion constraints.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageConstraints.add_storage_only_balance_constraint">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageConstraints.</span></span><span class="sig-name descname"><span class="pre">add_storage_only_balance_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageConstraints.html#add_storage_only_balance_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_only_balance_constraint" title="Link to this definition"></a></dt>
+<dd><p>Add system-wide balance for storage-only models.</p>
+<p>Net injection from storage plus deficit must meet demand:</p>
+<blockquote>
+<div><p>Σ_s ( storage_dis[s,t] - storage_ch[s,t] )  +  D[t]  =  d[t]</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Model with set <code class="docutils literal notranslate"><span class="pre">m.T</span></code>; variables <code class="docutils literal notranslate"><span class="pre">m.storage_ch</span></code>, <code class="docutils literal notranslate"><span class="pre">m.storage_dis</span></code>,
+<code class="docutils literal notranslate"><span class="pre">m.D</span></code>; and parameter <code class="docutils literal notranslate"><span class="pre">m.d</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model with <code class="docutils literal notranslate"><span class="pre">m.storage_only_balance_constraint</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageConstraints.add_storage_power_limits_constraint">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageConstraints.</span></span><span class="sig-name descname"><span class="pre">add_storage_power_limits_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageConstraints.html#add_storage_power_limits_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_power_limits_constraint" title="Link to this definition"></a></dt>
+<dd><p>Add charging and discharging power limits.</p>
+<blockquote>
+<div><p>0 &lt;= storage_ch[s,t]  &lt;= storage_Pch_max[s]
+0 &lt;= storage_dis[s,t] &lt;= storage_Pdis_max[s]</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Model with sets <code class="docutils literal notranslate"><span class="pre">m.SU</span></code>, <code class="docutils literal notranslate"><span class="pre">m.T</span></code>; variables <code class="docutils literal notranslate"><span class="pre">m.storage_ch</span></code>,
+<code class="docutils literal notranslate"><span class="pre">m.storage_dis</span></code>; and parameters <code class="docutils literal notranslate"><span class="pre">m.storage_Pch_max</span></code>,
+<code class="docutils literal notranslate"><span class="pre">m.storage_Pdis_max</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model with power limit constraints.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageConstraints.add_storage_soc_bounds_constraint">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageConstraints.</span></span><span class="sig-name descname"><span class="pre">add_storage_soc_bounds_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageConstraints.html#add_storage_soc_bounds_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_soc_bounds_constraint" title="Link to this definition"></a></dt>
+<dd><p>Add minimum/maximum SoC constraints.</p>
+<blockquote>
+<div><p>storage_Emin[s] &lt;= storage_E[s,t] &lt;= storage_Emax[s]</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Model with sets <code class="docutils literal notranslate"><span class="pre">m.SU</span></code>, <code class="docutils literal notranslate"><span class="pre">m.T</span></code>; variable <code class="docutils literal notranslate"><span class="pre">m.storage_E</span></code>; and
+parameters <code class="docutils literal notranslate"><span class="pre">m.storage_Emin</span></code>, <code class="docutils literal notranslate"><span class="pre">m.storage_Emax</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model with upper and lower SoC bounds.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDESSEM.Storage.StorageDataTypes">
+<span id="naivepydessem-storage-storagedatatypes-module"></span><h2>NaivePyDESSEM.Storage.StorageDataTypes module<a class="headerlink" href="#module-NaivePyDESSEM.Storage.StorageDataTypes" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Energy Storage Bank — Data Structures</p>
+<section id="id4">
+<h3>Author<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id5">
+<h3>Description<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>Lightweight data classes for battery energy storage systems (BESS). These
+structures provide standardized inputs for Pyomo-based unit commitment and
+dispatch models.</p>
+</section>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>StorageUnit</dt><dd><p>Parameters of a single storage unit (SoC bounds, power limits,
+efficiencies, initial state).</p>
+</dd>
+<dt>StorageData</dt><dd><p>System-level container that aggregates storage units and common
+parameters such as time-step duration.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The efficiencies can be specified per stage (charge/discharge) or derived
+from a round-trip value split across both stages by the user before
+instantiation.</p></li>
+<li><p>The time-step duration <code class="docutils literal notranslate"><span class="pre">delta_t</span></code> (hours) converts power (MW) to energy
+(MWh) in the state-of-charge balance.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageDataTypes.</span></span><span class="sig-name descname"><span class="pre">StorageData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit"><span class="pre">StorageUnit</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cdef</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageDataTypes.html#StorageData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>System-wide data container for storage modeling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>horizon</strong> (<em>int</em>) – Number of time periods in the planning horizon.</p></li>
+<li><p><strong>demand</strong> (<em>Dict</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – Mapping of each period <code class="docutils literal notranslate"><span class="pre">t</span></code> (1-based) to system demand (MW).</p></li>
+<li><p><strong>units</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit"><em>StorageUnit</em></a><em>]</em>) – Mapping from unit identifier to <a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit"><code class="xref py py-class docutils literal notranslate"><span class="pre">StorageUnit</span></code></a>.</p></li>
+<li><p><strong>delta_t</strong> (<em>float</em>) – Time-step duration (hours), used to convert MW to MWh.</p></li>
+<li><p><strong>Cdef</strong> (<em>float</em><em>, </em><em>optional</em>) – Sets the deficit cost. Default is 1000.0</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Typical values for <code class="docutils literal notranslate"><span class="pre">delta_t</span></code> are 1.0 (hourly) or 0.5 (30 minutes).</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageData.Cdef">
+<span class="sig-name descname"><span class="pre">Cdef</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1000.0</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.Cdef" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageData.delta_t">
+<span class="sig-name descname"><span class="pre">delta_t</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.delta_t" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageData.demand">
+<span class="sig-name descname"><span class="pre">demand</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.demand" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageData.horizon">
+<span class="sig-name descname"><span class="pre">horizon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.horizon" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageData.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit"><span class="pre">StorageUnit</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.units" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageDataTypes.</span></span><span class="sig-name descname"><span class="pre">StorageUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eini</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pch_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pdis_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageDataTypes.html#StorageUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Data container for a battery energy storage unit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Unique identifier of the storage unit.</p></li>
+<li><p><strong>Emin</strong> (<em>float</em>) – Minimum energy content (MWh).</p></li>
+<li><p><strong>Emax</strong> (<em>float</em>) – Maximum energy content (MWh).</p></li>
+<li><p><strong>Eini</strong> (<em>float</em>) – Initial energy content at the beginning of the horizon (MWh).</p></li>
+<li><p><strong>Pch_max</strong> (<em>float</em>) – Maximum charging power (MW).</p></li>
+<li><p><strong>Pdis_max</strong> (<em>float</em>) – Maximum discharging power (MW).</p></li>
+<li><p><strong>eta_c</strong> (<em>float</em>) – Charging efficiency in <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>.</p></li>
+<li><p><strong>eta_d</strong> (<em>float</em>) – Discharging efficiency in <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Ensure <code class="docutils literal notranslate"><span class="pre">Emin</span> <span class="pre">&lt;=</span> <span class="pre">Eini</span> <span class="pre">&lt;=</span> <span class="pre">Emax</span></code> for feasibility at the first period.</p></li>
+<li><p>If a round-trip efficiency is provided externally, split it into
+<code class="docutils literal notranslate"><span class="pre">eta_c</span></code> and <code class="docutils literal notranslate"><span class="pre">eta_d</span></code> before creating the instance.</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Eini">
+<span class="sig-name descname"><span class="pre">Eini</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Eini" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Emax">
+<span class="sig-name descname"><span class="pre">Emax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Emax" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Emin">
+<span class="sig-name descname"><span class="pre">Emin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Emin" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Pch_max">
+<span class="sig-name descname"><span class="pre">Pch_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Pch_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Pdis_max">
+<span class="sig-name descname"><span class="pre">Pdis_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Pdis_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.eta_c">
+<span class="sig-name descname"><span class="pre">eta_c</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.eta_c" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.eta_d">
+<span class="sig-name descname"><span class="pre">eta_d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.eta_d" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDESSEM.Storage.StorageEquations">
+<span id="naivepydessem-storage-storageequations-module"></span><h2>NaivePyDESSEM.Storage.StorageEquations module<a class="headerlink" href="#module-NaivePyDESSEM.Storage.StorageEquations" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Storage Model Expression Utilities for Pyomo Optimization</p>
+<section id="id6">
+<h3>Author<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id7">
+<h3>Description<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p>This module provides helper functions to construct symbolic expressions
+related to energy storage systems in Pyomo-based optimization models.
+These expressions can be incrementally assembled and integrated into
+constraints (e.g., state-of-charge evolution) or cost functions (e.g.,
+charging/discharging costs).</p>
+<p>The functions are designed to support modular model construction and
+hybrid system integration. They can be used in conjunction with other
+technology modules (e.g., thermal, hydro, renewable) to build power
+balance constraints and system-wide cost objectives.</p>
+<p>All expressions are symbolic and compatible with Pyomo’s modeling
+framework. Each function includes safeguards to ensure that required
+model components exist before attempting to generate expressions.</p>
+</section>
+<section id="intended-use">
+<h3>Intended Use<a class="headerlink" href="#intended-use" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>To append storage-related cost and energy balance expressions to lists
+that contribute to the overall objective function and constraint set.</p></li>
+<li><p>To modularize and standardize storage modeling across different hybrid
+energy system configurations.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cost_terms</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_storage_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">TotalCost</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">cost_terms</span><span class="p">),</span> <span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">balance_terms</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_storage_balance_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">balance_array</span><span class="o">=</span><span class="n">balance_terms</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">StorageBalance</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">balance_terms</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This module assumes that storage behavior is modeled using variables such as:
+<cite>storage_E</cite>, <cite>storage_ch</cite>, <cite>storage_dis</cite>, <cite>storage_Eini</cite>,
+and parameters like <cite>storage_eta_c</cite>, <cite>storage_eta_d</cite>, and <cite>storage_delta_t</cite>.</p></li>
+<li><p>The structure is compatible with Pyomo’s ConstraintList and indexed Constraint(T).</p></li>
+<li><p>Expressions are constructed incrementally and can be combined with other
+sources (e.g., thermal, hydro) in hybrid dispatch models.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR..</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageEquations.add_storage_balance_expression">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageEquations.</span></span><span class="sig-name descname"><span class="pre">add_storage_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageEquations.html#add_storage_balance_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageEquations.add_storage_balance_expression" title="Link to this definition"></a></dt>
+<dd><p>Append energy balance equations for storage units at time t to the constraint expression list.</p>
+<p>This function constructs and appends symbolic expressions that enforce the
+state-of-charge (SoC) evolution for each storage unit at time step <cite>t</cite>. The energy
+balance accounts for charging and discharging flows, adjusted by their respective
+efficiencies, and scaled by the time step duration.</p>
+<p>The function distinguishes between the initial period (<cite>t == 1</cite>), where it uses the
+initial energy level <cite>storage_Eini</cite>, and subsequent periods (<cite>t &gt; 1</cite>), where it uses
+the SoC from the previous period.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>ConcreteModel</em>) – Pyomo model instance containing storage variables and parameters.</p></li>
+<li><p><strong>t</strong> (<em>int</em>) – Time index at which the storage energy balance is evaluated.</p></li>
+<li><p><strong>balance_array</strong> (<em>list</em><em> of </em><em>expressions</em>) – List of constraint expressions to which the storage energy balance equation is appended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated list including the storage energy balance constraint at time t.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of expressions</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The expected model components are: SU, T, storage_E</p></li>
+<li><p>If any required component is missing, the function returns the input list unchanged.</p></li>
+<li><p>The returned expressions can be used with <cite>ConstraintList</cite> or indexed <cite>Constraint(T)</cite>.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">balance_terms</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_storage_balance_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">balance_array</span><span class="o">=</span><span class="n">balance_terms</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">StorageBalance</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">balance_terms</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageEquations.add_storage_cost_expression">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageEquations.</span></span><span class="sig-name descname"><span class="pre">add_storage_cost_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageEquations.html#add_storage_cost_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageEquations.add_storage_cost_expression" title="Link to this definition"></a></dt>
+<dd><p>Append storage-related cost terms to the total cost expression list.</p>
+<p>This function is intended as a placeholder or extension point for
+including storage system costs in the objective function of a Pyomo model.
+Typical terms may include degradation penalties, charging/discharging costs,
+or time-of-use price adjustments.</p>
+<p>If no relevant storage cost expressions are defined or required, the function
+simply returns the input list unchanged.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>ConcreteModel</em>) – Pyomo model instance containing storage system variables.</p></li>
+<li><p><strong>cost_array</strong> (<em>list</em><em> of </em><em>expressions</em>) – List of symbolic expressions used to build the total cost function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The input list, optionally extended with storage-related cost expressions.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of expressions</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This function is designed to be compatible with modular cost composition
+involving multiple technologies (e.g., thermal, hydro, storage).</p></li>
+<li><p>Actual expressions should be added based on model-specific variables
+such as <cite>Pch</cite>, <cite>Pdis</cite>, <cite>SoC</cite>, or energy tariffs if available.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDESSEM.Storage.StorageObjective">
+<span id="naivepydessem-storage-storageobjective-module"></span><h2>NaivePyDESSEM.Storage.StorageObjective module<a class="headerlink" href="#module-NaivePyDESSEM.Storage.StorageObjective" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Energy Storage — Objective Function</p>
+<section id="id8">
+<h3>Author<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id9">
+<h3>Description<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p>Defines the objective function for storage-only dispatch models in Pyomo.
+The formulation minimizes the total penalty cost associated with unmet
+demand (deficit) over the planning horizon, using the parameter <code class="docutils literal notranslate"><span class="pre">Cdef</span></code>.</p>
+</section>
+<section id="id10">
+<h3>Functions<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>set_objective_storage(m)</dt><dd><p>Attach a minimization objective to the model that penalizes unmet
+demand through <code class="docutils literal notranslate"><span class="pre">Cdef</span> <span class="pre">*</span> <span class="pre">D[t]</span></code>.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This objective is tailored for storage-only systems without explicit
+operating or cycling costs.</p></li>
+<li><p>The penalty coefficient <code class="docutils literal notranslate"><span class="pre">Cdef</span></code> should be chosen sufficiently high
+to discourage deficits under normal operating conditions.</p></li>
+<li><p>For hybrid models (hydro, thermal, renewable, storage), a combined
+system-wide objective should be defined at a higher level.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageObjective.set_objective_storage">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageObjective.</span></span><span class="sig-name descname"><span class="pre">set_objective_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageObjective.html#set_objective_storage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageObjective.set_objective_storage" title="Link to this definition"></a></dt>
+<dd><p>Attach a deficit-penalizing objective for storage-only models.</p>
+<section id="objective">
+<h3>Objective<a class="headerlink" href="#objective" title="Link to this heading"></a></h3>
+<p>Minimize the total cost of unmet demand across the horizon:</p>
+<blockquote>
+<div><p>minimize  sum_t Cdef * D[t]</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">param m<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Model with set <code class="docutils literal notranslate"><span class="pre">m.T</span></code>, variable <code class="docutils literal notranslate"><span class="pre">m.D[t]</span></code> and parameter <code class="docutils literal notranslate"><span class="pre">m.Cdef</span></code>.</p>
+</dd>
+<dt class="field-even">type m<span class="colon">:</span></dt>
+<dd class="field-even"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The same model with objective <code class="docutils literal notranslate"><span class="pre">m.OBJ</span></code> attached.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDESSEM.Storage.StorageVars">
+<span id="naivepydessem-storage-storagevars-module"></span><h2>NaivePyDESSEM.Storage.StorageVars module<a class="headerlink" href="#module-NaivePyDESSEM.Storage.StorageVars" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Energy Storage — Sets, Parameters, and Variables</p>
+<section id="id11">
+<h3>Author<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id12">
+<h3>Description<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<p>Provides initialization routines for adding storage-related sets, parameters,
+and decision variables to Pyomo-based dispatch and unit commitment models.
+This module ensures a consistent interface for modeling battery energy storage
+systems (BESS) across different formulations.</p>
+</section>
+<section id="id13">
+<h3>Functions<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>storage_add_sets_and_params(m, data)</dt><dd><p>Initialize sets and Pyomo parameters for storage units, including
+state-of-charge bounds, initial conditions, power limits, efficiencies,
+and time-step duration.</p>
+</dd>
+<dt>storage_add_variables(m)</dt><dd><p>Declare continuous decision variables for state-of-charge, charging
+power, and discharging power. If absent, also define a deficit variable
+for feasibility.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Parameters are namespaced with the prefix <code class="docutils literal notranslate"><span class="pre">storage_</span></code> for clarity and
+compatibility with other subsystems (hydro, thermal, renewable).</p></li>
+<li><p>The time-step duration (<code class="docutils literal notranslate"><span class="pre">delta_t</span></code>) converts power (MW) to energy (MWh)
+within the state-of-charge balance equation.</p></li>
+<li><p>The variables are declared as non-negative and continuous. Binary
+variables may be added in other modules if mutual exclusion between
+charge and discharge is required.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageVars.storage_add_sets_and_params">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageVars.</span></span><span class="sig-name descname"><span class="pre">storage_add_sets_and_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><span class="pre">StorageData</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageVars.html#storage_add_sets_and_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageVars.storage_add_sets_and_params" title="Link to this definition"></a></dt>
+<dd><p>Initialize storage sets and parameters.</p>
+<p>Adds the storage unit set, state-of-charge bounds and initial values,
+power limits, (dis)charging efficiencies, and the time-step duration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Target model to be updated.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><em>StorageData</em></a>) – Input container with horizon, units, and <code class="docutils literal notranslate"><span class="pre">delta_t</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model with storage sets/parameters attached.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">m.T</span></code> already exists it is preserved; otherwise it is created
+as <code class="docutils literal notranslate"><span class="pre">RangeSet(1,</span> <span class="pre">data.horizon)</span></code>.</p></li>
+<li><p>Parameters are prefixed with <code class="docutils literal notranslate"><span class="pre">storage_</span></code> for namespacing.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageVars.storage_add_variables">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageVars.</span></span><span class="sig-name descname"><span class="pre">storage_add_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageVars.html#storage_add_variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageVars.storage_add_variables" title="Link to this definition"></a></dt>
+<dd><p>Declare storage decision variables.</p>
+<p>Adds state-of-charge and charge/discharge power variables. If a deficit
+variable does not exist in the model, a non-negative <code class="docutils literal notranslate"><span class="pre">D[t]</span></code> is created.</p>
+<section id="variables">
+<h3>Variables<a class="headerlink" href="#variables" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>storage_E[s,t]<span class="classifier">NonNegativeReals</span></dt><dd><p>Energy stored at the end of period <code class="docutils literal notranslate"><span class="pre">t</span></code> (MWh).</p>
+</dd>
+<dt>storage_ch[s,t]<span class="classifier">NonNegativeReals</span></dt><dd><p>Charging power (MW) in period <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
+</dd>
+<dt>storage_dis[s,t]<span class="classifier">NonNegativeReals</span></dt><dd><p>Discharging power (MW) in period <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
+</dd>
+<dt>D[t]<span class="classifier">NonNegativeReals</span></dt><dd><p>Deficit (MW), created only if absent.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">param m<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Target model (expects sets <code class="docutils literal notranslate"><span class="pre">m.SU</span></code> and <code class="docutils literal notranslate"><span class="pre">m.T</span></code>).</p>
+</dd>
+<dt class="field-even">type m<span class="colon">:</span></dt>
+<dd class="field-even"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The same model with storage variables attached.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDESSEM.Storage">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-NaivePyDESSEM.Storage" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Package: Energy Storage Modeling (Storage)</p>
+<section id="id14">
+<h3>Author<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id15">
+<h3>Description<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<p>The <strong>Storage</strong> package provides a modular framework for incorporating
+battery energy storage systems (BESS) into Pyomo-based dispatch and unit
+commitment models. It defines the necessary data structures, sets,
+parameters, variables, constraints, objectives, and builder functions
+to assemble storage-only or hybrid optimization models.</p>
+</section>
+<section id="id16">
+<h3>Submodules<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>StorageDataTypes</dt><dd><p>Dataclasses for storage units and system-level configuration.</p>
+</dd>
+<dt>StorageVars</dt><dd><p>Initialization of Pyomo sets, parameters, and variables.</p>
+</dd>
+<dt>StorageConstraints</dt><dd><p>Constraint builders (SoC balance, bounds, power limits, etc.).</p>
+</dd>
+<dt>StorageObjectives</dt><dd><p>Objective function definitions for storage-only models.</p>
+</dd>
+<dt>StorageBuilder</dt><dd><p>High-level routines to assemble complete storage models.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The package is designed to be interoperable with the Hydro, Thermal,
+and Renewable packages, enabling the construction of hybrid models.</p></li>
+<li><p>Naming conventions are consistent across subsystems for clarity and
+maintainability.</p></li>
+<li><p>Extensions (e.g., cycling cost, degradation models) can be added
+within this package without altering the external interface.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

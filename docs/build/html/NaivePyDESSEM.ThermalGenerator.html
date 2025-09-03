@@ -1,0 +1,1518 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.ThermalGenerator package &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">NaivePyDESSEM.ThermalGenerator package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalConstraints">NaivePyDESSEM.ThermalGenerator.ThermalConstraints module</a><ul>
+<li><a class="reference internal" href="#author">Author</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#constraint-families">Constraint Families</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_balance_constraint"><code class="docutils literal notranslate"><span class="pre">thermal_add_balance_constraint()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_capacity_constraint"><code class="docutils literal notranslate"><span class="pre">thermal_add_capacity_constraint()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_min_up_down_constraint"><code class="docutils literal notranslate"><span class="pre">thermal_add_min_up_down_constraint()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_ramps_constraint"><code class="docutils literal notranslate"><span class="pre">thermal_add_ramps_constraint()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_reserve_constraint"><code class="docutils literal notranslate"><span class="pre">thermal_add_reserve_constraint()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_startup_shutdown_logic_constraint"><code class="docutils literal notranslate"><span class="pre">thermal_add_startup_shutdown_logic_constraint()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalDataTypes">NaivePyDESSEM.ThermalGenerator.ThermalDataTypes module</a><ul>
+<li><a class="reference internal" href="#id1">Author</a></li>
+<li><a class="reference internal" href="#id2">Description</a></li>
+<li><a class="reference internal" href="#notation-per-unit-g-and-time-t">Notation (per unit g and time t)</a></li>
+<li><a class="reference internal" href="#typical-objective-miqp-form">Typical objective (MIQP form)</a></li>
+<li><a class="reference internal" href="#id3">Usage</a></li>
+<li><a class="reference internal" href="#intended-pairing">Intended pairing</a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData"><code class="docutils literal notranslate"><span class="pre">ThermalData</span></code></a><ul>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.Cdef"><code class="docutils literal notranslate"><span class="pre">ThermalData.Cdef</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.Rreq"><code class="docutils literal notranslate"><span class="pre">ThermalData.Rreq</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.demand"><code class="docutils literal notranslate"><span class="pre">ThermalData.demand</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.has_history"><code class="docutils literal notranslate"><span class="pre">ThermalData.has_history</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.horizon"><code class="docutils literal notranslate"><span class="pre">ThermalData.horizon</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.units"><code class="docutils literal notranslate"><span class="pre">ThermalData.units</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit"><code class="docutils literal notranslate"><span class="pre">ThermalUnit</span></code></a><ul>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.Pmax"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.Pmax</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.Pmin"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.Pmin</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.RD"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.RD</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.RU"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.RU</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.SC"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.SC</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.a"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.a</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.b"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.b</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.c"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.c</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.gamma"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.gamma</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.init_status_h"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.init_status_h</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.name"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.name</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.p0"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.p0</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.pw_breaks"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.pw_breaks</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.pw_costs"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.pw_costs</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.t_down"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.t_down</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.t_up"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.t_up</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.u0"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.u0</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalEquations">NaivePyDESSEM.ThermalGenerator.ThermalEquations module</a><ul>
+<li><a class="reference internal" href="#id4">Author</a></li>
+<li><a class="reference internal" href="#id5">Description</a></li>
+<li><a class="reference internal" href="#intended-use">Intended Use</a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalEquations.add_thermal_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_thermal_balance_expression()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalEquations.add_thermal_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_thermal_cost_expression()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder">NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder module</a><ul>
+<li><a class="reference internal" href="#id6">Author</a></li>
+<li><a class="reference internal" href="#id7">Description</a></li>
+<li><a class="reference internal" href="#builder-function">Builder Function</a></li>
+<li><a class="reference internal" href="#id8">Usage</a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_problem"><code class="docutils literal notranslate"><span class="pre">add_thermal_problem()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder.build_thermal_uc"><code class="docutils literal notranslate"><span class="pre">build_thermal_uc()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalObjectives">NaivePyDESSEM.ThermalGenerator.ThermalObjectives module</a><ul>
+<li><a class="reference internal" href="#id9">Author</a></li>
+<li><a class="reference internal" href="#id10">Description</a></li>
+<li><a class="reference internal" href="#id11">Usage</a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalObjectives.set_objective_thermo_miqp"><code class="docutils literal notranslate"><span class="pre">set_objective_thermo_miqp()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalObjectives.set_objective_thermo_pwl"><code class="docutils literal notranslate"><span class="pre">set_objective_thermo_pwl()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalPieceWise">NaivePyDESSEM.ThermalGenerator.ThermalPieceWise module</a><ul>
+<li><a class="reference internal" href="#id12">Author</a></li>
+<li><a class="reference internal" href="#id13">Description</a></li>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#id14">Usage</a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalPieceWise.thermal_add_piecewise_cost"><code class="docutils literal notranslate"><span class="pre">thermal_add_piecewise_cost()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalVars">NaivePyDESSEM.ThermalGenerator.ThermalVars module</a><ul>
+<li><a class="reference internal" href="#id16">Author</a></li>
+<li><a class="reference internal" href="#id17">Description</a></li>
+<li><a class="reference internal" href="#id18">Features</a></li>
+<li><a class="reference internal" href="#variables">Variables</a></li>
+<li><a class="reference internal" href="#id19">Usage</a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalVars.thermal_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">thermal_add_sets_and_params()</span></code></a></li>
+<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalVars.thermal_add_variables_uc"><code class="docutils literal notranslate"><span class="pre">thermal_add_variables_uc()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator">Module contents</a><ul>
+<li><a class="reference internal" href="#id20">Author</a></li>
+<li><a class="reference internal" href="#id21">Description</a></li>
+<li><a class="reference internal" href="#id22">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.ThermalGenerator package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/NaivePyDESSEM.ThermalGenerator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="naivepydessem-thermalgenerator-package">
+<h1>NaivePyDESSEM.ThermalGenerator package<a class="headerlink" href="#naivepydessem-thermalgenerator-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-NaivePyDESSEM.ThermalGenerator.ThermalConstraints">
+<span id="naivepydessem-thermalgenerator-thermalconstraints-module"></span><h2>NaivePyDESSEM.ThermalGenerator.ThermalConstraints module<a class="headerlink" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalConstraints" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Thermal Unit Commitment — Constraints</p>
+<section id="author">
+<h3>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="description">
+<h3>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h3>
+<p>Constraint builders for thermal unit commitment (UC) formulations in Pyomo.
+Each function attaches a specific block of constraints to a
+ConcreteModel, enabling modular construction of MILP/MIQP/MINLP UC
+models. The naming convention uses the thermal_* prefix for variables,
+parameters, and constraint blocks attached to the model.</p>
+</section>
+<section id="constraint-families">
+<h3>Constraint Families<a class="headerlink" href="#constraint-families" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Balance (system-wide):</p>
+<ul class="simple">
+<li><p>sum_g thermal_p[g,t] + D[t] = d[t]</p></li>
+</ul>
+</li>
+<li><p>Capacity (per unit and period):</p>
+<ul class="simple">
+<li><p>Lower bound: thermal_Pmin[g] * thermal_u[g,t] &lt;= thermal_p[g,t]</p></li>
+<li><p>Upper bound (no reserve): thermal_p[g,t] &lt;= thermal_Pmax[g] * thermal_u[g,t]</p></li>
+<li><p>Upper bound (with reserve): thermal_p[g,t] + thermal_r[g,t] &lt;= thermal_Pmax[g] * thermal_u[g,t]</p></li>
+</ul>
+</li>
+<li><p>Spinning reserve:
+sum_g thermal_r[g,t] &gt;= thermal_Rreq[t]</p></li>
+<li><p>Commitment logic:</p>
+<ul class="simple">
+<li><p>Mutual exclusivity: thermal_y[g,t] + thermal_w[g,t] &lt;= 1</p></li>
+<li><p>State transition:</p>
+<ul>
+<li><p>t=1: thermal_u[g,1] - thermal_u0[g] = thermal_y[g,1] - thermal_w[g,1]</p></li>
+<li><p>t&gt;1: thermal_u[g,t] - thermal_u[g,t-1] = thermal_y[g,t] - thermal_w[g,t]</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Ramping (with start/shut effects):</p>
+<ul class="simple">
+<li><p>Up: thermal_p[g,t] - thermal_p[g,t-1] &lt;= thermal_RU[g] + thermal_Pmax[g] * thermal_y[g,t]</p></li>
+<li><p>Down: thermal_p[g,t-1] - thermal_p[g,t] &lt;= thermal_RD[g] + thermal_Pmax[g] * thermal_w[g,t]
+At t=1, use thermal_p0[g] in place of the previous-period power.)</p></li>
+</ul>
+</li>
+<li><p>Minimum up/down time:</p>
+<ul class="simple">
+<li><p>Up: SUM_{t=t-Tu+1}^{t} thermal_y[g,t] &lt;= thermal_u[g,t]</p></li>
+<li><p>Down: SUM_{t=t-Td+1}^{t} thermal_w[g,t] &lt;= 1 - thermal_u[g,t]</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h3>
+<p>Combine these builders with:</p>
+<ul class="simple">
+<li><p>set/parameter/variable definitions for thermal UC, and</p></li>
+<li><p>an appropriate objective (quadratic or piecewise linear).</p></li>
+</ul>
+<p>By composing the blocks, one can construct MIQP (quadratic costs) or
+MILP (piecewise linear costs) UC formulations, optionally with reserve constraints.</p>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_balance_constraint">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalConstraints.</span></span><span class="sig-name descname"><span class="pre">thermal_add_balance_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalConstraints.html#thermal_add_balance_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_balance_constraint" title="Link to this definition"></a></dt>
+<dd><p>Add the system-wide energy balance constraint.</p>
+<p>For each period t, the total thermal generation plus the deficit
+must match the demand:</p>
+<blockquote>
+<div><p>sum_g thermal_p[g,t] + D[t] == d[t]</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model with thermal parameters and variables</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated model with constraint block
+m.thermal_balance_constraint.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Assume m has sets/vars/params defined; then:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">thermal_add_balance_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">thermal_balance_constraint</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>  
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_capacity_constraint">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalConstraints.</span></span><span class="sig-name descname"><span class="pre">thermal_add_capacity_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_reserve</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalConstraints.html#thermal_add_capacity_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_capacity_constraint" title="Link to this definition"></a></dt>
+<dd><p>Add generation capacity limits for all units and periods.</p>
+<p>Enforces unit-wise lower and upper bounds linked to the on/off status.
+When include_reserve is True, the upper bound also accounts for
+spinning reserve provision.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Model containing thermal parameters and variables</p></li>
+<li><p><strong>include_reserve</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, apply thermal_p + thermal_r &lt;= Pmax * u as the upper
+bound. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated model with constraint blocks
+m.thermal_cap_lower_constraint and
+m.thermal_cap_upper_constraint.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Upper bound includes reserve if requested:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">thermal_add_capacity_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">include_reserve</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_min_up_down_constraint">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalConstraints.</span></span><span class="sig-name descname"><span class="pre">thermal_add_min_up_down_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalConstraints.html#thermal_add_min_up_down_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_min_up_down_constraint" title="Link to this definition"></a></dt>
+<dd><p>Add minimum up-time and down-time constraints with initial state consideration.</p>
+<p>These constraints ensure logical consistency of operating sequences:</p>
+<ul class="simple">
+<li><p><strong>Minimum up-time</strong>: if a unit is started, it must remain ON for at least
+thermal_t_up[g] periods. If the unit has already been ON before the
+optimization window (according to thermal_init_status[g] &gt; 0),
+the remaining required ON time is reduced accordingly.</p></li>
+<li><p><strong>Minimum down-time</strong>: if a unit is shut down, it must remain OFF for at least
+thermal_t_dn[g] periods. If the unit has already been OFF before the
+optimization window (according to thermal_init_status[g] &lt; 0),
+the remaining required OFF time is reduced accordingly.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Model with thermal paraeters and variables</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Model with added constraint blocks:
+- m.thermal_min_up_constraint
+- m.thermal_min_dn_constraint</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">thermal_add_min_up_down_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_ramps_constraint">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalConstraints.</span></span><span class="sig-name descname"><span class="pre">thermal_add_ramps_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalConstraints.html#thermal_add_ramps_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_ramps_constraint" title="Link to this definition"></a></dt>
+<dd><p>Add ramp-up and ramp-down constraints.</p>
+<p>Limits the change in generation between consecutive periods according
+to thermal_RU[g] and thermal_RD[g], with allowances when a unit
+starts up or shuts down. At t=1, the previous-period generation is
+given by thermal_p0[g].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Model with thermal paraeters and variables</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated model with constraint blocks
+m.thermal_ramp_up_constraint and m.thermal_ramp_dn_constraint.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">thermal_add_ramps_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_reserve_constraint">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalConstraints.</span></span><span class="sig-name descname"><span class="pre">thermal_add_reserve_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalConstraints.html#thermal_add_reserve_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_reserve_constraint" title="Link to this definition"></a></dt>
+<dd><p>Add spinning reserve requirement constraints.</p>
+<p>For each period t, total spinning reserve must satisfy:</p>
+<blockquote>
+<div><p>sum_g thermal_r[g,t] &gt;= thermal_Rreq[t].</p>
+</div></blockquote>
+<p class="rubric">Notes</p>
+<p>This constraint assumes that reserve variables and requirements are
+present, and that capacity limits were added with
+include_reserve=True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Model with thermal parameters and variables</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated model with constraint block
+m.thermal_reserve_req_constraint.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">thermal_add_reserve_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">thermal_reserve_req_constraint</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>  
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_startup_shutdown_logic_constraint">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalConstraints.</span></span><span class="sig-name descname"><span class="pre">thermal_add_startup_shutdown_logic_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalConstraints.html#thermal_add_startup_shutdown_logic_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_startup_shutdown_logic_constraint" title="Link to this definition"></a></dt>
+<dd><p>Add startup/shutdown logical consistency constraints.</p>
+<p>Imposes:</p>
+<ul class="simple">
+<li><p>Mutual exclusivity of start and shut in the same period:
+thermal_y[g,t] + thermal_w[g,t] &lt;= 1.</p></li>
+<li><p>State transition linking on/off status to start/shut variables:</p>
+<ul>
+<li><p>t=1: thermal_u[g,1] - thermal_u0[g] = thermal_y[g,1] - thermal_w[g,1]</p></li>
+<li><p>t&gt;1: thermal_u[g,t] - thermal_u[g,t-1] = thermal_y[g,t] - thermal_w[g,t]</p></li>
+</ul>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Model with thermal paraeters and variables</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated model with constraint blocks
+m.thermal_f_ss_constraint and m.thermal_logic_constraint.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">thermal_add_startup_shutdown_logic_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDESSEM.ThermalGenerator.ThermalDataTypes">
+<span id="naivepydessem-thermalgenerator-thermaldatatypes-module"></span><h2>NaivePyDESSEM.ThermalGenerator.ThermalDataTypes module<a class="headerlink" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalDataTypes" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Thermal Unit Commitment — Data Structures and Problem Skeleton</p>
+<section id="id1">
+<h3>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id2">
+<h3>Description<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>This module defines the canonical data structures for short-term thermal
+unit commitment (UC) and economic dispatch problems. It is designed to be
+paired with Pyomo model builders that assemble:</p>
+<ul class="simple">
+<li><p>Mixed-Integer Quadratic Programs (MIQP) with quadratic variable cost
+a * u + b * p + c * p² and start-up cost SC * y.</p></li>
+<li><p>Mixed-Integer Linear Programs (MILP) using piecewise-linear (PWL) cost
+curves via SOS2/convex-combination.</p></li>
+<li><p>Optional spinning reserve coupling and global emissions/fuel caps.</p></li>
+</ul>
+</section>
+<section id="notation-per-unit-g-and-time-t">
+<h3>Notation (per unit g and time t)<a class="headerlink" href="#notation-per-unit-g-and-time-t" title="Link to this heading"></a></h3>
+<p>Decision variables (model side):</p>
+<blockquote>
+<div><p>u_{g,t} in {0,1}   : on/off state
+y_{g,t}, w_{g,t}  : start-up / shut-down flags (binary)
+p_{g,t} &gt;= 0       : electrical output (MW)
+r_{g,t} &gt;= 0       : spinning reserve (MW, optional)
+D_t &gt;= 0           : demand deficit (MW, optional)</p>
+</div></blockquote>
+<p>Core parameters (this module):</p>
+<blockquote>
+<div><p>Pmin_g, Pmax_g    : power bounds (MW)
+RU_g, RD_g        : ramp-up / ramp-down limits (MW/Δt)
+a_g, b_g, c_g     : cost coefficients for a * u + b * p + c * p²
+SC_g              : hot start cost
+t_up_g, t_down_g  : minimum up/down times (periods)
+u0_g, p0_g        : initial state and output
+pw_breaks, pw_costs : PWL points for variable cost C(p)
+γ_g               : emissions factor (tCO₂/MWh), optional</p>
+</div></blockquote>
+</section>
+<section id="typical-objective-miqp-form">
+<h3>Typical objective (MIQP form)<a class="headerlink" href="#typical-objective-miqp-form" title="Link to this heading"></a></h3>
+<p>Minimize over t,g:</p>
+<blockquote>
+<div><p>sum ( a_g u_{g,t} + b_g p_{g,t} + c_g p_{g,t}^2 + SC_g y_{g,t} ) + C_def sum(D_t)</p>
+</div></blockquote>
+<p>subject to balance, capacity, ramping, min up/down, and (optionally)
+reserve and emissions constraints.</p>
+</section>
+<section id="id3">
+<h3>Usage<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><em>ThermalUnit</em>: describes a single thermal unit, including technical
+limits, cost curve, start-up, ramping, and optional PWL and emissions.</p></li>
+<li><p><em>ThermalData</em>: wraps the system horizon, hourly demand, the unit map,
+and optional reserve/emissions settings to feed a Pyomo builder.</p></li>
+</ul>
+</section>
+<section id="intended-pairing">
+<h3>Intended pairing<a class="headerlink" href="#intended-pairing" title="Link to this heading"></a></h3>
+<p>This module is agnostic to the specific Pyomo modeling choices. It is
+compatible with builders that: (i) set MIQP objectives directly from
+(a,b,c); or (ii) construct MILP PWL costs from (pw_breaks, pw_costs),
+keeping a * u and SC * y in the linear objective.</p>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.</span></span><span class="sig-name descname"><span class="pre">ThermalData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit" title="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit"><span class="pre">ThermalUnit</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cdef</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rreq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalDataTypes.html#ThermalData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>System-wide data container for thermal unit commitment problems.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>horizon</strong> (<em>int</em>) – Number of time periods in the planning horizon.</p></li>
+<li><p><strong>demand</strong> (<em>Dict</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – Mapping of each period <code class="docutils literal notranslate"><span class="pre">t</span></code> to system demand (MW).</p></li>
+<li><p><strong>units</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit" title="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit"><em>ThermalUnit</em></a><em>]</em>) – Dictionary mapping unit identifiers to their <code class="docutils literal notranslate"><span class="pre">ThermalUnit</span></code> objects.</p></li>
+<li><p><strong>Cdef</strong> (<em>float</em><em>, </em><em>optional</em>) – Deficit penalty cost ($/MWh), default is 1000.0.</p></li>
+<li><p><strong>Rreq</strong> (<em>Dict</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em><em>, </em><em>optional</em>) – Mapping of each period <code class="docutils literal notranslate"><span class="pre">t</span></code> to spinning reserve requirement (MW).
+Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>has_history</strong> (<em>bool</em><em>, </em><em>optional</em>) – Consider previous states or not. Default is false</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This class serves as a structured input for Pyomo-based UC models.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Rreq</span></code> is optional; if not provided, reserve constraints must be disabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Cdef</span></code> penalizes unmet demand in the optimization objective.</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.Cdef">
+<span class="sig-name descname"><span class="pre">Cdef</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1000.0</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.Cdef" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.Rreq">
+<span class="sig-name descname"><span class="pre">Rreq</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.Rreq" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.demand">
+<span class="sig-name descname"><span class="pre">demand</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.demand" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.has_history">
+<span class="sig-name descname"><span class="pre">has_history</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.has_history" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.horizon">
+<span class="sig-name descname"><span class="pre">horizon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.horizon" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit" title="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit"><span class="pre">ThermalUnit</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.units" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.</span></span><span class="sig-name descname"><span class="pre">ThermalUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RU</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RD</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SC</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_up</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_down</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_status_h</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pw_breaks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pw_costs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalDataTypes.html#ThermalUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Data container for a thermal generating unit with unit commitment attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Unique identifier of the thermal unit.</p></li>
+<li><p><strong>Pmin</strong> (<em>float</em>) – Minimum operating power output (MW).</p></li>
+<li><p><strong>Pmax</strong> (<em>float</em>) – Maximum operating power output (MW).</p></li>
+<li><p><strong>RU</strong> (<em>float</em>) – Ramp-up limit (MW per period).</p></li>
+<li><p><strong>RD</strong> (<em>float</em>) – Ramp-down limit (MW per period).</p></li>
+<li><p><strong>a</strong> (<em>float</em><em>, </em><em>optional</em>) – Fixed cost coefficient ($/h), default is 0.0.</p></li>
+<li><p><strong>b</strong> (<em>float</em><em>, </em><em>optional</em>) – Linear generation cost coefficient ($/MWh), default is 0.0.</p></li>
+<li><p><strong>c</strong> (<em>float</em><em>, </em><em>optional</em>) – Quadratic generation cost coefficient ($/MWh²), default is 0.0.</p></li>
+<li><p><strong>SC</strong> (<em>float</em><em>, </em><em>optional</em>) – Hot start-up cost ($), default is 0.0.</p></li>
+<li><p><strong>t_up</strong> (<em>int</em><em>, </em><em>optional</em>) – Minimum up-time (hours/periods), default is 1.</p></li>
+<li><p><strong>t_down</strong> (<em>int</em><em>, </em><em>optional</em>) – Minimum down-time (hours/periods), default is 1.</p></li>
+<li><p><strong>init_status_h</strong> (<em>int</em><em>, </em><em>optional</em>) – Value to compute initial t_min_up/t_min_down</p></li>
+<li><p><strong>u0</strong> (<em>int</em><em>, </em><em>optional</em>) – Initial commitment status at t=0 (1=ON, 0=OFF), default is 0.</p></li>
+<li><p><strong>p0</strong> (<em>float</em><em>, </em><em>optional</em>) – Initial generation level at t=0 (MW), default is 0.0.</p></li>
+<li><p><strong>pw_breaks</strong> (<em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em>) – Breakpoints for piecewise-linear cost approximation.</p></li>
+<li><p><strong>pw_costs</strong> (<em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em>) – Cost values corresponding to the piecewise breakpoints.</p></li>
+<li><p><strong>gamma</strong> (<em>float</em><em>, </em><em>optional</em>) – Emission factor or auxiliary cost coefficient (unit-dependent),
+default is 0.0.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The quadratic cost curve is typically defined as:
+<code class="docutils literal notranslate"><span class="pre">C(p)</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">*</span> <span class="pre">u</span> <span class="pre">+</span> <span class="pre">b</span> <span class="pre">*</span> <span class="pre">p</span> <span class="pre">+</span> <span class="pre">c</span> <span class="pre">*</span> <span class="pre">p²</span> <span class="pre">+</span> <span class="pre">SC</span> <span class="pre">*</span> <span class="pre">y</span></code>,
+where <code class="docutils literal notranslate"><span class="pre">u</span></code> is the commitment status and <code class="docutils literal notranslate"><span class="pre">y</span></code> the startup indicator.</p></li>
+<li><p>Piecewise approximations use <code class="docutils literal notranslate"><span class="pre">pw_breaks</span></code> and <code class="docutils literal notranslate"><span class="pre">pw_costs</span></code> for MILP models.</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.Pmax">
+<span class="sig-name descname"><span class="pre">Pmax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.Pmax" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.Pmin">
+<span class="sig-name descname"><span class="pre">Pmin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.Pmin" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.RD">
+<span class="sig-name descname"><span class="pre">RD</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.RD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.RU">
+<span class="sig-name descname"><span class="pre">RU</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.RU" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.SC">
+<span class="sig-name descname"><span class="pre">SC</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.SC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.a">
+<span class="sig-name descname"><span class="pre">a</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.a" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.b">
+<span class="sig-name descname"><span class="pre">b</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.b" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.c">
+<span class="sig-name descname"><span class="pre">c</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.c" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.gamma">
+<span class="sig-name descname"><span class="pre">gamma</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.gamma" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.init_status_h">
+<span class="sig-name descname"><span class="pre">init_status_h</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.init_status_h" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.p0">
+<span class="sig-name descname"><span class="pre">p0</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.p0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.pw_breaks">
+<span class="sig-name descname"><span class="pre">pw_breaks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.pw_breaks" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.pw_costs">
+<span class="sig-name descname"><span class="pre">pw_costs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.pw_costs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.t_down">
+<span class="sig-name descname"><span class="pre">t_down</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.t_down" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.t_up">
+<span class="sig-name descname"><span class="pre">t_up</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.t_up" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.u0">
+<span class="sig-name descname"><span class="pre">u0</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.u0" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDESSEM.ThermalGenerator.ThermalEquations">
+<span id="naivepydessem-thermalgenerator-thermalequations-module"></span><h2>NaivePyDESSEM.ThermalGenerator.ThermalEquations module<a class="headerlink" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalEquations" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Thermal Model Expression Utilities for Pyomo Optimization</p>
+<section id="id4">
+<h3>Author<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id5">
+<h3>Description<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>This module provides helper functions to construct symbolic expressions
+related to thermal power generation in Pyomo models. These expressions
+can be incrementally assembled and used in constraints (e.g., power balance)
+or in the objective function (e.g., cost minimization).</p>
+<p>Functions are designed to be modular and composable, allowing the user to
+build lists of partial expressions from multiple sources (e.g., thermal,
+hydro, renewable, storage) and sum them later into complete constraints
+or cost functions.</p>
+<p>All functions operate safely: they first verify the presence of required
+model components (e.g., sets, variables, parameters) before contributing
+expressions. If components are missing, the expressions are skipped
+silently, enabling flexible model composition.</p>
+</section>
+<section id="intended-use">
+<h3>Intended Use<a class="headerlink" href="#intended-use" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>To support modular construction of the objective function, especially
+when not all energy sources are known in advance.</p></li>
+<li><p>To build power balance equations at each time step by aggregating
+contributions from thermal and other sources.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cost_terms</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_thermal_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">TotalCost</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">cost_terms</span><span class="p">),</span> <span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">balance_terms</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_thermal_balance_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">balance_terms</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">BalanceConstraint</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">balance_terms</span><span class="p">)</span> <span class="o">==</span> <span class="n">model</span><span class="o">.</span><span class="n">Demand</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>All expressions returned are Pyomo symbolic expressions.</p></li>
+<li><p>This module assumes the model follows the naming convention:
+‘thermal_p’, ‘thermal_u’, ‘thermal_y’, ‘thermal_SC’, etc.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalEquations.add_thermal_balance_expression">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalEquations.</span></span><span class="sig-name descname"><span class="pre">add_thermal_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalEquations.html#add_thermal_balance_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalEquations.add_thermal_balance_expression" title="Link to this definition"></a></dt>
+<dd><p>Append the thermal generation expression at a given time step t
+to the balance equation expression list.</p>
+<p>This is intended for use in constructing hybrid or modular power
+balance constraints where multiple sources (thermal, hydro, solar, etc.)
+contribute to the total injected power at each time step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>ConcreteModel</em>) – Pyomo model containing the thermal variables.</p></li>
+<li><p><strong>t</strong> (<em>int</em>) – Time index for which the expression should be generated.</p></li>
+<li><p><strong>balance_array</strong> (<em>list</em><em> of </em><em>expressions</em>) – List of symbolic expressions to which the thermal component is appended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated list including the thermal power contribution at time t.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of expressions</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalEquations.add_thermal_cost_expression">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalEquations.</span></span><span class="sig-name descname"><span class="pre">add_thermal_cost_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalEquations.html#add_thermal_cost_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalEquations.add_thermal_cost_expression" title="Link to this definition"></a></dt>
+<dd><p>Append thermal generation cost terms to the total cost expression list,
+if the required model components are present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>ConcreteModel</em>) – Pyomo model instance containing thermal data.</p></li>
+<li><p><strong>cost_array</strong> (<em>list</em><em> of </em><em>expressions</em>) – List of symbolic expressions to be used in the objective function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated list including thermal cost terms if available.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of expressions</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder">
+<span id="naivepydessem-thermalgenerator-thermalgeneratorbuilder-module"></span><h2>NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder module<a class="headerlink" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Thermal Unit Commitment — Model Builder</p>
+<section id="id6">
+<h3>Author<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id7">
+<h3>Description<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p>This module provides a high-level builder function for thermal UC models.
+It orchestrates the composition of Pyomo model objects by combining:</p>
+<ul class="simple">
+<li><p>Sets and parameters (<em>thermal_components.thermal_add_sets_and_params</em>)</p></li>
+<li><p>Variables (<em>thermal_components.thermal_add_variables_uc</em>)</p></li>
+<li><p>Constraint families (<em>thermal_constraints</em>)</p></li>
+<li><p>Objective functions (<em>thermal_objectives</em>)</p></li>
+<li><dl class="simple">
+<dt>Optional features:</dt><dd><ul>
+<li><p>Reserve provision and requirement constraints</p></li>
+<li><p>Emissions/fuel caps</p></li>
+<li><p>Piecewise-linear (PWL) variable cost representation</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="builder-function">
+<h3>Builder Function<a class="headerlink" href="#builder-function" title="Link to this heading"></a></h3>
+<p><em>build_thermal_uc(data, objective, include_reserve, include_objective)</em></p>
+<p>Parameters:</p>
+<ul class="simple">
+<li><p>data            : ThermalData object with horizon, demand, and unit info</p></li>
+<li><p>objective       : “miqp” (quadratic) or “pwl” (piecewise linear)</p></li>
+<li><p>include_reserve : bool, add reserve variables/constraints if True</p></li>
+<li><p>include_objective : bool, add objective function</p></li>
+</ul>
+<p>Returns:</p>
+<ul class="simple">
+<li><p>A fully assembled Pyomo ConcreteModel ready to be solved by MILP/MIQP solvers
+(e.g., Gurobi, CPLEX, SCIP) or MINLP solvers (via MindtPy with glpk/Ipopt).</p></li>
+</ul>
+</section>
+<section id="id8">
+<h3>Usage<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>This is the main entry point to generate UC test cases from ThermalData
+instances. It ensures consistency across modules and allows easy switching
+between formulations.</p>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_problem">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder.</span></span><span class="sig-name descname"><span class="pre">add_thermal_problem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData" title="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData"><span class="pre">ThermalData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'miqp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_reserve</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalGeneratorBuilder.html#add_thermal_problem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_problem" title="Link to this definition"></a></dt>
+<dd><p>Assemble a thermal unit-commitment (UC) problem in Pyomo.</p>
+<p>This builder configures a thermal UC optimization model by attaching sets,
+parameters, decision variables, and standard operational constraints. It
+supports both MIQP (quadratic cost) and PWL (piecewise linear cost)
+formulations, with optional reserve requirements and objective definition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model to which the thermal UC problem will be added.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData" title="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData"><em>ThermalData</em></a>) – Input data structure containing unit characteristics, cost parameters,
+horizon length, demand, reserve requirements, and initial conditions.</p></li>
+<li><p><strong>objective</strong> (<em>str</em><em>, </em><em>optional</em>) – Cost modeling approach. Options:
+- “miqp” : quadratic production cost (default),
+- “pwl”  : piecewise linear production cost.</p></li>
+<li><p><strong>include_reserve</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, include spinning reserve variables and constraints
+(default False).</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, attach the cost-minimization objective function
+appropriate for the chosen cost type (default False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated model with thermal UC constraints and, if enabled,
+the objective function.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Core constraints include: balance, capacity, startup/shutdown logic,
+ramping, and minimum up/down times.</p></li>
+<li><p>When include_reserve=True, a reserve requirement constraint is added.</p></li>
+<li><p>When objective=”pwl” and include_objective=True, piecewise cost
+variables and constraints are attached along with the linear objective.</p></li>
+<li><p>When objective=”miqp” and include_objective=True, a quadratic
+cost objective is set.</p></li>
+<li><p>This routine assumes that <em>thermal_add_sets_and_params</em> and
+<em>thermal_add_variables_uc</em> are available and correctly configured.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">add_thermal_problem</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">objective</span><span class="o">=</span><span class="s2">&quot;miqp&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">include_reserve</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">include_objective</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="go">&lt;class &#39;pyomo.core.base.PyomoModel.ConcreteModel&#39;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder.build_thermal_uc">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder.</span></span><span class="sig-name descname"><span class="pre">build_thermal_uc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData" title="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData"><span class="pre">ThermalData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'miqp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_reserve</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalGeneratorBuilder.html#build_thermal_uc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder.build_thermal_uc" title="Link to this definition"></a></dt>
+<dd><p>Builds a modular thermal Unit Commitment (UC) Pyomo model.</p>
+<p>This function integrates all sets, parameters, variables,
+constraints, and objectives required for the thermal UC problem.
+The model may be constructed with either a quadratic cost
+function (MIQP) or a piecewise linear cost approximation (PWL).
+Optional constraints for spinning reserve and global emissions
+caps are also supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>object</em>) – <p>Data container providing unit and system information.
+Must include:</p>
+<ul>
+<li><p>demand profile</p></li>
+<li><p>unit technical parameters (min/max power, ramps,
+minimum up/down times, costs, etc.)</p></li>
+</ul>
+</p></li>
+<li><p><strong>objective</strong> (<em>{&quot;miqp&quot;</em><em>, </em><em>&quot;pwl&quot;}</em><em>, </em><em>optional</em>) – <p>Type of objective function to use:</p>
+<ul>
+<li><p>”miqp”: quadratic cost coefficients (a, b, c).</p></li>
+<li><dl class="simple">
+<dt>”pwl”<span class="classifier">piecewise linear cost with SOS2/linearization.</span></dt><dd><p>Default is “miqp”.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p></li>
+<li><p><strong>include_reserve</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to include spinning reserve variables and
+reserve requirement constraints (default False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A fully constructed Pyomo model ready for solving
+with a MILP/MIQP solver.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.opt</span><span class="w"> </span><span class="kn">import</span> <span class="n">SolverFactory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_thermal_uc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">build_thermal_uc</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">data</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">objective</span><span class="o">=</span><span class="s2">&quot;pwl&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">include_reserve</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">include_emissions</span><span class="o">=</span><span class="kc">True</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opt</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="s2">&quot;gurobi&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">termination_condition</span><span class="p">)</span>
+<span class="go">optimal</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Reserve constraints require that reserve variables r[g, t]
+are declared during variable creation.</p></li>
+<li><p>The piecewise linear objective uses SOS2 variables or
+McCormick envelopes for convexification.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDESSEM.ThermalGenerator.ThermalObjectives">
+<span id="naivepydessem-thermalgenerator-thermalobjectives-module"></span><h2>NaivePyDESSEM.ThermalGenerator.ThermalObjectives module<a class="headerlink" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalObjectives" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Thermal Unit Commitment — Objectives</p>
+<section id="id9">
+<h3>Author<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id10">
+<h3>Description<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<p>Objective functions for thermal unit-commitment (UC) models in Pyomo.
+Two major formulations are supported:</p>
+<ol class="arabic">
+<li><p>Mixed-Integer Quadratic Programming (MIQP)
+Cost structure per unit and period:</p>
+<blockquote>
+<div><p>a * u + b * p + c * p^2 + SC * y + Cdef * D</p>
+</div></blockquote>
+<p>capturing fixed commitment cost, linear/quadratic variable cost,
+hot start-up cost, and deficit penalty.</p>
+</li>
+<li><p>Mixed-Integer Linear Programming (MILP) with Piecewise Linear (PWL) cost
+Variable cost represented by linear segments (Piecewise/SOS2).
+Objective includes:</p>
+<blockquote>
+<div><p>a * u  +  Cvar[g,t]  +  SC * y  +  Cdef * D</p>
+</div></blockquote>
+</li>
+</ol>
+</section>
+<section id="id11">
+<h3>Usage<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Call <em>set_objective_thermo_miqp(m)</em> for the quadratic-cost UC model.</p></li>
+<li><p>Call <em>set_objective_thermo_pwl(m)</em> for the piecewise-linear-cost UC model.
+Both functions attach a Pyomo <em>Objective</em> set for minimization.</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Ensure unit consistency for costs (e.g., $/h vs $/MWh) and for power/energy.</p></li>
+<li><p>The functions assume that all referenced sets, variables and parameters
+have been previously added to the model.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalObjectives.set_objective_thermo_miqp">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalObjectives.</span></span><span class="sig-name descname"><span class="pre">set_objective_thermo_miqp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalObjectives.html#set_objective_thermo_miqp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalObjectives.set_objective_thermo_miqp" title="Link to this definition"></a></dt>
+<dd><p>Define a mixed-integer quadratic programming (MIQP) objective.</p>
+<p>Minimizes the total operating cost over the planning horizon, composed of:
+- Quadratic variable generation cost: <em>a * u + b * p + c * p^2</em>
+- Start-up cost: <em>SC * y</em>
+- Deficit penalty: <em>Cdef * D</em></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – <p>Pyomo model with:</p>
+<ul class="simple">
+<li><p>Sets: <em>m.TG</em> (thermal units), <em>m.T</em> (time periods)</p></li>
+<li><dl class="simple">
+<dt>Variables:</dt><dd><p><em>m.thermal_p[g,t]</em> (MW), <em>m.thermal_u[g,t]</em> (binary),
+<em>m.thermal_y[g,t]</em> (binary), <em>m.D[t]</em> (MW)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Parameters:</dt><dd><p><em>m.thermal_a[g]</em>, <em>m.thermal_b[g]</em>, <em>m.thermal_c[g]</em> (cost coeffs),
+<em>m.thermal_SC[g]</em> (start-up cost), <em>m.Cdef</em> (deficit cost)</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model with quadratic objective <em>m.OBJ</em> set to minimize total cost.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Assuming sets, variables, and parameters are already defined:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">set_objective_thermo_miqp</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">OBJ</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>  
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Prefer MIQP when accurate heat-rate curves are important and the solver
+handles convex quadratic objectives efficiently.</p></li>
+<li><p>Ensure convexity: typically <em>m.thermal_c[g] &gt;= 0</em> for all <em>g</em>.</p></li>
+<li><p>Check scaling of cost coefficients to avoid numerical issues.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalObjectives.set_objective_thermo_pwl">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalObjectives.</span></span><span class="sig-name descname"><span class="pre">set_objective_thermo_pwl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalObjectives.html#set_objective_thermo_pwl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalObjectives.set_objective_thermo_pwl" title="Link to this definition"></a></dt>
+<dd><p>Define a piecewise linear (PWL) objective (MILP).</p>
+<p>Minimizes the total operating cost over the planning horizon, composed of:</p>
+<ul class="simple">
+<li><p>Piecewise linear variable generation cost: <em>Cvar[g,t]</em></p></li>
+<li><p>Fixed commitment cost: <em>a * u</em></p></li>
+<li><p>Start-up cost: <em>SC * y</em></p></li>
+<li><p>Deficit penalty: <em>Cdef * D</em></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – <p>Pyomo model with:</p>
+<ul class="simple">
+<li><p>Sets: <em>m.TG</em> (thermal units), <em>m.T</em> (time periods)</p></li>
+<li><dl class="simple">
+<dt>Variables:</dt><dd><p><em>m.thermal_Cvar[g,t]</em> (PWL cost), <em>m.thermal_u[g,t]</em> (binary),
+<em>m.thermal_y[g,t]</em> (binary), <em>m.D[t]</em> (MW)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Parameters:</dt><dd><p><em>m.thermal_a[g]</em> (fixed cost), <em>m.thermal_SC[g]</em> (start-up cost),
+<em>m.Cdef</em> (deficit cost)</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model with linear objective <em>m.OBJ</em> set to minimize total cost.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Assuming PWL cost variables/constraints are defined:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">set_objective_thermo_pwl</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">OBJ</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>  
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Prefer PWL when MILP solvers perform better on large instances or when
+granular control of approximation accuracy is desired.</p></li>
+<li><p>Ensure the PWL construction (breakpoints/SOS2) matches unit operating ranges.</p></li>
+<li><p>Keep cost units consistent across all terms to maintain a well-scaled model.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDESSEM.ThermalGenerator.ThermalPieceWise">
+<span id="naivepydessem-thermalgenerator-thermalpiecewise-module"></span><h2>NaivePyDESSEM.ThermalGenerator.ThermalPieceWise module<a class="headerlink" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalPieceWise" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Thermal Unit Commitment — Piecewise Linear Cost Module</p>
+<section id="id12">
+<h3>Author<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id13">
+<h3>Description<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<p>This module defines utilities to construct piecewise-linear (PWL) cost
+functions for thermal unit commitment (UC) models in Pyomo. It enables
+the replacement of quadratic variable costs with linear approximations
+compatible with MILP solvers.</p>
+</section>
+<section id="features">
+<h3>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Builds Cvar[g,t] = f(p[g,t]) using Pyomo’s <em>Piecewise</em> component.</p></li>
+<li><p>Supports convex-combination (SOS2) representation.</p></li>
+<li><p>Enforces equality Cvar[g,t] = C_PWL(p[g,t]).</p></li>
+<li><p>Allows unit-specific breakpoints (pw_breaks[g]) and cost values
+(pw_costs[g]) for accurate curve fitting.</p></li>
+</ul>
+</section>
+<section id="requirements">
+<h3>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h3>
+<ul>
+<li><p>A Pyomo model with:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>m.p[g,t]   : generation variable (MW)</p></li>
+<li><p>m.Cvar[g,t]: PWL cost variable (R$/h)</p></li>
+<li><p>m.pw_breaks[g], m.pw_costs[g] defined as lists of (x, f(x))
+points per unit g.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="id14">
+<h3>Usage<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<p>Call <em>thermal_add_piecewise_cost(m)</em> after sets, parameters, and variables have
+been added. For each unit g ∈ G and time t ∈ T, a PWL relation is built.</p>
+<p class="rubric">Example</p>
+<p>pw_breaks = [0, 150, 300, 455]
+pw_costs  = [0, 2500, 6000, 10000]</p>
+<p>Cvar[g,t] is constrained such that:</p>
+<blockquote>
+<div><p>Cvar[g,t] = Piecewise(p[g,t]; pw_breaks, pw_costs)</p>
+</div></blockquote>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalPieceWise.thermal_add_piecewise_cost">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalPieceWise.</span></span><span class="sig-name descname"><span class="pre">thermal_add_piecewise_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalPieceWise.html#thermal_add_piecewise_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalPieceWise.thermal_add_piecewise_cost" title="Link to this definition"></a></dt>
+<dd><p>Add piecewise-linear generation cost expression Cvar[g,t] = C_PWL_g(p[g,t]).</p>
+<p>For each thermal unit g and time period t, this function constructs a
+piecewise-linear (PWL) cost expression using predefined breakpoints
+and cost values. The implementation uses the ‘CC’ (convex combination)
+method with equality enforcement.</p>
+<section id="id15">
+<h3>Requirements<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<dl>
+<dt>m<span class="classifier">pyomo.environ.ConcreteModel</span></dt><dd><p>The Pyomo model must include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>m.Cvar[g, t] : cost variable</p></li>
+<li><p>m.p[g, t] : power generation variable</p></li>
+<li><p>m.thermal_pw_breaks[g] : list of breakpoints (strictly increasing)</p></li>
+<li><p>m.thermal_pw_costs[g] : list of corresponding cost values</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">raises ValueError<span class="colon">:</span></dt>
+<dd class="field-odd"><p>If a unit g has undefined or mismatched <cite>pw_breaks</cite> and <cite>pw_costs</cite>.</p>
+</dd>
+<dt class="field-even">returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The modified model with one Piecewise component per unit.</p>
+</dd>
+<dt class="field-odd">rtype<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Each unit g must define a consistent pair of lists: <cite>pw_breaks[g]</cite> and
+<cite>pw_costs[g]</cite>, with identical length.</p></li>
+<li><dl class="simple">
+<dt>Internally, the function uses <cite>pyomo.environ.Piecewise</cite> with:</dt><dd><ul>
+<li><p>Index set: model.T</p></li>
+<li><p>Representation: ‘CC’ (convex combination with SOS2 variables)</p></li>
+<li><p>Constraint type: ‘EQ’ (enforces equality between cost and function value)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Each unit g receives a component named ‘pw_{g}’.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">thermal_add_piecewise_cost</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">pw_G1</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>
+<span class="go">Piecewise component for thermal unit G1 over time.</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDESSEM.ThermalGenerator.ThermalVars">
+<span id="naivepydessem-thermalgenerator-thermalvars-module"></span><h2>NaivePyDESSEM.ThermalGenerator.ThermalVars module<a class="headerlink" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalVars" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Thermal Unit Commitment — Sets, Parameters and Variables</p>
+<section id="id16">
+<h3>Author<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id17">
+<h3>Description<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<p>This module provides the Pyomo set/parameter declarations and variable
+definitions for thermal unit commitment (UC) models. It is intended to
+be combined with constraint and objective builder modules.</p>
+</section>
+<section id="id18">
+<h3>Features<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Time horizon (T) and thermal unit set (G)</p></li>
+<li><p>Demand profile d[t] and deficit penalty Cdef</p></li>
+<li><dl class="simple">
+<dt>Unit-level parameters:</dt><dd><ul>
+<li><p>Pmin, Pmax  : capacity bounds</p></li>
+<li><p>RU, RD      : ramp-up / ramp-down limits</p></li>
+<li><p>a, b, c     : cost coefficients for MIQP (a * u + b * p + c * p²)</p></li>
+<li><p>SC          : start-up (hot) cost</p></li>
+<li><p>t_up, t_dn  : minimum up/down times</p></li>
+<li><p>u0, p0      : initial commitment state and output</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Optional system-wide parameters:</dt><dd><ul>
+<li><p>Rreq[t]     : spinning reserve requirement</p></li>
+<li><p>gamma[g]    : emissions factor</p></li>
+<li><p>CO2Cap      : global emission/fuel cap</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Optional piecewise data:</dt><dd><ul>
+<li><p>pw_breaks[g], pw_costs[g] : piecewise linear cost curve points</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="variables">
+<h3>Variables<a class="headerlink" href="#variables" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>p[g,t] : generation (MW)</p></li>
+<li><p>D[t]   : deficit (MW)</p></li>
+<li><p>r[g,t] : reserve (MW, optional)</p></li>
+<li><p>Cvar[g,t] : variable cost in PWL formulations (optional)</p></li>
+<li><p>u[g,t] : on/off state (binary)</p></li>
+<li><p>y[g,t] : start-up indicator (binary)</p></li>
+<li><p>w[g,t] : shut-down indicator (binary)</p></li>
+</ul>
+</section>
+<section id="id19">
+<h3>Usage<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
+<p>Call <em>thermal_add_sets_and_params(m, data)</em> to populate a Pyomo model with
+sets and parameters from a ThermalData object.</p>
+<p>Call <em>thermal_add_variables_uc(m, include_reserve=True/False, use_pwl=True/False)</em>
+to attach decision variables for UC formulations (MIQP or MILP-PWL).</p>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalVars.thermal_add_sets_and_params">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalVars.</span></span><span class="sig-name descname"><span class="pre">thermal_add_sets_and_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData" title="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData"><span class="pre">ThermalData</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalVars.html#thermal_add_sets_and_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalVars.thermal_add_sets_and_params" title="Link to this definition"></a></dt>
+<dd><p>Initializes sets and parameters for the thermal Unit Commitment (UC) model.</p>
+<p>This function maps unit-level data (technical parameters, costs,
+initial conditions, optional reserve and emissions information,
+and piecewise cost segments) into Pyomo sets and parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model to be enriched with sets and parameters.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData" title="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData"><em>ThermalData</em></a>) – <p>Data container with attributes:</p>
+<ul>
+<li><p>horizon : int</p>
+<blockquote>
+<div><p>Number of time periods.</p>
+</div></blockquote>
+</li>
+<li><p>demand : dict</p>
+<blockquote>
+<div><p>Demand profile indexed by time.</p>
+</div></blockquote>
+</li>
+<li><p>Cdef : float</p>
+<blockquote>
+<div><p>Cost of deficit ($/MWh).</p>
+</div></blockquote>
+</li>
+<li><p>units : dict</p>
+<blockquote>
+<div><p>Dictionary keyed by unit id, each with attributes
+Pmin, Pmax, RU, RD, a, b, c, SC, t_up, t_down, u0, p0,
+gamma (optional), pw_breaks (optional), pw_costs (optional).</p>
+</div></blockquote>
+</li>
+<li><p>Rreq : dict, optional</p>
+<blockquote>
+<div><p>Reserve requirement per period.</p>
+</div></blockquote>
+</li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated model with sets <strong>m.T, m.TG</strong> and all unit/system parameters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">thermal_add_sets_and_params</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">TG</span><span class="p">)</span>
+<span class="go">[&#39;UT1&#39;, &#39;UT2&#39;, &#39;UT3&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">500.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalVars.thermal_add_variables_uc">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ThermalGenerator.ThermalVars.</span></span><span class="sig-name descname"><span class="pre">thermal_add_variables_uc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_reserve</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_pwl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/ThermalGenerator/ThermalVars.html#thermal_add_variables_uc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.ThermalGenerator.ThermalVars.thermal_add_variables_uc" title="Link to this definition"></a></dt>
+<dd><p>Declares decision variables for the thermal Unit Commitment (UC) model.</p>
+<p>Variables include continuous generation and deficit levels,
+binary commitment/start/stop indicators, and optionally,
+reserve and piecewise cost variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Model where variables will be added.</p></li>
+<li><p><strong>include_reserve</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, reserve variables <strong>m.r[g, t]</strong> are created (default False).</p></li>
+<li><p><strong>use_pwl</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, piecewise linear cost variables <strong>m.Cvar[g, t]</strong>
+are created (default False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>The updated model with added decision variables:
+- Continuous:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>m.p[g, t]</strong> : generation [MW].</p></li>
+<li><p><strong>m.D[t]</strong> : deficit [MW].</p></li>
+<li><p><strong>m.r[g, t]</strong> : reserve [MW], optional.</p></li>
+<li><p><strong>m.Cvar[g, t]</strong> : piecewise cost variable, optional.</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Binary:</p>
+<ul>
+<li><p><strong>m.u[g, t]</strong> : commitment (on/off).</p></li>
+<li><p><strong>m.y[g, t]</strong> : startup indicator.</p></li>
+<li><p><strong>m.w[g, t]</strong> : shutdown indicator.</p></li>
+</ul>
+</li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">thermal_add_sets_and_params</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">thermal_add_variables_uc</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">include_reserve</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_pwl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;UT1&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pprint</span><span class="p">()</span>
+<span class="go">Variable p[UT1,1]</span>
+<span class="go">Domain: NonNegativeReals</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p><strong>Reserve modeling (**include_reserve=True</strong>)**</p>
+<ul class="simple">
+<li><p><strong>Advantages</strong>: Captures spinning reserve obligations; ensures reliability
+under contingencies; critical for adequacy/security studies.</p></li>
+<li><p><strong>Trade-offs</strong>: Increases model size with additional variables
+<strong>m.r[g, t]</strong> and constraints; may slow down MILP/MIQP solution.</p></li>
+<li><p><strong>Guidance</strong>: Use if reserve margins are central to the study; omit in
+purely economic dispatch tests for simplicity.</p></li>
+</ul>
+<p><strong>Piecewise costs (**use_pwl=True</strong>)**4</p>
+<ul class="simple">
+<li><p><strong>Advantages</strong>: Converts quadratic costs to MILP form; exploits strong
+LP relaxations; often faster and more scalable on large systems.</p></li>
+<li><p><strong>Trade-offs</strong>: Approximation error unless sufficient breakpoints are
+used; adds SOS2 or convex-combination variables, increasing model size.</p></li>
+<li><p><strong>Guidance</strong>: Use when quadratic costs cannot be handled efficiently
+by the chosen solver, or when MILP-only solvers are required.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDESSEM.ThermalGenerator">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-NaivePyDESSEM.ThermalGenerator" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Package: Thermal Generation Modeling (ThermalGenerator)</p>
+<section id="id20">
+<h3>Author<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id21">
+<h3>Description<a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
+<p>The <strong>ThermalGenerator</strong> package provides a modular framework for modeling
+thermal generation units in Pyomo-based unit commitment and dispatch models.
+It includes data structures, sets, parameters, variables, constraints,
+objectives, and builder functions for both quadratic (MIQP) and piecewise-linear
+(MILP) cost formulations.</p>
+</section>
+<section id="id22">
+<h3>Submodules<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>ThermalDataTypes</dt><dd><p>Dataclasses defining thermal unit parameters and system-wide data.</p>
+</dd>
+<dt>ThermalVars</dt><dd><p>Initialization routines for Pyomo sets, parameters, and variables.</p>
+</dd>
+<dt>ThermalConstraints</dt><dd><p>Constraint builders (balance, capacity, reserve, ramping, min up/down).</p>
+</dd>
+<dt>ThermalObjectives</dt><dd><p>Objective function definitions (quadratic and piecewise-linear).</p>
+</dd>
+<dt>ThermalPiecewiseCost</dt><dd><p>Utilities for building piecewise-linear cost functions.</p>
+</dd>
+<dt>ThermalBuilder</dt><dd><p>High-level routines to assemble complete thermal generation models.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Supports MIQP and MILP formulations, enabling flexibility in solver choice.</p></li>
+<li><p>Reserve, emissions, and startup/shutdown costs can be included as needed.</p></li>
+<li><p>Designed for interoperability with Hydro, Renewable, and Storage packages
+to support hybrid hydrothermal-renewable models.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture notes, EELT7030/UFPR.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.ThermalGenerator.ThermalObjectives &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.ThermalGenerator.ThermalObjectives</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDESSEM.ThermalGenerator.ThermalObjectives</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Thermal Unit Commitment — Objectives</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">Objective functions for thermal unit-commitment (UC) models in Pyomo.</span>
+<span class="sd">Two major formulations are supported:</span>
+
+<span class="sd">1) Mixed-Integer Quadratic Programming (MIQP)</span>
+<span class="sd">   Cost structure per unit and period:</span>
+
+<span class="sd">       a * u + b * p + c * p^2 + SC * y + Cdef * D</span>
+<span class="sd">   </span>
+<span class="sd">   capturing fixed commitment cost, linear/quadratic variable cost,</span>
+<span class="sd">   hot start-up cost, and deficit penalty.</span>
+
+<span class="sd">2) Mixed-Integer Linear Programming (MILP) with Piecewise Linear (PWL) cost</span>
+<span class="sd">   Variable cost represented by linear segments (Piecewise/SOS2).</span>
+<span class="sd">   Objective includes:</span>
+
+<span class="sd">       a * u  +  Cvar[g,t]  +  SC * y  +  Cdef * D</span>
+
+<span class="sd">Usage</span>
+<span class="sd">-----</span>
+<span class="sd">- Call *set_objective_thermo_miqp(m)* for the quadratic-cost UC model.</span>
+<span class="sd">- Call *set_objective_thermo_pwl(m)* for the piecewise-linear-cost UC model.</span>
+<span class="sd">  Both functions attach a Pyomo *Objective* set for minimization.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- Ensure unit consistency for costs (e.g., $/h vs $/MWh) and for power/energy.</span>
+<span class="sd">- The functions assume that all referenced sets, variables and parameters</span>
+<span class="sd">  have been previously added to the model.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL (2023). DESSEM: Manual de Metodologia.  </span>
+<span class="sd">[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">Objective</span><span class="p">,</span> <span class="n">minimize</span>
+
+
+<div class="viewcode-block" id="set_objective_thermo_miqp">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.ThermalGenerator.html#NaivePyDESSEM.ThermalGenerator.ThermalObjectives.set_objective_thermo_miqp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_objective_thermo_miqp</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define a mixed-integer quadratic programming (MIQP) objective.</span>
+
+<span class="sd">    Minimizes the total operating cost over the planning horizon, composed of:</span>
+<span class="sd">    - Quadratic variable generation cost: *a * u + b * p + c * p^2*</span>
+<span class="sd">    - Start-up cost: *SC * y*</span>
+<span class="sd">    - Deficit penalty: *Cdef * D*</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model with:</span>
+
+<span class="sd">        - Sets: *m.TG* (thermal units), *m.T* (time periods)</span>
+<span class="sd">        - Variables:</span>
+<span class="sd">            *m.thermal_p[g,t]* (MW), *m.thermal_u[g,t]* (binary),</span>
+<span class="sd">            *m.thermal_y[g,t]* (binary), *m.D[t]* (MW)</span>
+<span class="sd">        - Parameters:</span>
+<span class="sd">            *m.thermal_a[g]*, *m.thermal_b[g]*, *m.thermal_c[g]* (cost coeffs),</span>
+<span class="sd">            *m.thermal_SC[g]* (start-up cost), *m.Cdef* (deficit cost)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model with quadratic objective *m.OBJ* set to minimize total cost.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; # Assuming sets, variables, and parameters are already defined:</span>
+<span class="sd">    &gt;&gt;&gt; _ = set_objective_thermo_miqp(m)</span>
+<span class="sd">    &gt;&gt;&gt; m.OBJ.pprint()  # doctest: +ELLIPSIS</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Prefer MIQP when accurate heat-rate curves are important and the solver</span>
+<span class="sd">      handles convex quadratic objectives efficiently.</span>
+<span class="sd">    - Ensure convexity: typically *m.thermal_c[g] &gt;= 0* for all *g*.</span>
+<span class="sd">    - Check scaling of cost coefficients to avoid numerical issues.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_obj</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="n">quad</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">thermal_c</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">thermal_p</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">thermal_b</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">thermal_p</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">thermal_a</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">thermal_u</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+                   <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">TG</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">starts</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">thermal_SC</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">thermal_y</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+                     <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">TG</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">deficit</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">Cdef</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">quad</span> <span class="o">+</span> <span class="n">starts</span> <span class="o">+</span> <span class="n">deficit</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">OBJ</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">_obj</span><span class="p">,</span> <span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+<div class="viewcode-block" id="set_objective_thermo_pwl">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.ThermalGenerator.html#NaivePyDESSEM.ThermalGenerator.ThermalObjectives.set_objective_thermo_pwl">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_objective_thermo_pwl</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define a piecewise linear (PWL) objective (MILP).</span>
+
+<span class="sd">    Minimizes the total operating cost over the planning horizon, composed of:</span>
+
+<span class="sd">    - Piecewise linear variable generation cost: *Cvar[g,t]*</span>
+<span class="sd">    - Fixed commitment cost: *a * u*</span>
+<span class="sd">    - Start-up cost: *SC * y*</span>
+<span class="sd">    - Deficit penalty: *Cdef * D*</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model with:</span>
+
+<span class="sd">        - Sets: *m.TG* (thermal units), *m.T* (time periods)</span>
+<span class="sd">        - Variables:</span>
+<span class="sd">            *m.thermal_Cvar[g,t]* (PWL cost), *m.thermal_u[g,t]* (binary),</span>
+<span class="sd">            *m.thermal_y[g,t]* (binary), *m.D[t]* (MW)</span>
+<span class="sd">        - Parameters:</span>
+<span class="sd">            *m.thermal_a[g]* (fixed cost), *m.thermal_SC[g]* (start-up cost),</span>
+<span class="sd">            *m.Cdef* (deficit cost)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model with linear objective *m.OBJ* set to minimize total cost.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; # Assuming PWL cost variables/constraints are defined:</span>
+<span class="sd">    &gt;&gt;&gt; _ = set_objective_thermo_pwl(m)</span>
+<span class="sd">    &gt;&gt;&gt; m.OBJ.pprint()  # doctest: +ELLIPSIS</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Prefer PWL when MILP solvers perform better on large instances or when</span>
+<span class="sd">      granular control of approximation accuracy is desired.</span>
+<span class="sd">    - Ensure the PWL construction (breakpoints/SOS2) matches unit operating ranges.</span>
+<span class="sd">    - Keep cost units consistent across all terms to maintain a well-scaled model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_obj</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="n">varcost</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">thermal_Cvar</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">TG</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">fixed</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">thermal_a</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">thermal_u</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">TG</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">starts</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">thermal_SC</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">thermal_y</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+                     <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">TG</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">deficit</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">Cdef</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">varcost</span> <span class="o">+</span> <span class="n">fixed</span> <span class="o">+</span> <span class="n">starts</span> <span class="o">+</span> <span class="n">deficit</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">OBJ</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="n">_obj</span><span class="p">,</span> <span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

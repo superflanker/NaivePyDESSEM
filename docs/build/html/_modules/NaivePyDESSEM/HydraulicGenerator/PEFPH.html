@@ -1,0 +1,191 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.HydraulicGenerator.PEFPH &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.HydraulicGenerator.PEFPH</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDESSEM.HydraulicGenerator.PEFPH</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Module: Semi-Exact Hydroelectric Generation Function (FPH) with Net Head</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">Defines a hydropower production function (FPH) that incorporates the net</span>
+<span class="sd">hydraulic head via upstream and downstream water levels combined with a</span>
+<span class="sd">constant specific productivity efficiency.</span>
+
+<span class="sd">The FPH is given by</span>
+
+<span class="sd">    FPH(Q, V, S) = zeta * PE * [ h_mont(V) - h_jus(Q + S) ] * Q,</span>
+
+<span class="sd">where:</span>
+<span class="sd">- Q     : turbine discharge (m^3/s)</span>
+<span class="sd">- V     : reservoir volume (hm^3)</span>
+<span class="sd">- S     : spill discharge (m^3/s)</span>
+<span class="sd">- PE    : specific productivity efficiency (dimensionless)</span>
+<span class="sd">- zeta  : head–flow–power conversion constant (e.g., 9.81 / 1000 to yield MW)</span>
+
+<span class="sd">This formulation approximates the physical power output of a hydro unit</span>
+<span class="sd">while simplifying losses and other complex hydraulic interactions.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- Unit consistency is essential for meaningful results (Q in m^3/s, head in m,</span>
+<span class="sd">  output in MW when using ``zeta = 9.81/1000``).</span>
+<span class="sd">- The downstream head depends on the total discharge ``Q + S``, capturing</span>
+<span class="sd">  tailwater variations with flow.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL (2023). DESSEM: Manual de Metodologia. </span>
+<span class="sd">[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture notes, EELT7030/UFPR. </span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+
+
+<div class="viewcode-block" id="fph_pe_factory">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.HydraulicGenerator.html#NaivePyDESSEM.HydraulicGenerator.PEFPH.fph_pe_factory">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">fph_pe_factory</span><span class="p">(</span><span class="n">PE</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> 
+                   <span class="n">zeta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> 
+                   <span class="n">hmont_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> 
+                   <span class="n">hjus_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Factory for a semi-exact hydropower generation function with net head.</span>
+
+<span class="sd">    Builds a callable implementing</span>
+
+<span class="sd">        FPH(Q, V, S) = zeta * PE * ( h_mont(V) - h_jus(Q + S) ) * Q.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    PE : float</span>
+<span class="sd">        Specific productivity efficiency (dimensionless).</span>
+<span class="sd">    zeta : float</span>
+<span class="sd">        Head–flow–power conversion constant (e.g., 9.81 / 1000 to express power in MW).</span>
+<span class="sd">    hmont_func : Callable</span>
+<span class="sd">        Function ``h_mont(V)`` mapping reservoir volume (hm^3) to upstream head (m).</span>
+<span class="sd">    hjus_func : Callable</span>
+<span class="sd">        Function ``h_jus(Q + S)`` mapping total discharge (m^3/s) to downstream head (m).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Callable</span>
+<span class="sd">        Function ``FPH(Q, V, S)`` returning generation in MW.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from ExactFPH import polynomial_factory</span>
+<span class="sd">    &gt;&gt;&gt; f = fph_pe_factory(0.92, 9.81 / 1000,</span>
+<span class="sd">    ...                    polynomial_factory([400]),</span>
+<span class="sd">    ...                    polynomial_factory([300]))</span>
+<span class="sd">    &gt;&gt;&gt; f(100, 2500, 0)</span>
+<span class="sd">    92.0</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Ensure that ``hmont_func`` and ``hjus_func`` are calibrated so that</span>
+<span class="sd">      head values (m) and flows (m^3/s) combine consistently with ``zeta``.</span>
+<span class="sd">    - The returned callable is suitable for embedding in Pyomo expressions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fph</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">zeta</span> <span class="o">*</span> <span class="n">PE</span> <span class="o">*</span> <span class="p">(</span><span class="n">hmont_func</span><span class="p">(</span><span class="n">V</span><span class="p">)</span> <span class="o">-</span> <span class="n">hjus_func</span><span class="p">(</span><span class="n">Q</span> <span class="o">+</span> <span class="n">S</span><span class="p">)</span> <span class="p">)</span> <span class="o">*</span> <span class="n">Q</span>
+    <span class="k">return</span> <span class="n">fph</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

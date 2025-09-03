@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.YAMLLoader &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.YAMLLoader</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDESSEM.YAMLLoader</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Module: Configuration Pre-Processor for Model Inputs</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">Utilities to load and normalize model configuration files (YAML/JSON) before</span>
+<span class="sd">instantiating optimization models. The module provides:</span>
+
+<span class="sd">1) A LaTeX-friendly renaming utility for unit identifiers, preserving downstream </span>
+<span class="sd">   compatibility with report/plot labels.</span>
+<span class="sd">2) A deep-copy pre-processor that standardizes sections and optionally transforms</span>
+<span class="sd">   unit names and their upstreams references.</span>
+<span class="sd">3) A YAML loader that combines parsing and pre-processing into a single entry point.</span>
+
+<span class="sd">This pre-processing ensures consistent, side-effect-free structures that are</span>
+<span class="sd">directly consumable by subsequent builders (hydro, thermal, renewable, storage).</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">key_replace(key)</span>
+<span class="sd">    Convert identifiers for LaTeX.</span>
+<span class="sd">pre_process(config_dict, transform_names=True)</span>
+<span class="sd">    Deep-copy and normalize a configuration dictionary, optionally transforming</span>
+<span class="sd">    unit names and upstream references in sections that contain units.</span>
+<span class="sd">yaml_loader(file, transform_names=True)</span>
+<span class="sd">    Load a YAML file and return a processed configuration dictionary suitable</span>
+<span class="sd">    for model building.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- Only the **first** underscore in an identifier is used to create the subscript;</span>
+<span class="sd">  remaining underscores are kept verbatim inside the subscript block.</span>
+<span class="sd">- Sections without a units field are copied verbatim.</span>
+<span class="sd">- All operations are performed on deep copies; the original inputs are not modified.</span>
+
+<span class="sd">Examples</span>
+<span class="sd">--------</span>
+<span class="sd">&gt;&gt;&gt; cfg = yaml_loader(&quot;case.yaml&quot;, transform_names=True)</span>
+<span class="sd">&gt;&gt;&gt; list(cfg[&quot;hydro&quot;][&quot;units&quot;].keys())</span>
+<span class="sd">[&#39;{UHE_{1}}&#39;, &#39;{UHE_{2}}&#39;]</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL (2023). DESSEM: Manual de Metodologia.  </span>
+<span class="sd">[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+
+
+<div class="viewcode-block" id="key_replace">
+<a class="viewcode-back" href="../../NaivePyDESSEM.html#NaivePyDESSEM.YAMLLoader.key_replace">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">key_replace</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert a unit identifier of the form NAME_index into a LaTeX-friendly</span>
+<span class="sd">    token with a braced subscript.</span>
+
+<span class="sd">    The function partitions the input at the first underscore and returns</span>
+<span class="sd">    the formatted string {HEAD_{TAIL}}. If the input contains no</span>
+<span class="sd">    underscore, the original key is returned unchanged.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    key : str</span>
+<span class="sd">        Unit identifier, typically in the form &quot;PLANT_1&quot; or &quot;UT_10&quot;.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        The LaTeX-ready identifier. For example, &quot;UT_10&quot; becomes</span>
+<span class="sd">        &quot;{UT_{10}}&quot;. If no underscore is present, the function returns</span>
+<span class="sd">        the input key unmodified.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; key_replace(&quot;UHE_1&quot;)</span>
+<span class="sd">    &#39;{UHE_{1}}&#39;</span>
+<span class="sd">    &gt;&gt;&gt; key_replace(&quot;UT10&quot;)</span>
+<span class="sd">    &#39;UT10&#39;</span>
+<span class="sd">    &gt;&gt;&gt; key_replace(&quot;PLANT_UNIT_1&quot;)</span>
+<span class="sd">    &#39;{PLANT_{UNIT_1}}&#39;</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Only the first underscore is considered for partitioning; the remainder</span>
+<span class="sd">    of the string (including additional underscores) is kept verbatim inside</span>
+<span class="sd">    the subscript block.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">head</span><span class="p">,</span> <span class="n">sep</span><span class="p">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sep</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">key</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">{{</span><span class="si">{</span><span class="n">head</span><span class="si">}</span><span class="s2">_</span><span class="se">{{</span><span class="si">{</span><span class="n">tail</span><span class="si">}</span><span class="se">}}}}</span><span class="s2">&quot;</span></div>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_transform_units</span><span class="p">(</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="o">*</span><span class="p">,</span> <span class="n">transform_names</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rename unit identifiers and optionally transform their upstream references.</span>
+
+<span class="sd">    This function processes a dictionary of units, typically found in</span>
+<span class="sd">    sections such as hydro, thermal, or renewable of a model</span>
+<span class="sd">    configuration. Each unit key may be reformatted using the `key_replace`</span>
+<span class="sd">    function to produce LaTeX-compatible identifiers. In addition, if the</span>
+<span class="sd">    unit data includes an upstreams field, its entries are likewise</span>
+<span class="sd">    transformed to match the new naming.</span>
+
+<span class="sd">    If `transform_names` is set to False, all unit names and upstreams are</span>
+<span class="sd">    preserved as-is, and only a deep copy of the input structure is returned.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    units : dict of str -&gt; dict</span>
+<span class="sd">        A dictionary mapping unit names (e.g., &quot;UHE_1&quot;) to their respective</span>
+<span class="sd">        parameter dictionaries.</span>
+<span class="sd">    transform_names : bool</span>
+<span class="sd">        If True, unit names and upstream references are reformatted using</span>
+<span class="sd">        LaTeX-compliant subscripts via `key_replace`. If False, original</span>
+<span class="sd">        names are preserved and only deep-copying is performed.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict of str -&gt; dict</span>
+<span class="sd">        A new dictionary where unit keys (and any &#39;upstreams&#39; lists) have been</span>
+<span class="sd">        processed according to the `transform_names` flag. The original input</span>
+<span class="sd">        is never modified.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; units = {</span>
+<span class="sd">    ...     &quot;UHE_1&quot;: {&quot;Qmin&quot;: 0, &quot;upstreams&quot;: [&quot;UHE_0&quot;]},</span>
+<span class="sd">    ...     &quot;UHE_2&quot;: {&quot;Qmin&quot;: 5, &quot;upstreams&quot;: []}</span>
+<span class="sd">    ... }</span>
+<span class="sd">    &gt;&gt;&gt; _transform_units(units, transform_names=True)</span>
+<span class="sd">    {&#39;{UHE_{1}}&#39;: {&#39;Qmin&#39;: 0, &#39;upstreams&#39;: [&#39;{UHE_{0}}&#39;]},</span>
+<span class="sd">     &#39;{UHE_{2}}&#39;: {&#39;Qmin&#39;: 5, &#39;upstreams&#39;: []}}</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The function assumes that `units` is a flat dictionary (non-nested by time).</span>
+<span class="sd">    - If any unit entry lacks the &#39;upstreams&#39; field, no transformation is applied to it.</span>
+<span class="sd">    - This function is typically called internally during model pre-processing.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">out</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">unit</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">units</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">new_key</span> <span class="o">=</span> <span class="n">key_replace</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span> <span class="k">if</span> <span class="n">transform_names</span> <span class="k">else</span> <span class="n">unit</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;upstreams&quot;</span> <span class="ow">in</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;upstreams&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">value</span><span class="p">[</span><span class="s2">&quot;upstreams&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="p">[</span><span class="n">key_replace</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;upstreams&quot;</span><span class="p">]]</span> <span class="k">if</span> <span class="n">transform_names</span>
+                <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;upstreams&quot;</span><span class="p">])</span>
+            <span class="p">)</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">new_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<div class="viewcode-block" id="pre_process">
+<a class="viewcode-back" href="../../NaivePyDESSEM.html#NaivePyDESSEM.YAMLLoader.pre_process">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">pre_process</span><span class="p">(</span><span class="n">config_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">transform_names</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Construct a processed configuration dictionary from raw input, with optional name transformation.</span>
+
+<span class="sd">    This function prepares a structured configuration dictionary for modeling use by:</span>
+<span class="sd">    </span>
+<span class="sd">    - copying the meta section unchanged,</span>
+<span class="sd">    - applying deep copies to all other sections,</span>
+<span class="sd">    - and optionally transforming unit names and upstream references in each section</span>
+<span class="sd">      that contains a units block (e.g., hydro, thermal, renewable).</span>
+
+<span class="sd">    The transformation of unit names and upstream references</span>
+<span class="sd">    is controlled by the transform_names flag. The function does not modify the input</span>
+<span class="sd">    dictionary in-place.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    config_dict : dict</span>
+<span class="sd">        Raw configuration dictionary loaded from a YAML file or equivalent source.</span>
+<span class="sd">        Expected to contain a meta section and any number of other sections such as</span>
+<span class="sd">        hydro, thermal, renewable, or storage.</span>
+<span class="sd">    transform_names : bool, optional</span>
+<span class="sd">        Whether to apply LaTeX-compatible formatting to unit names and upstreams</span>
+<span class="sd">        using key_replace. If False, names are preserved as-is.</span>
+<span class="sd">        Default is True.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        A fully processed configuration dictionary with all subsections and units</span>
+<span class="sd">        properly structured. The returned dictionary is a deep copy and does not</span>
+<span class="sd">        share references with the input.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; pre_process({</span>
+<span class="sd">    ...     &quot;meta&quot;: {&quot;horizon&quot;: 24},</span>
+<span class="sd">    ...     &quot;hydro&quot;: {</span>
+<span class="sd">    ...         &quot;units&quot;: {</span>
+<span class="sd">    ...             &quot;UHE_1&quot;: {&quot;Qmin&quot;: 0.0, &quot;upstreams&quot;: [&quot;UHE_0&quot;]}</span>
+<span class="sd">    ...         }</span>
+<span class="sd">    ...     }</span>
+<span class="sd">    ... }, transform_names=True)</span>
+<span class="sd">    {&#39;meta&#39;: {&#39;horizon&#39;: 24},</span>
+<span class="sd">     &#39;hydro&#39;: {</span>
+<span class="sd">         &#39;units&#39;: {</span>
+<span class="sd">             &#39;{UHE_{1}}&#39;: {&#39;Qmin&#39;: 0.0, &#39;upstreams&#39;: [&#39;{UHE_{0}}&#39;]}</span>
+<span class="sd">         }</span>
+<span class="sd">     }}</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Sections without a units field are copied verbatim.</span>
+<span class="sd">    - If units is present but not a dictionary, it is ignored safely.</span>
+<span class="sd">    - This function is intended as a preprocessing step before model instantiation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">section</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">config_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">section</span> <span class="o">==</span> <span class="s2">&quot;meta&quot;</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">section_copy</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s2">&quot;units&quot;</span><span class="p">}</span>
+            <span class="k">if</span> <span class="s2">&quot;units&quot;</span> <span class="ow">in</span> <span class="n">value</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">section_copy</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_transform_units</span><span class="p">(</span>
+                    <span class="n">value</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">],</span> <span class="n">transform_names</span><span class="o">=</span><span class="n">transform_names</span>
+                <span class="p">)</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="n">section_copy</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<div class="viewcode-block" id="yaml_loader">
+<a class="viewcode-back" href="../../NaivePyDESSEM.html#NaivePyDESSEM.YAMLLoader.yaml_loader">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">yaml_loader</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">transform_names</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a YAML configuration file and apply structural pre-processing.</span>
+
+<span class="sd">    This function reads a YAML-formatted file and parses it into a Python dictionary.</span>
+<span class="sd">    After loading, it invokes the `pre_process` routine to deep-copy all sections,</span>
+<span class="sd">    standardize the structure, and optionally apply LaTeX-style name transformations</span>
+<span class="sd">    to unit identifiers and upstream references.</span>
+
+<span class="sd">    The resulting configuration is ready for use in optimization models or simulation</span>
+<span class="sd">    routines that require consistent internal naming and indexing.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    file : str</span>
+<span class="sd">        Path to the YAML file containing the case configuration.</span>
+<span class="sd">    transform_names : bool, optional</span>
+<span class="sd">        Whether to apply LaTeX-friendly formatting to unit names (e.g., UT_1 =&gt; {UT_{1}})</span>
+<span class="sd">        and update upstream references accordingly. If False, original names are preserved.</span>
+<span class="sd">        Default is True.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        A processed configuration dictionary with all metadata and units structured</span>
+<span class="sd">        consistently. This dictionary is independent of the raw file contents.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the YAML file is empty, malformed, or does not contain a valid dictionary structure.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; config = yaml_loader(&quot;caso.yaml&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; config[&quot;hydro&quot;][&quot;units&quot;].keys()</span>
+<span class="sd">    dict_keys([&#39;{UHE_{1}}&#39;, &#39;{UHE_{2}}&#39;])</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The input file must be UTF-8 encoded and must define a top-level dictionary.</span>
+<span class="sd">    - All nested structures are copied safely; no mutation occurs on the raw parsed data.</span>
+<span class="sd">    - This function is the recommended entry point for loading structured model input files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Arquivo YAML vazio ou inválido.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pre_process</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">transform_names</span><span class="o">=</span><span class="n">transform_names</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

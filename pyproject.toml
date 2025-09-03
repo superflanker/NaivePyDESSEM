@@ -1,0 +1,41 @@
+[project]
+name = "naivepydessem"
+version = "0.1.0"
+description = "A modular and pedagogical framework for power system operation planning using Pyomo"
+authors = [
+    { name = "Augusto Mathias Adams", email = "augusto.adams@ufpr.br" }
+]
+license = {text = "GPL v3.0"}
+readme = "README.md"
+requires-python = ">=3.9"
+
+dependencies = [
+  "colorama>=0.4.6",
+  "matplotlib>=3.10.5",
+  "numpy>=2.2.6",
+  "pandas>=2.3.2",
+  "pyomo>=6.9.3",
+  "cplex>=22.1.2.0",
+  "cyipopt>=1.6.1",
+  "docplex>=2.30.251",
+  "glpk>=0.4.8",
+  "gurobipy>=12.0.3",
+  "highspy>=1.11.0"
+]
+
+[project.optional-dependencies]
+docs = ["sphinx", "myst-parser"]
+
+[project.urls]
+Homepage = "https://github.com/superflanker/NaivePyDESSEM"
+
+[project.scripts]
+pydessem-solve = "NaivePyDESSEM.cli.cli:main"
+pydepydessem-plot = "NaivePyDESSEM.cli.plot_cli:main"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

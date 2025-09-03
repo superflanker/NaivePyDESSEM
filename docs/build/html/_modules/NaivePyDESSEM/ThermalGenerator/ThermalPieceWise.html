@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.ThermalGenerator.ThermalPieceWise &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.ThermalGenerator.ThermalPieceWise</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDESSEM.ThermalGenerator.ThermalPieceWise</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Thermal Unit Commitment — Piecewise Linear Cost Module</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">This module defines utilities to construct piecewise-linear (PWL) cost</span>
+<span class="sd">functions for thermal unit commitment (UC) models in Pyomo. It enables</span>
+<span class="sd">the replacement of quadratic variable costs with linear approximations</span>
+<span class="sd">compatible with MILP solvers.</span>
+
+<span class="sd">Features</span>
+<span class="sd">--------</span>
+<span class="sd">- Builds Cvar[g,t] = f(p[g,t]) using Pyomo&#39;s *Piecewise* component.</span>
+<span class="sd">- Supports convex-combination (SOS2) representation.</span>
+<span class="sd">- Enforces equality Cvar[g,t] = C_PWL(p[g,t]).</span>
+<span class="sd">- Allows unit-specific breakpoints (pw_breaks[g]) and cost values</span>
+<span class="sd">  (pw_costs[g]) for accurate curve fitting.</span>
+
+<span class="sd">Requirements</span>
+<span class="sd">------------</span>
+<span class="sd">- A Pyomo model with:</span>
+
+<span class="sd">    * m.p[g,t]   : generation variable (MW)</span>
+<span class="sd">    * m.Cvar[g,t]: PWL cost variable (R$/h)</span>
+<span class="sd">    * m.pw_breaks[g], m.pw_costs[g] defined as lists of (x, f(x))</span>
+<span class="sd">      points per unit g.</span>
+
+<span class="sd">Usage</span>
+<span class="sd">-----</span>
+<span class="sd">Call *thermal_add_piecewise_cost(m)* after sets, parameters, and variables have</span>
+<span class="sd">been added. For each unit g ∈ G and time t ∈ T, a PWL relation is built.</span>
+
+<span class="sd">Example</span>
+<span class="sd">-------</span>
+<span class="sd">pw_breaks = [0, 150, 300, 455]</span>
+<span class="sd">pw_costs  = [0, 2500, 6000, 10000]</span>
+
+<span class="sd">Cvar[g,t] is constrained such that:</span>
+
+<span class="sd">    Cvar[g,t] = Piecewise(p[g,t]; pw_breaks, pw_costs)</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL (2023). DESSEM: Manual de Metodologia.  </span>
+<span class="sd">[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">Piecewise</span><span class="p">,</span> <span class="n">Constraint</span>
+
+
+<div class="viewcode-block" id="thermal_add_piecewise_cost">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.ThermalGenerator.html#NaivePyDESSEM.ThermalGenerator.ThermalPieceWise.thermal_add_piecewise_cost">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">thermal_add_piecewise_cost</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add piecewise-linear generation cost expression Cvar[g,t] = C_PWL_g(p[g,t]).</span>
+
+<span class="sd">    For each thermal unit g and time period t, this function constructs a</span>
+<span class="sd">    piecewise-linear (PWL) cost expression using predefined breakpoints</span>
+<span class="sd">    and cost values. The implementation uses the &#39;CC&#39; (convex combination)</span>
+<span class="sd">    method with equality enforcement.</span>
+
+<span class="sd">    Requirements</span>
+<span class="sd">    ------------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        The Pyomo model must include:</span>
+
+<span class="sd">            - m.Cvar[g, t] : cost variable</span>
+<span class="sd">            - m.p[g, t] : power generation variable</span>
+<span class="sd">            - m.thermal_pw_breaks[g] : list of breakpoints (strictly increasing)</span>
+<span class="sd">            - m.thermal_pw_costs[g] : list of corresponding cost values</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If a unit g has undefined or mismatched `pw_breaks` and `pw_costs`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ConcreteModel</span>
+<span class="sd">        The modified model with one Piecewise component per unit.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Each unit g must define a consistent pair of lists: `pw_breaks[g]` and</span>
+<span class="sd">      `pw_costs[g]`, with identical length.</span>
+<span class="sd">    - Internally, the function uses `pyomo.environ.Piecewise` with:</span>
+<span class="sd">        - Index set: model.T</span>
+<span class="sd">        - Representation: &#39;CC&#39; (convex combination with SOS2 variables)</span>
+<span class="sd">        - Constraint type: &#39;EQ&#39; (enforces equality between cost and function value)</span>
+<span class="sd">    - Each unit g receives a component named &#39;pw_{g}&#39;.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; model = thermal_add_piecewise_cost(model)</span>
+<span class="sd">    &gt;&gt;&gt; model.pw_G1.pprint()</span>
+<span class="sd">    Piecewise component for thermal unit G1 over time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">TG</span><span class="p">:</span>
+        <span class="n">xpts</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">thermal_pw_breaks</span><span class="p">[</span><span class="n">g</span><span class="p">]</span>
+        <span class="n">ypts</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">thermal_pw_costs</span><span class="p">[</span><span class="n">g</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">xpts</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ypts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unidade </span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s2"> sem definição PWL (breaks/costs).&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xpts</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ypts</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;PWL inconsistente em </span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s2">: len(breaks)!=len(costs).&quot;</span><span class="p">)</span>
+        <span class="c1"># Uma Piecewise por (g,t) para permitir curvas distintas por unidade</span>
+        <span class="n">comp_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;pw_</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">comp_name</span><span class="p">,</span> <span class="n">Piecewise</span><span class="p">(</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>  <span class="c1"># index set</span>
+            <span class="c1"># y_var indexed: Cvar[g,t]</span>
+            <span class="n">vardata</span><span class="o">=</span><span class="p">{(</span><span class="n">t</span><span class="p">):</span> <span class="n">m</span><span class="o">.</span><span class="n">Cvar</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">},</span>
+            <span class="c1"># x_var indexed: p[g,t]</span>
+            <span class="nb">input</span><span class="o">=</span><span class="p">{(</span><span class="n">t</span><span class="p">):</span> <span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">},</span>
+            <span class="n">pw_pts</span><span class="o">=</span><span class="n">xpts</span><span class="p">,</span>
+            <span class="n">pw_constr_type</span><span class="o">=</span><span class="s1">&#39;EQ&#39;</span><span class="p">,</span>   <span class="c1"># igualdade custo = f(p)</span>
+            <span class="n">f_rule</span><span class="o">=</span><span class="n">ypts</span><span class="p">,</span>           <span class="c1"># valores de custo nos pontos</span>
+            <span class="n">pw_repn</span><span class="o">=</span><span class="s1">&#39;CC&#39;</span>           <span class="c1"># convex combination (usa SOS2)</span>
+        <span class="p">))</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

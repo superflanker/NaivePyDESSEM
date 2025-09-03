@@ -1,0 +1,193 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.RenewableGenerator.RenewableObjectives &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.RenewableGenerator.RenewableObjectives</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDESSEM.RenewableGenerator.RenewableObjectives</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Module: Renewable Unit Commitment — Objective Function</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">Defines the objective function for renewable-only dispatch models in Pyomo.</span>
+<span class="sd">The objective minimizes the total cost of unmet demand (deficit) over the</span>
+<span class="sd">planning horizon. It uses the deficit penalty parameter ``Cdef`` to quantify</span>
+<span class="sd">the economic impact of unserved energy.</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">set_objective_renewable(m)</span>
+<span class="sd">    Attach a minimization objective to the model, penalizing unmet demand.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- This objective is designed for renewable-only systems, where generation</span>
+<span class="sd">  is fully determined by availability and no explicit fuel costs exist.</span>
+<span class="sd">- The deficit variable ``D[t]`` ensures feasibility when renewable</span>
+<span class="sd">  generation cannot meet the demand ``d[t]``.</span>
+<span class="sd">- The penalty coefficient ``Cdef`` should be chosen high enough to</span>
+<span class="sd">  discourage deficits under normal conditions.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL (2023). DESSEM: Manual de Metodologia.</span>
+<span class="sd">[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">Objective</span><span class="p">,</span> <span class="n">minimize</span>
+
+
+<div class="viewcode-block" id="set_objective_renewable">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.RenewableGenerator.html#NaivePyDESSEM.RenewableGenerator.RenewableObjectives.set_objective_renewable">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_objective_renewable</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define the objective function for renewable-only dispatch models.</span>
+
+<span class="sd">    The objective minimizes the total penalty associated with unmet demand</span>
+<span class="sd">    (deficit) across the planning horizon. This is expressed as:</span>
+
+<span class="sd">        minimize  sum_t Cdef * D[t]</span>
+
+<span class="sd">    where:</span>
+<span class="sd">    - ``D[t]`` is the deficit variable (MW) at time period ``t``.</span>
+<span class="sd">    - ``Cdef`` is the penalty coefficient for unserved energy (e.g., $/MWh).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model with:</span>
+<span class="sd">        - Set: ``m.T`` (time periods)</span>
+<span class="sd">        - Variable: ``m.D[t]`` (deficit at time ``t``)</span>
+<span class="sd">        - Parameter: ``m.Cdef`` (deficit penalty cost)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model with objective function ``m.OBJ`` attached, set for</span>
+<span class="sd">        minimization.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - This formulation is intended for renewable-only systems, where</span>
+<span class="sd">      generation costs are absent and the only economic penalty comes</span>
+<span class="sd">      from unmet demand.</span>
+<span class="sd">    - Ensure that the penalty ``Cdef`` is set to a sufficiently high value</span>
+<span class="sd">      so that the optimizer prioritizes meeting demand whenever possible.</span>
+<span class="sd">    - The objective does not account for renewable curtailment or spill</span>
+<span class="sd">      penalties. If such penalties are desired, they must be added explicitly.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pyomo.environ import ConcreteModel</span>
+<span class="sd">    &gt;&gt;&gt; m = ConcreteModel()</span>
+<span class="sd">    &gt;&gt;&gt; m.T = [1, 2, 3]</span>
+<span class="sd">    &gt;&gt;&gt; m.D = {t: 0 for t in m.T}  # deficit variables (mocked here)</span>
+<span class="sd">    &gt;&gt;&gt; m.Cdef = 1000.0</span>
+<span class="sd">    &gt;&gt;&gt; _ = set_objective_renewable(m)</span>
+<span class="sd">    &gt;&gt;&gt; m.OBJ.pprint()  # doctest: +ELLIPSIS</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_obj_rule</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">Cdef</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">OBJ</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="n">_obj_rule</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

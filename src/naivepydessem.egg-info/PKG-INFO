@@ -1,4 +1,32 @@
-# NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo.
+Metadata-Version: 2.4
+Name: naivepydessem
+Version: 0.1.0
+Summary: A modular and pedagogical framework for power system operation planning using Pyomo
+Home-page: https://github.com/your-org/naivepydessem
+Author: Augusto Mathias Adams
+Author-email: Augusto Mathias Adams <augusto.adams@ufpr.br>
+License: GPL v3.0
+Project-URL: Homepage, https://github.com/superflanker/NaivePyDESSEM
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: colorama>=0.4.6
+Requires-Dist: matplotlib>=3.10.5
+Requires-Dist: numpy>=2.2.6
+Requires-Dist: pandas>=2.3.2
+Requires-Dist: pyomo>=6.9.3
+Requires-Dist: cplex>=22.1.2.0
+Requires-Dist: cyipopt>=1.6.1
+Requires-Dist: docplex>=2.30.251
+Requires-Dist: glpk>=0.4.8
+Requires-Dist: gurobipy>=12.0.3
+Requires-Dist: highspy>=1.11.0
+Provides-Extra: docs
+Requires-Dist: sphinx; extra == "docs"
+Requires-Dist: myst-parser; extra == "docs"
+Dynamic: license-file
+
+# NaivePyDESSEM
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![CI](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml/badge.svg)](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml)
 [![Docs](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/docs.yml/badge.svg)](https://superflanker.github.io/NaivePyDESSEM/)
@@ -89,22 +117,13 @@ The goal is to provide a **clean teaching tool** for courses such as *EELT 7030 
 ```
 ## 🛠 Dependencies
 
-The following Python packages are required to run **NaivePyDESSEM**:
+PyDessem relies on the following Python libraries:
 
-| Package      | Version Requirement | PyPI Link |
-|--------------|---------------------|-----------|
-| `colorama`   | `>=0.4.6`           | [colorama](https://pypi.org/project/colorama/) |
-| `matplotlib` | `>=3.10.5`          | [matplotlib](https://pypi.org/project/matplotlib/) |
-| `numpy`      | `>=2.2.6`           | [numpy](https://pypi.org/project/numpy/) |
-| `pandas`     | `>=2.3.2`           | [pandas](https://pypi.org/project/pandas/) |
-| `pyomo`      | `>=6.9.3`           | [pyomo](https://pypi.org/project/pyomo/) |
-| `cplex`      | `>=22.1.2.0`        | [cplex](https://pypi.org/project/cplex/) *(IBM proprietary)* |
-| `cyipopt`    | `>=1.6.1`           | [cyipopt](https://pypi.org/project/cyipopt/) |
-| `docplex`    | `>=2.30.251`        | [docplex](https://pypi.org/project/docplex/) |
-| `glpk`       | `>=0.4.8`           | [glpk](https://pypi.org/project/glpk/) |
-| `gurobipy`   | `>=12.0.3`          | [gurobipy](https://pypi.org/project/gurobipy/) *(Gurobi proprietary)* |
-| `highspy`    | `>=1.11.0`          | [highspy](https://pypi.org/project/highspy/) *(HiGHS solver bindings)* |
-
+- [Pyomo](https://pypi.org/project/pyomo/)
+- [PyYAML](https://pypi.org/project/PyYAML/)
+- [Pandas](https://pypi.org/project/pandas/) (optional, reporting)
+- [Matplotlib](https://pypi.org/project/matplotlib/) (optional, reporting)
+- [GLPK](https://www.gnu.org/software/glpk/) or another MILP solver (CBC, Gurobi, CPLEX, ...)
 
 ## 🛠  Installation
 

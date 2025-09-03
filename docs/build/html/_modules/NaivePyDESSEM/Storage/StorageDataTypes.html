@@ -1,0 +1,214 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.Storage.StorageDataTypes &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.Storage.StorageDataTypes</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDESSEM.Storage.StorageDataTypes</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Module: Energy Storage Bank — Data Structures</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">Lightweight data classes for battery energy storage systems (BESS). These</span>
+<span class="sd">structures provide standardized inputs for Pyomo-based unit commitment and</span>
+<span class="sd">dispatch models.</span>
+
+<span class="sd">Classes</span>
+<span class="sd">-------</span>
+<span class="sd">StorageUnit</span>
+<span class="sd">    Parameters of a single storage unit (SoC bounds, power limits,</span>
+<span class="sd">    efficiencies, initial state).</span>
+<span class="sd">StorageData</span>
+<span class="sd">    System-level container that aggregates storage units and common</span>
+<span class="sd">    parameters such as time-step duration.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- The efficiencies can be specified per stage (charge/discharge) or derived</span>
+<span class="sd">  from a round-trip value split across both stages by the user before</span>
+<span class="sd">  instantiation.</span>
+<span class="sd">- The time-step duration ``delta_t`` (hours) converts power (MW) to energy</span>
+<span class="sd">  (MWh) in the state-of-charge balance.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL (2023). DESSEM: Manual de Metodologia.  </span>
+<span class="sd">[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span>
+
+
+<div class="viewcode-block" id="StorageUnit">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.Storage.html#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">StorageUnit</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Data container for a battery energy storage unit.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Unique identifier of the storage unit.</span>
+<span class="sd">    Emin : float</span>
+<span class="sd">        Minimum energy content (MWh).</span>
+<span class="sd">    Emax : float</span>
+<span class="sd">        Maximum energy content (MWh).</span>
+<span class="sd">    Eini : float</span>
+<span class="sd">        Initial energy content at the beginning of the horizon (MWh).</span>
+<span class="sd">    Pch_max : float</span>
+<span class="sd">        Maximum charging power (MW).</span>
+<span class="sd">    Pdis_max : float</span>
+<span class="sd">        Maximum discharging power (MW).</span>
+<span class="sd">    eta_c : float</span>
+<span class="sd">        Charging efficiency in ``[0, 1]``.</span>
+<span class="sd">    eta_d : float</span>
+<span class="sd">        Discharging efficiency in ``[0, 1]``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Ensure ``Emin &lt;= Eini &lt;= Emax`` for feasibility at the first period.</span>
+<span class="sd">    - If a round-trip efficiency is provided externally, split it into</span>
+<span class="sd">      ``eta_c`` and ``eta_d`` before creating the instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Emin</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">Emax</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">Eini</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">Pch_max</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">Pdis_max</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">eta_c</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">eta_d</span><span class="p">:</span> <span class="nb">float</span></div>
+
+
+
+<div class="viewcode-block" id="StorageData">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.Storage.html#NaivePyDESSEM.Storage.StorageDataTypes.StorageData">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">StorageData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    System-wide data container for storage modeling.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    horizon : int</span>
+<span class="sd">        Number of time periods in the planning horizon.    </span>
+<span class="sd">    demand : Dict[int, float]</span>
+<span class="sd">        Mapping of each period ``t`` (1-based) to system demand (MW).</span>
+<span class="sd">    units : Dict[str, StorageUnit]</span>
+<span class="sd">        Mapping from unit identifier to :class:`StorageUnit`.</span>
+<span class="sd">    delta_t : float</span>
+<span class="sd">        Time-step duration (hours), used to convert MW to MWh.</span>
+<span class="sd">    Cdef: float, optional</span>
+<span class="sd">        Sets the deficit cost. Default is 1000.0</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Typical values for ``delta_t`` are 1.0 (hourly) or 0.5 (30 minutes).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">horizon</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">demand</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">StorageUnit</span><span class="p">]</span>
+    <span class="n">delta_t</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">Cdef</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1000.0</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
