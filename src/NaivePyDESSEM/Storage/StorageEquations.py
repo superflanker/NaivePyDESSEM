@@ -145,8 +145,8 @@ def add_storage_balance_expression(
         'SU', 'T', 'storage_E'
     ]
     if all(hasattr(m, attr) for attr in required):
-        expr = sum(m.storage_eta_d[s] * m.storage_dis[s, t] 
-                   - m.storage_eta_c[s] *  m.storage_ch[s, t] for s in m.SU)
+        expr = sum( m.storage_dis[s, t] 
+                   -  m.storage_ch[s, t] for s in m.SU)
         balance_array.append(expr)
         return balance_array
     return balance_array

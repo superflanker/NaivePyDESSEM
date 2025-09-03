@@ -57,8 +57,8 @@ def __compute_total_generation(model: ConcreteModel) -> float:
         total_generation += sum(value(model.renewable_gen[r, t])
                                 for r in model.RU for t in model.T)
     if has_storage_model(model):
-        total_generation += sum(value(value(model.storage_dis[s, t] 
-                                            - model.storage_ch[s, t]))
+        total_generation += sum(value(model.storage_dis[s, t] 
+                                            - model.storage_ch[s, t])
                                 for s in model.SU for t in model.T)
     return total_generation
 

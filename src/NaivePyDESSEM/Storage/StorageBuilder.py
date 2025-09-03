@@ -126,7 +126,7 @@ def add_storage_problem(m: ConcreteModel,
     add_storage_energy_balance_constraint(m)
     add_storage_soc_bounds_constraint(m)
     add_storage_power_limits_constraint(m)
-    add_storage_mutual_exclusion_constraint(m)  # descomente se usar binária
+    # add_storage_mutual_exclusion_constraint(m)  # descomente se usar binária
 
     if include_objective:
         add_storage_only_balance_constraint(m)
