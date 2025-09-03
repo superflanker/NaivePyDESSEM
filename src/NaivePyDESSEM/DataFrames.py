@@ -254,9 +254,9 @@ def add_cost_to_dataframe(df: pd.DataFrame,
                                   for s in model.SU) for t in model.T]
     # Totais por período
     df['Ge_{Total}'] = [x + y + z + w for x, y, z, w in zip(hydro_generation,
-                                                           thermal_generation,
-                                                           renewable_generation,
-                                                           storage_generation)]
+                                                            thermal_generation,
+                                                            renewable_generation,
+                                                            storage_generation)]
 
     # Demanda / Déficit
     if has_d:
