@@ -66,8 +66,8 @@ keeping a * u and SC * y in the linear objective.
 
 References
 ----------
-[1] CEPEL (2023). DESSEM: Manual de Metodologia.  
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.
+[1] CEPEL, DESSEM. Manual de Metodologia, 2023  
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 """
 
 from dataclasses import dataclass

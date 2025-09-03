@@ -14,7 +14,7 @@ meta:
   horizon: 24                 # TODO: nº de períodos (ex.: 24)
   delta_t: 1.0                # duração do período (h)
   Cdef: 1000.0                # penalidade de déficit [$ / MWh]
-  Solver: scip
+  Solver: mindtpy
   Solver_Options:
     mip_solver: cbc
     nlp_solver: cyipopt

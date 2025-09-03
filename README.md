@@ -137,10 +137,10 @@ naivepydessem-plot results/dispatch.csv --mode plot --category G V --plot-style 
 
 ## 📄 References
 
-This implementation is based on academic material from **UFPR (Federal University of Paraná)** and ONS:
+This implementation is based on academic material from **UFPR (Federal University of Paraná)** and CEPEL/DESSEM manuals:
 
-- Clodomiro Unsihuay–Vila, *Introdução aos Sistemas de Energia Elétrica* . Lecture Notes (EELT7030, 2023)  
-- ONS, *DESSEM – Manual de Metodologia*, 2023  
+- Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.  
+- CEPEL, DESSEM. Manual de Metodologia, 2023.  
 
 ---
 

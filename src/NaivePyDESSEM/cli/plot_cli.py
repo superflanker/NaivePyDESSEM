@@ -75,8 +75,8 @@ python plot_results_cli.py results/day1.xlsx \
 
 References
 ----------
-[1] CEPEL (2023). DESSEM: Manual de Metodologia.  
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.
+[1] CEPEL, DESSEM. Manual de Metodologia, 2023  
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 """
 
 import argparse
@@ -284,6 +284,7 @@ def handle_control_variables(df: pd.DataFrame,
         "Enter the label for the LaTeX table [optional]")
     os.makedirs(out_dir, exist_ok=True)
     ctrl_df = select_variable_columns(df, "CTRL").T
+    print(ctrl_df.head())
     kwargs = {}
     if caption:
         kwargs["caption"] = caption

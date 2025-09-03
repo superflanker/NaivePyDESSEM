@@ -50,7 +50,7 @@ Notes
 
 References
 ----------
-[1] CEPEL (2023). DESSEM: Manual de Metodologia.  
+[1] CEPEL, DESSEM. Manual de Metodologia, 2023  
 [2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica,  Lecture Notes EELT7030/UFPR.
 """
 

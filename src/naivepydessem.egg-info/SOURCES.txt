@@ -3,6 +3,7 @@ MANIFEST.in
 README.md
 pyproject.toml
 setup.cfg
+docs/source/README.md
 examples/exemplo_despacho_hibrido.yaml
 src/NaivePyDESSEM/Builder.py
 src/NaivePyDESSEM/DataFrames.py
