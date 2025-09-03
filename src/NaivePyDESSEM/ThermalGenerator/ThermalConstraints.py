@@ -209,6 +209,9 @@ def thermal_add_startup_shutdown_logic_constraint(m):
     --------
     >>> _ = thermal_add_startup_shutdown_logic_constraint(m)
     """
+    def _hook_u_at_startup(m, g):
+        return m.thermal_u[g,1] == m.thermal_u0[g]
+    
     def _f_shut_start_same_time(m, g, t):
         if m.has_history:
             return m.thermal_y0[g] + m.thermal_w0[g] <= 1
@@ -222,6 +225,7 @@ def thermal_add_startup_shutdown_logic_constraint(m):
             return Constraint.Skip
         return (m.thermal_u[g, t] - m.thermal_u[g, t-1]
                 == m.thermal_y[g, t] - m.thermal_w[g, t])
+    m.thermal_hookup_constraint = Constraint(m.TG, rule=_hook_u_at_startup)
     m.thermal_f_ss_constraint = Constraint(
         m.TG, m.T, rule=_f_shut_start_same_time)
     m.thermal_logic_constraint = Constraint(m.TG, m.T, rule=_logic)
