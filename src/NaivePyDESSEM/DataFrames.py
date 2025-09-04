@@ -193,7 +193,7 @@ def add_storage_dispatch_to_dataframe(df: pd.DataFrame,
             df[f'D_{{s_{s}}}'] = [value(model.storage_dis[s, t]) for t in T]
             df[f'C_{{s_{s}}}'] = [-value(model.storage_ch[s, t]) for t in T]
             df[f'G_{{s_{s}}}'] = [
-                value(model.storage_ch[s, t] - model.storage_dis[s, t]) for t in T]
+                value(model.storage_dis[s, t] - model.storage_ch[s, t]) for t in T]
             df[f'E_{{s_{s}}}'] = [value(model.storage_E[s, t]) for t in T]
 
     return df
@@ -299,10 +299,10 @@ def add_cost_to_dataframe(df: pd.DataFrame,
         cost_def = [0.0] * len(T)
         cost_t = [0.0] * len(T)
 
-    df['Cost_var'] = cost_var
-    df['Cost_start'] = cost_start
-    df['Cost_def'] = cost_def
-    df['Cost_t'] = cost_t
+    df['Cost_{var}'] = cost_var
+    df['Cost_{start}'] = cost_start
+    df['Cost_{def}'] = cost_def
+    df['Cost_{t}'] = cost_t
     return df
 
 

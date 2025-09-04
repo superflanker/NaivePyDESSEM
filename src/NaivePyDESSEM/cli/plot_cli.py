@@ -185,8 +185,10 @@ def select_variable_columns(df: pd.DataFrame,
         If the category is unrecognized.
     """
 
-    if category == "G":
+    if category == "GT":
         return df.filter(regex=r"^(G_|Ge_|Deficit|Demand).*")
+    elif category == "G":
+        return df.filter(regex=r"^G_.*")
     elif category == "Q":
         return df.filter(regex=r"^Q_.*")
     elif category == "S":
@@ -284,7 +286,6 @@ def handle_control_variables(df: pd.DataFrame,
         "Enter the label for the LaTeX table [optional]")
     os.makedirs(out_dir, exist_ok=True)
     ctrl_df = select_variable_columns(df, "CTRL").T
-    print(ctrl_df.head())
     kwargs = {}
     if caption:
         kwargs["caption"] = caption
@@ -468,7 +469,7 @@ def main():
     parser.add_argument("--mode", choices=["table", "plot", "ctrl"],
                         help="Export mode: LaTeX table, plot, or CTRL (U/Y/W) matrix")
     parser.add_argument("--category", "-c", nargs="+",
-                        help="One or more categories (e.g., G Q S V BAT cost)")
+                        help="One or more categories (e.g., G GG Q S V BAT cost)")
     parser.add_argument(
         "--plot-style", choices=["line", "bar"], help="Plot style")
     parser.add_argument("--stacked", action="store_true",

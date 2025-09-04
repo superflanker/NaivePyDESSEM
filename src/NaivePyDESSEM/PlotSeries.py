@@ -260,7 +260,7 @@ def plot_series_bar(
     ax.set_xticks(x)
     ax.set_xticklabels([str(tt) for tt in t])
     ncol = 1 if S <= 1 else min(4, S)
-    ax.legend(loc='best')
+    ax.legend(loc="upper right")
 
     fig.savefig(file, 
                 dpi=600, 
