@@ -226,32 +226,64 @@ def plot_series_bar(
     def _mathwrap(s: str) -> str:
         s = str(s)
         return s if (s.startswith("$") and s.endswith("$")) else f"${s}$"
-    
+
     colors = get_distinct_colors(len(series_dict))
-    
+
     os.makedirs(os.path.dirname(file) or ".", exist_ok=True)
 
     labels = list(series_dict.keys())
-    data = np.array([series_dict[k]
-                    for k in labels], dtype=float)  # shape: (S, T)
+    data = np.array([series_dict[k] for k in labels], dtype=float)  # (S, T)
     T = len(t)
     S = len(labels)
 
     fig, ax = plt.subplots(constrained_layout=True, figsize=(8, 5))
     x = np.arange(T)
-    k = 0
+
     if stacked or S == 1:
-        cum = np.zeros(T)
+        # acumuladores separados para positivos e negativos
+        pos_cum = np.zeros(T, dtype=float)
+        neg_cum = np.zeros(T, dtype=float)
+
         for i, lab in enumerate(labels):
-            ax.bar(x, data[i], bottom=cum, label= _mathwrap(lab), width=width, color=colors[k])
-            cum += data[i]
-            k += 1
+            y = data[i]
+            y_pos = np.where(y >= 0.0, y, 0.0)
+            y_neg = np.where(y <  0.0, y, 0.0)
+
+            # barras positivas empilhadas acima de pos_cum
+            if np.any(y_pos):
+                ax.bar(
+                    x,
+                    y_pos,
+                    bottom=pos_cum,
+                    width=width,
+                    label=_mathwrap(lab) if not np.any(y_neg) else None,  # evita duplicar legenda
+                    color=colors[i]
+                )
+                pos_cum = pos_cum + y_pos
+
+            # barras negativas empilhadas abaixo de neg_cum
+            if np.any(y_neg):
+                ax.bar(
+                    x,
+                    y_neg,
+                    bottom=neg_cum,
+                    width=width,
+                    label=_mathwrap(lab) if not np.any(y_pos) else _mathwrap(lab),
+                    color=colors[i]
+                )
+                neg_cum = neg_cum + y_neg
     else:
         group_width = min(0.95, width)
         bar_w = group_width / max(1, S)
-        offsets = (np.arange(S) - (S-1)/2.0) * bar_w
+        offsets = (np.arange(S) - (S - 1) / 2.0) * bar_w
         for i, lab in enumerate(labels):
-            ax.bar(x + offsets[i], data[i], width=bar_w, label=_mathwrap(lab))
+            ax.bar(
+                x + offsets[i],
+                data[i],
+                width=bar_w,
+                label=_mathwrap(lab),
+                color=colors[i]
+            )
 
     ax.set_title(title)
     ax.set_xlabel("Estágio - T (h)")
@@ -259,11 +291,12 @@ def plot_series_bar(
     ax.grid(True, axis="y")
     ax.set_xticks(x)
     ax.set_xticklabels([str(tt) for tt in t])
-    ncol = 1 if S <= 1 else min(4, S)
-    ax.legend(loc="upper right")
 
-    fig.savefig(file, 
-                dpi=600, 
-                bbox_inches="tight")
+    # legenda
+    ncol = 1 if S <= 1 else min(4, S)
+    ax.legend(loc="upper right", ncol=ncol)
+
+    fig.savefig(file, dpi=600, bbox_inches="tight")
     plt.close(fig)
+
 

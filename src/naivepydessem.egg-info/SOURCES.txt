@@ -5,6 +5,13 @@ pyproject.toml
 setup.cfg
 docs/source/README.md
 examples/exemplo_despacho_hibrido.yaml
+examples/trabalho01_caso01_1.yaml
+examples/trabalho01_caso01_2.yaml
+examples/trabalho01_caso01_3.yaml
+examples/trabalho01_caso02.yaml
+examples/trabalho01_caso03.yaml
+examples/trabalho01_caso04.yaml
+examples/trabalho01_caso05.yaml
 src/NaivePyDESSEM/Builder.py
 src/NaivePyDESSEM/DataFrames.py
 src/NaivePyDESSEM/Formatters.py
