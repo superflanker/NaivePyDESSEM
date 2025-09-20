@@ -18,7 +18,9 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NaivePyDESSEM.cli package" href="NaivePyDESSEM.cli.html" />
+    <link rel="prev" title="NaivePyDESSEM.Storage package" href="NaivePyDESSEM.Storage.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,115 +42,37 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">NaivePyDESSEM.ThermalGenerator package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalConstraints">NaivePyDESSEM.ThermalGenerator.ThermalConstraints module</a><ul>
-<li><a class="reference internal" href="#author">Author</a></li>
-<li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#constraint-families">Constraint Families</a></li>
-<li><a class="reference internal" href="#usage">Usage</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_balance_constraint"><code class="docutils literal notranslate"><span class="pre">thermal_add_balance_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_capacity_constraint"><code class="docutils literal notranslate"><span class="pre">thermal_add_capacity_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_min_up_down_constraint"><code class="docutils literal notranslate"><span class="pre">thermal_add_min_up_down_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_ramps_constraint"><code class="docutils literal notranslate"><span class="pre">thermal_add_ramps_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_reserve_constraint"><code class="docutils literal notranslate"><span class="pre">thermal_add_reserve_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_startup_shutdown_logic_constraint"><code class="docutils literal notranslate"><span class="pre">thermal_add_startup_shutdown_logic_constraint()</span></code></a></li>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="NaivePyDESSEM.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.html">NaivePyDESSEM.HydraulicGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.html">NaivePyDESSEM.Storage package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">NaivePyDESSEM.ThermalGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalDataTypes">NaivePyDESSEM.ThermalGenerator.ThermalDataTypes module</a><ul>
-<li><a class="reference internal" href="#id1">Author</a></li>
-<li><a class="reference internal" href="#id2">Description</a></li>
-<li><a class="reference internal" href="#notation-per-unit-g-and-time-t">Notation (per unit g and time t)</a></li>
-<li><a class="reference internal" href="#typical-objective-miqp-form">Typical objective (MIQP form)</a></li>
-<li><a class="reference internal" href="#id3">Usage</a></li>
-<li><a class="reference internal" href="#intended-pairing">Intended pairing</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData"><code class="docutils literal notranslate"><span class="pre">ThermalData</span></code></a><ul>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.Cdef"><code class="docutils literal notranslate"><span class="pre">ThermalData.Cdef</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.Rreq"><code class="docutils literal notranslate"><span class="pre">ThermalData.Rreq</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.demand"><code class="docutils literal notranslate"><span class="pre">ThermalData.demand</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.has_history"><code class="docutils literal notranslate"><span class="pre">ThermalData.has_history</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.horizon"><code class="docutils literal notranslate"><span class="pre">ThermalData.horizon</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.units"><code class="docutils literal notranslate"><span class="pre">ThermalData.units</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Builder">NaivePyDESSEM.Builder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.DataFrames">NaivePyDESSEM.DataFrames module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Formatters">NaivePyDESSEM.Formatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.ModelCheck">NaivePyDESSEM.ModelCheck module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.ModelFormatters">NaivePyDESSEM.ModelFormatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.PlotSeries">NaivePyDESSEM.PlotSeries module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Reporting">NaivePyDESSEM.Reporting module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Solver">NaivePyDESSEM.Solver module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Utils">NaivePyDESSEM.Utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.YAMLLoader">NaivePyDESSEM.YAMLLoader module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM">Module contents</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit"><code class="docutils literal notranslate"><span class="pre">ThermalUnit</span></code></a><ul>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.Pmax"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.Pmax</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.Pmin"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.Pmin</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.RD"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.RD</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.RU"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.RU</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.SC"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.SC</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.a"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.a</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.b"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.b</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.c"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.c</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.gamma"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.gamma</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.init_status_h"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.init_status_h</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.name"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.name</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.p0"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.p0</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.pw_breaks"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.pw_breaks</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.pw_costs"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.pw_costs</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.t_down"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.t_down</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.t_up"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.t_up</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.u0"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.u0</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
 </ul>
 </li>
 </ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalEquations">NaivePyDESSEM.ThermalGenerator.ThermalEquations module</a><ul>
-<li><a class="reference internal" href="#id4">Author</a></li>
-<li><a class="reference internal" href="#id5">Description</a></li>
-<li><a class="reference internal" href="#intended-use">Intended Use</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalEquations.add_thermal_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_thermal_balance_expression()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalEquations.add_thermal_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_thermal_cost_expression()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder">NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder module</a><ul>
-<li><a class="reference internal" href="#id6">Author</a></li>
-<li><a class="reference internal" href="#id7">Description</a></li>
-<li><a class="reference internal" href="#builder-function">Builder Function</a></li>
-<li><a class="reference internal" href="#id8">Usage</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_problem"><code class="docutils literal notranslate"><span class="pre">add_thermal_problem()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder.build_thermal_uc"><code class="docutils literal notranslate"><span class="pre">build_thermal_uc()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalObjectives">NaivePyDESSEM.ThermalGenerator.ThermalObjectives module</a><ul>
-<li><a class="reference internal" href="#id9">Author</a></li>
-<li><a class="reference internal" href="#id10">Description</a></li>
-<li><a class="reference internal" href="#id11">Usage</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalObjectives.set_objective_thermo_miqp"><code class="docutils literal notranslate"><span class="pre">set_objective_thermo_miqp()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalObjectives.set_objective_thermo_pwl"><code class="docutils literal notranslate"><span class="pre">set_objective_thermo_pwl()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalPieceWise">NaivePyDESSEM.ThermalGenerator.ThermalPieceWise module</a><ul>
-<li><a class="reference internal" href="#id12">Author</a></li>
-<li><a class="reference internal" href="#id13">Description</a></li>
-<li><a class="reference internal" href="#features">Features</a></li>
-<li><a class="reference internal" href="#requirements">Requirements</a></li>
-<li><a class="reference internal" href="#id14">Usage</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalPieceWise.thermal_add_piecewise_cost"><code class="docutils literal notranslate"><span class="pre">thermal_add_piecewise_cost()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator.ThermalVars">NaivePyDESSEM.ThermalGenerator.ThermalVars module</a><ul>
-<li><a class="reference internal" href="#id16">Author</a></li>
-<li><a class="reference internal" href="#id17">Description</a></li>
-<li><a class="reference internal" href="#id18">Features</a></li>
-<li><a class="reference internal" href="#variables">Variables</a></li>
-<li><a class="reference internal" href="#id19">Usage</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalVars.thermal_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">thermal_add_sets_and_params()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalVars.thermal_add_variables_uc"><code class="docutils literal notranslate"><span class="pre">thermal_add_variables_uc()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.ThermalGenerator">Module contents</a><ul>
-<li><a class="reference internal" href="#id20">Author</a></li>
-<li><a class="reference internal" href="#id21">Description</a></li>
-<li><a class="reference internal" href="#id22">Submodules</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -163,6 +87,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+          <li class="breadcrumb-item"><a href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
       <li class="breadcrumb-item active">NaivePyDESSEM.ThermalGenerator package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/NaivePyDESSEM.ThermalGenerator.rst.txt" rel="nofollow"> View page source</a>
@@ -248,8 +174,8 @@ At t=1, use thermal_p0[g] in place of the previous-period power.)</p></li>
 <p>By composing the blocks, one can construct MIQP (quadratic costs) or
 MILP (piecewise linear costs) UC formulations, optionally with reserve constraints.</p>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalConstraints.thermal_add_balance_constraint">
@@ -505,8 +431,8 @@ compatible with builders that: (i) set MIQP objectives directly from
 (a,b,c); or (ii) construct MILP PWL costs from (pw_breaks, pw_costs),
 keeping a * u and SC * y in the linear objective.</p>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py class">
 <dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData">
@@ -738,8 +664,8 @@ contributions from thermal and other sources.</p></li>
 ‘thermal_p’, ‘thermal_u’, ‘thermal_y’, ‘thermal_SC’, etc.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalEquations.add_thermal_balance_expression">
@@ -839,8 +765,8 @@ It orchestrates the composition of Pyomo model objects by combining:</p>
 instances. It ensures consistency across modules and allows easy switching
 between formulations.</p>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_problem">
@@ -854,7 +780,7 @@ formulations, with optional reserve requirements and objective definition.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model to which the thermal UC problem will be added.</p></li>
-<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData" title="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData"><em>ThermalData</em></a>) – Input data structure containing unit characteristics, cost parameters,
+<li><p><strong>data</strong> (<a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData" title="NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData"><em>ThermalData</em></a>) – Input data structure containing unit characteristics, cost parameters,
 horizon length, demand, reserve requirements, and initial conditions.</p></li>
 <li><p><strong>objective</strong> (<em>str</em><em>, </em><em>optional</em>) – Cost modeling approach. Options:
 - “miqp” : quadratic production cost (default),
@@ -1010,8 +936,8 @@ Both functions attach a Pyomo <em>Objective</em> set for minimization.</p></li>
 have been previously added to the model.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalObjectives.set_objective_thermo_miqp">
@@ -1170,8 +1096,8 @@ pw_costs  = [0, 2500, 6000, 10000]</p>
 <div><p>Cvar[g,t] = Piecewise(p[g,t]; pw_breaks, pw_costs)</p>
 </div></blockquote>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalPieceWise.thermal_add_piecewise_cost">
@@ -1300,8 +1226,8 @@ sets and parameters from a ThermalData object.</p>
 <p>Call <em>thermal_add_variables_uc(m, include_reserve=True/False, use_pwl=True/False)</em>
 to attach decision variables for UC formulations (MIQP or MILP-PWL).</p>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.ThermalGenerator.ThermalVars.thermal_add_sets_and_params">
@@ -1314,7 +1240,7 @@ and piecewise cost segments) into Pyomo sets and parameters.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model to be enriched with sets and parameters.</p></li>
-<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData" title="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData"><em>ThermalData</em></a>) – <p>Data container with attributes:</p>
+<li><p><strong>data</strong> (<a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData" title="NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData"><em>ThermalData</em></a>) – <p>Data container with attributes:</p>
 <ul>
 <li><p>horizon : int</p>
 <blockquote>
@@ -1481,8 +1407,8 @@ objectives, and builder functions for both quadratic (MIQP) and piecewise-linear
 to support hybrid hydrothermal-renewable models.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 </section>
 </section>
@@ -1490,7 +1416,10 @@ to support hybrid hydrothermal-renewable models.</p></li>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="NaivePyDESSEM.Storage.html" class="btn btn-neutral float-left" title="NaivePyDESSEM.Storage package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="NaivePyDESSEM.cli.html" class="btn btn-neutral float-right" title="NaivePyDESSEM.cli package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

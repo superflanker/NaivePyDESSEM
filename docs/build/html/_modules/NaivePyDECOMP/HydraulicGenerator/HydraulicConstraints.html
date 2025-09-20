@@ -1,0 +1,233 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDECOMP.HydraulicGenerator.HydraulicConstraints &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDECOMP.HydraulicGenerator.HydraulicConstraints</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDECOMP.HydraulicGenerator.HydraulicConstraints</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Hydropower Constraints Module for Multi-Mode Generation Modeling</span>
+<span class="sd">================================================================</span>
+
+<span class="sd">This module implements hydropower-related constraints for Unit Commitment</span>
+<span class="sd">and Dispatch models in Pyomo. It supports multiple representations of the</span>
+<span class="sd">hydraulic production function (FPH), including constant productivity,</span>
+<span class="sd">specific productivity (fixed head), simplified polynomial approximations,</span>
+<span class="sd">and exact head-dependent formulations.</span>
+
+<span class="sd">The functions herein enforce:</span>
+<span class="sd">- Generation computation using plant-specific FPH callables;</span>
+<span class="sd">- Reservoir mass balance via continuity constraints;</span>
+<span class="sd">- Upstream water aggregation for cascaded systems (no travel time);</span>
+<span class="sd">- Final storage requirements;</span>
+<span class="sd">- System-wide demand balance for hydropower-only settings.</span>
+
+<span class="sd">Each hydropower mode (constant, specific, exact, simplified) must be</span>
+<span class="sd">associated with a callable set in the model attribute m.hydro_FPH[h].</span>
+<span class="sd">The upstream connectivity and inflows must be available as</span>
+<span class="sd">m.hydro_upstreams[h] and m.hydro_afluencia[h][t-1], respectively.</span>
+<span class="sd">This module assumes **no routing delay** between cascaded plants.</span>
+
+<span class="sd">This interface is compatible with Pyomo-based MILP/MIQP dispatch models</span>
+<span class="sd">and is intended to interoperate cleanly with thermal subsystems when a</span>
+<span class="sd">combined balance is used elsewhere.</span>
+
+<span class="sd">Imported Dependencies</span>
+<span class="sd">---------------------</span>
+<span class="sd">- pyomo.environ.Constraint</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">- add_hydro_generation_constraint(m)</span>
+<span class="sd">- hydro_total_inflow_expr(m, h, t)</span>
+<span class="sd">- add_hydro_qmin_constraint(m)</span>
+<span class="sd">- add_hydro_qmax_constraint(m)</span>
+<span class="sd">- add_hydro_volume_continuity_constraint(m)</span>
+<span class="sd">- add_hydro_volume_max_constraint(m)</span>
+<span class="sd">- add_hydro_volume_mim_constraint(m)</span>
+<span class="sd">- add_hydro_balance_constraint(m)</span>
+
+<span class="sd">Model Requirements</span>
+<span class="sd">------------------</span>
+<span class="sd">Sets</span>
+<span class="sd">    m.HG : hydropower units</span>
+<span class="sd">    m.T  : time periods</span>
+<span class="sd">Variables</span>
+<span class="sd">    m.hydro_V[h,t] : storage volume (hm^3)</span>
+<span class="sd">    m.hydro_Q[h,t] : turbined discharge (hm^3)</span>
+<span class="sd">    m.hydro_S[h,t] : spill discharge (m^3/s)</span>
+<span class="sd">    m.hydro_G[h,t] : hydropower generation (MW)</span>
+<span class="sd">    m.D[t]         : deficit (MW), if used</span>
+<span class="sd">Parameters</span>
+<span class="sd">    m.hydro_Vini[h]  : initial storage (hm^3)</span>
+<span class="sd">    m.hydro_Vmin[h]  : minimum storage (hm^3)</span>
+<span class="sd">    m.hydro_Vmax[h]  : maximum storage (hm^3)</span>
+<span class="sd">    m.hydro_afluencia[h][t-1] : natural inflow (m^3/s), 0-based external array</span>
+<span class="sd">    m.hydro_upstreams[h]      : collection of upstream units for h</span>
+<span class="sd">    m.hydro_FPH[h]            : callable FPH(Q,V,S) =&gt; MW</span>
+<span class="sd">    m.hydro_compute_total_inflow[h] : bool flag to aggregate upstream releases</span>
+<span class="sd">    m.horizon : last period index, if used for terminal constraints</span>
+<span class="sd">    m.d[t]    : demand (MW), if hydropower-only balance is applied</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023  </span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">Constraint</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDESSEM.HydraulicGenerator.HydraulicConstraints</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_hydro_balance_constraint</span><span class="p">,</span>
+    <span class="n">add_hydro_generation_constraint</span><span class="p">,</span>
+    <span class="n">add_hydro_qmin_constraint</span><span class="p">,</span>
+    <span class="n">add_hydro_qmax_constraint</span><span class="p">,</span>
+    <span class="n">add_hydro_volume_max_constraint</span><span class="p">,</span>
+    <span class="n">add_hydro_volume_mim_constraint</span><span class="p">,</span>
+    <span class="n">hydro_total_inflow_expr</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="add_hydro_volume_continuity_constraint">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicConstraints.add_hydro_volume_continuity_constraint">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_hydro_volume_continuity_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add reservoir mass balance (water continuity) constraints.</span>
+
+<span class="sd">    Updates stored volume using natural + upstream inflows (no delay),</span>
+<span class="sd">    turbined discharge, and spill. Uses the initial storage at the first</span>
+<span class="sd">    period.</span>
+
+<span class="sd">    For each (h, t):</span>
+<span class="sd">        if t == 1:</span>
+<span class="sd">            m.hydro_V[h,1] == m.hydro_Vini[h]</span>
+<span class="sd">                + m.hydro_zeta_vol * (Inflow(h,1) - Q[h,1] - S[h,1])</span>
+<span class="sd">        else:</span>
+<span class="sd">            m.hydro_V[h,t] == m.hydro_V[h,t-1]</span>
+<span class="sd">                + m.hydro_zeta_vol * (Inflow(h,t) - Q[h,t] - S[h,t])</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.core.base.PyomoModel.ConcreteModel</span>
+<span class="sd">        Model with variables m.hydro_V, m.hydro_Q, m.hydro_S,</span>
+<span class="sd">        sets m.HG, m.T, and parameters</span>
+<span class="sd">        m.hydro_zeta_vol, m.hydro_Vini. Inflow is given by</span>
+<span class="sd">        :func:`hydro_total_inflow_expr`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.core.expr.relational.EqualityExpression</span>
+<span class="sd">        Constraint block m.hydro_volume_balance_constraint added to the model.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    m.hydro_zeta_vol converts flow (m^3/s) into volume (hm^3) over one period</span>
+<span class="sd">    (e.g., 3600 / 1e6 for hourly steps).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_vol_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">hydro_V</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">hydro_Vini</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">+</span> \
+                <span class="p">(</span><span class="n">hydro_total_inflow_expr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">-</span>
+                 <span class="n">m</span><span class="o">.</span><span class="n">hydro_Q</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">hydro_S</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">hydro_V</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">hydro_V</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> \
+            <span class="p">(</span><span class="n">hydro_total_inflow_expr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">-</span>
+             <span class="n">m</span><span class="o">.</span><span class="n">hydro_Q</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">hydro_S</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">hydro_volume_balance_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">HG</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_vol_rule</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

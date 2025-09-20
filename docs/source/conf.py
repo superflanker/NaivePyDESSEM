@@ -44,4 +44,5 @@ html_static_path = ['_static']
 import os
 import sys
 sys.path.insert(0, os.path.abspath('../NaivePyDESSEM'))  # ajuste se o código estiver em outro lugar
+sys.path.insert(0, os.path.abspath('../NaivePyDECOMP'))  # ajuste se o código estiver em outro lugar
 html_theme = 'sphinx_rtd_theme'

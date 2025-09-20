@@ -18,7 +18,9 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NaivePyDECOMP package" href="NaivePyDECOMP.html" />
+    <link rel="prev" title="NaivePyDESSEM.ThermalGenerator package" href="NaivePyDESSEM.ThermalGenerator.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,55 +42,37 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">NaivePyDESSEM.cli package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.cli.cli">NaivePyDESSEM.cli.cli module</a><ul>
-<li><a class="reference internal" href="#author">Author</a></li>
-<li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#features">Features</a></li>
-<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li><a class="reference internal" href="#usage">Usage</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.cli.cli.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.cli.cli.print_welcome_banner"><code class="docutils literal notranslate"><span class="pre">print_welcome_banner()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.cli.cli.save_dataframe"><code class="docutils literal notranslate"><span class="pre">save_dataframe()</span></code></a></li>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="NaivePyDESSEM.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.html">NaivePyDESSEM.HydraulicGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.html">NaivePyDESSEM.Storage package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">NaivePyDESSEM.cli package</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.cli.plot_cli">NaivePyDESSEM.cli.plot_cli module</a><ul>
-<li><a class="reference internal" href="#id1">Author</a></li>
-<li><a class="reference internal" href="#id2">Description</a></li>
-<li><a class="reference internal" href="#id3">Features</a></li>
-<li><a class="reference internal" href="#categories">Categories</a></li>
-<li><a class="reference internal" href="#id4">Dependencies</a></li>
-<li><a class="reference internal" href="#id5">Usage</a></li>
-<li><a class="reference internal" href="#quick-examples">Quick examples</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.cli.plot_cli.handle_control_variables"><code class="docutils literal notranslate"><span class="pre">handle_control_variables()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.cli.plot_cli.handle_plot"><code class="docutils literal notranslate"><span class="pre">handle_plot()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.cli.plot_cli.handle_table"><code class="docutils literal notranslate"><span class="pre">handle_table()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.cli.plot_cli.load_dataframe"><code class="docutils literal notranslate"><span class="pre">load_dataframe()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.cli.plot_cli.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.cli.plot_cli.print_welcome_banner"><code class="docutils literal notranslate"><span class="pre">print_welcome_banner()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.cli.plot_cli.prompt"><code class="docutils literal notranslate"><span class="pre">prompt()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.cli.plot_cli.select_columns_multi"><code class="docutils literal notranslate"><span class="pre">select_columns_multi()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.cli.plot_cli.select_variable_columns"><code class="docutils literal notranslate"><span class="pre">select_variable_columns()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Builder">NaivePyDESSEM.Builder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.DataFrames">NaivePyDESSEM.DataFrames module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Formatters">NaivePyDESSEM.Formatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.ModelCheck">NaivePyDESSEM.ModelCheck module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.ModelFormatters">NaivePyDESSEM.ModelFormatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.PlotSeries">NaivePyDESSEM.PlotSeries module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Reporting">NaivePyDESSEM.Reporting module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Solver">NaivePyDESSEM.Solver module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Utils">NaivePyDESSEM.Utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.YAMLLoader">NaivePyDESSEM.YAMLLoader module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM">Module contents</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.cli">Module contents</a><ul>
-<li><a class="reference internal" href="#naivepydessem-cli-subpackage">NaivePyDESSEM – CLI Subpackage</a><ul>
-<li><a class="reference internal" href="#id6">Author</a></li>
-<li><a class="reference internal" href="#id7">Description</a></li>
-<li><a class="reference internal" href="#modules">Modules</a></li>
-<li><a class="reference internal" href="#id8">Features</a></li>
-<li><a class="reference internal" href="#example-usage">Example Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -103,6 +87,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+          <li class="breadcrumb-item"><a href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
       <li class="breadcrumb-item active">NaivePyDESSEM.cli package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/NaivePyDESSEM.cli.rst.txt" rel="nofollow"> View page source</a>
@@ -162,8 +148,8 @@ DataFrame and saved to disk in a user-defined format (CSV, Excel, or Parquet).</
 <h3>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h3>
 <p>$ python cli.py case.yaml –out_dir results –out_file dispatch.xlsx</p>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.cli.cli.main">
@@ -288,8 +274,8 @@ python plot_results_cli.py results/day1.csv –mode table –category V cost –
 <p># 3) Non-interactive: CTRL matrix (U/Y/W) with custom caption/label
 python plot_results_cli.py results/day1.xlsx –mode ctrl –title “Unit Commitment Status” –label tab:uyw –out-dir tables –out-file uyw.tex</p>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.cli.plot_cli.handle_control_variables">
@@ -585,7 +571,10 @@ visual plots (bar or line).</p>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="NaivePyDESSEM.ThermalGenerator.html" class="btn btn-neutral float-left" title="NaivePyDESSEM.ThermalGenerator package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="NaivePyDECOMP.html" class="btn btn-neutral float-right" title="NaivePyDECOMP package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

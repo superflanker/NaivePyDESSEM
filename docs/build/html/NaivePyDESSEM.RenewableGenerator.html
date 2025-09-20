@@ -18,7 +18,9 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NaivePyDESSEM.Storage package" href="NaivePyDESSEM.Storage.html" />
+    <link rel="prev" title="NaivePyDESSEM.HydraulicGenerator package" href="NaivePyDESSEM.HydraulicGenerator.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,77 +42,37 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">NaivePyDESSEM.RenewableGenerator package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.RenewableGenerator.RenewableConstraints">NaivePyDESSEM.RenewableGenerator.RenewableConstraints module</a><ul>
-<li><a class="reference internal" href="#author">Author</a></li>
-<li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#functions">Functions</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableConstraints.add_renewable_balance_constraint"><code class="docutils literal notranslate"><span class="pre">add_renewable_balance_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableConstraints.add_renewable_capacity_constraints"><code class="docutils literal notranslate"><span class="pre">add_renewable_capacity_constraints()</span></code></a></li>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="NaivePyDESSEM.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.html">NaivePyDESSEM.HydraulicGenerator package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">NaivePyDESSEM.RenewableGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.html">NaivePyDESSEM.Storage package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.RenewableGenerator.RenewableDataTypes">NaivePyDESSEM.RenewableGenerator.RenewableDataTypes module</a><ul>
-<li><a class="reference internal" href="#id1">Author</a></li>
-<li><a class="reference internal" href="#id2">Description</a></li>
-<li><a class="reference internal" href="#classes">Classes</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData"><code class="docutils literal notranslate"><span class="pre">RenewableData</span></code></a><ul>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.Cdef"><code class="docutils literal notranslate"><span class="pre">RenewableData.Cdef</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.demand"><code class="docutils literal notranslate"><span class="pre">RenewableData.demand</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.horizon"><code class="docutils literal notranslate"><span class="pre">RenewableData.horizon</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.units"><code class="docutils literal notranslate"><span class="pre">RenewableData.units</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Builder">NaivePyDESSEM.Builder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.DataFrames">NaivePyDESSEM.DataFrames module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Formatters">NaivePyDESSEM.Formatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.ModelCheck">NaivePyDESSEM.ModelCheck module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.ModelFormatters">NaivePyDESSEM.ModelFormatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.PlotSeries">NaivePyDESSEM.PlotSeries module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Reporting">NaivePyDESSEM.Reporting module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Solver">NaivePyDESSEM.Solver module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Utils">NaivePyDESSEM.Utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.YAMLLoader">NaivePyDESSEM.YAMLLoader module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM">Module contents</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit"><code class="docutils literal notranslate"><span class="pre">RenewableUnit</span></code></a><ul>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit.gbar"><code class="docutils literal notranslate"><span class="pre">RenewableUnit.gbar</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit.name"><code class="docutils literal notranslate"><span class="pre">RenewableUnit.name</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.RenewableGenerator.RenewableEquations">NaivePyDESSEM.RenewableGenerator.RenewableEquations module</a><ul>
-<li><a class="reference internal" href="#id3">Author</a></li>
-<li><a class="reference internal" href="#id4">Description</a></li>
-<li><a class="reference internal" href="#intended-use">Intended Use</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableEquations.add_renewable_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_renewable_balance_expression()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableEquations.add_renewable_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_renewable_cost_expression()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.RenewableGenerator.RenewableGeneratorBuilder">NaivePyDESSEM.RenewableGenerator.RenewableGeneratorBuilder module</a><ul>
-<li><a class="reference internal" href="#id5">Author</a></li>
-<li><a class="reference internal" href="#id6">Description</a></li>
-<li><a class="reference internal" href="#id7">Functions</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableGeneratorBuilder.add_renewable_problem"><code class="docutils literal notranslate"><span class="pre">add_renewable_problem()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableGeneratorBuilder.build_renewables"><code class="docutils literal notranslate"><span class="pre">build_renewables()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.RenewableGenerator.RenewableObjectives">NaivePyDESSEM.RenewableGenerator.RenewableObjectives module</a><ul>
-<li><a class="reference internal" href="#id8">Author</a></li>
-<li><a class="reference internal" href="#id9">Description</a></li>
-<li><a class="reference internal" href="#id10">Functions</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableObjectives.set_objective_renewable"><code class="docutils literal notranslate"><span class="pre">set_objective_renewable()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.RenewableGenerator.RenewableVars">NaivePyDESSEM.RenewableGenerator.RenewableVars module</a><ul>
-<li><a class="reference internal" href="#id11">Author</a></li>
-<li><a class="reference internal" href="#id12">Description</a></li>
-<li><a class="reference internal" href="#id13">Functions</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableVars.renewable_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">renewable_add_sets_and_params()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableVars.renewable_add_variables"><code class="docutils literal notranslate"><span class="pre">renewable_add_variables()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.RenewableGenerator">Module contents</a><ul>
-<li><a class="reference internal" href="#id14">Author</a></li>
-<li><a class="reference internal" href="#id15">Description</a></li>
-<li><a class="reference internal" href="#id16">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -125,6 +87,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+          <li class="breadcrumb-item"><a href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
       <li class="breadcrumb-item active">NaivePyDESSEM.RenewableGenerator package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/NaivePyDESSEM.RenewableGenerator.rst.txt" rel="nofollow"> View page source</a>
@@ -177,8 +141,8 @@ must be applied instead.</p></li>
 generation cannot meet demand.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.RenewableGenerator.RenewableConstraints.add_renewable_balance_constraint">
@@ -285,8 +249,8 @@ for thermal and hydro subsystems.</p></li>
 uncertainty modeling for renewable availability.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py class">
 <dt class="sig sig-object py" id="NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData">
@@ -422,7 +386,7 @@ penalties or market mechanisms.</p></li>
 <li><p>The symbolic expressions returned can be used with ConstraintList or Constraint(model.T).</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica,  Lecture Notes EELT7030/UFPR.</p>
 </section>
 <dl class="py function">
@@ -527,8 +491,8 @@ by the <code class="docutils literal notranslate"><span class="pre">RenewableDat
 balance when <code class="docutils literal notranslate"><span class="pre">include_objective=True</span></code>.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.RenewableGenerator.RenewableGeneratorBuilder.add_renewable_problem">
@@ -649,8 +613,8 @@ generation cannot meet the demand <code class="docutils literal notranslate"><sp
 discourage deficits under normal conditions.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.RenewableGenerator.RenewableObjectives.set_objective_renewable">
@@ -740,8 +704,8 @@ already present.</p></li>
 actual capacity constraint should be added separately.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.RenewableGenerator.RenewableVars.renewable_add_sets_and_params">
@@ -848,8 +812,8 @@ enabling hybrid model construction.</p></li>
 subsystems.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 </section>
 </section>
@@ -857,7 +821,10 @@ subsystems.</p></li>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="NaivePyDESSEM.HydraulicGenerator.html" class="btn btn-neutral float-left" title="NaivePyDESSEM.HydraulicGenerator package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="NaivePyDESSEM.Storage.html" class="btn btn-neutral float-right" title="NaivePyDESSEM.Storage package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

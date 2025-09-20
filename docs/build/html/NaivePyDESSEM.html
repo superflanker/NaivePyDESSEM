@@ -18,7 +18,9 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NaivePyDESSEM.HydraulicGenerator package" href="NaivePyDESSEM.HydraulicGenerator.html" />
+    <link rel="prev" title="NaivePyDESSEM and NaivePyDECOMP" href="modules.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,115 +42,126 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">NaivePyDESSEM package</a><ul>
-<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.Builder">NaivePyDESSEM.Builder module</a><ul>
-<li><a class="reference internal" href="#author">Author</a></li>
-<li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#usage">Usage</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Builder.build_balance_and_objective_from_yaml"><code class="docutils literal notranslate"><span class="pre">build_balance_and_objective_from_yaml()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Builder.build_model_from_file"><code class="docutils literal notranslate"><span class="pre">build_model_from_file()</span></code></a></li>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">NaivePyDESSEM package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.html">NaivePyDESSEM.HydraulicGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.html">NaivePyDESSEM.Storage package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.DataFrames">NaivePyDESSEM.DataFrames module</a><ul>
-<li><a class="reference internal" href="#id1">Author</a></li>
-<li><a class="reference internal" href="#id2">Description</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.DataFrames.add_cost_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_cost_to_dataframe()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.DataFrames.add_hydro_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_hydro_dispatch_to_dataframe()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.DataFrames.add_renewable_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_renewable_dispatch_to_dataframe()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.DataFrames.add_storage_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_storage_dispatch_to_dataframe()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.DataFrames.add_thermal_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_thermal_dispatch_to_dataframe()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.DataFrames.build_dispatch_dataframe"><code class="docutils literal notranslate"><span class="pre">build_dispatch_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDESSEM.Builder">NaivePyDESSEM.Builder module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#author">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.Builder.build_balance_and_objective_from_yaml"><code class="docutils literal notranslate"><span class="pre">build_balance_and_objective_from_yaml()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.Builder.build_model_from_file"><code class="docutils literal notranslate"><span class="pre">build_model_from_file()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.Formatters">NaivePyDESSEM.Formatters module</a><ul>
-<li><a class="reference internal" href="#id3">Author</a></li>
-<li><a class="reference internal" href="#id4">Description</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Formatters.format_brl"><code class="docutils literal notranslate"><span class="pre">format_brl()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDESSEM.DataFrames">NaivePyDESSEM.DataFrames module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.DataFrames.add_cost_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_cost_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.DataFrames.add_hydro_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_hydro_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.DataFrames.add_renewable_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_renewable_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.DataFrames.add_storage_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_storage_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.DataFrames.add_thermal_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_thermal_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.DataFrames.build_dispatch_dataframe"><code class="docutils literal notranslate"><span class="pre">build_dispatch_dataframe()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.ModelCheck">NaivePyDESSEM.ModelCheck module</a><ul>
-<li><a class="reference internal" href="#id5">Author</a></li>
-<li><a class="reference internal" href="#id6">Description</a></li>
-<li><a class="reference internal" href="#functions">Functions</a></li>
-<li><a class="reference internal" href="#usage-example">Usage Example</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ModelCheck.has_hydro_model"><code class="docutils literal notranslate"><span class="pre">has_hydro_model()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ModelCheck.has_renewable_model"><code class="docutils literal notranslate"><span class="pre">has_renewable_model()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ModelCheck.has_storage_model"><code class="docutils literal notranslate"><span class="pre">has_storage_model()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ModelCheck.has_thermal_model"><code class="docutils literal notranslate"><span class="pre">has_thermal_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDESSEM.Formatters">NaivePyDESSEM.Formatters module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.Formatters.format_brl"><code class="docutils literal notranslate"><span class="pre">format_brl()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.ModelFormatters">NaivePyDESSEM.ModelFormatters module</a><ul>
-<li><a class="reference internal" href="#id7">Author</a></li>
-<li><a class="reference internal" href="#id8">Description</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.format_hydro_model"><code class="docutils literal notranslate"><span class="pre">format_hydro_model()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.format_models"><code class="docutils literal notranslate"><span class="pre">format_models()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.format_renewable_model"><code class="docutils literal notranslate"><span class="pre">format_renewable_model()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.format_storage_model"><code class="docutils literal notranslate"><span class="pre">format_storage_model()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.format_thermal_model"><code class="docutils literal notranslate"><span class="pre">format_thermal_model()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.model_properties"><code class="docutils literal notranslate"><span class="pre">model_properties()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.print_welcome_banner"><code class="docutils literal notranslate"><span class="pre">print_welcome_banner()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.print_welcome_message"><code class="docutils literal notranslate"><span class="pre">print_welcome_message()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDESSEM.ModelCheck">NaivePyDESSEM.ModelCheck module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage-example">Usage Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.ModelCheck.has_hydro_model"><code class="docutils literal notranslate"><span class="pre">has_hydro_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.ModelCheck.has_renewable_model"><code class="docutils literal notranslate"><span class="pre">has_renewable_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.ModelCheck.has_storage_model"><code class="docutils literal notranslate"><span class="pre">has_storage_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.ModelCheck.has_thermal_model"><code class="docutils literal notranslate"><span class="pre">has_thermal_model()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.PlotSeries">NaivePyDESSEM.PlotSeries module</a><ul>
-<li><a class="reference internal" href="#id9">Author</a></li>
-<li><a class="reference internal" href="#id10">Description</a></li>
-<li><a class="reference internal" href="#id11">Functions</a></li>
-<li><a class="reference internal" href="#conventions">Conventions</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.PlotSeries.get_distinct_colors"><code class="docutils literal notranslate"><span class="pre">get_distinct_colors()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.PlotSeries.plot_series"><code class="docutils literal notranslate"><span class="pre">plot_series()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.PlotSeries.plot_series_bar"><code class="docutils literal notranslate"><span class="pre">plot_series_bar()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDESSEM.ModelFormatters">NaivePyDESSEM.ModelFormatters module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id7">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.format_hydro_model"><code class="docutils literal notranslate"><span class="pre">format_hydro_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.format_models"><code class="docutils literal notranslate"><span class="pre">format_models()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.format_renewable_model"><code class="docutils literal notranslate"><span class="pre">format_renewable_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.format_storage_model"><code class="docutils literal notranslate"><span class="pre">format_storage_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.format_thermal_model"><code class="docutils literal notranslate"><span class="pre">format_thermal_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.model_properties"><code class="docutils literal notranslate"><span class="pre">model_properties()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.print_welcome_banner"><code class="docutils literal notranslate"><span class="pre">print_welcome_banner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.ModelFormatters.print_welcome_message"><code class="docutils literal notranslate"><span class="pre">print_welcome_message()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.Reporting">NaivePyDESSEM.Reporting module</a><ul>
-<li><a class="reference internal" href="#id12">Author</a></li>
-<li><a class="reference internal" href="#id13">Description</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Reporting.dispatch_summary"><code class="docutils literal notranslate"><span class="pre">dispatch_summary()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Reporting.hydro_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">hydro_dispatch_summary()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Reporting.renewable_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">renewable_dispatch_summary()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Reporting.storage_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">storage_dispatch_summary()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Reporting.thermal_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">thermal_dispatch_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDESSEM.PlotSeries">NaivePyDESSEM.PlotSeries module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conventions">Conventions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.PlotSeries.get_distinct_colors"><code class="docutils literal notranslate"><span class="pre">get_distinct_colors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.PlotSeries.plot_series"><code class="docutils literal notranslate"><span class="pre">plot_series()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.PlotSeries.plot_series_bar"><code class="docutils literal notranslate"><span class="pre">plot_series_bar()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.Solver">NaivePyDESSEM.Solver module</a><ul>
-<li><a class="reference internal" href="#id14">Author</a></li>
-<li><a class="reference internal" href="#id15">Description</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Solver.solve"><code class="docutils literal notranslate"><span class="pre">solve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDESSEM.Reporting">NaivePyDESSEM.Reporting module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id12">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.Reporting.dispatch_summary"><code class="docutils literal notranslate"><span class="pre">dispatch_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.Reporting.hydro_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">hydro_dispatch_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.Reporting.renewable_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">renewable_dispatch_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.Reporting.storage_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">storage_dispatch_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.Reporting.thermal_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">thermal_dispatch_summary()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.Utils">NaivePyDESSEM.Utils module</a><ul>
-<li><a class="reference internal" href="#id16">Author</a></li>
-<li><a class="reference internal" href="#id17">Description</a></li>
-<li><a class="reference internal" href="#id18">Functions</a></li>
-<li><a class="reference internal" href="#parameters-shared">Parameters (Shared)</a></li>
-<li><a class="reference internal" href="#additional-parameters">Additional Parameters</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Utils.binary_df_to_colored_latex"><code class="docutils literal notranslate"><span class="pre">binary_df_to_colored_latex()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Utils.custom_df_to_latex"><code class="docutils literal notranslate"><span class="pre">custom_df_to_latex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDESSEM.Solver">NaivePyDESSEM.Solver module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id14">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.Solver.solve"><code class="docutils literal notranslate"><span class="pre">solve()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.YAMLLoader">NaivePyDESSEM.YAMLLoader module</a><ul>
-<li><a class="reference internal" href="#id19">Author</a></li>
-<li><a class="reference internal" href="#id20">Description</a></li>
-<li><a class="reference internal" href="#id21">Functions</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.YAMLLoader.key_replace"><code class="docutils literal notranslate"><span class="pre">key_replace()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.YAMLLoader.pre_process"><code class="docutils literal notranslate"><span class="pre">pre_process()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.YAMLLoader.yaml_loader"><code class="docutils literal notranslate"><span class="pre">yaml_loader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDESSEM.Utils">NaivePyDESSEM.Utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id16">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parameters-shared">Parameters (Shared)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#additional-parameters">Additional Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.Utils.binary_df_to_colored_latex"><code class="docutils literal notranslate"><span class="pre">binary_df_to_colored_latex()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.Utils.custom_df_to_latex"><code class="docutils literal notranslate"><span class="pre">custom_df_to_latex()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM">Module contents</a><ul>
-<li><a class="reference internal" href="#id22">Author</a></li>
-<li><a class="reference internal" href="#id23">Description</a></li>
-<li><a class="reference internal" href="#id24">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDESSEM.YAMLLoader">NaivePyDESSEM.YAMLLoader module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id19">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id20">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id21">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.YAMLLoader.key_replace"><code class="docutils literal notranslate"><span class="pre">key_replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.YAMLLoader.pre_process"><code class="docutils literal notranslate"><span class="pre">pre_process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDESSEM.YAMLLoader.yaml_loader"><code class="docutils literal notranslate"><span class="pre">yaml_loader()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDESSEM">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id22">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id23">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id24">Submodules</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
 </ul>
-</div>
+</li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -163,6 +176,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
       <li class="breadcrumb-item active">NaivePyDESSEM package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/NaivePyDESSEM.rst.txt" rel="nofollow"> View page source</a>
@@ -656,8 +670,8 @@ of the technology sections: <cite>hydro</cite>, <cite>thermal</cite>, <cite>rene
 </dd>
 </dl>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Builder.build_balance_and_objective_from_yaml">
@@ -731,8 +745,8 @@ to CSV.</p>
 - Storage: charge/discharge power, net injection, state of charge.
 - System-wide: demand, deficit, cost components (variable, startup, deficit).</p>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.DataFrames.add_cost_to_dataframe">
@@ -896,8 +910,8 @@ energy dispatch problems solved by NaivePyDESSEM.</p>
 </pre></div>
 </div>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Formatters.format_brl">
@@ -973,8 +987,8 @@ such as cost extraction, result formatting, or diagnostics on a per-subsystem ba
 </pre></div>
 </div>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.ModelCheck.has_hydro_model">
@@ -1106,8 +1120,8 @@ by offering clear diagnostics and summaries prior to model solving.</p>
 <p>Use this module as part of the pre-solve interface of NaivePyDESSEM to
 provide clarity and visual feedback about the simulation setup.</p>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.ModelFormatters.format_hydro_model">
@@ -1260,8 +1274,8 @@ readability.</p></li>
 </pre></div>
 </div>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.PlotSeries.get_distinct_colors">
@@ -1397,8 +1411,8 @@ and unit-level summaries for hydropower, thermal, renewable, and storage technol
 - Per-unit dispatch summaries with color-enhanced output (via <cite>colorama</cite>).
 - Compatible with modular NaivePyDESSEM subsystem architecture.</p>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Reporting.dispatch_summary">
@@ -1481,8 +1495,8 @@ based on metadata, and can include support for decomposition strategies
 - Support for MINLP solvers such as MindtPy with strategy and time limits.
 - Termination condition validation to ensure feasibility or optimality.</p>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Solver.solve">
@@ -1650,8 +1664,8 @@ Non-binary values are rendered using <code class="docutils literal notranslate">
 </dl>
 </div>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Utils.binary_df_to_colored_latex">
@@ -1813,8 +1827,8 @@ remaining underscores are kept verbatim inside the subscript block.</p></li>
 </pre></div>
 </div>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.YAMLLoader.key_replace">
@@ -2022,8 +2036,8 @@ or multi-area coupling can be added atop this foundation.</p></li>
 <li><p>Fully compatible with Pyomo’s expressive modeling capabilities and solver interface.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 </section>
 </section>
@@ -2031,7 +2045,10 @@ or multi-area coupling can be added atop this foundation.</p></li>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="NaivePyDESSEM and NaivePyDECOMP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="NaivePyDESSEM.HydraulicGenerator.html" class="btn btn-neutral float-right" title="NaivePyDESSEM.HydraulicGenerator package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

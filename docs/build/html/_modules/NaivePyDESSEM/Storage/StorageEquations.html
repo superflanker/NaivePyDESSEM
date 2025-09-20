@@ -39,8 +39,35 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"></div>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NaivePyDESSEM</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cli Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">NaivePyDESSEM Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">HydraulicGenerator Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.HydraulicGenerator.html">NaivePyDESSEM.HydraulicGenerator package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ThermalGenerator Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">RenewableGenerator Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Storage Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.Storage.html">NaivePyDESSEM.Storage package</a></li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -121,8 +148,8 @@
 
 <span class="sd">References</span>
 <span class="sd">----------</span>
-<span class="sd">[1] CEPEL (2023). DESSEM: Manual de Metodologia.  </span>
-<span class="sd">[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR..</span>
+<span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023  </span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023..</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
@@ -218,8 +245,9 @@
         <span class="s1">&#39;SU&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_E&#39;</span>
     <span class="p">]</span>
     <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
-        <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">storage_eta_d</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> 
-                   <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_eta_c</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span>  <span class="n">m</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">)</span>
+        <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> 
+                   <span class="o">-</span>  <span class="n">m</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">)</span>
+        <span class="c1"># expr = sum(m.storage_eta_d[s] * m.storage_E[s, t]  for s in m.SU)</span>
         <span class="n">balance_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">balance_array</span>
     <span class="k">return</span> <span class="n">balance_array</span></div>

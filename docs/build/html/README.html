@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo. &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+  <title>NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo (DESSEM + DECOMP like solvers). &mdash; NaivePyDESSEM 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -40,33 +40,9 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">NaivePyDESSEM</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Cli Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">NaivePyDESSEM Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">HydraulicGenerator Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.html">NaivePyDESSEM.HydraulicGenerator package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">ThermalGenerator Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">RenewableGenerator Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Storage Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="NaivePyDESSEM.Storage.html">NaivePyDESSEM.Storage package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
 </ul>
 
         </div>
@@ -83,7 +59,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo.</li>
+      <li class="breadcrumb-item active">NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo (DESSEM + DECOMP like solvers).</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/README.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -93,85 +69,196 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="naivepydessem-a-pedagogical-and-modular-economic-dispatch-solver-based-on-pyomo">
-<h1>NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo.<a class="headerlink" href="#naivepydessem-a-pedagogical-and-modular-economic-dispatch-solver-based-on-pyomo" title="Link to this heading"></a></h1>
+  <section id="naivepydessem-a-pedagogical-and-modular-economic-dispatch-solver-based-on-pyomo-dessem-decomp-like-solvers">
+<h1>NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo (DESSEM + DECOMP like solvers).<a class="headerlink" href="#naivepydessem-a-pedagogical-and-modular-economic-dispatch-solver-based-on-pyomo-dessem-decomp-like-solvers" title="Link to this heading"></a></h1>
 <p><a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0"><img alt="License: GPL v3" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a>
 <a class="reference external" href="https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml/badge.svg" /></a>
 <a class="reference external" href="https://superflanker.github.io/NaivePyDESSEM/"><img alt="Docs" src="https://github.com/superflanker/NaivePyDESSEM/actions/workflows/docs.yml/badge.svg" /></a></p>
-<p><strong>A pedagogical and modular economic dispatch solver based on Pyomo.</strong></p>
+<p><strong>NaivePyDESSEM</strong> is a pedagogical project that brings together two complementary packages for teaching and research in power system operation planning:</p>
+<ul class="simple">
+<li><p><strong>NaivePyDESSEM</strong> — inspired by DESSEM, it models the <strong>short-term</strong> (daily/hourly) operation with detailed individual plant representation.</p></li>
+<li><p><strong>NaivePyDECOMP</strong> — inspired by DECOMP, it models the <strong>medium-term</strong> (weekly/monthly) operation with deterministic dual dynamic programming (PDDD).</p></li>
+</ul>
+<p>Both are implemented in <strong>Pyomo</strong>, with modular architecture and integrated documentation via Sphinx.</p>
+<hr class="docutils" />
 <section id="overview">
 <h2>🔍 Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
-<p>This project replicates key aspects of the DESSEM methodology to solve hybrid economic dispatch problems involving thermal, hydro, renewable, and storage units.</p>
-<p>The goal is to provide a <strong>clean teaching tool</strong> for courses such as <em>EELT 7030 — Operation and Expansion Planning of Electric Power Systems</em></p>
+<p>This project replicates key concepts of the <strong>DESSEM</strong> and <strong>DECOMP</strong> methodologies, covering hybrid economic dispatch problems involving thermal, hydro, renewable, and storage units.</p>
+<p>The goal is to provide a <strong>clean teaching tool</strong> for courses such as <em>EELT 7030 — Operation and Expansion Planning of Electric Power Systems</em>.</p>
 </section>
+<hr class="docutils" />
 <section id="features">
 <h2>🔍 Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p>Full support for hybrid dispatch (thermal + hydro + renewable + storage)</p></li>
-<li><p>Modular equation builders</p></li>
-<li><p>CLI tools for solving and exporting results</p></li>
-<li><p>Export to LaTeX and plotting utilities</p></li>
-<li><p>YAML-driven model configuration</p></li>
+<li><p><strong>NaivePyDESSEM</strong>:</p>
+<ul>
+<li><p>Detailed short-term hydrothermal dispatch (hourly/daily).</p></li>
+<li><p>Individual representation of hydro and thermal units (MILP/MIQP).</p></li>
+<li><p>Includes ramping limits, startup/shutdown, minimum up/down time, etc.</p></li>
 </ul>
+</li>
+<li><p><strong>NaivePyDECOMP</strong>:</p>
+<ul>
+<li><p>Aggregated medium-term hydrothermal dispatch (weekly/monthly).</p></li>
+<li><p>Simplified thermal representation (Gmin, Gmax, Cost).</p></li>
+<li><p>Hydros aggregated into REEs with constant productivity.</p></li>
+<li><p>Supports <strong>single LP</strong> or <strong>Deterministic Dual Dynamic Programming (PDDD)</strong>.</p></li>
+</ul>
+</li>
+<li><p>Shared features:</p>
+<ul>
+<li><p>Modular equation/constraint builders.</p></li>
+<li><p>CLI tools for solving and exporting results.</p></li>
+<li><p>LaTeX export and plotting utilities.</p></li>
+<li><p>YAML-driven model configuration.</p></li>
+</ul>
+</li>
+</ul>
+<p>The goal is to provide a <strong>clean teaching tool</strong> for courses such as <em>EELT 7030 — Operation and Expansion Planning of Electric Power Systems</em></p>
 </section>
 <section id="project-structure">
 <h2>📂 Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├── examples
-│   └── exemplo_despacho_hibrido.yaml
+│   ├── DECOMP
+│   │   ├── trabalho02_caso01.yaml
+│   │   ├── trabalho02_caso02.yaml
+│   │   ├── trabalho02_caso03.yaml
+│   │   └── trabalho02_caso04.yaml
+│   ├── DESSEM
+│   │   ├── exemplo_despacho_hibrido.yaml
+│   │   ├── trabalho01_caso01_1.yaml
+│   │   ├── trabalho01_caso01_2.yaml
+│   │   ├── trabalho01_caso01_3.yaml
+│   │   ├── trabalho01_caso02.yaml
+│   │   ├── trabalho01_caso03.yaml
+│   │   ├── trabalho01_caso04.yaml
+│   │   └── trabalho01_caso05.yaml
+│   └── NEWAVE
+├── resultados
+│   ├── DECOMP  
+    |   ├── despacho_caso01.csv
+│   │   ├── despacho_caso02.csv
+│   │   ├── despacho_caso03.csv
+│   │   └── despacho_caso04.csv
+│   └── DESSEM
+│       ├── despacho_caso01_1.csv
+│       ├── despacho_caso01_2.csv
+│       ├── despacho_caso01_3.csv
+│       ├── despacho_caso02.csv
+│       ├── despacho_caso03.csv
+│       ├── despacho_caso04.csv
+│       └── despacho_caso05.csv
 ├── src
-│   └── NaivePyDESSEM
-│       ├── cli
-│       │   ├── __init__.py
-│       │   ├── cli.py
-│       │   └── plot_cli.py
-│       ├── HydraulicGenerator
-│       │   ├── __init__.py
-│       │   ├── ConstantProductivityFPH.py
-│       │   ├── ExactFPH.py
-│       │   ├── HydraulicConstraints.py
-│       │   ├── HydraulicDataTypes.py
-│       │   ├── HydraulicEquations.py
-│       │   ├── HydraulicGeneratorBuilder.py
-│       │   ├── HydraulicObjectives.py
-│       │   ├── HydraulicVars.py
-│       │   ├── PEFPH.py
-│       │   └── SimplifiedConstantProductivityFPH.py
-│       ├── RenewableGenerator
-│       │   ├── __init__.py
-│       │   ├── RenewableConstraints.py
-│       │   ├── RenewableDataTypes.py
-│       │   ├── RenewableEquations.py
-│       │   ├── RenewableGeneratorBuilder.py
-│       │   ├── RenewableObjectives.py
-│       │   └── RenewableVars.py
-│       ├── Storage
-│       │   ├── __init__.py
-│       │   ├── StorageBuilder.py
-│       │   ├── StorageConstraints.py
-│       │   ├── StorageDataTypes.py
-│       │   ├── StorageEquations.py
-│       │   ├── StorageObjective.py
-│       │   └── StorageVars.py
-│       ├── ThermalGenerator
-│       │   ├── __init__.py
-│       │   ├── ThermalConstraints.py
-│       │   ├── ThermalDataTypes.py
-│       │   ├── ThermalEquations.py
-│       │   ├── ThermalGeneratorBuilder.py
-│       │   ├── ThermalObjectives.py
-│       │   ├── ThermalPieceWise.py
-│       │   └── ThermalVars.py
-│       ├── __init__.py
-│       ├── Builder.py
-│       ├── DataFrames.py
-│       ├── Formatters.py
-│       ├── ModelCheck.py
-│       ├── ModelFormatters.py
-│       ├── PlotSeries.py
-│       ├── Reporting.py
-│       ├── Solver.py
-│       ├── Utils.py
-│       └── YAMLLoader.py
+│   ├── NaivePyDECOMP
+│   │   ├── cli
+│   │   │   ├── __init__.py
+│   │   │   ├── cli.py
+│   │   │   └── plot_cli.py
+│   │   ├── HydraulicGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── HydraulicConstraints.py
+│   │   │   ├── HydraulicDataTypes.py
+│   │   │   ├── HydraulicEquations.py
+│   │   │   ├── HydraulicGeneratorBuilder.py
+│   │   │   ├── HydraulicObjectives.py
+│   │   │   ├── HydraulicVars.py
+│   │   │   └── SimplifiedConstantProductivityFPH.py
+│   │   ├── RenewableGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── RenewableConstraints.py
+│   │   │   ├── RenewableDataTypes.py
+│   │   │   ├── RenewableEquations.py
+│   │   │   ├── RenewableGeneratorBuilder.py
+│   │   │   ├── RenewableObjectives.py
+│   │   │   └── RenewableVars.py
+│   │   ├── Storage
+│   │   │   ├── __init__.py
+│   │   │   ├── StorageBuilder.py
+│   │   │   ├── StorageConstraints.py
+│   │   │   ├── StorageDataTypes.py
+│   │   │   ├── StorageEquations.py
+│   │   │   ├── StorageObjective.py
+│   │   │   └── StorageVars.py
+│   │   ├── ThermalGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── ThermalConstraints.py
+│   │   │   ├── ThermalDataTypes.py
+│   │   │   ├── ThermalEquations.py
+│   │   │   ├── ThermalGeneratorBuilder.py
+│   │   │   ├── ThermalObjectives.py
+│   │   │   ├── ThermalPieceWise.py
+│   │   │   └── ThermalVars.py
+│   │   ├── __init__.py
+│   │   ├── Builder.py
+│   │   ├── DataFrames.py
+│   │   ├── Formatters.py
+│   │   ├── ModelCheck.py
+│   │   ├── ModelFormatters.py
+│   │   ├── PlotSeries.py
+│   │   ├── Reporting.py
+│   │   ├── Solver.py
+│   │   ├── Utils.py
+│   │   └── YAMLLoader.py
+│   ├── NaivePyDESSEM
+│   │   ├── cli
+│   │   │   ├── __init__.py
+│   │   │   ├── cli.py
+│   │   │   └── plot_cli.py
+│   │   ├── HydraulicGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── ConstantProductivityFPH.py
+│   │   │   ├── ExactFPH.py
+│   │   │   ├── HydraulicConstraints.py
+│   │   │   ├── HydraulicDataTypes.py
+│   │   │   ├── HydraulicEquations.py
+│   │   │   ├── HydraulicGeneratorBuilder.py
+│   │   │   ├── HydraulicObjectives.py
+│   │   │   ├── HydraulicVars.py
+│   │   │   ├── PEFPH.py
+│   │   │   └── SimplifiedConstantProductivityFPH.py
+│   │   ├── RenewableGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── RenewableConstraints.py
+│   │   │   ├── RenewableDataTypes.py
+│   │   │   ├── RenewableEquations.py
+│   │   │   ├── RenewableGeneratorBuilder.py
+│   │   │   ├── RenewableObjectives.py
+│   │   │   └── RenewableVars.py
+│   │   ├── Storage
+│   │   │   ├── __init__.py
+│   │   │   ├── StorageBuilder.py
+│   │   │   ├── StorageConstraints.py
+│   │   │   ├── StorageDataTypes.py
+│   │   │   ├── StorageEquations.py
+│   │   │   ├── StorageObjective.py
+│   │   │   └── StorageVars.py
+│   │   ├── ThermalGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── ThermalConstraints.py
+│   │   │   ├── ThermalDataTypes.py
+│   │   │   ├── ThermalEquations.py
+│   │   │   ├── ThermalGeneratorBuilder.py
+│   │   │   ├── ThermalObjectives.py
+│   │   │   ├── ThermalPieceWise.py
+│   │   │   └── ThermalVars.py
+│   │   ├── __init__.py
+│   │   ├── Builder.py
+│   │   ├── DataFrames.py
+│   │   ├── Formatters.py
+│   │   ├── ModelCheck.py
+│   │   ├── ModelFormatters.py
+│   │   ├── PlotSeries.py
+│   │   ├── Reporting.py
+│   │   ├── Solver.py
+│   │   ├── Utils.py
+│   │   └── YAMLLoader.py
+│   └── naivepydessem.egg-info
+│       ├── dependency_links.txt
+│       ├── entry_points.txt
+│       ├── PKG-INFO
+│       ├── requires.txt
+│       ├── SOURCES.txt
+│       └── top_level.txt
 ├── tests
 ├── LICENSE
 ├── MANIFEST.in
@@ -238,40 +325,54 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <h2>▶️ Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
 <section id="solving-a-model">
 <h3>Solving a model<a class="headerlink" href="#solving-a-model" title="Link to this heading"></a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>naivepydessem-solve<span class="w"> </span>path/to/case.yaml<span class="w"> </span>--out_dir<span class="w"> </span>results/<span class="w"> </span>--out_file<span class="w"> </span>dispatch.csv
+<p><strong>DESSEM-like dispatch (short-term)</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pydessem-solve<span class="w"> </span>path/to/case.yaml<span class="w"> </span>--out_dir<span class="w"> </span>results/<span class="w"> </span>--out_file<span class="w"> </span>dispatch.csv
+</pre></div>
+</div>
+<p><strong>DECOMP-like dispatch (medium-term)</strong></p>
+<p>Single-LP:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pydecomp-solve<span class="w"> </span>path/to/case.yaml<span class="w"> </span>--out_dir<span class="w"> </span>results/<span class="w"> </span>--out_file<span class="w"> </span>dispatch.csv
+</pre></div>
+</div>
+<p>Using PDDD:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pydecomp-pddsolve<span class="w"> </span>path/to/case.yaml<span class="w"> </span>--out_dir<span class="w"> </span>results/<span class="w"> </span>--out_file<span class="w"> </span>dispatch.csv
 </pre></div>
 </div>
 </section>
 <section id="plotting-results">
 <h3>Plotting results<a class="headerlink" href="#plotting-results" title="Link to this heading"></a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>naivepydessem-plot<span class="w"> </span>results/dispatch.csv<span class="w"> </span>--mode<span class="w"> </span>plot<span class="w"> </span>--category<span class="w"> </span>G<span class="w"> </span>V<span class="w"> </span>--plot-style<span class="w"> </span>line
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pydessem-plot<span class="w"> </span>results/dispatch.csv<span class="w"> </span>--mode<span class="w"> </span>plot<span class="w"> </span>--category<span class="w"> </span>G<span class="w"> </span>V<span class="w"> </span>--plot-style<span class="w"> </span>line
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pydecomp-plot<span class="w"> </span>results/dispatch.csv<span class="w"> </span>--mode<span class="w"> </span>plot<span class="w"> </span>--category<span class="w"> </span>G<span class="w"> </span>V<span class="w"> </span>--plot-style<span class="w"> </span>line
 </pre></div>
 </div>
 </section>
 </section>
 <section id="references">
 <h2>📄 References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
-<p>This implementation is based on academic material from <strong>UFPR (Federal University of Paraná)</strong> and ONS:</p>
+<p>This implementation is based on academic material from <strong>UFPR (Federal University of Paraná)</strong> and CEPEL/DESSEM manuals:</p>
 <ul class="simple">
-<li><p>Clodomiro Unsihuay–Vila, <em>Introdução aos Sistemas de Energia Elétrica</em> . Lecture Notes (EELT7030, 2023)</p></li>
-<li><p>ONS, <em>DESSEM – Manual de Metodologia</em>, 2023</p></li>
+<li><p>Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p></li>
+<li></li>
+<li><p>CEPEL, DESSEM. Manual de Metodologia, 2023.</p></li>
 </ul>
 </section>
 <hr class="docutils" />
 <section id="documentation">
 <h2>📚 Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h2>
 <p>Full API and usage documentation is built with <strong>Sphinx</strong> and available here:<br />
-👉 <a class="reference external" href="https://superflanker.github.io/naivepydessem/">NaivePyDessem Documentation</a></p>
+👉 <a class="reference external" href="https://superflanker.github.io/NaivePyDESSEM/">NaivePyDessem Documentation</a></p>
 </section>
 <hr class="docutils" />
 <section id="how-to-cite">
 <h2>📚 How to Cite<a class="headerlink" href="#how-to-cite" title="Link to this heading"></a></h2>
-<p>If you use <strong>PyDessem</strong> in teaching or research, please cite:</p>
+<p>If you use <strong>NaivePyDessem</strong> in teaching or research, please cite:</p>
 <div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@misc</span><span class="p">{</span><span class="nl">adams2025pydessem</span><span class="p">,</span>
 <span class="w">  </span><span class="na">author</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="s">{Augusto Mathias Adams}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">title</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="s">{PyDessem: Didactic Hydrothermal Scheduling with Pyomo}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">title</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="s">{NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo (DESSEM + DECOMP like solvers)}</span><span class="p">,</span>
 <span class="w">  </span><span class="na">year</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">{2025}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">howpublished</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{\url{https://github.com/superflanker/pydessem}}</span>
+<span class="w">  </span><span class="na">howpublished</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{\url{https://github.com/superflanker/NaivePyDESSEM}}</span>
 <span class="p">}</span>
 </pre></div>
 </div>

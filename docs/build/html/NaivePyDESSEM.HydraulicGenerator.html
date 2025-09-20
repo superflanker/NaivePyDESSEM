@@ -18,7 +18,9 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NaivePyDESSEM.RenewableGenerator package" href="NaivePyDESSEM.RenewableGenerator.html" />
+    <link rel="prev" title="NaivePyDESSEM package" href="NaivePyDESSEM.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,140 +42,37 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">NaivePyDESSEM.HydraulicGenerator package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.HydraulicGenerator.ConstantProductivityFPH">NaivePyDESSEM.HydraulicGenerator.ConstantProductivityFPH module</a><ul>
-<li><a class="reference internal" href="#author">Author</a></li>
-<li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.ConstantProductivityFPH.constant_productivity_fph"><code class="docutils literal notranslate"><span class="pre">constant_productivity_fph()</span></code></a></li>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="NaivePyDESSEM.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">NaivePyDESSEM.HydraulicGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.html">NaivePyDESSEM.Storage package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.HydraulicGenerator.ExactFPH">NaivePyDESSEM.HydraulicGenerator.ExactFPH module</a><ul>
-<li><a class="reference internal" href="#id1">Author</a></li>
-<li><a class="reference internal" href="#id2">Description</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.ExactFPH.fph_factory"><code class="docutils literal notranslate"><span class="pre">fph_factory()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.ExactFPH.polynomial_factory"><code class="docutils literal notranslate"><span class="pre">polynomial_factory()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.ExactFPH.rho_colina_factory"><code class="docutils literal notranslate"><span class="pre">rho_colina_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Builder">NaivePyDESSEM.Builder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.DataFrames">NaivePyDESSEM.DataFrames module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Formatters">NaivePyDESSEM.Formatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.ModelCheck">NaivePyDESSEM.ModelCheck module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.ModelFormatters">NaivePyDESSEM.ModelFormatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.PlotSeries">NaivePyDESSEM.PlotSeries module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Reporting">NaivePyDESSEM.Reporting module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Solver">NaivePyDESSEM.Solver module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Utils">NaivePyDESSEM.Utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.YAMLLoader">NaivePyDESSEM.YAMLLoader module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM">Module contents</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.HydraulicGenerator.HydraulicConstraints">NaivePyDESSEM.HydraulicGenerator.HydraulicConstraints module</a><ul>
-<li><a class="reference internal" href="#hydropower-constraints-module-for-multi-mode-generation-modeling">Hydropower Constraints Module for Multi-Mode Generation Modeling</a><ul>
-<li><a class="reference internal" href="#imported-dependencies">Imported Dependencies</a></li>
-<li><a class="reference internal" href="#functions">Functions</a></li>
-<li><a class="reference internal" href="#model-requirements">Model Requirements</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicConstraints.add_hydro_balance_constraint"><code class="docutils literal notranslate"><span class="pre">add_hydro_balance_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicConstraints.add_hydro_generation_constraint"><code class="docutils literal notranslate"><span class="pre">add_hydro_generation_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicConstraints.add_hydro_qmax_constraint"><code class="docutils literal notranslate"><span class="pre">add_hydro_qmax_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicConstraints.add_hydro_qmin_constraint"><code class="docutils literal notranslate"><span class="pre">add_hydro_qmin_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicConstraints.add_hydro_volume_continuity_constraint"><code class="docutils literal notranslate"><span class="pre">add_hydro_volume_continuity_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicConstraints.add_hydro_volume_max_constraint"><code class="docutils literal notranslate"><span class="pre">add_hydro_volume_max_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicConstraints.add_hydro_volume_meta_constraint"><code class="docutils literal notranslate"><span class="pre">add_hydro_volume_meta_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicConstraints.add_hydro_volume_mim_constraint"><code class="docutils literal notranslate"><span class="pre">add_hydro_volume_mim_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicConstraints.hydro_total_inflow_expr"><code class="docutils literal notranslate"><span class="pre">hydro_total_inflow_expr()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes">NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes module</a><ul>
-<li><a class="reference internal" href="#hydraulic-system-data-classes-for-reservoir-optimization">Hydraulic System Data Classes for Reservoir Optimization</a><ul>
-<li><a class="reference internal" href="#overview">Overview</a></li>
-<li><a class="reference internal" href="#conventions-and-units">Conventions and Units</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><code class="docutils literal notranslate"><span class="pre">HydraulicData</span></code></a><ul>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.Cdef"><code class="docutils literal notranslate"><span class="pre">HydraulicData.Cdef</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.demand"><code class="docutils literal notranslate"><span class="pre">HydraulicData.demand</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.horizon"><code class="docutils literal notranslate"><span class="pre">HydraulicData.horizon</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.units"><code class="docutils literal notranslate"><span class="pre">HydraulicData.units</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.zeta"><code class="docutils literal notranslate"><span class="pre">HydraulicData.zeta</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.zeta_vol"><code class="docutils literal notranslate"><span class="pre">HydraulicData.zeta_vol</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit</span></code></a><ul>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Qmax"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.Qmax</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Qmin"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.Qmin</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Vini"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.Vini</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Vmax"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.Vmax</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Vmeta"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.Vmeta</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Vmin"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.Vmin</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.a"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.a</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.afluencia"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.afluencia</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.b"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.b</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.compute_total_inflow"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.compute_total_inflow</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.losses"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.losses</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.mode"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.mode</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.name"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.name</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.p"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.p</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.pe"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.pe</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.rho"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.rho</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.upstreams"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.upstreams</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
 </ul>
 </li>
 </ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.HydraulicGenerator.HydraulicEquations">NaivePyDESSEM.HydraulicGenerator.HydraulicEquations module</a><ul>
-<li><a class="reference internal" href="#id3">Author</a></li>
-<li><a class="reference internal" href="#id4">Description</a></li>
-<li><a class="reference internal" href="#intended-use">Intended Use</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicEquations.add_hydraulic_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_hydraulic_balance_expression()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicEquations.add_hydraulic_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_hydraulic_cost_expression()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.HydraulicGenerator.HydraulicGeneratorBuilder">NaivePyDESSEM.HydraulicGenerator.HydraulicGeneratorBuilder module</a><ul>
-<li><a class="reference internal" href="#hydropower-dispatch-model-builder">Hydropower Dispatch Model Builder</a><ul>
-<li><a class="reference internal" href="#supported-generation-modes-per-unit">Supported generation modes (per unit)</a></li>
-<li><a class="reference internal" href="#id5">Functions</a></li>
-<li><a class="reference internal" href="#modeling-conventions-and-units">Modeling Conventions and Units</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicGeneratorBuilder.add_hydro_problem"><code class="docutils literal notranslate"><span class="pre">add_hydro_problem()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicGeneratorBuilder.build_FPHs"><code class="docutils literal notranslate"><span class="pre">build_FPHs()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicGeneratorBuilder.build_hydro_dispatch"><code class="docutils literal notranslate"><span class="pre">build_hydro_dispatch()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.HydraulicGenerator.HydraulicObjectives">NaivePyDESSEM.HydraulicGenerator.HydraulicObjectives module</a><ul>
-<li><a class="reference internal" href="#objective-function-for-pure-hydropower-dispatch">Objective Function for Pure Hydropower Dispatch</a><ul>
-<li><a class="reference internal" href="#id6">Functions</a></li>
-<li><a class="reference internal" href="#id7">Modeling Conventions and Units</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicObjectives.set_objective_hydro"><code class="docutils literal notranslate"><span class="pre">set_objective_hydro()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.HydraulicGenerator.HydraulicVars">NaivePyDESSEM.HydraulicGenerator.HydraulicVars module</a><ul>
-<li><a class="reference internal" href="#hydropower-model-initialization-sets-parameters-and-variables">Hydropower Model Initialization: Sets, Parameters, and Variables</a><ul>
-<li><a class="reference internal" href="#id8">Functions</a></li>
-<li><a class="reference internal" href="#id9">Modeling Conventions and Units</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicVars.hydralic_add_variables_g"><code class="docutils literal notranslate"><span class="pre">hydralic_add_variables_g()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicVars.hydraulyc_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">hydraulyc_add_sets_and_params()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.HydraulicGenerator.PEFPH">NaivePyDESSEM.HydraulicGenerator.PEFPH module</a><ul>
-<li><a class="reference internal" href="#id10">Author</a></li>
-<li><a class="reference internal" href="#id11">Description</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.PEFPH.fph_pe_factory"><code class="docutils literal notranslate"><span class="pre">fph_pe_factory()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.HydraulicGenerator.SimplifiedConstantProductivityFPH">NaivePyDESSEM.HydraulicGenerator.SimplifiedConstantProductivityFPH module</a><ul>
-<li><a class="reference internal" href="#id12">Author</a></li>
-<li><a class="reference internal" href="#id13">Description</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.SimplifiedConstantProductivityFPH.simplified_constant_productivity_fph"><code class="docutils literal notranslate"><span class="pre">simplified_constant_productivity_fph()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.HydraulicGenerator">Module contents</a><ul>
-<li><a class="reference internal" href="#id14">Author</a></li>
-<li><a class="reference internal" href="#id15">Description</a></li>
-<li><a class="reference internal" href="#id16">Submodules</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -188,6 +87,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+          <li class="breadcrumb-item"><a href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
       <li class="breadcrumb-item active">NaivePyDESSEM.HydraulicGenerator package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/NaivePyDESSEM.HydraulicGenerator.rst.txt" rel="nofollow"> View page source</a>
@@ -229,8 +130,8 @@ productivity factor.</p>
 <p>This approximation is particularly useful in didactic or preliminary
 planning contexts where detailed head-dependent modeling is unnecessary.</p>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.HydraulicGenerator.ConstantProductivityFPH.constant_productivity_fph">
@@ -307,8 +208,8 @@ polynomials/surrogates provided to the factories.</p></li>
 within <cite>rho</cite> (or within head-to-power mapping) to yield MW.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.HydraulicGenerator.ExactFPH.fph_factory">
@@ -504,8 +405,8 @@ m.d[t]    : demand (MW), if hydropower-only balance is applied</p>
 </dd>
 </dl>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 </section>
 <dl class="py function">
@@ -790,8 +691,8 @@ code that consumes these data.</p></li>
 alternative FPH formulations; their semantics depend on the chosen mode.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 </section>
 <dl class="py class">
@@ -1039,8 +940,8 @@ energy system configurations.</p></li>
 sources (e.g., thermal, renewable) in hybrid dispatch models.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR..</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023..</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.HydraulicGenerator.HydraulicEquations.add_hydraulic_balance_expression">
@@ -1158,8 +1059,8 @@ FPH(Q, V, S) → MW and be consistent with model units.</p></li>
 head or loss polynomials supplied via data.units[h].</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 </section>
 <dl class="py function">
@@ -1175,7 +1076,7 @@ cost-minimization objective.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model to which the hydropower problem will be added.</p></li>
-<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data object containing planning horizon, demand mapping,
+<li><p><strong>data</strong> (<a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data object containing planning horizon, demand mapping,
 unit definitions, inflows, storage bounds, and productivity
 coefficients.</p></li>
 <li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, add the system-wide demand balance and deficit-penalizing
@@ -1231,7 +1132,7 @@ the signature FPH(Q, V, S) =&gt; MW.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>pyomo.core.base.PyomoModel.ConcreteModel</em>) – Pyomo model into which the FPH callables will be attached.</p></li>
-<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Configuration object containing unit maos and modes</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Configuration object containing unit maos and modes</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1275,7 +1176,7 @@ Qmin/Qmax, volume bounds, terminal storage target</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data with horizon, demand, unit map, and conversion constants.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data with horizon, demand, unit map, and conversion constants.</p></li>
 <li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, add the hydropower balance constraint and define the
 objective function. Default is True.</p></li>
 </ul>
@@ -1329,8 +1230,8 @@ to break degeneracy or steer solutions away from unnecessary spill.</p></li>
 <li><p>Compatible with NaivePyDESSEM hydropower data and constraints.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 </section>
 <dl class="py function">
@@ -1408,8 +1309,8 @@ where each unit is a <code class="docutils literal notranslate"><span class="pre
 integration into MILP/MIQP hydropower (or hydrothermal) formulations.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 </section>
 <dl class="py function">
@@ -1456,7 +1357,7 @@ from the <code class="docutils literal notranslate"><span class="pre">HydraulicD
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>pyomo.core.base.PyomoModel.ConcreteModel</em>) – Target Pyomo model to be populated with sets and parameters.</p></li>
-<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data object with planning horizon, demand mapping, and the
+<li><p><strong>data</strong> (<a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data object with planning horizon, demand mapping, and the
 dictionary of hydropower units.</p></li>
 </ul>
 </dd>
@@ -1515,8 +1416,8 @@ output in MW when using <code class="docutils literal notranslate"><span class="
 tailwater variations with flow.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.HydraulicGenerator.PEFPH.fph_pe_factory">
@@ -1591,8 +1492,8 @@ function does not include the <code class="docutils literal notranslate"><span c
 conversion constant can be absorbed directly into <code class="docutils literal notranslate"><span class="pre">P</span></code> to yield MW.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.HydraulicGenerator.SimplifiedConstantProductivityFPH.simplified_constant_productivity_fph">
@@ -1678,8 +1579,8 @@ constraints, and terminal storage requirements.</p>
 in hybrid models.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 </section>
 </section>
@@ -1687,7 +1588,10 @@ in hybrid models.</p></li>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="NaivePyDESSEM.html" class="btn btn-neutral float-left" title="NaivePyDESSEM package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="NaivePyDESSEM.RenewableGenerator.html" class="btn btn-neutral float-right" title="NaivePyDESSEM.RenewableGenerator package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

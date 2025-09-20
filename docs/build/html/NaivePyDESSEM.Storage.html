@@ -18,7 +18,9 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NaivePyDESSEM.ThermalGenerator package" href="NaivePyDESSEM.ThermalGenerator.html" />
+    <link rel="prev" title="NaivePyDESSEM.RenewableGenerator package" href="NaivePyDESSEM.RenewableGenerator.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,87 +42,37 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">NaivePyDESSEM.Storage package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.Storage.StorageBuilder">NaivePyDESSEM.Storage.StorageBuilder module</a><ul>
-<li><a class="reference internal" href="#author">Author</a></li>
-<li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#functions">Functions</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageBuilder.add_storage_problem"><code class="docutils literal notranslate"><span class="pre">add_storage_problem()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageBuilder.build_storage"><code class="docutils literal notranslate"><span class="pre">build_storage()</span></code></a></li>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="NaivePyDESSEM.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.html">NaivePyDESSEM.HydraulicGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">NaivePyDESSEM.Storage package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.Storage.StorageConstraints">NaivePyDESSEM.Storage.StorageConstraints module</a><ul>
-<li><a class="reference internal" href="#id1">Author</a></li>
-<li><a class="reference internal" href="#id2">Description</a></li>
-<li><a class="reference internal" href="#id3">Functions</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_energy_balance_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_energy_balance_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_mutual_exclusion_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_mutual_exclusion_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_only_balance_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_only_balance_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_power_limits_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_power_limits_constraint()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageConstraints.add_storage_soc_bounds_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_soc_bounds_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Builder">NaivePyDESSEM.Builder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.DataFrames">NaivePyDESSEM.DataFrames module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Formatters">NaivePyDESSEM.Formatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.ModelCheck">NaivePyDESSEM.ModelCheck module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.ModelFormatters">NaivePyDESSEM.ModelFormatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.PlotSeries">NaivePyDESSEM.PlotSeries module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Reporting">NaivePyDESSEM.Reporting module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Solver">NaivePyDESSEM.Solver module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Utils">NaivePyDESSEM.Utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.YAMLLoader">NaivePyDESSEM.YAMLLoader module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM">Module contents</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.Storage.StorageDataTypes">NaivePyDESSEM.Storage.StorageDataTypes module</a><ul>
-<li><a class="reference internal" href="#id4">Author</a></li>
-<li><a class="reference internal" href="#id5">Description</a></li>
-<li><a class="reference internal" href="#classes">Classes</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><code class="docutils literal notranslate"><span class="pre">StorageData</span></code></a><ul>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.Cdef"><code class="docutils literal notranslate"><span class="pre">StorageData.Cdef</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.delta_t"><code class="docutils literal notranslate"><span class="pre">StorageData.delta_t</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.demand"><code class="docutils literal notranslate"><span class="pre">StorageData.demand</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.horizon"><code class="docutils literal notranslate"><span class="pre">StorageData.horizon</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.units"><code class="docutils literal notranslate"><span class="pre">StorageData.units</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit"><code class="docutils literal notranslate"><span class="pre">StorageUnit</span></code></a><ul>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Eini"><code class="docutils literal notranslate"><span class="pre">StorageUnit.Eini</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Emax"><code class="docutils literal notranslate"><span class="pre">StorageUnit.Emax</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Emin"><code class="docutils literal notranslate"><span class="pre">StorageUnit.Emin</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Pch_max"><code class="docutils literal notranslate"><span class="pre">StorageUnit.Pch_max</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Pdis_max"><code class="docutils literal notranslate"><span class="pre">StorageUnit.Pdis_max</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.eta_c"><code class="docutils literal notranslate"><span class="pre">StorageUnit.eta_c</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.eta_d"><code class="docutils literal notranslate"><span class="pre">StorageUnit.eta_d</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.name"><code class="docutils literal notranslate"><span class="pre">StorageUnit.name</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
 </ul>
 </li>
 </ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.Storage.StorageEquations">NaivePyDESSEM.Storage.StorageEquations module</a><ul>
-<li><a class="reference internal" href="#id6">Author</a></li>
-<li><a class="reference internal" href="#id7">Description</a></li>
-<li><a class="reference internal" href="#intended-use">Intended Use</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageEquations.add_storage_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_storage_balance_expression()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageEquations.add_storage_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_storage_cost_expression()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.Storage.StorageObjective">NaivePyDESSEM.Storage.StorageObjective module</a><ul>
-<li><a class="reference internal" href="#id8">Author</a></li>
-<li><a class="reference internal" href="#id9">Description</a></li>
-<li><a class="reference internal" href="#id10">Functions</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageObjective.set_objective_storage"><code class="docutils literal notranslate"><span class="pre">set_objective_storage()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.Storage.StorageVars">NaivePyDESSEM.Storage.StorageVars module</a><ul>
-<li><a class="reference internal" href="#id11">Author</a></li>
-<li><a class="reference internal" href="#id12">Description</a></li>
-<li><a class="reference internal" href="#id13">Functions</a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageVars.storage_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">storage_add_sets_and_params()</span></code></a></li>
-<li><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageVars.storage_add_variables"><code class="docutils literal notranslate"><span class="pre">storage_add_variables()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-NaivePyDESSEM.Storage">Module contents</a><ul>
-<li><a class="reference internal" href="#id14">Author</a></li>
-<li><a class="reference internal" href="#id15">Description</a></li>
-<li><a class="reference internal" href="#id16">Submodules</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -135,6 +87,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+          <li class="breadcrumb-item"><a href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
       <li class="breadcrumb-item active">NaivePyDESSEM.Storage package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/NaivePyDESSEM.Storage.rst.txt" rel="nofollow"> View page source</a>
@@ -184,8 +138,8 @@ replace the objective accordingly.</p></li>
 combined system balance and a joint objective in a higher-level builder.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageBuilder.add_storage_problem">
@@ -313,8 +267,8 @@ balance should be implemented at a higher builder level.</p></li>
 used to convert power (MW) to energy (MWh).</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageConstraints.add_storage_energy_balance_constraint">
@@ -469,8 +423,8 @@ instantiation.</p></li>
 (MWh) in the state-of-charge balance.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py class">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageData">
@@ -640,8 +594,8 @@ and parameters like <cite>storage_eta_c</cite>, <cite>storage_eta_d</cite>, and 
 sources (e.g., thermal, hydro) in hybrid dispatch models.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR..</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023..</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageEquations.add_storage_balance_expression">
@@ -749,8 +703,8 @@ to discourage deficits under normal operating conditions.</p></li>
 system-wide objective should be defined at a higher level.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageObjective.set_objective_storage">
@@ -819,8 +773,8 @@ variables may be added in other modules if mutual exclusion between
 charge and discharge is required.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageVars.storage_add_sets_and_params">
@@ -927,8 +881,8 @@ maintainability.</p></li>
 within this package without altering the external interface.</p></li>
 </ul>
 <p class="rubric">References</p>
-<p>[1] CEPEL (2023). DESSEM: Manual de Metodologia.
-[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 </section>
 </section>
@@ -936,7 +890,10 @@ within this package without altering the external interface.</p></li>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="NaivePyDESSEM.RenewableGenerator.html" class="btn btn-neutral float-left" title="NaivePyDESSEM.RenewableGenerator package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="NaivePyDESSEM.ThermalGenerator.html" class="btn btn-neutral float-right" title="NaivePyDESSEM.ThermalGenerator package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

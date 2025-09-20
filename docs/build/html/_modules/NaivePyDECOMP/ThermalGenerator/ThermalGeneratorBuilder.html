@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cli Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">NaivePyDESSEM Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">HydraulicGenerator Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.HydraulicGenerator.html">NaivePyDESSEM.HydraulicGenerator package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ThermalGenerator Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">RenewableGenerator Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Storage Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.Storage.html">NaivePyDESSEM.Storage package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Thermal Unit Commitment — Model Builder</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">This module provides a high-level builder function for thermal UC models.</span>
+<span class="sd">It orchestrates the composition of Pyomo model objects by combining:</span>
+
+<span class="sd">- Sets and parameters (*thermal_components.thermal_add_sets_and_params*)</span>
+<span class="sd">- Variables (*thermal_components.thermal_add_variables_uc*)</span>
+<span class="sd">- Constraint families (*thermal_constraints*)</span>
+<span class="sd">- Objective functions (*thermal_objectives*)</span>
+<span class="sd">- Optional features:</span>
+<span class="sd">    * Reserve provision and requirement constraints</span>
+<span class="sd">    * Emissions/fuel caps</span>
+<span class="sd">    * Piecewise-linear (PWL) variable cost representation</span>
+
+<span class="sd">Builder Function</span>
+<span class="sd">----------------</span>
+<span class="sd">*build_thermal_uc(data, objective, include_reserve, include_objective)*</span>
+
+<span class="sd">Parameters:</span>
+
+<span class="sd">- data            : ThermalData object with horizon, demand, and unit info</span>
+<span class="sd">- objective       : &quot;miqp&quot; (quadratic) or &quot;pwl&quot; (piecewise linear)</span>
+<span class="sd">- include_reserve : bool, add reserve variables/constraints if True</span>
+<span class="sd">- include_objective : bool, add objective function</span>
+
+<span class="sd">Returns:</span>
+
+<span class="sd">- A fully assembled Pyomo ConcreteModel ready to be solved by MILP/MIQP solvers</span>
+<span class="sd">  (e.g., Gurobi, CPLEX, SCIP) or MINLP solvers (via MindtPy with glpk/Ipopt).</span>
+<span class="sd"> </span>
+<span class="sd">Usage</span>
+<span class="sd">-----</span>
+<span class="sd">This is the main entry point to generate UC test cases from ThermalData</span>
+<span class="sd">instances. It ensures consistency across modules and allows easy switching</span>
+<span class="sd">between formulations.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023  </span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ThermalVars</span><span class="w"> </span><span class="kn">import</span> <span class="n">thermal_add_sets_and_params</span><span class="p">,</span> <span class="n">thermal_add_variables_uc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ThermalConstraints</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">thermal_add_balance_constraint</span><span class="p">,</span>
+    <span class="n">thermal_add_capacity_constraint</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ThermalObjectives</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_objective_thermo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ThermalDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">ThermalData</span>
+
+
+<div class="viewcode-block" id="build_thermal_uc">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.build_thermal_uc">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_thermal_uc</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">ThermalData</span><span class="p">,</span>
+    <span class="n">include_objective</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Builds a modular thermal Unit Commitment (UC) Pyomo model.</span>
+
+<span class="sd">    This function integrates all sets, parameters, variables, </span>
+<span class="sd">    constraints, and objectives required for the thermal UC problem.</span>
+<span class="sd">    The model may be constructed with either a quadratic cost </span>
+<span class="sd">    function (MIQP) or a piecewise linear cost approximation (PWL).</span>
+<span class="sd">    Optional constraints for spinning reserve and global emissions </span>
+<span class="sd">    caps are also supported.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : object</span>
+<span class="sd">        Data container providing unit and system information.</span>
+<span class="sd">        Must include:</span>
+
+<span class="sd">        - demand profile</span>
+<span class="sd">        - unit technical parameters (min/max power, ramps, </span>
+<span class="sd">          minimum up/down times, costs, etc.)</span>
+<span class="sd">    </span>
+<span class="sd">    objective : {&quot;miqp&quot;, &quot;pwl&quot;}, optional</span>
+<span class="sd">        Type of objective function to use:</span>
+<span class="sd">    </span>
+<span class="sd">        - &quot;miqp&quot;: quadratic cost coefficients (a, b, c).</span>
+<span class="sd">        - &quot;pwl&quot; : piecewise linear cost with SOS2/linearization.</span>
+<span class="sd">           Default is &quot;miqp&quot;.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        A fully constructed Pyomo model ready for solving </span>
+<span class="sd">        with a MILP/MIQP solver.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pyomo.opt import SolverFactory</span>
+<span class="sd">    &gt;&gt;&gt; from NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder import build_thermal_uc</span>
+<span class="sd">    &gt;&gt;&gt; model = build_thermal_uc(</span>
+<span class="sd">    ...     data</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; opt = SolverFactory(&quot;gurobi&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; results = opt.solve(model)</span>
+<span class="sd">    &gt;&gt;&gt; print(results.solver.termination_condition)</span>
+<span class="sd">    optimal</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+
+    <span class="n">m</span> <span class="o">=</span> <span class="n">add_thermal_problem</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
+                            <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+                            <span class="n">include_objective</span><span class="o">=</span><span class="n">include_objective</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+<div class="viewcode-block" id="add_thermal_problem">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_problem">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_thermal_problem</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span>
+                        <span class="n">data</span><span class="p">:</span> <span class="n">ThermalData</span><span class="p">,</span>
+                        <span class="n">include_objective</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assemble a thermal unit-commitment (UC) problem in Pyomo.</span>
+
+<span class="sd">    This builder configures a thermal UC optimization model by attaching sets,</span>
+<span class="sd">    parameters, decision variables, and standard operational constraints. It</span>
+<span class="sd">    supports both MIQP (quadratic cost) and PWL (piecewise linear cost)</span>
+<span class="sd">    formulations, with optional reserve requirements and objective definition.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model to which the thermal UC problem will be added.</span>
+<span class="sd">    data : ThermalData</span>
+<span class="sd">        Input data structure containing unit characteristics, cost parameters,</span>
+<span class="sd">        horizon length, demand, reserve requirements, and initial conditions.</span>
+<span class="sd">    include_objective : bool, optional</span>
+<span class="sd">        If True, attach the cost-minimization objective function</span>
+<span class="sd">        appropriate for the chosen cost type (default False).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The updated model with thermal UC constraints and, if enabled,</span>
+<span class="sd">        the objective function.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pyomo.environ import ConcreteModel</span>
+<span class="sd">    &gt;&gt;&gt; m = ConcreteModel()</span>
+<span class="sd">    &gt;&gt;&gt; m = add_thermal_problem(m, data, objective=&quot;miqp&quot;,</span>
+<span class="sd">    ...                         include_objective=True)</span>
+<span class="sd">    &gt;&gt;&gt; type(m)</span>
+<span class="sd">    &lt;class &#39;pyomo.core.base.PyomoModel.ConcreteModel&#39;&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">thermal_add_sets_and_params</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">thermal_add_variables_uc</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+    <span class="n">thermal_add_capacity_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">include_objective</span><span class="p">:</span>
+        <span class="n">thermal_add_balance_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">set_objective_thermo</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

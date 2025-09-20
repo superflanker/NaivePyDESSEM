@@ -1,0 +1,436 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDECOMP.PlotSeries &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cli Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">NaivePyDESSEM Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">HydraulicGenerator Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../NaivePyDESSEM.HydraulicGenerator.html">NaivePyDESSEM.HydraulicGenerator package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ThermalGenerator Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">RenewableGenerator Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Storage Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../NaivePyDESSEM.Storage.html">NaivePyDESSEM.Storage package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDECOMP.PlotSeries</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDECOMP.PlotSeries</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+
+<span class="sd">Plotting Utilities for Time Series in Power System Studies</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+
+<span class="sd">This module provides high-level plotting routines to visualize time-indexed</span>
+<span class="sd">variables commonly encountered in short-term operation and planning studies</span>
+<span class="sd">of hydrothermal systems. It offers both line plots and bar plots, supporting</span>
+<span class="sd">grouped or stacked styles.</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">plot_series(t, series_dict, title, ylabel, file)</span>
+<span class="sd">    Plot one or more time series as line graphs, with LaTeX-compatible labels.</span>
+
+<span class="sd">plot_series_bar(t, series_dict, title, ylabel, file, stacked=False, width=0.85)</span>
+<span class="sd">    Plot multiple time series as bar charts, either grouped or stacked, with</span>
+<span class="sd">    configurable bar width.</span>
+
+<span class="sd">Conventions</span>
+<span class="sd">-----------</span>
+<span class="sd">- The time axis is discrete, typically representing hourly stages</span>
+<span class="sd">  (e.g., t = 1, …, 24).</span>
+<span class="sd">- Input series must be aligned with the time axis.</span>
+<span class="sd">- Labels provided in series_dict are rendered in math mode</span>
+<span class="sd">  to enable LaTeX-style notation in figures.</span>
+<span class="sd">- Output files are saved with 600 dpi resolution and tight bounding boxes.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- Figures are generated using Matplotlib and saved to the given file path</span>
+<span class="sd">  (PNG, PDF, or other supported formats).</span>
+<span class="sd">- The functions are designed for clarity in academic and technical reports,</span>
+<span class="sd">  especially when documenting hydrothermal dispatch and unit-commitment results.</span>
+<span class="sd">- Grid lines, legends, and axis labels are automatically formatted for</span>
+<span class="sd">  readability.</span>
+
+<span class="sd">Examples</span>
+<span class="sd">--------</span>
+<span class="sd">Render a simple time series plot:</span>
+
+<span class="sd">&gt;&gt;&gt; t = range(1, 5)</span>
+<span class="sd">&gt;&gt;&gt; data = {&quot;U_{1}&quot;: [100, 120, 130, 140], &quot;U_{2}&quot;: [90, 110, 125, 150]}</span>
+<span class="sd">&gt;&gt;&gt; plot_series(t, data, title=&quot;Hydropower Generation&quot;, ylabel=&quot;MW&quot;,</span>
+<span class="sd">...             file=&quot;generation.png&quot;)</span>
+
+<span class="sd">Render a stacked bar plot:</span>
+
+<span class="sd">&gt;&gt;&gt; data = {&quot;Hydro&quot;: [200, 220, 210], &quot;Thermal&quot;: [300, 280, 290]}</span>
+<span class="sd">&gt;&gt;&gt; t = [1, 2, 3]</span>
+<span class="sd">&gt;&gt;&gt; plot_series_bar(t, data, title=&quot;Generation Mix&quot;, ylabel=&quot;MW&quot;,</span>
+<span class="sd">...                 file=&quot;mix.png&quot;, stacked=True)</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023  </span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">cycler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">value</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<div class="viewcode-block" id="get_distinct_colors">
+<a class="viewcode-back" href="../../NaivePyDECOMP.html#NaivePyDECOMP.PlotSeries.get_distinct_colors">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_distinct_colors</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">cmap_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;tab20&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a list of visually distinct colors.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n : int</span>
+<span class="sd">        Number of colors to generate.</span>
+<span class="sd">    cmap_name : str, optional</span>
+<span class="sd">        Name of the Matplotlib colormap to use (default is &#39;tab10&#39;).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    colors : list of str</span>
+<span class="sd">        List of hex color strings usable in Matplotlib.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap_name</span><span class="p">)</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmap</span><span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="n">cmap</span><span class="o">.</span><span class="n">N</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">colors</span></div>
+
+
+
+<div class="viewcode-block" id="plot_series">
+<a class="viewcode-back" href="../../NaivePyDECOMP.html#NaivePyDECOMP.PlotSeries.plot_series">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_series</span><span class="p">(</span><span class="n">t</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span>
+                <span class="n">series_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span>
+                <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                <span class="n">ylabel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot one or more time series as line graphs.</span>
+
+<span class="sd">    This function generates a line plot for multiple time-indexed series</span>
+<span class="sd">    and saves the resulting figure to a file. Each series is drawn with a</span>
+<span class="sd">    distinct line style and included in the legend. The x-axis represents</span>
+<span class="sd">    discrete time stages, while the y-axis corresponds to the variable of</span>
+<span class="sd">    interest (e.g., power, flow, volume).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    t : Sequence</span>
+<span class="sd">        Ordered sequence of time stages to be used as the x-axis values.</span>
+<span class="sd">    series_dict : Dict[str, Sequence[float]]</span>
+<span class="sd">        Dictionary mapping labels to numeric sequences. Each sequence must</span>
+<span class="sd">        have the same length as `t`. Labels may include LaTeX math ($...$).</span>
+<span class="sd">    title : str</span>
+<span class="sd">        Title of the plot, displayed at the top of the figure.</span>
+<span class="sd">    ylabel : str</span>
+<span class="sd">        Label for the y-axis.</span>
+<span class="sd">    file : str</span>
+<span class="sd">        Output file path where the figure will be saved (e.g., PNG, PDF).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        The function saves the generated plot to `file`.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The figure is sized at 8 * 5 inches and saved at 600 dpi resolution.</span>
+<span class="sd">    - A grid is shown to facilitate reading values.</span>
+<span class="sd">    - The legend is automatically constructed from the provided labels.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; t = range(1, 5)</span>
+<span class="sd">    &gt;&gt;&gt; data = {&quot;U_{1}&quot;: [100, 120, 130, 140], &quot;U_{2}&quot;: [90, 110, 125, 150]}</span>
+<span class="sd">    &gt;&gt;&gt; plot_series(t, data, title=&quot;Hydropower Generation&quot;, ylabel=&quot;MW&quot;,</span>
+<span class="sd">    ...             file=&quot;generation.png&quot;)</span>
+<span class="sd">    # Saves a line plot with two curves to &#39;generation.png&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_mathwrap</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span> <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">))</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">$&quot;</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">get_distinct_colors</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">series_dict</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">series_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">_mathwrap</span><span class="p">(</span><span class="n">label</span><span class="p">),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Estágio - T (h)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="plot_series_bar">
+<a class="viewcode-back" href="../../NaivePyDECOMP.html#NaivePyDECOMP.PlotSeries.plot_series_bar">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_series_bar</span><span class="p">(</span>
+    <span class="n">t</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span>
+    <span class="n">series_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">stacked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.85</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot multiple time series as bar charts, either grouped or stacked.</span>
+
+<span class="sd">    This function generates a bar chart visualization for a set of time-indexed</span>
+<span class="sd">    series and saves it to a file. The bars can be rendered side-by-side</span>
+<span class="sd">    (grouped) or stacked to show composition. Each series is labeled and</span>
+<span class="sd">    included in the legend. The x-axis corresponds to discrete time stages.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    t : Sequence</span>
+<span class="sd">        Ordered sequence of time stages to be used as x-axis labels.</span>
+<span class="sd">    series_dict : Dict[str, Sequence[float]]</span>
+<span class="sd">        Dictionary mapping series labels to their corresponding numeric values.</span>
+<span class="sd">        All series must have the same length as `t`.</span>
+<span class="sd">    title : str</span>
+<span class="sd">        Title of the plot.</span>
+<span class="sd">    ylabel : str</span>
+<span class="sd">        Label for the y-axis.</span>
+<span class="sd">    file : str</span>
+<span class="sd">        Output file path where the figure will be saved (e.g., PNG, PDF).</span>
+<span class="sd">    stacked : bool, optional</span>
+<span class="sd">        If True, plot stacked bars (suitable for compositional views such as</span>
+<span class="sd">        generation mix). If False, plot grouped bars. Default is False.</span>
+<span class="sd">    width : float, optional</span>
+<span class="sd">        Width of the bars. For grouped mode, this value determines the total</span>
+<span class="sd">        group width. Default is 0.85.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        The function saves the generated plot to `file`.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The output figure is saved with 600 dpi resolution and tight bounding box.</span>
+<span class="sd">    - When stacked mode is enabled or only a single series is provided,</span>
+<span class="sd">      values are drawn cumulatively (top of each other).</span>
+<span class="sd">    - Legend columns are adapted to the number of series.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; t = range(1, 5)</span>
+<span class="sd">    &gt;&gt;&gt; data = {&quot;A&quot;: [1, 2, 3, 4], &quot;B&quot;: [2, 3, 4, 5]}</span>
+<span class="sd">    &gt;&gt;&gt; plot_series_bar(t, data, title=&quot;Example&quot;, ylabel=&quot;MW&quot;, file=&quot;out.png&quot;)</span>
+<span class="sd">    # Produces and saves a grouped bar chart to &#39;out.png&#39;.</span>
+
+<span class="sd">    &gt;&gt;&gt; plot_series_bar(t, data, title=&quot;Stacked&quot;, ylabel=&quot;MW&quot;,</span>
+<span class="sd">    ...                 file=&quot;out_stacked.png&quot;, stacked=True)</span>
+<span class="sd">    # Produces and saves a stacked bar chart to &#39;out_stacked.png&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_mathwrap</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span> <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">))</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">$&quot;</span>
+
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">get_distinct_colors</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">series_dict</span><span class="p">))</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">series_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">series_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># (S, T)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">stacked</span> <span class="ow">or</span> <span class="n">S</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># acumuladores separados para positivos e negativos</span>
+        <span class="n">pos_cum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">neg_cum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">lab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">y_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">y_neg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">&lt;</span>  <span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+            <span class="c1"># barras positivas empilhadas acima de pos_cum</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">y_pos</span><span class="p">):</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+                    <span class="n">x</span><span class="p">,</span>
+                    <span class="n">y_pos</span><span class="p">,</span>
+                    <span class="n">bottom</span><span class="o">=</span><span class="n">pos_cum</span><span class="p">,</span>
+                    <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">_mathwrap</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">y_neg</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># evita duplicar legenda</span>
+                    <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">pos_cum</span> <span class="o">=</span> <span class="n">pos_cum</span> <span class="o">+</span> <span class="n">y_pos</span>
+
+            <span class="c1"># barras negativas empilhadas abaixo de neg_cum</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">y_neg</span><span class="p">):</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+                    <span class="n">x</span><span class="p">,</span>
+                    <span class="n">y_neg</span><span class="p">,</span>
+                    <span class="n">bottom</span><span class="o">=</span><span class="n">neg_cum</span><span class="p">,</span>
+                    <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">_mathwrap</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">y_pos</span><span class="p">)</span> <span class="k">else</span> <span class="n">_mathwrap</span><span class="p">(</span><span class="n">lab</span><span class="p">),</span>
+                    <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">neg_cum</span> <span class="o">=</span> <span class="n">neg_cum</span> <span class="o">+</span> <span class="n">y_neg</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">group_width</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+        <span class="n">bar_w</span> <span class="o">=</span> <span class="n">group_width</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
+        <span class="n">offsets</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">S</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">bar_w</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">lab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+                <span class="n">x</span> <span class="o">+</span> <span class="n">offsets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">bar_w</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">_mathwrap</span><span class="p">(</span><span class="n">lab</span><span class="p">),</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Estágio - T (h)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span> <span class="k">for</span> <span class="n">tt</span> <span class="ow">in</span> <span class="n">t</span><span class="p">])</span>
+
+    <span class="c1"># legenda</span>
+    <span class="n">ncol</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">S</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="nb">min</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="n">ncol</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span></div>
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -26,6 +26,8 @@ Homepage = "https://github.com/superflanker/NaivePyDESSEM"
 [project.scripts]
 pydessem-solve = "NaivePyDESSEM.cli.cli:main"
 pydessem-plot = "NaivePyDESSEM.cli.plot_cli:main"
+pydecomp-solve = "NaivePyDECOMP.cli.cli:main"
+pydecomp-plot = "NaivePyDECOMP.cli.plot_cli:main"
 
 [build-system]
 requires = ["setuptools", "wheel"]

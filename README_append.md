@@ -9,16 +9,46 @@
 │   │   │   ├── environment.pickle
 │   │   │   ├── index.doctree
 │   │   │   ├── modules.doctree
+│   │   │   ├── NaivePyDECOMP.cli.doctree
+│   │   │   ├── NaivePyDECOMP.doctree
+│   │   │   ├── NaivePyDECOMP.HydraulicGenerator.doctree
+│   │   │   ├── NaivePyDECOMP.RenewableGenerator.doctree
+│   │   │   ├── NaivePyDECOMP.Storage.doctree
+│   │   │   ├── NaivePyDECOMP.ThermalGenerator.doctree
 │   │   │   ├── NaivePyDESSEM.cli.doctree
 │   │   │   ├── NaivePyDESSEM.doctree
 │   │   │   ├── NaivePyDESSEM.HydraulicGenerator.doctree
 │   │   │   ├── NaivePyDESSEM.RenewableGenerator.doctree
 │   │   │   ├── NaivePyDESSEM.Storage.doctree
 │   │   │   ├── NaivePyDESSEM.ThermalGenerator.doctree
-│   │   │   ├── readme.doctree
 │   │   │   └── README.doctree
 │   │   └── html
 │   │       ├── _modules
+│   │       │   ├── NaivePyDECOMP
+│   │       │   │   ├── cli
+│   │       │   │   │   ├── cli.html
+│   │       │   │   │   └── plot_cli.html
+│   │       │   │   ├── HydraulicGenerator
+│   │       │   │   │   ├── HydraulicConstraints.html
+│   │       │   │   │   ├── HydraulicDataTypes.html
+│   │       │   │   │   ├── HydraulicGeneratorBuilder.html
+│   │       │   │   │   └── HydraulicVars.html
+│   │       │   │   ├── ThermalGenerator
+│   │       │   │   │   ├── ThermalConstraints.html
+│   │       │   │   │   ├── ThermalDataTypes.html
+│   │       │   │   │   ├── ThermalEquations.html
+│   │       │   │   │   ├── ThermalGeneratorBuilder.html
+│   │       │   │   │   ├── ThermalObjectives.html
+│   │       │   │   │   └── ThermalVars.html
+│   │       │   │   ├── Builder.html
+│   │       │   │   ├── DataFrames.html
+│   │       │   │   ├── Formatters.html
+│   │       │   │   ├── ModelCheck.html
+│   │       │   │   ├── ModelFormatters.html
+│   │       │   │   ├── PlotSeries.html
+│   │       │   │   ├── Reporting.html
+│   │       │   │   ├── Solver.html
+│   │       │   │   └── Utils.html
 │   │       │   ├── NaivePyDESSEM
 │   │       │   │   ├── cli
 │   │       │   │   │   ├── cli.html
@@ -71,6 +101,12 @@
 │   │       │   ├── index.md.txt
 │   │       │   ├── index.rst.txt
 │   │       │   ├── modules.rst.txt
+│   │       │   ├── NaivePyDECOMP.cli.rst.txt
+│   │       │   ├── NaivePyDECOMP.HydraulicGenerator.rst.txt
+│   │       │   ├── NaivePyDECOMP.RenewableGenerator.rst.txt
+│   │       │   ├── NaivePyDECOMP.rst.txt
+│   │       │   ├── NaivePyDECOMP.Storage.rst.txt
+│   │       │   ├── NaivePyDECOMP.ThermalGenerator.rst.txt
 │   │       │   ├── NaivePyDESSEM.cli.rst.txt
 │   │       │   ├── NaivePyDESSEM.HydraulicGenerator.rst.txt
 │   │       │   ├── NaivePyDESSEM.RenewableGenerator.rst.txt
@@ -146,6 +182,12 @@
 │   │       ├── genindex.html
 │   │       ├── index.html
 │   │       ├── modules.html
+│   │       ├── NaivePyDECOMP.cli.html
+│   │       ├── NaivePyDECOMP.html
+│   │       ├── NaivePyDECOMP.HydraulicGenerator.html
+│   │       ├── NaivePyDECOMP.RenewableGenerator.html
+│   │       ├── NaivePyDECOMP.Storage.html
+│   │       ├── NaivePyDECOMP.ThermalGenerator.html
 │   │       ├── NaivePyDESSEM.cli.html
 │   │       ├── NaivePyDESSEM.html
 │   │       ├── NaivePyDESSEM.HydraulicGenerator.html
@@ -161,6 +203,12 @@
 │   │   ├── conf.py
 │   │   ├── index.rst
 │   │   ├── modules.rst
+│   │   ├── NaivePyDECOMP.cli.rst
+│   │   ├── NaivePyDECOMP.HydraulicGenerator.rst
+│   │   ├── NaivePyDECOMP.RenewableGenerator.rst
+│   │   ├── NaivePyDECOMP.rst
+│   │   ├── NaivePyDECOMP.Storage.rst
+│   │   ├── NaivePyDECOMP.ThermalGenerator.rst
 │   │   ├── NaivePyDESSEM.cli.rst
 │   │   ├── NaivePyDESSEM.HydraulicGenerator.rst
 │   │   ├── NaivePyDESSEM.RenewableGenerator.rst
@@ -171,23 +219,122 @@
 │   ├── Makefile
 │   └── requirements.txt
 ├── examples
-│   ├── exemplo_despacho_hibrido.yaml
-│   ├── trabalho01_caso01_1.yaml
-│   ├── trabalho01_caso01_2.yaml
-│   ├── trabalho01_caso01_3.yaml
-│   ├── trabalho01_caso02.yaml
-│   ├── trabalho01_caso03.yaml
-│   ├── trabalho01_caso04.yaml
-│   └── trabalho01_caso05.yaml
+│   ├── DECOMP
+│   │   ├── trabalho02_caso01.yaml
+│   │   ├── trabalho02_caso02.yaml
+│   │   ├── trabalho02_caso03.yaml
+│   │   └── trabalho02_caso04.yaml
+│   ├── DESSEM
+│   │   ├── exemplo_despacho_hibrido.yaml
+│   │   ├── trabalho01_caso01_1.yaml
+│   │   ├── trabalho01_caso01_2.yaml
+│   │   ├── trabalho01_caso01_3.yaml
+│   │   ├── trabalho01_caso02.yaml
+│   │   ├── trabalho01_caso03.yaml
+│   │   ├── trabalho01_caso04.yaml
+│   │   └── trabalho01_caso05.yaml
+│   └── NEWAVE
+├── relatorios
+│   └── DESSEM
+│       └── caso_345
+│           ├── imagens
+│           │   ├── carga_descarga_baterias_caso04.png
+│           │   ├── carga_descarga_baterias_caso05.png
+│           │   ├── custos_geracao_caso03.png
+│           │   ├── custos_geracao_caso04.png
+│           │   ├── custos_geracao_caso05.png
+│           │   ├── geracao_caso03.png
+│           │   ├── geracao_caso04.png
+│           │   ├── geracao_caso05.png
+│           │   ├── geracao_desempilhada_caso04.png
+│           │   ├── geracao_desempilhada_caso05.png
+│           │   ├── vazao_turbinada_caso03.png
+│           │   ├── vazao_turbinada_caso04.png
+│           │   ├── vazao_turbinada_caso05.png
+│           │   ├── volume_armazenado_caso03.png
+│           │   ├── volume_armazenado_caso04.png
+│           │   └── volume_armazenado_caso05.png
+│           ├── controle_termicas_caso03.tex
+│           ├── controle_termicas_caso04.tex
+│           ├── controle_termicas_caso05.tex
+│           ├── custos_caso03.tex
+│           ├── custos_caso04.tex
+│           ├── custos_caso05.tex
+│           ├── parametros_hidraulicos_caso03.tex
+│           ├── parametros_hidraulicos_caso04.tex
+│           ├── parametros_hidraulicos_caso05.tex
+│           ├── tabela_geracao_caso03.tex
+│           ├── tabela_geracao_caso04.tex
+│           └── tabela_geracao_caso05.tex
 ├── resultados
-│   ├── despacho_caso01_1.csv
-│   ├── despacho_caso01_2.csv
-│   ├── despacho_caso01_3.csv
-│   ├── despacho_caso02.csv
-│   ├── despacho_caso03.csv
-│   ├── despacho_caso04.csv
-│   └── despacho_caso05.csv
+│   ├── DECOMP
+│   │   ├── despacho_caso01.csv
+│   │   ├── despacho_caso01_single_pl.csv
+│   │   ├── despacho_caso02.csv
+│   │   ├── despacho_caso02_single_pl.csv
+│   │   ├── despacho_caso03.csv
+│   │   ├── despacho_caso03_single_pl.csv
+│   │   ├── despacho_caso04.csv
+│   │   └── despacho_caso04_single_pl.csv
+│   ├── dessem
+│   └── DESSEM
+│       ├── despacho_caso01_1.csv
+│       ├── despacho_caso01_2.csv
+│       ├── despacho_caso01_3.csv
+│       ├── despacho_caso02.csv
+│       ├── despacho_caso03.csv
+│       ├── despacho_caso04.csv
+│       └── despacho_caso05.csv
 ├── src
+│   ├── NaivePyDECOMP
+│   │   ├── cli
+│   │   │   ├── __init__.py
+│   │   │   ├── cli.py
+│   │   │   └── plot_cli.py
+│   │   ├── HydraulicGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── HydraulicConstraints.py
+│   │   │   ├── HydraulicDataTypes.py
+│   │   │   ├── HydraulicEquations.py
+│   │   │   ├── HydraulicGeneratorBuilder.py
+│   │   │   ├── HydraulicObjectives.py
+│   │   │   ├── HydraulicVars.py
+│   │   │   └── SimplifiedConstantProductivityFPH.py
+│   │   ├── RenewableGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── RenewableConstraints.py
+│   │   │   ├── RenewableDataTypes.py
+│   │   │   ├── RenewableEquations.py
+│   │   │   ├── RenewableGeneratorBuilder.py
+│   │   │   ├── RenewableObjectives.py
+│   │   │   └── RenewableVars.py
+│   │   ├── Storage
+│   │   │   ├── __init__.py
+│   │   │   ├── StorageBuilder.py
+│   │   │   ├── StorageConstraints.py
+│   │   │   ├── StorageDataTypes.py
+│   │   │   ├── StorageEquations.py
+│   │   │   ├── StorageObjective.py
+│   │   │   └── StorageVars.py
+│   │   ├── ThermalGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── ThermalConstraints.py
+│   │   │   ├── ThermalDataTypes.py
+│   │   │   ├── ThermalEquations.py
+│   │   │   ├── ThermalGeneratorBuilder.py
+│   │   │   ├── ThermalObjectives.py
+│   │   │   └── ThermalVars.py
+│   │   ├── __init__.py
+│   │   ├── Builder.py
+│   │   ├── DataFrames.py
+│   │   ├── Formatters.py
+│   │   ├── ModelCheck.py
+│   │   ├── ModelFormatters.py
+│   │   ├── PlotSeries.py
+│   │   ├── Reporting.py
+│   │   ├── Solver.py
+│   │   ├── Utils.py
+│   │   └── YAMLLoader.py
 │   ├── NaivePyDESSEM
 │   │   ├── cli
 │   │   │   ├── __init__.py
@@ -281,6 +428,8 @@
 │   │   ├── pip3
 │   │   ├── pip3.10
 │   │   ├── pybabel
+│   │   ├── pydecomp-plot
+│   │   ├── pydecomp-solve
 │   │   ├── pydessem-plot
 │   │   ├── pydessem-solve
 │   │   ├── pyftmerge
@@ -14948,12 +15097,14 @@
 ├── LICENSE
 ├── MANIFEST.in
 ├── project_structure.py
+├── project_structure.txt
 ├── pyproject.toml
 ├── README.md
 ├── README_append.md
 ├── requirements.txt
-├── run_plots.sh
-├── run_solvers.sh
+├── run_decomp_solvers.sh
+├── run_dessem_plots.sh
+├── run_dessem_solvers.sh
 ├── setup.cfg
 ├── teste.tex
 └── teste_table.tex

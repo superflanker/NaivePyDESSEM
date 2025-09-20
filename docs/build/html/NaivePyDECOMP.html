@@ -1,0 +1,1359 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDECOMP package &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NaivePyDECOMP.HydraulicGenerator package" href="NaivePyDECOMP.HydraulicGenerator.html" />
+    <link rel="prev" title="NaivePyDESSEM.cli package" href="NaivePyDESSEM.cli.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">NaivePyDECOMP package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html">NaivePyDECOMP.HydraulicGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html">NaivePyDECOMP.RenewableGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.Storage.html">NaivePyDECOMP.Storage package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html">NaivePyDECOMP.ThermalGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.cli.html">NaivePyDECOMP.cli package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDECOMP.Builder">NaivePyDECOMP.Builder module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#author">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.Builder.build_balance_and_objective_from_yaml"><code class="docutils literal notranslate"><span class="pre">build_balance_and_objective_from_yaml()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.Builder.build_model_from_file"><code class="docutils literal notranslate"><span class="pre">build_model_from_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDECOMP.DataFrames">NaivePyDECOMP.DataFrames module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.DataFrames.add_cost_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_cost_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.DataFrames.add_thermal_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_thermal_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.DataFrames.build_dispatch_dataframe"><code class="docutils literal notranslate"><span class="pre">build_dispatch_dataframe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDECOMP.Formatters">NaivePyDECOMP.Formatters module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Description</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDECOMP.ModelCheck">NaivePyDECOMP.ModelCheck module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage-example">Usage Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.ModelCheck.has_thermal_model"><code class="docutils literal notranslate"><span class="pre">has_thermal_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDECOMP.ModelFormatters">NaivePyDECOMP.ModelFormatters module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id7">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.ModelFormatters.format_hydro_model"><code class="docutils literal notranslate"><span class="pre">format_hydro_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.ModelFormatters.format_models"><code class="docutils literal notranslate"><span class="pre">format_models()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.ModelFormatters.format_thermal_model"><code class="docutils literal notranslate"><span class="pre">format_thermal_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.ModelFormatters.model_properties"><code class="docutils literal notranslate"><span class="pre">model_properties()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.ModelFormatters.print_welcome_banner"><code class="docutils literal notranslate"><span class="pre">print_welcome_banner()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.ModelFormatters.print_welcome_message"><code class="docutils literal notranslate"><span class="pre">print_welcome_message()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDECOMP.PlotSeries">NaivePyDECOMP.PlotSeries module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDECOMP.Reporting">NaivePyDECOMP.Reporting module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id12">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.Reporting.dispatch_summary"><code class="docutils literal notranslate"><span class="pre">dispatch_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.Reporting.hydro_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">hydro_dispatch_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.Reporting.renewable_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">renewable_dispatch_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.Reporting.storage_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">storage_dispatch_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.Reporting.thermal_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">thermal_dispatch_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDECOMP.Solver">NaivePyDECOMP.Solver module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id14">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.Solver.solve"><code class="docutils literal notranslate"><span class="pre">solve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDECOMP.Utils">NaivePyDECOMP.Utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id16">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parameters-shared">Parameters (Shared)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#additional-parameters">Additional Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDECOMP.YAMLLoader">NaivePyDECOMP.YAMLLoader module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id19">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id20">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id21">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDECOMP">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id22">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id23">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id24">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+      <li class="breadcrumb-item active">NaivePyDECOMP package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/NaivePyDECOMP.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="naivepydecomp-package">
+<h1>NaivePyDECOMP package<a class="headerlink" href="#naivepydecomp-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html">NaivePyDECOMP.HydraulicGenerator package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#module-NaivePyDECOMP.HydraulicGenerator.HydraulicConstraints">NaivePyDECOMP.HydraulicGenerator.HydraulicConstraints module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#hydropower-constraints-module-for-multi-mode-generation-modeling">Hydropower Constraints Module for Multi-Mode Generation Modeling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#imported-dependencies">Imported Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#functions">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#model-requirements">Model Requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicConstraints.add_hydro_volume_continuity_constraint"><code class="docutils literal notranslate"><span class="pre">add_hydro_volume_continuity_constraint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#module-NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes">NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#conventions-and-units">Conventions and Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><code class="docutils literal notranslate"><span class="pre">HydraulicData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.Cdef"><code class="docutils literal notranslate"><span class="pre">HydraulicData.Cdef</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.demand"><code class="docutils literal notranslate"><span class="pre">HydraulicData.demand</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.horizon"><code class="docutils literal notranslate"><span class="pre">HydraulicData.horizon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.units"><code class="docutils literal notranslate"><span class="pre">HydraulicData.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Qmax"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.Qmax</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Qmin"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.Qmin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Vini"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.Vini</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Vmax"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.Vmax</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Vmin"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.Vmin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.afluencia"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.afluencia</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.compute_total_inflow"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.compute_total_inflow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.name"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.p"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.p</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.upstreams"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.upstreams</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#module-NaivePyDECOMP.HydraulicGenerator.HydraulicEquations">NaivePyDECOMP.HydraulicGenerator.HydraulicEquations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#author">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id1">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#intended-use">Intended Use</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#module-NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder">NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id2">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#supported-generation-modes-per-unit">Supported generation modes (per unit)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id3">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#modeling-conventions-and-units">Modeling Conventions and Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.add_hydro_problem"><code class="docutils literal notranslate"><span class="pre">add_hydro_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.build_FPHs"><code class="docutils literal notranslate"><span class="pre">build_FPHs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.build_hydro_dispatch"><code class="docutils literal notranslate"><span class="pre">build_hydro_dispatch()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#module-NaivePyDECOMP.HydraulicGenerator.HydraulicObjectives">NaivePyDECOMP.HydraulicGenerator.HydraulicObjectives module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id4">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id5">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id6">Modeling Conventions and Units</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#module-NaivePyDECOMP.HydraulicGenerator.HydraulicVars">NaivePyDECOMP.HydraulicGenerator.HydraulicVars module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id7">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id8">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id9">Modeling Conventions and Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicVars.hydraulyc_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">hydraulyc_add_sets_and_params()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#module-NaivePyDECOMP.HydraulicGenerator.SimplifiedConstantProductivityFPH">NaivePyDECOMP.HydraulicGenerator.SimplifiedConstantProductivityFPH module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id10">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id11">Description</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#module-NaivePyDECOMP.HydraulicGenerator">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id12">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id13">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id14">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html">NaivePyDECOMP.RenewableGenerator package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#module-NaivePyDECOMP.RenewableGenerator.RenewableConstraints">NaivePyDECOMP.RenewableGenerator.RenewableConstraints module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#author">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#module-NaivePyDECOMP.RenewableGenerator.RenewableDataTypes">NaivePyDECOMP.RenewableGenerator.RenewableDataTypes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id1">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id2">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#module-NaivePyDECOMP.RenewableGenerator.RenewableEquations">NaivePyDECOMP.RenewableGenerator.RenewableEquations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id3">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id4">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#intended-use">Intended Use</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#module-NaivePyDECOMP.RenewableGenerator.RenewableGeneratorBuilder">NaivePyDECOMP.RenewableGenerator.RenewableGeneratorBuilder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id5">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id6">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id7">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#module-NaivePyDECOMP.RenewableGenerator.RenewableObjectives">NaivePyDECOMP.RenewableGenerator.RenewableObjectives module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id8">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id9">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id10">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#module-NaivePyDECOMP.RenewableGenerator.RenewableVars">NaivePyDECOMP.RenewableGenerator.RenewableVars module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id11">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id12">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id13">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#module-NaivePyDECOMP.RenewableGenerator">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id14">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id15">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id16">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NaivePyDECOMP.Storage.html">NaivePyDECOMP.Storage package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.Storage.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.Storage.html#module-NaivePyDECOMP.Storage.StorageBuilder">NaivePyDECOMP.Storage.StorageBuilder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#author">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.Storage.html#module-NaivePyDECOMP.Storage.StorageConstraints">NaivePyDECOMP.Storage.StorageConstraints module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id1">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id2">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id3">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.Storage.html#module-NaivePyDECOMP.Storage.StorageDataTypes">NaivePyDECOMP.Storage.StorageDataTypes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id4">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id5">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.Storage.html#module-NaivePyDECOMP.Storage.StorageEquations">NaivePyDECOMP.Storage.StorageEquations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id6">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id7">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#intended-use">Intended Use</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.Storage.html#module-NaivePyDECOMP.Storage.StorageObjective">NaivePyDECOMP.Storage.StorageObjective module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id8">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id9">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id10">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.Storage.html#module-NaivePyDECOMP.Storage.StorageVars">NaivePyDECOMP.Storage.StorageVars module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id11">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id12">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id13">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.Storage.html#module-NaivePyDECOMP.Storage">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id14">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id15">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.html#id16">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html">NaivePyDECOMP.ThermalGenerator package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#module-NaivePyDECOMP.ThermalGenerator.ThermalConstraints">NaivePyDECOMP.ThermalGenerator.ThermalConstraints module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#author">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#constraint-families">Constraint Families</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalConstraints.thermal_add_balance_constraint"><code class="docutils literal notranslate"><span class="pre">thermal_add_balance_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalConstraints.thermal_add_capacity_constraint"><code class="docutils literal notranslate"><span class="pre">thermal_add_capacity_constraint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#module-NaivePyDECOMP.ThermalGenerator.ThermalDataTypes">NaivePyDECOMP.ThermalGenerator.ThermalDataTypes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id1">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id2">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#notation-per-unit-g-and-time-t">Notation (per unit g and time t)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#typical-objective-miqp-form">Typical objective (MIQP form)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id3">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#intended-pairing">Intended pairing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData"><code class="docutils literal notranslate"><span class="pre">ThermalData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.Cdef"><code class="docutils literal notranslate"><span class="pre">ThermalData.Cdef</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.demand"><code class="docutils literal notranslate"><span class="pre">ThermalData.demand</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.horizon"><code class="docutils literal notranslate"><span class="pre">ThermalData.horizon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.units"><code class="docutils literal notranslate"><span class="pre">ThermalData.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit"><code class="docutils literal notranslate"><span class="pre">ThermalUnit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.Cost"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.Cost</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.Gmax"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.Gmax</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.Gmin"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.Gmin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.name"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#module-NaivePyDECOMP.ThermalGenerator.ThermalEquations">NaivePyDECOMP.ThermalGenerator.ThermalEquations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id4">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id5">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#intended-use">Intended Use</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalEquations.add_thermal_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_thermal_balance_expression()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalEquations.add_thermal_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_thermal_cost_expression()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#module-NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder">NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id6">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id7">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#builder-function">Builder Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id8">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_problem"><code class="docutils literal notranslate"><span class="pre">add_thermal_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.build_thermal_uc"><code class="docutils literal notranslate"><span class="pre">build_thermal_uc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#module-NaivePyDECOMP.ThermalGenerator.ThermalObjectives">NaivePyDECOMP.ThermalGenerator.ThermalObjectives module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id9">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id10">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id11">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalObjectives.set_objective_thermo"><code class="docutils literal notranslate"><span class="pre">set_objective_thermo()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#module-NaivePyDECOMP.ThermalGenerator.ThermalVars">NaivePyDECOMP.ThermalGenerator.ThermalVars module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id12">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id13">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#features">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#variables">Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id14">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalVars.thermal_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">thermal_add_sets_and_params()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalVars.thermal_add_variables_uc"><code class="docutils literal notranslate"><span class="pre">thermal_add_variables_uc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#module-NaivePyDECOMP.ThermalGenerator">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id15">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id16">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id17">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NaivePyDECOMP.cli.html">NaivePyDECOMP.cli package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.cli.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.cli.html#module-NaivePyDECOMP.cli.cli">NaivePyDECOMP.cli.cli module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#author">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#features">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.cli.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.cli.print_welcome_banner"><code class="docutils literal notranslate"><span class="pre">print_welcome_banner()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.cli.save_dataframe"><code class="docutils literal notranslate"><span class="pre">save_dataframe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.cli.html#module-NaivePyDECOMP.cli.plot_cli">NaivePyDECOMP.cli.plot_cli module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#id1">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#id2">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#id3">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#categories">Categories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#id4">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#id5">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#quick-examples">Quick examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.handle_control_variables"><code class="docutils literal notranslate"><span class="pre">handle_control_variables()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.handle_plot"><code class="docutils literal notranslate"><span class="pre">handle_plot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.handle_table"><code class="docutils literal notranslate"><span class="pre">handle_table()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.load_dataframe"><code class="docutils literal notranslate"><span class="pre">load_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.print_welcome_banner"><code class="docutils literal notranslate"><span class="pre">print_welcome_banner()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.prompt"><code class="docutils literal notranslate"><span class="pre">prompt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.select_columns_multi"><code class="docutils literal notranslate"><span class="pre">select_columns_multi()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.select_variable_columns"><code class="docutils literal notranslate"><span class="pre">select_variable_columns()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.cli.html#module-NaivePyDECOMP.cli">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.html#naivepydecomp-cli-subpackage">NaivePyDECOMP – CLI Subpackage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.cli.html#id6">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.cli.html#id7">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.cli.html#modules">Modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.cli.html#id8">Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.cli.html#example-usage">Example Usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-NaivePyDECOMP.Builder">
+<span id="naivepydecomp-builder-module"></span><h2>NaivePyDECOMP.Builder module<a class="headerlink" href="#module-NaivePyDECOMP.Builder" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Model Builder from YAML Configuration</p>
+<section id="author">
+<h3>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="description">
+<h3>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h3>
+<p>This module provides a unified interface for constructing a Pyomo-based
+economical dispatch model from structured YAML or JSON input files.
+It supports integration of multiple subsystems, including:</p>
+<ul class="simple">
+<li><p>Hydraulic generation units (UHEs)</p></li>
+<li><p>Thermal generation units (UTs)</p></li>
+<li><p>Renewable generators</p></li>
+<li><p>Storage systems (batteries or reservoirs)</p></li>
+<li><p>Deficit penalty model</p></li>
+</ul>
+<p>The model construction includes:</p>
+<ul class="simple">
+<li><p>Validation of structural consistency in input data.</p></li>
+<li><p>Object-oriented dataclass translation of YAML structures.</p></li>
+<li><p>Modular assembly of each subsystem’s variables and constraints.</p></li>
+<li><p>Construction of system-wide power balance constraint.</p></li>
+<li><p>Cost-based objective function including startup, generation, and deficit costs.</p></li>
+</ul>
+</section>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h3>
+<p>Use <cite>build_model_from_file(path)</cite> as the main entry point.</p>
+<p>Ensure the YAML file has at least a <cite>meta</cite> section and one
+of the technology sections: <cite>hydro</cite>, <cite>thermal</cite>, <cite>renewable</cite>, or <cite>storage</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>Pyomo ConcreteModel ready for optimization.</p></li>
+<li><p>Parsed dictionary representing the structured case.</p></li>
+</ul>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple[ConcreteModel, dict]</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.Builder.build_balance_and_objective_from_yaml">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.Builder.</span></span><span class="sig-name descname"><span class="pre">build_balance_and_objective_from_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaml_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/Builder.html#build_balance_and_objective_from_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.Builder.build_balance_and_objective_from_yaml" title="Link to this definition"></a></dt>
+<dd><p>Construct the system-wide power balance constraint and total cost objective.</p>
+<p>This function scans the parsed YAML content to determine which technologies
+(thermal, hydro, storage, renewable) are present, and invokes their respective
+expression builders to construct:</p>
+<ul class="simple">
+<li><p>model.Balance: a time-indexed Constraint for supply-demand balance</p></li>
+<li><p>model.OBJ: an Objective for cost minimization</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>ConcreteModel</em>) – A Pyomo model with required sets and variables already declared.</p></li>
+<li><p><strong>yaml_data</strong> (<em>dict</em>) – Parsed YAML dictionary with subsections for each technology.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The input model with balance constraints and objective function added.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.Builder.build_model_from_file">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.Builder.</span></span><span class="sig-name descname"><span class="pre">build_model_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ConcreteModel</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/Builder.html#build_model_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.Builder.build_model_from_file" title="Link to this definition"></a></dt>
+<dd><p>Load master data from YAML/JSON and build subsystem models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path to a YAML file with sections: meta, demand, and one or
+more of {hydro, thermal, renewable, storage}.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple with the builded model and the parsed case file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[pyomo.environ.ConcreteModel, Dict]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – On structural or validation errors in the input file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.DataFrames">
+<span id="naivepydecomp-dataframes-module"></span><h2>NaivePyDECOMP.DataFrames module<a class="headerlink" href="#module-NaivePyDECOMP.DataFrames" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Utility: Build Dispatch DataFrame from Pyomo Model Results</p>
+<section id="id1">
+<h3>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id2">
+<h3>Description<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>This utility extracts time series of dispatch decisions from a solved
+Pyomo model and compiles them into a structured pandas DataFrame. It
+supports hydropower, thermal generation, renewable sources, and storage
+systems. The output can be used for reporting, visualization, or export
+to CSV.</p>
+<p>Main components extracted:
+- Hydropower: turbined flow, storage volume, generation, spillage.
+- Thermal: power output, on/off status, startup/shutdown, reserves.
+- Renewable: available generation by unit.
+- Storage: charge/discharge power, net injection, state of charge.
+- System-wide: demand, deficit, cost components (variable, startup, deficit).</p>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.DataFrames.add_cost_to_dataframe">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.DataFrames.</span></span><span class="sig-name descname"><span class="pre">add_cost_to_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/DataFrames.html#add_cost_to_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.DataFrames.add_cost_to_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Append cost components, demand/deficit, total generation,
+and marginal cost (CMO) to the DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame to which cost components will be appended.</p></li>
+<li><p><strong>model</strong> (<em>ConcreteModel</em>) – A Pyomo model instance with thermal, hydro, and balance constraints.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated DataFrame including cost components, energy balance data,
+and marginal cost of operation (CMO).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.DataFrames.add_thermal_dispatch_to_dataframe">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.DataFrames.</span></span><span class="sig-name descname"><span class="pre">add_thermal_dispatch_to_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/DataFrames.html#add_thermal_dispatch_to_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.DataFrames.add_thermal_dispatch_to_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Append thermal dispatch results to a pandas DataFrame.</p>
+<p>This function extracts generation, commitment (on/off), startup, shutdown,
+and reserve values from the Pyomo model and appends them to the given
+DataFrame. Optional variables such as reserve (<cite>r</cite>), startup (<cite>y</cite>), and
+shutdown (<cite>w</cite>) are included if present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame to which the results will be appended. It may be empty.</p></li>
+<li><p><strong>model</strong> (<em>ConcreteModel</em>) – A Pyomo model instance containing thermal generation variables.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated DataFrame including thermal dispatch results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.DataFrames.build_dispatch_dataframe">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.DataFrames.</span></span><span class="sig-name descname"><span class="pre">build_dispatch_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/DataFrames.html#build_dispatch_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.DataFrames.build_dispatch_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Build a full dispatch DataFrame with generation, cost, and balance data.</p>
+<p>This function aggregates the dispatch results from all subsystems
+(hydropower, thermal, renewable, storage) along with cost components
+into a single structured pandas DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>ConcreteModel</em>) – A Pyomo model instance containing subsystem variables and time horizon.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A DataFrame with all relevant dispatch results and economic metrics.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.Formatters">
+<span id="naivepydecomp-formatters-module"></span><h2>NaivePyDECOMP.Formatters module<a class="headerlink" href="#module-NaivePyDECOMP.Formatters" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Utility: Format Numbers in Brazilian Currency Style</p>
+<section id="id3">
+<h3>Author<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id4">
+<h3>Description<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>This module provides a helper function to format numerical values in the
+Brazilian currency style: periods as thousand separators and commas for
+decimals (e.g., 1234567.89 → ‘1.234.567,89’).</p>
+<p>It is intended for producing human-readable cost reports or summaries in
+energy dispatch problems solved by NaivePyDECOMP.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_brl</span><span class="p">(</span><span class="mf">1234567.89</span><span class="p">)</span>
+<span class="go">&#39;1.234.567,89&#39;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">format_brl</span><span class="p">(</span><span class="mf">42.5</span><span class="p">)</span>
+<span class="go">&#39;42,50&#39;</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+<section id="module-NaivePyDECOMP.ModelCheck">
+<span id="naivepydecomp-modelcheck-module"></span><h2>NaivePyDECOMP.ModelCheck module<a class="headerlink" href="#module-NaivePyDECOMP.ModelCheck" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Model Component Validators</p>
+<section id="id5">
+<h3>Author<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id6">
+<h3>Description<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p>This module provides a set of utility functions to verify whether a given Pyomo
+<cite>ConcreteModel</cite> contains the essential variables, parameters, and sets required
+for each subsystem in an energy dispatch problem.</p>
+<p>The validation is modular and lightweight, designed to support the dynamic
+assembly of hybrid dispatch models comprising:
+- Hydropower units
+- Thermal generation units
+- Renewable generation sources
+- Energy storage systems</p>
+<p>These functions are typically used to determine the feasibility of operations
+such as cost extraction, result formatting, or diagnostics on a per-subsystem basis.</p>
+</section>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>has_hydro_model(model): Checks presence of hydropower-related variables.</p></li>
+<li><p>has_thermal_model(model): Checks presence of thermal generation variables.</p></li>
+<li><p>has_renewable_model(model): Checks presence of renewable generation variables.</p></li>
+<li><p>has_storage_model(model): Checks presence of storage system variables.</p></li>
+</ul>
+</section>
+<section id="usage-example">
+<h3>Usage Example<a class="headerlink" href="#usage-example" title="Link to this heading"></a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">has_thermal_model</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Thermal model components detected.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.ModelCheck.has_thermal_model">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ModelCheck.</span></span><span class="sig-name descname"><span class="pre">has_thermal_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/ModelCheck.html#has_thermal_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ModelCheck.has_thermal_model" title="Link to this definition"></a></dt>
+<dd><p>Check whether the given Pyomo model contains all components of a thermal subsystem.</p>
+<p>This function validates the existence of typical thermal dispatch variables,
+including generation, commitment status, and startup/shutdown indicators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>ConcreteModel</em>) – The Pyomo model instance to be validated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if all required thermal components are present, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The required attributes are:
+- T             : Time periods.
+- TG            : Set of thermal units.
+- thermal_p     : Power generation variable.
+- thermal_Cost    : Cost parameter.</p>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.ModelFormatters">
+<span id="naivepydecomp-modelformatters-module"></span><h2>NaivePyDECOMP.ModelFormatters module<a class="headerlink" href="#module-NaivePyDECOMP.ModelFormatters" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Utility: Welcome Message and Model Summary Printer</p>
+<section id="id7">
+<h3>Author<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id8">
+<h3>Description<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>This utility provides formatted, color-enhanced terminal output using the
+<cite>colorama</cite> library to display a welcome banner, solver configuration,
+and model characteristics. It is intended to improve the user experience
+by offering clear diagnostics and summaries prior to model solving.</p>
+<p>Features include:
+- Welcome banner with project and author information.
+- Display of solver name and strategy.
+- Pretty-printed summary of subsystems included in the dispatch problem.
+- Parameter visualization for hydraulic, thermal, renewable, and storage units.</p>
+<p>Use this module as part of the pre-solve interface of NaivePyDECOMP to
+provide clarity and visual feedback about the simulation setup.</p>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.ModelFormatters.format_hydro_model">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ModelFormatters.</span></span><span class="sig-name descname"><span class="pre">format_hydro_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">case</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/ModelFormatters.html#format_hydro_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ModelFormatters.format_hydro_model" title="Link to this definition"></a></dt>
+<dd><p>Print formatted information for each hydropower unit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>case</strong> (<em>dict</em>) – Dictionary containing ‘hydro’ section with unit definitions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.ModelFormatters.format_models">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ModelFormatters.</span></span><span class="sig-name descname"><span class="pre">format_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">case</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/ModelFormatters.html#format_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ModelFormatters.format_models" title="Link to this definition"></a></dt>
+<dd><p>Dispatch model formatting routines to subsystem-specific formatters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>case</strong> (<em>dict</em>) – Input data dictionary containing unit-level information.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.ModelFormatters.format_thermal_model">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ModelFormatters.</span></span><span class="sig-name descname"><span class="pre">format_thermal_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">case</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/ModelFormatters.html#format_thermal_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ModelFormatters.format_thermal_model" title="Link to this definition"></a></dt>
+<dd><p>Print formatted information for each thermal generation unit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>case</strong> (<em>dict</em>) – Dictionary containing ‘thermal’ section with unit definitions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.ModelFormatters.model_properties">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ModelFormatters.</span></span><span class="sig-name descname"><span class="pre">model_properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">case</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/ModelFormatters.html#model_properties"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ModelFormatters.model_properties" title="Link to this definition"></a></dt>
+<dd><p>Print a concise list of subsystems included in the case (hydro, thermal, etc.).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>case</strong> (<em>dict</em>) – Parsed input configuration containing subsystem definitions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.ModelFormatters.print_welcome_banner">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ModelFormatters.</span></span><span class="sig-name descname"><span class="pre">print_welcome_banner</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDECOMP/ModelFormatters.html#print_welcome_banner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ModelFormatters.print_welcome_banner" title="Link to this definition"></a></dt>
+<dd><p>Print a formatted welcome banner with project information and author credit.</p>
+<p>Uses colored and bold text to enhance readability in the terminal.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.ModelFormatters.print_welcome_message">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ModelFormatters.</span></span><span class="sig-name descname"><span class="pre">print_welcome_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">case</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/ModelFormatters.html#print_welcome_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ModelFormatters.print_welcome_message" title="Link to this definition"></a></dt>
+<dd><p>Display the full welcome message and solver configuration.</p>
+<p>This includes the banner, solver details, and an overview of
+the model components based on the input dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>ConcreteModel</em>) – The Pyomo model instance.</p></li>
+<li><p><strong>case</strong> (<em>dict</em>) – Configuration dictionary loaded from YAML or JSON input.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.PlotSeries">
+<span id="naivepydecomp-plotseries-module"></span><h2>NaivePyDECOMP.PlotSeries module<a class="headerlink" href="#module-NaivePyDECOMP.PlotSeries" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Plotting Utilities for Time Series in Power System Studies</p>
+<section id="id9">
+<h3>Author<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id10">
+<h3>Description<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<p>This module provides high-level plotting routines to visualize time-indexed
+variables commonly encountered in short-term operation and planning studies
+of hydrothermal systems. It offers both line plots and bar plots, supporting
+grouped or stacked styles.</p>
+</section>
+<section id="id11">
+<h3>Functions<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>plot_series(t, series_dict, title, ylabel, file)</dt><dd><p>Plot one or more time series as line graphs, with LaTeX-compatible labels.</p>
+</dd>
+<dt>plot_series_bar(t, series_dict, title, ylabel, file, stacked=False, width=0.85)</dt><dd><p>Plot multiple time series as bar charts, either grouped or stacked, with
+configurable bar width.</p>
+</dd>
+</dl>
+</section>
+<section id="conventions">
+<h3>Conventions<a class="headerlink" href="#conventions" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>The time axis is discrete, typically representing hourly stages
+(e.g., t = 1, …, 24).</p></li>
+<li><p>Input series must be aligned with the time axis.</p></li>
+<li><p>Labels provided in series_dict are rendered in math mode
+to enable LaTeX-style notation in figures.</p></li>
+<li><p>Output files are saved with 600 dpi resolution and tight bounding boxes.</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Figures are generated using Matplotlib and saved to the given file path
+(PNG, PDF, or other supported formats).</p></li>
+<li><p>The functions are designed for clarity in academic and technical reports,
+especially when documenting hydrothermal dispatch and unit-commitment results.</p></li>
+<li><p>Grid lines, legends, and axis labels are automatically formatted for
+readability.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p>Render a simple time series plot:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;U_</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">140</span><span class="p">],</span> <span class="s2">&quot;U_</span><span class="si">{2}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">150</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_series</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Hydropower Generation&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;MW&quot;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">file</span><span class="o">=</span><span class="s2">&quot;generation.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Render a stacked bar plot:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Hydro&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">220</span><span class="p">,</span> <span class="mi">210</span><span class="p">],</span> <span class="s2">&quot;Thermal&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">280</span><span class="p">,</span> <span class="mi">290</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_series_bar</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Generation Mix&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;MW&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">file</span><span class="o">=</span><span class="s2">&quot;mix.png&quot;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+<section id="module-NaivePyDECOMP.Reporting">
+<span id="naivepydecomp-reporting-module"></span><h2>NaivePyDECOMP.Reporting module<a class="headerlink" href="#module-NaivePyDECOMP.Reporting" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Utility: Post-Solve Dispatch Summary and Cost Reports</p>
+<section id="id12">
+<h3>Author<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id13">
+<h3>Description<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<p>This module contains functions to summarize dispatch results after solving
+a Pyomo-based optimization problem. It prints total generation, cost breakdowns,
+and unit-level summaries for hydropower, thermal, renewable, and storage technologies.</p>
+<p>Features:
+- Total cost, demand, deficit and thermal cost components.
+- Per-unit dispatch summaries with color-enhanced output (via <cite>colorama</cite>).
+- Compatible with modular NaivePyDECOMP subsystem architecture.</p>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.Reporting.dispatch_summary">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.Reporting.</span></span><span class="sig-name descname"><span class="pre">dispatch_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/Reporting.html#dispatch_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.Reporting.dispatch_summary" title="Link to this definition"></a></dt>
+<dd><p>Print a complete dispatch and cost summary including:
+- Total generation and demand.
+- Deficit and its monetary cost.
+- Thermal cost breakdown (start-up, generation).
+- Overall total cost from the model objective.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>ConcreteModel</em>) – Solved Pyomo model instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.Reporting.hydro_dispatch_summary">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.Reporting.</span></span><span class="sig-name descname"><span class="pre">hydro_dispatch_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/Reporting.html#hydro_dispatch_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.Reporting.hydro_dispatch_summary" title="Link to this definition"></a></dt>
+<dd><p>Print unit-level hydropower generation summary in MWh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>ConcreteModel</em>) – Solved Pyomo model with hydropower subsystem.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.Reporting.renewable_dispatch_summary">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.Reporting.</span></span><span class="sig-name descname"><span class="pre">renewable_dispatch_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/Reporting.html#renewable_dispatch_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.Reporting.renewable_dispatch_summary" title="Link to this definition"></a></dt>
+<dd><p>Print unit-level renewable generation summary in MWh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>ConcreteModel</em>) – Solved Pyomo model with renewable subsystem.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.Reporting.storage_dispatch_summary">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.Reporting.</span></span><span class="sig-name descname"><span class="pre">storage_dispatch_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/Reporting.html#storage_dispatch_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.Reporting.storage_dispatch_summary" title="Link to this definition"></a></dt>
+<dd><p>Print unit-level storage discharge summary in MWh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>ConcreteModel</em>) – Solved Pyomo model with storage subsystem.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.Reporting.thermal_dispatch_summary">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.Reporting.</span></span><span class="sig-name descname"><span class="pre">thermal_dispatch_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/Reporting.html#thermal_dispatch_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.Reporting.thermal_dispatch_summary" title="Link to this definition"></a></dt>
+<dd><p>Print unit-level thermal generation summary in MWh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>ConcreteModel</em>) – Solved Pyomo model with thermal subsystem.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.Solver">
+<span id="naivepydecomp-solver-module"></span><h2>NaivePyDECOMP.Solver module<a class="headerlink" href="#module-NaivePyDECOMP.Solver" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Utility: Solve Pyomo Model from YAML Configuration</p>
+<section id="id14">
+<h3>Author<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id15">
+<h3>Description<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<p>This utility builds and solves a Pyomo optimization model using input
+data provided in a YAML or JSON configuration file. The solver is selected
+based on metadata, and can include support for decomposition strategies
+(e.g., MIN-DT via MindtPy).</p>
+<p>Features:
+- Automatic model construction via modular subsystems (thermal, hydro, storage, renewable).
+- Solver selection and configuration via YAML metadata.
+- Support for MINLP solvers such as MindtPy with strategy and time limits.
+- Termination condition validation to ensure feasibility or optimality.</p>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.Solver.solve">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.Solver.</span></span><span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ConcreteModel</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/Solver.html#solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.Solver.solve" title="Link to this definition"></a></dt>
+<dd><p>Build and solve a Pyomo optimization model from a configuration file.</p>
+<p>This function loads a model and its configuration from a structured YAML or JSON
+file using the <cite>build_model_from_file</cite> routine. It then selects the appropriate
+solver based on the ‘meta’ section, applies any solver-specific options (including
+for MIN-DT decomposition), and executes the optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path to the configuration file containing model metadata and data sections.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>model</strong> (<em>ConcreteModel</em>) – The Pyomo model after the solve routine, with variables populated.</p></li>
+<li><p><strong>case</strong> (<em>dict</em>) – Parsed dictionary containing the original configuration, metadata,
+solver options, and problem data.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>RuntimeError</strong> – If the solver is not available, solve fails, or model is infeasible.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.Utils">
+<span id="naivepydecomp-utils-module"></span><h2>NaivePyDECOMP.Utils module<a class="headerlink" href="#module-NaivePyDECOMP.Utils" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>LaTeX Table Utilities for Pandas DataFrames</p>
+<section id="id16">
+<h3>Author<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id17">
+<h3>Description<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<p>This module provides helpers to render pandas DataFrames as LaTeX tables with
+custom styling aimed at scientific and engineering reports. It includes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">binary_df_to_colored_latex</span></code>: Renders a binary matrix (0/1) as a colored
+LaTeX table, highlighting ones and zeros with configurable colors and
+producing a complete <code class="docutils literal notranslate"><span class="pre">table</span></code> environment.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">custom_df_to_latex</span></code>: Renders a generic (non-binary) DataFrame as a LaTeX
+table with bold headers (and bold math within headers), using <code class="docutils literal notranslate"><span class="pre">booktabs</span></code>
+rules and producing a complete <code class="docutils literal notranslate"><span class="pre">table</span></code> environment.</p></li>
+</ul>
+<p>Both functions omit the DataFrame index from the LaTeX output by design,
+emitting only the column headers and data cells.</p>
+</section>
+<section id="id18">
+<h3>Functions<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>binary_df_to_colored_latex</dt><dd><p>Render a binary (0/1) DataFrame as a colored LaTeX table. Cells equal to 1
+are filled with <code class="docutils literal notranslate"><span class="pre">one_color</span></code>; cells equal to 0 use <code class="docutils literal notranslate"><span class="pre">zero_color</span></code>.
+Non-binary values, if present, are formatted with <code class="docutils literal notranslate"><span class="pre">floatfmt</span></code> and not
+color-filled. The index is not included in the output.</p>
+</dd>
+<dt>custom_df_to_latex</dt><dd><p>Render a generic DataFrame as a LaTeX table using <code class="docutils literal notranslate"><span class="pre">booktabs</span></code> rules with a
+bold header row. Inline math fragments in header cells  are additionally set
+in bold math using <code class="docutils literal notranslate"><span class="pre">bold_math_cmd</span></code>.
+The index is not included in the output.</p>
+</dd>
+</dl>
+</section>
+<section id="parameters-shared">
+<h3>Parameters (Shared)<a class="headerlink" href="#parameters-shared" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>df<span class="classifier">pandas.DataFrame</span></dt><dd><p>The input table to render. Only the DataFrame <strong>columns</strong> are emitted;
+the index is always omitted from the LaTeX output.</p>
+</dd>
+<dt>caption<span class="classifier">str, optional</span></dt><dd><p>Caption text for the LaTeX <code class="docutils literal notranslate"><span class="pre">table</span></code> environment.</p>
+</dd>
+<dt>label<span class="classifier">str, optional</span></dt><dd><p>Label for cross-referencing with <code class="docutils literal notranslate"><span class="pre">\ref{...}</span></code>.</p>
+</dd>
+<dt>column_format<span class="classifier">str or None, optional</span></dt><dd><p>Column specification for the LaTeX <code class="docutils literal notranslate"><span class="pre">tabular</span></code> environment. If <code class="docutils literal notranslate"><span class="pre">None</span></code>,
+a default is inferred based on the number of columns (all centered).</p>
+</dd>
+<dt>size_cmd<span class="classifier">str, optional</span></dt><dd><p>LaTeX size command applied inside the table (e.g., <code class="docutils literal notranslate"><span class="pre">\small</span></code>, <code class="docutils literal notranslate"><span class="pre">\scriptsize</span></code>).</p>
+</dd>
+</dl>
+</section>
+<section id="additional-parameters">
+<h3>Additional Parameters<a class="headerlink" href="#additional-parameters" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>one_color<span class="classifier">str, optional</span></dt><dd><p>(For <code class="docutils literal notranslate"><span class="pre">binary_df_to_colored_latex</span></code>) LaTeX color name for cells with value 1.</p>
+</dd>
+<dt>zero_color<span class="classifier">str, optional</span></dt><dd><p>(For <code class="docutils literal notranslate"><span class="pre">binary_df_to_colored_latex</span></code>) LaTeX background color name for cells
+with value 0.</p>
+</dd>
+<dt>floatfmt<span class="classifier">str, optional</span></dt><dd><p>(For <code class="docutils literal notranslate"><span class="pre">binary_df_to_colored_latex</span></code>) Format string for numeric entries that
+are not 0/1 (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;{:d}&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;{:.0f}&quot;</span></code>).</p>
+</dd>
+<dt>bold_math_cmd<span class="classifier">str, optional</span></dt><dd><p>(For <code class="docutils literal notranslate"><span class="pre">custom_df_to_latex</span></code>) Command for bolding inline math in header cells,
+e.g., <code class="docutils literal notranslate"><span class="pre">\mathbf</span></code>, <code class="docutils literal notranslate"><span class="pre">\boldsymbol</span></code>, or <code class="docutils literal notranslate"><span class="pre">\bm</span></code>. Ensure the corresponding
+LaTeX package is loaded.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><em>str</em> – A complete LaTeX <code class="docutils literal notranslate"><span class="pre">table</span></code> environment (including an inner <code class="docutils literal notranslate"><span class="pre">tabular</span></code> and
+a <code class="docutils literal notranslate"><span class="pre">\resizebox{\textwidth}{!}{...}</span></code> wrapper) ready to paste into a
+LaTeX document.</p></li>
+<li><p><em>Requirements</em></p></li>
+<li><p><em>————</em></p></li>
+<li><p><strong>- Python packages</strong> (<code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">re</span></code> (standard library).)</p></li>
+<li><p><em>- LaTeX packages</em> –</p>
+<ul>
+<li><p>For both functions: <code class="docutils literal notranslate"><span class="pre">graphicx</span></code> (for <code class="docutils literal notranslate"><span class="pre">\resizebox</span></code>), <code class="docutils literal notranslate"><span class="pre">booktabs</span></code> (for <code class="docutils literal notranslate"><span class="pre">custom_df_to_latex</span></code>).</p></li>
+<li><p>For coloring: <code class="docutils literal notranslate"><span class="pre">xcolor</span></code> with the <code class="docutils literal notranslate"><span class="pre">table</span></code> option (provides <code class="docutils literal notranslate"><span class="pre">\cellcolor</span></code>).
+Colors such as <code class="docutils literal notranslate"><span class="pre">oncell</span></code> and <code class="docutils literal notranslate"><span class="pre">white</span></code> must be defined in the preamble.</p></li>
+<li><p>For bold math: <code class="docutils literal notranslate"><span class="pre">amsmath</span></code>, <code class="docutils literal notranslate"><span class="pre">bm</span></code>, or any package compatible with <code class="docutils literal notranslate"><span class="pre">bold_math_cmd</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Both functions assume the DataFrame columns represent displayable headers.
+If numeric, they are commonly used as time periods. Pre-formatting is advised.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">binary_df_to_colored_latex</span></code> coerces values to integers for coloring.
+Non-binary values are rendered using <code class="docutils literal notranslate"><span class="pre">floatfmt</span></code> but receive no coloring.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">custom_df_to_latex</span></code> skips escaping in data cells, assuming LaTeX-safe input.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p>Render a binary status matrix with colored cells:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tex</span> <span class="o">=</span> <span class="n">binary_df_to_colored_latex</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">df</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;Hourly U, Y, and W variables&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;tab:uyw&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">one_color</span><span class="o">=</span><span class="s2">&quot;oncell&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">zero_color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">floatfmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:d}</span><span class="s2">&quot;</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tex</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">\begin{table}[!ht]</span>
+</pre></div>
+</div>
+<p>Render a numeric table with bold headers and math-aware bolding:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">4.25</span><span class="p">]],</span>
+<span class="gp">... </span>    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">r</span><span class="s2">&quot;$t=1$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\(t=2\)&quot;</span><span class="p">]</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tex2</span> <span class="o">=</span> <span class="n">custom_df_to_latex</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">df2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;Example Table&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;tab:example&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">bold_math_cmd</span><span class="o">=</span><span class="s2">&quot;\mathbf&quot;</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">oprule&quot;</span> <span class="ow">in</span> <span class="n">tex2</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">pandas.DataFrame.to_latex</span></code></dt><dd><p>Built-in (less specialized) LaTeX export.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+<section id="module-NaivePyDECOMP.YAMLLoader">
+<span id="naivepydecomp-yamlloader-module"></span><h2>NaivePyDECOMP.YAMLLoader module<a class="headerlink" href="#module-NaivePyDECOMP.YAMLLoader" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Configuration Pre-Processor for Model Inputs</p>
+<section id="id19">
+<h3>Author<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id20">
+<h3>Description<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
+<p>Utilities to load and normalize model configuration files (YAML/JSON) before
+instantiating optimization models. The module provides:</p>
+<ol class="arabic simple">
+<li><p>A LaTeX-friendly renaming utility for unit identifiers, preserving downstream
+compatibility with report/plot labels.</p></li>
+<li><p>A deep-copy pre-processor that standardizes sections and optionally transforms
+unit names and their upstreams references.</p></li>
+<li><p>A YAML loader that combines parsing and pre-processing into a single entry point.</p></li>
+</ol>
+<p>This pre-processing ensures consistent, side-effect-free structures that are
+directly consumable by subsequent builders (hydro, thermal, renewable, storage).</p>
+</section>
+<section id="id21">
+<h3>Functions<a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>key_replace(key)</dt><dd><p>Convert identifiers for LaTeX.</p>
+</dd>
+<dt>pre_process(config_dict, transform_names=True)</dt><dd><p>Deep-copy and normalize a configuration dictionary, optionally transforming
+unit names and upstream references in sections that contain units.</p>
+</dd>
+<dt>yaml_loader(file, transform_names=True)</dt><dd><p>Load a YAML file and return a processed configuration dictionary suitable
+for model building.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Only the <strong>first</strong> underscore in an identifier is used to create the subscript;
+remaining underscores are kept verbatim inside the subscript block.</p></li>
+<li><p>Sections without a units field are copied verbatim.</p></li>
+<li><p>All operations are performed on deep copies; the original inputs are not modified.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cfg</span> <span class="o">=</span> <span class="n">yaml_loader</span><span class="p">(</span><span class="s2">&quot;case.yaml&quot;</span><span class="p">,</span> <span class="n">transform_names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;hydro&quot;</span><span class="p">][</span><span class="s2">&quot;units&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;{UHE_{1}}&#39;, &#39;{UHE_{2}}&#39;]</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+<section id="module-NaivePyDECOMP">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-NaivePyDECOMP" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Package: NaivePyDECOMP</p>
+<section id="id22">
+<h3>Author<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id23">
+<h3>Description<a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">NaivePyDECOMP</span></code> package provides a modular, extensible, and pedagogically
+oriented framework for short-term power system operation planning. Inspired by the
+methodology and architecture of CEPEL’s DESSEM model, it enables the construction,
+solution, and analysis of mixed-integer optimization models based on Pyomo.</p>
+<p>Designed for academic use, the framework supports detailed modeling of thermal,
+hydraulic, renewable, and storage resources, and integrates these components
+into a coherent multi-technology dispatch problem, including unit commitment,
+deficit handling, and economic trade-offs.</p>
+</section>
+<section id="id24">
+<h3>Submodules<a class="headerlink" href="#id24" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>HydraulicGenerator</dt><dd><p>Defines the data structures, constraints, and productivity models for
+hydropower generation units, including reservoir dynamics, turbine flows,
+and different formulations of head and productivity (constant, specific, exact).</p>
+</dd>
+<dt>ThermalGenerator</dt><dd><p>Models thermal units with quadratic or piecewise-linear cost functions,
+ramping constraints, commitment logic, startup/shutdown dynamics, and reserve provision.</p>
+</dd>
+<dt>RenewableGenerator</dt><dd><p>Represents non-dispatchable renewable units such as wind and solar,
+enforcing production bounds based on availability (gbar).</p>
+</dd>
+<dt>Storage</dt><dd><p>Models energy storage systems (e.g., batteries), capturing state-of-charge dynamics,
+charge/discharge power limits, efficiencies, and optional integration into
+the balance and objective.</p>
+</dd>
+<dt>YAMLLoader</dt><dd><p>Provides the interface for loading problem instances from structured YAML or JSON files,
+including validation and conversion into dataclass objects.</p>
+</dd>
+<dt>Builder</dt><dd><p>Constructs a complete Pyomo model from the YAML data, invoking the appropriate
+subsystems and assembling the balance constraint and cost-minimizing objective.</p>
+</dd>
+<dt>Solver</dt><dd><p>Handles the selection and execution of solvers (e.g., GLPK, IPOPT, MindtPy),
+with optional reporting and solution validation.</p>
+</dd>
+<dt>DataFrames</dt><dd><p>Exports decision variable trajectories and economic indicators to Pandas DataFrames
+for further analysis and visualization.</p>
+</dd>
+<dt>PlotSeries</dt><dd><p>Generates basic time-series plots of dispatch results using Matplotlib.</p>
+</dd>
+<dt>Utils, Formatters, Reporting</dt><dd><p>Auxiliary modules for formatting, printing summaries, validating model structure,
+and providing colored console outputs using Colorama.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The package is intentionally modular: each subsystem (Thermal, Hydro, Renewable, Storage)
+can be activated or omitted via the YAML interface.</p></li>
+<li><p>While conceptually aligned with DESSEM, the implementation is simplified and transparent,
+allowing students and researchers to explore, extend, and test new ideas.</p></li>
+<li><p>Extensions such as emission penalties, pumped storage, stochastic scenarios,
+or multi-area coupling can be added atop this foundation.</p></li>
+<li><p>Fully compatible with Pyomo’s expressive modeling capabilities and solver interface.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="NaivePyDESSEM.cli.html" class="btn btn-neutral float-left" title="NaivePyDESSEM.cli package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="NaivePyDECOMP.HydraulicGenerator.html" class="btn btn-neutral float-right" title="NaivePyDECOMP.HydraulicGenerator package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

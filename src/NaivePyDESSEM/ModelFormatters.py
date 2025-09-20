@@ -99,7 +99,7 @@ def model_properties(case: Dict) -> None:
     if 'renewable' in case.keys():
         units.append("Renewable Units")
     if 'storage' in case.keys():
-        units.append('Stoage Units')
+        units.append('Storage Units')
 
     units = ", ".join(units)
 
@@ -167,7 +167,7 @@ def format_hydro_model(case: Dict) -> None:
             print(
                 f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Compute Total Inflow, {Fore.BLUE} Value: {Fore.CYAN}{compute_total_inflow}")
             print(
-                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Upsreams, {Fore.BLUE} Value: {Fore.CYAN}{upstreams}")
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Upstreams, {Fore.BLUE} Value: {Fore.CYAN}{upstreams}")
 
 
 def format_thermal_model(case: Dict) -> None:

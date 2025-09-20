@@ -1,0 +1,153 @@
+
+Generated Tree:
+
+```text
+├── examples
+│   ├── DECOMP
+│   │   ├── trabalho02_caso01.yaml
+│   │   ├── trabalho02_caso02.yaml
+│   │   ├── trabalho02_caso03.yaml
+│   │   └── trabalho02_caso04.yaml
+│   ├── DESSEM
+│   │   ├── exemplo_despacho_hibrido.yaml
+│   │   ├── trabalho01_caso01_1.yaml
+│   │   ├── trabalho01_caso01_2.yaml
+│   │   ├── trabalho01_caso01_3.yaml
+│   │   ├── trabalho01_caso02.yaml
+│   │   ├── trabalho01_caso03.yaml
+│   │   ├── trabalho01_caso04.yaml
+│   │   └── trabalho01_caso05.yaml
+│   └── NEWAVE
+├── resultados
+│   ├── DECOMP  
+    |   ├── despacho_caso01.csv
+│   │   ├── despacho_caso02.csv
+│   │   ├── despacho_caso03.csv
+│   │   └── despacho_caso04.csv
+│   └── DESSEM
+│       ├── despacho_caso01_1.csv
+│       ├── despacho_caso01_2.csv
+│       ├── despacho_caso01_3.csv
+│       ├── despacho_caso02.csv
+│       ├── despacho_caso03.csv
+│       ├── despacho_caso04.csv
+│       └── despacho_caso05.csv
+├── src
+│   ├── NaivePyDECOMP
+│   │   ├── cli
+│   │   │   ├── __init__.py
+│   │   │   ├── cli.py
+│   │   │   └── plot_cli.py
+│   │   ├── HydraulicGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── HydraulicConstraints.py
+│   │   │   ├── HydraulicDataTypes.py
+│   │   │   ├── HydraulicEquations.py
+│   │   │   ├── HydraulicGeneratorBuilder.py
+│   │   │   ├── HydraulicObjectives.py
+│   │   │   ├── HydraulicVars.py
+│   │   │   └── SimplifiedConstantProductivityFPH.py
+│   │   ├── RenewableGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── RenewableConstraints.py
+│   │   │   ├── RenewableDataTypes.py
+│   │   │   ├── RenewableEquations.py
+│   │   │   ├── RenewableGeneratorBuilder.py
+│   │   │   ├── RenewableObjectives.py
+│   │   │   └── RenewableVars.py
+│   │   ├── Storage
+│   │   │   ├── __init__.py
+│   │   │   ├── StorageBuilder.py
+│   │   │   ├── StorageConstraints.py
+│   │   │   ├── StorageDataTypes.py
+│   │   │   ├── StorageEquations.py
+│   │   │   ├── StorageObjective.py
+│   │   │   └── StorageVars.py
+│   │   ├── ThermalGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── ThermalConstraints.py
+│   │   │   ├── ThermalDataTypes.py
+│   │   │   ├── ThermalEquations.py
+│   │   │   ├── ThermalGeneratorBuilder.py
+│   │   │   ├── ThermalObjectives.py
+│   │   │   ├── ThermalPieceWise.py
+│   │   │   └── ThermalVars.py
+│   │   ├── __init__.py
+│   │   ├── Builder.py
+│   │   ├── DataFrames.py
+│   │   ├── Formatters.py
+│   │   ├── ModelCheck.py
+│   │   ├── ModelFormatters.py
+│   │   ├── PlotSeries.py
+│   │   ├── Reporting.py
+│   │   ├── Solver.py
+│   │   ├── Utils.py
+│   │   └── YAMLLoader.py
+│   ├── NaivePyDESSEM
+│   │   ├── cli
+│   │   │   ├── __init__.py
+│   │   │   ├── cli.py
+│   │   │   └── plot_cli.py
+│   │   ├── HydraulicGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── ConstantProductivityFPH.py
+│   │   │   ├── ExactFPH.py
+│   │   │   ├── HydraulicConstraints.py
+│   │   │   ├── HydraulicDataTypes.py
+│   │   │   ├── HydraulicEquations.py
+│   │   │   ├── HydraulicGeneratorBuilder.py
+│   │   │   ├── HydraulicObjectives.py
+│   │   │   ├── HydraulicVars.py
+│   │   │   ├── PEFPH.py
+│   │   │   └── SimplifiedConstantProductivityFPH.py
+│   │   ├── RenewableGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── RenewableConstraints.py
+│   │   │   ├── RenewableDataTypes.py
+│   │   │   ├── RenewableEquations.py
+│   │   │   ├── RenewableGeneratorBuilder.py
+│   │   │   ├── RenewableObjectives.py
+│   │   │   └── RenewableVars.py
+│   │   ├── Storage
+│   │   │   ├── __init__.py
+│   │   │   ├── StorageBuilder.py
+│   │   │   ├── StorageConstraints.py
+│   │   │   ├── StorageDataTypes.py
+│   │   │   ├── StorageEquations.py
+│   │   │   ├── StorageObjective.py
+│   │   │   └── StorageVars.py
+│   │   ├── ThermalGenerator
+│   │   │   ├── __init__.py
+│   │   │   ├── ThermalConstraints.py
+│   │   │   ├── ThermalDataTypes.py
+│   │   │   ├── ThermalEquations.py
+│   │   │   ├── ThermalGeneratorBuilder.py
+│   │   │   ├── ThermalObjectives.py
+│   │   │   ├── ThermalPieceWise.py
+│   │   │   └── ThermalVars.py
+│   │   ├── __init__.py
+│   │   ├── Builder.py
+│   │   ├── DataFrames.py
+│   │   ├── Formatters.py
+│   │   ├── ModelCheck.py
+│   │   ├── ModelFormatters.py
+│   │   ├── PlotSeries.py
+│   │   ├── Reporting.py
+│   │   ├── Solver.py
+│   │   ├── Utils.py
+│   │   └── YAMLLoader.py
+│   └── naivepydessem.egg-info
+│       ├── dependency_links.txt
+│       ├── entry_points.txt
+│       ├── PKG-INFO
+│       ├── requires.txt
+│       ├── SOURCES.txt
+│       └── top_level.txt
+├── tests
+├── LICENSE
+├── MANIFEST.in
+├── pyproject.toml
+├── README.md
+├── requirements.txt
+└── setup.cfg
+```

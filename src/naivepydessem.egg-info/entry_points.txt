@@ -1,3 +1,5 @@
 [console_scripts]
+pydecomp-plot = NaivePyDECOMP.cli.plot_cli:main
+pydecomp-solve = NaivePyDECOMP.cli.cli:main
 pydessem-plot = NaivePyDESSEM.cli.plot_cli:main
 pydessem-solve = NaivePyDESSEM.cli.cli:main

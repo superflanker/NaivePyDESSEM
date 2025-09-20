@@ -303,6 +303,7 @@ def add_cost_to_dataframe(df: pd.DataFrame,
     df['Cost_{start}'] = cost_start
     df['Cost_{def}'] = cost_def
     df['Cost_{t}'] = cost_t
+
     return df
 
 

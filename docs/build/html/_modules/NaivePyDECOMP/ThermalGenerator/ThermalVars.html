@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDECOMP.ThermalGenerator.ThermalVars &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDECOMP.ThermalGenerator.ThermalVars</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDECOMP.ThermalGenerator.ThermalVars</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Thermal Unit Commitment — Sets, Parameters and Variables</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">This module provides the Pyomo set/parameter declarations and variable</span>
+<span class="sd">definitions for thermal unit commitment (UC) models. It is intended to</span>
+<span class="sd">be combined with constraint and objective builder modules.</span>
+
+<span class="sd">Features</span>
+<span class="sd">--------</span>
+<span class="sd">- Time horizon (T) and thermal unit set (G)</span>
+<span class="sd">- Demand profile d[t] and deficit penalty Cdef</span>
+<span class="sd">- Unit-level parameters:</span>
+<span class="sd">    * Pmin, Pmax  : capacity bounds</span>
+<span class="sd">    * RU, RD      : ramp-up / ramp-down limits</span>
+<span class="sd">    * a, b, c     : cost coefficients for MIQP (a * u + b * p + c * p²)</span>
+<span class="sd">    * SC          : start-up (hot) cost</span>
+<span class="sd">    * t_up, t_dn  : minimum up/down times</span>
+<span class="sd">    * u0, p0      : initial commitment state and output</span>
+<span class="sd">- Optional system-wide parameters:</span>
+<span class="sd">    * Rreq[t]     : spinning reserve requirement</span>
+<span class="sd">    * gamma[g]    : emissions factor</span>
+<span class="sd">    * CO2Cap      : global emission/fuel cap</span>
+<span class="sd">- Optional piecewise data:</span>
+<span class="sd">    * pw_breaks[g], pw_costs[g] : piecewise linear cost curve points</span>
+
+<span class="sd">Variables</span>
+<span class="sd">---------</span>
+<span class="sd">- p[g,t] : generation (MW)</span>
+<span class="sd">- D[t]   : deficit (MW)</span>
+<span class="sd">- r[g,t] : reserve (MW, optional)</span>
+<span class="sd">- Cvar[g,t] : variable cost in PWL formulations (optional)</span>
+<span class="sd">- u[g,t] : on/off state (binary)</span>
+<span class="sd">- y[g,t] : start-up indicator (binary)</span>
+<span class="sd">- w[g,t] : shut-down indicator (binary)</span>
+
+<span class="sd">Usage</span>
+<span class="sd">-----</span>
+<span class="sd">Call *thermal_add_sets_and_params(m, data)* to populate a Pyomo model with</span>
+<span class="sd">sets and parameters from a ThermalData object.</span>
+
+<span class="sd">Call *thermal_add_variables_uc(m, include_reserve=True/False, use_pwl=True/False)*</span>
+<span class="sd">to attach decision variables for UC formulations (MIQP or MILP-PWL).</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023  </span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">RangeSet</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Param</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span>
+                           <span class="n">NonNegativeReals</span><span class="p">,</span> <span class="n">Binary</span><span class="p">,</span> <span class="n">Reals</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ThermalDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">ThermalData</span>
+
+<div class="viewcode-block" id="thermal_add_sets_and_params">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalVars.thermal_add_sets_and_params">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">thermal_add_sets_and_params</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span> 
+                                <span class="n">data</span><span class="p">:</span> <span class="n">ThermalData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes sets and parameters for the thermal Unit Commitment (UC) model.</span>
+
+<span class="sd">    This function maps unit-level data (technical parameters, costs, </span>
+<span class="sd">    initial conditions, optional reserve and emissions information, </span>
+<span class="sd">    and piecewise cost segments) into Pyomo sets and parameters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model to be enriched with sets and parameters.</span>
+<span class="sd">    data : ThermalData</span>
+<span class="sd">        Data container with attributes:</span>
+<span class="sd">        </span>
+<span class="sd">        - horizon : int</span>
+
+<span class="sd">            Number of time periods.</span>
+
+<span class="sd">        - demand : dict</span>
+
+<span class="sd">            Demand profile indexed by time.</span>
+
+<span class="sd">        - Cdef : float</span>
+
+<span class="sd">            Cost of deficit ($/MWh).</span>
+
+<span class="sd">        - units : dict</span>
+
+<span class="sd">            Dictionary keyed by unit id, each with attributes</span>
+<span class="sd">            Pmin, Pmax, RU, RD, a, b, c, SC, t_up, t_down, u0, p0,</span>
+<span class="sd">            gamma (optional), pw_breaks (optional), pw_costs (optional).</span>
+
+<span class="sd">        - Rreq : dict, optional</span>
+
+<span class="sd">            Reserve requirement per period.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The updated model with sets **m.T, m.TG** and all unit/system parameters.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pyomo.environ import ConcreteModel</span>
+<span class="sd">    &gt;&gt;&gt; m = ConcreteModel()</span>
+<span class="sd">    &gt;&gt;&gt; m = thermal_add_sets_and_params(m, data)</span>
+<span class="sd">    &gt;&gt;&gt; list(m.TG)</span>
+<span class="sd">    [&#39;UT1&#39;, &#39;UT2&#39;, &#39;UT3&#39;]</span>
+<span class="sd">    &gt;&gt;&gt; m.d[1]</span>
+<span class="sd">    500.0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">horizon</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">RangeSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">demand</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;Cdef&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">Cdef</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">Cdef</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">TG</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">G</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">thermal_Gmin</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">TG</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">g</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">.</span><span class="n">Gmin</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">})</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">thermal_Gmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">TG</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">g</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">.</span><span class="n">Gmax</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">})</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">thermal_Cost</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">TG</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">g</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">.</span><span class="n">Cost</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+<div class="viewcode-block" id="thermal_add_variables_uc">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalVars.thermal_add_variables_uc">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">thermal_add_variables_uc</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">include_reserve</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">use_pwl</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Declares decision variables for the thermal Unit Commitment (UC) model.</span>
+
+<span class="sd">    Variables include continuous generation and deficit levels, </span>
+<span class="sd">    binary commitment/start/stop indicators, and optionally, </span>
+<span class="sd">    reserve and piecewise cost variables.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Model where variables will be added.</span>
+<span class="sd">    include_reserve : bool, optional</span>
+<span class="sd">        If True, reserve variables **m.r[g, t]** are created (default False).</span>
+<span class="sd">    use_pwl : bool, optional</span>
+<span class="sd">        If True, piecewise linear cost variables **m.Cvar[g, t]** </span>
+<span class="sd">        are created (default False).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The updated model with added decision variables:</span>
+<span class="sd">        - Continuous:</span>
+
+<span class="sd">          * **m.p[g, t]** : generation [MW].</span>
+<span class="sd">          * **m.D[t]** : deficit [MW].</span>
+<span class="sd">          * **m.r[g, t]** : reserve [MW], optional.</span>
+<span class="sd">          * **m.Cvar[g, t]** : piecewise cost variable, optional.</span>
+
+<span class="sd">        - Binary:</span>
+
+<span class="sd">          * **m.u[g, t]** : commitment (on/off).</span>
+<span class="sd">          * **m.y[g, t]** : startup indicator.</span>
+<span class="sd">          * **m.w[g, t]** : shutdown indicator.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pyomo.environ import ConcreteModel</span>
+<span class="sd">    &gt;&gt;&gt; m = ConcreteModel()</span>
+<span class="sd">    &gt;&gt;&gt; m = thermal_add_sets_and_params(m, data)</span>
+<span class="sd">    &gt;&gt;&gt; m = thermal_add_variables_uc(m, include_reserve=True, use_pwl=True)</span>
+<span class="sd">    &gt;&gt;&gt; m.p[&#39;UT1&#39;, 1].pprint()</span>
+<span class="sd">    Variable p[UT1,1]</span>
+<span class="sd">    Domain: NonNegativeReals</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    **Reserve modeling (**include_reserve=True**)**</span>
+
+<span class="sd">    - **Advantages**: Captures spinning reserve obligations; ensures reliability</span>
+<span class="sd">      under contingencies; critical for adequacy/security studies.</span>
+<span class="sd">    - **Trade-offs**: Increases model size with additional variables</span>
+<span class="sd">      **m.r[g, t]** and constraints; may slow down MILP/MIQP solution.</span>
+<span class="sd">    - **Guidance**: Use if reserve margins are central to the study; omit in</span>
+<span class="sd">      purely economic dispatch tests for simplicity.</span>
+
+<span class="sd">    **Piecewise costs (**use_pwl=True**)**4</span>
+<span class="sd">    </span>
+<span class="sd">    - **Advantages**: Converts quadratic costs to MILP form; exploits strong</span>
+<span class="sd">      LP relaxations; often faster and more scalable on large systems.</span>
+<span class="sd">    - **Trade-offs**: Approximation error unless sufficient breakpoints are</span>
+<span class="sd">      used; adds SOS2 or convex-combination variables, increasing model size.</span>
+<span class="sd">    - **Guidance**: Use when quadratic costs cannot be handled efficiently</span>
+<span class="sd">      by the chosen solver, or when MILP-only solvers are required.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Variáveis contínuas</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">thermal_p</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">TG</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>     <span class="c1"># geração</span>
+    
+    <span class="k">return</span> <span class="n">m</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

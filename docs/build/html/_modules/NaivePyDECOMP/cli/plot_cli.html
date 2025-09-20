@@ -1,0 +1,657 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDECOMP.cli.plot_cli &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Cli Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">NaivePyDESSEM Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">HydraulicGenerator Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.HydraulicGenerator.html">NaivePyDESSEM.HydraulicGenerator package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ThermalGenerator Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">RenewableGenerator Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Storage Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.Storage.html">NaivePyDESSEM.Storage package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDECOMP.cli.plot_cli</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDECOMP.cli.plot_cli</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems  </span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Module: CLI — Visualization and Export Interface</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">This module provides a command-line interface (CLI) for inspecting and exporting </span>
+<span class="sd">the results of a solved NaivePyDECOMP dispatch model.</span>
+
+<span class="sd">The CLI supports both interactive and non-interactive use, allowing users to:</span>
+
+<span class="sd">- Export generation and control data as LaTeX tables.</span>
+<span class="sd">- Generate bar and line plots from selected result categories.</span>
+<span class="sd">- Save control variables (U, Y, W) as visually annotated LaTeX matrices.</span>
+
+<span class="sd">Features</span>
+<span class="sd">--------</span>
+<span class="sd">- Supports CSV, Excel, and Parquet input formats.</span>
+<span class="sd">- Category-based selection of variables (e.g., G, Q, V, S, BAT, cost, CTRL).</span>
+<span class="sd">- Automated LaTeX formatting and colored control tables.</span>
+<span class="sd">- Customizable plot styling, labeling, and output paths.</span>
+
+<span class="sd">Categories</span>
+<span class="sd">----------</span>
+<span class="sd">- &#39;G&#39;     : Generation (thermal, renewable, battery)</span>
+<span class="sd">- &#39;Q&#39;     : Turbine flow [hydro]</span>
+<span class="sd">- &#39;V&#39;     : Volume [hydro]</span>
+<span class="sd">- &#39;S&#39;     : Spillage [hydro]</span>
+<span class="sd">- &#39;BAT&#39;   : Battery-specific (charge/discharge/SoC)</span>
+<span class="sd">- &#39;cost&#39;  : Cost components per stage (var, start, deficit)</span>
+<span class="sd">- &#39;CTRL&#39;  : Control variables (U, Y, W)</span>
+
+<span class="sd">Dependencies</span>
+<span class="sd">------------</span>
+<span class="sd">- pandas</span>
+<span class="sd">- matplotlib</span>
+<span class="sd">- colorama</span>
+<span class="sd">- argparse</span>
+<span class="sd">- NaivePyDECOMP utilities: plotting, formatting, LaTeX export</span>
+
+<span class="sd">Usage</span>
+<span class="sd">-----</span>
+<span class="sd">Run via command line:</span>
+<span class="sd">    $ python plot_cli.py results.csv --mode table --category G cost --out-dir tables</span>
+
+<span class="sd">Or interactively:</span>
+<span class="sd">    $ python plot_cli.py results.parquet</span>
+
+<span class="sd">Quick examples</span>
+<span class="sd">--------------</span>
+<span class="sd"># 1) Non-interactive: stacked bar plot for Generation + Spillage</span>
+<span class="sd">python plot_results_cli.py results/day1.parquet \</span>
+<span class="sd">--mode plot --category G S --plot-style bar --stacked \</span>
+<span class="sd">--title &quot;Generation &amp; Spillage&quot; --ylabel MW \</span>
+<span class="sd">--out-dir plots --out-file gen_spill.png</span>
+
+
+<span class="sd"># 2) Non-interactive: LaTeX table for Volume and Costs</span>
+<span class="sd">python plot_results_cli.py results/day1.csv \</span>
+<span class="sd">--mode table --category V cost \</span>
+<span class="sd">--title &quot;Reservoir Volume and Cost Variables&quot; --label tab:vol_cost \</span>
+<span class="sd">--out-dir tables --out-file vol_cost.tex</span>
+
+
+<span class="sd"># 3) Non-interactive: CTRL matrix (U/Y/W) with custom caption/label</span>
+<span class="sd">python plot_results_cli.py results/day1.xlsx \</span>
+<span class="sd">--mode ctrl --title &quot;Unit Commitment Status&quot; --label tab:uyw \</span>
+<span class="sd">--out-dir tables --out-file uyw.tex</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023  </span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">colorama</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fore</span><span class="p">,</span> <span class="n">Style</span><span class="p">,</span> <span class="n">init</span> <span class="k">as</span> <span class="n">colorama_init</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.PlotSeries</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_series</span><span class="p">,</span> <span class="n">plot_series_bar</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">binary_df_to_colored_latex</span><span class="p">,</span> <span class="n">custom_df_to_latex</span>
+
+
+<div class="viewcode-block" id="print_welcome_banner">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.print_welcome_banner">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">print_welcome_banner</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print a formatted welcome banner with project information and author credit.</span>
+
+<span class="sd">    Uses colored and bold text to enhance readability in the terminal.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}</span><span class="s2">EELT 7030 — Operation and Expansion Planning of Electric Power Systems&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="si">}</span><span class="s2">Federal University of Paraná (UFPR)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}</span><span class="s2">NaivePlot: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Reporting CLI For </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">MAGENTA</span><span class="si">}</span><span class="s2">NaivePyDECOMP Simulations</span><span class="si">{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}</span><span class="s2">Author: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">WHITE</span><span class="si">}</span><span class="s2">Augusto Mathias Adams </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">&lt;augusto.adams@ufpr.br&gt;&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span></div>
+
+   
+
+<div class="viewcode-block" id="prompt">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.prompt">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">prompt</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prompt the user for input with a highlighted message.</span>
+
+<span class="sd">    If the message ends with &quot;[optional]&quot;, the user may press Enter to return an empty string.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    msg : str</span>
+<span class="sd">        The message displayed to the user.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        The user response, stripped of leading and trailing whitespace.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="si">}{</span><span class="n">msg</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;&gt; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="load_dataframe">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.load_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_dataframe</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a pandas DataFrame from a supported file format.</span>
+
+<span class="sd">    Supports CSV, Excel (.xlsx, .xls), and Parquet formats. The file extension is used</span>
+<span class="sd">    to determine the appropriate loader.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Full path to the data file.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        The loaded DataFrame.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the file format is not supported.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+    <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Loading file: </span><span class="si">{</span><span class="n">path</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;.csv&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;.xlsx&quot;</span><span class="p">,</span> <span class="s2">&quot;.xls&quot;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;.parquet&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="si">}</span><span class="s2">Unsupported file format: </span><span class="si">{</span><span class="n">ext</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="select_variable_columns">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.select_variable_columns">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">select_variable_columns</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                            <span class="n">category</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Filter DataFrame columns based on a single category.</span>
+
+<span class="sd">    The function selects columns corresponding to predefined variable categories</span>
+<span class="sd">    such as generation, flow, storage, control actions, and cost.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The input DataFrame containing simulation results.</span>
+<span class="sd">    category : str</span>
+<span class="sd">        One of: {&quot;G&quot;, &quot;Q&quot;, &quot;S&quot;, &quot;V&quot;, &quot;BAT&quot;, &quot;cost&quot;, &quot;CTRL&quot;}.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        A filtered view of the DataFrame containing only relevant columns.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the category is unrecognized.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;GT&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(G_|Ge_|Deficit|Demand).*&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;G&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^G_.*&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;Q&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^Q_.*&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;S&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^S_.*&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;V&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^V_.*&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;BAT&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(D_|C_|E_).*&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">category</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;cost&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^Cost_.*&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">category</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;CTRL&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(U_|Y_|W_).*&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="si">}</span><span class="s2">Unrecognized category: </span><span class="si">{</span><span class="n">category</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="select_columns_multi">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.select_columns_multi">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">select_columns_multi</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                         <span class="n">categories</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Filter and concatenate DataFrame columns across multiple categories.</span>
+
+<span class="sd">    Avoids column duplication by tracking previously added columns. Used to</span>
+<span class="sd">    assemble a view of variables spanning multiple categories (e.g., flow and volume).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The input DataFrame containing simulation results.</span>
+<span class="sd">    categories : list of str</span>
+<span class="sd">        List of category identifiers (e.g., [&quot;G&quot;, &quot;S&quot;, &quot;V&quot;, &quot;cost&quot;]).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        A DataFrame composed of all selected columns, in order of appearance.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If no categories are provided.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">categories</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="si">}</span><span class="s2">At least one category must be provided.</span><span class="si">{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">categories</span><span class="p">:</span>
+        <span class="n">sub</span> <span class="o">=</span> <span class="n">select_variable_columns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">cat</span><span class="p">)</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">sub</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">]</span>
+        <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="n">cols</span><span class="p">])</span>
+        <span class="n">seen</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">parts</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="handle_control_variables">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.handle_control_variables">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_control_variables</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                             <span class="o">*</span><span class="p">,</span>
+                             <span class="n">out_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                             <span class="n">out_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                             <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                             <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate and export a colored LaTeX table for binary control variables.</span>
+
+<span class="sd">    This function prompts the user (if necessary) for export parameters and produces</span>
+<span class="sd">    a LaTeX table that visualizes control variables (U, Y, W) using a binary</span>
+<span class="sd">    color-coded scheme.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The DataFrame containing control variable columns.</span>
+<span class="sd">    out_dir : str, optional</span>
+<span class="sd">        Output directory path. Prompted if not provided.</span>
+<span class="sd">    out_file : str, optional</span>
+<span class="sd">        Output .tex file name. Prompted if not provided.</span>
+<span class="sd">    caption : str or None, optional</span>
+<span class="sd">        Caption text for the LaTeX table. Prompted if None.</span>
+<span class="sd">    label : str or None, optional</span>
+<span class="sd">        LaTeX label for referencing the table. Prompted if None.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        The function saves the LaTeX file to disk and prints the location.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">out_dir</span> <span class="o">=</span> <span class="n">out_dir</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span>
+        <span class="s2">&quot;Enter the output directory for the LaTeX table&quot;</span><span class="p">)</span>
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">out_file</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;Enter the output .tex file name&quot;</span><span class="p">)</span>
+    <span class="n">caption</span> <span class="o">=</span> <span class="n">caption</span> <span class="k">if</span> <span class="n">caption</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">prompt</span><span class="p">(</span>
+        <span class="s2">&quot;Enter the caption for the LaTeX table [optional]&quot;</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">label</span> <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">prompt</span><span class="p">(</span>
+        <span class="s2">&quot;Enter the label for the LaTeX table [optional]&quot;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ctrl_df</span> <span class="o">=</span> <span class="n">select_variable_columns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;CTRL&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">caption</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">caption</span>
+    <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
+    <span class="n">tex</span> <span class="o">=</span> <span class="n">binary_df_to_colored_latex</span><span class="p">(</span><span class="n">ctrl_df</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">out_file</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tex</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="si">}</span><span class="s2">✔ Table saved to:</span><span class="si">{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">path</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="handle_table">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.handle_table">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_table</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                 <span class="n">categories</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+                 <span class="o">*</span><span class="p">,</span>
+                 <span class="n">out_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">out_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Export selected variables as a LaTeX table.</span>
+
+<span class="sd">    Filters the DataFrame based on one or more variable categories, formats it into</span>
+<span class="sd">    LaTeX using custom styling, and saves the result to a file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        DataFrame with simulation results.</span>
+<span class="sd">    categories : list of str</span>
+<span class="sd">        One or more category identifiers to include.</span>
+<span class="sd">    out_dir : str, optional</span>
+<span class="sd">        Output directory path. Prompted if not provided.</span>
+<span class="sd">    out_file : str, optional</span>
+<span class="sd">        Output .tex file name. Prompted if not provided.</span>
+<span class="sd">    caption : str or None, optional</span>
+<span class="sd">        Caption for the LaTeX table.</span>
+<span class="sd">    label : str or None, optional</span>
+<span class="sd">        LaTeX label for the table.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        Writes the LaTeX table to the specified file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">out_dir</span> <span class="o">=</span> <span class="n">out_dir</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span>
+        <span class="s2">&quot;Enter the output directory for the LaTeX table&quot;</span><span class="p">)</span>
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">out_file</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;Enter the output .tex file name&quot;</span><span class="p">)</span>
+    <span class="n">caption</span> <span class="o">=</span> <span class="n">caption</span> <span class="k">if</span> <span class="n">caption</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">prompt</span><span class="p">(</span>
+        <span class="s2">&quot;Enter the caption for the LaTeX table [optional]&quot;</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">label</span> <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">prompt</span><span class="p">(</span>
+        <span class="s2">&quot;Enter the label for the LaTeX table [optional]&quot;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">subset</span> <span class="o">=</span> <span class="n">select_columns_multi</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">categories</span><span class="p">)</span>
+    <span class="n">subset</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">caption</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">caption</span>
+    <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
+    <span class="n">tex</span> <span class="o">=</span> <span class="n">custom_df_to_latex</span><span class="p">(</span><span class="n">subset</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">out_file</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tex</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="si">}</span><span class="s2">✔ Table saved to:</span><span class="si">{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">path</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="handle_plot">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.handle_plot">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_plot</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                <span class="n">categories</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+                <span class="o">*</span><span class="p">,</span>
+                <span class="n">plot_style</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">stacked</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">ylabel</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">out_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">out_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate and export plots for selected variable categories.</span>
+
+<span class="sd">    Supports both line and bar charts, including stacked bar plots. If not</span>
+<span class="sd">    fully specified via arguments, the function prompts the user for relevant</span>
+<span class="sd">    plot metadata and output settings.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        DataFrame containing simulation results.</span>
+<span class="sd">    categories : list of str</span>
+<span class="sd">        List of category identifiers to include in the plot.</span>
+<span class="sd">    plot_style : str, optional</span>
+<span class="sd">        Plot type (&quot;line&quot; or &quot;bar&quot;). Prompted if not provided.</span>
+<span class="sd">    stacked : bool, optional</span>
+<span class="sd">        Whether to stack bars (applies only to bar plots).</span>
+<span class="sd">    title : str, optional</span>
+<span class="sd">        Title of the plot. Prompted if not provided.</span>
+<span class="sd">    ylabel : str, optional</span>
+<span class="sd">        Label for the Y-axis. Prompted if not provided.</span>
+<span class="sd">    out_dir : str, optional</span>
+<span class="sd">        Directory to save the plot. Prompted if not provided.</span>
+<span class="sd">    out_file : str, optional</span>
+<span class="sd">        File name for the saved image. Prompted if not provided.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        Saves the plot to disk and prints the file location.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">plot_style</span> <span class="o">=</span> <span class="p">(</span><span class="n">plot_style</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;Line or bar plot? (line/bar)&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">title</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;Enter the title of the plot [optional]&quot;</span><span class="p">)</span>
+    <span class="n">ylabel</span> <span class="o">=</span> <span class="n">ylabel</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;Enter the y-axis label [optional]&quot;</span><span class="p">)</span>
+    <span class="n">out_dir</span> <span class="o">=</span> <span class="n">out_dir</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;Enter the output directory for the figure&quot;</span><span class="p">)</span>
+    <span class="n">out_file</span> <span class="o">=</span> <span class="n">out_file</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span>
+        <span class="s2">&quot;Enter the output file name (e.g., plot.png)&quot;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">series</span> <span class="o">=</span> <span class="n">select_columns_multi</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">categories</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;T&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">else</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">title_use</span> <span class="o">=</span> <span class="n">title</span> <span class="k">if</span> <span class="n">title</span> <span class="k">else</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">categories</span><span class="p">)</span>
+    <span class="n">ylabel_use</span> <span class="o">=</span> <span class="n">ylabel</span> <span class="k">if</span> <span class="n">ylabel</span> <span class="k">else</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">categories</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">out_file</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">plot_style</span> <span class="o">==</span> <span class="s2">&quot;line&quot;</span><span class="p">:</span>
+        <span class="n">plot_series</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">series</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;list&quot;</span><span class="p">),</span>
+                    <span class="n">title</span><span class="o">=</span><span class="n">title_use</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel_use</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">plot_style</span> <span class="o">==</span> <span class="s2">&quot;bar&quot;</span><span class="p">:</span>
+        <span class="n">stacked</span> <span class="o">=</span> <span class="p">(</span><span class="n">stacked</span> <span class="k">if</span> <span class="n">stacked</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">prompt</span><span class="p">(</span>
+            <span class="s2">&quot;Stacked bars? (y/n)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span>
+        <span class="n">plot_series_bar</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">series</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;list&quot;</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="n">title_use</span><span class="p">,</span>
+                        <span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel_use</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="n">stacked</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="si">}</span><span class="s2">Unrecognized plot style.</span><span class="si">{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="si">}</span><span class="s2">✔ Figure saved to:</span><span class="si">{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">path</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.main">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Command-line interface (CLI) entry point for visualization and export.</span>
+
+<span class="sd">    This function enables both interactive and scripted execution modes for exporting</span>
+<span class="sd">    results from NaivePyDECOMP simulations. It supports the generation of:</span>
+
+<span class="sd">    - LaTeX tables for generation, flow, spillage, storage, cost, and control variables.</span>
+<span class="sd">    - Binary control matrix tables with color-coded LaTeX formatting (U/Y/W).</span>
+<span class="sd">    - Time-series plots (line or bar, stacked or grouped) for selected variable categories.</span>
+
+<span class="sd">    The CLI can be invoked directly via command line with arguments, or interactively</span>
+<span class="sd">    with user prompts when arguments are omitted.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">        Results are saved to disk in the specified format. No value is returned.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Command-line usage:</span>
+
+<span class="sd">        $ python plot_xli.py results.csv --mode table -c G cost --out-dir out --out-file results.tex</span>
+
+<span class="sd">    Interactive usage:</span>
+
+<span class="sd">        $ python plot_cli.py results.csv</span>
+<span class="sd">        &gt; Generate table, plot, or CTRL matrix? (table/plot/ctrl)</span>
+<span class="sd">        &gt; Enter category(ies) separated by spaces (e.g., G S V):</span>
+<span class="sd">        &gt; ...</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Categories are case-insensitive. Recognized categories include:</span>
+<span class="sd">      &quot;G&quot;, &quot;Q&quot;, &quot;S&quot;, &quot;V&quot;, &quot;BAT&quot;, &quot;cost&quot;, &quot;CTRL&quot;.</span>
+<span class="sd">    - For LaTeX export, output directory and file name are required.</span>
+<span class="sd">    - For plotting, time column &#39;T&#39; is used if available; otherwise, index is used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">colorama_init</span><span class="p">(</span><span class="n">autoreset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">print_welcome_banner</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Main CLI entry point (interactive and non-interactive).&quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;CLI for visualization/export of NaivePyDECOMP results&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;input_file&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Input file (.csv, .xlsx, .parquet)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--mode&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="s2">&quot;plot&quot;</span><span class="p">,</span> <span class="s2">&quot;ctrl&quot;</span><span class="p">],</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Export mode: LaTeX table, plot, or CTRL (U/Y/W) matrix&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--category&quot;</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;One or more categories (e.g., G GG Q S V BAT cost)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--plot-style&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">],</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Plot style&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--stacked&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Use stacked bars (bar plots only)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--title&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Plot title or LaTeX caption&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--ylabel&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Y-axis label (plots)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--out-dir&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output directory&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--out-file&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output file name (plot image or .tex)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--label&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;LaTeX label (tables)&quot;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">load_dataframe</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">input_file</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available categories: G (Generation), Q (Turbine flow), S (Spillage), V (Volume), cost, CTRL (U/Y/W), BAT&quot;</span><span class="p">)</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mode</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span>
+        <span class="s2">&quot;Generate table, plot, or CTRL matrix? (table/plot/ctrl)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;ctrl&quot;</span><span class="p">:</span>
+        <span class="n">handle_control_variables</span><span class="p">(</span>
+            <span class="n">df</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">out_file</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;cost&quot;</span> <span class="k">else</span> <span class="s2">&quot;cost&quot;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">(</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">category</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;Enter category(ies) separated by spaces (e.g., G S V):&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">())]</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;table&quot;</span><span class="p">:</span>
+        <span class="n">handle_table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">categories</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span>
+                     <span class="n">out_file</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">out_file</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;plot&quot;</span><span class="p">:</span>
+        <span class="n">handle_plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">categories</span><span class="p">,</span> <span class="n">plot_style</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">plot_style</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">stacked</span><span class="p">,</span>
+                    <span class="n">title</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">out_file</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unrecognized mode.&quot;</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
