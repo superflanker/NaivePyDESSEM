@@ -56,12 +56,15 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Builder">NaivePyDECOMP.Builder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.BuilderPDDD">NaivePyDECOMP.BuilderPDDD module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.DataFrames">NaivePyDECOMP.DataFrames module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Formatters">NaivePyDECOMP.Formatters module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.ModelCheck">NaivePyDECOMP.ModelCheck module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.ModelFormatters">NaivePyDECOMP.ModelFormatters module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.PlotSeries">NaivePyDECOMP.PlotSeries module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.PDDDMergeModels">NaivePyDECOMP.PDDDMergeModels module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Reporting">NaivePyDECOMP.Reporting module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.SolverPDDD">NaivePyDECOMP.SolverPDDD module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Solver">NaivePyDECOMP.Solver module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Utils">NaivePyDECOMP.Utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.YAMLLoader">NaivePyDECOMP.YAMLLoader module</a></li>
@@ -204,17 +207,118 @@ renewable, or storage units, along with metadata and demand series.</p></li>
 </dd></dl>
 
 </section>
-<section id="module-NaivePyDECOMP.cli.plot_cli">
-<span id="naivepydecomp-cli-plot-cli-module"></span><h2>NaivePyDECOMP.cli.plot_cli module<a class="headerlink" href="#module-NaivePyDECOMP.cli.plot_cli" title="Link to this heading"></a></h2>
+<section id="module-NaivePyDECOMP.cli.pddd_cli">
+<span id="naivepydecomp-cli-pddd-cli-module"></span><h2>NaivePyDECOMP.cli.pddd_cli module<a class="headerlink" href="#module-NaivePyDECOMP.cli.pddd_cli" title="Link to this heading"></a></h2>
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<p>Module: CLI — Visualization and Export Interface</p>
+<p>Solver cli for NaivePyDECOMP PDDD framework</p>
 <section id="id1">
 <h3>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
 <section id="id2">
 <h3>Description<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>This script provides a command-line interface (CLI) for solving power system
+dispatch problems using the NaivePyDECOMP framework. It loads a structured
+YAML configuration file containing the model horizon, demand, and definitions
+of thermal, hydro, renewable, and storage units.</p>
+<p>Once the Pyomo model is built and solved via the specified solver (e.g., GLPK,
+CBC, MindtPy), the resulting dispatch decisions are exported to a tabular
+DataFrame and saved to disk in a user-defined format (CSV, Excel, or Parquet).</p>
+</section>
+<section id="id3">
+<h3>Features<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Model construction and solver execution based on <em>NaivePyDECOMP.Solver</em></p></li>
+<li><p>Tabular export using <em>NaivePyDECOMP.DataFrames.build_dispatch_dataframe</em></p></li>
+<li><p>Interactive or scriptable invocation</p></li>
+<li><p>Colorized console output via <em>colorama</em> for enhanced readability</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>Dependencies<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>argparse</p></li>
+<li><p>os</p></li>
+<li><p>pandas</p></li>
+<li><p>colorama</p></li>
+<li><p>pyomo.environ</p></li>
+<li><p>NaivePyDECOMP.Solver</p></li>
+<li><p>NaivePyDECOMP.DataFrames</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>Usage<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>$ python cli.py case.yaml –out_dir results –out_file dispatch.xlsx</p>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.cli.pddd_cli.main">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.cli.pddd_cli.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDECOMP/cli/pddd_cli.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.cli.pddd_cli.main" title="Link to this definition"></a></dt>
+<dd><p>Command-line interface for solving and exporting dispatch results.</p>
+<p>This function serves as the main entry point for the NaivePyDECOMP solver CLI.
+It loads an input YAML file describing a power system dispatch problem, builds
+and solves the corresponding Pyomo model, and exports the resulting dispatch
+data to a structured file format (CSV, Excel, or Parquet).</p>
+<p>The output includes generation, storage, and control decisions across all time
+steps, organized into a tabular format suitable for post-processing or plotting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The function performs file I/O and prints summary information to the console.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The input YAML file must include sections for at least one of: hydro, thermal,
+renewable, or storage units, along with metadata and demand series.</p></li>
+<li><p>The output DataFrame is rounded to zero for absolute values below 1e-3 for clarity.</p></li>
+<li><p>Supported file extensions: <em>.csv</em>, <em>.xlsx</em>, <em>.xls</em>, <em>.parquet</em>.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p>$ python cli.py case.yaml –out_dir results –out_file dispatch.xlsx</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.cli.pddd_cli.print_welcome_banner">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.cli.pddd_cli.</span></span><span class="sig-name descname"><span class="pre">print_welcome_banner</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDECOMP/cli/pddd_cli.html#print_welcome_banner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.cli.pddd_cli.print_welcome_banner" title="Link to this definition"></a></dt>
+<dd><p>Print a formatted welcome banner with project information and author credit.</p>
+<p>Uses colored and bold text to enhance readability in the terminal.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.cli.pddd_cli.save_dataframe">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.cli.pddd_cli.</span></span><span class="sig-name descname"><span class="pre">save_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDECOMP/cli/pddd_cli.html#save_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.cli.pddd_cli.save_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Save a DataFrame to disk in the format specified by the file extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame to be saved.</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – The output file path (must end with .csv, .xlsx, or .parquet).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the file extension is not supported.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.cli.plot_cli">
+<span id="naivepydecomp-cli-plot-cli-module"></span><h2>NaivePyDECOMP.cli.plot_cli module<a class="headerlink" href="#module-NaivePyDECOMP.cli.plot_cli" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: CLI — Visualization and Export Interface</p>
+<section id="id6">
+<h3>Author<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id7">
+<h3>Description<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <p>This module provides a command-line interface (CLI) for inspecting and exporting
 the results of a solved NaivePyDECOMP dispatch model.</p>
 <p>The CLI supports both interactive and non-interactive use, allowing users to:</p>
@@ -224,11 +328,11 @@ the results of a solved NaivePyDECOMP dispatch model.</p>
 <li><p>Save control variables (U, Y, W) as visually annotated LaTeX matrices.</p></li>
 </ul>
 </section>
-<section id="id3">
-<h3>Features<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<section id="id8">
+<h3>Features<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Supports CSV, Excel, and Parquet input formats.</p></li>
-<li><p>Category-based selection of variables (e.g., G, Q, V, S, BAT, cost, CTRL).</p></li>
+<li><p>Category-based selection of variables (e.g., G, Q, V, S, BAT, cost).</p></li>
 <li><p>Automated LaTeX formatting and colored control tables.</p></li>
 <li><p>Customizable plot styling, labeling, and output paths.</p></li>
 </ul>
@@ -242,11 +346,10 @@ the results of a solved NaivePyDECOMP dispatch model.</p>
 <li><p>‘S’     : Spillage [hydro]</p></li>
 <li><p>‘BAT’   : Battery-specific (charge/discharge/SoC)</p></li>
 <li><p>‘cost’  : Cost components per stage (var, start, deficit)</p></li>
-<li><p>‘CTRL’  : Control variables (U, Y, W)</p></li>
 </ul>
 </section>
-<section id="id4">
-<h3>Dependencies<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<section id="id9">
+<h3>Dependencies<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>pandas</p></li>
 <li><p>matplotlib</p></li>
@@ -255,8 +358,8 @@ the results of a solved NaivePyDECOMP dispatch model.</p>
 <li><p>NaivePyDECOMP utilities: plotting, formatting, LaTeX export</p></li>
 </ul>
 </section>
-<section id="id5">
-<h3>Usage<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<section id="id10">
+<h3>Usage<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <dl class="simple">
 <dt>Run via command line:</dt><dd><p>$ python plot_cli.py results.csv –mode table –category G cost –out-dir tables</p>
 </dd>
@@ -270,38 +373,10 @@ the results of a solved NaivePyDECOMP dispatch model.</p>
 python plot_results_cli.py results/day1.parquet –mode plot –category G S –plot-style bar –stacked –title “Generation &amp; Spillage” –ylabel MW –out-dir plots –out-file gen_spill.png</p>
 <p># 2) Non-interactive: LaTeX table for Volume and Costs
 python plot_results_cli.py results/day1.csv –mode table –category V cost –title “Reservoir Volume and Cost Variables” –label tab:vol_cost –out-dir tables –out-file vol_cost.tex</p>
-<p># 3) Non-interactive: CTRL matrix (U/Y/W) with custom caption/label
-python plot_results_cli.py results/day1.xlsx –mode ctrl –title “Unit Commitment Status” –label tab:uyw –out-dir tables –out-file uyw.tex</p>
 <p class="rubric">References</p>
 <p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
-<dl class="py function">
-<dt class="sig sig-object py" id="NaivePyDECOMP.cli.plot_cli.handle_control_variables">
-<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">handle_control_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/cli/plot_cli.html#handle_control_variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.cli.plot_cli.handle_control_variables" title="Link to this definition"></a></dt>
-<dd><p>Generate and export a colored LaTeX table for binary control variables.</p>
-<p>This function prompts the user (if necessary) for export parameters and produces
-a LaTeX table that visualizes control variables (U, Y, W) using a binary
-color-coded scheme.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame containing control variable columns.</p></li>
-<li><p><strong>out_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – Output directory path. Prompted if not provided.</p></li>
-<li><p><strong>out_file</strong> (<em>str</em><em>, </em><em>optional</em>) – Output .tex file name. Prompted if not provided.</p></li>
-<li><p><strong>caption</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Caption text for the LaTeX table. Prompted if None.</p></li>
-<li><p><strong>label</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – LaTeX label for referencing the table. Prompted if None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The function saves the LaTeX file to disk and prints the location.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDECOMP.cli.plot_cli.handle_plot">
 <span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">handle_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacked</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDECOMP/cli/plot_cli.html#handle_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.cli.plot_cli.handle_plot" title="Link to this definition"></a></dt>
@@ -403,7 +478,7 @@ with user prompts when arguments are omitted.</p>
 <p class="rubric">Examples</p>
 <p>Command-line usage:</p>
 <blockquote>
-<div><p>$ python plot_xli.py results.csv –mode table -c G cost –out-dir out –out-file results.tex</p>
+<div><p>$ python plot_cli.py results.csv –mode table -c G cost –out-dir out –out-file results.tex</p>
 </div></blockquote>
 <p>Interactive usage:</p>
 <blockquote>
@@ -503,12 +578,12 @@ such as generation, flow, storage, control actions, and cost.</p>
 <h3>NaivePyDECOMP – CLI Subpackage<a class="headerlink" href="#naivepydecomp-cli-subpackage" title="Link to this heading"></a></h3>
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="id6">
-<h4>Author<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
+<section id="id11">
+<h4>Author<a class="headerlink" href="#id11" title="Link to this heading"></a></h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id7">
-<h4>Description<a class="headerlink" href="#id7" title="Link to this heading"></a></h4>
+<section id="id12">
+<h4>Description<a class="headerlink" href="#id12" title="Link to this heading"></a></h4>
 <p>This subpackage contains the command-line interface (CLI) utilities for
 the <strong>NaivePyDECOMP</strong> project. It enables interactive and scripted execution
 of core workflows such as solving dispatch models and visualizing results,
@@ -526,8 +601,8 @@ visual plots (bar or line).</p>
 </dd>
 </dl>
 </section>
-<section id="id8">
-<h4>Features<a class="headerlink" href="#id8" title="Link to this heading"></a></h4>
+<section id="id13">
+<h4>Features<a class="headerlink" href="#id13" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p>Modular CLI design for pedagogical workflows.</p></li>
 <li><p>Integration with Colorama for enhanced terminal output.</p></li>

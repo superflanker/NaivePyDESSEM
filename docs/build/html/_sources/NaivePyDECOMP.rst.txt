@@ -24,6 +24,14 @@ NaivePyDECOMP.Builder module
    :undoc-members:
    :show-inheritance:
 
+NaivePyDECOMP.BuilderPDDD module
+--------------------------------
+
+.. automodule:: NaivePyDECOMP.BuilderPDDD
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 NaivePyDECOMP.DataFrames module
 -------------------------------
 
@@ -64,10 +72,26 @@ NaivePyDECOMP.PlotSeries module
    :undoc-members:
    :show-inheritance:
 
+NaivePyDECOMP.PDDDMergeModels module
+------------------------------------
+
+.. automodule:: NaivePyDECOMP.PDDDMergeModels
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 NaivePyDECOMP.Reporting module
 ------------------------------
 
 .. automodule:: NaivePyDECOMP.Reporting
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+NaivePyDECOMP.SolverPDDD module
+-------------------------------
+
+.. automodule:: NaivePyDECOMP.SolverPDDD
    :members:
    :undoc-members:
    :show-inheritance:

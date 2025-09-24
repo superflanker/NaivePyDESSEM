@@ -1,0 +1,389 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDECOMP.BuilderPDDD &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDECOMP.BuilderPDDD</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDECOMP.BuilderPDDD</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems  </span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Module: Model Builder from YAML Configuration</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">This module provides a unified interface for constructing a Pyomo-based</span>
+<span class="sd">economical dispatch model from structured YAML or JSON input files.</span>
+<span class="sd">It supports integration of multiple subsystems, including:</span>
+
+<span class="sd">- Hydraulic generation units (UHEs)</span>
+<span class="sd">- Thermal generation units (UTs)</span>
+<span class="sd">- Renewable generators</span>
+<span class="sd">- Storage systems (batteries or reservoirs)</span>
+<span class="sd">- Deficit penalty model</span>
+
+<span class="sd">The model construction includes:</span>
+
+<span class="sd">- Validation of structural consistency in input data.</span>
+<span class="sd">- Object-oriented dataclass translation of YAML structures.</span>
+<span class="sd">- Modular assembly of each subsystem&#39;s variables and constraints.</span>
+<span class="sd">- Construction of system-wide power balance constraint.</span>
+<span class="sd">- Cost-based objective function including startup, generation, and deficit costs.</span>
+
+<span class="sd">Usage</span>
+<span class="sd">-----</span>
+<span class="sd">Use `build_model_from_file(path)` as the main entry point.</span>
+
+<span class="sd">Ensure the YAML file has at least a `meta` section and one</span>
+<span class="sd">of the technology sections: `hydro`, `thermal`, `renewable`, or `storage`.</span>
+
+<span class="sd">Returns</span>
+<span class="sd">-------</span>
+<span class="sd">Tuple[ConcreteModel, dict]</span>
+<span class="sd">    - Pyomo ConcreteModel ready for optimization.</span>
+<span class="sd">    - Parsed dictionary representing the structured case.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023  </span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ConcreteModel</span><span class="p">,</span>
+    <span class="n">Objective</span><span class="p">,</span>
+    <span class="n">ConstraintList</span><span class="p">,</span>
+    <span class="n">Constraint</span><span class="p">,</span>
+    <span class="n">Expression</span><span class="p">,</span>
+    <span class="n">NonNegativeReals</span><span class="p">,</span>
+    <span class="n">Var</span><span class="p">,</span>
+    <span class="n">Suffix</span><span class="p">,</span>
+    <span class="n">minimize</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_hydro_subproblem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.HydraulicGenerator.HydraulicEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_hydraulic_cost_expression</span><span class="p">,</span>
+    <span class="n">add_hydraulic_balance_expression</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_thermal_subproblem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.ThermalGenerator.ThermalEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_thermal_cost_expression</span><span class="p">,</span>
+    <span class="n">add_thermal_balance_expression</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.RenewableGenerator.RenewableGeneratorBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_renewable_subproblem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.RenewableGenerator.RenewableEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_renewable_cost_expression</span><span class="p">,</span>
+    <span class="n">add_renewable_balance_expression</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.Storage.StorageBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_storage_subproblem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.Storage.StorageEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_storage_cost_expression</span><span class="p">,</span>
+    <span class="n">add_storage_balance_expression</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.YAMLLoader</span><span class="w"> </span><span class="kn">import</span> <span class="n">yaml_loader</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Builder</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_mk_hydraulic_data</span><span class="p">,</span>
+    <span class="n">_mk_renewable_data</span><span class="p">,</span>
+    <span class="n">_mk_storage_data</span><span class="p">,</span>
+    <span class="n">_mk_thermal_data</span><span class="p">,</span>
+    <span class="n">_validate_demand</span><span class="p">,</span>
+    <span class="n">_validate_meta</span><span class="p">,</span>
+    <span class="n">_validate_hydro</span><span class="p">,</span>
+    <span class="n">_validate_renewable</span><span class="p">,</span>
+    <span class="n">_validate_storage</span><span class="p">,</span>
+    <span class="n">_validate_thermal</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDESSEM.Builder</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_validate_meta</span><span class="p">,</span>
+    <span class="n">_validate_demand</span><span class="p">,</span>
+    <span class="n">_validate_renewable</span><span class="p">,</span>
+    <span class="n">_validate_storage</span><span class="p">,</span>
+    <span class="n">_mk_renewable_data</span><span class="p">,</span>
+    <span class="n">_mk_storage_data</span>
+<span class="p">)</span>
+
+<span class="c1"># ============================================================================</span>
+<span class="c1"># Master entry point</span>
+<span class="c1"># ============================================================================</span>
+
+
+<div class="viewcode-block" id="build_pddd_balance_and_objective_from_yaml">
+<a class="viewcode-back" href="../../NaivePyDECOMP.html#NaivePyDECOMP.BuilderPDDD.build_pddd_balance_and_objective_from_yaml">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_pddd_balance_and_objective_from_yaml</span><span class="p">(</span><span class="n">yaml_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+                                               <span class="n">stage</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                                               <span class="n">cuts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Construct the system-wide power balance constraint and total cost objective</span>
+<span class="sd">    along with the model itself.</span>
+
+<span class="sd">    This function scans the parsed YAML content to determine which technologies</span>
+<span class="sd">    (thermal, hydro, storage, renewable) are present, and invokes their respective</span>
+<span class="sd">    expression builders to construct:</span>
+<span class="sd">    </span>
+<span class="sd">    - PDDD Model </span>
+<span class="sd">    - model.Balance: a time-indexed Constraint for supply-demand balance</span>
+<span class="sd">    - model.OBJ: an Objective for cost minimization</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    yaml_data : dict</span>
+<span class="sd">        Parsed YAML dictionary with subsections for each technology.</span>
+<span class="sd">    stage: int</span>
+<span class="sd">        PDDD Stage</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ConcreteModel</span>
+<span class="sd">        The input model with balance constraints and objective function added.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># --------------------------</span>
+    <span class="c1"># BALANCE CONSTRAINT</span>
+    <span class="c1"># --------------------------</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">power_balance_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">balance_terms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="s1">&#39;thermal&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
+            <span class="n">add_thermal_balance_expression</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">balance_terms</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;hydro&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
+            <span class="n">add_hydraulic_balance_expression</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">balance_terms</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;storage&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
+            <span class="n">add_storage_balance_expression</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">balance_terms</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;renewable&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
+            <span class="n">add_renewable_balance_expression</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">balance_terms</span><span class="p">)</span>
+
+        <span class="c1"># Final balance expression</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">balance_terms</span><span class="p">)</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">dual</span> <span class="o">=</span> <span class="n">Suffix</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="n">Suffix</span><span class="o">.</span><span class="n">IMPORT</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="s2">&quot;hydro&quot;</span> <span class="ow">in</span> <span class="n">yaml_data</span> <span class="ow">and</span> <span class="n">yaml_data</span><span class="p">[</span><span class="s2">&quot;hydro&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">hydro_data</span> <span class="o">=</span> <span class="n">_mk_hydraulic_data</span><span class="p">(</span><span class="n">yaml_data</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">add_hydro_subproblem</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+                                     <span class="n">data</span><span class="o">=</span><span class="n">hydro_data</span><span class="p">,</span>
+                                     <span class="n">stage</span><span class="o">=</span><span class="n">stage</span><span class="p">)</span>
+        <span class="n">has_valid_units</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="s2">&quot;thermal&quot;</span> <span class="ow">in</span> <span class="n">yaml_data</span> <span class="ow">and</span> <span class="n">yaml_data</span><span class="p">[</span><span class="s2">&quot;thermal&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_validate_thermal</span><span class="p">(</span><span class="n">yaml_data</span><span class="p">[</span><span class="s2">&quot;thermal&quot;</span><span class="p">])</span>
+        <span class="n">thermal_data</span> <span class="o">=</span> <span class="n">_mk_thermal_data</span><span class="p">(</span><span class="n">yaml_data</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">add_thermal_subproblem</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+                                       <span class="n">data</span><span class="o">=</span><span class="n">thermal_data</span><span class="p">,</span>
+                                       <span class="n">stage</span><span class="o">=</span><span class="n">stage</span><span class="p">)</span>
+        <span class="n">has_valid_units</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="s2">&quot;renewable&quot;</span> <span class="ow">in</span> <span class="n">yaml_data</span> <span class="ow">and</span> <span class="n">yaml_data</span><span class="p">[</span><span class="s2">&quot;renewable&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">renewable_data</span> <span class="o">=</span> <span class="n">_mk_renewable_data</span><span class="p">(</span><span class="n">yaml_data</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">add_renewable_subproblem</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+                                         <span class="n">data</span><span class="o">=</span><span class="n">renewable_data</span><span class="p">,</span>
+                                         <span class="n">stage</span><span class="o">=</span><span class="n">stage</span><span class="p">)</span>
+        <span class="n">has_valid_units</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="s2">&quot;storage&quot;</span> <span class="ow">in</span> <span class="n">yaml_data</span> <span class="ow">and</span> <span class="n">yaml_data</span><span class="p">[</span><span class="s2">&quot;storage&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">storage_data</span> <span class="o">=</span> <span class="n">_mk_storage_data</span><span class="p">(</span><span class="n">yaml_data</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">add_storage_subproblem</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+                                       <span class="n">data</span><span class="o">=</span><span class="n">storage_data</span><span class="p">,</span>
+                                       <span class="n">stage</span><span class="o">=</span><span class="n">stage</span><span class="p">)</span>
+        <span class="n">has_valid_units</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_valid_units</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No buildable sections found. Provide at least one of &quot;</span>
+                         <span class="s2">&quot;{hydro, thermal, renewable, storage}.&quot;</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span> 
+    <span class="n">model</span><span class="o">.</span><span class="n">Balance</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">power_balance_rule</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">cuts</span> <span class="o">=</span> <span class="n">ConstraintList</span><span class="p">()</span>
+
+    <span class="c1"># --------------------------</span>
+    <span class="c1"># BENDERS RESTRICTIONS</span>
+    <span class="c1"># --------------------------</span>
+    <span class="k">for</span> <span class="n">cut</span> <span class="ow">in</span> <span class="n">cuts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cut</span><span class="p">[</span><span class="s1">&#39;stage&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">stage</span><span class="p">:</span>
+            <span class="n">cut_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">uhe</span><span class="p">,</span> <span class="n">coef</span> <span class="ow">in</span> <span class="n">cut</span><span class="p">[</span><span class="s1">&#39;coefs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">cut_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coef</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">hydro_V</span><span class="p">[</span><span class="n">uhe</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">cuts</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">alpha</span> <span class="o">&gt;=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">cut_list</span><span class="p">)</span> <span class="o">+</span> <span class="n">cut</span><span class="p">[</span><span class="s1">&#39;rhs&#39;</span><span class="p">])</span>
+
+    <span class="c1"># --------------------------</span>
+    <span class="c1"># OBJECTIVE FUNCTION</span>
+    <span class="c1"># --------------------------</span>
+    <span class="n">cost_terms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="s1">&#39;thermal&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
+        <span class="n">add_thermal_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;hydro&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
+        <span class="n">add_hydraulic_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;storage&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
+        <span class="n">add_storage_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;renewable&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
+        <span class="n">add_renewable_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
+
+    <span class="n">cost_terms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Cdef</span><span class="o">*</span><span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+
+    <span class="n">cost_terms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">OBJ</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">cost_terms</span><span class="p">),</span> <span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span></div>
+
+
+
+<div class="viewcode-block" id="build_pddd_data_from_file">
+<a class="viewcode-back" href="../../NaivePyDECOMP.html#NaivePyDECOMP.BuilderPDDD.build_pddd_data_from_file">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_pddd_data_from_file</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load master data from YAML/JSON and build subsystem models.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to a YAML file with sections: meta, demand, and one or</span>
+<span class="sd">        more of {hydro, thermal, renewable, storage}.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Dict</span>
+<span class="sd">        the parsed case file</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        On structural or validation errors in the input file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">root</span> <span class="o">=</span> <span class="n">yaml_loader</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;meta&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">root</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;File must contain &#39;meta&#39; sections.&quot;</span><span class="p">)</span>
+
+    <span class="n">_validate_meta</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">])</span>
+
+    <span class="n">periods</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;horizon&quot;</span><span class="p">]</span>
+
+    <span class="n">_validate_demand</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;demand&quot;</span><span class="p">],</span> <span class="n">periods</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">&quot;hydro&quot;</span> <span class="ow">in</span> <span class="n">root</span> <span class="ow">and</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;hydro&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_validate_hydro</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;hydro&quot;</span><span class="p">],</span> <span class="n">periods</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">&quot;thermal&quot;</span> <span class="ow">in</span> <span class="n">root</span> <span class="ow">and</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;thermal&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_validate_thermal</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;thermal&quot;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="s2">&quot;renewable&quot;</span> <span class="ow">in</span> <span class="n">root</span> <span class="ow">and</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;renewable&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_validate_renewable</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;renewable&quot;</span><span class="p">],</span> <span class="n">periods</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">&quot;storage&quot;</span> <span class="ow">in</span> <span class="n">root</span> <span class="ow">and</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;storage&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_validate_storage</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;storage&quot;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">root</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

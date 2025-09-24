@@ -2,6 +2,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![CI](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml/badge.svg)](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml)
 [![Docs](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/docs.yml/badge.svg)](https://superflanker.github.io/NaivePyDESSEM/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-NaivePyDESSEM-181717?logo=github)](https://github.com/superflanker/NaivePyDESSEM)
 
 **NaivePyDESSEM** is a pedagogical project that brings together two complementary packages for teaching and research in power system operation planning:
 
@@ -61,11 +62,24 @@ The goal is to provide a **clean teaching tool** for courses such as *EELT 7030 
 │   │   └── trabalho01_caso05.yaml
 │   └── NEWAVE
 ├── resultados
-│   ├── DECOMP  
-    |   ├── despacho_caso01.csv
-│   │   ├── despacho_caso02.csv
-│   │   ├── despacho_caso03.csv
-│   │   └── despacho_caso04.csv
+│   ├── DECOMP
+│   │   ├── despacho_caso01_pddd.csv
+│   │   ├── despacho_caso01_pddd_alpha.csv
+│   │   ├── despacho_caso01_pddd_zlimits.csv
+│   │   ├── despacho_caso01_single_pl.csv
+│   │   ├── despacho_caso02_pddd.csv
+│   │   ├── despacho_caso02_pddd_alpha.csv
+│   │   ├── despacho_caso02_pddd_zlimits.csv
+│   │   ├── despacho_caso02_single_pl.csv
+│   │   ├── despacho_caso03_pddd.csv
+│   │   ├── despacho_caso03_pddd_alpha.csv
+│   │   ├── despacho_caso03_pddd_zlimits.csv
+│   │   ├── despacho_caso03_single_pl.csv
+│   │   ├── despacho_caso04.csv
+│   │   ├── despacho_caso04_pddd.csv
+│   │   ├── despacho_caso04_pddd_alpha.csv
+│   │   ├── despacho_caso04_pddd_zlimits.csv
+│   │   └── despacho_caso04_single_pl.csv
 │   └── DESSEM
 │       ├── despacho_caso01_1.csv
 │       ├── despacho_caso01_2.csv
@@ -79,6 +93,7 @@ The goal is to provide a **clean teaching tool** for courses such as *EELT 7030 
 │   │   ├── cli
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
+│   │   │   ├── pddd_cli.py
 │   │   │   └── plot_cli.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
@@ -112,17 +127,19 @@ The goal is to provide a **clean teaching tool** for courses such as *EELT 7030 
 │   │   │   ├── ThermalEquations.py
 │   │   │   ├── ThermalGeneratorBuilder.py
 │   │   │   ├── ThermalObjectives.py
-│   │   │   ├── ThermalPieceWise.py
 │   │   │   └── ThermalVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
+│   │   ├── BuilderPDDD.py
 │   │   ├── DataFrames.py
 │   │   ├── Formatters.py
 │   │   ├── ModelCheck.py
 │   │   ├── ModelFormatters.py
+│   │   ├── PDDDMergeModels.py
 │   │   ├── PlotSeries.py
 │   │   ├── Reporting.py
 │   │   ├── Solver.py
+│   │   ├── SolverPDDD.py
 │   │   ├── Utils.py
 │   │   └── YAMLLoader.py
 │   ├── NaivePyDESSEM
@@ -267,7 +284,6 @@ pydecomp-plot results/dispatch.csv --mode plot --category G V --plot-style line
 This implementation is based on academic material from **UFPR (Federal University of Paraná)** and CEPEL/DESSEM manuals:
 
 - Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
-- 
 - CEPEL, DESSEM. Manual de Metodologia, 2023.  
 
 ---

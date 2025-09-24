@@ -129,6 +129,8 @@ def _validate_hydro(hydro: Dict[str, Any], T: int) -> None:
         if not (u["Qmin"] <= u["Qmax"]):
             raise ValueError(f"hydro.units[{name}] must satisfy Qmin <= Qmax.")
 
+        if not (u["p"] <= 1):
+            raise ValueError(f"hydro.units[{name}] must satisfy p <= 1.")
 
 def _validate_thermal(thermal: Dict[str, Any]) -> None:
     """
@@ -337,6 +339,29 @@ def build_model_from_file(path: str) -> Tuple[ConcreteModel, Dict]:
     """
 
     root = yaml_loader(path)
+    return build_model_from_data(root)
+
+
+def build_model_from_data(root: Dict) -> Tuple[ConcreteModel, Dict]:
+    """
+    build subsystem models from data.
+
+    Parameters
+    ----------
+    root : str
+        system description.
+
+    Returns
+    -------
+    Tuple[pyomo.environ.ConcreteModel, Dict]
+        A tuple with the builded model and the parsed case file
+
+    Raises
+    ------
+    ValueError
+        On structural or validation errors in the input file.
+    """
+
     if "meta" not in root:
         raise ValueError("File must contain 'meta' sections.")
 

@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDECOMP.PDDDMergeModels &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDECOMP.PDDDMergeModels</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDECOMP.PDDDMergeModels</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems  </span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Utility: PDDD Synthetic Model Generator</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+
+<span class="sd">This utility provides tools to reconstruct a deterministic representation </span>
+<span class="sd">of a multistage dual dynamic programming (PDDD) solution as a static Pyomo </span>
+<span class="sd">model. It enables post-optimization analysis by aggregating decision </span>
+<span class="sd">variables, dual prices, volumes, and cost structures from multiple stages </span>
+<span class="sd">into a single structured object.</span>
+
+<span class="sd">Main Functionality</span>
+<span class="sd">------------------</span>
+<span class="sd">The primary function exposed by this package is:</span>
+
+<span class="sd">- `generate_dummy_model(pddd_solution, yaml_data)`: Constructs a </span>
+<span class="sd">  fully populated `ConcreteModel` that mirrors the original optimization </span>
+<span class="sd">  trajectory. It fixes all relevant decision variables and duals for each </span>
+<span class="sd">  unit (hydro, thermal, renewable, storage), and reassembles cost </span>
+<span class="sd">  expressions for reporting, visualization, and interpretation.</span>
+
+<span class="sd">Intended Use</span>
+<span class="sd">------------</span>
+<span class="sd">This package is not designed to perform optimization itself. Instead, it </span>
+<span class="sd">serves as a post-processing tool for exporting or inspecting results from </span>
+<span class="sd">a PDDD optimization workflow — for example, to be used in scenario analysis, </span>
+<span class="sd">LaTeX export, sensitivity evaluation, or policy verification.</span>
+
+<span class="sd">Dependencies</span>
+<span class="sd">------------</span>
+<span class="sd">- Pyomo</span>
+<span class="sd">- A compatible solver (e.g., GLPK, CPLEX, IPOPT)</span>
+<span class="sd">- Auxiliary model-building functions such as:</span>
+<span class="sd">  - `add_hydraulic_cost_expression`</span>
+<span class="sd">  - `add_thermal_cost_expression`</span>
+<span class="sd">  - `add_storage_cost_expression`</span>
+<span class="sd">  - `add_renewable_cost_expression`</span>
+
+<span class="sd">Examples</span>
+<span class="sd">--------</span>
+<span class="sd">&gt;&gt;&gt; from naivepydecomp.pddd import generate_dummy_model</span>
+<span class="sd">&gt;&gt;&gt; model = generate_dummy_model(pddd_solution, yaml_data)</span>
+<span class="sd">&gt;&gt;&gt; print(value(model.OBJ))</span>
+
+<span class="sd">See Also</span>
+<span class="sd">--------</span>
+<span class="sd">solve_pddd : The iterative algorithm that produces the input data for `generate_dummy_model`.</span>
+<span class="sd">solve_stage_pddd : Solves a single stage of the PDDD problem and stores intermediate results.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023  </span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ConcreteModel</span><span class="p">,</span>
+    <span class="n">Constraint</span><span class="p">,</span>
+    <span class="n">Objective</span><span class="p">,</span>
+    <span class="n">Set</span><span class="p">,</span>
+    <span class="n">value</span><span class="p">,</span>
+    <span class="n">minimize</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.contrib.latex_printer</span><span class="w"> </span><span class="kn">import</span> <span class="n">latex_printer</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ModelCheck</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">has_hydro_model</span><span class="p">,</span>
+    <span class="n">has_thermal_model</span><span class="p">,</span>
+    <span class="n">has_renewable_model</span><span class="p">,</span>
+    <span class="n">has_storage_model</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_model_from_data</span> <span class="k">as</span> <span class="n">build_model</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.HydraulicGenerator.HydraulicEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_hydraulic_cost_expression</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.ThermalGenerator.ThermalEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_thermal_cost_expression</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.RenewableGenerator.RenewableEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_renewable_cost_expression</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.Storage.StorageEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_storage_cost_expression</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="generate_dummy_model">
+<a class="viewcode-back" href="../../NaivePyDECOMP.html#NaivePyDECOMP.PDDDMergeModels.generate_dummy_model">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_dummy_model</span><span class="p">(</span><span class="n">pddd_solution</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span>
+                         <span class="n">yaml_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a synthetic Pyomo model representing the structure and results </span>
+<span class="sd">    of a full PDDD (Deterministic Dual Dynamic Programming) optimization process.</span>
+
+<span class="sd">    This function aggregates relevant decision variables and dual information </span>
+<span class="sd">    across all stages and stores them as fixed model components. It is useful </span>
+<span class="sd">    for analyzing and exporting the solution in a structured and interpretable </span>
+<span class="sd">    Pyomo `ConcreteModel`, without performing any further optimization.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pddd_solution : List</span>
+<span class="sd">        List containing the results of each stage of the PDDD algorithm, </span>
+<span class="sd">        including model objects, decision variables, shadow prices, volumes, </span>
+<span class="sd">        and costs for each time stage.</span>
+
+<span class="sd">    yaml_data : dict</span>
+<span class="sd">        Dictionary parsed from the YAML configuration file, containing system </span>
+<span class="sd">        metadata, unit definitions (hydro, thermal, renewable, storage), cost </span>
+<span class="sd">        parameters, and other structural data used during model construction.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        A fully populated Pyomo `ConcreteModel` object that encapsulates:</span>
+<span class="sd">        - Fixed decision variables from hydro, thermal, renewable, and storage units.</span>
+<span class="sd">        - Cost terms and expressions used in the original optimization.</span>
+<span class="sd">        - Final values of market price (CMO), deficit penalty, and alpha values.</span>
+<span class="sd">        - Sets for all units and time stages.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The returned model is not intended to be solved again, but rather to </span>
+<span class="sd">      serve as a reference for results visualization, report generation, or </span>
+<span class="sd">      post-analysis.</span>
+<span class="sd">    - The cost components are reassembled using the same structure as in the </span>
+<span class="sd">      original model, using the `add_*_cost_expression` helper functions.</span>
+<span class="sd">    - The model object stores one time step ahead (nstages + 1) for correct </span>
+<span class="sd">      alignment with stage-based formulations.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    KeyError</span>
+<span class="sd">        If expected keys or values are missing from `pddd_solution` or `yaml_data`.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    solve_pddd : Function that produces the input `pddd_solution` dictionary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">model</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">yaml_data</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">constraint</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">component_objects</span><span class="p">(</span><span class="n">Constraint</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">constraint</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
+
+    <span class="n">start_model</span> <span class="o">=</span> <span class="n">pddd_solution</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span><span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">has_hydro_model</span><span class="p">(</span><span class="n">start_model</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">HG</span><span class="p">:</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">hydro_Q</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span>
+                    <span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hydro_Q</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">hydro_V</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span>
+                    <span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hydro_V</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">hydro_S</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span>
+                    <span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hydro_S</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">hydro_G</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span>
+                    <span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hydro_G</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">model</span><span class="o">.</span><span class="n">CMA</span> <span class="o">=</span> <span class="p">{(</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span> <span class="o">-</span><span class="n">value</span><span class="p">(</span>
+            <span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;cma&#39;</span><span class="p">][</span><span class="n">h</span><span class="p">])</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">HG</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">}</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">FC</span> <span class="o">=</span> <span class="p">{</span><span class="n">t</span><span class="p">:</span> <span class="n">value</span><span class="p">(</span><span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">}</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">CMO</span> <span class="o">=</span> <span class="p">{</span><span class="n">t</span><span class="p">:</span> <span class="n">value</span><span class="p">(</span><span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;cmo&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">}</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="p">{</span><span class="n">t</span><span class="p">:</span> <span class="n">value</span><span class="p">(</span><span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">has_thermal_model</span><span class="p">(</span><span class="n">start_model</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">TG</span><span class="p">:</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">thermal_p</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span>
+                    <span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">thermal_p</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">has_renewable_model</span><span class="p">(</span><span class="n">start_model</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">RU</span><span class="p">:</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">renewable_gen</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span>
+                    <span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">renewable_gen</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">has_storage_model</span><span class="p">(</span><span class="n">start_model</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">SU</span><span class="p">:</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">storage_E</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span>
+                    <span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">storage_E</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span>
+                    <span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span>
+                    <span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">model</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

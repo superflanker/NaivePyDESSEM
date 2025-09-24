@@ -55,5 +55,7 @@ References
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023  
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023..
 """
-from NaivePyDESSEM.HydraulicGenerator.HydraulicEquations import (add_hydraulic_balance_expression, 
+from typing import List, Any
+from pyomo.environ import ConcreteModel, Var, Expression
+from NaivePyDESSEM.HydraulicGenerator.HydraulicEquations import (add_hydraulic_balance_expression,
                                                                  add_hydraulic_cost_expression)

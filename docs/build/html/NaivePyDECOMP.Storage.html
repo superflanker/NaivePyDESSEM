@@ -141,6 +141,52 @@ combined system balance and a joint objective in a higher-level builder.</p></li
 <p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.Storage.StorageBuilder.add_storage_subproblem">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.Storage.StorageBuilder.</span></span><span class="sig-name descname"><span class="pre">add_storage_subproblem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="NaivePyDESSEM.Storage.html#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><span class="pre">StorageData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/Storage/StorageBuilder.html#add_storage_subproblem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.Storage.StorageBuilder.add_storage_subproblem" title="Link to this definition"></a></dt>
+<dd><p>Add storage dispatch problem structure to an existing model.</p>
+<p>This routine initializes storage sets and parameters, declares decision
+variables, and attaches operational constraints. Optionally, it enforces
+a storage-only system balance and adds a deficit-penalizing objective.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Target model to be updated.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="NaivePyDESSEM.Storage.html#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><em>StorageData</em></a>) – Input container with horizon, units, and time-step duration.</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, add the storage-only balance constraint and attach the
+deficit objective (default is <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated model with storage components and, optionally, the
+balance constraint and objective.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Constraints added (always):</dt><dd><ul>
+<li><p>Energy (SoC) balance</p></li>
+<li><p>SoC bounds (min/max)</p></li>
+<li><p>Charge/discharge power limits</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>If <code class="docutils literal notranslate"><span class="pre">include_objective=True</span></code>:</dt><dd><ul>
+<li><p>Add storage-only balance: Σ(dis − ch) + D = d</p></li>
+<li><p>Attach deficit objective</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
 </section>
 <section id="module-NaivePyDECOMP.Storage.StorageConstraints">
 <span id="naivepydecomp-storage-storageconstraints-module"></span><h2>NaivePyDECOMP.Storage.StorageConstraints module<a class="headerlink" href="#module-NaivePyDECOMP.Storage.StorageConstraints" title="Link to this heading"></a></h2>

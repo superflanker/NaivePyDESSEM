@@ -148,7 +148,6 @@ def main():
     save_dataframe(df, output_path)
 
     print(f"{Fore.CYAN}Results saved to:{Style.RESET_ALL} {output_path}")
-    print(df.head())
 
 
 if __name__ == '__main__':

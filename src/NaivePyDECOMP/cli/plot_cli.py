@@ -22,7 +22,7 @@ The CLI supports both interactive and non-interactive use, allowing users to:
 Features
 --------
 - Supports CSV, Excel, and Parquet input formats.
-- Category-based selection of variables (e.g., G, Q, V, S, BAT, cost, CTRL).
+- Category-based selection of variables (e.g., G, Q, V, S, BAT, cost).
 - Automated LaTeX formatting and colored control tables.
 - Customizable plot styling, labeling, and output paths.
 
@@ -34,7 +34,6 @@ Categories
 - 'S'     : Spillage [hydro]
 - 'BAT'   : Battery-specific (charge/discharge/SoC)
 - 'cost'  : Cost components per stage (var, start, deficit)
-- 'CTRL'  : Control variables (U, Y, W)
 
 Dependencies
 ------------
@@ -67,12 +66,6 @@ python plot_results_cli.py results/day1.csv \
 --title "Reservoir Volume and Cost Variables" --label tab:vol_cost \
 --out-dir tables --out-file vol_cost.tex
 
-
-# 3) Non-interactive: CTRL matrix (U/Y/W) with custom caption/label
-python plot_results_cli.py results/day1.xlsx \
---mode ctrl --title "Unit Commitment Status" --label tab:uyw \
---out-dir tables --out-file uyw.tex
-
 References
 ----------
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023  
@@ -97,7 +90,7 @@ def print_welcome_banner():
     print(f"{Fore.CYAN}{Style.BRIGHT}" + "=" * 70)
     print(f"{Fore.YELLOW}{Style.BRIGHT}EELT 7030 — Operation and Expansion Planning of Electric Power Systems")
     print(f"{Fore.YELLOW}Federal University of Paraná (UFPR)\n")
-    print(f"{Fore.GREEN}{Style.BRIGHT}NaivePlot: {Fore.CYAN}Reporting CLI For {Fore.MAGENTA}NaivePyDECOMP Simulations{Style.RESET_ALL}\n")
+    print(f"{Fore.GREEN}{Style.BRIGHT}NaiveDECOMP-Plot: {Fore.CYAN}Reporting CLI For {Fore.MAGENTA}NaivePyDECOMP Simulations{Style.RESET_ALL}\n")
     print(f"{Fore.BLUE}{Style.BRIGHT}Author: {Fore.WHITE}Augusto Mathias Adams {Fore.BLUE}<augusto.adams@ufpr.br>")
     print(f"{Fore.CYAN}{Style.BRIGHT}" + "=" * 70)
    
@@ -188,7 +181,7 @@ def select_variable_columns(df: pd.DataFrame,
     if category == "GT":
         return df.filter(regex=r"^(G_|Ge_|Deficit|Demand).*")
     elif category == "G":
-        return df.filter(regex=r"^G_.*")
+        return df.filter(regex=r"^(G_|Deficit).*")
     elif category == "Q":
         return df.filter(regex=r"^Q_.*")
     elif category == "S":
@@ -198,9 +191,11 @@ def select_variable_columns(df: pd.DataFrame,
     elif category == "BAT":
         return df.filter(regex=r"^(D_|C_|E_).*")
     elif category.lower() == "cost":
-        return df.filter(regex=r"^Cost_.*")
-    elif category.upper() == "CTRL":
-        return df.filter(regex=r"^(U_|Y_|W_).*")
+        return df.filter(regex=r"^(Cost_|CMO|CMA_|FC).*")
+    elif category.lower() == "alpha":
+        return df.filter(regex=r"^(FCF_\{1\})")
+    elif category.lower() == "zlim":
+        return df.filter(regex=r"^(ZSUP|ZINF)")
     else:
         raise ValueError(
             f"{Fore.RED}Unrecognized category: {category}{Style.RESET_ALL}")
@@ -243,60 +238,6 @@ def select_columns_multi(df: pd.DataFrame,
         parts.append(sub[cols])
         seen.update(cols)
     return pd.concat(parts, axis=1) if parts else pd.DataFrame(index=df.index)
-
-
-def handle_control_variables(df: pd.DataFrame,
-                             *,
-                             out_dir: str = None,
-                             out_file: str = None,
-                             caption: str = None,
-                             label: str = None) -> None:
-    """
-    Generate and export a colored LaTeX table for binary control variables.
-
-    This function prompts the user (if necessary) for export parameters and produces
-    a LaTeX table that visualizes control variables (U, Y, W) using a binary
-    color-coded scheme.
-
-    Parameters
-    ----------
-    df : pd.DataFrame
-        The DataFrame containing control variable columns.
-    out_dir : str, optional
-        Output directory path. Prompted if not provided.
-    out_file : str, optional
-        Output .tex file name. Prompted if not provided.
-    caption : str or None, optional
-        Caption text for the LaTeX table. Prompted if None.
-    label : str or None, optional
-        LaTeX label for referencing the table. Prompted if None.
-
-    Returns
-    -------
-    None
-        The function saves the LaTeX file to disk and prints the location.
-    """
-
-    out_dir = out_dir or prompt(
-        "Enter the output directory for the LaTeX table")
-    out_file = out_file or prompt("Enter the output .tex file name")
-    caption = caption if caption is not None else prompt(
-        "Enter the caption for the LaTeX table [optional]")
-    label = label if label is not None else prompt(
-        "Enter the label for the LaTeX table [optional]")
-    os.makedirs(out_dir, exist_ok=True)
-    ctrl_df = select_variable_columns(df, "CTRL").T
-    kwargs = {}
-    if caption:
-        kwargs["caption"] = caption
-    if label:
-        kwargs["label"] = label
-    tex = binary_df_to_colored_latex(ctrl_df, **kwargs)
-    path = os.path.join(out_dir, out_file)
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(tex)
-    print(f"{Fore.GREEN}✔ Table saved to:{Style.RESET_ALL} {Fore.CYAN}{path}{Style.RESET_ALL}")
-
 
 def handle_table(df: pd.DataFrame,
                  categories: list[str],
@@ -408,12 +349,12 @@ def handle_plot(df: pd.DataFrame,
     path = os.path.join(out_dir, out_file)
     if plot_style == "line":
         plot_series(t, series.to_dict(orient="list"),
-                    title=title_use, ylabel=ylabel_use, file=path)
+                    title=title_use, ylabel=ylabel_use, xlabel="Estágio T", file=path)
     elif plot_style == "bar":
         stacked = (stacked if stacked is not None else prompt(
             "Stacked bars? (y/n)").lower() == "y")
         plot_series_bar(t, series.to_dict(orient="list"), title=title_use,
-                        ylabel=ylabel_use, file=path, stacked=stacked)
+                        ylabel=ylabel_use, xlabel="Estágio T", file=path, stacked=stacked)
     else:
         print(f"{Fore.RED}Unrecognized plot style.{Style.RESET_ALL}")
     print(f"{Fore.GREEN}✔ Figure saved to:{Style.RESET_ALL} {Fore.CYAN}{path}{Style.RESET_ALL}")
@@ -442,7 +383,7 @@ def main():
     --------
     Command-line usage:
 
-        $ python plot_xli.py results.csv --mode table -c G cost --out-dir out --out-file results.tex
+        $ python plot_cli.py results.csv --mode table -c G cost --out-dir out --out-file results.tex
 
     Interactive usage:
 
@@ -467,9 +408,9 @@ def main():
     parser.add_argument(
         "input_file", help="Input file (.csv, .xlsx, .parquet)")
     parser.add_argument("--mode", choices=["table", "plot", "ctrl"],
-                        help="Export mode: LaTeX table, plot, or CTRL (U/Y/W) matrix")
+                        help="Export mode: LaTeX table, plot")
     parser.add_argument("--category", "-c", nargs="+",
-                        help="One or more categories (e.g., G GG Q S V BAT cost)")
+                        help="One or more categories (e.g., G GG Q S V BAT cost alpha zlim)")
     parser.add_argument(
         "--plot-style", choices=["line", "bar"], help="Plot style")
     parser.add_argument("--stacked", action="store_true",
@@ -482,13 +423,9 @@ def main():
     parser.add_argument("--label", help="LaTeX label (tables)")
     args = parser.parse_args()
     df = load_dataframe(args.input_file)
-    print("Available categories: G (Generation), Q (Turbine flow), S (Spillage), V (Volume), cost, CTRL (U/Y/W), BAT")
+    print("Available categories: G (Generation), Q (Turbine flow), S (Spillage), V (Volume), cost, BAT, alpha, zlim")
     mode = args.mode or prompt(
         "Generate table, plot, or CTRL matrix? (table/plot/ctrl)").lower()
-    if mode == "ctrl":
-        handle_control_variables(
-            df, out_dir=args.out_dir, out_file=args.out_file, caption=args.title, label=args.label)
-        return
     categories = [c.upper() if c.lower() != "cost" else "cost" for c in (
         args.category or prompt("Enter category(ies) separated by spaces (e.g., G S V):").split())]
     if mode == "table":

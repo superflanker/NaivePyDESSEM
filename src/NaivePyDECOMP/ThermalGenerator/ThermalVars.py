@@ -133,7 +133,7 @@ def thermal_add_sets_and_params(m: ConcreteModel,
     return m
 
 
-def thermal_add_variables_uc(m, include_reserve: bool = False, use_pwl: bool = False):
+def thermal_add_variables_uc(m):
     """
     Declares decision variables for the thermal Unit Commitment (UC) model.
 
@@ -145,11 +145,6 @@ def thermal_add_variables_uc(m, include_reserve: bool = False, use_pwl: bool = F
     ----------
     m : pyomo.environ.ConcreteModel
         Model where variables will be added.
-    include_reserve : bool, optional
-        If True, reserve variables **m.r[g, t]** are created (default False).
-    use_pwl : bool, optional
-        If True, piecewise linear cost variables **m.Cvar[g, t]** 
-        are created (default False).
 
     Returns
     -------

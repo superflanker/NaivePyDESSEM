@@ -73,7 +73,8 @@
 <h1>NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo (DESSEM + DECOMP like solvers).<a class="headerlink" href="#naivepydessem-a-pedagogical-and-modular-economic-dispatch-solver-based-on-pyomo-dessem-decomp-like-solvers" title="Link to this heading"></a></h1>
 <p><a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0"><img alt="License: GPL v3" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a>
 <a class="reference external" href="https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml/badge.svg" /></a>
-<a class="reference external" href="https://superflanker.github.io/NaivePyDESSEM/"><img alt="Docs" src="https://github.com/superflanker/NaivePyDESSEM/actions/workflows/docs.yml/badge.svg" /></a></p>
+<a class="reference external" href="https://superflanker.github.io/NaivePyDESSEM/"><img alt="Docs" src="https://github.com/superflanker/NaivePyDESSEM/actions/workflows/docs.yml/badge.svg" /></a>
+<a class="reference external" href="https://github.com/superflanker/NaivePyDESSEM"><img alt="GitHub Repo" src="https://img.shields.io/badge/GitHub-NaivePyDESSEM-181717?logo=github" /></a></p>
 <p><strong>NaivePyDESSEM</strong> is a pedagogical project that brings together two complementary packages for teaching and research in power system operation planning:</p>
 <ul class="simple">
 <li><p><strong>NaivePyDESSEM</strong> — inspired by DESSEM, it models the <strong>short-term</strong> (daily/hourly) operation with detailed individual plant representation.</p></li>
@@ -135,11 +136,24 @@
 │   │   └── trabalho01_caso05.yaml
 │   └── NEWAVE
 ├── resultados
-│   ├── DECOMP  
-    |   ├── despacho_caso01.csv
-│   │   ├── despacho_caso02.csv
-│   │   ├── despacho_caso03.csv
-│   │   └── despacho_caso04.csv
+│   ├── DECOMP
+│   │   ├── despacho_caso01_pddd.csv
+│   │   ├── despacho_caso01_pddd_alpha.csv
+│   │   ├── despacho_caso01_pddd_zlimits.csv
+│   │   ├── despacho_caso01_single_pl.csv
+│   │   ├── despacho_caso02_pddd.csv
+│   │   ├── despacho_caso02_pddd_alpha.csv
+│   │   ├── despacho_caso02_pddd_zlimits.csv
+│   │   ├── despacho_caso02_single_pl.csv
+│   │   ├── despacho_caso03_pddd.csv
+│   │   ├── despacho_caso03_pddd_alpha.csv
+│   │   ├── despacho_caso03_pddd_zlimits.csv
+│   │   ├── despacho_caso03_single_pl.csv
+│   │   ├── despacho_caso04.csv
+│   │   ├── despacho_caso04_pddd.csv
+│   │   ├── despacho_caso04_pddd_alpha.csv
+│   │   ├── despacho_caso04_pddd_zlimits.csv
+│   │   └── despacho_caso04_single_pl.csv
 │   └── DESSEM
 │       ├── despacho_caso01_1.csv
 │       ├── despacho_caso01_2.csv
@@ -153,6 +167,7 @@
 │   │   ├── cli
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
+│   │   │   ├── pddd_cli.py
 │   │   │   └── plot_cli.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
@@ -186,17 +201,19 @@
 │   │   │   ├── ThermalEquations.py
 │   │   │   ├── ThermalGeneratorBuilder.py
 │   │   │   ├── ThermalObjectives.py
-│   │   │   ├── ThermalPieceWise.py
 │   │   │   └── ThermalVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
+│   │   ├── BuilderPDDD.py
 │   │   ├── DataFrames.py
 │   │   ├── Formatters.py
 │   │   ├── ModelCheck.py
 │   │   ├── ModelFormatters.py
+│   │   ├── PDDDMergeModels.py
 │   │   ├── PlotSeries.py
 │   │   ├── Reporting.py
 │   │   ├── Solver.py
+│   │   ├── SolverPDDD.py
 │   │   ├── Utils.py
 │   │   └── YAMLLoader.py
 │   ├── NaivePyDESSEM
@@ -354,7 +371,6 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <p>This implementation is based on academic material from <strong>UFPR (Federal University of Paraná)</strong> and CEPEL/DESSEM manuals:</p>
 <ul class="simple">
 <li><p>Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p></li>
-<li></li>
 <li><p>CEPEL, DESSEM. Manual de Metodologia, 2023.</p></li>
 </ul>
 </section>

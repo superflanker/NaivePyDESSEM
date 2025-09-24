@@ -78,7 +78,8 @@ two pedagogical and modular economic dispatch solvers based on Pyomo.</p>
 <h2>NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo (DESSEM + DECOMP like solvers).<a class="headerlink" href="#naivepydessem-a-pedagogical-and-modular-economic-dispatch-solver-based-on-pyomo-dessem-decomp-like-solvers" title="Link to this heading"></a></h2>
 <p><a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0"><img alt="License: GPL v3" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a>
 <a class="reference external" href="https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml/badge.svg" /></a>
-<a class="reference external" href="https://superflanker.github.io/NaivePyDESSEM/"><img alt="Docs" src="https://github.com/superflanker/NaivePyDESSEM/actions/workflows/docs.yml/badge.svg" /></a></p>
+<a class="reference external" href="https://superflanker.github.io/NaivePyDESSEM/"><img alt="Docs" src="https://github.com/superflanker/NaivePyDESSEM/actions/workflows/docs.yml/badge.svg" /></a>
+<a class="reference external" href="https://github.com/superflanker/NaivePyDESSEM"><img alt="GitHub Repo" src="https://img.shields.io/badge/GitHub-NaivePyDESSEM-181717?logo=github" /></a></p>
 <p><strong>NaivePyDESSEM</strong> is a pedagogical project that brings together two complementary packages for teaching and research in power system operation planning:</p>
 <ul class="simple">
 <li><p><strong>NaivePyDESSEM</strong> — inspired by DESSEM, it models the <strong>short-term</strong> (daily/hourly) operation with detailed individual plant representation.</p></li>
@@ -141,10 +142,23 @@ two pedagogical and modular economic dispatch solvers based on Pyomo.</p>
 │   └── NEWAVE
 ├── resultados
 │   ├── DECOMP
-    |   ├── despacho_caso01.csv
-│   │   ├── despacho_caso02.csv
-│   │   ├── despacho_caso03.csv
-│   │   └── despacho_caso04.csv
+│   │   ├── despacho_caso01_pddd.csv
+│   │   ├── despacho_caso01_pddd_alpha.csv
+│   │   ├── despacho_caso01_pddd_zlimits.csv
+│   │   ├── despacho_caso01_single_pl.csv
+│   │   ├── despacho_caso02_pddd.csv
+│   │   ├── despacho_caso02_pddd_alpha.csv
+│   │   ├── despacho_caso02_pddd_zlimits.csv
+│   │   ├── despacho_caso02_single_pl.csv
+│   │   ├── despacho_caso03_pddd.csv
+│   │   ├── despacho_caso03_pddd_alpha.csv
+│   │   ├── despacho_caso03_pddd_zlimits.csv
+│   │   ├── despacho_caso03_single_pl.csv
+│   │   ├── despacho_caso04.csv
+│   │   ├── despacho_caso04_pddd.csv
+│   │   ├── despacho_caso04_pddd_alpha.csv
+│   │   ├── despacho_caso04_pddd_zlimits.csv
+│   │   └── despacho_caso04_single_pl.csv
 │   └── DESSEM
 │       ├── despacho_caso01_1.csv
 │       ├── despacho_caso01_2.csv
@@ -158,6 +172,7 @@ two pedagogical and modular economic dispatch solvers based on Pyomo.</p>
 │   │   ├── cli
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
+│   │   │   ├── pddd_cli.py
 │   │   │   └── plot_cli.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
@@ -191,17 +206,19 @@ two pedagogical and modular economic dispatch solvers based on Pyomo.</p>
 │   │   │   ├── ThermalEquations.py
 │   │   │   ├── ThermalGeneratorBuilder.py
 │   │   │   ├── ThermalObjectives.py
-│   │   │   ├── ThermalPieceWise.py
 │   │   │   └── ThermalVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
+│   │   ├── BuilderPDDD.py
 │   │   ├── DataFrames.py
 │   │   ├── Formatters.py
 │   │   ├── ModelCheck.py
 │   │   ├── ModelFormatters.py
+│   │   ├── PDDDMergeModels.py
 │   │   ├── PlotSeries.py
 │   │   ├── Reporting.py
 │   │   ├── Solver.py
+│   │   ├── SolverPDDD.py
 │   │   ├── Utils.py
 │   │   └── YAMLLoader.py
 │   ├── NaivePyDESSEM
@@ -359,7 +376,6 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <p>This implementation is based on academic material from <strong>UFPR (Federal University of Paraná)</strong> and CEPEL/DESSEM manuals:</p>
 <ul class="simple">
 <li><p>Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p></li>
-<li></li>
 <li><p>CEPEL, DESSEM. Manual de Metodologia, 2023.</p></li>
 </ul>
 </section>
@@ -837,6 +853,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#id3">Functions</a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#modeling-conventions-and-units">Modeling Conventions and Units</a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.add_hydro_problem"><code class="docutils literal notranslate"><span class="pre">add_hydro_problem()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.add_hydro_subproblem"><code class="docutils literal notranslate"><span class="pre">add_hydro_subproblem()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.build_FPHs"><code class="docutils literal notranslate"><span class="pre">build_FPHs()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.build_hydro_dispatch"><code class="docutils literal notranslate"><span class="pre">build_hydro_dispatch()</span></code></a></li>
 </ul>
@@ -891,6 +908,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id5">Author</a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id6">Description</a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#id7">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#NaivePyDECOMP.RenewableGenerator.RenewableGeneratorBuilder.add_renewable_subproblem"><code class="docutils literal notranslate"><span class="pre">add_renewable_subproblem()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html#module-NaivePyDECOMP.RenewableGenerator.RenewableObjectives">NaivePyDECOMP.RenewableGenerator.RenewableObjectives module</a><ul>
@@ -919,6 +937,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.Storage.html#author">Author</a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.Storage.html#description">Description</a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.Storage.html#functions">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.Storage.html#NaivePyDECOMP.Storage.StorageBuilder.add_storage_subproblem"><code class="docutils literal notranslate"><span class="pre">add_storage_subproblem()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.Storage.html#module-NaivePyDECOMP.Storage.StorageConstraints">NaivePyDECOMP.Storage.StorageConstraints module</a><ul>
@@ -995,7 +1014,9 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#builder-function">Builder Function</a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id8">Usage</a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_problem"><code class="docutils literal notranslate"><span class="pre">add_thermal_problem()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_subproblem"><code class="docutils literal notranslate"><span class="pre">add_thermal_subproblem()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.build_thermal_uc"><code class="docutils literal notranslate"><span class="pre">build_thermal_uc()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.thermo_update_model"><code class="docutils literal notranslate"><span class="pre">thermo_update_model()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#module-NaivePyDECOMP.ThermalGenerator.ThermalObjectives">NaivePyDECOMP.ThermalGenerator.ThermalObjectives module</a><ul>
@@ -1036,15 +1057,25 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.cli.save_dataframe"><code class="docutils literal notranslate"><span class="pre">save_dataframe()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.cli.html#module-NaivePyDECOMP.cli.plot_cli">NaivePyDECOMP.cli.plot_cli module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.cli.html#module-NaivePyDECOMP.cli.pddd_cli">NaivePyDECOMP.cli.pddd_cli module</a><ul>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#id1">Author</a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#id2">Description</a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#id3">Features</a></li>
-<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#categories">Categories</a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#id4">Dependencies</a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#id5">Usage</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.pddd_cli.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.pddd_cli.print_welcome_banner"><code class="docutils literal notranslate"><span class="pre">print_welcome_banner()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.pddd_cli.save_dataframe"><code class="docutils literal notranslate"><span class="pre">save_dataframe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.cli.html#module-NaivePyDECOMP.cli.plot_cli">NaivePyDECOMP.cli.plot_cli module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#id6">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#id7">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#id8">Features</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#categories">Categories</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#id9">Dependencies</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#id10">Usage</a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#quick-examples">Quick examples</a></li>
-<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.handle_control_variables"><code class="docutils literal notranslate"><span class="pre">handle_control_variables()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.handle_plot"><code class="docutils literal notranslate"><span class="pre">handle_plot()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.handle_table"><code class="docutils literal notranslate"><span class="pre">handle_table()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.load_dataframe"><code class="docutils literal notranslate"><span class="pre">load_dataframe()</span></code></a></li>
@@ -1069,33 +1100,43 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#description">Description</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#usage">Usage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Builder.build_balance_and_objective_from_yaml"><code class="docutils literal notranslate"><span class="pre">build_balance_and_objective_from_yaml()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Builder.build_model_from_data"><code class="docutils literal notranslate"><span class="pre">build_model_from_data()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Builder.build_model_from_file"><code class="docutils literal notranslate"><span class="pre">build_model_from_file()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.DataFrames">NaivePyDECOMP.DataFrames module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.BuilderPDDD">NaivePyDECOMP.BuilderPDDD module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id1">Author</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id2">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id3">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.BuilderPDDD.build_pddd_balance_and_objective_from_yaml"><code class="docutils literal notranslate"><span class="pre">build_pddd_balance_and_objective_from_yaml()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.BuilderPDDD.build_pddd_data_from_file"><code class="docutils literal notranslate"><span class="pre">build_pddd_data_from_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.DataFrames">NaivePyDECOMP.DataFrames module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id4">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id5">Description</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.DataFrames.add_cost_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_cost_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.DataFrames.add_hydro_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_hydro_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.DataFrames.add_thermal_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_thermal_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.DataFrames.build_dispatch_dataframe"><code class="docutils literal notranslate"><span class="pre">build_dispatch_dataframe()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Formatters">NaivePyDECOMP.Formatters module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id3">Author</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id4">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id6">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id7">Description</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.ModelCheck">NaivePyDECOMP.ModelCheck module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id5">Author</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id6">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id8">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id9">Description</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#functions">Functions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#usage-example">Usage Example</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.ModelCheck.has_thermal_model"><code class="docutils literal notranslate"><span class="pre">has_thermal_model()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.ModelFormatters">NaivePyDECOMP.ModelFormatters module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id7">Author</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id8">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id10">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id11">Description</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.ModelFormatters.format_hydro_model"><code class="docutils literal notranslate"><span class="pre">format_hydro_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.ModelFormatters.format_models"><code class="docutils literal notranslate"><span class="pre">format_models()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.ModelFormatters.format_thermal_model"><code class="docutils literal notranslate"><span class="pre">format_thermal_model()</span></code></a></li>
@@ -1105,15 +1146,24 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.PlotSeries">NaivePyDECOMP.PlotSeries module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id9">Author</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id10">Description</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id11">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id12">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id13">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id14">Functions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#conventions">Conventions</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.PDDDMergeModels">NaivePyDECOMP.PDDDMergeModels module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id15">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id16">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#main-functionality">Main Functionality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#intended-use">Intended Use</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#dependencies">Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.PDDDMergeModels.generate_dummy_model"><code class="docutils literal notranslate"><span class="pre">generate_dummy_model()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Reporting">NaivePyDECOMP.Reporting module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id12">Author</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id13">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id17">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id18">Description</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Reporting.dispatch_summary"><code class="docutils literal notranslate"><span class="pre">dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Reporting.hydro_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">hydro_dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Reporting.renewable_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">renewable_dispatch_summary()</span></code></a></li>
@@ -1121,30 +1171,37 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Reporting.thermal_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">thermal_dispatch_summary()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.SolverPDDD">NaivePyDECOMP.SolverPDDD module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id19">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id20">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.SolverPDDD.solve_pddd"><code class="docutils literal notranslate"><span class="pre">solve_pddd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.SolverPDDD.solve_stage_pddd"><code class="docutils literal notranslate"><span class="pre">solve_stage_pddd()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Solver">NaivePyDECOMP.Solver module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id14">Author</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id15">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id21">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id22">Description</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Solver.solve"><code class="docutils literal notranslate"><span class="pre">solve()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Utils">NaivePyDECOMP.Utils module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id16">Author</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id17">Description</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id18">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id23">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id24">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id25">Functions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#parameters-shared">Parameters (Shared)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#additional-parameters">Additional Parameters</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.YAMLLoader">NaivePyDECOMP.YAMLLoader module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id19">Author</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id20">Description</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id21">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id26">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id27">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id28">Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP">Module contents</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id22">Author</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id23">Description</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id24">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id29">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id30">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id31">Submodules</a></li>
 </ul>
 </li>
 </ul>

@@ -280,6 +280,51 @@ balance when <code class="docutils literal notranslate"><span class="pre">includ
 <p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.RenewableGenerator.RenewableGeneratorBuilder.add_renewable_subproblem">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.RenewableGenerator.RenewableGeneratorBuilder.</span></span><span class="sig-name descname"><span class="pre">add_renewable_subproblem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.html#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData" title="NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData"><span class="pre">RenewableData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/RenewableGenerator/RenewableGeneratorBuilder.html#add_renewable_subproblem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.RenewableGenerator.RenewableGeneratorBuilder.add_renewable_subproblem" title="Link to this definition"></a></dt>
+<dd><p>Add renewable dispatch problem structure to a Pyomo model.</p>
+<p>This routine attaches all renewable-related components to an existing
+<code class="docutils literal notranslate"><span class="pre">ConcreteModel</span></code>. It initializes sets, parameters, variables, and the
+renewable capacity constraints. Optionally, it also includes the balance
+constraint and renewable objective.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model to which renewable problem components will be added.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.html#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData" title="NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData"><em>RenewableData</em></a>) – Input data structure containing horizon, demand, units, and
+availability profiles.</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, add the balance constraint and renewable objective
+function (default is <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated model with renewable sets, parameters, variables,
+constraints, and optionally the objective.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Constraints added:</dt><dd><ul>
+<li><p>Renewable generation capacity limits</p></li>
+<li><p>Renewable balance (if <code class="docutils literal notranslate"><span class="pre">include_objective=True</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>The objective minimizes deficit cost and optionally penalizes
+renewable spill (depending on implementation of
+<code class="xref py py-func docutils literal notranslate"><span class="pre">set_objective_renewable()</span></code>).</p></li>
+<li><p>This builder is intended for renewable-only systems. For mixed
+hydro/thermal/renewable dispatch, a combined balance formulation
+is required.</p></li>
+</ul>
+</dd></dl>
+
 </section>
 <section id="module-NaivePyDECOMP.RenewableGenerator.RenewableObjectives">
 <span id="naivepydecomp-renewablegenerator-renewableobjectives-module"></span><h2>NaivePyDECOMP.RenewableGenerator.RenewableObjectives module<a class="headerlink" href="#module-NaivePyDECOMP.RenewableGenerator.RenewableObjectives" title="Link to this heading"></a></h2>

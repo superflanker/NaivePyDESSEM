@@ -1,0 +1,487 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDECOMP.SolverPDDD &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDECOMP.SolverPDDD</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDECOMP.SolverPDDD</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems  </span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Utility: Solve PDDD Pyomo Models from YAML Configuration</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">This utility builds and solves a Pyomo optimization model using input</span>
+<span class="sd">data provided in a YAML or JSON configuration file. The solver is selected </span>
+<span class="sd">based on metadata, and can include support for decomposition strategies </span>
+<span class="sd">(e.g., MIN-DT via MindtPy).</span>
+
+<span class="sd">Features:</span>
+<span class="sd">- Automatic model construction via modular subsystems (thermal, hydro, storage, renewable).</span>
+<span class="sd">- Solver selection and configuration via YAML metadata.</span>
+<span class="sd">- Support for MINLP solvers such as MindtPy with strategy and time limits.</span>
+<span class="sd">- Termination condition validation to ensure feasibility or optimality.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023  </span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">SolverFactory</span><span class="p">,</span> <span class="n">Suffix</span><span class="p">,</span>
+    <span class="n">TerminationCondition</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.contrib.latex_printer</span><span class="w"> </span><span class="kn">import</span> <span class="n">latex_printer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.common.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApplicationError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">colorama</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fore</span><span class="p">,</span> <span class="n">Style</span><span class="p">,</span> <span class="n">init</span> <span class="k">as</span> <span class="n">colorama_init</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Reporting</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ModelCheck</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ModelFormatters</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.BuilderPDDD</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_pddd_data_from_file</span><span class="p">,</span>
+    <span class="n">build_pddd_balance_and_objective_from_yaml</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.PDDDMergeModels</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_dummy_model</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="n">colorama_init</span><span class="p">(</span><span class="n">autoreset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="solve_stage_pddd">
+<a class="viewcode-back" href="../../NaivePyDECOMP.html#NaivePyDECOMP.SolverPDDD.solve_stage_pddd">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">solve_stage_pddd</span><span class="p">(</span><span class="n">yaml_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+                     <span class="n">stage_hydros</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+                     <span class="n">stage_storage</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+                     <span class="n">cuts</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+                     <span class="n">stage</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Solves a single stage of the hydrothermal dispatch problem within the </span>
+<span class="sd">    Deterministic Dual Dynamic Programming (PDDD) framework.</span>
+
+<span class="sd">    This function constructs and solves the optimization model for a given stage,</span>
+<span class="sd">    incorporating the current state of hydro units, operational cuts from future stages,</span>
+<span class="sd">    and the parameters defined in the YAML configuration. It returns the resulting </span>
+<span class="sd">    model and relevant economic and operational variables.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    yaml_data : dict</span>
+<span class="sd">        The full configuration dictionary loaded from a YAML file, containing </span>
+<span class="sd">        system metadata, solver settings, and model parameters.</span>
+
+<span class="sd">    stage_hydros : dict</span>
+<span class="sd">        Dictionary describing the state of the hydro units at the current stage,</span>
+<span class="sd">        including initial volumes, inflows, and other relevant characteristics.</span>
+<span class="sd">    stage_storage: dict</span>
+<span class="sd">        Dictionary describing the state of the storage units at the current stage,</span>
+<span class="sd">        including initial energy, energy limits and other relevant characteristics.</span>
+<span class="sd">    cuts : dict</span>
+<span class="sd">        Dictionary containing Benders-like cuts (affine inequalities) propagated </span>
+<span class="sd">        from future stages, used to approximate the future cost function.</span>
+
+<span class="sd">    stage : int</span>
+<span class="sd">        The index of the current stage being solved (0-based).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    results : dict</span>
+<span class="sd">        Dictionary containing:</span>
+
+<span class="sd">        - &#39;model&#39; : ConcreteModel</span>
+<span class="sd">            The Pyomo model instance with solved values.</span>
+<span class="sd">        - &#39;hydro&#39; : dict</span>
+<span class="sd">            The hydro dictionary passed as input, preserved for traceability.</span>
+<span class="sd">        - &#39;storage&#39; : dict</span>
+<span class="sd">            The storage dictionary passed as input, preserved for traceability.</span>
+<span class="sd">        - &#39;total_cost&#39; : float</span>
+<span class="sd">            The stage cost including the estimated future cost via alpha.</span>
+<span class="sd">        - &#39;alpha&#39; : float</span>
+<span class="sd">            The value of the cost-to-go (future cost approximation) variable.</span>
+<span class="sd">        - &#39;f_volume&#39; : dict</span>
+<span class="sd">            Dictionary mapping each hydro plant to its final volume at the end of the stage.</span>
+<span class="sd">        - &#39;cmo&#39; : float</span>
+<span class="sd">            The dual variable associated with the system-wide energy balance constraint (marginal cost of operation).</span>
+<span class="sd">        - &#39;cma&#39; : dict</span>
+<span class="sd">            Dictionary mapping each hydro plant to its marginal water value </span>
+<span class="sd">            (dual variable of the volume balance constraint).</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    RuntimeError</span>
+<span class="sd">        If the specified solver is not available or if the optimization does not reach </span>
+<span class="sd">        an optimal or feasible termination condition.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function is used internally in the forward and backward passes of the PDDD algorithm</span>
+<span class="sd">    to simulate stage-wise operations and propagate information backward via cuts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># --------------------------</span>
+    <span class="c1"># PROBLEM PREPARATION</span>
+    <span class="c1"># --------------------------</span>
+    <span class="n">current_yaml_data</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">yaml_data</span><span class="p">)</span>
+    <span class="n">current_yaml_data</span><span class="p">[</span><span class="s1">&#39;hydro&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stage_hydros</span>
+    <span class="k">if</span> <span class="s1">&#39;storage&#39;</span> <span class="ow">in</span> <span class="n">current_yaml_data</span><span class="p">:</span>
+        <span class="n">current_yaml_data</span><span class="p">[</span><span class="s1">&#39;storage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stage_storage</span>
+    <span class="n">solver_str</span> <span class="o">=</span> <span class="n">current_yaml_data</span><span class="p">[</span><span class="s1">&#39;meta&#39;</span><span class="p">][</span><span class="s1">&#39;Solver&#39;</span><span class="p">]</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="n">current_yaml_data</span><span class="p">[</span><span class="s1">&#39;meta&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Solver_Options&#39;</span><span class="p">,</span> <span class="p">{})</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">build_pddd_balance_and_objective_from_yaml</span><span class="p">(</span><span class="n">yaml_data</span><span class="o">=</span><span class="n">current_yaml_data</span><span class="p">,</span>
+                                                       <span class="n">stage</span><span class="o">=</span><span class="n">stage</span><span class="p">,</span>
+                                                       <span class="n">cuts</span><span class="o">=</span><span class="n">cuts</span><span class="p">)</span>
+    
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="n">solver_str</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">opt</span><span class="o">.</span><span class="n">available</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Solver &#39;</span><span class="si">{</span><span class="n">solver_str</span><span class="si">}</span><span class="s2">&#39; is not available&quot;</span><span class="p">)</span>
+
+    <span class="c1"># --------------------------</span>
+    <span class="c1"># PROBLEM SOLUTION</span>
+    <span class="c1"># --------------------------</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">solver_str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;mindtpy&#39;</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span>
+                <span class="n">model</span><span class="p">,</span>
+                <span class="n">mip_solver</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mip_solver&#39;</span><span class="p">,</span> <span class="s1">&#39;glpk&#39;</span><span class="p">),</span>
+                <span class="n">nlp_solver</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nlp_solver&#39;</span><span class="p">,</span> <span class="s1">&#39;cyipopt&#39;</span><span class="p">),</span>
+                <span class="n">strategy</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;strategy&#39;</span><span class="p">,</span> <span class="s1">&#39;OA&#39;</span><span class="p">),</span>
+                <span class="n">tee</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">suffixes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;dual&quot;</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                            <span class="n">suffixes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;dual&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Optional: print/write results if available</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s1">&#39;write&#39;</span><span class="p">):</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+
+        <span class="c1"># Check termination condition</span>
+        <span class="n">term_cond</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">termination_condition</span>
+        <span class="k">if</span> <span class="n">term_cond</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">TerminationCondition</span><span class="o">.</span><span class="n">optimal</span><span class="p">,</span>
+                             <span class="n">TerminationCondition</span><span class="o">.</span><span class="n">feasible</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Solve terminated with condition: </span><span class="si">{</span><span class="n">term_cond</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="n">ApplicationError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Solver execution failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># --------------------------</span>
+    <span class="c1"># RESULTS PREPARATION</span>
+    <span class="c1"># --------------------------</span>
+
+    <span class="n">results</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;hydro&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stage_hydros</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;storage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stage_storage</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;total_cost&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">OBJ</span><span class="p">()</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">value</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;f_volume&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">h</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">hydro_V</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">HG</span><span class="p">}</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;cmo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">dual</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">Balance</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;cma&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">h</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">dual</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">hydro_volume_balance_constraint</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">HG</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">results</span></div>
+
+
+
+<div class="viewcode-block" id="solve_pddd">
+<a class="viewcode-back" href="../../NaivePyDECOMP.html#NaivePyDECOMP.SolverPDDD.solve_pddd">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">solve_pddd</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+               <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
+               <span class="n">tol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
+               <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Solves the full multi-stage hydrothermal dispatch problem using the </span>
+<span class="sd">    Deterministic Dual Dynamic Programming (PDDD) algorithm.</span>
+
+<span class="sd">    This function implements both the forward and backward passes of the </span>
+<span class="sd">    PDDD approach, coordinating the stage-wise resolution of subproblems, </span>
+<span class="sd">    the propagation of terminal volumes between stages, and the generation </span>
+<span class="sd">    of Benders-like cuts. The process continues until the upper-lower bound </span>
+<span class="sd">    convergence criterion is satisfied or the maximum number of iterations </span>
+<span class="sd">    is reached.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to the YAML file containing the problem configuration </span>
+<span class="sd">        (system data, hydro parameters, solver options).</span>
+
+<span class="sd">    max_iter : int, optional</span>
+<span class="sd">        Maximum number of forward-backward iterations allowed (default is 10).</span>
+
+<span class="sd">    tol : float, optional</span>
+<span class="sd">        Convergence tolerance between ZSUP and ZINF values used as stopping </span>
+<span class="sd">        criterion (default is 1e-2).</span>
+
+<span class="sd">    verbose : bool, optional</span>
+<span class="sd">        Whether to print iteration logs and convergence progress (default is True).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        A dummy Pyomo model representing the structure and solution of the </span>
+<span class="sd">        final iteration. This is mainly for completeness and introspection.</span>
+
+<span class="sd">    case : dict</span>
+<span class="sd">        The parsed YAML case dictionary used in the PDDD process, containing </span>
+<span class="sd">        metadata, hydro data, and solver configurations.</span>
+
+<span class="sd">    alpha_values : dict</span>
+<span class="sd">        alpha values of future costs.</span>
+
+<span class="sd">    ZINF: dict</span>
+
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    RuntimeError</span>
+<span class="sd">        If the specified solver is not available or any stage optimization fails.</span>
+
+<span class="sd">    ValueError</span>
+<span class="sd">        If no hydro data is provided in the YAML configuration.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The upper bound (ZSUP) is computed cumulatively from all stages, </span>
+<span class="sd">      discounting the cost-to-go alpha values.</span>
+<span class="sd">    - The lower bound (ZINF) corresponds to the cost of the first stage </span>
+<span class="sd">      assuming a myopic (executable) policy.</span>
+<span class="sd">    - Cuts are generated in the backward pass and injected into earlier stages </span>
+<span class="sd">      to approximate the value function of future stages.</span>
+<span class="sd">    - This implementation is pedagogical and emphasizes clarity and modularity </span>
+<span class="sd">      over computational performance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># === Construção dos subproblemas ===</span>
+    <span class="n">case</span> <span class="o">=</span> <span class="n">build_pddd_data_from_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">original_case</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">case</span><span class="p">)</span>
+    <span class="n">nstages</span> <span class="o">=</span> <span class="n">case</span><span class="p">[</span><span class="s1">&#39;meta&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;horizon&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;hydro&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">case</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s1">&#39;Hydro Units must be set o perform DECOMP Like Dispatch&#39;</span><span class="p">)</span>
+
+    <span class="c1"># === Inicializações ===</span>
+    <span class="n">cuts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ZINF</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ZSUP</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">alpha_values</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">alpha_values</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">hydro_units_default</span> <span class="o">=</span> <span class="n">case</span><span class="p">[</span><span class="s1">&#39;hydro&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="s1">&#39;storage&#39;</span> <span class="ow">in</span> <span class="n">case</span><span class="p">:</span>
+        <span class="n">storage_units_default</span> <span class="o">=</span> <span class="n">case</span><span class="p">[</span><span class="s1">&#39;storage&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">storage_units_default</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">memory</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">(),</span>
+                          <span class="s2">&quot;hydro&quot;</span><span class="p">:</span> <span class="n">hydro_units_default</span><span class="p">,</span>
+                          <span class="s1">&#39;storage&#39;</span><span class="p">:</span> <span class="n">storage_units_default</span><span class="p">,</span>
+                          <span class="s2">&quot;total_cost&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                          <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                          <span class="s2">&quot;f_volume&quot;</span><span class="p">:</span> <span class="p">{},</span>
+                          <span class="s2">&quot;cmo&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                          <span class="s2">&quot;cma&quot;</span><span class="p">:</span> <span class="p">{}}</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nstages</span><span class="p">)]</span>
+
+    <span class="k">for</span> <span class="n">iter_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Iteration </span><span class="si">{</span><span class="n">iter_idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> ---&quot;</span><span class="p">)</span>
+
+        <span class="n">current_zsup</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">current_zinf</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="c1"># === Forward Pass ===</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nstages</span><span class="p">):</span>
+
+            <span class="n">stage_data</span> <span class="o">=</span> <span class="n">memory</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+            <span class="n">results</span> <span class="o">=</span> <span class="n">solve_stage_pddd</span><span class="p">(</span><span class="n">yaml_data</span><span class="o">=</span><span class="n">case</span><span class="p">,</span>
+                                       <span class="n">stage_hydros</span><span class="o">=</span><span class="n">stage_data</span><span class="p">[</span><span class="s1">&#39;hydro&#39;</span><span class="p">],</span>
+                                       <span class="n">stage_storage</span><span class="o">=</span><span class="n">stage_data</span><span class="p">[</span><span class="s1">&#39;storage&#39;</span><span class="p">],</span>
+                                       <span class="n">cuts</span><span class="o">=</span><span class="n">cuts</span><span class="p">,</span>
+                                       <span class="n">stage</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+
+            <span class="n">memory</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">nstages</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+
+                <span class="n">next_stage_data</span> <span class="o">=</span> <span class="n">memory</span><span class="p">[</span><span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">uhe</span> <span class="ow">in</span> <span class="n">stage_data</span><span class="p">[</span><span class="s1">&#39;hydro&#39;</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">next_stage_data</span><span class="p">[</span><span class="s1">&#39;hydro&#39;</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="n">uhe</span><span class="p">][</span><span class="s1">&#39;Vini&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;f_volume&#39;</span><span class="p">][</span><span class="n">uhe</span><span class="p">]</span>
+                <span class="k">if</span> <span class="s1">&#39;storage&#39;</span> <span class="ow">in</span> <span class="n">case</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">sunit</span> <span class="ow">in</span> <span class="n">stage_data</span><span class="p">[</span><span class="s1">&#39;storage&#39;</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]:</span>
+                        <span class="n">next_stage_data</span><span class="p">[</span><span class="s1">&#39;storage&#39;</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="n">sunit</span><span class="p">][</span><span class="s1">&#39;Eini&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">storage_E</span><span class="p">[</span><span class="n">sunit</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">memory</span><span class="p">[</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">next_stage_data</span><span class="p">)</span>
+               
+            <span class="n">current_zsup</span> <span class="o">+=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;total_cost&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">current_zinf</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;total_cost&#39;</span><span class="p">]</span>
+
+            <span class="n">stage_string</span> <span class="o">=</span> <span class="n">stage_string</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;FCF_{&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;}&quot;</span>
+
+            <span class="k">if</span> <span class="n">stage_string</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">alpha_values</span><span class="p">:</span>
+                <span class="n">alpha_values</span><span class="p">[</span><span class="n">stage_string</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            
+            <span class="n">alpha_values</span><span class="p">[</span><span class="n">stage_string</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span>
+
+        <span class="n">ZSUP</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_zsup</span><span class="p">)</span>
+
+        <span class="n">ZINF</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_zinf</span><span class="p">)</span>
+
+        <span class="n">alpha_values</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">iter_idx</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;ZINF[</span><span class="si">{</span><span class="n">iter_idx</span><span class="si">}</span><span class="s2">] = </span><span class="si">{</span><span class="n">ZINF</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, ZSUP[</span><span class="si">{</span><span class="n">iter_idx</span><span class="si">}</span><span class="s2">] = </span><span class="si">{</span><span class="n">ZSUP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ZSUP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">ZINF</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="c1"># === Backward Pass ===</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">nstages</span><span class="p">)):</span>
+
+            <span class="k">if</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+
+                <span class="n">stage_data</span> <span class="o">=</span> <span class="n">memory</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+                <span class="n">results</span> <span class="o">=</span> <span class="n">solve_stage_pddd</span><span class="p">(</span><span class="n">yaml_data</span><span class="o">=</span><span class="n">case</span><span class="p">,</span>
+                                           <span class="n">stage_hydros</span><span class="o">=</span><span class="n">stage_data</span><span class="p">[</span><span class="s1">&#39;hydro&#39;</span><span class="p">],</span>
+                                           <span class="n">stage_storage</span><span class="o">=</span><span class="n">stage_data</span><span class="p">[</span><span class="s1">&#39;storage&#39;</span><span class="p">],</span>
+                                           <span class="n">cuts</span><span class="o">=</span><span class="n">cuts</span><span class="p">,</span>
+                                           <span class="n">stage</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+
+                <span class="n">rhs</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;total_cost&#39;</span><span class="p">]</span>
+                <span class="n">coefs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+                <span class="k">for</span> <span class="n">uhe</span> <span class="ow">in</span> <span class="n">stage_data</span><span class="p">[</span><span class="s1">&#39;hydro&#39;</span><span class="p">][</span><span class="s1">&#39;units&#39;</span><span class="p">]:</span>
+                    <span class="n">cma</span> <span class="o">=</span> <span class="o">-</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;cma&#39;</span><span class="p">][</span><span class="n">uhe</span><span class="p">]</span>
+                    <span class="n">rhs</span> <span class="o">-=</span> <span class="n">cma</span> <span class="o">*</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hydro_Vini</span><span class="p">[</span><span class="n">uhe</span><span class="p">]</span>
+                    <span class="n">coefs</span><span class="p">[</span><span class="n">uhe</span><span class="p">]</span> <span class="o">=</span> <span class="n">cma</span>
+
+                <span class="n">cuts</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;stage&quot;</span><span class="p">:</span> <span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="s2">&quot;rhs&quot;</span><span class="p">:</span> <span class="n">rhs</span><span class="p">,</span>
+                    <span class="s2">&quot;coefs&quot;</span><span class="p">:</span> <span class="n">coefs</span>
+                <span class="p">})</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== PDDD Finished ===&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final ZINF = </span><span class="si">{</span><span class="n">ZINF</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final ZSUP = </span><span class="si">{</span><span class="n">ZSUP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Gap = </span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">ZSUP</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ZINF</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> after </span><span class="si">{</span><span class="n">iter_idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> iterations&quot;</span><span class="p">)</span>
+
+    <span class="n">z_limits</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ZINF&#39;</span><span class="p">:</span> <span class="n">ZINF</span><span class="p">,</span>
+                <span class="s1">&#39;ZSUP&#39;</span><span class="p">:</span> <span class="n">ZSUP</span><span class="p">}</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">generate_dummy_model</span><span class="p">(</span><span class="n">memory</span><span class="p">,</span> <span class="n">original_case</span><span class="p">)</span>
+    
+    <span class="n">dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">hydro_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">thermal_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">renewable_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">storage_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">case</span><span class="p">,</span> <span class="n">alpha_values</span><span class="p">,</span> <span class="n">z_limits</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

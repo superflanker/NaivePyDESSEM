@@ -33,11 +33,9 @@ build_hydro_dispatch(data, include_objective=True)
 Modeling Conventions and Units
 ------------------------------
 - Time periods are indexed as integers t = 1, …, horizon.
-- Turbined and spill discharges (Q, S): m^3/s.
+- Turbined and spill discharges (Q, S): hm^3.
 - Storage volume (V): hm^3.
-- Power (G) and demand (d): MW.
-- Typical power conversion constant: zeta = 9.81/1000 (when used within FPH).
-- Volume conversion per period: zeta_vol = 3600/1e6 for hourly steps.
+- Power (G) and demand (d): MWh.
 
 Notes
 -----
@@ -45,16 +43,14 @@ Notes
   couple with a combined system balance elsewhere.
 - The callable stored in m.hydro_FPH[h] must accept the signature
   FPH(Q, V, S) → MW and be consistent with model units.
-- Exact and specific modes rely on coefficient vectors that parameterize
-  head or loss polynomials supplied via data.units[h].
 
 References
 ----------
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023 
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023. 
 """
-
-from pyomo.environ import ConcreteModel, Param
+import copy
+from pyomo.environ import ConcreteModel, Param, value
 from .HydraulicVars import hydraulyc_add_sets_and_params, hydralic_add_variables_g
 from .HydraulicConstraints import (
     add_hydro_balance_constraint,
@@ -68,6 +64,8 @@ from .HydraulicConstraints import (
 from .HydraulicDataTypes import HydraulicData
 from .HydraulicObjectives import set_objective_hydro
 from .SimplifiedConstantProductivityFPH import simplified_constant_productivity_fph
+
+from typing import Dict
 
 
 def build_FPHs(m: ConcreteModel,
@@ -85,7 +83,7 @@ def build_FPHs(m: ConcreteModel,
     m : pyomo.core.base.PyomoModel.ConcreteModel
         Pyomo model into which the FPH callables will be attached.
     data : HydraulicData
-        Configuration object containing unit maos and modes
+        Configuration object containing unit maps and modes
 
     Returns
     -------
@@ -99,7 +97,6 @@ def build_FPHs(m: ConcreteModel,
     for h in H:
         unit = data.units[h]
         m.hydro_FPH[h] = simplified_constant_productivity_fph(unit.p)
-
 
 def build_hydro_dispatch(
     data: HydraulicData,
@@ -198,7 +195,6 @@ def add_hydro_problem(m: ConcreteModel,
     >>> type(m)
     <class 'pyomo.core.base.PyomoModel.ConcreteModel'>
     """
-
     build_FPHs(m, data)
 
     hydraulyc_add_sets_and_params(m, data)
@@ -214,5 +210,80 @@ def add_hydro_problem(m: ConcreteModel,
     if include_objective:
         add_hydro_balance_constraint(m)
         set_objective_hydro(m)
+
+    return m
+
+
+def add_hydro_subproblem(m: ConcreteModel,
+                         data: HydraulicData,
+                         stage: int) -> ConcreteModel:
+    """
+    Assemble a hydropower dispatch problem in Pyomo.
+
+    This builder configures a Pyomo model for reservoir-based hydropower
+    optimization. It attaches sets, parameters, decision variables, the
+    hydropower production functions (FPHs), and all relevant operational
+    constraints. Optionally, it includes the demand balance and the
+    cost-minimization objective.
+
+    Parameters
+    ----------
+    m : pyomo.environ.ConcreteModel
+        Pyomo model to which the hydropower problem will be added.
+    data : HydraulicData
+        Input data object containing planning horizon, demand mapping,
+        unit definitions, inflows, storage bounds, and productivity
+        coefficients.
+    include_objective : bool, optional
+        If True, add the system-wide demand balance and deficit-penalizing
+        objective function (default is False).
+
+    Returns
+    -------
+    pyomo.environ.ConcreteModel
+        The updated Pyomo model with hydropower sets, parameters, variables,
+        constraints, and optionally the objective.
+
+    Notes
+    -----
+    - Constraints added:
+        * Hydropower generation equation (FPH-based)
+        * Minimum/maximum turbined flow
+        * Reservoir volume balance (continuity)
+        * Minimum/maximum storage limits
+        * Terminal storage requirement
+    - If include_objective=True, the system-wide balance constraint and
+      the hydropower objective (deficit + spill penalty) are attached.
+    - This builder targets **pure hydropower** systems; for mixed
+      hydrothermal systems, a combined balance and objective should be
+      used instead.
+
+    Examples
+    --------
+    >>> from pyomo.environ import ConcreteModel
+    >>> m = ConcreteModel()
+    >>> m = add_hydro_problem(m, data, include_objective=True)
+    >>> type(m)
+    <class 'pyomo.core.base.PyomoModel.ConcreteModel'>
+    """
+    # data copy
+    subproblem_data = copy.deepcopy(data)
+    subproblem_data.horizon = 1
+    subproblem_data.demand = {1: data.demand[stage+1]}
+    for name in subproblem_data.units.keys():
+        subproblem_data.units[name].afluencia = [
+            data.units[name].afluencia[stage]]
+
+    build_FPHs(m, subproblem_data)
+
+    hydraulyc_add_sets_and_params(m, subproblem_data)
+    hydralic_add_variables_g(m)
+
+    add_hydro_generation_constraint(m)
+    add_hydro_qmin_constraint(m)
+    add_hydro_qmax_constraint(m)
+    add_hydro_volume_continuity_constraint(m)
+    add_hydro_volume_max_constraint(m)
+    add_hydro_volume_mim_constraint(m)
 
     return m

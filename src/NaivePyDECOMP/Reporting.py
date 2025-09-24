@@ -44,7 +44,7 @@ def __compute_total_generation(model: ConcreteModel) -> float:
     Returns
     -------
     float
-        Total generated energy [MWh] across hydro, thermal, renewable, and storage.
+        Total generated energy [MWmed] across hydro, thermal, renewable, and storage.
     """
     total_generation = 0.0
     if has_hydro_model(model):
@@ -102,17 +102,17 @@ def dispatch_summary(model: ConcreteModel) -> None:
     print(f"\n{Fore.MAGENTA}{Style.BRIGHT}==================== DISPATCH SUMMARY ===================={Style.RESET_ALL}")
     total_generation = __compute_total_generation(model)
     Cdef = value(model.Cdef) if hasattr(model, 'Cdef') else 1000.0
-    print(f"  {Fore.CYAN}Total Generation{Style.RESET_ALL}: {Fore.RED}{total_generation:.2f} MWh")
+    print(f"  {Fore.CYAN}Total Generation{Style.RESET_ALL}: {Fore.RED}{total_generation:.2f} MWmed")
     required = [
         'D', 'd', 'OBJ'
     ]
     if all(hasattr(model, attr) for attr in required):
         demand = sum(value(model.d[t]) for t in model.T)
         print(
-            f"  {Fore.CYAN}Total Demand{Style.RESET_ALL}: {Fore.RED}{demand:.2f} MWh")
+            f"  {Fore.CYAN}Total Demand{Style.RESET_ALL}: {Fore.RED}{demand:.2f} MWmed")
         deficit = sum(value(model.D[t]) for t in model.T)
         print(
-            f"  {Fore.CYAN}Total Deficit{Style.RESET_ALL}: {Fore.RED}{deficit:.2f} MWh")
+            f"  {Fore.CYAN}Total Deficit{Style.RESET_ALL}: {Fore.RED}{deficit:.2f} MWmed")
         cost_deficit = deficit * Cdef
         print(
             f"  {Fore.CYAN}Total Deficil Cost{Style.RESET_ALL}: {Fore.RED} $ {format_brl(cost_deficit)}")
@@ -130,7 +130,7 @@ def dispatch_summary(model: ConcreteModel) -> None:
 
 def hydro_dispatch_summary(model: ConcreteModel) -> None:
     """
-    Print unit-level hydropower generation summary in MWh.
+    Print unit-level hydropower generation summary in MWmed.
 
     Parameters
     ----------
@@ -142,11 +142,11 @@ def hydro_dispatch_summary(model: ConcreteModel) -> None:
         for h in model.HG:
             dispatch = sum(value(model.hydro_G[h, t]) for t in model.T)
             print(
-                f"  {Fore.CYAN}{h}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWh")
+                f"  {Fore.CYAN}{h}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWmed")
 
 def thermal_dispatch_summary(model: ConcreteModel) -> None:
     """
-    Print unit-level thermal generation summary in MWh.
+    Print unit-level thermal generation summary in MWmed.
 
     Parameters
     ----------
@@ -158,11 +158,11 @@ def thermal_dispatch_summary(model: ConcreteModel) -> None:
         for g in model.TG:
             dispatch = sum(value(model.thermal_p[g, t]) for t in model.T)
             print(
-                f"  {Fore.BLUE}{g}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWh")
+                f"  {Fore.BLUE}{g}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWmed")
 
 def renewable_dispatch_summary(model: ConcreteModel) -> None:
     """
-    Print unit-level renewable generation summary in MWh.
+    Print unit-level renewable generation summary in MWmed.
 
     Parameters
     ----------
@@ -175,11 +175,11 @@ def renewable_dispatch_summary(model: ConcreteModel) -> None:
         for r in model.RU:
             dispatch = sum(value(model.renewable_gen[r, t]) for t in model.T)
             print(
-                f"  {Fore.GREEN}{r}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MW")
+                f"  {Fore.GREEN}{r}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWmed")
 
 def storage_dispatch_summary(model: ConcreteModel) -> None:
     """
-    Print unit-level storage discharge summary in MWh.
+    Print unit-level storage discharge summary in MWmed.
 
     Parameters
     ----------
@@ -191,14 +191,14 @@ def storage_dispatch_summary(model: ConcreteModel) -> None:
         for s in model.SU:
             dispatch = sum(value(model.storage_dis[s, t]) for t in model.T)
             print(
-                f"  {Fore.MAGENTA}{s}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWh")
+                f"  {Fore.MAGENTA}{s}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWmed")
         print(f"\n{Fore.YELLOW}Storage Charge:{Style.RESET_ALL}")
         for s in model.SU:
             dispatch = sum(value(model.storage_ch[s, t]) for t in model.T)
             print(
-                f"  {Fore.MAGENTA}{s}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWh")
+                f"  {Fore.MAGENTA}{s}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWmed")
         print(f"\n{Fore.YELLOW}Storage Delta:{Style.RESET_ALL}")
         for s in model.SU:
             dispatch = sum(value(model.storage_dis[s, t] - model.storage_ch[s, t]) for t in model.T)
-            print(f"  {Fore.MAGENTA}{s}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWh")
+            print(f"  {Fore.MAGENTA}{s}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWmed")
         

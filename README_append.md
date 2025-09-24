@@ -27,12 +27,17 @@
 │   │       │   ├── NaivePyDECOMP
 │   │       │   │   ├── cli
 │   │       │   │   │   ├── cli.html
+│   │       │   │   │   ├── pddd_cli.html
 │   │       │   │   │   └── plot_cli.html
 │   │       │   │   ├── HydraulicGenerator
 │   │       │   │   │   ├── HydraulicConstraints.html
 │   │       │   │   │   ├── HydraulicDataTypes.html
 │   │       │   │   │   ├── HydraulicGeneratorBuilder.html
 │   │       │   │   │   └── HydraulicVars.html
+│   │       │   │   ├── RenewableGenerator
+│   │       │   │   │   └── RenewableGeneratorBuilder.html
+│   │       │   │   ├── Storage
+│   │       │   │   │   └── StorageBuilder.html
 │   │       │   │   ├── ThermalGenerator
 │   │       │   │   │   ├── ThermalConstraints.html
 │   │       │   │   │   ├── ThermalDataTypes.html
@@ -41,13 +46,16 @@
 │   │       │   │   │   ├── ThermalObjectives.html
 │   │       │   │   │   └── ThermalVars.html
 │   │       │   │   ├── Builder.html
+│   │       │   │   ├── BuilderPDDD.html
 │   │       │   │   ├── DataFrames.html
 │   │       │   │   ├── Formatters.html
 │   │       │   │   ├── ModelCheck.html
 │   │       │   │   ├── ModelFormatters.html
+│   │       │   │   ├── PDDDMergeModels.html
 │   │       │   │   ├── PlotSeries.html
 │   │       │   │   ├── Reporting.html
 │   │       │   │   ├── Solver.html
+│   │       │   │   ├── SolverPDDD.html
 │   │       │   │   └── Utils.html
 │   │       │   ├── NaivePyDESSEM
 │   │       │   │   ├── cli
@@ -235,6 +243,91 @@
 │   │   └── trabalho01_caso05.yaml
 │   └── NEWAVE
 ├── relatorios
+│   ├── DECOMP
+│   │   ├── caso01
+│   │   │   ├── imagens
+│   │   │   │   ├── custo_futuro_caso01_pddd.png
+│   │   │   │   ├── custos_geracao_caso01_pddd.png
+│   │   │   │   ├── custos_geracao_caso01_single_pl.png
+│   │   │   │   ├── geracao_caso01_pddd.png
+│   │   │   │   ├── geracao_caso01_single_pl.png
+│   │   │   │   ├── limites_convergencia_caso01_pddd.png
+│   │   │   │   ├── vazao_turbinada_caso01_pddd.png
+│   │   │   │   ├── vazao_turbinada_caso01_single_pl.png
+│   │   │   │   ├── volume_armazenado_caso01_pddd.png
+│   │   │   │   └── volume_armazenado_caso01_single_pl.png
+│   │   │   └── tabelas
+│   │   │       ├── custos_caso01_pddd.tex
+│   │   │       ├── custos_caso01_single_pl.tex
+│   │   │       ├── parametros_hidraulicos_caso01_pddd.tex
+│   │   │       ├── parametros_hidraulicos_caso01_single_pl.tex
+│   │   │       ├── tabela_geracao_caso01_pddd.tex
+│   │   │       └── tabela_geracao_caso01_single_pl.tex
+│   │   ├── caso02
+│   │   │   ├── imagens
+│   │   │   │   ├── custo_futuro_caso02_pddd.png
+│   │   │   │   ├── custos_geracao_caso02_pddd.png
+│   │   │   │   ├── custos_geracao_caso02_single_pl.png
+│   │   │   │   ├── geracao_caso02_pddd.png
+│   │   │   │   ├── geracao_caso02_single_pl.png
+│   │   │   │   ├── limites_convergencia_caso02_pddd.png
+│   │   │   │   ├── vazao_turbinada_caso02_pddd.png
+│   │   │   │   ├── vazao_turbinada_caso02_single_pl.png
+│   │   │   │   ├── volume_armazenado_caso02_pddd.png
+│   │   │   │   └── volume_armazenado_caso02_single_pl.png
+│   │   │   └── tabelas
+│   │   │       ├── custos_caso02_pddd.tex
+│   │   │       ├── custos_caso02_single_pl.tex
+│   │   │       ├── parametros_hidraulicos_caso02_pddd.tex
+│   │   │       ├── parametros_hidraulicos_caso02_single_pl.tex
+│   │   │       ├── tabela_geracao_caso02_pddd.tex
+│   │   │       └── tabela_geracao_caso02_single_pl.tex
+│   │   ├── caso03
+│   │   │   ├── imagens
+│   │   │   │   ├── carga_descarga_baterias_caso03_pddd.png
+│   │   │   │   ├── carga_descarga_baterias_caso03_single_pl.png
+│   │   │   │   ├── custo_futuro_caso03_pddd.png
+│   │   │   │   ├── custos_geracao_caso03_pddd.png
+│   │   │   │   ├── custos_geracao_caso03_single_pl.png
+│   │   │   │   ├── geracao_caso03_pddd.png
+│   │   │   │   ├── geracao_caso03_single_pl.png
+│   │   │   │   ├── limites_convergencia_caso03_pddd.png
+│   │   │   │   ├── vazao_turbinada_caso03_pddd.png
+│   │   │   │   ├── vazao_turbinada_caso03_single_pl.png
+│   │   │   │   ├── volume_armazenado_caso03_pddd.png
+│   │   │   │   └── volume_armazenado_caso03_single_pl.png
+│   │   │   └── tabelas
+│   │   │       ├── carga_descarga_baterias_caso03_pddd.tex
+│   │   │       ├── carga_descarga_baterias_caso03_single_pl.tex
+│   │   │       ├── custos_caso03_pddd.tex
+│   │   │       ├── custos_caso03_single_pl.tex
+│   │   │       ├── parametros_hidraulicos_caso03_pddd.tex
+│   │   │       ├── parametros_hidraulicos_caso03_single_pl.tex
+│   │   │       ├── tabela_geracao_caso03_pddd.tex
+│   │   │       └── tabela_geracao_caso03_single_pl.tex
+│   │   └── caso04
+│   │       ├── imagens
+│   │       │   ├── carga_descarga_baterias_caso04_pddd.png
+│   │       │   ├── carga_descarga_baterias_caso04_single_pl.png
+│   │       │   ├── custo_futuro_caso04_pddd.png
+│   │       │   ├── custos_geracao_caso04_pddd.png
+│   │       │   ├── custos_geracao_caso04_single_pl.png
+│   │       │   ├── geracao_caso04_pddd.png
+│   │       │   ├── geracao_caso04_single_pl.png
+│   │       │   ├── limites_convergencia_caso04_pddd.png
+│   │       │   ├── vazao_turbinada_caso04_pddd.png
+│   │       │   ├── vazao_turbinada_caso04_single_pl.png
+│   │       │   ├── volume_armazenado_caso04_pddd.png
+│   │       │   └── volume_armazenado_caso04_single_pl.png
+│   │       └── tabelas
+│   │           ├── carga_descarga_baterias_caso04_pddd.tex
+│   │           ├── carga_descarga_baterias_caso04_single_pl.tex
+│   │           ├── custos_caso04_pddd.tex
+│   │           ├── custos_caso04_single_pl.tex
+│   │           ├── parametros_hidraulicos_caso04_pddd.tex
+│   │           ├── parametros_hidraulicos_caso04_single_pl.tex
+│   │           ├── tabela_geracao_caso04_pddd.tex
+│   │           └── tabela_geracao_caso04_single_pl.tex
 │   └── DESSEM
 │       └── caso_345
 │           ├── imagens
@@ -268,15 +361,23 @@
 │           └── tabela_geracao_caso05.tex
 ├── resultados
 │   ├── DECOMP
-│   │   ├── despacho_caso01.csv
+│   │   ├── despacho_caso01_pddd.csv
+│   │   ├── despacho_caso01_pddd_alpha.csv
+│   │   ├── despacho_caso01_pddd_zlimits.csv
 │   │   ├── despacho_caso01_single_pl.csv
-│   │   ├── despacho_caso02.csv
+│   │   ├── despacho_caso02_pddd.csv
+│   │   ├── despacho_caso02_pddd_alpha.csv
+│   │   ├── despacho_caso02_pddd_zlimits.csv
 │   │   ├── despacho_caso02_single_pl.csv
-│   │   ├── despacho_caso03.csv
+│   │   ├── despacho_caso03_pddd.csv
+│   │   ├── despacho_caso03_pddd_alpha.csv
+│   │   ├── despacho_caso03_pddd_zlimits.csv
 │   │   ├── despacho_caso03_single_pl.csv
 │   │   ├── despacho_caso04.csv
+│   │   ├── despacho_caso04_pddd.csv
+│   │   ├── despacho_caso04_pddd_alpha.csv
+│   │   ├── despacho_caso04_pddd_zlimits.csv
 │   │   └── despacho_caso04_single_pl.csv
-│   ├── dessem
 │   └── DESSEM
 │       ├── despacho_caso01_1.csv
 │       ├── despacho_caso01_2.csv
@@ -290,6 +391,7 @@
 │   │   ├── cli
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
+│   │   │   ├── pddd_cli.py
 │   │   │   └── plot_cli.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
@@ -326,13 +428,16 @@
 │   │   │   └── ThermalVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
+│   │   ├── BuilderPDDD.py
 │   │   ├── DataFrames.py
 │   │   ├── Formatters.py
 │   │   ├── ModelCheck.py
 │   │   ├── ModelFormatters.py
+│   │   ├── PDDDMergeModels.py
 │   │   ├── PlotSeries.py
 │   │   ├── Reporting.py
 │   │   ├── Solver.py
+│   │   ├── SolverPDDD.py
 │   │   ├── Utils.py
 │   │   └── YAMLLoader.py
 │   ├── NaivePyDESSEM
@@ -428,6 +533,7 @@
 │   │   ├── pip3
 │   │   ├── pip3.10
 │   │   ├── pybabel
+│   │   ├── pydecomp-pddd-solve
 │   │   ├── pydecomp-plot
 │   │   ├── pydecomp-solve
 │   │   ├── pydessem-plot
@@ -15102,10 +15208,12 @@
 ├── README.md
 ├── README_append.md
 ├── requirements.txt
+├── run_decomp_plots.sh
 ├── run_decomp_solvers.sh
 ├── run_dessem_plots.sh
 ├── run_dessem_solvers.sh
 ├── setup.cfg
+├── t.csv
 ├── teste.tex
 └── teste_table.tex
 ```

@@ -12,6 +12,14 @@ NaivePyDECOMP.cli.cli module
    :undoc-members:
    :show-inheritance:
 
+NaivePyDECOMP.cli.pddd_cli module
+---------------------------------
+
+.. automodule:: NaivePyDECOMP.cli.pddd_cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 NaivePyDECOMP.cli.plot\_cli module
 ----------------------------------
 

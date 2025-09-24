@@ -33,11 +33,52 @@ import pandas as pd
 from pyomo.environ import ConcreteModel, value
 from .ModelCheck import *
 from NaivePyDESSEM.DataFrames import (
-    add_hydro_dispatch_to_dataframe,
     add_renewable_dispatch_to_dataframe,
     add_storage_dispatch_to_dataframe
 )
 
+def add_hydro_dispatch_to_dataframe(df: pd.DataFrame,
+                                    model: ConcreteModel) -> pd.DataFrame:
+    """
+    Append hydropower dispatch results to a pandas DataFrame.
+
+    This function extracts the turbined flow, storage volume, hydropower
+    generation, and spillage from a Pyomo model and appends them to the
+    given DataFrame, one column per unit and variable.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The DataFrame to which the results will be appended. It may be empty.
+    model : ConcreteModel
+        A Pyomo model instance containing hydropower variables.
+
+    Returns
+    -------
+    pd.DataFrame
+        The updated DataFrame including hydropower dispatch results.
+    """
+
+    if has_hydro_model(model):
+        T = list(model.T)
+        h_list = list(model.HG)
+        # Garantir alinhamento temporal no DataFrame
+        if 'T' in df.columns:
+            if df['T'].tolist() != T:
+                raise ValueError(
+                    "The 't' column in df does not match model.T.")
+        else:
+            df['T'] = T
+
+        for h in h_list:
+            df[f'Q_{{h_{h}}}'] = [value(model.hydro_Q[h, t]) for t in T]
+            df[f'V_{{h_{h}}}'] = [value(model.hydro_V[h, t]) for t in T]
+            df[f'G_{{h_{h}}}'] = [value(model.hydro_G[h, t]) for t in T]
+            df[f'S_{{h_{h}}}'] = [value(model.hydro_S[h, t]) for t in T]
+            if hasattr(model, 'CMA'):
+                df[f'CMA_{{h_{h}}}'] = [value(model.CMA[h, t]) for t in T]
+
+    return df
 
 def add_thermal_dispatch_to_dataframe(df: pd.DataFrame,
                                       model: ConcreteModel) -> pd.DataFrame:
@@ -147,7 +188,7 @@ def add_cost_to_dataframe(df: pd.DataFrame,
     # ---------------------------
     # CUSTOS
     # ---------------------------
-    cost_var, cost_start, cost_def, cost_t = [], [], [], []
+    cost_var, cost_def, cost_t = [], [], []
     if has_cost and has_def_cost:
         G = list(model.TG)
         for t in T:
@@ -155,26 +196,22 @@ def add_cost_to_dataframe(df: pd.DataFrame,
                               for g in G) if has_y and has_cost else 0.0
             c_def_t = value(model.Cdef) * value(model.D[t]) if has_def_cost else 0.0
             cost_var.append(c_thermal_t)
-            cost_start.append(0.0)
             cost_def.append(c_def_t)
             cost_t.append(c_thermal_t + c_def_t)
     elif not has_cost and has_def_cost:
         for t in T:
             c_def_t = value(model.Cdef) * value(model.D[t]) if has_def_cost else 0.0
             cost_var.append(0.0)
-            cost_start.append(0.0)
             cost_def.append(c_def_t)
             cost_t.append(c_def_t)
     else:
         cost_var = [0.0] * len(T)
-        cost_start = [0.0] * len(T)
         cost_def = [0.0] * len(T)
         cost_t = [0.0] * len(T)
 
     df['Cost_{var}'] = cost_var
-    df['Cost_{start}'] = cost_start
     df['Cost_{def}'] = cost_def
-    df['Cost_{t}'] = cost_t
+    df['Cost_{total}'] = cost_t
 
     cmo_series = []
     if hasattr(model, "CMO"):
@@ -185,6 +222,8 @@ def add_cost_to_dataframe(df: pd.DataFrame,
         cmo_series = [0.0] * len(T)
 
     df['CMO'] = cmo_series
+    if hasattr(model, 'FC'):
+        df['FC'] = [value(model.FC[t]) for t in T]
 
     return df
 

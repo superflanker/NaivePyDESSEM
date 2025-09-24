@@ -39,33 +39,9 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NaivePyDESSEM</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Cli Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">NaivePyDESSEM Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">HydraulicGenerator Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../NaivePyDESSEM.HydraulicGenerator.html">NaivePyDESSEM.HydraulicGenerator package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">ThermalGenerator Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">RenewableGenerator Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Storage Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../NaivePyDESSEM.Storage.html">NaivePyDESSEM.Storage package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
 </ul>
 
         </div>
@@ -169,6 +145,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">value</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
+
 <div class="viewcode-block" id="get_distinct_colors">
 <a class="viewcode-back" href="../../NaivePyDESSEM.html#NaivePyDESSEM.PlotSeries.get_distinct_colors">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_distinct_colors</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">cmap_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;tab20&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
@@ -199,7 +176,8 @@
                 <span class="n">series_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span>
                 <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                 <span class="n">ylabel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                <span class="n">xlabel</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Estágio - T (h)&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot one or more time series as line graphs.</span>
 
@@ -219,7 +197,9 @@
 <span class="sd">    title : str</span>
 <span class="sd">        Title of the plot, displayed at the top of the figure.</span>
 <span class="sd">    ylabel : str</span>
-<span class="sd">        Label for the y-axis.</span>
+<span class="sd">        Label for the y-axis.    </span>
+<span class="sd">    xlabel : str</span>
+<span class="sd">        Label for the x-axis.</span>
 <span class="sd">    file : str</span>
 <span class="sd">        Output file path where the figure will be saved (e.g., PNG, PDF).</span>
 
@@ -250,10 +230,11 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
     <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">series_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">_mathwrap</span><span class="p">(</span><span class="n">label</span><span class="p">),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">_mathwrap</span><span class="p">(</span>
+            <span class="n">label</span><span class="p">),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
         <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Estágio - T (h)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
@@ -272,6 +253,7 @@
     <span class="n">ylabel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
+    <span class="n">xlabel</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Estágio - T (h)&quot;</span><span class="p">,</span>
     <span class="n">stacked</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.85</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -293,7 +275,9 @@
 <span class="sd">    title : str</span>
 <span class="sd">        Title of the plot.</span>
 <span class="sd">    ylabel : str</span>
-<span class="sd">        Label for the y-axis.</span>
+<span class="sd">        Label for the y-axis    </span>
+<span class="sd">    xlabel : str</span>
+<span class="sd">        Label for the x-axis.</span>
 <span class="sd">    file : str</span>
 <span class="sd">        Output file path where the figure will be saved (e.g., PNG, PDF).</span>
 <span class="sd">    stacked : bool, optional</span>
@@ -326,6 +310,7 @@
 <span class="sd">    ...                 file=&quot;out_stacked.png&quot;, stacked=True)</span>
 <span class="sd">    # Produces and saves a stacked bar chart to &#39;out_stacked.png&#39;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+  
     <span class="k">def</span><span class="w"> </span><span class="nf">_mathwrap</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">s</span> <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">))</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">$&quot;</span>
@@ -343,38 +328,19 @@
     <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">stacked</span> <span class="ow">or</span> <span class="n">S</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="c1"># acumuladores separados para positivos e negativos</span>
-        <span class="n">pos_cum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-        <span class="n">neg_cum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-
+        <span class="c1"># único acumulador: cada barra é somada em sequência</span>
+        <span class="n">cum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">lab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
             <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="n">y_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
-            <span class="n">y_neg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">&lt;</span>  <span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
-
-            <span class="c1"># barras positivas empilhadas acima de pos_cum</span>
-            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">y_pos</span><span class="p">):</span>
-                <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
-                    <span class="n">x</span><span class="p">,</span>
-                    <span class="n">y_pos</span><span class="p">,</span>
-                    <span class="n">bottom</span><span class="o">=</span><span class="n">pos_cum</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
-                    <span class="n">label</span><span class="o">=</span><span class="n">_mathwrap</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">y_neg</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># evita duplicar legenda</span>
-                    <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                <span class="p">)</span>
-                <span class="n">pos_cum</span> <span class="o">=</span> <span class="n">pos_cum</span> <span class="o">+</span> <span class="n">y_pos</span>
-
-            <span class="c1"># barras negativas empilhadas abaixo de neg_cum</span>
-            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">y_neg</span><span class="p">):</span>
-                <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
-                    <span class="n">x</span><span class="p">,</span>
-                    <span class="n">y_neg</span><span class="p">,</span>
-                    <span class="n">bottom</span><span class="o">=</span><span class="n">neg_cum</span><span class="p">,</span>
-                    <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
-                    <span class="n">label</span><span class="o">=</span><span class="n">_mathwrap</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">y_pos</span><span class="p">)</span> <span class="k">else</span> <span class="n">_mathwrap</span><span class="p">(</span><span class="n">lab</span><span class="p">),</span>
-                    <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                <span class="p">)</span>
-                <span class="n">neg_cum</span> <span class="o">=</span> <span class="n">neg_cum</span> <span class="o">+</span> <span class="n">y_neg</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="n">y</span><span class="p">,</span>
+                <span class="n">bottom</span><span class="o">=</span><span class="n">cum</span><span class="p">,</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">_mathwrap</span><span class="p">(</span><span class="n">lab</span><span class="p">),</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">cum</span> <span class="o">=</span> <span class="n">cum</span> <span class="o">+</span> <span class="n">y</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">group_width</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
         <span class="n">bar_w</span> <span class="o">=</span> <span class="n">group_width</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
@@ -389,20 +355,22 @@
             <span class="p">)</span>
 
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Estágio - T (h)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span> <span class="k">for</span> <span class="n">tt</span> <span class="ow">in</span> <span class="n">t</span><span class="p">])</span>
 
-    <span class="c1"># legenda</span>
+    <span class="c1"># legenda fora do gráfico, abaixo da figura</span>
     <span class="n">ncol</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">S</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="nb">min</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="n">ncol</span><span class="p">)</span>
-
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+        <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper center&quot;</span><span class="p">,</span>
+        <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">),</span>
+        <span class="n">ncol</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>  <span class="c1"># até 4 colunas, ajusta automaticamente</span>
+    <span class="p">)</span>
+    
     <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span></div>
-
-
 
 </pre></div>
 

@@ -49,7 +49,7 @@ References
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023  
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 """
-
+import copy
 from pyomo.environ import ConcreteModel
 from .ThermalVars import thermal_add_sets_and_params, thermal_add_variables_uc
 from .ThermalConstraints import (
@@ -59,6 +59,7 @@ from .ThermalConstraints import (
 from .ThermalObjectives import set_objective_thermo
 from .ThermalDataTypes import ThermalData
 
+from typing import Dict
 
 def build_thermal_uc(
     data: ThermalData,
@@ -84,13 +85,9 @@ def build_thermal_uc(
         - unit technical parameters (min/max power, ramps, 
           minimum up/down times, costs, etc.)
     
-    objective : {"miqp", "pwl"}, optional
-        Type of objective function to use:
-    
-        - "miqp": quadratic cost coefficients (a, b, c).
-        - "pwl" : piecewise linear cost with SOS2/linearization.
-           Default is "miqp".
-    
+    include_objective: optional, bool
+        hj
+          
     Returns
     -------
     pyomo.environ.ConcreteModel
@@ -166,4 +163,56 @@ def add_thermal_problem(m: ConcreteModel,
         thermal_add_balance_constraint(m)
         set_objective_thermo(m)
 
+    return m
+
+
+def add_thermal_subproblem(m: ConcreteModel,
+                           data: ThermalData,
+                           stage: int) -> ConcreteModel:
+    """
+    Assemble a thermal unit-commitment (UC) subproblem in Pyomo.
+
+    This builder configures a thermal UC optimization model by attaching sets,
+    parameters, decision variables, and standard operational constraints. It
+    supports both MIQP (quadratic cost) and PWL (piecewise linear cost)
+    formulations, with optional reserve requirements and objective definition.
+
+    Parameters
+    ----------
+    m : pyomo.environ.ConcreteModel
+        Pyomo model to which the thermal UC problem will be added.
+    data : ThermalData
+        Input data structure containing unit characteristics, cost parameters,
+        horizon length, demand, reserve requirements, and initial conditions.
+    stage : int
+        the stage subproblem, informed for data copying
+
+    Returns
+    -------
+    pyomo.environ.ConcreteModel
+        The updated model with thermal UC constraints and, if enabled,
+        the objective function.
+
+    Examples
+    --------
+    >>> from pyomo.environ import ConcreteModel
+    >>> m = ConcreteModel()
+    >>> m = add_thermal_problem(m, data, objective="miqp",
+    ...                         include_objective=True)
+    >>> type(m)
+    <class 'pyomo.core.base.PyomoModel.ConcreteModel'>
+    """
+    # data copy
+    subproblem_data = copy.deepcopy(data)
+    subproblem_data.horizon = 1
+    subproblem_data.demand = {1: data.demand[stage+1]}
+    thermal_add_sets_and_params(m, subproblem_data)
+    thermal_add_variables_uc(m)
+
+    thermal_add_capacity_constraint(m)
+
+    return m
+
+def thermo_update_model(m: ConcreteModel,
+                        data: Dict) -> ConcreteModel:
     return m

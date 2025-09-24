@@ -17,13 +17,16 @@ examples/DESSEM/trabalho01_caso03.yaml
 examples/DESSEM/trabalho01_caso04.yaml
 examples/DESSEM/trabalho01_caso05.yaml
 src/NaivePyDECOMP/Builder.py
+src/NaivePyDECOMP/BuilderPDDD.py
 src/NaivePyDECOMP/DataFrames.py
 src/NaivePyDECOMP/Formatters.py
 src/NaivePyDECOMP/ModelCheck.py
 src/NaivePyDECOMP/ModelFormatters.py
+src/NaivePyDECOMP/PDDDMergeModels.py
 src/NaivePyDECOMP/PlotSeries.py
 src/NaivePyDECOMP/Reporting.py
 src/NaivePyDECOMP/Solver.py
+src/NaivePyDECOMP/SolverPDDD.py
 src/NaivePyDECOMP/Utils.py
 src/NaivePyDECOMP/YAMLLoader.py
 src/NaivePyDECOMP/__init__.py
@@ -58,6 +61,7 @@ src/NaivePyDECOMP/ThermalGenerator/ThermalVars.py
 src/NaivePyDECOMP/ThermalGenerator/__init__.py
 src/NaivePyDECOMP/cli/__init__.py
 src/NaivePyDECOMP/cli/cli.py
+src/NaivePyDECOMP/cli/pddd_cli.py
 src/NaivePyDECOMP/cli/plot_cli.py
 src/NaivePyDESSEM/Builder.py
 src/NaivePyDESSEM/DataFrames.py

@@ -12,7 +12,7 @@ meta:
   horizon: 12                 # TODO: nº de períodos (ex.: 24)
   delta_t: 1.0                # duração do período (Meses)
   Cdef: 500.0                 # penalidade de déficit [$ / MWh]
-  Solver: glpk
+  Solver: cbc
   Solver_Options:
     mip_solver: glpk
     nlp_solver: cyipopt

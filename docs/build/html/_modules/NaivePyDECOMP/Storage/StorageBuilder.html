@@ -1,0 +1,211 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDECOMP.Storage.StorageBuilder &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDECOMP.Storage.StorageBuilder</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDECOMP.Storage.StorageBuilder</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT 7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Module: Energy Storage — Model Builder</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">High-level builders for storage-only optimization models in Pyomo. This</span>
+<span class="sd">module assembles the complete model structure by combining storage sets,</span>
+<span class="sd">parameters, variables, constraints, and an optional objective function.</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">build_storage(data, include_objective=True)</span>
+<span class="sd">    Create a new ``ConcreteModel`` with storage components and, optionally,</span>
+<span class="sd">    the balance constraint and objective.</span>
+<span class="sd">add_storage_problem(m, data, include_objective=False)</span>
+<span class="sd">    Add storage components (sets/params/vars/constraints) to an existing</span>
+<span class="sd">    model and, optionally, attach the balance constraint and objective.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- The default objective minimizes deficit cost (no explicit storage</span>
+<span class="sd">  operating costs). If you have cycling costs or degradation penalties,</span>
+<span class="sd">  replace the objective accordingly.</span>
+<span class="sd">- For hybrid systems (hydro/thermal/renewables + storage), prefer a</span>
+<span class="sd">  combined system balance and a joint objective in a higher-level builder.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023  </span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">Objective</span><span class="p">,</span> <span class="n">minimize</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.StorageDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">StorageData</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.StorageObjective</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_objective_storage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.StorageVars</span><span class="w"> </span><span class="kn">import</span> <span class="n">storage_add_sets_and_params</span><span class="p">,</span> <span class="n">storage_add_variables</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.StorageConstraints</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_storage_energy_balance_constraint</span><span class="p">,</span>
+    <span class="n">add_storage_soc_bounds_constraint</span><span class="p">,</span>
+    <span class="n">add_storage_power_limits_constraint</span><span class="p">,</span>
+    <span class="n">add_storage_only_balance_constraint</span><span class="p">,</span>
+    <span class="n">add_storage_mutual_exclusion_constraint</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDESSEM.Storage.StorageBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_storage</span><span class="p">,</span> <span class="n">add_storage_problem</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span>
+
+
+<div class="viewcode-block" id="add_storage_subproblem">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.Storage.html#NaivePyDECOMP.Storage.StorageBuilder.add_storage_subproblem">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_storage_subproblem</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span>
+                           <span class="n">data</span><span class="p">:</span> <span class="n">StorageData</span><span class="p">,</span>
+                           <span class="n">stage</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add storage dispatch problem structure to an existing model.</span>
+
+<span class="sd">    This routine initializes storage sets and parameters, declares decision</span>
+<span class="sd">    variables, and attaches operational constraints. Optionally, it enforces</span>
+<span class="sd">    a storage-only system balance and adds a deficit-penalizing objective.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Target model to be updated.</span>
+<span class="sd">    data : StorageData</span>
+<span class="sd">        Input container with horizon, units, and time-step duration.</span>
+<span class="sd">    include_objective : bool, optional</span>
+<span class="sd">        If ``True``, add the storage-only balance constraint and attach the</span>
+<span class="sd">        deficit objective (default is ``False``).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The updated model with storage components and, optionally, the</span>
+<span class="sd">        balance constraint and objective.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Constraints added (always):</span>
+<span class="sd">        * Energy (SoC) balance</span>
+<span class="sd">        * SoC bounds (min/max)</span>
+<span class="sd">        * Charge/discharge power limits</span>
+<span class="sd">    - If ``include_objective=True``:</span>
+<span class="sd">        * Add storage-only balance: Σ(dis − ch) + D = d</span>
+<span class="sd">        * Attach deficit objective</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># data copy</span>
+    <span class="n">subproblem_data</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">subproblem_data</span><span class="o">.</span><span class="n">horizon</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">subproblem_data</span><span class="o">.</span><span class="n">demand</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">demand</span><span class="p">[</span><span class="n">stage</span><span class="o">+</span><span class="mi">1</span><span class="p">]}</span>
+    <span class="c1"># sets &amp; params</span>
+    <span class="n">storage_add_sets_and_params</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="c1"># variables</span>
+    <span class="n">storage_add_variables</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="c1"># constraints</span>
+    <span class="n">add_storage_energy_balance_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">add_storage_soc_bounds_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">add_storage_power_limits_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="c1"># add_storage_mutual_exclusion_constraint(m)  # descomente se usar binária</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

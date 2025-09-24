@@ -36,5 +36,72 @@ References
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023  
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 """
-
+import copy
+from pyomo.environ import ConcreteModel, Objective, minimize
+from .StorageDataTypes import StorageData
+from .StorageObjective import set_objective_storage
+from .StorageVars import storage_add_sets_and_params, storage_add_variables
+from .StorageConstraints import (
+    add_storage_energy_balance_constraint,
+    add_storage_soc_bounds_constraint,
+    add_storage_power_limits_constraint,
+    add_storage_only_balance_constraint,
+    add_storage_mutual_exclusion_constraint
+)
 from NaivePyDESSEM.Storage.StorageBuilder import build_storage, add_storage_problem
+
+from typing import Dict
+
+
+def add_storage_subproblem(m: ConcreteModel,
+                           data: StorageData,
+                           stage: int) -> ConcreteModel:
+    """
+    Add storage dispatch problem structure to an existing model.
+
+    This routine initializes storage sets and parameters, declares decision
+    variables, and attaches operational constraints. Optionally, it enforces
+    a storage-only system balance and adds a deficit-penalizing objective.
+
+    Parameters
+    ----------
+    m : pyomo.environ.ConcreteModel
+        Target model to be updated.
+    data : StorageData
+        Input container with horizon, units, and time-step duration.
+    include_objective : bool, optional
+        If ``True``, add the storage-only balance constraint and attach the
+        deficit objective (default is ``False``).
+
+    Returns
+    -------
+    pyomo.environ.ConcreteModel
+        The updated model with storage components and, optionally, the
+        balance constraint and objective.
+
+    Notes
+    -----
+    - Constraints added (always):
+        * Energy (SoC) balance
+        * SoC bounds (min/max)
+        * Charge/discharge power limits
+    - If ``include_objective=True``:
+        * Add storage-only balance: Σ(dis − ch) + D = d
+        * Attach deficit objective
+    """
+    # data copy
+    subproblem_data = copy.deepcopy(data)
+    subproblem_data.horizon = 1
+    subproblem_data.demand = {1: data.demand[stage+1]}
+    # sets & params
+    storage_add_sets_and_params(m, data)
+    # variables
+    storage_add_variables(m)
+    # constraints
+    add_storage_energy_balance_constraint(m)
+    add_storage_soc_bounds_constraint(m)
+    add_storage_power_limits_constraint(m)
+    # add_storage_mutual_exclusion_constraint(m)  # descomente se usar binária
+
+    return m
+

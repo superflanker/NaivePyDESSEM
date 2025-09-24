@@ -39,33 +39,9 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Cli Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">NaivePyDESSEM Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">HydraulicGenerator Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.HydraulicGenerator.html">NaivePyDESSEM.HydraulicGenerator package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">ThermalGenerator Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">RenewableGenerator Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Storage Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.Storage.html">NaivePyDESSEM.Storage package</a></li>
 </ul>
 
         </div>
@@ -117,7 +93,7 @@
 <span class="sd">Features</span>
 <span class="sd">--------</span>
 <span class="sd">- Supports CSV, Excel, and Parquet input formats.</span>
-<span class="sd">- Category-based selection of variables (e.g., G, Q, V, S, BAT, cost, CTRL).</span>
+<span class="sd">- Category-based selection of variables (e.g., G, Q, V, S, BAT, cost).</span>
 <span class="sd">- Automated LaTeX formatting and colored control tables.</span>
 <span class="sd">- Customizable plot styling, labeling, and output paths.</span>
 
@@ -129,7 +105,6 @@
 <span class="sd">- &#39;S&#39;     : Spillage [hydro]</span>
 <span class="sd">- &#39;BAT&#39;   : Battery-specific (charge/discharge/SoC)</span>
 <span class="sd">- &#39;cost&#39;  : Cost components per stage (var, start, deficit)</span>
-<span class="sd">- &#39;CTRL&#39;  : Control variables (U, Y, W)</span>
 
 <span class="sd">Dependencies</span>
 <span class="sd">------------</span>
@@ -162,12 +137,6 @@
 <span class="sd">--title &quot;Reservoir Volume and Cost Variables&quot; --label tab:vol_cost \</span>
 <span class="sd">--out-dir tables --out-file vol_cost.tex</span>
 
-
-<span class="sd"># 3) Non-interactive: CTRL matrix (U/Y/W) with custom caption/label</span>
-<span class="sd">python plot_results_cli.py results/day1.xlsx \</span>
-<span class="sd">--mode ctrl --title &quot;Unit Commitment Status&quot; --label tab:uyw \</span>
-<span class="sd">--out-dir tables --out-file uyw.tex</span>
-
 <span class="sd">References</span>
 <span class="sd">----------</span>
 <span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023  </span>
@@ -194,7 +163,7 @@
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}</span><span class="s2">EELT 7030 — Operation and Expansion Planning of Electric Power Systems&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="si">}</span><span class="s2">Federal University of Paraná (UFPR)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}</span><span class="s2">NaivePlot: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Reporting CLI For </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">MAGENTA</span><span class="si">}</span><span class="s2">NaivePyDECOMP Simulations</span><span class="si">{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}</span><span class="s2">NaiveDECOMP-Plot: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Reporting CLI For </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">MAGENTA</span><span class="si">}</span><span class="s2">NaivePyDECOMP Simulations</span><span class="si">{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}</span><span class="s2">Author: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">WHITE</span><span class="si">}</span><span class="s2">Augusto Mathias Adams </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">&lt;augusto.adams@ufpr.br&gt;&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span></div>
 
@@ -294,7 +263,7 @@
     <span class="k">if</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;GT&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(G_|Ge_|Deficit|Demand).*&quot;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;G&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^G_.*&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(G_|Deficit).*&quot;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;Q&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^Q_.*&quot;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;S&quot;</span><span class="p">:</span>
@@ -304,9 +273,11 @@
     <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;BAT&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(D_|C_|E_).*&quot;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">category</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;cost&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^Cost_.*&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">category</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;CTRL&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(U_|Y_|W_).*&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(Cost_|CMO|CMA_|FC).*&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">category</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(FCF_\{1\})&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">category</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;zlim&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(ZSUP|ZINF)&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="si">}</span><span class="s2">Unrecognized category: </span><span class="si">{</span><span class="n">category</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
@@ -352,63 +323,6 @@
         <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="n">cols</span><span class="p">])</span>
         <span class="n">seen</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">parts</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
-
-
-
-<div class="viewcode-block" id="handle_control_variables">
-<a class="viewcode-back" href="../../../NaivePyDECOMP.cli.html#NaivePyDECOMP.cli.plot_cli.handle_control_variables">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">handle_control_variables</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
-                             <span class="o">*</span><span class="p">,</span>
-                             <span class="n">out_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                             <span class="n">out_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                             <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                             <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Generate and export a colored LaTeX table for binary control variables.</span>
-
-<span class="sd">    This function prompts the user (if necessary) for export parameters and produces</span>
-<span class="sd">    a LaTeX table that visualizes control variables (U, Y, W) using a binary</span>
-<span class="sd">    color-coded scheme.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    df : pd.DataFrame</span>
-<span class="sd">        The DataFrame containing control variable columns.</span>
-<span class="sd">    out_dir : str, optional</span>
-<span class="sd">        Output directory path. Prompted if not provided.</span>
-<span class="sd">    out_file : str, optional</span>
-<span class="sd">        Output .tex file name. Prompted if not provided.</span>
-<span class="sd">    caption : str or None, optional</span>
-<span class="sd">        Caption text for the LaTeX table. Prompted if None.</span>
-<span class="sd">    label : str or None, optional</span>
-<span class="sd">        LaTeX label for referencing the table. Prompted if None.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    None</span>
-<span class="sd">        The function saves the LaTeX file to disk and prints the location.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">out_dir</span> <span class="o">=</span> <span class="n">out_dir</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span>
-        <span class="s2">&quot;Enter the output directory for the LaTeX table&quot;</span><span class="p">)</span>
-    <span class="n">out_file</span> <span class="o">=</span> <span class="n">out_file</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;Enter the output .tex file name&quot;</span><span class="p">)</span>
-    <span class="n">caption</span> <span class="o">=</span> <span class="n">caption</span> <span class="k">if</span> <span class="n">caption</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">prompt</span><span class="p">(</span>
-        <span class="s2">&quot;Enter the caption for the LaTeX table [optional]&quot;</span><span class="p">)</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="n">label</span> <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">prompt</span><span class="p">(</span>
-        <span class="s2">&quot;Enter the label for the LaTeX table [optional]&quot;</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">ctrl_df</span> <span class="o">=</span> <span class="n">select_variable_columns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;CTRL&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">if</span> <span class="n">caption</span><span class="p">:</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;caption&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">caption</span>
-    <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span>
-    <span class="n">tex</span> <span class="o">=</span> <span class="n">binary_df_to_colored_latex</span><span class="p">(</span><span class="n">ctrl_df</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">out_file</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tex</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="si">}</span><span class="s2">✔ Table saved to:</span><span class="si">{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">path</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
-
 
 
 <div class="viewcode-block" id="handle_table">
@@ -526,12 +440,12 @@
     <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">out_file</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">plot_style</span> <span class="o">==</span> <span class="s2">&quot;line&quot;</span><span class="p">:</span>
         <span class="n">plot_series</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">series</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;list&quot;</span><span class="p">),</span>
-                    <span class="n">title</span><span class="o">=</span><span class="n">title_use</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel_use</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+                    <span class="n">title</span><span class="o">=</span><span class="n">title_use</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel_use</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Estágio T&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">plot_style</span> <span class="o">==</span> <span class="s2">&quot;bar&quot;</span><span class="p">:</span>
         <span class="n">stacked</span> <span class="o">=</span> <span class="p">(</span><span class="n">stacked</span> <span class="k">if</span> <span class="n">stacked</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">prompt</span><span class="p">(</span>
             <span class="s2">&quot;Stacked bars? (y/n)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span>
         <span class="n">plot_series_bar</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">series</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;list&quot;</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="n">title_use</span><span class="p">,</span>
-                        <span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel_use</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="n">stacked</span><span class="p">)</span>
+                        <span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel_use</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Estágio T&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="n">stacked</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="si">}</span><span class="s2">Unrecognized plot style.</span><span class="si">{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="si">}</span><span class="s2">✔ Figure saved to:</span><span class="si">{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">path</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
@@ -563,7 +477,7 @@
 <span class="sd">    --------</span>
 <span class="sd">    Command-line usage:</span>
 
-<span class="sd">        $ python plot_xli.py results.csv --mode table -c G cost --out-dir out --out-file results.tex</span>
+<span class="sd">        $ python plot_cli.py results.csv --mode table -c G cost --out-dir out --out-file results.tex</span>
 
 <span class="sd">    Interactive usage:</span>
 
@@ -588,9 +502,9 @@
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
         <span class="s2">&quot;input_file&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Input file (.csv, .xlsx, .parquet)&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--mode&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="s2">&quot;plot&quot;</span><span class="p">,</span> <span class="s2">&quot;ctrl&quot;</span><span class="p">],</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Export mode: LaTeX table, plot, or CTRL (U/Y/W) matrix&quot;</span><span class="p">)</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Export mode: LaTeX table, plot&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--category&quot;</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">,</span>
-                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;One or more categories (e.g., G GG Q S V BAT cost)&quot;</span><span class="p">)</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;One or more categories (e.g., G GG Q S V BAT cost alpha zlim)&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
         <span class="s2">&quot;--plot-style&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">],</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Plot style&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--stacked&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
@@ -603,13 +517,9 @@
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--label&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;LaTeX label (tables)&quot;</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">load_dataframe</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">input_file</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available categories: G (Generation), Q (Turbine flow), S (Spillage), V (Volume), cost, CTRL (U/Y/W), BAT&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available categories: G (Generation), Q (Turbine flow), S (Spillage), V (Volume), cost, BAT, alpha, zlim&quot;</span><span class="p">)</span>
     <span class="n">mode</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mode</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span>
         <span class="s2">&quot;Generate table, plot, or CTRL matrix? (table/plot/ctrl)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;ctrl&quot;</span><span class="p">:</span>
-        <span class="n">handle_control_variables</span><span class="p">(</span>
-            <span class="n">df</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">out_file</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
-        <span class="k">return</span>
     <span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;cost&quot;</span> <span class="k">else</span> <span class="s2">&quot;cost&quot;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">(</span>
         <span class="n">args</span><span class="o">.</span><span class="n">category</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;Enter category(ies) separated by spaces (e.g., G S V):&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">())]</span>
     <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;table&quot;</span><span class="p">:</span>

@@ -39,33 +39,9 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Cli Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">NaivePyDESSEM Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">HydraulicGenerator Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.HydraulicGenerator.html">NaivePyDESSEM.HydraulicGenerator package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">ThermalGenerator Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">RenewableGenerator Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Storage Reference:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../NaivePyDESSEM.Storage.html">NaivePyDESSEM.Storage package</a></li>
 </ul>
 
         </div>
@@ -128,11 +104,9 @@
 <span class="sd">Modeling Conventions and Units</span>
 <span class="sd">------------------------------</span>
 <span class="sd">- Time periods are indexed as integers t = 1, …, horizon.</span>
-<span class="sd">- Turbined and spill discharges (Q, S): m^3/s.</span>
+<span class="sd">- Turbined and spill discharges (Q, S): hm^3.</span>
 <span class="sd">- Storage volume (V): hm^3.</span>
-<span class="sd">- Power (G) and demand (d): MW.</span>
-<span class="sd">- Typical power conversion constant: zeta = 9.81/1000 (when used within FPH).</span>
-<span class="sd">- Volume conversion per period: zeta_vol = 3600/1e6 for hourly steps.</span>
+<span class="sd">- Power (G) and demand (d): MWh.</span>
 
 <span class="sd">Notes</span>
 <span class="sd">-----</span>
@@ -140,16 +114,14 @@
 <span class="sd">  couple with a combined system balance elsewhere.</span>
 <span class="sd">- The callable stored in m.hydro_FPH[h] must accept the signature</span>
 <span class="sd">  FPH(Q, V, S) → MW and be consistent with model units.</span>
-<span class="sd">- Exact and specific modes rely on coefficient vectors that parameterize</span>
-<span class="sd">  head or loss polynomials supplied via data.units[h].</span>
 
 <span class="sd">References</span>
 <span class="sd">----------</span>
 <span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023 </span>
 <span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023. </span>
 <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">Param</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">Param</span><span class="p">,</span> <span class="n">value</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.HydraulicVars</span><span class="w"> </span><span class="kn">import</span> <span class="n">hydraulyc_add_sets_and_params</span><span class="p">,</span> <span class="n">hydralic_add_variables_g</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.HydraulicConstraints</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">add_hydro_balance_constraint</span><span class="p">,</span>
@@ -163,6 +135,8 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.HydraulicDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">HydraulicData</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.HydraulicObjectives</span><span class="w"> </span><span class="kn">import</span> <span class="n">set_objective_hydro</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.SimplifiedConstantProductivityFPH</span><span class="w"> </span><span class="kn">import</span> <span class="n">simplified_constant_productivity_fph</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span>
 
 
 <div class="viewcode-block" id="build_FPHs">
@@ -182,7 +156,7 @@
 <span class="sd">    m : pyomo.core.base.PyomoModel.ConcreteModel</span>
 <span class="sd">        Pyomo model into which the FPH callables will be attached.</span>
 <span class="sd">    data : HydraulicData</span>
-<span class="sd">        Configuration object containing unit maos and modes</span>
+<span class="sd">        Configuration object containing unit maps and modes</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -196,7 +170,6 @@
     <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">H</span><span class="p">:</span>
         <span class="n">unit</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">h</span><span class="p">]</span>
         <span class="n">m</span><span class="o">.</span><span class="n">hydro_FPH</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="n">simplified_constant_productivity_fph</span><span class="p">(</span><span class="n">unit</span><span class="o">.</span><span class="n">p</span><span class="p">)</span></div>
-
 
 
 <div class="viewcode-block" id="build_hydro_dispatch">
@@ -301,7 +274,6 @@
 <span class="sd">    &gt;&gt;&gt; type(m)</span>
 <span class="sd">    &lt;class &#39;pyomo.core.base.PyomoModel.ConcreteModel&#39;&gt;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">build_FPHs</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
     <span class="n">hydraulyc_add_sets_and_params</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
@@ -317,6 +289,84 @@
     <span class="k">if</span> <span class="n">include_objective</span><span class="p">:</span>
         <span class="n">add_hydro_balance_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
         <span class="n">set_objective_hydro</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+<div class="viewcode-block" id="add_hydro_subproblem">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.HydraulicGenerator.html#NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.add_hydro_subproblem">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_hydro_subproblem</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span>
+                         <span class="n">data</span><span class="p">:</span> <span class="n">HydraulicData</span><span class="p">,</span>
+                         <span class="n">stage</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assemble a hydropower dispatch problem in Pyomo.</span>
+
+<span class="sd">    This builder configures a Pyomo model for reservoir-based hydropower</span>
+<span class="sd">    optimization. It attaches sets, parameters, decision variables, the</span>
+<span class="sd">    hydropower production functions (FPHs), and all relevant operational</span>
+<span class="sd">    constraints. Optionally, it includes the demand balance and the</span>
+<span class="sd">    cost-minimization objective.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model to which the hydropower problem will be added.</span>
+<span class="sd">    data : HydraulicData</span>
+<span class="sd">        Input data object containing planning horizon, demand mapping,</span>
+<span class="sd">        unit definitions, inflows, storage bounds, and productivity</span>
+<span class="sd">        coefficients.</span>
+<span class="sd">    include_objective : bool, optional</span>
+<span class="sd">        If True, add the system-wide demand balance and deficit-penalizing</span>
+<span class="sd">        objective function (default is False).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The updated Pyomo model with hydropower sets, parameters, variables,</span>
+<span class="sd">        constraints, and optionally the objective.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Constraints added:</span>
+<span class="sd">        * Hydropower generation equation (FPH-based)</span>
+<span class="sd">        * Minimum/maximum turbined flow</span>
+<span class="sd">        * Reservoir volume balance (continuity)</span>
+<span class="sd">        * Minimum/maximum storage limits</span>
+<span class="sd">        * Terminal storage requirement</span>
+<span class="sd">    - If include_objective=True, the system-wide balance constraint and</span>
+<span class="sd">      the hydropower objective (deficit + spill penalty) are attached.</span>
+<span class="sd">    - This builder targets **pure hydropower** systems; for mixed</span>
+<span class="sd">      hydrothermal systems, a combined balance and objective should be</span>
+<span class="sd">      used instead.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pyomo.environ import ConcreteModel</span>
+<span class="sd">    &gt;&gt;&gt; m = ConcreteModel()</span>
+<span class="sd">    &gt;&gt;&gt; m = add_hydro_problem(m, data, include_objective=True)</span>
+<span class="sd">    &gt;&gt;&gt; type(m)</span>
+<span class="sd">    &lt;class &#39;pyomo.core.base.PyomoModel.ConcreteModel&#39;&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># data copy</span>
+    <span class="n">subproblem_data</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">subproblem_data</span><span class="o">.</span><span class="n">horizon</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">subproblem_data</span><span class="o">.</span><span class="n">demand</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">demand</span><span class="p">[</span><span class="n">stage</span><span class="o">+</span><span class="mi">1</span><span class="p">]}</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">subproblem_data</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">subproblem_data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">afluencia</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">afluencia</span><span class="p">[</span><span class="n">stage</span><span class="p">]]</span>
+
+    <span class="n">build_FPHs</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">subproblem_data</span><span class="p">)</span>
+
+    <span class="n">hydraulyc_add_sets_and_params</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">subproblem_data</span><span class="p">)</span>
+    <span class="n">hydralic_add_variables_g</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+    <span class="n">add_hydro_generation_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">add_hydro_qmin_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">add_hydro_qmax_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">add_hydro_volume_continuity_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">add_hydro_volume_max_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">add_hydro_volume_mim_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">m</span></div>
 

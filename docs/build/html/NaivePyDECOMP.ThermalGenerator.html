@@ -542,6 +542,42 @@ the objective function.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_subproblem">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.</span></span><span class="sig-name descname"><span class="pre">add_thermal_subproblem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData" title="NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData"><span class="pre">ThermalData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/ThermalGenerator/ThermalGeneratorBuilder.html#add_thermal_subproblem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_subproblem" title="Link to this definition"></a></dt>
+<dd><p>Assemble a thermal unit-commitment (UC) subproblem in Pyomo.</p>
+<p>This builder configures a thermal UC optimization model by attaching sets,
+parameters, decision variables, and standard operational constraints. It
+supports both MIQP (quadratic cost) and PWL (piecewise linear cost)
+formulations, with optional reserve requirements and objective definition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model to which the thermal UC problem will be added.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.html#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData" title="NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData"><em>ThermalData</em></a>) – Input data structure containing unit characteristics, cost parameters,
+horizon length, demand, reserve requirements, and initial conditions.</p></li>
+<li><p><strong>stage</strong> (<em>int</em>) – the stage subproblem, informed for data copying</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated model with thermal UC constraints and, if enabled,
+the objective function.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">add_thermal_problem</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">objective</span><span class="o">=</span><span class="s2">&quot;miqp&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">include_objective</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="go">&lt;class &#39;pyomo.core.base.PyomoModel.ConcreteModel&#39;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.build_thermal_uc">
 <span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.</span></span><span class="sig-name descname"><span class="pre">build_thermal_uc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData" title="NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData"><span class="pre">ThermalData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/ThermalGenerator/ThermalGeneratorBuilder.html#build_thermal_uc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.build_thermal_uc" title="Link to this definition"></a></dt>
 <dd><p>Builds a modular thermal Unit Commitment (UC) Pyomo model.</p>
@@ -562,16 +598,7 @@ Must include:</p>
 minimum up/down times, costs, etc.)</p></li>
 </ul>
 </p></li>
-<li><p><strong>objective</strong> (<em>{&quot;miqp&quot;</em><em>, </em><em>&quot;pwl&quot;}</em><em>, </em><em>optional</em>) – <p>Type of objective function to use:</p>
-<ul>
-<li><p>”miqp”: quadratic cost coefficients (a, b, c).</p></li>
-<li><dl class="simple">
-<dt>”pwl”<span class="classifier">piecewise linear cost with SOS2/linearization.</span></dt><dd><p>Default is “miqp”.</p>
-</dd>
-</dl>
-</li>
-</ul>
-</p></li>
+<li><p><strong>include_objective</strong> (<em>optional</em><em>, </em><em>bool</em>) – hj</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -595,6 +622,11 @@ with a MILP/MIQP solver.</p>
 </pre></div>
 </div>
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.thermo_update_model">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.</span></span><span class="sig-name descname"><span class="pre">thermo_update_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/ThermalGenerator/ThermalGeneratorBuilder.html#thermo_update_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.thermo_update_model" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 </section>
 <section id="module-NaivePyDECOMP.ThermalGenerator.ThermalObjectives">
@@ -803,19 +835,14 @@ gamma (optional), pw_breaks (optional), pw_costs (optional).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDECOMP.ThermalGenerator.ThermalVars.thermal_add_variables_uc">
-<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ThermalGenerator.ThermalVars.</span></span><span class="sig-name descname"><span class="pre">thermal_add_variables_uc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_reserve</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_pwl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDECOMP/ThermalGenerator/ThermalVars.html#thermal_add_variables_uc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ThermalGenerator.ThermalVars.thermal_add_variables_uc" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ThermalGenerator.ThermalVars.</span></span><span class="sig-name descname"><span class="pre">thermal_add_variables_uc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDECOMP/ThermalGenerator/ThermalVars.html#thermal_add_variables_uc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ThermalGenerator.ThermalVars.thermal_add_variables_uc" title="Link to this definition"></a></dt>
 <dd><p>Declares decision variables for the thermal Unit Commitment (UC) model.</p>
 <p>Variables include continuous generation and deficit levels,
 binary commitment/start/stop indicators, and optionally,
 reserve and piecewise cost variables.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Model where variables will be added.</p></li>
-<li><p><strong>include_reserve</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, reserve variables <strong>m.r[g, t]</strong> are created (default False).</p></li>
-<li><p><strong>use_pwl</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, piecewise linear cost variables <strong>m.Cvar[g, t]</strong>
-are created (default False).</p></li>
-</ul>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Model where variables will be added.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><p>The updated model with added decision variables:

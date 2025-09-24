@@ -74,6 +74,7 @@ from matplotlib import cycler
 from pyomo.environ import value
 import os
 
+
 def get_distinct_colors(n: int, cmap_name: str = 'tab20') -> list[str]:
     """
     Generate a list of visually distinct colors.
@@ -99,7 +100,8 @@ def plot_series(t: Sequence,
                 series_dict: Dict[str, Sequence[float]],
                 title: str,
                 ylabel: str,
-                file: str) -> None:
+                file: str,
+                xlabel: str = "Estágio - T (h)") -> None:
     """
     Plot one or more time series as line graphs.
 
@@ -119,7 +121,9 @@ def plot_series(t: Sequence,
     title : str
         Title of the plot, displayed at the top of the figure.
     ylabel : str
-        Label for the y-axis.
+        Label for the y-axis.    
+    xlabel : str
+        Label for the x-axis.
     file : str
         Output file path where the figure will be saved (e.g., PNG, PDF).
 
@@ -150,10 +154,11 @@ def plot_series(t: Sequence,
     plt.figure(figsize=(8, 5))
     k = 0
     for label, values in series_dict.items():
-        plt.plot(t, values, label=_mathwrap(label), linewidth=2, color=colors[k])
+        plt.plot(t, values, label=_mathwrap(
+            label), linewidth=2, color=colors[k])
         k += 1
     plt.title(title, fontsize=14)
-    plt.xlabel("Estágio - T (h)", fontsize=12)
+    plt.xlabel(xlabel, fontsize=12)
     plt.ylabel(ylabel, fontsize=12)
     plt.grid(True)
     plt.legend()
@@ -169,6 +174,7 @@ def plot_series_bar(
     ylabel: str,
     file: str,
     *,
+    xlabel: str = "Estágio - T (h)",
     stacked: bool = False,
     width: float = 0.85
 ) -> None:
@@ -190,7 +196,9 @@ def plot_series_bar(
     title : str
         Title of the plot.
     ylabel : str
-        Label for the y-axis.
+        Label for the y-axis    
+    xlabel : str
+        Label for the x-axis.
     file : str
         Output file path where the figure will be saved (e.g., PNG, PDF).
     stacked : bool, optional
@@ -223,6 +231,7 @@ def plot_series_bar(
     ...                 file="out_stacked.png", stacked=True)
     # Produces and saves a stacked bar chart to 'out_stacked.png'.
     """
+  
     def _mathwrap(s: str) -> str:
         s = str(s)
         return s if (s.startswith("$") and s.endswith("$")) else f"${s}$"
@@ -240,38 +249,19 @@ def plot_series_bar(
     x = np.arange(T)
 
     if stacked or S == 1:
-        # acumuladores separados para positivos e negativos
-        pos_cum = np.zeros(T, dtype=float)
-        neg_cum = np.zeros(T, dtype=float)
-
+        # único acumulador: cada barra é somada em sequência
+        cum = np.zeros(T, dtype=float)
         for i, lab in enumerate(labels):
             y = data[i]
-            y_pos = np.where(y >= 0.0, y, 0.0)
-            y_neg = np.where(y <  0.0, y, 0.0)
-
-            # barras positivas empilhadas acima de pos_cum
-            if np.any(y_pos):
-                ax.bar(
-                    x,
-                    y_pos,
-                    bottom=pos_cum,
-                    width=width,
-                    label=_mathwrap(lab) if not np.any(y_neg) else None,  # evita duplicar legenda
-                    color=colors[i]
-                )
-                pos_cum = pos_cum + y_pos
-
-            # barras negativas empilhadas abaixo de neg_cum
-            if np.any(y_neg):
-                ax.bar(
-                    x,
-                    y_neg,
-                    bottom=neg_cum,
-                    width=width,
-                    label=_mathwrap(lab) if not np.any(y_pos) else _mathwrap(lab),
-                    color=colors[i]
-                )
-                neg_cum = neg_cum + y_neg
+            ax.bar(
+                x,
+                y,
+                bottom=cum,
+                width=width,
+                label=_mathwrap(lab),
+                color=colors[i]
+            )
+            cum = cum + y
     else:
         group_width = min(0.95, width)
         bar_w = group_width / max(1, S)
@@ -286,17 +276,19 @@ def plot_series_bar(
             )
 
     ax.set_title(title)
-    ax.set_xlabel("Estágio - T (h)")
+    ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.grid(True, axis="y")
     ax.set_xticks(x)
     ax.set_xticklabels([str(tt) for tt in t])
 
-    # legenda
+    # legenda fora do gráfico, abaixo da figura
     ncol = 1 if S <= 1 else min(4, S)
-    ax.legend(loc="upper right", ncol=ncol)
-
+    ax.legend(
+        loc="upper center",
+        bbox_to_anchor=(0.5, -0.15),
+        ncol=min(4, S)  # até 4 colunas, ajusta automaticamente
+    )
+    
     fig.savefig(file, dpi=600, bbox_inches="tight")
     plt.close(fig)
-
-
