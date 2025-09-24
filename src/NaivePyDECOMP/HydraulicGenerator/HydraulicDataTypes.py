@@ -80,12 +80,6 @@ class HydraulicUnit:
         If ``True``, total inflow will include upstream releases in addition
         to exogenous natural inflow in expressions that support it.
         Default is ``True``.
-
-    Notes
-    -----
-    - The presence and interpretation of the optional vectors (``a``, ``b``,
-      ``rho``, ``losses``) are **model-dependent** and only take effect if
-      the consuming code uses them for the selected ``mode``.
     """
     name: str
     Qmin: float
