@@ -43,7 +43,100 @@ from .BuilderPDDD import (
 )
 from .PDDDMergeModels import generate_dummy_model
 import copy
+
 colorama_init(autoreset=True)
+
+
+def fcf_from_cuts(cuts: List[Dict],
+                  stage: int,
+                  storage_levels: Dict) -> List:
+    """
+    Compute the Future Cost Function (FCF) value given a set of Benders cuts,
+    assuming that the expansion point (xk) has already been absorbed into
+    the intercept (rhs).
+
+    Parameters
+    ----------
+    cuts : list of dict
+        List of cuts. Each cut must have the format:
+        {
+            "stage": int                 # stage for calculation
+            "rhs": float,                # adjusted intercept
+            "coefs": {unit: float}       # coefficients (subgradients)
+        }
+
+    stage : int
+        The index of the current stage being solved (0-based).
+    storage_levels : dict
+        Dictionary with current storage volumes for each hydro unit.
+        Example: {"UHE1": 50, "UHE2": 80}
+
+    Returns
+    -------
+    List[float]
+        Value of the Future Cost Function (FCF) evaluated at the given
+        storage levels.
+    """
+    values = []
+
+    for cut in cuts:
+        if cut["stage"] == stage:
+            rhs = cut["rhs"]
+            coefs = cut["coefs"]
+            value = rhs + sum(coefs[unit] * storage_levels[unit]
+                              for unit in coefs)
+            values.append(value)
+    return values
+
+
+def compute_fcf(cuts: List[Dict],
+                pddd_memory: List[Dict]) -> Dict:
+    """
+    Compute the Future Cost Function (FCF) values for all stages 
+    in the PDDD framework, given a set of Benders cuts.
+
+    This function iterates over the memory of the PDDD algorithm, 
+    extracting the storage volumes for each stage and evaluating 
+    the corresponding FCF approximation using the provided cuts.
+
+    Parameters
+    ----------
+    cuts : List[Dict]
+        List of Benders cuts. Each cut must be a dictionary with:
+        {
+            "rhs": float,                # adjusted intercept
+            "coefs": {unit: float}       # coefficients (subgradients)
+        }
+    pddd_memory : List[Dict]
+        List of stage-level information from the PDDD algorithm.
+        Each element must include the storage volumes in the key 
+        'f_volume', e.g.:
+        {
+            "f_volume": {"UHE1": 50, "UHE2": 80, ...}
+        }
+
+    Returns
+    -------
+    Dict
+        Dictionary of FCF values for each stage, with keys in the 
+        format "FCF_{t}" where t denotes the stage index (1-based).
+        Example:
+        {
+            "FCF_1": [...],
+            "FCF_2": [...],
+            ...
+        }
+    """
+    fcf_values: Dict = {}
+    for stage in range(len(pddd_memory)-1):
+        stage_fcf_values = fcf_from_cuts(cuts=cuts,
+                                         stage=stage,
+                                         storage_levels=pddd_memory[stage]['f_volume'])
+        fcf_values[r"FCF_{" + f"{stage+1:d}" + r"}"] = stage_fcf_values
+    
+    return fcf_values
+
+
 
 def solve_stage_pddd(yaml_data: Dict,
                      stage_hydros: Dict,
@@ -126,7 +219,7 @@ def solve_stage_pddd(yaml_data: Dict,
     model = build_pddd_balance_and_objective_from_yaml(yaml_data=current_yaml_data,
                                                        stage=stage,
                                                        cuts=cuts)
-    
+
     opt = SolverFactory(solver_str)
 
     if not opt.available():
@@ -255,6 +348,11 @@ def solve_pddd(path: str,
         raise ValueError(
             'Hydro Units must be set o perform DECOMP Like Dispatch')
 
+    if 'thermal' not in case:
+        raise ValueError(
+            'Thermal Units must be set o perform DECOMP Like Dispatch')
+
+
     # === Inicializações ===
     cuts = []
     ZINF = []
@@ -307,31 +405,27 @@ def solve_pddd(path: str,
                     next_stage_data['hydro']['units'][uhe]['Vini'] = results['f_volume'][uhe]
                 if 'storage' in case:
                     for sunit in stage_data['storage']['units']:
-                        next_stage_data['storage']['units'][sunit]['Eini'] = value(results['model'].storage_E[sunit, 1])
+                        next_stage_data['storage']['units'][sunit]['Eini'] = value(
+                            results['model'].storage_E[sunit, 1])
                 memory[t+1] = copy.deepcopy(next_stage_data)
-               
+
             current_zsup += results['total_cost'] - results['alpha']
             if t == 0:
                 current_zinf = results['total_cost']
 
-            stage_string = stage_string = r"FCF_{" + f"{t+1:d}" + r"}"
-
-            if stage_string not in alpha_values:
-                alpha_values[stage_string] = []
-            
-            alpha_values[stage_string].append(results['alpha'])
-
+        
         ZSUP.append(current_zsup)
 
         ZINF.append(current_zinf)
 
-        alpha_values["T"].append(iter_idx+1)
         if verbose:
             print(
                 f"ZINF[{iter_idx}] = {ZINF[-1]:.4f}, ZSUP[{iter_idx}] = {ZSUP[-1]:.4f}")
 
         if abs(ZSUP[-1] - ZINF[-1]) <= tol:
             break
+
+        alpha_values["T"].append(sum([memory[0]['f_volume'][h] for h in memory[0]['f_volume']]))
 
         # === Backward Pass ===
         for t in reversed(range(nstages)):
@@ -350,8 +444,10 @@ def solve_pddd(path: str,
                 coefs = dict()
 
                 for uhe in stage_data['hydro']['units']:
-                    cma = -results['cma'][uhe]
-                    rhs -= cma * results['model'].hydro_Vini[uhe]
+                    # cma = -results['cma'][uhe]
+                    cma = results['cma'][uhe]
+                    rhs -= cma * results['hydro']['units'][uhe]['Vini']
+                    # rhs -= cma * results['model'].hydro_V[uhe, 1].value
                     coefs[uhe] = cma
 
                 cuts.append({
@@ -359,6 +455,12 @@ def solve_pddd(path: str,
                     "rhs": rhs,
                     "coefs": coefs
                 })
+
+    # FCF from benders cuts
+
+    fct_values = compute_fcf(cuts, memory)
+
+    alpha_values["FCF_{1}"] = fct_values["FCF_{1}"]
 
     if verbose:
         print("\n=== PDDD Finished ===")
@@ -369,8 +471,9 @@ def solve_pddd(path: str,
 
     z_limits = {'ZINF': ZINF,
                 'ZSUP': ZSUP}
-    model = generate_dummy_model(memory, original_case)
     
+    model = generate_dummy_model(memory, original_case)
+
     dispatch_summary(model)
     hydro_dispatch_summary(model)
     thermal_dispatch_summary(model)

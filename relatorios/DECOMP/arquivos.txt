@@ -1,0 +1,149 @@
+.:
+total 24K
+drwxrwxr-x 6 augusto augusto 4.0K Sep 24 13:58 .
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 14:15 ..
+-rw-rw-r-- 1 augusto augusto    0 Sep 24 13:58 arquivos.txt
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 14:19 caso01
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 20:27 caso02
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 20:28 caso03
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 20:28 caso04
+
+./caso01:
+total 16K
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 14:19 .
+drwxrwxr-x 6 augusto augusto 4.0K Sep 24 13:58 ..
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 19:34 imagens
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 14:19 tabelas
+
+./caso01/imagens:
+total 2.7M
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 19:34 .
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 14:19 ..
+-rw-rw-r-- 1 augusto augusto 236K Sep 24 07:19 custo_futuro_caso01_pddd.png
+-rw-rw-r-- 1 augusto augusto 219K Sep 24 07:19 custos_geracao_caso01_pddd.png
+-rw-rw-r-- 1 augusto augusto 214K Sep 24 07:19 custos_geracao_caso01_single_pl.png
+-rw-rw-r-- 1 augusto augusto 205K Sep 24 07:19 geracao_caso01_pddd.png
+-rw-rw-r-- 1 augusto augusto 209K Sep 24 07:19 geracao_caso01_single_pl.png
+-rw-rw-r-- 1 augusto augusto 268K Sep 24 07:19 limites_convergencia_caso01_pddd.png
+-rw-rw-r-- 1 augusto augusto 388K Sep 24 07:19 vazao_turbinada_caso01_pddd.png
+-rw-rw-r-- 1 augusto augusto 414K Sep 24 07:19 vazao_turbinada_caso01_single_pl.png
+-rw-rw-r-- 1 augusto augusto 226K Sep 24 07:19 volume_armazenado_caso01_pddd.png
+-rw-rw-r-- 1 augusto augusto 271K Sep 24 07:19 volume_armazenado_caso01_single_pl.png
+
+./caso01/tabelas:
+total 32K
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 14:19 .
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 14:19 ..
+-rw-rw-r-- 1 augusto augusto 1.3K Sep 24 07:19 custos_caso01_pddd.tex
+-rw-rw-r-- 1 augusto augusto  852 Sep 24 07:19 custos_caso01_single_pl.tex
+-rw-rw-r-- 1 augusto augusto 1.1K Sep 24 07:19 parametros_hidraulicos_caso01_pddd.tex
+-rw-rw-r-- 1 augusto augusto 1.1K Sep 24 07:19 parametros_hidraulicos_caso01_single_pl.tex
+-rw-rw-r-- 1 augusto augusto 1.2K Sep 24 07:19 tabela_geracao_caso01_pddd.tex
+-rw-rw-r-- 1 augusto augusto 1.2K Sep 24 07:19 tabela_geracao_caso01_single_pl.tex
+
+./caso02:
+total 16K
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 20:27 .
+drwxrwxr-x 6 augusto augusto 4.0K Sep 24 13:58 ..
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 20:28 imagens
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 20:27 tabelas
+
+./caso02/imagens:
+total 2.8M
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 20:28 .
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 20:27 ..
+-rw-rw-r-- 1 augusto augusto 208K Sep 24 07:19 custo_futuro_caso02_pddd.png
+-rw-rw-r-- 1 augusto augusto 213K Sep 24 07:19 custos_geracao_caso02_pddd.png
+-rw-rw-r-- 1 augusto augusto 212K Sep 24 07:19 custos_geracao_caso02_single_pl.png
+-rw-rw-r-- 1 augusto augusto 213K Sep 24 07:19 geracao_caso02_pddd.png
+-rw-rw-r-- 1 augusto augusto 217K Sep 24 07:19 geracao_caso02_single_pl.png
+-rw-rw-r-- 1 augusto augusto 249K Sep 24 07:19 limites_convergencia_caso02_pddd.png
+-rw-rw-r-- 1 augusto augusto 407K Sep 24 07:19 vazao_turbinada_caso02_pddd.png
+-rw-rw-r-- 1 augusto augusto 463K Sep 24 07:19 vazao_turbinada_caso02_single_pl.png
+-rw-rw-r-- 1 augusto augusto 239K Sep 24 07:19 volume_armazenado_caso02_pddd.png
+-rw-rw-r-- 1 augusto augusto 342K Sep 24 07:19 volume_armazenado_caso02_single_pl.png
+
+./caso02/tabelas:
+total 32K
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 20:27 .
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 20:27 ..
+-rw-rw-r-- 1 augusto augusto 1.3K Sep 24 07:19 custos_caso02_pddd.tex
+-rw-rw-r-- 1 augusto augusto  786 Sep 24 07:19 custos_caso02_single_pl.tex
+-rw-rw-r-- 1 augusto augusto 1.1K Sep 24 07:19 parametros_hidraulicos_caso02_pddd.tex
+-rw-rw-r-- 1 augusto augusto 1.1K Sep 24 07:19 parametros_hidraulicos_caso02_single_pl.tex
+-rw-rw-r-- 1 augusto augusto 1.5K Sep 24 07:19 tabela_geracao_caso02_pddd.tex
+-rw-rw-r-- 1 augusto augusto 1.5K Sep 24 07:19 tabela_geracao_caso02_single_pl.tex
+
+./caso03:
+total 16K
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 20:28 .
+drwxrwxr-x 6 augusto augusto 4.0K Sep 24 13:58 ..
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 21:04 imagens
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 20:31 tabelas
+
+./caso03/imagens:
+total 3.3M
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 21:04 .
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 20:28 ..
+-rw-rw-r-- 1 augusto augusto 219K Sep 24 07:20 carga_descarga_baterias_caso03_pddd.png
+-rw-rw-r-- 1 augusto augusto 219K Sep 24 07:20 carga_descarga_baterias_caso03_single_pl.png
+-rw-rw-r-- 1 augusto augusto 237K Sep 24 07:20 custo_futuro_caso03_pddd.png
+-rw-rw-r-- 1 augusto augusto 236K Sep 24 07:20 custos_geracao_caso03_pddd.png
+-rw-rw-r-- 1 augusto augusto 212K Sep 24 07:20 custos_geracao_caso03_single_pl.png
+-rw-rw-r-- 1 augusto augusto 217K Sep 24 07:20 geracao_caso03_pddd.png
+-rw-rw-r-- 1 augusto augusto 221K Sep 24 07:20 geracao_caso03_single_pl.png
+-rw-rw-r-- 1 augusto augusto 269K Sep 24 07:20 limites_convergencia_caso03_pddd.png
+-rw-rw-r-- 1 augusto augusto 416K Sep 24 07:20 vazao_turbinada_caso03_pddd.png
+-rw-rw-r-- 1 augusto augusto 464K Sep 24 07:20 vazao_turbinada_caso03_single_pl.png
+-rw-rw-r-- 1 augusto augusto 241K Sep 24 07:20 volume_armazenado_caso03_pddd.png
+-rw-rw-r-- 1 augusto augusto 345K Sep 24 07:20 volume_armazenado_caso03_single_pl.png
+
+./caso03/tabelas:
+total 40K
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 20:31 .
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 20:28 ..
+-rw-rw-r-- 1 augusto augusto  648 Sep 24 07:20 carga_descarga_baterias_caso03_pddd.tex
+-rw-rw-r-- 1 augusto augusto  665 Sep 24 07:20 carga_descarga_baterias_caso03_single_pl.tex
+-rw-rw-r-- 1 augusto augusto 1.3K Sep 24 07:20 custos_caso03_pddd.tex
+-rw-rw-r-- 1 augusto augusto  786 Sep 24 07:20 custos_caso03_single_pl.tex
+-rw-rw-r-- 1 augusto augusto 1.1K Sep 24 07:19 parametros_hidraulicos_caso03_pddd.tex
+-rw-rw-r-- 1 augusto augusto 1.1K Sep 24 07:19 parametros_hidraulicos_caso03_single_pl.tex
+-rw-rw-r-- 1 augusto augusto 1.6K Sep 24 07:19 tabela_geracao_caso03_pddd.tex
+-rw-rw-r-- 1 augusto augusto 1.6K Sep 24 07:19 tabela_geracao_caso03_single_pl.tex
+
+./caso04:
+total 16K
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 20:28 .
+drwxrwxr-x 6 augusto augusto 4.0K Sep 24 13:58 ..
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 21:05 imagens
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 20:32 tabelas
+
+./caso04/imagens:
+total 3.3M
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 21:05 .
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 20:28 ..
+-rw-rw-r-- 1 augusto augusto 213K Sep 24 07:20 carga_descarga_baterias_caso04_pddd.png
+-rw-rw-r-- 1 augusto augusto 221K Sep 24 07:20 carga_descarga_baterias_caso04_single_pl.png
+-rw-rw-r-- 1 augusto augusto 255K Sep 24 07:20 custo_futuro_caso04_pddd.png
+-rw-rw-r-- 1 augusto augusto 230K Sep 24 07:20 custos_geracao_caso04_pddd.png
+-rw-rw-r-- 1 augusto augusto 203K Sep 24 07:20 custos_geracao_caso04_single_pl.png
+-rw-rw-r-- 1 augusto augusto 216K Sep 24 07:20 geracao_caso04_pddd.png
+-rw-rw-r-- 1 augusto augusto 220K Sep 24 07:20 geracao_caso04_single_pl.png
+-rw-rw-r-- 1 augusto augusto 298K Sep 24 07:20 limites_convergencia_caso04_pddd.png
+-rw-rw-r-- 1 augusto augusto 444K Sep 24 07:20 vazao_turbinada_caso04_pddd.png
+-rw-rw-r-- 1 augusto augusto 426K Sep 24 07:20 vazao_turbinada_caso04_single_pl.png
+-rw-rw-r-- 1 augusto augusto 279K Sep 24 07:20 volume_armazenado_caso04_pddd.png
+-rw-rw-r-- 1 augusto augusto 291K Sep 24 07:20 volume_armazenado_caso04_single_pl.png
+
+./caso04/tabelas:
+total 40K
+drwxrwxr-x 2 augusto augusto 4.0K Sep 23 20:32 .
+drwxrwxr-x 4 augusto augusto 4.0K Sep 23 20:28 ..
+-rw-rw-r-- 1 augusto augusto  647 Sep 24 07:20 carga_descarga_baterias_caso04_pddd.tex
+-rw-rw-r-- 1 augusto augusto  664 Sep 24 07:20 carga_descarga_baterias_caso04_single_pl.tex
+-rw-rw-r-- 1 augusto augusto 1.2K Sep 24 07:20 custos_caso04_pddd.tex
+-rw-rw-r-- 1 augusto augusto  762 Sep 24 07:20 custos_caso04_single_pl.tex
+-rw-rw-r-- 1 augusto augusto 1.1K Sep 24 07:20 parametros_hidraulicos_caso04_pddd.tex
+-rw-rw-r-- 1 augusto augusto 1.1K Sep 24 07:20 parametros_hidraulicos_caso04_single_pl.tex
+-rw-rw-r-- 1 augusto augusto 1.6K Sep 24 07:20 tabela_geracao_caso04_pddd.tex
+-rw-rw-r-- 1 augusto augusto 1.6K Sep 24 07:20 tabela_geracao_caso04_single_pl.tex

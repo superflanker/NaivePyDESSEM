@@ -172,28 +172,6 @@ def add_hydro_problem(m: ConcreteModel,
     pyomo.environ.ConcreteModel
         The updated Pyomo model with hydropower sets, parameters, variables,
         constraints, and optionally the objective.
-
-    Notes
-    -----
-    - Constraints added:
-        * Hydropower generation equation (FPH-based)
-        * Minimum/maximum turbined flow
-        * Reservoir volume balance (continuity)
-        * Minimum/maximum storage limits
-        * Terminal storage requirement
-    - If include_objective=True, the system-wide balance constraint and
-      the hydropower objective (deficit + spill penalty) are attached.
-    - This builder targets **pure hydropower** systems; for mixed
-      hydrothermal systems, a combined balance and objective should be
-      used instead.
-
-    Examples
-    --------
-    >>> from pyomo.environ import ConcreteModel
-    >>> m = ConcreteModel()
-    >>> m = add_hydro_problem(m, data, include_objective=True)
-    >>> type(m)
-    <class 'pyomo.core.base.PyomoModel.ConcreteModel'>
     """
     build_FPHs(m, data)
 
@@ -244,27 +222,6 @@ def add_hydro_subproblem(m: ConcreteModel,
         The updated Pyomo model with hydropower sets, parameters, variables,
         constraints, and optionally the objective.
 
-    Notes
-    -----
-    - Constraints added:
-        * Hydropower generation equation (FPH-based)
-        * Minimum/maximum turbined flow
-        * Reservoir volume balance (continuity)
-        * Minimum/maximum storage limits
-        * Terminal storage requirement
-    - If include_objective=True, the system-wide balance constraint and
-      the hydropower objective (deficit + spill penalty) are attached.
-    - This builder targets **pure hydropower** systems; for mixed
-      hydrothermal systems, a combined balance and objective should be
-      used instead.
-
-    Examples
-    --------
-    >>> from pyomo.environ import ConcreteModel
-    >>> m = ConcreteModel()
-    >>> m = add_hydro_problem(m, data, include_objective=True)
-    >>> type(m)
-    <class 'pyomo.core.base.PyomoModel.ConcreteModel'>
     """
     # data copy
     subproblem_data = copy.deepcopy(data)

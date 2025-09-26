@@ -247,9 +247,9 @@ def build_dispatch_dataframe(model: ConcreteModel) -> pd.DataFrame:
     """
 
     df = pd.DataFrame()
+    df = add_storage_dispatch_to_dataframe(df, model)
     df = add_hydro_dispatch_to_dataframe(df, model)
     df = add_thermal_dispatch_to_dataframe(df, model)
     df = add_renewable_dispatch_to_dataframe(df, model)
-    df = add_storage_dispatch_to_dataframe(df, model)
     df = add_cost_to_dataframe(df, model)
     return df

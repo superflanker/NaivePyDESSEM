@@ -193,6 +193,8 @@ def select_variable_columns(df: pd.DataFrame,
     elif category.lower() == "cost":
         return df.filter(regex=r"^(Cost_|CMO|CMA_|FC).*")
     elif category.lower() == "alpha":
+        return df.filter(regex=r"^(FCF_\{1\})")    
+    elif category.lower() == "alpha_table":
         return df.filter(regex=r"^(FCF_\{1\})")
     elif category.lower() == "zlim":
         return df.filter(regex=r"^(ZSUP|ZINF)")
@@ -410,7 +412,7 @@ def main():
     parser.add_argument("--mode", choices=["table", "plot", "ctrl"],
                         help="Export mode: LaTeX table, plot")
     parser.add_argument("--category", "-c", nargs="+",
-                        help="One or more categories (e.g., G GG Q S V BAT cost alpha zlim)")
+                        help="One or more categories (e.g., G GG Q S V BAT cost alpha alpha_table zlim)")
     parser.add_argument(
         "--plot-style", choices=["line", "bar"], help="Plot style")
     parser.add_argument("--stacked", action="store_true",
@@ -436,7 +438,6 @@ def main():
                     title=args.title, ylabel=args.ylabel, out_dir=args.out_dir, out_file=args.out_file)
     else:
         print("Unrecognized mode.")
-
 
 if __name__ == "__main__":
     main()

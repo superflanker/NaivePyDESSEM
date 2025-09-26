@@ -129,5 +129,5 @@ def add_hydro_volume_continuity_constraint(m):
         return m.hydro_S[h, t] >= 0.0
 
     m.hydro_volume_balance_constraint = Constraint(m.HG, m.T, rule=_vol_rule)
-    m.hydro_spillage_constraint = Constraint(m.HG, m.T, rule=_min_s_rule)
+    # m.hydro_spillage_constraint = Constraint(m.HG, m.T, rule=_min_s_rule)
     return m

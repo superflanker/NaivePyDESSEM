@@ -19,7 +19,7 @@ pydecomp-plot resultados/DECOMP/despacho_caso01_single_pl.csv \
 pydecomp-plot resultados/DECOMP/despacho_caso01_pddd.csv \
   --mode table --category GT \
   --title "Tabela de Geração (\$MWh/h\$)- Caso 01 - PDDD" \
-  --label tab:geracao_caso01_pdddd \
+  --label tab:geracao_caso01_pddd \
   --out-dir relatorios/DECOMP/caso01/tabelas \
   --out-file tabela_geracao_caso01_pddd.tex
 
@@ -40,14 +40,14 @@ pydecomp-plot resultados/DECOMP/despacho_caso01_pddd.csv \
 pydecomp-plot resultados/DECOMP/despacho_caso01_single_pl.csv \
   --mode table --category cost \
   --title "Custos de Geração e Déficit - Caso 01 - PL Único" \
-  --label tab:custos_geracao_caso03_single_pl \
+  --label tab:custos_geracao_caso01_single_pl \
   --out-dir relatorios/DECOMP/caso01/tabelas \
   --out-file custos_caso01_single_pl.tex
 
 pydecomp-plot resultados/DECOMP/despacho_caso01_pddd.csv \
   --mode table --category cost \
   --title "Custos de Geração e Déficit - Caso 01 - PDDD" \
-  --label tab:custos_geracao_caso03_pddd \
+  --label tab:custos_geracao_caso01_pddd \
   --out-dir relatorios/DECOMP/caso01/tabelas \
   --out-file custos_caso01_pddd.tex
 
@@ -151,7 +151,7 @@ pydecomp-plot resultados/DECOMP/despacho_caso02_single_pl.csv \
 pydecomp-plot resultados/DECOMP/despacho_caso02_pddd.csv \
   --mode table --category GT \
   --title "Tabela de Geração (\$MWh/h\$)- Caso 02 - PDDD" \
-  --label tab:geracao_caso02_pdddd \
+  --label tab:geracao_caso02_pddd \
   --out-dir relatorios/DECOMP/caso02/tabelas \
   --out-file tabela_geracao_caso02_pddd.tex
 
@@ -172,14 +172,14 @@ pydecomp-plot resultados/DECOMP/despacho_caso02_pddd.csv \
 pydecomp-plot resultados/DECOMP/despacho_caso02_single_pl.csv \
   --mode table --category cost \
   --title "Custos de Geração e Déficit - Caso 02 - PL Único" \
-  --label tab:custos_geracao_caso03_single_pl \
+  --label tab:custos_geracao_caso02_single_pl \
   --out-dir relatorios/DECOMP/caso02/tabelas \
   --out-file custos_caso02_single_pl.tex
 
 pydecomp-plot resultados/DECOMP/despacho_caso02_pddd.csv \
   --mode table --category cost \
   --title "Custos de Geração e Déficit - Caso 02 - PDDD" \
-  --label tab:custos_geracao_caso03_pddd \
+  --label tab:custos_geracao_caso02_pddd \
   --out-dir relatorios/DECOMP/caso02/tabelas \
   --out-file custos_caso02_pddd.tex
 
@@ -282,7 +282,7 @@ pydecomp-plot resultados/DECOMP/despacho_caso03_single_pl.csv \
 pydecomp-plot resultados/DECOMP/despacho_caso03_pddd.csv \
   --mode table --category GT \
   --title "Tabela de Geração (\$MWh/h\$)- Caso 03 - PDDD" \
-  --label tab:geracao_caso03_pdddd \
+  --label tab:geracao_caso03_pddd \
   --out-dir relatorios/DECOMP/caso03/tabelas \
   --out-file tabela_geracao_caso03_pddd.tex
 
@@ -328,7 +328,6 @@ pydecomp-plot resultados/DECOMP/despacho_caso03_pddd.csv \
   --label tab:carga_e_descarga_bateria_pddd \
   --out-dir relatorios/DECOMP/caso03/tabelas \
   --out-file carga_descarga_baterias_caso03_pddd.tex
-
 
 # caso03, gráficos
 
@@ -442,7 +441,7 @@ pydecomp-plot resultados/DECOMP/despacho_caso04_single_pl.csv \
 pydecomp-plot resultados/DECOMP/despacho_caso04_pddd.csv \
   --mode table --category GT \
   --title "Tabela de Geração (\$MWh/h\$)- Caso 04 - PDDD" \
-  --label tab:geracao_caso04_pdddd \
+  --label tab:geracao_caso04_pddd \
   --out-dir relatorios/DECOMP/caso04/tabelas \
   --out-file tabela_geracao_caso04_pddd.tex
 
