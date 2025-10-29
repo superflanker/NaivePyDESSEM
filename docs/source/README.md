@@ -35,7 +35,7 @@ The goal is to provide a **clean teaching tool** for courses such as *EELT 7030 
   - Hydros aggregated into REEs with constant productivity.  
   - Supports **single LP** or **Deterministic Dual Dynamic Programming (PDDD)**.  
 
-  **MDI**
+- **MDI**:
   - Generation Expansion Planning using Mixed Integer Linear Programing (MILP)
   - Simplified Generation Representation
 
@@ -65,7 +65,9 @@ The goal is to provide a **clean teaching tool** for courses such as *EELT 7030 
 │   │   ├── trabalho01_caso03.yaml
 │   │   ├── trabalho01_caso04.yaml
 │   │   └── trabalho01_caso05.yaml
-│   └── NEWAVE
+│   └── MDI
+│       ├── trabalho03_ex01.yaml
+│       └── trabalho03_ex02.yaml
 ├── resultados
 │   ├── DECOMP
 │   │   ├── despacho_caso01_pddd.csv
@@ -305,6 +307,12 @@ Using PDDD:
 pydecomp-pddsolve path/to/case.yaml --out_dir results/ --out_file dispatch.csv
 ```
 
+**MDI Like Generation Expansion Planning**
+
+```bash
+mdi-solve path/to/case.yaml --out_dir results/ --out_file dispatch.csv
+```
+
 
 ### Plotting results
 
@@ -316,9 +324,13 @@ pydessem-plot results/dispatch.csv --mode plot --category G V --plot-style line
 pydecomp-plot results/dispatch.csv --mode plot --category G V --plot-style line
 ```
 
+```bash
+mdi-plot results/dispatch.csv --mode plot --category G --plot-style line
+```
+
 ## 📄 References
 
-This implementation is based on academic material from **UFPR (Federal University of Paraná)** and CEPEL/DESSEM manuals:
+This implementation is based on academic material from **UFPR (Federal University of Paraná)** and CEPEL/DESSEM/MDI manuals:
 
 - Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 - CEPEL, DESSEM. Manual de Metodologia, 2023.  
@@ -339,7 +351,7 @@ If you use **NaivePyDessem** in teaching or research, please cite:
 ```bibtex
 @misc{adams2025pydessem,
   author    = {Augusto Mathias Adams},
-  title     = {NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo (DESSEM + DECOMP like solvers)},
+  title     = {NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo (DESSEM + DECOMP + MDI like solvers)},
   year      = {2025},
   howpublished = {\url{https://github.com/superflanker/NaivePyDESSEM}}
 }

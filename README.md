@@ -35,7 +35,7 @@ The goal is to provide a **clean teaching tool** for courses such as *EELT 7030 
   - Hydros aggregated into REEs with constant productivity.  
   - Supports **single LP** or **Deterministic Dual Dynamic Programming (PDDD)**.  
 
-  **MDI**
+- **MDI**:
   - Generation Expansion Planning using Mixed Integer Linear Programing (MILP)
   - Simplified Generation Representation
 
@@ -65,7 +65,9 @@ The goal is to provide a **clean teaching tool** for courses such as *EELT 7030 
 │   │   ├── trabalho01_caso03.yaml
 │   │   ├── trabalho01_caso04.yaml
 │   │   └── trabalho01_caso05.yaml
-│   └── NEWAVE
+│   └── MDI
+│       ├── trabalho03_ex01.yaml
+│       └── trabalho03_ex02.yaml
 ├── resultados
 │   ├── DECOMP
 │   │   ├── despacho_caso01_pddd.csv

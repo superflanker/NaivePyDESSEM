@@ -97,29 +97,30 @@ two pedagogical and modular economic dispatch/ explansion panning solvers based 
 <hr class="docutils" />
 <section id="features">
 <h3>🔍 Features<a class="headerlink" href="#features" title="Link to this heading"></a></h3>
-<ul>
-<li><p><strong>NaivePyDESSEM</strong>:</p>
 <ul class="simple">
+<li><p><strong>NaivePyDESSEM</strong>:</p>
+<ul>
 <li><p>Detailed short-term hydrothermal dispatch (hourly/daily).</p></li>
 <li><p>Individual representation of hydro and thermal units (MILP/MIQP).</p></li>
 <li><p>Includes ramping limits, startup/shutdown, minimum up/down time, etc.</p></li>
 </ul>
 </li>
 <li><p><strong>NaivePyDECOMP</strong>:</p>
-<ul class="simple">
+<ul>
 <li><p>Aggregated medium-term hydrothermal dispatch (weekly/monthly).</p></li>
 <li><p>Simplified thermal representation (Gmin, Gmax, Cost).</p></li>
 <li><p>Hydros aggregated into REEs with constant productivity.</p></li>
 <li><p>Supports <strong>single LP</strong> or <strong>Deterministic Dual Dynamic Programming (PDDD)</strong>.</p></li>
 </ul>
-<p><strong>MDI</strong></p>
-<ul class="simple">
+</li>
+<li><p><strong>MDI</strong>:</p>
+<ul>
 <li><p>Generation Expansion Planning using Mixed Integer Linear Programing (MILP)</p></li>
 <li><p>Simplified Generation Representation</p></li>
 </ul>
 </li>
 <li><p>Shared features:</p>
-<ul class="simple">
+<ul>
 <li><p>Modular equation/constraint builders.</p></li>
 <li><p>CLI tools for solving and exporting results.</p></li>
 <li><p>LaTeX export and plotting utilities.</p></li>
@@ -146,7 +147,9 @@ two pedagogical and modular economic dispatch/ explansion panning solvers based 
 │   │   ├── trabalho01_caso03.yaml
 │   │   ├── trabalho01_caso04.yaml
 │   │   └── trabalho01_caso05.yaml
-│   └── NEWAVE
+│   └── MDI
+│       ├── trabalho03_ex01.yaml
+│       └── trabalho03_ex02.yaml
 ├── resultados
 │   ├── DECOMP
 │   │   ├── despacho_caso01_pddd.csv
@@ -399,6 +402,10 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pydecomp-pddsolve<span class="w"> </span>path/to/case.yaml<span class="w"> </span>--out_dir<span class="w"> </span>results/<span class="w"> </span>--out_file<span class="w"> </span>dispatch.csv
 </pre></div>
 </div>
+<p><strong>MDI Like Generation Expansion Planning</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mdi-solve<span class="w"> </span>path/to/case.yaml<span class="w"> </span>--out_dir<span class="w"> </span>results/<span class="w"> </span>--out_file<span class="w"> </span>dispatch.csv
+</pre></div>
+</div>
 </section>
 <section id="plotting-results">
 <h4>Plotting results<a class="headerlink" href="#plotting-results" title="Link to this heading"></a></h4>
@@ -408,11 +415,14 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pydecomp-plot<span class="w"> </span>results/dispatch.csv<span class="w"> </span>--mode<span class="w"> </span>plot<span class="w"> </span>--category<span class="w"> </span>G<span class="w"> </span>V<span class="w"> </span>--plot-style<span class="w"> </span>line
 </pre></div>
 </div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mdi-plot<span class="w"> </span>results/dispatch.csv<span class="w"> </span>--mode<span class="w"> </span>plot<span class="w"> </span>--category<span class="w"> </span>G<span class="w"> </span>--plot-style<span class="w"> </span>line
+</pre></div>
+</div>
 </section>
 </section>
 <section id="references">
 <h3>📄 References<a class="headerlink" href="#references" title="Link to this heading"></a></h3>
-<p>This implementation is based on academic material from <strong>UFPR (Federal University of Paraná)</strong> and CEPEL/DESSEM manuals:</p>
+<p>This implementation is based on academic material from <strong>UFPR (Federal University of Paraná)</strong> and CEPEL/DESSEM/MDI manuals:</p>
 <ul class="simple">
 <li><p>Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p></li>
 <li><p>CEPEL, DESSEM. Manual de Metodologia, 2023.</p></li>
@@ -430,7 +440,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <p>If you use <strong>NaivePyDessem</strong> in teaching or research, please cite:</p>
 <div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@misc</span><span class="p">{</span><span class="nl">adams2025pydessem</span><span class="p">,</span>
 <span class="w">  </span><span class="na">author</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="s">{Augusto Mathias Adams}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">title</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="s">{NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo (DESSEM + DECOMP like solvers)}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">title</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="s">{NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo (DESSEM + DECOMP + MDI like solvers)}</span><span class="p">,</span>
 <span class="w">  </span><span class="na">year</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="s">{2025}</span><span class="p">,</span>
 <span class="w">  </span><span class="na">howpublished</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{\url{https://github.com/superflanker/NaivePyDESSEM}}</span>
 <span class="p">}</span>
