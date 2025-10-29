@@ -2,7 +2,7 @@ Metadata-Version: 2.4
 Name: naivepydessem
 Version: 0.1.0
 Summary: A modular and pedagogical framework for power system operation planning using Pyomo
-Home-page: https://github.com/your-org/naivepydessem
+Home-page: https://github.com/superflanker/NaivePyDESSEM
 Author: Augusto Mathias Adams
 Author-email: Augusto Mathias Adams <augusto.adams@ufpr.br>
 License: GPL v3.0

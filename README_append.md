@@ -210,6 +210,10 @@
 │   ├── source
 │   │   ├── conf.py
 │   │   ├── index.rst
+│   │   ├── MDI.cli.rst
+│   │   ├── MDI.Generator.rst
+│   │   ├── MDI.rst
+│   │   ├── MDI.Storage.rst
 │   │   ├── modules.rst
 │   │   ├── NaivePyDECOMP.cli.rst
 │   │   ├── NaivePyDECOMP.HydraulicGenerator.rst
@@ -241,7 +245,9 @@
 │   │   ├── trabalho01_caso03.yaml
 │   │   ├── trabalho01_caso04.yaml
 │   │   └── trabalho01_caso05.yaml
-│   └── NEWAVE
+│   └── MDI
+│       ├── trabalho03_ex01.yaml
+│       └── trabalho03_ex02.yaml
 ├── relatorios
 │   ├── DECOMP
 │   │   ├── caso01
@@ -305,29 +311,30 @@
 │   │   │       ├── parametros_hidraulicos_caso03_single_pl.tex
 │   │   │       ├── tabela_geracao_caso03_pddd.tex
 │   │   │       └── tabela_geracao_caso03_single_pl.tex
-│   │   └── caso04
-│   │       ├── imagens
-│   │       │   ├── carga_descarga_baterias_caso04_pddd.png
-│   │       │   ├── carga_descarga_baterias_caso04_single_pl.png
-│   │       │   ├── custo_futuro_caso04_pddd.png
-│   │       │   ├── custos_geracao_caso04_pddd.png
-│   │       │   ├── custos_geracao_caso04_single_pl.png
-│   │       │   ├── geracao_caso04_pddd.png
-│   │       │   ├── geracao_caso04_single_pl.png
-│   │       │   ├── limites_convergencia_caso04_pddd.png
-│   │       │   ├── vazao_turbinada_caso04_pddd.png
-│   │       │   ├── vazao_turbinada_caso04_single_pl.png
-│   │       │   ├── volume_armazenado_caso04_pddd.png
-│   │       │   └── volume_armazenado_caso04_single_pl.png
-│   │       └── tabelas
-│   │           ├── carga_descarga_baterias_caso04_pddd.tex
-│   │           ├── carga_descarga_baterias_caso04_single_pl.tex
-│   │           ├── custos_caso04_pddd.tex
-│   │           ├── custos_caso04_single_pl.tex
-│   │           ├── parametros_hidraulicos_caso04_pddd.tex
-│   │           ├── parametros_hidraulicos_caso04_single_pl.tex
-│   │           ├── tabela_geracao_caso04_pddd.tex
-│   │           └── tabela_geracao_caso04_single_pl.tex
+│   │   ├── caso04
+│   │   │   ├── imagens
+│   │   │   │   ├── carga_descarga_baterias_caso04_pddd.png
+│   │   │   │   ├── carga_descarga_baterias_caso04_single_pl.png
+│   │   │   │   ├── custo_futuro_caso04_pddd.png
+│   │   │   │   ├── custos_geracao_caso04_pddd.png
+│   │   │   │   ├── custos_geracao_caso04_single_pl.png
+│   │   │   │   ├── geracao_caso04_pddd.png
+│   │   │   │   ├── geracao_caso04_single_pl.png
+│   │   │   │   ├── limites_convergencia_caso04_pddd.png
+│   │   │   │   ├── vazao_turbinada_caso04_pddd.png
+│   │   │   │   ├── vazao_turbinada_caso04_single_pl.png
+│   │   │   │   ├── volume_armazenado_caso04_pddd.png
+│   │   │   │   └── volume_armazenado_caso04_single_pl.png
+│   │   │   └── tabelas
+│   │   │       ├── carga_descarga_baterias_caso04_pddd.tex
+│   │   │       ├── carga_descarga_baterias_caso04_single_pl.tex
+│   │   │       ├── custos_caso04_pddd.tex
+│   │   │       ├── custos_caso04_single_pl.tex
+│   │   │       ├── parametros_hidraulicos_caso04_pddd.tex
+│   │   │       ├── parametros_hidraulicos_caso04_single_pl.tex
+│   │   │       ├── tabela_geracao_caso04_pddd.tex
+│   │   │       └── tabela_geracao_caso04_single_pl.tex
+│   │   └── arquivos.txt
 │   └── DESSEM
 │       └── caso_345
 │           ├── imagens
@@ -387,6 +394,38 @@
 │       ├── despacho_caso04.csv
 │       └── despacho_caso05.csv
 ├── src
+│   ├── MDI
+│   │   ├── cli
+│   │   │   ├── __init__.py
+│   │   │   ├── cli.py
+│   │   │   └── plot_cli.py
+│   │   ├── Generator
+│   │   │   ├── __init__.py
+│   │   │   ├── GeneratorBuilder.py
+│   │   │   ├── GeneratorConstraints.py
+│   │   │   ├── GeneratorDataTypes.py
+│   │   │   ├── GeneratorEquations.py
+│   │   │   ├── GeneratorObjectives.py
+│   │   │   └── GeneratorVars.py
+│   │   ├── Storage
+│   │   │   ├── __init__.py
+│   │   │   ├── StorageBuilder.py
+│   │   │   ├── StorageConstraints.py
+│   │   │   ├── StorageDataTypes.py
+│   │   │   ├── StorageEquations.py
+│   │   │   ├── StorageObjective.py
+│   │   │   └── StorageVars.py
+│   │   ├── __init__.py
+│   │   ├── Builder.py
+│   │   ├── DataFrames.py
+│   │   ├── Formatters.py
+│   │   ├── ModelCheck.py
+│   │   ├── ModelFormatters.py
+│   │   ├── PlotSeries.py
+│   │   ├── Reporting.py
+│   │   ├── Solver.py
+│   │   ├── Utils.py
+│   │   └── YAMLLoader.py
 │   ├── NaivePyDECOMP
 │   │   ├── cli
 │   │   │   ├── __init__.py
@@ -518,6 +557,8 @@
 │   │   ├── fonttools
 │   │   ├── libcplex2212.so
 │   │   ├── markdown-it
+│   │   ├── mdi-plot
+│   │   ├── mdi-solve
 │   │   ├── myst-anchors
 │   │   ├── myst-docutils-demo
 │   │   ├── myst-docutils-html
@@ -529,7 +570,6 @@
 │   │   ├── normalizer
 │   │   ├── numpy-config
 │   │   ├── pip
-│   │   ├── pip-3.10
 │   │   ├── pip3
 │   │   ├── pip3.10
 │   │   ├── pybabel
@@ -1918,6 +1958,44 @@
 │   │           │   ├── RECORD
 │   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
+│   │           ├── cvxopt
+│   │           │   ├── __init__.py
+│   │           │   ├── _version.py
+│   │           │   ├── amd.cpython-310-x86_64-linux-gnu.so
+│   │           │   ├── base.cpython-310-x86_64-linux-gnu.so
+│   │           │   ├── blas.cpython-310-x86_64-linux-gnu.so
+│   │           │   ├── cholmod.cpython-310-x86_64-linux-gnu.so
+│   │           │   ├── coneprog.py
+│   │           │   ├── cvxprog.py
+│   │           │   ├── dsdp.cpython-310-x86_64-linux-gnu.so
+│   │           │   ├── fftw.cpython-310-x86_64-linux-gnu.so
+│   │           │   ├── glpk.cpython-310-x86_64-linux-gnu.so
+│   │           │   ├── gsl.cpython-310-x86_64-linux-gnu.so
+│   │           │   ├── info.py
+│   │           │   ├── lapack.cpython-310-x86_64-linux-gnu.so
+│   │           │   ├── misc.py
+│   │           │   ├── misc_solvers.cpython-310-x86_64-linux-gnu.so
+│   │           │   ├── modeling.py
+│   │           │   ├── msk.py
+│   │           │   ├── printing.py
+│   │           │   ├── solvers.py
+│   │           │   └── umfpack.cpython-310-x86_64-linux-gnu.so
+│   │           ├── cvxopt-1.3.2.dist-info
+│   │           │   ├── INSTALLER
+│   │           │   ├── LICENSE
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── REQUESTED
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── cvxopt.libs
+│   │           │   ├── libdsdp-93771ebd.so
+│   │           │   ├── libfftw3-32bc4659.so.3.6.10
+│   │           │   ├── libgfortran-040039e1.so.5.0.0
+│   │           │   ├── libglpk-211706c4.so.40.3.1
+│   │           │   ├── libgsl-e2d463b4.so.27.0.0
+│   │           │   ├── libopenblasp-r0-5c2b7639.3.23.so
+│   │           │   └── libquadmath-96973f99.so.0.0.0
 │   │           ├── cycler
 │   │           │   ├── __init__.py
 │   │           │   └── py.typed
@@ -6803,13 +6881,10 @@
 │   │           │   │   │   │   ├── build_tracker.py
 │   │           │   │   │   │   ├── metadata.py
 │   │           │   │   │   │   ├── metadata_editable.py
-│   │           │   │   │   │   ├── metadata_legacy.py
 │   │           │   │   │   │   ├── wheel.py
-│   │           │   │   │   │   ├── wheel_editable.py
-│   │           │   │   │   │   └── wheel_legacy.py
+│   │           │   │   │   │   └── wheel_editable.py
 │   │           │   │   │   ├── install
 │   │           │   │   │   │   ├── __init__.py
-│   │           │   │   │   │   ├── editable_legacy.py
 │   │           │   │   │   │   └── wheel.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── check.py
@@ -6859,7 +6934,6 @@
 │   │           │   │   │   ├── misc.py
 │   │           │   │   │   ├── packaging.py
 │   │           │   │   │   ├── retry.py
-│   │           │   │   │   ├── setuptools_build.py
 │   │           │   │   │   ├── subprocess.py
 │   │           │   │   │   ├── temp_dir.py
 │   │           │   │   │   ├── unpacking.py
@@ -6895,6 +6969,7 @@
 │   │           │   │   │   ├── controller.py
 │   │           │   │   │   ├── filewrapper.py
 │   │           │   │   │   ├── heuristics.py
+│   │           │   │   │   ├── LICENSE.txt
 │   │           │   │   │   ├── py.typed
 │   │           │   │   │   ├── serialize.py
 │   │           │   │   │   └── wrapper.py
@@ -6903,6 +6978,7 @@
 │   │           │   │   │   ├── __main__.py
 │   │           │   │   │   ├── cacert.pem
 │   │           │   │   │   ├── core.py
+│   │           │   │   │   ├── LICENSE
 │   │           │   │   │   └── py.typed
 │   │           │   │   ├── dependency_groups
 │   │           │   │   │   ├── __init__.py
@@ -6911,10 +6987,12 @@
 │   │           │   │   │   ├── _lint_dependency_groups.py
 │   │           │   │   │   ├── _pip_wrapper.py
 │   │           │   │   │   ├── _toml_compat.py
+│   │           │   │   │   ├── LICENSE.txt
 │   │           │   │   │   └── py.typed
 │   │           │   │   ├── distlib
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── compat.py
+│   │           │   │   │   ├── LICENSE.txt
 │   │           │   │   │   ├── resources.py
 │   │           │   │   │   ├── scripts.py
 │   │           │   │   │   ├── t32.exe
@@ -6928,6 +7006,7 @@
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── __main__.py
 │   │           │   │   │   ├── distro.py
+│   │           │   │   │   ├── LICENSE
 │   │           │   │   │   └── py.typed
 │   │           │   │   ├── idna
 │   │           │   │   │   ├── __init__.py
@@ -6936,11 +7015,13 @@
 │   │           │   │   │   ├── core.py
 │   │           │   │   │   ├── idnadata.py
 │   │           │   │   │   ├── intranges.py
+│   │           │   │   │   ├── LICENSE.md
 │   │           │   │   │   ├── package_data.py
 │   │           │   │   │   ├── py.typed
 │   │           │   │   │   └── uts46data.py
 │   │           │   │   ├── msgpack
 │   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── COPYING
 │   │           │   │   │   ├── exceptions.py
 │   │           │   │   │   ├── ext.py
 │   │           │   │   │   └── fallback.py
@@ -6955,6 +7036,9 @@
 │   │           │   │   │   ├── _parser.py
 │   │           │   │   │   ├── _structures.py
 │   │           │   │   │   ├── _tokenizer.py
+│   │           │   │   │   ├── LICENSE
+│   │           │   │   │   ├── LICENSE.APACHE
+│   │           │   │   │   ├── LICENSE.BSD
 │   │           │   │   │   ├── markers.py
 │   │           │   │   │   ├── metadata.py
 │   │           │   │   │   ├── py.typed
@@ -6964,12 +7048,14 @@
 │   │           │   │   │   ├── utils.py
 │   │           │   │   │   └── version.py
 │   │           │   │   ├── pkg_resources
-│   │           │   │   │   └── __init__.py
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   └── LICENSE
 │   │           │   │   ├── platformdirs
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── __main__.py
 │   │           │   │   │   ├── android.py
 │   │           │   │   │   ├── api.py
+│   │           │   │   │   ├── LICENSE
 │   │           │   │   │   ├── macos.py
 │   │           │   │   │   ├── py.typed
 │   │           │   │   │   ├── unix.py
@@ -6994,6 +7080,7 @@
 │   │           │   │   │   ├── filter.py
 │   │           │   │   │   ├── formatter.py
 │   │           │   │   │   ├── lexer.py
+│   │           │   │   │   ├── LICENSE
 │   │           │   │   │   ├── modeline.py
 │   │           │   │   │   ├── plugin.py
 │   │           │   │   │   ├── regexopt.py
@@ -7009,6 +7096,7 @@
 │   │           │   │   │   │   └── _in_process.py
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── _impl.py
+│   │           │   │   │   ├── LICENSE
 │   │           │   │   │   └── py.typed
 │   │           │   │   ├── requests
 │   │           │   │   │   ├── __init__.py
@@ -7023,6 +7111,7 @@
 │   │           │   │   │   ├── exceptions.py
 │   │           │   │   │   ├── help.py
 │   │           │   │   │   ├── hooks.py
+│   │           │   │   │   ├── LICENSE
 │   │           │   │   │   ├── models.py
 │   │           │   │   │   ├── packages.py
 │   │           │   │   │   ├── sessions.py
@@ -7037,6 +7126,7 @@
 │   │           │   │   │   │   ├── exceptions.py
 │   │           │   │   │   │   └── resolution.py
 │   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── LICENSE
 │   │           │   │   │   ├── providers.py
 │   │           │   │   │   ├── py.typed
 │   │           │   │   │   ├── reporters.py
@@ -7087,6 +7177,7 @@
 │   │           │   │   │   ├── json.py
 │   │           │   │   │   ├── jupyter.py
 │   │           │   │   │   ├── layout.py
+│   │           │   │   │   ├── LICENSE
 │   │           │   │   │   ├── live.py
 │   │           │   │   │   ├── live_render.py
 │   │           │   │   │   ├── logging.py
@@ -7125,10 +7216,12 @@
 │   │           │   │   │   ├── _parser.py
 │   │           │   │   │   ├── _re.py
 │   │           │   │   │   ├── _types.py
+│   │           │   │   │   ├── LICENSE
 │   │           │   │   │   └── py.typed
 │   │           │   │   ├── tomli_w
 │   │           │   │   │   ├── __init__.py
 │   │           │   │   │   ├── _writer.py
+│   │           │   │   │   ├── LICENSE
 │   │           │   │   │   └── py.typed
 │   │           │   │   ├── truststore
 │   │           │   │   │   ├── __init__.py
@@ -7137,6 +7230,7 @@
 │   │           │   │   │   ├── _openssl.py
 │   │           │   │   │   ├── _ssl_constants.py
 │   │           │   │   │   ├── _windows.py
+│   │           │   │   │   ├── LICENSE
 │   │           │   │   │   └── py.typed
 │   │           │   │   ├── urllib3
 │   │           │   │   │   ├── contrib
@@ -7180,16 +7274,18 @@
 │   │           │   │   │   ├── exceptions.py
 │   │           │   │   │   ├── fields.py
 │   │           │   │   │   ├── filepost.py
+│   │           │   │   │   ├── LICENSE.txt
 │   │           │   │   │   ├── poolmanager.py
 │   │           │   │   │   ├── request.py
 │   │           │   │   │   └── response.py
 │   │           │   │   ├── __init__.py
+│   │           │   │   ├── README.rst
 │   │           │   │   └── vendor.txt
 │   │           │   ├── __init__.py
 │   │           │   ├── __main__.py
 │   │           │   ├── __pip-runner__.py
 │   │           │   └── py.typed
-│   │           ├── pip-25.2.dist-info
+│   │           ├── pip-25.3.dist-info
 │   │           │   ├── licenses
 │   │           │   │   ├── src
 │   │           │   │   │   └── pip
@@ -7227,8 +7323,7 @@
 │   │           │   │   │           ├── rich
 │   │           │   │   │           │   └── LICENSE
 │   │           │   │   │           ├── tomli
-│   │           │   │   │           │   ├── LICENSE
-│   │           │   │   │           │   └── LICENSE-HEADER
+│   │           │   │   │           │   └── LICENSE
 │   │           │   │   │           ├── tomli_w
 │   │           │   │   │           │   └── LICENSE
 │   │           │   │   │           ├── truststore
@@ -7241,7 +7336,7 @@
 │   │           │   ├── INSTALLER
 │   │           │   ├── METADATA
 │   │           │   ├── RECORD
-│   │           │   ├── top_level.txt
+│   │           │   ├── REQUESTED
 │   │           │   └── WHEEL
 │   │           ├── pkg_resources
 │   │           │   ├── tests
@@ -15186,7 +15281,6 @@
 │   │           ├── glpk.cpython-310-x86_64-linux-gnu.so
 │   │           ├── imagesize.py
 │   │           ├── ipopt_wrapper.cpython-310-x86_64-linux-gnu.so
-│   │           ├── pip-25.2.virtualenv
 │   │           ├── pylab.py
 │   │           ├── setuptools-80.9.0.virtualenv
 │   │           ├── six.py
@@ -15212,8 +15306,5 @@
 ├── run_decomp_solvers.sh
 ├── run_dessem_plots.sh
 ├── run_dessem_solvers.sh
-├── setup.cfg
-├── t.csv
-├── teste.tex
-└── teste_table.tex
+└── setup.cfg
 ```

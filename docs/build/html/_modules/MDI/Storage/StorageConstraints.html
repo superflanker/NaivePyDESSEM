@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MDI.Storage.StorageConstraints &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">DESSEM/DECOMP/MDI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">MDI.Storage.StorageConstraints</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for MDI.Storage.StorageConstraints</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Storage Constraints Module</span>
+<span class="sd">==========================</span>
+<span class="sd">EELT7030 — Operation and Expansion Planning of Electric Power Systems  </span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Summary</span>
+<span class="sd">-------</span>
+<span class="sd">This module defines all **physical and operational constraints** for the</span>
+<span class="sd">energy storage subsystem of the MDI optimization model.  </span>
+<span class="sd">It ensures consistency between energy balance, power limits, state-of-charge</span>
+<span class="sd">(SoC) boundaries, and investment linkage dynamics.</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">Four main constraint groups are provided:</span>
+
+<span class="sd">1. **Energy Balance Constraint**  </span>
+<span class="sd">   Ensures conservation of stored energy over time, accounting for</span>
+<span class="sd">   charging/discharging power and round-trip efficiency.</span>
+
+<span class="sd">2. **SoC Bounds Constraint**  </span>
+<span class="sd">   Enforces upper and lower limits on the energy stored as a function</span>
+<span class="sd">   of installed capacity and operational state.</span>
+
+<span class="sd">3. **Power Limits Constraint**  </span>
+<span class="sd">   Restricts the charging and discharging power to their respective</span>
+<span class="sd">   maximum values.</span>
+
+<span class="sd">4. **Investment Link Constraint**  </span>
+<span class="sd">   Links investment decisions with the operational availability of</span>
+<span class="sd">   storage units across time.</span>
+
+<span class="sd">Mathematical Formulation</span>
+<span class="sd">------------------------</span>
+<span class="sd">**Energy balance**</span>
+<span class="sd">\[</span>
+<span class="sd">E_{s,t} = E_{s,t-1} +</span>
+<span class="sd">\eta_c P^{ch}_{s,t} \Delta t -</span>
+<span class="sd">\frac{P^{dis}_{s,t}}{\eta_d} \Delta t</span>
+<span class="sd">\]</span>
+
+<span class="sd">**SoC bounds**</span>
+<span class="sd">\[</span>
+<span class="sd">E^{min}_s x_{s,t} \leq E_{s,t} \leq E^{max}_s x_{s,t}</span>
+<span class="sd">\]</span>
+
+<span class="sd">**Power limits**</span>
+<span class="sd">\[</span>
+<span class="sd">0 \leq P^{ch}_{s,t} \leq P^{ch,max}_s x_{s,t}</span>
+<span class="sd">\quad\text{and}\quad</span>
+<span class="sd">0 \leq P^{dis}_{s,t} \leq P^{dis,max}_s x_{s,t}</span>
+<span class="sd">\]</span>
+
+<span class="sd">**Investment linkage**</span>
+<span class="sd">\[</span>
+<span class="sd">x_{s,t} = x_{s,t-1} + y_{s,t}</span>
+<span class="sd">\]</span>
+
+<span class="sd">where:</span>
+<span class="sd">- \(E_{s,t}\) — state of charge (MWh)  </span>
+<span class="sd">- \(P^{ch}_{s,t}\), \(P^{dis}_{s,t}\) — charging/discharging power (MW)  </span>
+<span class="sd">- \(\eta_c, \eta_d\) — charging/discharging efficiencies  </span>
+<span class="sd">- \(x_{s,t}\) — operational existence of storage unit \(s\)  </span>
+<span class="sd">- \(y_{s,t}\) — binary investment decision  </span>
+<span class="sd">- \(\Delta t\) — duration of time step (hours)</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">add_storage_energy_balance_constraint(m)</span>
+<span class="sd">    Adds the intertemporal energy conservation constraint.</span>
+
+<span class="sd">add_storage_soc_bounds_constraint(m)</span>
+<span class="sd">    Adds the upper and lower bounds on the state of charge.</span>
+
+<span class="sd">add_storage_power_limits_constraint(m)</span>
+<span class="sd">    Adds the power limit constraints for charging and discharging.</span>
+
+<span class="sd">add_storage_investment_link_constraint(m)</span>
+<span class="sd">    Adds the investment linkage constraint ensuring logical consistency</span>
+<span class="sd">    between existence and new builds.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- The formulation assumes uniform time steps (\(\Delta t\)) across the horizon.  </span>
+<span class="sd">- Charging and discharging are modeled as separate nonnegative variables.  </span>
+<span class="sd">- Constraints are fully compatible with multi-level (patamar) formulations.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL. *DESSEM — Manual de Metodologia*, 2023.  </span>
+<span class="sd">[2] Unsihuay Vila, C. *Introdução aos Sistemas de Energia Elétrica*, Lecture Notes,</span>
+<span class="sd">    EELT7030/UFPR, 2023.</span>
+
+<span class="sd">Module Dependencies</span>
+<span class="sd">-------------------</span>
+<span class="sd">- **External:** ``pyomo.environ.Constraint``</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">Constraint</span>
+
+
+<div class="viewcode-block" id="add_storage_energy_balance_constraint">
+<a class="viewcode-back" href="../../../MDI.Storage.html#MDI.Storage.StorageConstraints.add_storage_energy_balance_constraint">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_storage_energy_balance_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add the state-of-charge (SoC) energy balance constraint.</span>
+
+<span class="sd">    Defines the recursive relationship for the stored energy as a function</span>
+<span class="sd">    of previous state, charging/discharging flows, efficiencies, and</span>
+<span class="sd">    time-step duration.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model instance containing storage-related sets, variables,</span>
+<span class="sd">        and parameters.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The model with the energy balance constraint added.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_soc_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_E</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_Eini</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> \
+                   <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_eta_c</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_delta_t</span> \
+                   <span class="o">-</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">/</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_eta_d</span><span class="p">[</span><span class="n">s</span><span class="p">])</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_delta_t</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_E</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_E</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">prev</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">p</span><span class="p">]</span> \
+               <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_eta_c</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_delta_t</span> \
+               <span class="o">-</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">/</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_eta_d</span><span class="p">[</span><span class="n">s</span><span class="p">])</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_delta_t</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_energy_balance_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_soc_rule</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+<div class="viewcode-block" id="add_storage_soc_bounds_constraint">
+<a class="viewcode-back" href="../../../MDI.Storage.html#MDI.Storage.StorageConstraints.add_storage_soc_bounds_constraint">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_storage_soc_bounds_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add upper and lower bounds on the state of charge (SoC).</span>
+
+<span class="sd">    Enforces that the stored energy remains within defined physical</span>
+<span class="sd">    limits as a function of the installed capacity and operational state.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model instance containing storage sets, variables, and parameters.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The model with SoC boundary constraints applied.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_soc_max_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_E</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_Emax</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_x</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_soc_min_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_E</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_Emin</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_x</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_soc_upper_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_soc_max_rule</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_soc_lower_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_soc_min_rule</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+<div class="viewcode-block" id="add_storage_power_limits_constraint">
+<a class="viewcode-back" href="../../../MDI.Storage.html#MDI.Storage.StorageConstraints.add_storage_power_limits_constraint">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_storage_power_limits_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add charging and discharging power limit constraints.</span>
+
+<span class="sd">    Ensures that the charging and discharging power of each storage</span>
+<span class="sd">    unit does not exceed its respective rated capacity.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model instance with storage-related variables and parameters.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The model with charging and discharging power limits enforced.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_ch_limit_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_Pch_max</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_x</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_dis_limit_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_Pdis_max</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_x</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_charge_limit_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_ch_limit_rule</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_discharge_limit_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_dis_limit_rule</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+<div class="viewcode-block" id="add_storage_investment_link_constraint">
+<a class="viewcode-back" href="../../../MDI.Storage.html#MDI.Storage.StorageConstraints.add_storage_investment_link_constraint">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_storage_investment_link_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add the investment linkage constraint for storage units.</span>
+
+<span class="sd">    Defines the relationship between construction decisions and</span>
+<span class="sd">    operational availability across time periods.  </span>
+<span class="sd">    Ensures that the existence variable accumulates investments</span>
+<span class="sd">    over the planning horizon.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model instance containing the investment and operational variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The model with investment linkage and initial-state constraints applied.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_inv_initial_value_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_x</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_state</span><span class="p">[</span><span class="n">g</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_inv_link_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_x</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_y</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_x</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_x</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">prev</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_y</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_initial_state_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_inv_initial_value_rule</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">storage_investment_link_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_inv_link_rule</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

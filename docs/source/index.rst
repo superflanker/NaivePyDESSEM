@@ -1,15 +1,15 @@
 NaivePyDESSEM and NaivePyDECOMP documentation
 =============================================
 
-Official documentation of the **NaivePyDESSEM** and **NaivePyDECOMP** projects, 
-two pedagogical and modular economic dispatch solvers based on Pyomo.
+Official documentation of the **NaivePyDESSEM**,  **NaivePyDECOMP** and **MDI** projects, 
+two pedagogical and modular economic dispatch/ explansion panning solvers based on Pyomo.
 
 .. include:: README.md
    :parser: myst_parser.sphinx_
 
 .. toctree::
    :maxdepth: 6
-   :caption: Main modules (DESSEM):
+   :caption: Main modules (DESSEM/DECOMP/MDI):
 
    modules
 

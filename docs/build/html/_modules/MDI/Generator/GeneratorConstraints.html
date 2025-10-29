@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MDI.Generator.GeneratorConstraints &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">DESSEM/DECOMP/MDI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">MDI.Generator.GeneratorConstraints</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for MDI.Generator.GeneratorConstraints</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Generator Constraints Module</span>
+<span class="sd">============================</span>
+<span class="sd">EELT7030 — Operation and Expansion Planning of Electric Power Systems  </span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Summary</span>
+<span class="sd">-------</span>
+<span class="sd">This module defines the operational and investment constraints associated with</span>
+<span class="sd">dispatchable generation units in the MDI framework. These constraints ensure that</span>
+<span class="sd">generation power levels remain within admissible technical limits and that</span>
+<span class="sd">investment decisions are properly linked across the planning horizon.</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">The generator constraints implemented here enforce:</span>
+
+<span class="sd">1. **Operational bounds**:  </span>
+<span class="sd">   Ensures that each unit’s generation output lies between its minimum and maximum</span>
+<span class="sd">   power levels whenever it is operational.</span>
+
+<span class="sd">2. **Investment linkage**:  </span>
+<span class="sd">   Establishes a temporal dependency between the binary investment decision variables</span>
+<span class="sd">   (`gen_y`) and the operational availability variables (`gen_x`), guaranteeing</span>
+<span class="sd">   consistent activation of units across consecutive time periods.</span>
+
+<span class="sd">These constraints are intended to be modular and easily extensible for more</span>
+<span class="sd">sophisticated generation formulations (e.g., ramping limits, minimum up/down</span>
+<span class="sd">times, or emission constraints).</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">add_generator_power_limits_constraint(m)</span>
+<span class="sd">    Adds upper and lower power output constraints for each generator and time step.</span>
+
+<span class="sd">add_generator_investment_link_constraint(m)</span>
+<span class="sd">    Adds the logical linkage between investment and operational state variables</span>
+<span class="sd">    across the planning horizon.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- Both constraints assume that the model already defines sets ``GU``, ``T``, and ``P``,</span>
+<span class="sd">  as well as parameters ``gen_Pmin`` and ``gen_Pmax``.</span>
+<span class="sd">- The investment linkage formulation assumes chronological time indexing.</span>
+<span class="sd">- These formulations align with the expansion-phase component of the MDI methodology.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023  </span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</span>
+
+<span class="sd">Module Dependencies</span>
+<span class="sd">-------------------</span>
+<span class="sd">- **Internal:** ``MDI.GeneratorVars``, ``MDI.GeneratorDataTypes``  </span>
+<span class="sd">- **External:** ``pyomo.environ (Constraint, ConcreteModel)``</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">Constraint</span><span class="p">,</span> <span class="n">ConcreteModel</span>
+
+
+<div class="viewcode-block" id="add_generator_power_limits_constraint">
+<a class="viewcode-back" href="../../../MDI.Generator.html#MDI.Generator.GeneratorConstraints.add_generator_power_limits_constraint">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_generator_power_limits_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add operational power limits for dispatchable generation units.</span>
+
+<span class="sd">    This constraint ensures that the generation output of each unit remains within</span>
+<span class="sd">    its technical minimum and maximum power levels whenever the unit is operational.</span>
+<span class="sd">    The constraint is applied over all generators, time periods, and demand levels.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model containing generator sets, parameters, and decision variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model instance, extended with upper and lower generation limits.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    AttributeError</span>
+<span class="sd">        If any required model attribute is missing (e.g., ``gen_P``, ``gen_Pmax``).</span>
+
+<span class="sd">    Workflow</span>
+<span class="sd">    --------</span>
+<span class="sd">    1. For each generator, period, and demand level, define:</span>
+<span class="sd">       - Upper limit: :math:`P_{g,t,p} \\leq P^{max}_g \\cdot x_{g,t}`</span>
+<span class="sd">       - Lower limit: :math:`P_{g,t,p} \\geq P^{min}_g \\cdot x_{g,t}`</span>
+<span class="sd">    2. Skip constraint creation if the required attributes are not defined.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - ``gen_x[g, t]`` represents whether the generator is active at time ``t``.</span>
+<span class="sd">    - This constraint does not include ramping or minimum up/down time conditions,</span>
+<span class="sd">      which should be defined in a separate submodule.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">required</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;GU&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gen_P&#39;</span><span class="p">,</span> <span class="s1">&#39;gen_pmax&#39;</span><span class="p">,</span> <span class="s1">&#39;gen_x&#39;</span>
+    <span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_gen_max_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_P</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_pmax</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_x</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_gen_min_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_P</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
+
+        <span class="n">m</span><span class="o">.</span><span class="n">gen_power_upper_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_gen_max_rule</span><span class="p">)</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">gen_power_lower_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_gen_min_rule</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+<div class="viewcode-block" id="add_generator_investment_link_constraint">
+<a class="viewcode-back" href="../../../MDI.Generator.html#MDI.Generator.GeneratorConstraints.add_generator_investment_link_constraint">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_generator_investment_link_constraint</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add investment linkage constraints between generator states and investment decisions.</span>
+
+<span class="sd">    These constraints ensure temporal consistency between investment decisions</span>
+<span class="sd">    (`gen_y`) and operational availability (`gen_x`) throughout the planning horizon.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model containing generator-related variables and sets.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model instance, extended with investment linkage constraints.</span>
+
+<span class="sd">    Workflow</span>
+<span class="sd">    --------</span>
+<span class="sd">    1. Initialization constraint:</span>
+<span class="sd">       - At the first period, equate ``gen_y[g, 1]`` with the initial state ``gen_state[g]``.</span>
+<span class="sd">    2. Temporal linkage constraint:</span>
+<span class="sd">       - Enforce that ``x[g, t] = x[g, t-1] + y[g, t]`` for ``t &gt; 1``,</span>
+<span class="sd">         ensuring capacity accumulation through time.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The binary variable ``gen_y`` represents new investments.</span>
+<span class="sd">    - The binary variable ``gen_x`` denotes whether the generator is operational.</span>
+<span class="sd">    - ``gen_state`` specifies the pre-existing operational state at the start of the horizon.</span>
+<span class="sd">    - Skips constraint definition if any required model components are missing.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">required</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GU&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;gen_x&#39;</span><span class="p">,</span> <span class="s1">&#39;gen_y&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_inv_initial_value_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_y</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_state</span><span class="p">[</span><span class="n">g</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_inv_link_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_x</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_y</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_x</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_x</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">prev</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_y</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+
+        <span class="n">m</span><span class="o">.</span><span class="n">gen_initial_state_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_inv_initial_value_rule</span><span class="p">)</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">gen_investment_link_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_inv_link_rule</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

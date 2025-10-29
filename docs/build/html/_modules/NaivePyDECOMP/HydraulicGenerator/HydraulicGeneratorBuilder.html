@@ -39,9 +39,9 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">DESSEM/DECOMP/MDI</a></li>
 </ul>
 
         </div>
@@ -251,28 +251,6 @@
 <span class="sd">    pyomo.environ.ConcreteModel</span>
 <span class="sd">        The updated Pyomo model with hydropower sets, parameters, variables,</span>
 <span class="sd">        constraints, and optionally the objective.</span>
-
-<span class="sd">    Notes</span>
-<span class="sd">    -----</span>
-<span class="sd">    - Constraints added:</span>
-<span class="sd">        * Hydropower generation equation (FPH-based)</span>
-<span class="sd">        * Minimum/maximum turbined flow</span>
-<span class="sd">        * Reservoir volume balance (continuity)</span>
-<span class="sd">        * Minimum/maximum storage limits</span>
-<span class="sd">        * Terminal storage requirement</span>
-<span class="sd">    - If include_objective=True, the system-wide balance constraint and</span>
-<span class="sd">      the hydropower objective (deficit + spill penalty) are attached.</span>
-<span class="sd">    - This builder targets **pure hydropower** systems; for mixed</span>
-<span class="sd">      hydrothermal systems, a combined balance and objective should be</span>
-<span class="sd">      used instead.</span>
-
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; from pyomo.environ import ConcreteModel</span>
-<span class="sd">    &gt;&gt;&gt; m = ConcreteModel()</span>
-<span class="sd">    &gt;&gt;&gt; m = add_hydro_problem(m, data, include_objective=True)</span>
-<span class="sd">    &gt;&gt;&gt; type(m)</span>
-<span class="sd">    &lt;class &#39;pyomo.core.base.PyomoModel.ConcreteModel&#39;&gt;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">build_FPHs</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
@@ -326,27 +304,6 @@
 <span class="sd">        The updated Pyomo model with hydropower sets, parameters, variables,</span>
 <span class="sd">        constraints, and optionally the objective.</span>
 
-<span class="sd">    Notes</span>
-<span class="sd">    -----</span>
-<span class="sd">    - Constraints added:</span>
-<span class="sd">        * Hydropower generation equation (FPH-based)</span>
-<span class="sd">        * Minimum/maximum turbined flow</span>
-<span class="sd">        * Reservoir volume balance (continuity)</span>
-<span class="sd">        * Minimum/maximum storage limits</span>
-<span class="sd">        * Terminal storage requirement</span>
-<span class="sd">    - If include_objective=True, the system-wide balance constraint and</span>
-<span class="sd">      the hydropower objective (deficit + spill penalty) are attached.</span>
-<span class="sd">    - This builder targets **pure hydropower** systems; for mixed</span>
-<span class="sd">      hydrothermal systems, a combined balance and objective should be</span>
-<span class="sd">      used instead.</span>
-
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; from pyomo.environ import ConcreteModel</span>
-<span class="sd">    &gt;&gt;&gt; m = ConcreteModel()</span>
-<span class="sd">    &gt;&gt;&gt; m = add_hydro_problem(m, data, include_objective=True)</span>
-<span class="sd">    &gt;&gt;&gt; type(m)</span>
-<span class="sd">    &lt;class &#39;pyomo.core.base.PyomoModel.ConcreteModel&#39;&gt;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># data copy</span>
     <span class="n">subproblem_data</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NaivePyDESSEM and NaivePyDECOMP &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+  <title>DESSEM/DECOMP/MDI &mdash; NaivePyDESSEM 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -16,6 +16,7 @@
       <script src="_static/documentation_options.js?v=01f34227"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -42,11 +43,12 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">NaivePyDESSEM and NaivePyDECOMP</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">DESSEM/DECOMP/MDI</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html">MDI package</a></li>
 </ul>
 </li>
 </ul>
@@ -65,7 +67,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">NaivePyDESSEM and NaivePyDECOMP</li>
+      <li class="breadcrumb-item active">DESSEM/DECOMP/MDI</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -75,8 +77,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="naivepydessem-and-naivepydecomp">
-<h1>NaivePyDESSEM and NaivePyDECOMP<a class="headerlink" href="#naivepydessem-and-naivepydecomp" title="Link to this heading"></a></h1>
+  <section id="dessem-decomp-mdi">
+<h1>DESSEM/DECOMP/MDI<a class="headerlink" href="#dessem-decomp-mdi" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a><ul>
@@ -379,6 +381,8 @@
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.SolverPDDD">NaivePyDECOMP.SolverPDDD module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#id19">Author</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#id20">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.SolverPDDD.compute_fcf"><code class="docutils literal notranslate"><span class="pre">compute_fcf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.SolverPDDD.fcf_from_cuts"><code class="docutils literal notranslate"><span class="pre">fcf_from_cuts()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.SolverPDDD.solve_pddd"><code class="docutils literal notranslate"><span class="pre">solve_pddd()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.SolverPDDD.solve_stage_pddd"><code class="docutils literal notranslate"><span class="pre">solve_stage_pddd()</span></code></a></li>
 </ul>
@@ -407,6 +411,154 @@
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#id29">Author</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#id30">Description</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#id31">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="MDI.html">MDI package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.Generator.html">MDI.Generator package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html#module-MDI.Generator.GeneratorBuilder">MDI.Generator.GeneratorBuilder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html#module-MDI.Generator.GeneratorConstraints">MDI.Generator.GeneratorConstraints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html#module-MDI.Generator.GeneratorDataTypes">MDI.Generator.GeneratorDataTypes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html#module-MDI.Generator.GeneratorEquations">MDI.Generator.GeneratorEquations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html#module-MDI.Generator.GeneratorObjectives">MDI.Generator.GeneratorObjectives module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html#module-MDI.Generator.GeneratorVars">MDI.Generator.GeneratorVars module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html#module-MDI.Generator">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.Storage.html">MDI.Storage package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.html#module-MDI.Storage.StorageBuilder">MDI.Storage.StorageBuilder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.html#module-MDI.Storage.StorageConstraints">MDI.Storage.StorageConstraints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.html#module-MDI.Storage.StorageDataTypes">MDI.Storage.StorageDataTypes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.html#module-MDI.Storage.StorageEquations">MDI.Storage.StorageEquations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.html#module-MDI.Storage.StorageObjective">MDI.Storage.StorageObjective module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.html#module-MDI.Storage.StorageVars">MDI.Storage.StorageVars module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.html#module-MDI.Storage">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.cli.html">MDI.cli package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.cli.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.cli.html#module-MDI.cli.cli">MDI.cli.cli module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.cli.html#module-MDI.cli.plot_cli">MDI.cli.plot_cli module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.cli.html#module-MDI.cli">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html#module-MDI.Builder">MDI.Builder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#builder-module">Builder Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#author">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#summary">Summary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#description">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.Builder.add_system_adequacy_expression"><code class="docutils literal notranslate"><span class="pre">add_system_adequacy_expression()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.Builder.build_balance_and_objective_from_yaml"><code class="docutils literal notranslate"><span class="pre">build_balance_and_objective_from_yaml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.Builder.build_model_from_file"><code class="docutils literal notranslate"><span class="pre">build_model_from_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.Builder.compute_mean_demand"><code class="docutils literal notranslate"><span class="pre">compute_mean_demand()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html#module-MDI.DataFrames">MDI.DataFrames module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#dataframes-module">Dataframes Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id1">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id2">Summary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id3">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id4">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.DataFrames.add_cost_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_cost_to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.DataFrames.add_generator_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_generator_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.DataFrames.add_storage_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_storage_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.DataFrames.build_dispatch_dataframe"><code class="docutils literal notranslate"><span class="pre">build_dispatch_dataframe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html#module-MDI.Formatters">MDI.Formatters module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#id5">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#id6">Description</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html#module-MDI.ModelCheck">MDI.ModelCheck module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#modelcheck-module">ModelCheck Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id7">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id8">Summary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id9">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id10">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#usage-example">Usage Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.ModelCheck.has_generator_model"><code class="docutils literal notranslate"><span class="pre">has_generator_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.ModelCheck.has_storage_model"><code class="docutils literal notranslate"><span class="pre">has_storage_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html#module-MDI.ModelFormatters">MDI.ModelFormatters module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#id11">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#id12">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.ModelFormatters.format_generator_model"><code class="docutils literal notranslate"><span class="pre">format_generator_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.ModelFormatters.format_models"><code class="docutils literal notranslate"><span class="pre">format_models()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.ModelFormatters.format_storage_model"><code class="docutils literal notranslate"><span class="pre">format_storage_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.ModelFormatters.model_properties"><code class="docutils literal notranslate"><span class="pre">model_properties()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.ModelFormatters.print_welcome_banner"><code class="docutils literal notranslate"><span class="pre">print_welcome_banner()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.ModelFormatters.print_welcome_message"><code class="docutils literal notranslate"><span class="pre">print_welcome_message()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html#module-MDI.PlotSeries">MDI.PlotSeries module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#plotseries-module">PlotSeries Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id13">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id14">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id15">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#conventions">Conventions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html#module-MDI.Reporting">MDI.Reporting module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#id16">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#id17">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.Reporting.dispatch_summary"><code class="docutils literal notranslate"><span class="pre">dispatch_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.Reporting.generator_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">generator_dispatch_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.Reporting.storage_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">storage_dispatch_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html#module-MDI.Solver">MDI.Solver module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#id18">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#id19">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#MDI.Solver.solve"><code class="docutils literal notranslate"><span class="pre">solve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html#module-MDI.Utils">MDI.Utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#utils-module">Utils Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id20">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id21">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id22">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#parameters-shared">Parameters (Shared)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#additional-parameters">Additional Parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html#module-MDI.YAMLLoader">MDI.YAMLLoader module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#yamlloader-module">YAMLLoader Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id23">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id24">Summary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id25">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id26">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html#module-MDI">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#mdi-a-didactic-expansion-planning-framework-for-the-naivepydessem-package">MDI — A Didactic Expansion Planning Framework for the NaivePyDESSEM Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id27">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id28">Summary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id29">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#id30">Submodules</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

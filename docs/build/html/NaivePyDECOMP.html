@@ -42,9 +42,9 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">NaivePyDECOMP package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
@@ -135,6 +135,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-NaivePyDECOMP.SolverPDDD">NaivePyDECOMP.SolverPDDD module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id19">Author</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id20">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.SolverPDDD.compute_fcf"><code class="docutils literal notranslate"><span class="pre">compute_fcf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.SolverPDDD.fcf_from_cuts"><code class="docutils literal notranslate"><span class="pre">fcf_from_cuts()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.SolverPDDD.solve_pddd"><code class="docutils literal notranslate"><span class="pre">solve_pddd()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#NaivePyDECOMP.SolverPDDD.solve_stage_pddd"><code class="docutils literal notranslate"><span class="pre">solve_stage_pddd()</span></code></a></li>
 </ul>
@@ -167,6 +169,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html">MDI package</a></li>
 </ul>
 </li>
 </ul>
@@ -185,7 +188,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">DESSEM/DECOMP/MDI</a></li>
       <li class="breadcrumb-item active">NaivePyDECOMP package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/NaivePyDECOMP.rst.txt" rel="nofollow"> View page source</a>
@@ -1336,6 +1339,88 @@ based on metadata, and can include support for decomposition strategies
 <p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.SolverPDDD.compute_fcf">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.SolverPDDD.</span></span><span class="sig-name descname"><span class="pre">compute_fcf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cuts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pddd_memory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/SolverPDDD.html#compute_fcf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.SolverPDDD.compute_fcf" title="Link to this definition"></a></dt>
+<dd><p>Compute the Future Cost Function (FCF) values for all stages
+in the PDDD framework, given a set of Benders cuts.</p>
+<p>This function iterates over the memory of the PDDD algorithm,
+extracting the storage volumes for each stage and evaluating
+the corresponding FCF approximation using the provided cuts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cuts</strong> (<em>List</em><em>[</em><em>Dict</em><em>]</em>) – <p>List of Benders cuts. Each cut must be a dictionary with:
+{</p>
+<blockquote>
+<div><p>”rhs”: float,                # adjusted intercept
+“coefs”: {unit: float}       # coefficients (subgradients)</p>
+</div></blockquote>
+<p>}</p>
+</p></li>
+<li><p><strong>pddd_memory</strong> (<em>List</em><em>[</em><em>Dict</em><em>]</em>) – <p>List of stage-level information from the PDDD algorithm.
+Each element must include the storage volumes in the key
+‘f_volume’, e.g.:
+{</p>
+<blockquote>
+<div><p>”f_volume”: {“UHE1”: 50, “UHE2”: 80, …}</p>
+</div></blockquote>
+<p>}</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>Dictionary of FCF values for each stage, with keys in the
+format “FCF_{t}” where t denotes the stage index (1-based).
+Example:
+{</p>
+<blockquote>
+<div><p>”FCF_1”: […],
+“FCF_2”: […],
+…</p>
+</div></blockquote>
+<p>}</p>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.SolverPDDD.fcf_from_cuts">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.SolverPDDD.</span></span><span class="sig-name descname"><span class="pre">fcf_from_cuts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cuts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage_levels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/SolverPDDD.html#fcf_from_cuts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.SolverPDDD.fcf_from_cuts" title="Link to this definition"></a></dt>
+<dd><p>Compute the Future Cost Function (FCF) value given a set of Benders cuts,
+assuming that the expansion point (xk) has already been absorbed into
+the intercept (rhs).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cuts</strong> (<em>list</em><em> of </em><em>dict</em>) – <p>List of cuts. Each cut must have the format:
+{</p>
+<blockquote>
+<div><p>”stage”: int                 # stage for calculation
+“rhs”: float,                # adjusted intercept
+“coefs”: {unit: float}       # coefficients (subgradients)</p>
+</div></blockquote>
+<p>}</p>
+</p></li>
+<li><p><strong>stage</strong> (<em>int</em>) – The index of the current stage being solved (0-based).</p></li>
+<li><p><strong>storage_levels</strong> (<em>dict</em>) – Dictionary with current storage volumes for each hydro unit.
+Example: {“UHE1”: 50, “UHE2”: 80}</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Value of the Future Cost Function (FCF) evaluated at the given
+storage levels.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDECOMP.SolverPDDD.solve_pddd">
 <span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.SolverPDDD.</span></span><span class="sig-name descname"><span class="pre">solve_pddd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ConcreteModel</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/SolverPDDD.html#solve_pddd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.SolverPDDD.solve_pddd" title="Link to this definition"></a></dt>

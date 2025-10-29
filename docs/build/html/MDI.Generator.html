@@ -1,0 +1,1052 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MDI.Generator package &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="MDI.Storage package" href="MDI.Storage.html" />
+    <link rel="prev" title="MDI package" href="MDI.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="MDI.html">MDI package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="MDI.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">MDI.Generator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.html">MDI.Storage package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.cli.html">MDI.cli package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Builder">MDI.Builder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.DataFrames">MDI.DataFrames module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Formatters">MDI.Formatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.ModelCheck">MDI.ModelCheck module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.ModelFormatters">MDI.ModelFormatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.PlotSeries">MDI.PlotSeries module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Reporting">MDI.Reporting module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Solver">MDI.Solver module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Utils">MDI.Utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.YAMLLoader">MDI.YAMLLoader module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">DESSEM/DECOMP/MDI</a></li>
+          <li class="breadcrumb-item"><a href="MDI.html">MDI package</a></li>
+      <li class="breadcrumb-item active">MDI.Generator package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/MDI.Generator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mdi-generator-package">
+<h1>MDI.Generator package<a class="headerlink" href="#mdi-generator-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-MDI.Generator.GeneratorBuilder">
+<span id="mdi-generator-generatorbuilder-module"></span><h2>MDI.Generator.GeneratorBuilder module<a class="headerlink" href="#module-MDI.Generator.GeneratorBuilder" title="Link to this heading"></a></h2>
+<section id="generator-builder-module">
+<h3>Generator Builder Module<a class="headerlink" href="#generator-builder-module" title="Link to this heading"></a></h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="author">
+<h4>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="summary">
+<h4>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h4>
+<p>This module defines the routines responsible for constructing the generator
+submodel within the MDI (Modular Didactic Infrastructure) framework. It serves
+as the primary entry point for creating the Pyomo-based representation of
+dispatchable generation units, their parameters, variables, constraints, and
+optional objective terms.</p>
+</section>
+<section id="description">
+<h4>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h4>
+<p>The generator builder integrates modular components defined in the companion
+submodules:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GeneratorVars</span></code>: Declares decision variables for generator operation and investment.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GeneratorDataTypes</span></code>: Defines dataclass-based structures for handling generator input data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GeneratorConstraints</span></code>: Introduces operational, investment, and capacity constraints.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GeneratorObjectives</span></code>: Builds the cost-related components of the objective function.</p></li>
+</ul>
+<p>These functions enable flexible inclusion of generator units within the full
+system model or as a standalone expansion subproblem. Each submodule follows
+Pyomo’s modeling conventions and supports compositional assembly within the
+broader MDI framework.</p>
+</section>
+<section id="functions">
+<h4>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>build_generators(generator_data, include_objective=True)</dt><dd><p>Creates a Pyomo <code class="docutils literal notranslate"><span class="pre">ConcreteModel</span></code> containing the generator submodel,
+including variables, constraints, and optionally the objective function.</p>
+</dd>
+<dt>add_generator_problem(m, data, include_objective=False)</dt><dd><p>Adds generator-related sets, parameters, variables, and constraints
+to an existing Pyomo model instance.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The generator submodel can be built independently or as part of a larger
+integrated energy planning problem.</p></li>
+<li><p>Setting <code class="docutils literal notranslate"><span class="pre">include_objective=False</span></code> allows the model to be embedded in
+hierarchical or multi-objective formulations.</p></li>
+<li><p>This module relies on modular imports and clear dependency separation
+between data definition, variable creation, and constraint formulation.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorBuilder.add_generator_problem">
+<span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorBuilder.</span></span><span class="sig-name descname"><span class="pre">add_generator_problem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MDI.Generator.GeneratorDataTypes.GeneratorData" title="MDI.Generator.GeneratorDataTypes.GeneratorData"><span class="pre">GeneratorData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/MDI/Generator/GeneratorBuilder.html#add_generator_problem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorBuilder.add_generator_problem" title="Link to this definition"></a></dt>
+<dd><p>Add generator components (sets, parameters, variables, and constraints)
+to an existing Pyomo model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Existing Pyomo model instance to which generator components will be added.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#MDI.Generator.GeneratorDataTypes.GeneratorData" title="MDI.Generator.GeneratorDataTypes.GeneratorData"><em>GeneratorData</em></a>) – Dataclass or structured object containing generator-related data, such as
+power limits, costs, and investment parameters.</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to append the generator objective term to the model.
+Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>pyomo.environ.ConcreteModel</em> – The input model, extended with generator-related components.</p></li>
+<li><p><em>Workflow</em></p></li>
+<li><p><em>——–</em></p></li>
+<li><ol class="arabic simple">
+<li><p>Define generator sets and parameters via <code class="docutils literal notranslate"><span class="pre">generator_add_sets_and_params()</span></code>.</p></li>
+</ol>
+</li>
+<li><ol class="arabic simple" start="2">
+<li><p>Declare operational and investment variables using <code class="docutils literal notranslate"><span class="pre">generator_add_variables()</span></code>.</p></li>
+</ol>
+</li>
+<li><p><em>3. Add operational constraints for generation limits and investment linkage.</em></p></li>
+<li><p><em>4. Optionally include cost terms in the model’s objective function.</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This function can be safely called multiple times for different generator
+groups or technologies.</p></li>
+<li><p>The objective inclusion flag provides flexibility for hierarchical
+optimization or decomposition-based formulations.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorBuilder.build_generators">
+<span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorBuilder.</span></span><span class="sig-name descname"><span class="pre">build_generators</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generator_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/MDI/Generator/GeneratorBuilder.html#build_generators"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorBuilder.build_generators" title="Link to this definition"></a></dt>
+<dd><p>Construct a standalone generator submodel as a Pyomo <code class="docutils literal notranslate"><span class="pre">ConcreteModel</span></code>.</p>
+<p>This function acts as a wrapper that initializes a new model instance,
+populates it with generator sets, parameters, variables, and constraints,
+and optionally includes the cost-minimizing objective function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>generator_data</strong> (<em>dict</em>) – Dictionary or dataclass containing all generator configuration data,
+including installed capacities, operational limits, and cost coefficients.</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to include the generator’s cost function in the model objective.
+Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A fully constructed generator submodel ready for optimization.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Internally, this function delegates to <code class="docutils literal notranslate"><span class="pre">add_generator_problem()</span></code>.</p></li>
+<li><p>When used in integrated expansion models, the objective term may be
+disabled to avoid duplication at the system level.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-MDI.Generator.GeneratorConstraints">
+<span id="mdi-generator-generatorconstraints-module"></span><h2>MDI.Generator.GeneratorConstraints module<a class="headerlink" href="#module-MDI.Generator.GeneratorConstraints" title="Link to this heading"></a></h2>
+<section id="generator-constraints-module">
+<h3>Generator Constraints Module<a class="headerlink" href="#generator-constraints-module" title="Link to this heading"></a></h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="id1">
+<h4>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id2">
+<h4>Summary<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
+<p>This module defines the operational and investment constraints associated with
+dispatchable generation units in the MDI framework. These constraints ensure that
+generation power levels remain within admissible technical limits and that
+investment decisions are properly linked across the planning horizon.</p>
+</section>
+<section id="id3">
+<h4>Description<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
+<p>The generator constraints implemented here enforce:</p>
+<ol class="arabic simple">
+<li><p><strong>Operational bounds</strong>:
+Ensures that each unit’s generation output lies between its minimum and maximum
+power levels whenever it is operational.</p></li>
+<li><p><strong>Investment linkage</strong>:
+Establishes a temporal dependency between the binary investment decision variables
+(<cite>gen_y</cite>) and the operational availability variables (<cite>gen_x</cite>), guaranteeing
+consistent activation of units across consecutive time periods.</p></li>
+</ol>
+<p>These constraints are intended to be modular and easily extensible for more
+sophisticated generation formulations (e.g., ramping limits, minimum up/down
+times, or emission constraints).</p>
+</section>
+<section id="id4">
+<h4>Functions<a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>add_generator_power_limits_constraint(m)</dt><dd><p>Adds upper and lower power output constraints for each generator and time step.</p>
+</dd>
+<dt>add_generator_investment_link_constraint(m)</dt><dd><p>Adds the logical linkage between investment and operational state variables
+across the planning horizon.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Both constraints assume that the model already defines sets <code class="docutils literal notranslate"><span class="pre">GU</span></code>, <code class="docutils literal notranslate"><span class="pre">T</span></code>, and <code class="docutils literal notranslate"><span class="pre">P</span></code>,
+as well as parameters <code class="docutils literal notranslate"><span class="pre">gen_Pmin</span></code> and <code class="docutils literal notranslate"><span class="pre">gen_Pmax</span></code>.</p></li>
+<li><p>The investment linkage formulation assumes chronological time indexing.</p></li>
+<li><p>These formulations align with the expansion-phase component of the MDI methodology.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+<section id="module-dependencies">
+<h4>Module Dependencies<a class="headerlink" href="#module-dependencies" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>Internal:</strong> <code class="docutils literal notranslate"><span class="pre">MDI.GeneratorVars</span></code>, <code class="docutils literal notranslate"><span class="pre">MDI.GeneratorDataTypes</span></code></p></li>
+<li><p><strong>External:</strong> <code class="docutils literal notranslate"><span class="pre">pyomo.environ</span> <span class="pre">(Constraint,</span> <span class="pre">ConcreteModel)</span></code></p></li>
+</ul>
+</section>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorConstraints.add_generator_investment_link_constraint">
+<span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorConstraints.</span></span><span class="sig-name descname"><span class="pre">add_generator_investment_link_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/MDI/Generator/GeneratorConstraints.html#add_generator_investment_link_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorConstraints.add_generator_investment_link_constraint" title="Link to this definition"></a></dt>
+<dd><p>Add investment linkage constraints between generator states and investment decisions.</p>
+<p>These constraints ensure temporal consistency between investment decisions
+(<cite>gen_y</cite>) and operational availability (<cite>gen_x</cite>) throughout the planning horizon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model containing generator-related variables and sets.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>pyomo.environ.ConcreteModel</em> – The same model instance, extended with investment linkage constraints.</p></li>
+<li><p><em>Workflow</em></p></li>
+<li><p><em>——–</em></p></li>
+<li><p><em>1. Initialization constraint</em> –</p>
+<ul>
+<li><p>At the first period, equate <code class="docutils literal notranslate"><span class="pre">gen_y[g,</span> <span class="pre">1]</span></code> with the initial state <code class="docutils literal notranslate"><span class="pre">gen_state[g]</span></code>.</p></li>
+</ul>
+</li>
+<li><p><em>2. Temporal linkage constraint</em> –</p>
+<ul>
+<li><p>Enforce that <code class="docutils literal notranslate"><span class="pre">x[g,</span> <span class="pre">t]</span> <span class="pre">=</span> <span class="pre">x[g,</span> <span class="pre">t-1]</span> <span class="pre">+</span> <span class="pre">y[g,</span> <span class="pre">t]</span></code> for <code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>,
+ensuring capacity accumulation through time.</p></li>
+</ul>
+</li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The binary variable <code class="docutils literal notranslate"><span class="pre">gen_y</span></code> represents new investments.</p></li>
+<li><p>The binary variable <code class="docutils literal notranslate"><span class="pre">gen_x</span></code> denotes whether the generator is operational.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gen_state</span></code> specifies the pre-existing operational state at the start of the horizon.</p></li>
+<li><p>Skips constraint definition if any required model components are missing.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorConstraints.add_generator_power_limits_constraint">
+<span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorConstraints.</span></span><span class="sig-name descname"><span class="pre">add_generator_power_limits_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/MDI/Generator/GeneratorConstraints.html#add_generator_power_limits_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorConstraints.add_generator_power_limits_constraint" title="Link to this definition"></a></dt>
+<dd><p>Add operational power limits for dispatchable generation units.</p>
+<p>This constraint ensures that the generation output of each unit remains within
+its technical minimum and maximum power levels whenever the unit is operational.
+The constraint is applied over all generators, time periods, and demand levels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model containing generator sets, parameters, and decision variables.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model instance, extended with upper and lower generation limits.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AttributeError</strong> – If any required model attribute is missing (e.g., <code class="docutils literal notranslate"><span class="pre">gen_P</span></code>, <code class="docutils literal notranslate"><span class="pre">gen_Pmax</span></code>).</p></li>
+<li><p><strong>Workflow</strong> – </p></li>
+<li><p><strong>--------</strong> – </p></li>
+<li><p><strong>1. For each generator</strong><strong>, </strong><strong>period</strong><strong>, </strong><strong>and demand level</strong><strong>, </strong><strong>define:</strong> – <ul>
+<li><p>Upper limit: <span class="math notranslate nohighlight">\(P_{g,t,p} \leq P^{max}_g \cdot x_{g,t}\)</span>
+    - Lower limit: <span class="math notranslate nohighlight">\(P_{g,t,p} \geq P^{min}_g \cdot x_{g,t}\)</span></p></li>
+</ul>
+</p></li>
+<li><p><strong>2. Skip constraint creation if the required attributes are not defined.</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gen_x[g,</span> <span class="pre">t]</span></code> represents whether the generator is active at time <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p></li>
+<li><p>This constraint does not include ramping or minimum up/down time conditions,
+which should be defined in a separate submodule.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-MDI.Generator.GeneratorDataTypes">
+<span id="mdi-generator-generatordatatypes-module"></span><h2>MDI.Generator.GeneratorDataTypes module<a class="headerlink" href="#module-MDI.Generator.GeneratorDataTypes" title="Link to this heading"></a></h2>
+<section id="generator-data-types-module">
+<h3>Generator Data Types Module<a class="headerlink" href="#generator-data-types-module" title="Link to this heading"></a></h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="id5">
+<h4>Author<a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id6">
+<h4>Summary<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
+<p>This module defines the fundamental data structures used to represent
+generator-related parameters within the MDI framework. It provides
+strongly typed and structured interfaces for input parsing, parameter
+validation, and model population using the Pyomo environment.</p>
+</section>
+<section id="id7">
+<h4>Description<a class="headerlink" href="#id7" title="Link to this heading"></a></h4>
+<p>The dataclasses defined here encapsulate both unit-level and
+system-level information required to formulate the generation expansion
+and dispatch problem. They are designed for clarity, immutability,
+and direct compatibility with YAML and JSON data sources.</p>
+<ul class="simple">
+<li><p><strong>GeneratorUnit</strong> represents the technical and economic attributes
+of a single dispatchable generating unit.</p></li>
+<li><p><strong>GeneratorData</strong> aggregates all generator units, demand data,
+time discretization, and system-level configuration parameters
+required to construct the generator submodel.</p></li>
+</ul>
+</section>
+<section id="classes">
+<h4>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>GeneratorUnit</dt><dd><p>Defines a single generation unit, including operational state,
+investment cost, and technical limits.</p>
+</dd>
+<dt>GeneratorData</dt><dd><p>Defines a complete data structure for the generator subsystem,
+including time horizon, demand, load levels, and the collection of
+generation units.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>These dataclasses are typically populated by the YAMLLoader module
+before model construction.</p></li>
+<li><p>Attribute names are intentionally consistent with the Pyomo
+model variable and parameter nomenclature.</p></li>
+<li><p>The design supports type checking and explicit serialization
+to facilitate reproducibility in energy system research.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+<section id="id8">
+<h4>Module Dependencies<a class="headerlink" href="#id8" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>Internal:</strong> None (independent data layer)</p></li>
+<li><p><strong>External:</strong> <code class="docutils literal notranslate"><span class="pre">dataclasses</span></code>, <code class="docutils literal notranslate"><span class="pre">typing</span></code></p></li>
+</ul>
+</section>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorDataTypes.</span></span><span class="sig-name descname"><span class="pre">GeneratorData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level_hours</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit" title="MDI.Generator.GeneratorDataTypes.GeneratorUnit"><span class="pre">GeneratorUnit</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MDI/Generator/GeneratorDataTypes.html#GeneratorData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorData" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Aggregated dataset for the generator subsystem.</p>
+<p>Encapsulates all time-related and unit-level data required to
+build the generator component of the MDI model, including
+demand series, temporal discretization, and technology set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>horizon</strong> (<em>int</em>) – Number of time periods in the planning horizon.</p></li>
+<li><p><strong>demand</strong> (<em>dict</em><em> of </em><em>{str: list</em><em> of </em><em>float}</em>) – Nested dictionary containing demand data per load level and time period.
+Example structure:
+<code class="docutils literal notranslate"><span class="pre">{&quot;Ponta&quot;:</span> <span class="pre">[500,</span> <span class="pre">550,</span> <span class="pre">600],</span> <span class="pre">&quot;Fora&quot;:</span> <span class="pre">[300,</span> <span class="pre">320,</span> <span class="pre">350]}</span></code></p></li>
+<li><p><strong>level_hours</strong> (<em>dict</em><em> of </em><em>{str: float}</em>) – Mapping between demand levels (e.g., ‘Ponta’, ‘Fora’) and their
+respective duration in hours.</p></li>
+<li><p><strong>units</strong> (<em>dict</em><em> of </em><em>{str: GeneratorUnit}</em>) – Dictionary mapping unit identifiers to their respective
+<code class="docutils literal notranslate"><span class="pre">GeneratorUnit</span></code> dataclass instances.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This structure is typically created by the YAMLLoader and passed
+to <code class="docutils literal notranslate"><span class="pre">GeneratorBuilder</span></code> for model initialization.</p></li>
+<li><p>The data are designed to be serializable and interoperable
+with other modules of the MDI framework.</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorData.demand">
+<span class="sig-name descname"><span class="pre">demand</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorData.demand" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorData.horizon">
+<span class="sig-name descname"><span class="pre">horizon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorData.horizon" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorData.level_hours">
+<span class="sig-name descname"><span class="pre">level_hours</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorData.level_hours" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorData.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit" title="MDI.Generator.GeneratorDataTypes.GeneratorUnit"><span class="pre">GeneratorUnit</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorData.units" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorUnit">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorDataTypes.</span></span><span class="sig-name descname"><span class="pre">GeneratorUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_inv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MDI/Generator/GeneratorDataTypes.html#GeneratorUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Representation of a single dispatchable generation unit.</p>
+<p>This dataclass stores the economic and technical parameters
+of each generator used in the optimization model, such as
+operational state, variable and fixed costs, and rated capacity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Unique identifier of the generation unit.</p></li>
+<li><p><strong>state</strong> (<em>int</em>) – Initial operational state of the unit (1 if already built, 0 otherwise).</p></li>
+<li><p><strong>c_op</strong> (<em>float</em>) – Variable operational cost (e.g., fuel or maintenance) in R$/MWh.</p></li>
+<li><p><strong>c_inv</strong> (<em>float</em>) – Investment cost associated with capacity expansion in R$</p></li>
+<li><p><strong>p_max</strong> (<em>float</em>) – Maximum generation capacity (MW) of the unit.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">state</span></code> is used to define the initial operational availability
+within the planning horizon.</p></li>
+<li><p>These attributes are directly mapped into Pyomo parameters
+via the generator builder module.</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorUnit.c_inv">
+<span class="sig-name descname"><span class="pre">c_inv</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit.c_inv" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorUnit.c_op">
+<span class="sig-name descname"><span class="pre">c_op</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit.c_op" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorUnit.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorUnit.p_max">
+<span class="sig-name descname"><span class="pre">p_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit.p_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorUnit.state">
+<span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit.state" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-MDI.Generator.GeneratorEquations">
+<span id="mdi-generator-generatorequations-module"></span><h2>MDI.Generator.GeneratorEquations module<a class="headerlink" href="#module-MDI.Generator.GeneratorEquations" title="Link to this heading"></a></h2>
+<section id="generator-equations-module">
+<h3>Generator Equations Module<a class="headerlink" href="#generator-equations-module" title="Link to this heading"></a></h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="id9">
+<h4>Author<a class="headerlink" href="#id9" title="Link to this heading"></a></h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id10">
+<h4>Summary<a class="headerlink" href="#id10" title="Link to this heading"></a></h4>
+<p>This module defines the objective-related expressions for the generation
+subsystem in the MDI framework. It formulates both the <strong>operational cost</strong>
+and <strong>energy balance</strong> expressions, which are later aggregated into the
+system-level optimization model.</p>
+</section>
+<section id="id11">
+<h4>Description<a class="headerlink" href="#id11" title="Link to this heading"></a></h4>
+<p>The functions in this module generate symbolic expressions that represent
+the two principal aspects of the generation subproblem:</p>
+<ol class="arabic">
+<li><p><strong>Operational and investment cost function</strong> —
+Represents the total cost of operation and expansion over the planning
+horizon, including both variable and fixed investment terms.</p>
+<p>[
+C_{gen} =
+sum_{g,t,p} h_p , c^{op}_g , P_{g,t,p}
+;+;
+sum_{g,t} c^{inv}_g , x_{g,t}
+]</p>
+<p>where
+- (h_p) denotes the duration (hours) of load level (p),
+- (c^{op}_g) is the operational cost of generator (g),
+- (c^{inv}_g) is the investment cost per MW of capacity,
+- (P_{g,t,p}) is the power generation level,
+- (x_{g,t}) indicates if the unit is available at time (t).</p>
+</li>
+<li><p><strong>Generation balance expression</strong> —
+Computes the total available generation for each time period and load
+level, serving as input to system-level energy balance constraints:</p>
+<p>[
+G_{bal}(t,p) = sum_{g} P_{g,t,p}
+]</p>
+</li>
+</ol>
+</section>
+<section id="id12">
+<h4>Functions<a class="headerlink" href="#id12" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>add_generator_cost_expression(m, cost_array)</dt><dd><p>Builds and appends the generator cost expression to the provided array.</p>
+</dd>
+<dt>add_generator_balance_expression(m, t, p, balance_array)</dt><dd><p>Builds and appends the generation balance expression for a given time
+period and load level to the provided array.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Both expressions are appended to lists (<code class="docutils literal notranslate"><span class="pre">cost_array</span></code> or <code class="docutils literal notranslate"><span class="pre">balance_array</span></code>)
+to allow modular composition of objectives and constraints in composite models.</p></li>
+<li><p>Missing attributes silently skip expression creation to maintain model integrity.</p></li>
+<li><p>This design enables dynamic integration of subsystems (e.g., storage, hydro,
+or renewable modules) under a unified optimization framework.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL. <em>DESSEM — Manual de Metodologia</em>, 2023.
+[2] Unsihuay Vila, C. <em>Introdução aos Sistemas de Energia Elétrica</em>, Lecture Notes,</p>
+<blockquote>
+<div><p>EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+<section id="id13">
+<h4>Module Dependencies<a class="headerlink" href="#id13" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>Internal:</strong> <code class="docutils literal notranslate"><span class="pre">MDI.GeneratorVars</span></code>, <code class="docutils literal notranslate"><span class="pre">MDI.GeneratorConstraints</span></code></p></li>
+<li><p><strong>External:</strong> <code class="docutils literal notranslate"><span class="pre">pyomo.environ</span> <span class="pre">(ConcreteModel)</span></code>, <code class="docutils literal notranslate"><span class="pre">typing</span></code></p></li>
+</ul>
+</section>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorEquations.add_generator_balance_expression">
+<span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorEquations.</span></span><span class="sig-name descname"><span class="pre">add_generator_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/MDI/Generator/GeneratorEquations.html#add_generator_balance_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorEquations.add_generator_balance_expression" title="Link to this definition"></a></dt>
+<dd><p>Build and append the generation balance expression for a given time and level.</p>
+<p>Computes the total power generated across all units for the specified
+time period and demand level, and appends it to <code class="docutils literal notranslate"><span class="pre">balance_array</span></code>.
+The result serves as the left-hand side of the system-level
+energy balance constraint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model containing generator sets and variables.</p></li>
+<li><p><strong>t</strong> (<em>Any</em>) – Time period index.</p></li>
+<li><p><strong>p</strong> (<em>Any</em>) – Load level index.</p></li>
+<li><p><strong>balance_array</strong> (<em>list</em><em> of </em><em>pyomo expressions</em>) – List to which the generation balance expression will be appended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same list, extended with the generation balance expression.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of pyomo expressions</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The balance expression is defined as:</p>
+<div class="math notranslate nohighlight">
+\[G_{bal}(t,p) = \sum_{g} P_{g,t,p}\]</div>
+<p>representing the total available generation at each period and load level.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorEquations.add_generator_cost_expression">
+<span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorEquations.</span></span><span class="sig-name descname"><span class="pre">add_generator_cost_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/MDI/Generator/GeneratorEquations.html#add_generator_cost_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorEquations.add_generator_cost_expression" title="Link to this definition"></a></dt>
+<dd><p>Build and append the generator cost expression to the provided list.</p>
+<p>This function constructs the total cost expression, including both
+operational and investment components, over all generators, time periods,
+and demand levels. The expression is appended to <code class="docutils literal notranslate"><span class="pre">cost_array</span></code> to allow
+aggregation with other subsystem costs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model containing generator-related sets, variables, and parameters.</p></li>
+<li><p><strong>cost_array</strong> (<em>list</em><em> of </em><em>pyomo expressions</em>) – List to which the total generator cost expression will be appended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same list, extended with the generator cost expression.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of pyomo expressions</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The total generation cost is defined as:</p>
+<div class="math notranslate nohighlight">
+\[C_{gen} =
+\sum_{g,t,p} h_p \, c^{op}_g \, P_{g,t,p}
++ \sum_{g,t} c^{inv}_g \, x_{g,t}\]</div>
+<p>where:
+- <span class="math notranslate nohighlight">\(h_p\)</span> is the duration (hours) of load level <span class="math notranslate nohighlight">\(p\)</span>;
+- <span class="math notranslate nohighlight">\(c^{op}_g\)</span> is the operational cost per MWh;
+- <span class="math notranslate nohighlight">\(c^{inv}_g\)</span> is the investment cost per MW;
+- <span class="math notranslate nohighlight">\(P_{g,t,p}\)</span> and <span class="math notranslate nohighlight">\(x_{g,t}\)</span> are decision variables.</p>
+<p>The resulting expression is symbolic and compatible with Pyomo objectives.</p>
+</dd></dl>
+
+</section>
+<section id="module-MDI.Generator.GeneratorObjectives">
+<span id="mdi-generator-generatorobjectives-module"></span><h2>MDI.Generator.GeneratorObjectives module<a class="headerlink" href="#module-MDI.Generator.GeneratorObjectives" title="Link to this heading"></a></h2>
+<section id="generator-objectives-module">
+<h3>Generator Objectives Module<a class="headerlink" href="#generator-objectives-module" title="Link to this heading"></a></h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="id14">
+<h4>Author<a class="headerlink" href="#id14" title="Link to this heading"></a></h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id15">
+<h4>Summary<a class="headerlink" href="#id15" title="Link to this heading"></a></h4>
+<p>This module defines the <strong>objective function</strong> for the generator
+subsystem within the MDI framework. The formulation represents the
+total operational and investment cost to be minimized across the
+planning horizon.</p>
+</section>
+<section id="id16">
+<h4>Description<a class="headerlink" href="#id16" title="Link to this heading"></a></h4>
+<p>The generator objective aggregates both the <strong>variable operating cost</strong>
+and the <strong>investment cost</strong> associated with generator units.
+The total objective function is defined as follows:</p>
+<p>[
+min_{P, x}
+; C_{gen} =
+sum_{g,t,p} ig( c^{op}_g , P_{g,t,p}
+;+;
+c^{inv}_g , x_{g,t} ig)
+]</p>
+<p>where:
+- (c^{op}_g) — variable operating cost of generator (g);
+- (c^{inv}_g) — investment cost of generator (g);
+- (P_{g,t,p}) — power generated by unit (g) at time (t) and load level (p);
+- (x_{g,t}) — binary or continuous variable indicating the generator’s active state.</p>
+<p>The resulting expression is assigned as a Pyomo <cite>Objective</cite> with sense
+<cite>minimize</cite>.</p>
+</section>
+<section id="id17">
+<h4>Functions<a class="headerlink" href="#id17" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>set_objective_generator(m)</dt><dd><p>Builds and attaches the total generator cost objective to the Pyomo model.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The objective expression is scalar and represents the sum of all
+operational and investment expenditures within the generator subsystem.</p></li>
+<li><p>All required variables and parameters must be defined in the model prior
+to calling this function.</p></li>
+<li><p>This formulation can be combined with additional objectives (e.g.,
+emissions minimization, reliability indices) within a multi-objective
+optimization framework.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL. <em>DESSEM — Manual de Metodologia</em>, 2023.
+[2] Unsihuay Vila, C. <em>Introdução aos Sistemas de Energia Elétrica</em>, Lecture Notes,</p>
+<blockquote>
+<div><p>EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+<section id="id18">
+<h4>Module Dependencies<a class="headerlink" href="#id18" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>Internal:</strong> Generator data and variable definitions.</p></li>
+<li><p><strong>External:</strong> <code class="docutils literal notranslate"><span class="pre">pyomo.environ</span></code> (Objective, minimize)</p></li>
+</ul>
+</section>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorObjectives.set_objective_generator">
+<span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorObjectives.</span></span><span class="sig-name descname"><span class="pre">set_objective_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MDI/Generator/GeneratorObjectives.html#set_objective_generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorObjectives.set_objective_generator" title="Link to this definition"></a></dt>
+<dd><p>Define and attach the generator cost minimization objective.</p>
+<p>Constructs the total cost function for the generator subsystem,
+including operational and investment costs, and registers it as
+a Pyomo objective with sense of minimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing generator sets, parameters,
+and decision variables.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model instance with an additional attribute <code class="docutils literal notranslate"><span class="pre">OBJ</span></code>
+representing the total generator cost objective.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The objective is mathematically defined as:</p>
+<div class="math notranslate nohighlight">
+\[\min_{P,x} C_{gen} =
+\sum_{g,t,p} ig( c^{op}_g \, P_{g,t,p}
++ c^{inv}_g \, x_{g,t} ig)\]</div>
+<p>This formulation captures both operational and investment costs
+across all generator units, time periods, and demand levels.</p>
+</dd></dl>
+
+</section>
+<section id="module-MDI.Generator.GeneratorVars">
+<span id="mdi-generator-generatorvars-module"></span><h2>MDI.Generator.GeneratorVars module<a class="headerlink" href="#module-MDI.Generator.GeneratorVars" title="Link to this heading"></a></h2>
+<section id="generator-variables-and-parameters-module">
+<h3>Generator Variables and Parameters Module<a class="headerlink" href="#generator-variables-and-parameters-module" title="Link to this heading"></a></h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="id19">
+<h4>Author<a class="headerlink" href="#id19" title="Link to this heading"></a></h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id20">
+<h4>Summary<a class="headerlink" href="#id20" title="Link to this heading"></a></h4>
+<p>This module defines the <strong>sets</strong>, <strong>parameters</strong>, and <strong>decision variables</strong>
+for the generator subsystem of the MDI optimization model.
+It provides the necessary data-to-model mapping between structured input
+(<cite>GeneratorData</cite>) and symbolic Pyomo model components.</p>
+</section>
+<section id="id21">
+<h4>Description<a class="headerlink" href="#id21" title="Link to this heading"></a></h4>
+<p>Two main functions are provided:</p>
+<ol class="arabic simple">
+<li><p><strong>`generator_add_sets_and_params()`</strong>
+Initializes all sets, mappings, and scalar parameters from structured
+input data. It ensures consistency between the data schema and the
+model’s symbolic representation.</p></li>
+<li><p><strong>`generator_add_variables()`</strong>
+Defines the Pyomo decision variables representing generation levels
+and investment states.</p></li>
+</ol>
+<p>The structure follows the standard formulation of generation expansion
+and operation problems, enabling full reproducibility and modular
+integration within larger system models.</p>
+</section>
+<section id="mathematical-representation">
+<h4>Mathematical Representation<a class="headerlink" href="#mathematical-representation" title="Link to this heading"></a></h4>
+<p><strong>Decision variables</strong></p>
+<p>[
+egin{align}
+P_{g,t,p} &amp;ge 0 &amp;quad&amp;        ext{Power generated by unit } g         ext{ at time } t,       ext{ level } p y_{g,t} &amp;in {0,1} &amp;quad&amp;    ext{Investment decision for unit } g    ext{ at time } t x_{g,t} &amp;in {0,1} &amp;quad&amp;    ext{Operational state (existing) of unit } g    ext{ at time } t
+end{align}
+]</p>
+<p><strong>Parameters</strong></p>
+<p>[
+egin{align}
+p^{max}_g &amp;:   ext{Maximum generation capacity of unit } g c^{op}_g &amp;:     ext{Variable operational cost of unit } g c^{inv}_g &amp;:    ext{Investment cost of unit } g </p>
+<blockquote>
+<div><p>ext{state}_g &amp;:         ext{Initial operational status (built or not)} </p>
+</div></blockquote>
+<p>h_p &amp;:  ext{Duration (hours) of demand level } p
+end{align}
+]</p>
+</section>
+<section id="id22">
+<h4>Functions<a class="headerlink" href="#id22" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>generator_add_sets_and_params(m, data)</dt><dd><p>Initializes all sets and parameters in the model based on structured input.</p>
+</dd>
+<dt>generator_add_variables(m)</dt><dd><p>Defines decision variables for generation, investment, and operational state.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The resulting model components are compliant with the naming conventions
+used throughout the MDI package.</p></li>
+<li><p>Demand values (<cite>m.d</cite>) are retained in their dictionary structure for
+compatibility with subsequent constraint and objective definitions.</p></li>
+<li><p>The binary variables <cite>gen_y</cite> and <cite>gen_x</cite> can be relaxed to continuous
+domains for convex approximations or LP relaxations.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL. <em>DESSEM — Manual de Metodologia</em>, 2023.
+[2] Unsihuay Vila, C. <em>Introdução aos Sistemas de Energia Elétrica</em>, Lecture Notes,</p>
+<blockquote>
+<div><p>EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+<section id="id23">
+<h4>Module Dependencies<a class="headerlink" href="#id23" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>Internal:</strong> <code class="docutils literal notranslate"><span class="pre">GeneratorDataTypes</span></code></p></li>
+<li><p><strong>External:</strong> <code class="docutils literal notranslate"><span class="pre">pyomo.environ</span></code> (RangeSet, Set, Param, Var, NonNegativeReals, Binary)</p></li>
+</ul>
+</section>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorVars.generator_add_sets_and_params">
+<span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorVars.</span></span><span class="sig-name descname"><span class="pre">generator_add_sets_and_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MDI.Generator.GeneratorDataTypes.GeneratorData" title="MDI.Generator.GeneratorDataTypes.GeneratorData"><span class="pre">GeneratorData</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/MDI/Generator/GeneratorVars.html#generator_add_sets_and_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorVars.generator_add_sets_and_params" title="Link to this definition"></a></dt>
+<dd><p>Initialize generator-related sets and parameters in the model.</p>
+<p>This function converts structured data into Pyomo components,
+including time, unit, and demand level sets, as well as the
+associated economic and technical parameters for each generator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance to which the sets and parameters will be added.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#MDI.Generator.GeneratorDataTypes.GeneratorData" title="MDI.Generator.GeneratorDataTypes.GeneratorData"><em>GeneratorData</em></a>) – Structured generator data object containing all relevant
+attributes (units, demand, horizon, and level hours).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The model with newly created sets, parameters, and demand data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The following components are created:</p>
+<ul class="simple">
+<li><p>Sets:
+- <code class="docutils literal notranslate"><span class="pre">T</span></code>: time periods (1..horizon)
+- <code class="docutils literal notranslate"><span class="pre">P</span></code>: load levels
+- <code class="docutils literal notranslate"><span class="pre">GU</span></code>: generator units</p></li>
+<li><p>Parameters:
+- <code class="docutils literal notranslate"><span class="pre">gen_pmax</span></code>: maximum generation capacity (MW)
+- <code class="docutils literal notranslate"><span class="pre">gen_c_op</span></code>: variable operational cost (R$/MWh)
+- <code class="docutils literal notranslate"><span class="pre">gen_c_inv</span></code>: investment cost (R$/MW)
+- <code class="docutils literal notranslate"><span class="pre">gen_state</span></code>: initial availability status (binary)
+- <code class="docutils literal notranslate"><span class="pre">level_hours</span></code>: duration of each load level (hours)</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorVars.generator_add_variables">
+<span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorVars.</span></span><span class="sig-name descname"><span class="pre">generator_add_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/MDI/Generator/GeneratorVars.html#generator_add_variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorVars.generator_add_variables" title="Link to this definition"></a></dt>
+<dd><p>Define decision variables for the generator subsystem.</p>
+<p>Creates Pyomo decision variables representing generation output,
+investment decisions, and cumulative operational existence for
+each generator, time period, and load level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing the sets previously defined
+by <code class="docutils literal notranslate"><span class="pre">generator_add_sets_and_params</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model, extended with generator-related decision variables.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The following variables are created:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gen_P[g,t,p]</span></code> — Power generated by unit <em>g</em> at time <em>t</em> and level <em>p</em> (MW).
+Domain: <span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gen_y[g,t]</span></code> — Binary investment decision (1 if built at <em>t</em>, 0 otherwise).
+Domain: <span class="math notranslate nohighlight">\(\{0,1\}\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gen_x[g,t]</span></code> — Binary variable representing existing or active capacity at <em>t</em>.
+Domain: <span class="math notranslate nohighlight">\(\{0,1\}\)</span></p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-MDI.Generator">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-MDI.Generator" title="Link to this heading"></a></h2>
+<section id="generator-subpackage">
+<h3>Generator Subpackage<a class="headerlink" href="#generator-subpackage" title="Link to this heading"></a></h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="id24">
+<h4>Author<a class="headerlink" href="#id24" title="Link to this heading"></a></h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id25">
+<h4>Summary<a class="headerlink" href="#id25" title="Link to this heading"></a></h4>
+<p>The <strong>Generator</strong> subpackage provides a complete and modular implementation of
+<strong>dispatchable generation units</strong> within the MDI (Modular Decision Infrastructure)
+framework, forming the core component of the operation and expansion
+planning model.</p>
+</section>
+<section id="id26">
+<h4>Description<a class="headerlink" href="#id26" title="Link to this heading"></a></h4>
+<p>This subpackage defines all necessary components to represent thermal and
+dispatchable generation systems in <strong>Pyomo</strong>, including data typing, variables,
+constraints, and objectives. It supports integration with storage and other
+energy technologies under a unified optimization environment.</p>
+</section>
+<section id="modules">
+<h4>Modules<a class="headerlink" href="#modules" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>GeneratorBuilder</dt><dd><p>High-level routines for constructing the generator subsystem model.</p>
+</dd>
+<dt>GeneratorDataTypes</dt><dd><p>Data classes describing generator unit parameters and data structures.</p>
+</dd>
+<dt>GeneratorEquations</dt><dd><p>Symbolic expressions for generator cost and balance aggregation.</p>
+</dd>
+<dt>GeneratorObjectives</dt><dd><p>Objective function for total generation cost minimization.</p>
+</dd>
+<dt>GeneratorVars</dt><dd><p>Sets, parameters, and decision variables declaration.</p>
+</dd>
+</dl>
+</section>
+<section id="structure-overview">
+<h4>Structure Overview<a class="headerlink" href="#structure-overview" title="Link to this heading"></a></h4>
+<p>The <cite>Generator</cite> subpackage follows a modular and pedagogical architecture,
+allowing incremental assembly and analysis of generation models.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeneratorData</span><span class="p">,</span> <span class="n">GeneratorUnit</span><span class="p">,</span> <span class="n">build_generators</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">GeneratorData</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">build_generators</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">include_objective</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="exports">
+<h4>Exports<a class="headerlink" href="#exports" title="Link to this heading"></a></h4>
+<p>This <cite>__init__.py</cite> file re-exports all relevant symbols to simplify
+namespace imports.
+Modules can be accessed individually or as a unified subsystem:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Generator</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Each component of the subpackage is fully compatible with <strong>Pyomo 6.x</strong>.</p></li>
+<li><p>Generation costs are modeled through both operational and investment terms.</p></li>
+<li><p>Units follow the SI convention (MW for power, monetary units for cost).</p></li>
+<li><p>The implementation is pedagogically aligned with the MDI methodology
+and CEPEL’s DESSEM conceptual framework.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL. <em>DESSEM — Manual de Metodologia</em>, 2023.
+[2] Unsihuay Vila, C. <em>Introdução aos Sistemas de Energia Elétrica</em>, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="MDI.html" class="btn btn-neutral float-left" title="MDI package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="MDI.Storage.html" class="btn btn-neutral float-right" title="MDI.Storage package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

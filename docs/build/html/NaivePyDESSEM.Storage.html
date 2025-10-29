@@ -42,9 +42,9 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="NaivePyDESSEM.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.html">NaivePyDESSEM.HydraulicGenerator package</a></li>
@@ -69,6 +69,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html">MDI package</a></li>
 </ul>
 </li>
 </ul>
@@ -87,7 +88,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">DESSEM/DECOMP/MDI</a></li>
           <li class="breadcrumb-item"><a href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
       <li class="breadcrumb-item active">NaivePyDESSEM.Storage package</li>
       <li class="wy-breadcrumbs-aside">
@@ -152,7 +153,7 @@ a storage-only system balance and adds a deficit-penalizing objective.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Target model to be updated.</p></li>
-<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><em>StorageData</em></a>) – Input container with horizon, units, and time-step duration.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="MDI.Storage.html#MDI.Storage.StorageDataTypes.StorageData" title="MDI.Storage.StorageDataTypes.StorageData"><em>StorageData</em></a>) – Input container with horizon, units, and time-step duration.</p></li>
 <li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, add the storage-only balance constraint and attach the
 deficit objective (default is <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p></li>
 </ul>
@@ -194,7 +195,7 @@ balance constraint and objective.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><em>StorageData</em></a>) – Input container with horizon, storage units, and time-step duration.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="MDI.Storage.html#MDI.Storage.StorageDataTypes.StorageData" title="MDI.Storage.StorageDataTypes.StorageData"><em>StorageData</em></a>) – Input container with horizon, storage units, and time-step duration.</p></li>
 <li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, add the storage-only balance constraint and attach the
 deficit objective (default is <code class="docutils literal notranslate"><span class="pre">True</span></code>).</p></li>
 </ul>
@@ -786,7 +787,7 @@ power limits, (dis)charging efficiencies, and the time-step duration.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Target model to be updated.</p></li>
-<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><em>StorageData</em></a>) – Input container with horizon, units, and <code class="docutils literal notranslate"><span class="pre">delta_t</span></code>.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="MDI.Storage.html#MDI.Storage.StorageDataTypes.StorageData" title="MDI.Storage.StorageDataTypes.StorageData"><em>StorageData</em></a>) – Input container with horizon, units, and <code class="docutils literal notranslate"><span class="pre">delta_t</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

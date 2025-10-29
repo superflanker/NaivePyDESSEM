@@ -1,0 +1,237 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MDI.ModelCheck &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">DESSEM/DECOMP/MDI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">MDI.ModelCheck</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for MDI.ModelCheck</h1><div class="highlight"><pre>
+<span></span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">ModelCheck Module</span>
+<span class="sd">=================</span>
+<span class="sd">EELT7030 — Operation and Expansion Planning of Electric Power Systems  </span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Summary</span>
+<span class="sd">-------</span>
+<span class="sd">The **ModelCheck** module provides lightweight structural verification</span>
+<span class="sd">utilities for **Pyomo ConcreteModel** instances within the</span>
+<span class="sd">**MDI (Modular Decision Infrastructure)** framework.</span>
+
+<span class="sd">Its purpose is to confirm the presence of essential attributes,</span>
+<span class="sd">sets, and variables that characterize generator and storage subsystems</span>
+<span class="sd">before performing downstream operations such as dispatch extraction</span>
+<span class="sd">or cost evaluation.</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">Model verification plays a crucial role in ensuring robustness</span>
+<span class="sd">and error prevention within modular optimization frameworks.</span>
+<span class="sd">These functions perform *non-invasive integrity checks* by verifying</span>
+<span class="sd">the existence of predefined attributes in the model object</span>
+<span class="sd">without altering its state.</span>
+
+<span class="sd">They are used extensively throughout post-processing routines</span>
+<span class="sd">(e.g., :mod:`Dataframes`) to guarantee that operations are executed</span>
+<span class="sd">only if the corresponding subsystem is present and properly defined.</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">has_generator_model(model)</span>
+<span class="sd">    Verifies whether the provided model instance contains all</span>
+<span class="sd">    mandatory components of a generator subsystem, including sets</span>
+<span class="sd">    and decision variables for generation, commitment, and investment.</span>
+
+<span class="sd">has_storage_model(model)</span>
+<span class="sd">    Checks whether the model instance includes all necessary</span>
+<span class="sd">    structures to represent an energy storage subsystem,</span>
+<span class="sd">    including energy balance, charge/discharge, and state-of-charge</span>
+<span class="sd">    variables.</span>
+
+<span class="sd">Usage Example</span>
+<span class="sd">-------------</span>
+<span class="sd">&gt;&gt;&gt; from MDI.ModelCheck import has_generator_model, has_storage_model</span>
+<span class="sd">&gt;&gt;&gt; from pyomo.environ import ConcreteModel</span>
+<span class="sd">&gt;&gt;&gt; m = ConcreteModel()</span>
+<span class="sd">&gt;&gt;&gt; has_generator_model(m)</span>
+<span class="sd">False</span>
+<span class="sd">&gt;&gt;&gt; # After adding generator sets and variables</span>
+<span class="sd">&gt;&gt;&gt; has_generator_model(m)</span>
+<span class="sd">True</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- Designed for structural validation only (no numerical evaluation).  </span>
+<span class="sd">- Returns boolean values indicating model completeness.  </span>
+<span class="sd">- Compatible with **Pyomo ≥ 6.6.0**.  </span>
+<span class="sd">- Used internally by data extraction, reporting, and consistency</span>
+<span class="sd">  modules across the MDI framework.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023  </span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span>
+
+
+<div class="viewcode-block" id="has_generator_model">
+<a class="viewcode-back" href="../../MDI.html#MDI.ModelCheck.has_generator_model">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">has_generator_model</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check whether the given Pyomo model contains all components of a geerator subsystem.</span>
+
+<span class="sd">    This function verifies the presence of essential attributes associated with</span>
+<span class="sd">    hydropower modeling, including sets and variables related to generation,</span>
+<span class="sd">    volume, flow, and spillage.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        The Pyomo model instance to be validated.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool</span>
+<span class="sd">        True if all required hydro components are present, False otherwise.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">required</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;GU&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gen_P&#39;</span><span class="p">,</span> <span class="s1">&#39;gen_c_op&#39;</span><span class="p">,</span> <span class="s1">&#39;gen_c_inv&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gen_y&#39;</span><span class="p">,</span> <span class="s1">&#39;gen_x&#39;</span>
+    <span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+<div class="viewcode-block" id="has_storage_model">
+<a class="viewcode-back" href="../../MDI.html#MDI.ModelCheck.has_storage_model">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">has_storage_model</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check whether the given Pyomo model contains all components of a storage subsystem.</span>
+
+<span class="sd">    This function ensures that charging, discharging, and state-of-charge variables</span>
+<span class="sd">    are defined for energy storage modeling.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        The Pyomo model instance to be validated.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool</span>
+<span class="sd">        True if all required storage components are present, False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">required</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;SU&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_dis&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_ch&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_E&#39;</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -39,9 +39,9 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">DESSEM/DECOMP/MDI</a></li>
 </ul>
 
         </div>
@@ -202,7 +202,7 @@
         <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">hydro_S</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.0</span>
 
     <span class="n">m</span><span class="o">.</span><span class="n">hydro_volume_balance_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">HG</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_vol_rule</span><span class="p">)</span>
-    <span class="n">m</span><span class="o">.</span><span class="n">hydro_spillage_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">HG</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_min_s_rule</span><span class="p">)</span>
+    <span class="c1"># m.hydro_spillage_constraint = Constraint(m.HG, m.T, rule=_min_s_rule)</span>
     <span class="k">return</span> <span class="n">m</span></div>
 
 </pre></div>

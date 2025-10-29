@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MDI.DataFrames &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">DESSEM/DECOMP/MDI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">MDI.DataFrames</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for MDI.DataFrames</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Dataframes Module</span>
+<span class="sd">=================</span>
+<span class="sd">EELT7030 — Operation and Expansion Planning of Electric Power Systems  </span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Summary</span>
+<span class="sd">-------</span>
+<span class="sd">The **Dataframes** module provides structured routines for converting</span>
+<span class="sd">optimization results from **Pyomo** models into analytical **pandas DataFrames**.</span>
+<span class="sd">It enables direct visualization and statistical evaluation of dispatch,</span>
+<span class="sd">cost, and marginal values from the **MDI (Modular Decision Infrastructure)** framework.</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">This module acts as a post-processing interface between the optimization</span>
+<span class="sd">model and external data analysis tools. It extracts primal and dual</span>
+<span class="sd">values from the **Pyomo ConcreteModel**, computes derived indicators</span>
+<span class="sd">(e.g., marginal operation cost), and organizes the results into tabular</span>
+<span class="sd">form suitable for export to spreadsheets, CSV, or visualization software.</span>
+
+<span class="sd">Each function contributes a layer of semantic enrichment to the resulting</span>
+<span class="sd">dataset, corresponding to a subsystem (generation, storage, cost structure).</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">add_generator_dispatch_to_dataframe(df, model)</span>
+<span class="sd">    Extracts generator dispatch, commitment, and investment variables</span>
+<span class="sd">    from the model and appends them to the provided DataFrame.</span>
+
+<span class="sd">add_storage_dispatch_to_dataframe(df, model)</span>
+<span class="sd">    Extracts storage charge/discharge behavior, state of charge, and</span>
+<span class="sd">    investment decisions from the model and appends them to the DataFrame.</span>
+
+<span class="sd">add_cost_to_dataframe(df, model)</span>
+<span class="sd">    Computes total operating and investment costs, as well as marginal</span>
+<span class="sd">    prices such as CMO (Custo Marginal de Operação) and CME (Custo Marginal</span>
+<span class="sd">    de Expansão). Adds these metrics as new columns to the DataFrame.</span>
+
+<span class="sd">build_dispatch_dataframe(model)</span>
+<span class="sd">    High-level routine that sequentially aggregates generator, storage,</span>
+<span class="sd">    and cost data into a single unified DataFrame.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- Requires **pandas ≥ 2.0.0** and **Pyomo ≥ 6.6.0**.  </span>
+<span class="sd">- All numerical values are retrieved through `pyomo.environ.value()`.  </span>
+<span class="sd">- Dual values must be available (i.e., model must have been solved</span>
+<span class="sd">  with a solver that supports dual variable extraction).  </span>
+<span class="sd">- The notation `CMO` and `CME` corresponds respectively to:</span>
+<span class="sd">  - *Custo Marginal de Operação* — derived from balance constraints.</span>
+<span class="sd">  - *Custo Marginal de Expansão* — derived from adequacy constraints.  </span>
+<span class="sd">- Column naming conventions are consistent with the MDI’s export structure</span>
+<span class="sd">  for integration with visualization dashboards and academic reports.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DESSEM. Manual de Metodologia, 2023  </span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">value</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ModelCheck</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+
+<div class="viewcode-block" id="add_generator_dispatch_to_dataframe">
+<a class="viewcode-back" href="../../MDI.html#MDI.DataFrames.add_generator_dispatch_to_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_generator_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                                        <span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append generator dispatch results to a pandas DataFrame.</span>
+
+<span class="sd">    This function extracts the turbined flow, storage volume, hydropower</span>
+<span class="sd">    generation, and spillage from a Pyomo model and appends them to the</span>
+<span class="sd">    given DataFrame, one column per unit and variable.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The DataFrame to which the results will be appended. It may be empty.</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        A Pyomo model instance containing hydropower variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        The updated DataFrame including hydropower dispatch results.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">has_generator_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">GU</span><span class="p">)</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">P</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">P</span><span class="p">:</span>
+                <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;G_</span><span class="se">{{{{</span><span class="s1">g_</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="se">}}{{</span><span class="s1">p_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="se">}}}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">gen_P</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Y_</span><span class="se">{{</span><span class="s1">g_</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">gen_y</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;X_</span><span class="se">{{</span><span class="s1">g_</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">gen_x</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="add_storage_dispatch_to_dataframe">
+<a class="viewcode-back" href="../../MDI.html#MDI.DataFrames.add_storage_dispatch_to_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_storage_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                                      <span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append storage dispatch results to a pandas DataFrame.</span>
+
+<span class="sd">    This function extracts charging, discharging, net output,</span>
+<span class="sd">    and state of charge (SoC) values from the Pyomo model and</span>
+<span class="sd">    adds them as columns to the DataFrame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The DataFrame to which the results will be appended.</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        A Pyomo model instance containing storage unit variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        The updated DataFrame including storage dispatch results.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">has_storage_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">SU</span><span class="p">)</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">P</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">S</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">P</span><span class="p">:</span>
+                <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;D_</span><span class="se">{{{{</span><span class="s1">s_</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="se">}}{{</span><span class="s1">p_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="se">}}}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+                <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;C_</span><span class="se">{{{{</span><span class="s1">s_</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="se">}}{{</span><span class="s1">p_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="se">}}}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="o">-</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+                <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;G_</span><span class="se">{{{{</span><span class="s1">s_</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="se">}}{{</span><span class="s1">p_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="se">}}}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+                <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;E_</span><span class="se">{{{{</span><span class="s1">s_</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="se">}}{{</span><span class="s1">p_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="se">}}}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">storage_E</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Y_</span><span class="se">{{</span><span class="s1">b_</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">gen_y</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;X_</span><span class="se">{{</span><span class="s1">b_</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">gen_x</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="add_cost_to_dataframe">
+<a class="viewcode-back" href="../../MDI.html#MDI.DataFrames.add_cost_to_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_cost_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                          <span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append cost components and total demand/deficit to the DataFrame.</span>
+
+<span class="sd">    This function computes and appends the variable generation cost,</span>
+<span class="sd">    startup cost, deficit cost, and total cost per time period.</span>
+<span class="sd">    It also includes total generation, demand, and deficit series.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The DataFrame to which cost components will be appended.</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        A Pyomo model instance with thermal and system-wide cost variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        The updated DataFrame including cost components and energy balance data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_average_CMO</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Retorna um dicionário com o CMO médio ponderado por patamar.&quot;&quot;&quot;</span>
+        <span class="n">avg_CMO</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">total_hours</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">level_hours</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">P</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
+            <span class="n">weighted_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">dual</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">Balance</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">level_hours</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">P</span><span class="p">)</span>
+            <span class="n">avg_CMO</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">weighted_sum</span> <span class="o">/</span> <span class="n">total_hours</span>
+
+        <span class="k">return</span> <span class="n">avg_CMO</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_average_CME</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">avg_CME</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">dual</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">Adequacy</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">avg_CME</span>
+    
+    <span class="n">T</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="n">P</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">P</span><span class="p">)</span>
+
+    <span class="n">generator_generation</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">P</span><span class="p">}</span>
+
+    <span class="n">storage_generation</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">P</span><span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">has_generator_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">P</span><span class="p">:</span>
+            <span class="n">generator_generation</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">gen_P</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">])</span>
+                                           <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">GU</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">has_storage_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">P</span><span class="p">:</span>
+            <span class="n">storage_generation</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+                                               <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+                                         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">SU</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
+    <span class="c1"># Totais por período e patamar</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">P</span><span class="p">:</span>
+
+        <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Ge_</span><span class="se">{{</span><span class="s1">Total</span><span class="se">}}</span><span class="s1">_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">generator_generation</span><span class="p">[</span><span class="n">p</span><span class="p">],</span>
+                                                         <span class="n">storage_generation</span><span class="p">[</span><span class="n">p</span><span class="p">])]</span>
+
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Demand&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+
+    <span class="n">cost_var</span><span class="p">,</span> <span class="n">cost_inv</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="c1"># Custos por período (se possível)</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">GU</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">:</span>
+        <span class="n">cost_var_t</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">cost_inv_t</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">has_storage_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+            <span class="n">cost_var_t</span> <span class="o">+=</span> <span class="n">value</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span>
+                <span class="c1"># Custo de operação (por energia movimentada)</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">level_hours</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">storage_c_op</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span>
+                    <span class="n">model</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">SU</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">P</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="n">cost_inv_t</span> <span class="o">+=</span> <span class="n">value</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">storage_c_inv</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
+                                <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">storage_x</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">SU</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">has_generator_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+            <span class="n">cost_var_t</span> <span class="o">+=</span> <span class="n">value</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">level_hours</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">gen_c_op</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">gen_P</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">GU</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">P</span><span class="p">))</span>
+            
+            <span class="n">cost_inv_t</span> <span class="o">+=</span> <span class="n">value</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">gen_c_inv</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">gen_x</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">GU</span><span class="p">))</span>
+        <span class="n">cost_var</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cost_var_t</span><span class="p">)</span>
+        <span class="n">cost_inv</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cost_inv_t</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cost_</span><span class="si">{var}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_var</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cost_</span><span class="si">{inv}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_inv</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;CMO&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">compute_average_CMO</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;CME&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">compute_average_CME</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="build_dispatch_dataframe">
+<a class="viewcode-back" href="../../MDI.html#MDI.DataFrames.build_dispatch_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_dispatch_dataframe</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build a full dispatch DataFrame with generation, cost, and balance data.</span>
+
+<span class="sd">    This function aggregates the dispatch results from all subsystems</span>
+<span class="sd">    (hydropower, thermal, renewable, storage) along with cost components</span>
+<span class="sd">    into a single structured pandas DataFrame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        A Pyomo model instance containing subsystem variables and time horizon.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        A DataFrame with all relevant dispatch results and economic metrics.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">add_storage_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">add_generator_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">add_cost_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

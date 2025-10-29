@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MDI.Generator.GeneratorVars &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">DESSEM/DECOMP/MDI</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">MDI.Generator.GeneratorVars</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for MDI.Generator.GeneratorVars</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Generator Variables and Parameters Module</span>
+<span class="sd">=========================================</span>
+<span class="sd">EELT7030 — Operation and Expansion Planning of Electric Power Systems  </span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Summary</span>
+<span class="sd">-------</span>
+<span class="sd">This module defines the **sets**, **parameters**, and **decision variables**</span>
+<span class="sd">for the generator subsystem of the MDI optimization model.  </span>
+<span class="sd">It provides the necessary data-to-model mapping between structured input</span>
+<span class="sd">(`GeneratorData`) and symbolic Pyomo model components.</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">Two main functions are provided:</span>
+
+<span class="sd">1. **`generator_add_sets_and_params()`**  </span>
+<span class="sd">   Initializes all sets, mappings, and scalar parameters from structured</span>
+<span class="sd">   input data. It ensures consistency between the data schema and the</span>
+<span class="sd">   model’s symbolic representation.</span>
+
+<span class="sd">2. **`generator_add_variables()`**  </span>
+<span class="sd">   Defines the Pyomo decision variables representing generation levels</span>
+<span class="sd">   and investment states.</span>
+
+<span class="sd">The structure follows the standard formulation of generation expansion</span>
+<span class="sd">and operation problems, enabling full reproducibility and modular</span>
+<span class="sd">integration within larger system models.</span>
+
+<span class="sd">Mathematical Representation</span>
+<span class="sd">----------------------------</span>
+<span class="sd">**Decision variables**</span>
+
+<span class="sd">\[</span>
+<span class="sd">\begin{align}</span>
+<span class="sd">P_{g,t,p} &amp;\ge 0 &amp;\quad&amp; \text{Power generated by unit } g \text{ at time } t, \text{ level } p \\</span>
+<span class="sd">y_{g,t} &amp;\in \{0,1\} &amp;\quad&amp; \text{Investment decision for unit } g \text{ at time } t \\</span>
+<span class="sd">x_{g,t} &amp;\in \{0,1\} &amp;\quad&amp; \text{Operational state (existing) of unit } g \text{ at time } t</span>
+<span class="sd">\end{align}</span>
+<span class="sd">\]</span>
+
+<span class="sd">**Parameters**</span>
+
+<span class="sd">\[</span>
+<span class="sd">\begin{align}</span>
+<span class="sd">p^{\max}_g &amp;: \text{Maximum generation capacity of unit } g \\</span>
+<span class="sd">c^{op}_g &amp;: \text{Variable operational cost of unit } g \\</span>
+<span class="sd">c^{inv}_g &amp;: \text{Investment cost of unit } g \\</span>
+<span class="sd">\text{state}_g &amp;: \text{Initial operational status (built or not)} \\</span>
+<span class="sd">h_p &amp;: \text{Duration (hours) of demand level } p</span>
+<span class="sd">\end{align}</span>
+<span class="sd">\]</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">generator_add_sets_and_params(m, data)</span>
+<span class="sd">    Initializes all sets and parameters in the model based on structured input.</span>
+
+<span class="sd">generator_add_variables(m)</span>
+<span class="sd">    Defines decision variables for generation, investment, and operational state.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- The resulting model components are compliant with the naming conventions</span>
+<span class="sd">  used throughout the MDI package.</span>
+<span class="sd">- Demand values (`m.d`) are retained in their dictionary structure for</span>
+<span class="sd">  compatibility with subsequent constraint and objective definitions.</span>
+<span class="sd">- The binary variables `gen_y` and `gen_x` can be relaxed to continuous</span>
+<span class="sd">  domains for convex approximations or LP relaxations.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL. *DESSEM — Manual de Metodologia*, 2023.  </span>
+<span class="sd">[2] Unsihuay Vila, C. *Introdução aos Sistemas de Energia Elétrica*, Lecture Notes,</span>
+<span class="sd">    EELT7030/UFPR, 2023.</span>
+
+<span class="sd">Module Dependencies</span>
+<span class="sd">-------------------</span>
+<span class="sd">- **Internal:** ``GeneratorDataTypes``  </span>
+<span class="sd">- **External:** ``pyomo.environ`` (RangeSet, Set, Param, Var, NonNegativeReals, Binary)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">RangeSet</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Param</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span> <span class="n">NonNegativeReals</span><span class="p">,</span> <span class="n">Binary</span><span class="p">,</span> <span class="n">ConcreteModel</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.GeneratorDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeneratorData</span>
+
+
+<div class="viewcode-block" id="generator_add_sets_and_params">
+<a class="viewcode-back" href="../../../MDI.Generator.html#MDI.Generator.GeneratorVars.generator_add_sets_and_params">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">generator_add_sets_and_params</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span>
+                                  <span class="n">data</span><span class="p">:</span> <span class="n">GeneratorData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize generator-related sets and parameters in the model.</span>
+
+<span class="sd">    This function converts structured data into Pyomo components,</span>
+<span class="sd">    including time, unit, and demand level sets, as well as the</span>
+<span class="sd">    associated economic and technical parameters for each generator.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model instance to which the sets and parameters will be added.</span>
+<span class="sd">    data : GeneratorData</span>
+<span class="sd">        Structured generator data object containing all relevant</span>
+<span class="sd">        attributes (units, demand, horizon, and level hours).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The model with newly created sets, parameters, and demand data.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The following components are created:</span>
+
+<span class="sd">    - Sets:</span>
+<span class="sd">      - ``T``: time periods (1..horizon)</span>
+<span class="sd">      - ``P``: load levels</span>
+<span class="sd">      - ``GU``: generator units</span>
+
+<span class="sd">    - Parameters:</span>
+<span class="sd">      - ``gen_pmax``: maximum generation capacity (MW)</span>
+<span class="sd">      - ``gen_c_op``: variable operational cost (R$/MWh)</span>
+<span class="sd">      - ``gen_c_inv``: investment cost (R$/MW)</span>
+<span class="sd">      - ``gen_state``: initial availability status (binary)</span>
+<span class="sd">      - ``level_hours``: duration of each load level (hours)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Horizon and base collections</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">horizon</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">demand</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">level_hours</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">level_hours</span>
+
+    <span class="c1"># Time, units, and load-level sets</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">RangeSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">P</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;level_hours&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">level_hours</span> <span class="o">=</span> <span class="n">level_hours</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">GU</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">U</span><span class="p">)</span>  <span class="c1"># Generator Units</span>
+
+    <span class="c1"># Demand data (non-symbolic dictionary structure)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">):</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">demand</span>
+
+    <span class="c1"># Generator parameters</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">gen_pmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">p_max</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">})</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">gen_c_op</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">c_op</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">})</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">gen_c_inv</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">c_inv</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">})</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">gen_state</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">state</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+<div class="viewcode-block" id="generator_add_variables">
+<a class="viewcode-back" href="../../../MDI.Generator.html#MDI.Generator.GeneratorVars.generator_add_variables">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">generator_add_variables</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define decision variables for the generator subsystem.</span>
+
+<span class="sd">    Creates Pyomo decision variables representing generation output,</span>
+<span class="sd">    investment decisions, and cumulative operational existence for</span>
+<span class="sd">    each generator, time period, and load level.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model instance containing the sets previously defined</span>
+<span class="sd">        by ``generator_add_sets_and_params``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model, extended with generator-related decision variables.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The following variables are created:</span>
+
+<span class="sd">    - ``gen_P[g,t,p]`` — Power generated by unit *g* at time *t* and level *p* (MW).  </span>
+<span class="sd">      Domain: :math:`\\mathbb{R}_+`</span>
+
+<span class="sd">    - ``gen_y[g,t]`` — Binary investment decision (1 if built at *t*, 0 otherwise).  </span>
+<span class="sd">      Domain: :math:`\\{0,1\\}`</span>
+
+<span class="sd">    - ``gen_x[g,t]`` — Binary variable representing existing or active capacity at *t*.  </span>
+<span class="sd">      Domain: :math:`\\{0,1\\}`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Generated power by unit, time, and level</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">gen_P</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
+
+    <span class="c1"># Binary investment and operational decision variables</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">gen_y</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">)</span>  <span class="c1"># investment decision</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">gen_x</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">Binary</span><span class="p">)</span>  <span class="c1"># cumulative existence</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

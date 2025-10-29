@@ -42,9 +42,9 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="NaivePyDECOMP.html#subpackages">Subpackages</a><ul class="current">
@@ -72,6 +72,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html">MDI package</a></li>
 </ul>
 </li>
 </ul>
@@ -90,7 +91,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">NaivePyDESSEM and NaivePyDECOMP</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">DESSEM/DECOMP/MDI</a></li>
           <li class="breadcrumb-item"><a href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
       <li class="breadcrumb-item active">NaivePyDECOMP.HydraulicGenerator package</li>
       <li class="wy-breadcrumbs-aside">
@@ -338,12 +339,6 @@ Default is <code class="docutils literal notranslate"><span class="pre">True</sp
 </ul>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>The presence and interpretation of the optional vectors (<code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>,
-<code class="docutils literal notranslate"><span class="pre">rho</span></code>, <code class="docutils literal notranslate"><span class="pre">losses</span></code>) are <strong>model-dependent</strong> and only take effect if
-the consuming code uses them for the selected <code class="docutils literal notranslate"><span class="pre">mode</span></code>.</p></li>
-</ul>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Qmax">
 <span class="sig-name descname"><span class="pre">Qmax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Qmax" title="Link to this definition"></a></dt>
@@ -520,7 +515,7 @@ cost-minimization objective.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model to which the hydropower problem will be added.</p></li>
-<li><p><strong>data</strong> (<a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.html#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data object containing planning horizon, demand mapping,
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data object containing planning horizon, demand mapping,
 unit definitions, inflows, storage bounds, and productivity
 coefficients.</p></li>
 <li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, add the system-wide demand balance and deficit-penalizing
@@ -535,33 +530,6 @@ constraints, and optionally the objective.</p>
 <dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><dl class="simple">
-<dt>Constraints added:</dt><dd><ul>
-<li><p>Hydropower generation equation (FPH-based)</p></li>
-<li><p>Minimum/maximum turbined flow</p></li>
-<li><p>Reservoir volume balance (continuity)</p></li>
-<li><p>Minimum/maximum storage limits</p></li>
-<li><p>Terminal storage requirement</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><p>If include_objective=True, the system-wide balance constraint and
-the hydropower objective (deficit + spill penalty) are attached.</p></li>
-<li><p>This builder targets <strong>pure hydropower</strong> systems; for mixed
-hydrothermal systems, a combined balance and objective should be
-used instead.</p></li>
-</ul>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">add_hydro_problem</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">include_objective</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-<span class="go">&lt;class &#39;pyomo.core.base.PyomoModel.ConcreteModel&#39;&gt;</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="py function">
@@ -577,7 +545,7 @@ cost-minimization objective.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model to which the hydropower problem will be added.</p></li>
-<li><p><strong>data</strong> (<a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.html#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data object containing planning horizon, demand mapping,
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data object containing planning horizon, demand mapping,
 unit definitions, inflows, storage bounds, and productivity
 coefficients.</p></li>
 <li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, add the system-wide demand balance and deficit-penalizing
@@ -592,33 +560,6 @@ constraints, and optionally the objective.</p>
 <dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
 </dd>
 </dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><dl class="simple">
-<dt>Constraints added:</dt><dd><ul>
-<li><p>Hydropower generation equation (FPH-based)</p></li>
-<li><p>Minimum/maximum turbined flow</p></li>
-<li><p>Reservoir volume balance (continuity)</p></li>
-<li><p>Minimum/maximum storage limits</p></li>
-<li><p>Terminal storage requirement</p></li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><p>If include_objective=True, the system-wide balance constraint and
-the hydropower objective (deficit + spill penalty) are attached.</p></li>
-<li><p>This builder targets <strong>pure hydropower</strong> systems; for mixed
-hydrothermal systems, a combined balance and objective should be
-used instead.</p></li>
-</ul>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">add_hydro_problem</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">include_objective</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-<span class="go">&lt;class &#39;pyomo.core.base.PyomoModel.ConcreteModel&#39;&gt;</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="py function">
@@ -633,7 +574,7 @@ the signature FPH(Q, V, S) =&gt; MW.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>pyomo.core.base.PyomoModel.ConcreteModel</em>) – Pyomo model into which the FPH callables will be attached.</p></li>
-<li><p><strong>data</strong> (<a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.html#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Configuration object containing unit maps and modes</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Configuration object containing unit maps and modes</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -663,7 +604,7 @@ Qmin/Qmax, volume bounds, terminal storage target</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.html#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data with horizon, demand, unit map, and conversion constants.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data with horizon, demand, unit map, and conversion constants.</p></li>
 <li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, add the hydropower balance constraint and define the
 objective function. Default is True.</p></li>
 </ul>
@@ -782,7 +723,7 @@ from the <code class="docutils literal notranslate"><span class="pre">HydraulicD
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>pyomo.core.base.PyomoModel.ConcreteModel</em>) – Target Pyomo model to be populated with sets and parameters.</p></li>
-<li><p><strong>data</strong> (<a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.html#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data object with planning horizon, demand mapping, and the
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data object with planning horizon, demand mapping, and the
 dictionary of hydropower units.</p></li>
 </ul>
 </dd>

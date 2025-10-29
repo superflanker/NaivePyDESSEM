@@ -1,4 +1,4 @@
-# NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo (DESSEM + DECOMP like solvers).
+# NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo (DESSEM + DECOMP + MDI like solvers).
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![CI](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml/badge.svg)](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml)
 [![Docs](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/docs.yml/badge.svg)](https://superflanker.github.io/NaivePyDESSEM/)
@@ -8,6 +8,7 @@
 
 - **NaivePyDESSEM** — inspired by DESSEM, it models the **short-term** (daily/hourly) operation with detailed individual plant representation.  
 - **NaivePyDECOMP** — inspired by DECOMP, it models the **medium-term** (weekly/monthly) operation with deterministic dual dynamic programming (PDDD).  
+- **MDI** — Generation Expansion Planning inspired by **MDI** methodology.
 
 Both are implemented in **Pyomo**, with modular architecture and integrated documentation via Sphinx.
 
@@ -15,7 +16,7 @@ Both are implemented in **Pyomo**, with modular architecture and integrated docu
 
 ## 🔍 Overview
 
-This project replicates key concepts of the **DESSEM** and **DECOMP** methodologies, covering hybrid economic dispatch problems involving thermal, hydro, renewable, and storage units.
+This project replicates key concepts of the **DESSEM**, **DECOMP** and **MDI** methodologies, covering hybrid economic dispatch problems involving thermal, hydro, renewable, and storage units.
 
 The goal is to provide a **clean teaching tool** for courses such as *EELT 7030 — Operation and Expansion Planning of Electric Power Systems*.
 
@@ -33,6 +34,10 @@ The goal is to provide a **clean teaching tool** for courses such as *EELT 7030 
   - Simplified thermal representation (Gmin, Gmax, Cost).  
   - Hydros aggregated into REEs with constant productivity.  
   - Supports **single LP** or **Deterministic Dual Dynamic Programming (PDDD)**.  
+
+  **MDI**
+  - Generation Expansion Planning using Mixed Integer Linear Programing (MILP)
+  - Simplified Generation Representation
 
 - Shared features:  
   - Modular equation/constraint builders.  
@@ -89,6 +94,38 @@ The goal is to provide a **clean teaching tool** for courses such as *EELT 7030 
 │       ├── despacho_caso04.csv
 │       └── despacho_caso05.csv
 ├── src
+│   ├── MDI
+│   │   ├── cli
+│   │   │   ├── __init__.py
+│   │   │   ├── cli.py
+│   │   │   └── plot_cli.py
+│   │   ├── Generator
+│   │   │   ├── __init__.py
+│   │   │   ├── GeneratorBuilder.py
+│   │   │   ├── GeneratorConstraints.py
+│   │   │   ├── GeneratorDataTypes.py
+│   │   │   ├── GeneratorEquations.py
+│   │   │   ├── GeneratorObjectives.py
+│   │   │   └── GeneratorVars.py
+│   │   ├── Storage
+│   │   │   ├── __init__.py
+│   │   │   ├── StorageBuilder.py
+│   │   │   ├── StorageConstraints.py
+│   │   │   ├── StorageDataTypes.py
+│   │   │   ├── StorageEquations.py
+│   │   │   ├── StorageObjective.py
+│   │   │   └── StorageVars.py
+│   │   ├── __init__.py
+│   │   ├── Builder.py
+│   │   ├── DataFrames.py
+│   │   ├── Formatters.py
+│   │   ├── ModelCheck.py
+│   │   ├── ModelFormatters.py
+│   │   ├── PlotSeries.py
+│   │   ├── Reporting.py
+│   │   ├── Solver.py
+│   │   ├── Utils.py
+│   │   └── YAMLLoader.py
 │   ├── NaivePyDECOMP
 │   │   ├── cli
 │   │   │   ├── __init__.py
@@ -268,6 +305,12 @@ Using PDDD:
 pydecomp-pddsolve path/to/case.yaml --out_dir results/ --out_file dispatch.csv
 ```
 
+**MDI Like Generation Expansion Planning**
+
+```bash
+mdi-solve path/to/case.yaml --out_dir results/ --out_file dispatch.csv
+```
+
 
 ### Plotting results
 
@@ -279,9 +322,13 @@ pydessem-plot results/dispatch.csv --mode plot --category G V --plot-style line
 pydecomp-plot results/dispatch.csv --mode plot --category G V --plot-style line
 ```
 
+```bash
+mdi-plot results/dispatch.csv --mode plot --category G --plot-style line
+```
+
 ## 📄 References
 
-This implementation is based on academic material from **UFPR (Federal University of Paraná)** and CEPEL/DESSEM manuals:
+This implementation is based on academic material from **UFPR (Federal University of Paraná)** and CEPEL/DESSEM/MDI manuals:
 
 - Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 - CEPEL, DESSEM. Manual de Metodologia, 2023.  
@@ -302,7 +349,7 @@ If you use **NaivePyDessem** in teaching or research, please cite:
 ```bibtex
 @misc{adams2025pydessem,
   author    = {Augusto Mathias Adams},
-  title     = {NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo (DESSEM + DECOMP like solvers)},
+  title     = {NaivePyDESSEM - A pedagogical and modular economic dispatch solver based on Pyomo (DESSEM + DECOMP + MDI like solvers)},
   year      = {2025},
   howpublished = {\url{https://github.com/superflanker/NaivePyDESSEM}}
 }
