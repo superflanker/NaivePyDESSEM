@@ -81,7 +81,7 @@ def print_welcome_message(model: ConcreteModel, case: Dict) -> None:
 
 def model_properties(case: Dict) -> None:
     """
-    Print a concise list of subsystems included in the case (hydro, thermal, etc.).
+    Print a concise list of subsystems included in the case (generator, thermal, etc.).
 
     Parameters
     ----------
@@ -120,16 +120,16 @@ def format_models(case: Dict) -> None:
 
 def format_generator_model(case: Dict) -> None:
     """
-    Print formatted information for each hydropower unit.
+    Print formatted information for each generator power unit.
 
     Parameters
     ----------
     case : dict
-        Dictionary containing 'hydro' section with unit definitions.
+        Dictionary containing 'generator' section with unit definitions.
     """
-    generator = case.get('hydro', {})
+    generator = case.get('generator', {})
     generator_units = generator.get('units', {})
-    if len(GeneratorExit) > 0:
+    if len(generator_units) > 0:
         print(f"{Fore.MAGENTA}{Style.BRIGHT}" + "=" * 70)
         print(f"{Fore.YELLOW}Generator Units\n")
 
@@ -139,6 +139,10 @@ def format_generator_model(case: Dict) -> None:
             c_op = u.get("c_op", 0.0)
             c_inv = u.get("c_inv", 0.0)
             p_max = u.get("p_max", 0.0)
+            if state == 0:
+                state = "Candidate"
+            else:
+                state = "Existing"
             print(
                 f"      {Fore.BLUE}  Parameter: {Fore.CYAN}State, {Fore.BLUE} Value: {Fore.CYAN}{state} ")
             print(
@@ -178,7 +182,7 @@ def format_storage_model(case: Dict) -> None:
             if state == 0:
                 state = "Candidate"
             else:
-                state = "Installed"
+                state = "Existing"
 
             print(
                 f"      {Fore.BLUE}  Parameter: {Fore.CYAN}State, {Fore.BLUE} Value: {Fore.CYAN}{state} ")

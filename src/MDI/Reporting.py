@@ -135,7 +135,7 @@ def dispatch_summary(model: ConcreteModel) -> None:
     print(f"\n{Fore.MAGENTA}{Style.BRIGHT}==================== EXPANSION SUMMARY ===================={Style.RESET_ALL}")
     total_generation = __compute_total_generation(model)
     print(f"  {Fore.CYAN}Total Generation{Style.RESET_ALL}: {Fore.RED}{total_generation:.2f} MWh")
-    demand = sum(value(model.d[t, p]) for t in model.T for p in model.P)
+    demand = sum(value(model.level_hours[p] * model.d[p][t-1]) for t in model.T for p in model.P)
     print(
         f"  {Fore.CYAN}Total Demand{Style.RESET_ALL}: {Fore.RED}{demand:.2f} MWh")
     
@@ -157,7 +157,7 @@ def generator_dispatch_summary(model: ConcreteModel) -> None:
     """
     if has_generator_model(model):
         print(f"{Fore.YELLOW}Generator Units Generation:{Style.RESET_ALL}")
-        for g in model.TG:
+        for g in model.GU:
             dispatch = sum(value(model.level_hours[p] * model.gen_P[g, t, p]) for t in model.T for p in model.P)
             print(
                 f"  {Fore.BLUE}{g}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWh")
@@ -176,12 +176,12 @@ def storage_dispatch_summary(model: ConcreteModel) -> None:
     if has_storage_model(model):
         print(f"\n{Fore.YELLOW}Storage Discharge:{Style.RESET_ALL}")
         for s in model.SU:
-            dispatch = sum(value(model.storage_dis[s, t]) for t in model.T)
+            dispatch = sum(value(model.storage_dis[s, t, p]) for t in model.T for p in model.P)
             print(
                 f"  {Fore.MAGENTA}{s}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWh")
         print(f"\n{Fore.YELLOW}Storage Charge:{Style.RESET_ALL}")
         for s in model.SU:
-            dispatch = sum(value(model.storage_ch[s, t]) for t in model.T)
+            dispatch = sum(value(model.storage_ch[s, t, p]) for t in model.T for p in model.P)
             print(
                 f"  {Fore.MAGENTA}{s}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWh")
         print(f"\n{Fore.YELLOW}Storage Delta:{Style.RESET_ALL}")

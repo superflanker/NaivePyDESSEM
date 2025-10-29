@@ -262,10 +262,6 @@ def build_balance_and_objective_from_yaml(model: ConcreteModel, yaml_data: Dict[
     if 'storage' in yaml_data:
         add_storage_cost_expression(model, cost_terms)
     
-    # a fonte déficit
-
-    cost_terms.append(sum(model.Cdef*model.D[t] for t in model.T))
-
     model.OBJ = Objective(expr=sum(cost_terms), sense=minimize)
 
     return model
@@ -287,7 +283,7 @@ def build_model_from_file(path: str) -> Tuple[ConcreteModel, Dict]:
     _validate_demand(root["meta"]["demand"], T)
     has_valid_units = False
     if "generator" in root and root["generator"] is not None:
-        _validate_generator(root["hydro"], T)
+        _validate_generator(root["generator"])
         generator_data = _mk_generator_data(root)
         m = add_generator_problem(m=m,
                               data=generator_data,

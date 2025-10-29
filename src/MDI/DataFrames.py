@@ -138,11 +138,11 @@ def add_storage_dispatch_to_dataframe(df: pd.DataFrame,
                 df[f'C_{{{{s_{s}}}{{p_{p}}}}}'] = [
                     -value(model.storage_ch[s, t, p]) for t in T]
                 df[f'G_{{{{s_{s}}}{{p_{p}}}}}'] = [
-                    value(model.storage_dis[s, t] - model.storage_ch[s, t, p]) for t in T]
+                    value(model.storage_dis[s, t, p] - model.storage_ch[s, t, p]) for t in T]
                 df[f'E_{{{{s_{s}}}{{p_{p}}}}}'] = [
                     value(model.storage_E[s, t, p]) for t in T]
-            df[f'Y_{{b_{s}}}'] = [value(model.gen_y[s, t]) for t in T]
-            df[f'X_{{b_{s}}}'] = [value(model.gen_x[s, t]) for t in T]
+            df[f'Y_{{b_{s}}}'] = [value(model.storage_y[s, t]) for t in T]
+            df[f'X_{{b_{s}}}'] = [value(model.storage_x[s, t]) for t in T]
 
     return df
 
@@ -179,7 +179,7 @@ def add_cost_to_dataframe(df: pd.DataFrame,
 
         return avg_CMO
     def compute_average_CME(model):
-        avg_CME = list(model.dual[model.Adequacy])
+        avg_CME = list(model.dual[model.Adequacy[t]] for t in model.T)
         return avg_CME
     
     T = list(model.T)
@@ -197,8 +197,8 @@ def add_cost_to_dataframe(df: pd.DataFrame,
 
     if has_storage_model(model):
         for p in P:
-            storage_generation[p] = [sum(value(model.storage_dis[s, t]
-                                               - model.storage_ch[s, t])
+            storage_generation[p] = [sum(value(model.storage_dis[s, t, p]
+                                               - model.storage_ch[s, t, p])
                                          for s in model.SU) for t in model.T]
     # Totais por período e patamar
 

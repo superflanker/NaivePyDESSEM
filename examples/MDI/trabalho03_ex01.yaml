@@ -8,10 +8,10 @@
 # - Volume: hm3
 
 meta:
-  name: "UFPR-EELT7030-Trabalho3-Caso1"
+  name: "UFPR-EELT7030-Trabalho3-Ex01"
   horizon: 10                 # TODO: nº de períodos (ex.: 24)
   delta_t: 1.0                # duração do período (anos)
-  Solver: glpk
+  Solver: cbc
   Solver_Options:
     mip_solver: glpk
     nlp_solver: cyipopt
@@ -67,7 +67,7 @@ storage:
   delta_t: 1.0                # usa meta.delta_t por padrão; mantenha aqui por clareza
   units:                      # Dict[str, StorageUnit]
     BAT_1:                    # convenção {GER}_{UNIT}
-      state: 0                # candidata
+      state: 1                # candidata
       c_op: 0                 # custos de operação
       c_inv: 50_000_000       # custos de investimento e O&M
       Emin:    50.0           # SoCmin (MWh)
