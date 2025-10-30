@@ -1,6 +1,14 @@
 NaivePyDECOMP package
 =====================
 
+Module contents
+---------------
+
+.. automodule:: NaivePyDECOMP
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   
 Subpackages
 -----------
 
@@ -120,10 +128,3 @@ NaivePyDECOMP.YAMLLoader module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: NaivePyDECOMP
-   :members:
-   :undoc-members:
-   :show-inheritance:

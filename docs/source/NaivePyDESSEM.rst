@@ -1,6 +1,14 @@
 NaivePyDESSEM package
 =====================
 
+Module contents
+---------------
+
+.. automodule:: NaivePyDESSEM
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Subpackages
 -----------
 
@@ -92,14 +100,6 @@ NaivePyDESSEM.YAMLLoader module
 -------------------------------
 
 .. automodule:: NaivePyDESSEM.YAMLLoader
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: NaivePyDESSEM
    :members:
    :undoc-members:
    :show-inheritance:

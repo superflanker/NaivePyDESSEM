@@ -47,6 +47,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP">Module contents</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="NaivePyDECOMP.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html">NaivePyDECOMP.HydraulicGenerator package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">NaivePyDECOMP.RenewableGenerator package</a></li>
@@ -55,7 +56,7 @@
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.cli.html">NaivePyDECOMP.cli package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#id1">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Builder">NaivePyDECOMP.Builder module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.BuilderPDDD">NaivePyDECOMP.BuilderPDDD module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.DataFrames">NaivePyDECOMP.DataFrames module</a></li>
@@ -69,7 +70,6 @@
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Solver">NaivePyDECOMP.Solver module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Utils">NaivePyDECOMP.Utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.YAMLLoader">NaivePyDECOMP.YAMLLoader module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="MDI.html">MDI package</a></li>
@@ -105,20 +105,64 @@
              
   <section id="naivepydecomp-renewablegenerator-package">
 <h1>NaivePyDECOMP.RenewableGenerator package<a class="headerlink" href="#naivepydecomp-renewablegenerator-package" title="Link to this heading"></a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
-</section>
-<section id="module-NaivePyDECOMP.RenewableGenerator.RenewableConstraints">
-<span id="naivepydecomp-renewablegenerator-renewableconstraints-module"></span><h2>NaivePyDECOMP.RenewableGenerator.RenewableConstraints module<a class="headerlink" href="#module-NaivePyDECOMP.RenewableGenerator.RenewableConstraints" title="Link to this heading"></a></h2>
+<section id="module-NaivePyDECOMP.RenewableGenerator">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-NaivePyDECOMP.RenewableGenerator" title="Link to this heading"></a></h2>
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<p>Module: Renewable Unit Commitment — Constraints</p>
+<p>Package: Renewable Generation Modeling (RenewableGenerator)</p>
 <section id="author">
 <h3>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
 <section id="description">
 <h3>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h3>
+<p>The <strong>RenewableGenerator</strong> package provides a modular framework for modeling
+renewable energy sources (e.g., wind and solar) in Pyomo-based dispatch and
+unit commitment models. It includes standardized data types, sets, parameters,
+variables, constraints, objectives, and builder functions.</p>
+</section>
+<section id="submodules">
+<h3>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>RenewableDataTypes</dt><dd><p>Dataclasses defining renewable units (e.g., expected generation profiles).</p>
+</dd>
+<dt>RenewableVars</dt><dd><p>Initialization routines for Pyomo sets, parameters, and variables.</p>
+</dd>
+<dt>RenewableConstraints</dt><dd><p>Constraint builders enforcing availability limits and system balance.</p>
+</dd>
+<dt>RenewableObjectives</dt><dd><p>Objective function definitions for renewable-only systems.</p>
+</dd>
+<dt>RenewableBuilder</dt><dd><p>High-level routines to assemble complete renewable generation models.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The renewable availability profiles (<strong>gbar</strong>) are treated as exogenous,
+typically coming from forecasts.</p></li>
+<li><p>The package is interoperable with the Hydro, Thermal, and Storage packages,
+enabling hybrid model construction.</p></li>
+<li><p>Consistent naming and structure ensure clarity and maintainability across
+subsystems.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+<section id="id1">
+<h2>Submodules<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+</section>
+<section id="module-NaivePyDECOMP.RenewableGenerator.RenewableConstraints">
+<span id="naivepydecomp-renewablegenerator-renewableconstraints-module"></span><h2>NaivePyDECOMP.RenewableGenerator.RenewableConstraints module<a class="headerlink" href="#module-NaivePyDECOMP.RenewableGenerator.RenewableConstraints" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Renewable Unit Commitment — Constraints</p>
+<section id="id2">
+<h3>Author<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id3">
+<h3>Description<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <p>This module defines the operational constraints for renewable generation
 within Pyomo-based unit commitment and dispatch models. It enforces both
 the per-unit generation availability limits and the system-wide energy
@@ -154,12 +198,12 @@ generation cannot meet demand.</p></li>
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
 <p>Module: Renewable Generation Data Structures</p>
-<section id="id1">
-<h3>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<section id="id4">
+<h3>Author<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id2">
-<h3>Description<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<section id="id5">
+<h3>Description<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <p>This module defines lightweight data classes for representing renewable
 generation units (e.g., wind and solar) and their aggregated system-level
 data. These structures serve as standardized inputs for optimization
@@ -195,12 +239,12 @@ uncertainty modeling for renewable availability.</p></li>
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
 <p>Renewable Model Expression Utilities for Pyomo Optimization</p>
-<section id="id3">
-<h3>Author<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<section id="id6">
+<h3>Author<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id4">
-<h3>Description<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<section id="id7">
+<h3>Description<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <p>This module provides helper functions to construct symbolic expressions
 related to renewable energy generation in Pyomo-based optimization models.
 The expressions generated here can be used to assemble power balance
@@ -249,19 +293,19 @@ penalties or market mechanisms.</p></li>
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
 <p>Module: Renewable Unit Commitment — Model Builder</p>
-<section id="id5">
-<h3>Author<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<section id="id8">
+<h3>Author<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id6">
-<h3>Description<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<section id="id9">
+<h3>Description<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <p>This module provides high-level builders for renewable-only optimization
 models in Pyomo. It assembles the complete model structure by combining
 sets, parameters, variables, constraints, and optionally the objective
 function for renewable generation systems.</p>
 </section>
-<section id="id7">
-<h3>Functions<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<section id="id10">
+<h3>Functions<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <dl class="simple">
 <dt>build_renewables(data, include_objective=True)</dt><dd><p>Create a new <code class="docutils literal notranslate"><span class="pre">ConcreteModel</span></code> pre-populated with renewable unit
 commitment and dispatch components.</p>
@@ -335,19 +379,19 @@ is required.</p></li>
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
 <p>Module: Renewable Unit Commitment — Objective Function</p>
-<section id="id8">
-<h3>Author<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<section id="id11">
+<h3>Author<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id9">
-<h3>Description<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<section id="id12">
+<h3>Description<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <p>Defines the objective function for renewable-only dispatch models in Pyomo.
 The objective minimizes the total cost of unmet demand (deficit) over the
 planning horizon. It uses the deficit penalty parameter <code class="docutils literal notranslate"><span class="pre">Cdef</span></code> to quantify
 the economic impact of unserved energy.</p>
 </section>
-<section id="id10">
-<h3>Functions<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<section id="id13">
+<h3>Functions<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
 <dl class="simple">
 <dt>set_objective_renewable(m)</dt><dd><p>Attach a minimization objective to the model, penalizing unmet demand.</p>
 </dd>
@@ -371,19 +415,19 @@ discourage deficits under normal conditions.</p></li>
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
 <p>Module: Renewable Unit Commitment — Sets, Parameters, and Variables</p>
-<section id="id11">
-<h3>Author<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<section id="id14">
+<h3>Author<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id12">
-<h3>Description<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<section id="id15">
+<h3>Description<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
 <p>This module provides initialization routines for renewable generation
 within unit-commitment and dispatch models in Pyomo. It defines the sets,
 parameters, and decision variables required to incorporate renewable
 units (e.g., wind or solar) into short-term planning formulations.</p>
 </section>
-<section id="id13">
-<h3>Functions<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<section id="id16">
+<h3>Functions<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
 <dl class="simple">
 <dt>renewable_add_sets_and_params(m, data)</dt><dd><p>Initialize sets and parameters for renewable units, including the
 renewable unit set and availability profiles <code class="docutils literal notranslate"><span class="pre">gbar</span></code>.</p>
@@ -402,50 +446,6 @@ demand <code class="docutils literal notranslate"><span class="pre">m.d</span></
 already present.</p></li>
 <li><p>Renewable generation is always bounded above by its availability; the
 actual capacity constraint should be added separately.</p></li>
-</ul>
-<p class="rubric">References</p>
-<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
-[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
-</section>
-</section>
-<section id="module-NaivePyDECOMP.RenewableGenerator">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-NaivePyDECOMP.RenewableGenerator" title="Link to this heading"></a></h2>
-<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
-Federal University of Paraná (UFPR)</p>
-<p>Package: Renewable Generation Modeling (RenewableGenerator)</p>
-<section id="id14">
-<h3>Author<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
-<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
-</section>
-<section id="id15">
-<h3>Description<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
-<p>The <strong>RenewableGenerator</strong> package provides a modular framework for modeling
-renewable energy sources (e.g., wind and solar) in Pyomo-based dispatch and
-unit commitment models. It includes standardized data types, sets, parameters,
-variables, constraints, objectives, and builder functions.</p>
-</section>
-<section id="id16">
-<h3>Submodules<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
-<dl class="simple">
-<dt>RenewableDataTypes</dt><dd><p>Dataclasses defining renewable units (e.g., expected generation profiles).</p>
-</dd>
-<dt>RenewableVars</dt><dd><p>Initialization routines for Pyomo sets, parameters, and variables.</p>
-</dd>
-<dt>RenewableConstraints</dt><dd><p>Constraint builders enforcing availability limits and system balance.</p>
-</dd>
-<dt>RenewableObjectives</dt><dd><p>Objective function definitions for renewable-only systems.</p>
-</dd>
-<dt>RenewableBuilder</dt><dd><p>High-level routines to assemble complete renewable generation models.</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>The renewable availability profiles (<strong>gbar</strong>) are treated as exogenous,
-typically coming from forecasts.</p></li>
-<li><p>The package is interoperable with the Hydro, Thermal, and Storage packages,
-enabling hybrid model construction.</p></li>
-<li><p>Consistent naming and structure ensure clarity and maintainability across
-subsystems.</p></li>
 </ul>
 <p class="rubric">References</p>
 <p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023

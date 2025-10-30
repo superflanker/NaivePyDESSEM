@@ -1,5 +1,5 @@
-NaivePyDESSEM and NaivePyDECOMP documentation
-=============================================
+NaivePyDESSEM documentation
+===========================
 
 Official documentation of the **NaivePyDESSEM**,  **NaivePyDECOMP** and **MDI** projects, 
 two pedagogical and modular economic dispatch/ explansion panning solvers based on Pyomo.

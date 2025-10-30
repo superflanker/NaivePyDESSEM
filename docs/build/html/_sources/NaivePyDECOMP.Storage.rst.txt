@@ -1,6 +1,14 @@
 NaivePyDECOMP.Storage package
 =============================
 
+Module contents
+---------------
+
+.. automodule:: NaivePyDECOMP.Storage
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -48,14 +56,6 @@ NaivePyDECOMP.Storage.StorageVars module
 ----------------------------------------
 
 .. automodule:: NaivePyDECOMP.Storage.StorageVars
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: NaivePyDECOMP.Storage
    :members:
    :undoc-members:
    :show-inheritance:

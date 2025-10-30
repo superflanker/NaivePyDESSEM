@@ -1,6 +1,14 @@
 MDI.Storage package
 ===================
 
+Module contents
+---------------
+
+.. automodule:: MDI.Storage
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -52,10 +60,3 @@ MDI.Storage.StorageVars module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: MDI.Storage
-   :members:
-   :undoc-members:
-   :show-inheritance:

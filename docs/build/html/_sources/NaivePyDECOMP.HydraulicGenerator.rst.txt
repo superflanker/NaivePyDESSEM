@@ -1,6 +1,14 @@
 NaivePyDECOMP.HydraulicGenerator package
 ========================================
 
+Module contents
+---------------
+
+.. automodule:: NaivePyDECOMP.HydraulicGenerator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -60,10 +68,3 @@ NaivePyDECOMP.HydraulicGenerator.SimplifiedConstantProductivityFPH module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: NaivePyDECOMP.HydraulicGenerator
-   :members:
-   :undoc-members:
-   :show-inheritance:

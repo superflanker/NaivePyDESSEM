@@ -49,13 +49,14 @@
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="MDI.html">MDI package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI">Module contents</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="MDI.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">MDI.Generator package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.Storage.html">MDI.Storage package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.cli.html">MDI.cli package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="MDI.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#id1">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Builder">MDI.Builder module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.DataFrames">MDI.DataFrames module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Formatters">MDI.Formatters module</a></li>
@@ -66,7 +67,6 @@
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Solver">MDI.Solver module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Utils">MDI.Utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.YAMLLoader">MDI.YAMLLoader module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -101,6 +101,78 @@
              
   <section id="mdi-generator-package">
 <h1>MDI.Generator package<a class="headerlink" href="#mdi-generator-package" title="Link to this heading"></a></h1>
+<section id="module-MDI.Generator">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-MDI.Generator" title="Link to this heading"></a></h2>
+<section id="generator-subpackage">
+<h3>Generator Subpackage<a class="headerlink" href="#generator-subpackage" title="Link to this heading"></a></h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="author">
+<h4>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="summary">
+<h4>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h4>
+<p>The <strong>Generator</strong> subpackage provides a complete and modular implementation of
+<strong>dispatchable generation units</strong> within the MDI (Modular Decision Infrastructure)
+framework, forming the core component of the operation and expansion
+planning model.</p>
+</section>
+<section id="description">
+<h4>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h4>
+<p>This subpackage defines all necessary components to represent thermal and
+dispatchable generation systems in <strong>Pyomo</strong>, including data typing, variables,
+constraints, and objectives. It supports integration with storage and other
+energy technologies under a unified optimization environment.</p>
+</section>
+<section id="modules">
+<h4>Modules<a class="headerlink" href="#modules" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>GeneratorBuilder</dt><dd><p>High-level routines for constructing the generator subsystem model.</p>
+</dd>
+<dt>GeneratorDataTypes</dt><dd><p>Data classes describing generator unit parameters and data structures.</p>
+</dd>
+<dt>GeneratorEquations</dt><dd><p>Symbolic expressions for generator cost and balance aggregation.</p>
+</dd>
+<dt>GeneratorObjectives</dt><dd><p>Objective function for total generation cost minimization.</p>
+</dd>
+<dt>GeneratorVars</dt><dd><p>Sets, parameters, and decision variables declaration.</p>
+</dd>
+</dl>
+</section>
+<section id="structure-overview">
+<h4>Structure Overview<a class="headerlink" href="#structure-overview" title="Link to this heading"></a></h4>
+<p>The <cite>Generator</cite> subpackage follows a modular and pedagogical architecture,
+allowing incremental assembly and analysis of generation models.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeneratorData</span><span class="p">,</span> <span class="n">GeneratorUnit</span><span class="p">,</span> <span class="n">build_generators</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">GeneratorData</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">build_generators</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">include_objective</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="exports">
+<h4>Exports<a class="headerlink" href="#exports" title="Link to this heading"></a></h4>
+<p>This <cite>__init__.py</cite> file re-exports all relevant symbols to simplify
+namespace imports.
+Modules can be accessed individually or as a unified subsystem:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Generator</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Each component of the subpackage is fully compatible with <strong>Pyomo 6.x</strong>.</p></li>
+<li><p>Generation costs are modeled through both operational and investment terms.</p></li>
+<li><p>Units follow the SI convention (MW for power, monetary units for cost).</p></li>
+<li><p>The implementation is pedagogically aligned with the MDI methodology
+and CEPEL’s DESSEM conceptual framework.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL. <em>DESSEM — Manual de Metodologia</em>, 2023.
+[2] Unsihuay Vila, C. <em>Introdução aos Sistemas de Energia Elétrica</em>, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
@@ -110,20 +182,20 @@
 <h3>Generator Builder Module<a class="headerlink" href="#generator-builder-module" title="Link to this heading"></a></h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="author">
-<h4>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h4>
+<section id="id1">
+<h4>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="summary">
-<h4>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h4>
+<section id="id2">
+<h4>Summary<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
 <p>This module defines the routines responsible for constructing the generator
 submodel within the MDI (Modular Didactic Infrastructure) framework. It serves
 as the primary entry point for creating the Pyomo-based representation of
 dispatchable generation units, their parameters, variables, constraints, and
 optional objective terms.</p>
 </section>
-<section id="description">
-<h4>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h4>
+<section id="id3">
+<h4>Description<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
 <p>The generator builder integrates modular components defined in the companion
 submodules:</p>
 <ul class="simple">
@@ -242,19 +314,19 @@ disabled to avoid duplication at the system level.</p></li>
 <h3>Generator Constraints Module<a class="headerlink" href="#generator-constraints-module" title="Link to this heading"></a></h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="id1">
-<h4>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
+<section id="id4">
+<h4>Author<a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id2">
-<h4>Summary<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
+<section id="id5">
+<h4>Summary<a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
 <p>This module defines the operational and investment constraints associated with
 dispatchable generation units in the MDI framework. These constraints ensure that
 generation power levels remain within admissible technical limits and that
 investment decisions are properly linked across the planning horizon.</p>
 </section>
-<section id="id3">
-<h4>Description<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
+<section id="id6">
+<h4>Description<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
 <p>The generator constraints implemented here enforce:</p>
 <ol class="arabic simple">
 <li><p><strong>Operational bounds</strong>:
@@ -269,8 +341,8 @@ consistent activation of units across consecutive time periods.</p></li>
 sophisticated generation formulations (e.g., ramping limits, minimum up/down
 times, or emission constraints).</p>
 </section>
-<section id="id4">
-<h4>Functions<a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
+<section id="id7">
+<h4>Functions<a class="headerlink" href="#id7" title="Link to this heading"></a></h4>
 <dl class="simple">
 <dt>add_generator_power_limits_constraint(m)</dt><dd><p>Adds upper and lower power output constraints for each generator and time step.</p>
 </dd>
@@ -382,19 +454,19 @@ which should be defined in a separate submodule.</p></li>
 <h3>Generator Data Types Module<a class="headerlink" href="#generator-data-types-module" title="Link to this heading"></a></h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="id5">
-<h4>Author<a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
+<section id="id8">
+<h4>Author<a class="headerlink" href="#id8" title="Link to this heading"></a></h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id6">
-<h4>Summary<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
+<section id="id9">
+<h4>Summary<a class="headerlink" href="#id9" title="Link to this heading"></a></h4>
 <p>This module defines the fundamental data structures used to represent
 generator-related parameters within the MDI framework. It provides
 strongly typed and structured interfaces for input parsing, parameter
 validation, and model population using the Pyomo environment.</p>
 </section>
-<section id="id7">
-<h4>Description<a class="headerlink" href="#id7" title="Link to this heading"></a></h4>
+<section id="id10">
+<h4>Description<a class="headerlink" href="#id10" title="Link to this heading"></a></h4>
 <p>The dataclasses defined here encapsulate both unit-level and
 system-level information required to formulate the generation expansion
 and dispatch problem. They are designed for clarity, immutability,
@@ -431,8 +503,8 @@ to facilitate reproducibility in energy system research.</p></li>
 <p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
-<section id="id8">
-<h4>Module Dependencies<a class="headerlink" href="#id8" title="Link to this heading"></a></h4>
+<section id="id11">
+<h4>Module Dependencies<a class="headerlink" href="#id11" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><strong>Internal:</strong> None (independent data layer)</p></li>
 <li><p><strong>External:</strong> <code class="docutils literal notranslate"><span class="pre">dataclasses</span></code>, <code class="docutils literal notranslate"><span class="pre">typing</span></code></p></li>
@@ -556,19 +628,19 @@ via the generator builder module.</p></li>
 <h3>Generator Equations Module<a class="headerlink" href="#generator-equations-module" title="Link to this heading"></a></h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="id9">
-<h4>Author<a class="headerlink" href="#id9" title="Link to this heading"></a></h4>
+<section id="id12">
+<h4>Author<a class="headerlink" href="#id12" title="Link to this heading"></a></h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id10">
-<h4>Summary<a class="headerlink" href="#id10" title="Link to this heading"></a></h4>
+<section id="id13">
+<h4>Summary<a class="headerlink" href="#id13" title="Link to this heading"></a></h4>
 <p>This module defines the objective-related expressions for the generation
 subsystem in the MDI framework. It formulates both the <strong>operational cost</strong>
 and <strong>energy balance</strong> expressions, which are later aggregated into the
 system-level optimization model.</p>
 </section>
-<section id="id11">
-<h4>Description<a class="headerlink" href="#id11" title="Link to this heading"></a></h4>
+<section id="id14">
+<h4>Description<a class="headerlink" href="#id14" title="Link to this heading"></a></h4>
 <p>The functions in this module generate symbolic expressions that represent
 the two principal aspects of the generation subproblem:</p>
 <ol class="arabic">
@@ -597,8 +669,8 @@ G_{bal}(t,p) = sum_{g} P_{g,t,p}
 </li>
 </ol>
 </section>
-<section id="id12">
-<h4>Functions<a class="headerlink" href="#id12" title="Link to this heading"></a></h4>
+<section id="id15">
+<h4>Functions<a class="headerlink" href="#id15" title="Link to this heading"></a></h4>
 <dl class="simple">
 <dt>add_generator_cost_expression(m, cost_array)</dt><dd><p>Builds and appends the generator cost expression to the provided array.</p>
 </dd>
@@ -621,8 +693,8 @@ or renewable modules) under a unified optimization framework.</p></li>
 <div><p>EELT7030/UFPR, 2023.</p>
 </div></blockquote>
 </section>
-<section id="id13">
-<h4>Module Dependencies<a class="headerlink" href="#id13" title="Link to this heading"></a></h4>
+<section id="id16">
+<h4>Module Dependencies<a class="headerlink" href="#id16" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><strong>Internal:</strong> <code class="docutils literal notranslate"><span class="pre">MDI.GeneratorVars</span></code>, <code class="docutils literal notranslate"><span class="pre">MDI.GeneratorConstraints</span></code></p></li>
 <li><p><strong>External:</strong> <code class="docutils literal notranslate"><span class="pre">pyomo.environ</span> <span class="pre">(ConcreteModel)</span></code>, <code class="docutils literal notranslate"><span class="pre">typing</span></code></p></li>
@@ -734,19 +806,19 @@ aggregation with other subsystem costs.</p>
 <h3>Generator Objectives Module<a class="headerlink" href="#generator-objectives-module" title="Link to this heading"></a></h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="id14">
-<h4>Author<a class="headerlink" href="#id14" title="Link to this heading"></a></h4>
+<section id="id17">
+<h4>Author<a class="headerlink" href="#id17" title="Link to this heading"></a></h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id15">
-<h4>Summary<a class="headerlink" href="#id15" title="Link to this heading"></a></h4>
+<section id="id18">
+<h4>Summary<a class="headerlink" href="#id18" title="Link to this heading"></a></h4>
 <p>This module defines the <strong>objective function</strong> for the generator
 subsystem within the MDI framework. The formulation represents the
 total operational and investment cost to be minimized across the
 planning horizon.</p>
 </section>
-<section id="id16">
-<h4>Description<a class="headerlink" href="#id16" title="Link to this heading"></a></h4>
+<section id="id19">
+<h4>Description<a class="headerlink" href="#id19" title="Link to this heading"></a></h4>
 <p>The generator objective aggregates both the <strong>variable operating cost</strong>
 and the <strong>investment cost</strong> associated with generator units.
 The total objective function is defined as follows:</p>
@@ -765,8 +837,8 @@ c^{inv}_g , x_{g,t} ig)
 <p>The resulting expression is assigned as a Pyomo <cite>Objective</cite> with sense
 <cite>minimize</cite>.</p>
 </section>
-<section id="id17">
-<h4>Functions<a class="headerlink" href="#id17" title="Link to this heading"></a></h4>
+<section id="id20">
+<h4>Functions<a class="headerlink" href="#id20" title="Link to this heading"></a></h4>
 <dl class="simple">
 <dt>set_objective_generator(m)</dt><dd><p>Builds and attaches the total generator cost objective to the Pyomo model.</p>
 </dd>
@@ -788,8 +860,8 @@ optimization framework.</p></li>
 <div><p>EELT7030/UFPR, 2023.</p>
 </div></blockquote>
 </section>
-<section id="id18">
-<h4>Module Dependencies<a class="headerlink" href="#id18" title="Link to this heading"></a></h4>
+<section id="id21">
+<h4>Module Dependencies<a class="headerlink" href="#id21" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><strong>Internal:</strong> Generator data and variable definitions.</p></li>
 <li><p><strong>External:</strong> <code class="docutils literal notranslate"><span class="pre">pyomo.environ</span></code> (Objective, minimize)</p></li>
@@ -833,19 +905,19 @@ across all generator units, time periods, and demand levels.</p>
 <h3>Generator Variables and Parameters Module<a class="headerlink" href="#generator-variables-and-parameters-module" title="Link to this heading"></a></h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="id19">
-<h4>Author<a class="headerlink" href="#id19" title="Link to this heading"></a></h4>
+<section id="id22">
+<h4>Author<a class="headerlink" href="#id22" title="Link to this heading"></a></h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id20">
-<h4>Summary<a class="headerlink" href="#id20" title="Link to this heading"></a></h4>
+<section id="id23">
+<h4>Summary<a class="headerlink" href="#id23" title="Link to this heading"></a></h4>
 <p>This module defines the <strong>sets</strong>, <strong>parameters</strong>, and <strong>decision variables</strong>
 for the generator subsystem of the MDI optimization model.
 It provides the necessary data-to-model mapping between structured input
 (<cite>GeneratorData</cite>) and symbolic Pyomo model components.</p>
 </section>
-<section id="id21">
-<h4>Description<a class="headerlink" href="#id21" title="Link to this heading"></a></h4>
+<section id="id24">
+<h4>Description<a class="headerlink" href="#id24" title="Link to this heading"></a></h4>
 <p>Two main functions are provided:</p>
 <ol class="arabic simple">
 <li><p><strong>`generator_add_sets_and_params()`</strong>
@@ -879,8 +951,8 @@ p^{max}_g &amp;:   ext{Maximum generation capacity of unit } g c^{op}_g &amp;:  
 end{align}
 ]</p>
 </section>
-<section id="id22">
-<h4>Functions<a class="headerlink" href="#id22" title="Link to this heading"></a></h4>
+<section id="id25">
+<h4>Functions<a class="headerlink" href="#id25" title="Link to this heading"></a></h4>
 <dl class="simple">
 <dt>generator_add_sets_and_params(m, data)</dt><dd><p>Initializes all sets and parameters in the model based on structured input.</p>
 </dd>
@@ -903,8 +975,8 @@ domains for convex approximations or LP relaxations.</p></li>
 <div><p>EELT7030/UFPR, 2023.</p>
 </div></blockquote>
 </section>
-<section id="id23">
-<h4>Module Dependencies<a class="headerlink" href="#id23" title="Link to this heading"></a></h4>
+<section id="id26">
+<h4>Module Dependencies<a class="headerlink" href="#id26" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><strong>Internal:</strong> <code class="docutils literal notranslate"><span class="pre">GeneratorDataTypes</span></code></p></li>
 <li><p><strong>External:</strong> <code class="docutils literal notranslate"><span class="pre">pyomo.environ</span></code> (RangeSet, Set, Param, Var, NonNegativeReals, Binary)</p></li>
@@ -980,78 +1052,6 @@ Domain: <span class="math notranslate nohighlight">\(\{0,1\}\)</span></p></li>
 </ul>
 </dd></dl>
 
-</section>
-<section id="module-MDI.Generator">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-MDI.Generator" title="Link to this heading"></a></h2>
-<section id="generator-subpackage">
-<h3>Generator Subpackage<a class="headerlink" href="#generator-subpackage" title="Link to this heading"></a></h3>
-<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
-Federal University of Paraná (UFPR)</p>
-<section id="id24">
-<h4>Author<a class="headerlink" href="#id24" title="Link to this heading"></a></h4>
-<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
-</section>
-<section id="id25">
-<h4>Summary<a class="headerlink" href="#id25" title="Link to this heading"></a></h4>
-<p>The <strong>Generator</strong> subpackage provides a complete and modular implementation of
-<strong>dispatchable generation units</strong> within the MDI (Modular Decision Infrastructure)
-framework, forming the core component of the operation and expansion
-planning model.</p>
-</section>
-<section id="id26">
-<h4>Description<a class="headerlink" href="#id26" title="Link to this heading"></a></h4>
-<p>This subpackage defines all necessary components to represent thermal and
-dispatchable generation systems in <strong>Pyomo</strong>, including data typing, variables,
-constraints, and objectives. It supports integration with storage and other
-energy technologies under a unified optimization environment.</p>
-</section>
-<section id="modules">
-<h4>Modules<a class="headerlink" href="#modules" title="Link to this heading"></a></h4>
-<dl class="simple">
-<dt>GeneratorBuilder</dt><dd><p>High-level routines for constructing the generator subsystem model.</p>
-</dd>
-<dt>GeneratorDataTypes</dt><dd><p>Data classes describing generator unit parameters and data structures.</p>
-</dd>
-<dt>GeneratorEquations</dt><dd><p>Symbolic expressions for generator cost and balance aggregation.</p>
-</dd>
-<dt>GeneratorObjectives</dt><dd><p>Objective function for total generation cost minimization.</p>
-</dd>
-<dt>GeneratorVars</dt><dd><p>Sets, parameters, and decision variables declaration.</p>
-</dd>
-</dl>
-</section>
-<section id="structure-overview">
-<h4>Structure Overview<a class="headerlink" href="#structure-overview" title="Link to this heading"></a></h4>
-<p>The <cite>Generator</cite> subpackage follows a modular and pedagogical architecture,
-allowing incremental assembly and analysis of generation models.</p>
-<p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeneratorData</span><span class="p">,</span> <span class="n">GeneratorUnit</span><span class="p">,</span> <span class="n">build_generators</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">GeneratorData</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">build_generators</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">include_objective</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="exports">
-<h4>Exports<a class="headerlink" href="#exports" title="Link to this heading"></a></h4>
-<p>This <cite>__init__.py</cite> file re-exports all relevant symbols to simplify
-namespace imports.
-Modules can be accessed individually or as a unified subsystem:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Generator</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
-</pre></div>
-</div>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>Each component of the subpackage is fully compatible with <strong>Pyomo 6.x</strong>.</p></li>
-<li><p>Generation costs are modeled through both operational and investment terms.</p></li>
-<li><p>Units follow the SI convention (MW for power, monetary units for cost).</p></li>
-<li><p>The implementation is pedagogically aligned with the MDI methodology
-and CEPEL’s DESSEM conceptual framework.</p></li>
-</ul>
-<p class="rubric">References</p>
-<p>[1] CEPEL. <em>DESSEM — Manual de Metodologia</em>, 2023.
-[2] Unsihuay Vila, C. <em>Introdução aos Sistemas de Energia Elétrica</em>, Lecture Notes, EELT7030/UFPR, 2023.</p>
-</section>
-</section>
 </section>
 </section>
 

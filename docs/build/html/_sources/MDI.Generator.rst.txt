@@ -1,6 +1,14 @@
 MDI.Generator package
 =====================
 
+Module contents
+---------------
+
+.. automodule:: MDI.Generator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -48,14 +56,6 @@ MDI.Generator.GeneratorVars module
 ----------------------------------
 
 .. automodule:: MDI.Generator.GeneratorVars
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: MDI.Generator
    :members:
    :undoc-members:
    :show-inheritance:

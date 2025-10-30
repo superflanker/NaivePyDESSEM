@@ -1,6 +1,14 @@
 NaivePyDESSEM.RenewableGenerator package
 ========================================
 
+Module contents
+---------------
+
+.. automodule:: NaivePyDESSEM.RenewableGenerator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -48,14 +56,6 @@ NaivePyDESSEM.RenewableGenerator.RenewableVars module
 -----------------------------------------------------
 
 .. automodule:: NaivePyDESSEM.RenewableGenerator.RenewableVars
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: NaivePyDESSEM.RenewableGenerator
    :members:
    :undoc-members:
    :show-inheritance:

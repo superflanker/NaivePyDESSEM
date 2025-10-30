@@ -1,6 +1,14 @@
 NaivePyDECOMP.ThermalGenerator package
 ======================================
 
+Module contents
+---------------
+
+.. automodule:: NaivePyDECOMP.ThermalGenerator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -48,14 +56,6 @@ NaivePyDECOMP.ThermalGenerator.ThermalVars module
 -------------------------------------------------
 
 .. automodule:: NaivePyDECOMP.ThermalGenerator.ThermalVars
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: NaivePyDECOMP.ThermalGenerator
    :members:
    :undoc-members:
    :show-inheritance:

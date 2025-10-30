@@ -1,6 +1,14 @@
 NaivePyDECOMP.RenewableGenerator package
 ========================================
 
+Module contents
+---------------
+
+.. automodule:: NaivePyDECOMP.RenewableGenerator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -48,14 +56,6 @@ NaivePyDECOMP.RenewableGenerator.RenewableVars module
 -----------------------------------------------------
 
 .. automodule:: NaivePyDECOMP.RenewableGenerator.RenewableVars
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: NaivePyDECOMP.RenewableGenerator
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,6 +1,14 @@
 NaivePyDESSEM.cli package
 =========================
 
+Module contents
+---------------
+
+.. automodule:: NaivePyDESSEM.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -20,10 +28,3 @@ NaivePyDESSEM.cli.plot\_cli module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: NaivePyDESSEM.cli
-   :members:
-   :undoc-members:
-   :show-inheritance:

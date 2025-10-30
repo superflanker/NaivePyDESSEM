@@ -46,6 +46,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM">Module contents</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="NaivePyDESSEM.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">NaivePyDESSEM.HydraulicGenerator package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
@@ -54,7 +55,7 @@
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#id1">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Builder">NaivePyDESSEM.Builder module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.DataFrames">NaivePyDESSEM.DataFrames module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Formatters">NaivePyDESSEM.Formatters module</a></li>
@@ -65,7 +66,6 @@
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Solver">NaivePyDESSEM.Solver module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Utils">NaivePyDESSEM.Utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.YAMLLoader">NaivePyDESSEM.YAMLLoader module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
@@ -102,20 +102,70 @@
              
   <section id="naivepydessem-hydraulicgenerator-package">
 <h1>NaivePyDESSEM.HydraulicGenerator package<a class="headerlink" href="#naivepydessem-hydraulicgenerator-package" title="Link to this heading"></a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
-</section>
-<section id="module-NaivePyDESSEM.HydraulicGenerator.ConstantProductivityFPH">
-<span id="naivepydessem-hydraulicgenerator-constantproductivityfph-module"></span><h2>NaivePyDESSEM.HydraulicGenerator.ConstantProductivityFPH module<a class="headerlink" href="#module-NaivePyDESSEM.HydraulicGenerator.ConstantProductivityFPH" title="Link to this heading"></a></h2>
+<section id="module-NaivePyDESSEM.HydraulicGenerator">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-NaivePyDESSEM.HydraulicGenerator" title="Link to this heading"></a></h2>
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<p>Module: Constant Productivity FPH Function</p>
+<p>Package: Hydraulic Generation Modeling (HydraulicGenerator)</p>
 <section id="author">
 <h3>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
 <section id="description">
 <h3>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">HydraulicGenerator</span></code> package provides a modular framework for modeling
+hydropower systems in Pyomo-based dispatch and unit commitment models. It
+includes flexible hydropower production functions (FPH), reservoir balance
+constraints, and terminal storage requirements.</p>
+</section>
+<section id="submodules">
+<h3>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>HydraulicDataTypes</dt><dd><p>Dataclasses defining hydropower unit and system-wide data.</p>
+</dd>
+<dt>HydraulicVars</dt><dd><p>Initialization routines for Pyomo sets, parameters, and variables.</p>
+</dd>
+<dt>HydraulicConstraints</dt><dd><p>Constraint builders (generation, reservoir balance, SoC limits, targets).</p>
+</dd>
+<dt>HydraulicObjectives</dt><dd><p>Objective function definitions for hydro-only models.</p>
+</dd>
+<dt>HydraulicGeneratorBuilder</dt><dd><p>High-level routines to assemble complete hydropower dispatch models.</p>
+</dd>
+<dt>ConstantProductivityFPH</dt><dd><p>Simple FPH based on constant productivity.</p>
+</dd>
+<dt>SimplifiedConstantProductivityFPH</dt><dd><p>Didactic constant productivity model (simplified).</p>
+</dd>
+<dt>PEFPH</dt><dd><p>Semi-exact FPH with net head representation.</p>
+</dd>
+<dt>ExactFPH</dt><dd><p>Full DESSEM-style FPH with head- and flow-dependent terms.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Multiple FPH modes are supported (constant, simplified, specific, exact).</p></li>
+<li><p>Reservoir mass balance constraints ensure intertemporal consistency.</p></li>
+<li><p>Designed for interoperability with Thermal, Renewable, and Storage packages
+in hybrid models.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+<section id="id1">
+<h2>Submodules<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+</section>
+<section id="module-NaivePyDESSEM.HydraulicGenerator.ConstantProductivityFPH">
+<span id="naivepydessem-hydraulicgenerator-constantproductivityfph-module"></span><h2>NaivePyDESSEM.HydraulicGenerator.ConstantProductivityFPH module<a class="headerlink" href="#module-NaivePyDESSEM.HydraulicGenerator.ConstantProductivityFPH" title="Link to this heading"></a></h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Constant Productivity FPH Function</p>
+<section id="id2">
+<h3>Author<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id3">
+<h3>Description<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <p>This module provides a simplified hydroelectric production function (FPH)
 for use in short-term operation and dispatch models. The generation is
 assumed to be proportional to the turbine discharge, scaled by a constant
@@ -173,12 +223,12 @@ in MW.</p>
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
 <p>Module: Hydropower Dispatch with Exact FPH Model</p>
-<section id="id1">
-<h3>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<section id="id4">
+<h3>Author<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id2">
-<h3>Description<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<section id="id5">
+<h3>Description<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <p>Implements an exact-form hydropower production function (FPH) aligned with
 the DESSEM methodology. The model uses polynomial (or polynomial-like)
 approximations for four building blocks:</p>
@@ -894,12 +944,12 @@ the consuming code uses them for the selected <code class="docutils literal notr
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
 <p>Hydraulic Model Expression Utilities for Pyomo Optimization</p>
-<section id="id3">
-<h3>Author<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<section id="id6">
+<h3>Author<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id4">
-<h3>Description<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<section id="id7">
+<h3>Description<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <p>This module provides helper functions to construct symbolic expressions
 related to energy hydraulic systems in Pyomo-based optimization models.
 These expressions can be incrementally assembled and integrated into
@@ -1031,8 +1081,8 @@ optimization model in Pyomo. It integrates the full sequence of:</p>
 <li><p>Simplified constant productivity (didactic)</p></li>
 </ul>
 </section>
-<section id="id5">
-<h4>Functions<a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
+<section id="id8">
+<h4>Functions<a class="headerlink" href="#id8" title="Link to this heading"></a></h4>
 <dl class="simple">
 <dt>build_FPHs(m, data)</dt><dd><p>Initialize the hydropower production function (FPH) callable for each unit.</p>
 </dd>
@@ -1207,16 +1257,16 @@ generation constraints are added.</p></li>
 optimization models. The objective minimizes (i) the total cost of unmet
 energy (deficit) and (ii) a small penalty on water spillage to discourage
 gratuitous releases, thereby promoting more efficient water usage.</p>
-<section id="id6">
-<h4>Functions<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
+<section id="id9">
+<h4>Functions<a class="headerlink" href="#id9" title="Link to this heading"></a></h4>
 <dl class="simple">
 <dt>set_objective_hydro(m)</dt><dd><p>Attach a minimization objective to a Pyomo model that penalizes
 deficit and spillage over the planning horizon.</p>
 </dd>
 </dl>
 </section>
-<section id="id7">
-<h4>Modeling Conventions and Units<a class="headerlink" href="#id7" title="Link to this heading"></a></h4>
+<section id="id10">
+<h4>Modeling Conventions and Units<a class="headerlink" href="#id10" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p>Time periods: integers <code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">1,</span> <span class="pre">…,</span> <span class="pre">horizon</span></code>.</p></li>
 <li><p>Deficit <code class="docutils literal notranslate"><span class="pre">D[t]</span></code>: MW (interpreted per-period, consistent with objective scaling).</p></li>
@@ -1280,8 +1330,8 @@ sets, parameters, and continuous variables required by hydropower
 optimization models in Pyomo. It accommodates multiple hydropower
 generation modes, natural-inflow handling, and head-dependent power
 relationships supplied elsewhere in the modeling stack.</p>
-<section id="id8">
-<h4>Functions<a class="headerlink" href="#id8" title="Link to this heading"></a></h4>
+<section id="id11">
+<h4>Functions<a class="headerlink" href="#id11" title="Link to this heading"></a></h4>
 <dl class="simple">
 <dt>hydraulyc_add_sets_and_params(m, data)</dt><dd><p>Initialize sets and model-level parameters/containers for hydropower units
 and system-wide demand.</p>
@@ -1290,8 +1340,8 @@ and system-wide demand.</p>
 </dd>
 </dl>
 </section>
-<section id="id9">
-<h4>Modeling Conventions and Units<a class="headerlink" href="#id9" title="Link to this heading"></a></h4>
+<section id="id12">
+<h4>Modeling Conventions and Units<a class="headerlink" href="#id12" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p>Time periods are indexed as integers <code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">1,</span> <span class="pre">…,</span> <span class="pre">horizon</span></code>.</p></li>
 <li><p>Turbined/Spill discharges (Q, S): m^3/s.</p></li>
@@ -1388,12 +1438,12 @@ Python dictionaries attached to the model for convenience; others
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
 <p>Module: Semi-Exact Hydroelectric Generation Function (FPH) with Net Head</p>
-<section id="id10">
-<h3>Author<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<section id="id13">
+<h3>Author<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id11">
-<h3>Description<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<section id="id14">
+<h3>Description<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
 <p>Defines a hydropower production function (FPH) that incorporates the net
 hydraulic head via upstream and downstream water levels combined with a
 constant specific productivity efficiency.</p>
@@ -1467,12 +1517,12 @@ head values (m) and flows (m^3/s) combine consistently with <code class="docutil
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
 <p>Module: Simplified Constant Productivity FPH Function</p>
-<section id="id12">
-<h3>Author<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<section id="id15">
+<h3>Author<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id13">
-<h3>Description<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<section id="id16">
+<h3>Description<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
 <p>Defines a simplified hydropower production function (FPH) for short-term
 operation models. The generation is assumed to be proportional to turbine
 discharge, scaled by a constant productivity coefficient.</p>
@@ -1533,56 +1583,6 @@ accepts three arguments (Q, V, S), even though only <code class="docutils litera
 </ul>
 </dd></dl>
 
-</section>
-<section id="module-NaivePyDESSEM.HydraulicGenerator">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-NaivePyDESSEM.HydraulicGenerator" title="Link to this heading"></a></h2>
-<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
-Federal University of Paraná (UFPR)</p>
-<p>Package: Hydraulic Generation Modeling (HydraulicGenerator)</p>
-<section id="id14">
-<h3>Author<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
-<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
-</section>
-<section id="id15">
-<h3>Description<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">HydraulicGenerator</span></code> package provides a modular framework for modeling
-hydropower systems in Pyomo-based dispatch and unit commitment models. It
-includes flexible hydropower production functions (FPH), reservoir balance
-constraints, and terminal storage requirements.</p>
-</section>
-<section id="id16">
-<h3>Submodules<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
-<dl class="simple">
-<dt>HydraulicDataTypes</dt><dd><p>Dataclasses defining hydropower unit and system-wide data.</p>
-</dd>
-<dt>HydraulicVars</dt><dd><p>Initialization routines for Pyomo sets, parameters, and variables.</p>
-</dd>
-<dt>HydraulicConstraints</dt><dd><p>Constraint builders (generation, reservoir balance, SoC limits, targets).</p>
-</dd>
-<dt>HydraulicObjectives</dt><dd><p>Objective function definitions for hydro-only models.</p>
-</dd>
-<dt>HydraulicGeneratorBuilder</dt><dd><p>High-level routines to assemble complete hydropower dispatch models.</p>
-</dd>
-<dt>ConstantProductivityFPH</dt><dd><p>Simple FPH based on constant productivity.</p>
-</dd>
-<dt>SimplifiedConstantProductivityFPH</dt><dd><p>Didactic constant productivity model (simplified).</p>
-</dd>
-<dt>PEFPH</dt><dd><p>Semi-exact FPH with net head representation.</p>
-</dd>
-<dt>ExactFPH</dt><dd><p>Full DESSEM-style FPH with head- and flow-dependent terms.</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>Multiple FPH modes are supported (constant, simplified, specific, exact).</p></li>
-<li><p>Reservoir mass balance constraints ensure intertemporal consistency.</p></li>
-<li><p>Designed for interoperability with Thermal, Renewable, and Storage packages
-in hybrid models.</p></li>
-</ul>
-<p class="rubric">References</p>
-<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
-[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
-</section>
 </section>
 </section>
 

@@ -7,6 +7,10 @@ Generated Tree:
 │   │   ├── doctrees
 │   │   │   ├── environment.pickle
 │   │   │   ├── index.doctree
+│   │   │   ├── MDI.cli.doctree
+│   │   │   ├── MDI.doctree
+│   │   │   ├── MDI.Generator.doctree
+│   │   │   ├── MDI.Storage.doctree
 │   │   │   ├── modules.doctree
 │   │   │   ├── NaivePyDECOMP.cli.doctree
 │   │   │   ├── NaivePyDECOMP.doctree
@@ -23,6 +27,30 @@ Generated Tree:
 │   │   │   └── README.doctree
 │   │   └── html
 │   │       ├── _modules
+│   │       │   ├── MDI
+│   │       │   │   ├── cli
+│   │       │   │   │   ├── cli.html
+│   │       │   │   │   └── plot_cli.html
+│   │       │   │   ├── Generator
+│   │       │   │   │   ├── GeneratorBuilder.html
+│   │       │   │   │   ├── GeneratorConstraints.html
+│   │       │   │   │   ├── GeneratorDataTypes.html
+│   │       │   │   │   ├── GeneratorEquations.html
+│   │       │   │   │   ├── GeneratorObjectives.html
+│   │       │   │   │   └── GeneratorVars.html
+│   │       │   │   ├── Storage
+│   │       │   │   │   ├── StorageBuilder.html
+│   │       │   │   │   ├── StorageConstraints.html
+│   │       │   │   │   ├── StorageDataTypes.html
+│   │       │   │   │   ├── StorageEquations.html
+│   │       │   │   │   ├── StorageObjective.html
+│   │       │   │   │   └── StorageVars.html
+│   │       │   │   ├── Builder.html
+│   │       │   │   ├── DataFrames.html
+│   │       │   │   ├── ModelCheck.html
+│   │       │   │   ├── ModelFormatters.html
+│   │       │   │   ├── Reporting.html
+│   │       │   │   └── Solver.html
 │   │       │   ├── NaivePyDECOMP
 │   │       │   │   ├── cli
 │   │       │   │   │   ├── cli.html
@@ -47,15 +75,12 @@ Generated Tree:
 │   │       │   │   ├── Builder.html
 │   │       │   │   ├── BuilderPDDD.html
 │   │       │   │   ├── DataFrames.html
-│   │       │   │   ├── Formatters.html
 │   │       │   │   ├── ModelCheck.html
 │   │       │   │   ├── ModelFormatters.html
 │   │       │   │   ├── PDDDMergeModels.html
-│   │       │   │   ├── PlotSeries.html
 │   │       │   │   ├── Reporting.html
 │   │       │   │   ├── Solver.html
-│   │       │   │   ├── SolverPDDD.html
-│   │       │   │   └── Utils.html
+│   │       │   │   └── SolverPDDD.html
 │   │       │   ├── NaivePyDESSEM
 │   │       │   │   ├── cli
 │   │       │   │   │   ├── cli.html
@@ -105,8 +130,11 @@ Generated Tree:
 │   │       │   │   └── YAMLLoader.html
 │   │       │   └── index.html
 │   │       ├── _sources
-│   │       │   ├── index.md.txt
 │   │       │   ├── index.rst.txt
+│   │       │   ├── MDI.cli.rst.txt
+│   │       │   ├── MDI.Generator.rst.txt
+│   │       │   ├── MDI.rst.txt
+│   │       │   ├── MDI.Storage.rst.txt
 │   │       │   ├── modules.rst.txt
 │   │       │   ├── NaivePyDECOMP.cli.rst.txt
 │   │       │   ├── NaivePyDECOMP.HydraulicGenerator.rst.txt
@@ -188,6 +216,10 @@ Generated Tree:
 │   │       │   └── sphinx_highlight.js
 │   │       ├── genindex.html
 │   │       ├── index.html
+│   │       ├── MDI.cli.html
+│   │       ├── MDI.Generator.html
+│   │       ├── MDI.html
+│   │       ├── MDI.Storage.html
 │   │       ├── modules.html
 │   │       ├── NaivePyDECOMP.cli.html
 │   │       ├── NaivePyDECOMP.html
@@ -246,7 +278,10 @@ Generated Tree:
 │   │   └── trabalho01_caso05.yaml
 │   └── MDI
 │       ├── trabalho03_ex01.yaml
-│       └── trabalho03_ex02.yaml
+│       ├── trabalho03_ex01_anualizado.yaml
+│       ├── trabalho03_ex01_anualizado_alternativo.yaml
+│       ├── trabalho03_ex02.yaml
+│       └── trabalho03_ex02_anualizado.yaml
 ├── relatorios
 │   ├── DECOMP
 │   │   ├── caso01
@@ -334,37 +369,76 @@ Generated Tree:
 │   │   │       ├── tabela_geracao_caso04_pddd.tex
 │   │   │       └── tabela_geracao_caso04_single_pl.tex
 │   │   └── arquivos.txt
-│   └── DESSEM
-│       └── caso_345
+│   ├── DESSEM
+│   │   └── caso_345
+│   │       ├── imagens
+│   │       │   ├── carga_descarga_baterias_caso04.png
+│   │       │   ├── carga_descarga_baterias_caso05.png
+│   │       │   ├── custos_geracao_caso03.png
+│   │       │   ├── custos_geracao_caso04.png
+│   │       │   ├── custos_geracao_caso05.png
+│   │       │   ├── geracao_caso03.png
+│   │       │   ├── geracao_caso04.png
+│   │       │   ├── geracao_caso05.png
+│   │       │   ├── geracao_desempilhada_caso04.png
+│   │       │   ├── geracao_desempilhada_caso05.png
+│   │       │   ├── vazao_turbinada_caso03.png
+│   │       │   ├── vazao_turbinada_caso04.png
+│   │       │   ├── vazao_turbinada_caso05.png
+│   │       │   ├── volume_armazenado_caso03.png
+│   │       │   ├── volume_armazenado_caso04.png
+│   │       │   └── volume_armazenado_caso05.png
+│   │       ├── controle_termicas_caso03.tex
+│   │       ├── controle_termicas_caso04.tex
+│   │       ├── controle_termicas_caso05.tex
+│   │       ├── custos_caso03.tex
+│   │       ├── custos_caso04.tex
+│   │       ├── custos_caso05.tex
+│   │       ├── parametros_hidraulicos_caso03.tex
+│   │       ├── parametros_hidraulicos_caso04.tex
+│   │       ├── parametros_hidraulicos_caso05.tex
+│   │       ├── tabela_geracao_caso03.tex
+│   │       ├── tabela_geracao_caso04.tex
+│   │       └── tabela_geracao_caso05.tex
+│   └── MDI
+│       ├── ex01
+│       │   ├── imagens
+│       │   │   ├── carga_descarga_baterias_ex01.png
+│       │   │   ├── carga_descarga_baterias_ex01_anualizado.png
+│       │   │   ├── custos_geracao_ex01.png
+│       │   │   ├── custos_geracao_ex01_anualizado.png
+│       │   │   ├── geracao_ex01.png
+│       │   │   ├── geracao_ex01_anualizado.png
+│       │   │   ├── geracao_ex01_anualizado_fora.png
+│       │   │   ├── geracao_ex01_anualizado_ponta.png
+│       │   │   ├── geracao_ex01_fora.png
+│       │   │   └── geracao_ex01_ponta.png
+│       │   └── tabelas
+│       │       ├── decisoes_ex01.tex
+│       │       ├── decisoes_ex01_anualizado.tex
+│       │       ├── tabela_custos_ex01.tex
+│       │       ├── tabela_custos_ex01_anualizado.tex
+│       │       ├── tabela_geracao_ex01.tex
+│       │       └── tabela_geracao_ex01_anualizado.tex
+│       └── ex02
 │           ├── imagens
-│           │   ├── carga_descarga_baterias_caso04.png
-│           │   ├── carga_descarga_baterias_caso05.png
-│           │   ├── custos_geracao_caso03.png
-│           │   ├── custos_geracao_caso04.png
-│           │   ├── custos_geracao_caso05.png
-│           │   ├── geracao_caso03.png
-│           │   ├── geracao_caso04.png
-│           │   ├── geracao_caso05.png
-│           │   ├── geracao_desempilhada_caso04.png
-│           │   ├── geracao_desempilhada_caso05.png
-│           │   ├── vazao_turbinada_caso03.png
-│           │   ├── vazao_turbinada_caso04.png
-│           │   ├── vazao_turbinada_caso05.png
-│           │   ├── volume_armazenado_caso03.png
-│           │   ├── volume_armazenado_caso04.png
-│           │   └── volume_armazenado_caso05.png
-│           ├── controle_termicas_caso03.tex
-│           ├── controle_termicas_caso04.tex
-│           ├── controle_termicas_caso05.tex
-│           ├── custos_caso03.tex
-│           ├── custos_caso04.tex
-│           ├── custos_caso05.tex
-│           ├── parametros_hidraulicos_caso03.tex
-│           ├── parametros_hidraulicos_caso04.tex
-│           ├── parametros_hidraulicos_caso05.tex
-│           ├── tabela_geracao_caso03.tex
-│           ├── tabela_geracao_caso04.tex
-│           └── tabela_geracao_caso05.tex
+│           │   ├── carga_descarga_baterias_ex02.png
+│           │   ├── carga_descarga_baterias_ex02_anualizado.png
+│           │   ├── custos_geracao_ex02.png
+│           │   ├── custos_geracao_ex02_anualizado.png
+│           │   ├── geracao_ex02.png
+│           │   ├── geracao_ex02_anualizado.png
+│           │   ├── geracao_ex02_anualizado_fora.png
+│           │   ├── geracao_ex02_anualizado_ponta.png
+│           │   ├── geracao_ex02_fora.png
+│           │   └── geracao_ex02_ponta.png
+│           └── tabelas
+│               ├── decisoes_ex02.tex
+│               ├── decisoes_ex02_anualizado.tex
+│               ├── tabela_custos_ex02.tex
+│               ├── tabela_custos_ex02_anualizado.tex
+│               ├── tabela_geracao_ex02.tex
+│               └── tabela_geracao_ex02_anualizado.tex
 ├── resultados
 │   ├── DECOMP
 │   │   ├── despacho_caso01_pddd.csv
@@ -384,14 +458,20 @@ Generated Tree:
 │   │   ├── despacho_caso04_pddd_alpha.csv
 │   │   ├── despacho_caso04_pddd_zlimits.csv
 │   │   └── despacho_caso04_single_pl.csv
-│   └── DESSEM
-│       ├── despacho_caso01_1.csv
-│       ├── despacho_caso01_2.csv
-│       ├── despacho_caso01_3.csv
-│       ├── despacho_caso02.csv
-│       ├── despacho_caso03.csv
-│       ├── despacho_caso04.csv
-│       └── despacho_caso05.csv
+│   ├── DESSEM
+│   │   ├── despacho_caso01_1.csv
+│   │   ├── despacho_caso01_2.csv
+│   │   ├── despacho_caso01_3.csv
+│   │   ├── despacho_caso02.csv
+│   │   ├── despacho_caso03.csv
+│   │   ├── despacho_caso04.csv
+│   │   └── despacho_caso05.csv
+│   └── MDI
+│       ├── planejamento_expansao_ex01.csv
+│       ├── planejamento_expansao_ex01_anualizado.csv
+│       ├── planejamento_expansao_ex01_anualizado_alternativo.csv
+│       ├── planejamento_expansao_ex02.csv
+│       └── planejamento_expansao_ex02_anualizado.csv
 ├── src
 │   ├── MDI
 │   │   ├── cli
@@ -15305,5 +15385,7 @@ Generated Tree:
 ├── run_decomp_solvers.sh
 ├── run_dessem_plots.sh
 ├── run_dessem_solvers.sh
+├── run_mdi_plots.sh
+├── run_mdi_solvers.sh
 └── setup.cfg
 ```

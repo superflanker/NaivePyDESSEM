@@ -1,6 +1,14 @@
 MDI package
 ===========
 
+Module contents
+---------------
+
+.. automodule:: MDI
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   
 Subpackages
 -----------
 
@@ -95,10 +103,3 @@ MDI.YAMLLoader module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: MDI
-   :members:
-   :undoc-members:
-   :show-inheritance:

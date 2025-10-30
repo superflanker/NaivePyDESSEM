@@ -1,6 +1,14 @@
 NaivePyDESSEM.Storage package
 =============================
 
+Module contents
+---------------
+
+.. automodule:: NaivePyDESSEM.Storage
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -48,14 +56,6 @@ NaivePyDESSEM.Storage.StorageVars module
 ----------------------------------------
 
 .. automodule:: NaivePyDESSEM.Storage.StorageVars
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: NaivePyDESSEM.Storage
    :members:
    :undoc-members:
    :show-inheritance:

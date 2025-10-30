@@ -142,8 +142,9 @@ def dispatch_summary(model: ConcreteModel) -> None:
     """
     print(f"\n{Fore.MAGENTA}{Style.BRIGHT}==================== EXPANSION SUMMARY ===================={Style.RESET_ALL}")
     total_generation = __compute_total_generation(model)
-    print(f"  {Fore.CYAN}Total Generation{Style.RESET_ALL}: {Fore.RED}{total_generation:.2f} MWh")
+    # print(f"  {Fore.CYAN}Total Generation{Style.RESET_ALL}: {Fore.RED}{total_generation:.2f} MWh")
     demand = sum(value(model.level_hours[p] * model.d[p][t-1]) for t in model.T for p in model.P)
+    print(f"  {Fore.CYAN}Total Generation{Style.RESET_ALL}: {Fore.RED}{demand:.2f} MWh")
     print(
         f"  {Fore.CYAN}Total Demand{Style.RESET_ALL}: {Fore.RED}{demand:.2f} MWh")
     

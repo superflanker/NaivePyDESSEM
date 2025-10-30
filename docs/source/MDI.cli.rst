@@ -1,6 +1,14 @@
 MDI.cli package
 ===============
 
+Module contents
+---------------
+
+.. automodule:: MDI.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   
 Submodules
 ----------
 
@@ -20,10 +28,3 @@ MDI.cli.plot\_cli module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: MDI.cli
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -47,6 +47,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP">Module contents</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="NaivePyDECOMP.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html">NaivePyDECOMP.HydraulicGenerator package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html">NaivePyDECOMP.RenewableGenerator package</a></li>
@@ -55,7 +56,7 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="#">NaivePyDECOMP.cli package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#id1">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Builder">NaivePyDECOMP.Builder module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.BuilderPDDD">NaivePyDECOMP.BuilderPDDD module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.DataFrames">NaivePyDECOMP.DataFrames module</a></li>
@@ -69,7 +70,6 @@
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Solver">NaivePyDECOMP.Solver module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Utils">NaivePyDECOMP.Utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.YAMLLoader">NaivePyDECOMP.YAMLLoader module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="MDI.html">MDI package</a></li>
@@ -105,6 +105,74 @@
              
   <section id="naivepydecomp-cli-package">
 <h1>NaivePyDECOMP.cli package<a class="headerlink" href="#naivepydecomp-cli-package" title="Link to this heading"></a></h1>
+<section id="module-NaivePyDECOMP.cli">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-NaivePyDECOMP.cli" title="Link to this heading"></a></h2>
+<section id="naivepydecomp-cli-subpackage">
+<h3>NaivePyDECOMP – CLI Subpackage<a class="headerlink" href="#naivepydecomp-cli-subpackage" title="Link to this heading"></a></h3>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="author">
+<h4>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="description">
+<h4>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h4>
+<p>This subpackage contains the command-line interface (CLI) utilities for
+the <strong>NaivePyDECOMP</strong> project. It enables interactive and scripted execution
+of core workflows such as solving dispatch models and visualizing results,
+without requiring direct code interaction.</p>
+</section>
+<section id="modules">
+<h4>Modules<a class="headerlink" href="#modules" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>cli.py</dt><dd><p>Solver CLI entry point. Loads a YAML case file, builds and solves the model,
+and exports dispatch results to a spreadsheet.</p>
+</dd>
+<dt>plot_cli.py</dt><dd><p>Interactive and scriptable plotting/export interface. Allows users to load
+dispatch data from files, select categories, and export LaTeX tables or
+visual plots (bar or line).</p>
+</dd>
+</dl>
+</section>
+<section id="features">
+<h4>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Modular CLI design for pedagogical workflows.</p></li>
+<li><p>Integration with Colorama for enhanced terminal output.</p></li>
+<li><p>Supports interactive prompts and fully scriptable modes.</p></li>
+<li><p>Compatible with <em>.csv</em>, <em>.xlsx</em>, and <em>.parquet</em> formats.</p></li>
+<li><p>Export options include LaTeX tables (with styling) and high-quality plots.</p></li>
+</ul>
+</section>
+<section id="example-usage">
+<h4>Example Usage<a class="headerlink" href="#example-usage" title="Link to this heading"></a></h4>
+<p>Solve a dispatch case and export results to CSV:</p>
+<blockquote>
+<div><p>$ python -m NaivePyDECOMP.CLI.cli_solve case.yaml –out_dir results –out_file output.csv</p>
+</div></blockquote>
+<p>Export selected results as LaTeX table and plots:</p>
+<blockquote>
+<div><p>$ python -m NaivePyDECOMP.CLI.cli_plot results/output.csv –mode table -c G Q V –out_dir latex –out_file table.tex</p>
+</div></blockquote>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The CLI scripts are intended for instructional use in energy systems modeling.</p></li>
+<li><p>Users can extend or modify CLI logic to accommodate other workflows or backends.</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Solver.solve" title="NaivePyDECOMP.Solver.solve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NaivePyDECOMP.Solver.solve</span></code></a></dt><dd><p>Model construction and solving routine.</p>
+</dd>
+<dt><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.DataFrames" title="NaivePyDECOMP.DataFrames"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NaivePyDECOMP.DataFrames</span></code></a></dt><dd><p>Functions for assembling dispatch outputs.</p>
+</dd>
+<dt><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Utils" title="NaivePyDECOMP.Utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NaivePyDECOMP.Utils</span></code></a></dt><dd><p>Formatting, LaTeX, and input helpers.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
@@ -113,12 +181,12 @@
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
 <p>Solver cli for NaivePyDECOMP framework</p>
-<section id="author">
-<h3>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h3>
+<section id="id1">
+<h3>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="description">
-<h3>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h3>
+<section id="id2">
+<h3>Description<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <p>This script provides a command-line interface (CLI) for solving power system
 dispatch problems using the NaivePyDECOMP framework. It loads a structured
 YAML configuration file containing the model horizon, demand, and definitions
@@ -127,8 +195,8 @@ of thermal, hydro, renewable, and storage units.</p>
 CBC, MindtPy), the resulting dispatch decisions are exported to a tabular
 DataFrame and saved to disk in a user-defined format (CSV, Excel, or Parquet).</p>
 </section>
-<section id="features">
-<h3>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h3>
+<section id="id3">
+<h3>Features<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Model construction and solver execution based on <em>NaivePyDECOMP.Solver</em></p></li>
 <li><p>Tabular export using <em>NaivePyDECOMP.DataFrames.build_dispatch_dataframe</em></p></li>
@@ -214,12 +282,12 @@ renewable, or storage units, along with metadata and demand series.</p></li>
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
 <p>Solver cli for NaivePyDECOMP PDDD framework</p>
-<section id="id1">
-<h3>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<section id="id4">
+<h3>Author<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id2">
-<h3>Description<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<section id="id5">
+<h3>Description<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <p>This script provides a command-line interface (CLI) for solving power system
 dispatch problems using the NaivePyDECOMP framework. It loads a structured
 YAML configuration file containing the model horizon, demand, and definitions
@@ -228,8 +296,8 @@ of thermal, hydro, renewable, and storage units.</p>
 CBC, MindtPy), the resulting dispatch decisions are exported to a tabular
 DataFrame and saved to disk in a user-defined format (CSV, Excel, or Parquet).</p>
 </section>
-<section id="id3">
-<h3>Features<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<section id="id6">
+<h3>Features<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Model construction and solver execution based on <em>NaivePyDECOMP.Solver</em></p></li>
 <li><p>Tabular export using <em>NaivePyDECOMP.DataFrames.build_dispatch_dataframe</em></p></li>
@@ -237,8 +305,8 @@ DataFrame and saved to disk in a user-defined format (CSV, Excel, or Parquet).</
 <li><p>Colorized console output via <em>colorama</em> for enhanced readability</p></li>
 </ul>
 </section>
-<section id="id4">
-<h3>Dependencies<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<section id="id7">
+<h3>Dependencies<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>argparse</p></li>
 <li><p>os</p></li>
@@ -249,8 +317,8 @@ DataFrame and saved to disk in a user-defined format (CSV, Excel, or Parquet).</
 <li><p>NaivePyDECOMP.DataFrames</p></li>
 </ul>
 </section>
-<section id="id5">
-<h3>Usage<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<section id="id8">
+<h3>Usage<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
 <p>$ python cli.py case.yaml –out_dir results –out_file dispatch.xlsx</p>
 <p class="rubric">References</p>
 <p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
@@ -315,12 +383,12 @@ renewable, or storage units, along with metadata and demand series.</p></li>
 <p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
 <p>Module: CLI — Visualization and Export Interface</p>
-<section id="id6">
-<h3>Author<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<section id="id9">
+<h3>Author<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id7">
-<h3>Description<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<section id="id10">
+<h3>Description<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <p>This module provides a command-line interface (CLI) for inspecting and exporting
 the results of a solved NaivePyDECOMP dispatch model.</p>
 <p>The CLI supports both interactive and non-interactive use, allowing users to:</p>
@@ -330,8 +398,8 @@ the results of a solved NaivePyDECOMP dispatch model.</p>
 <li><p>Save control variables (U, Y, W) as visually annotated LaTeX matrices.</p></li>
 </ul>
 </section>
-<section id="id8">
-<h3>Features<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<section id="id11">
+<h3>Features<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Supports CSV, Excel, and Parquet input formats.</p></li>
 <li><p>Category-based selection of variables (e.g., G, Q, V, S, BAT, cost).</p></li>
@@ -350,8 +418,8 @@ the results of a solved NaivePyDECOMP dispatch model.</p>
 <li><p>‘cost’  : Cost components per stage (var, start, deficit)</p></li>
 </ul>
 </section>
-<section id="id9">
-<h3>Dependencies<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<section id="id12">
+<h3>Dependencies<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>pandas</p></li>
 <li><p>matplotlib</p></li>
@@ -360,8 +428,8 @@ the results of a solved NaivePyDECOMP dispatch model.</p>
 <li><p>NaivePyDECOMP utilities: plotting, formatting, LaTeX export</p></li>
 </ul>
 </section>
-<section id="id10">
-<h3>Usage<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<section id="id13">
+<h3>Usage<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
 <dl class="simple">
 <dt>Run via command line:</dt><dd><p>$ python plot_cli.py results.csv –mode table –category G cost –out-dir tables</p>
 </dd>
@@ -573,74 +641,6 @@ such as generation, flow, storage, control actions, and cost.</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="module-NaivePyDECOMP.cli">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-NaivePyDECOMP.cli" title="Link to this heading"></a></h2>
-<section id="naivepydecomp-cli-subpackage">
-<h3>NaivePyDECOMP – CLI Subpackage<a class="headerlink" href="#naivepydecomp-cli-subpackage" title="Link to this heading"></a></h3>
-<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
-Federal University of Paraná (UFPR)</p>
-<section id="id11">
-<h4>Author<a class="headerlink" href="#id11" title="Link to this heading"></a></h4>
-<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
-</section>
-<section id="id12">
-<h4>Description<a class="headerlink" href="#id12" title="Link to this heading"></a></h4>
-<p>This subpackage contains the command-line interface (CLI) utilities for
-the <strong>NaivePyDECOMP</strong> project. It enables interactive and scripted execution
-of core workflows such as solving dispatch models and visualizing results,
-without requiring direct code interaction.</p>
-</section>
-<section id="modules">
-<h4>Modules<a class="headerlink" href="#modules" title="Link to this heading"></a></h4>
-<dl class="simple">
-<dt>cli.py</dt><dd><p>Solver CLI entry point. Loads a YAML case file, builds and solves the model,
-and exports dispatch results to a spreadsheet.</p>
-</dd>
-<dt>plot_cli.py</dt><dd><p>Interactive and scriptable plotting/export interface. Allows users to load
-dispatch data from files, select categories, and export LaTeX tables or
-visual plots (bar or line).</p>
-</dd>
-</dl>
-</section>
-<section id="id13">
-<h4>Features<a class="headerlink" href="#id13" title="Link to this heading"></a></h4>
-<ul class="simple">
-<li><p>Modular CLI design for pedagogical workflows.</p></li>
-<li><p>Integration with Colorama for enhanced terminal output.</p></li>
-<li><p>Supports interactive prompts and fully scriptable modes.</p></li>
-<li><p>Compatible with <em>.csv</em>, <em>.xlsx</em>, and <em>.parquet</em> formats.</p></li>
-<li><p>Export options include LaTeX tables (with styling) and high-quality plots.</p></li>
-</ul>
-</section>
-<section id="example-usage">
-<h4>Example Usage<a class="headerlink" href="#example-usage" title="Link to this heading"></a></h4>
-<p>Solve a dispatch case and export results to CSV:</p>
-<blockquote>
-<div><p>$ python -m NaivePyDECOMP.CLI.cli_solve case.yaml –out_dir results –out_file output.csv</p>
-</div></blockquote>
-<p>Export selected results as LaTeX table and plots:</p>
-<blockquote>
-<div><p>$ python -m NaivePyDECOMP.CLI.cli_plot results/output.csv –mode table -c G Q V –out_dir latex –out_file table.tex</p>
-</div></blockquote>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>The CLI scripts are intended for instructional use in energy systems modeling.</p></li>
-<li><p>Users can extend or modify CLI logic to accommodate other workflows or backends.</p></li>
-</ul>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<dl class="simple">
-<dt><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Solver.solve" title="NaivePyDECOMP.Solver.solve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NaivePyDECOMP.Solver.solve</span></code></a></dt><dd><p>Model construction and solving routine.</p>
-</dd>
-<dt><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.DataFrames" title="NaivePyDECOMP.DataFrames"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NaivePyDECOMP.DataFrames</span></code></a></dt><dd><p>Functions for assembling dispatch outputs.</p>
-</dd>
-<dt><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Utils" title="NaivePyDECOMP.Utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NaivePyDECOMP.Utils</span></code></a></dt><dd><p>Formatting, LaTeX, and input helpers.</p>
-</dd>
-</dl>
-</div>
-</section>
-</section>
 </section>
 </section>
 

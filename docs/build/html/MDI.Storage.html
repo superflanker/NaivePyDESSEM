@@ -48,13 +48,14 @@
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="MDI.html">MDI package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI">Module contents</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="MDI.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html">MDI.Generator package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">MDI.Storage package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.cli.html">MDI.cli package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="MDI.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.html#id1">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Builder">MDI.Builder module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.DataFrames">MDI.DataFrames module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Formatters">MDI.Formatters module</a></li>
@@ -65,7 +66,6 @@
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Solver">MDI.Solver module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Utils">MDI.Utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.YAMLLoader">MDI.YAMLLoader module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -100,6 +100,77 @@
              
   <section id="mdi-storage-package">
 <h1>MDI.Storage package<a class="headerlink" href="#mdi-storage-package" title="Link to this heading"></a></h1>
+<section id="module-MDI.Storage">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-MDI.Storage" title="Link to this heading"></a></h2>
+<section id="storage-subpackage">
+<h3>Storage Subpackage<a class="headerlink" href="#storage-subpackage" title="Link to this heading"></a></h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="author">
+<h4>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="summary">
+<h4>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h4>
+<p>The <strong>Storage</strong> subpackage implements all the symbolic, data, and structural
+components required to model the operation and expansion of <strong>energy storage systems</strong> within
+the broader <strong>MDI (Modular Decision Infrastructure)</strong> optimization framework.</p>
+</section>
+<section id="description">
+<h4>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h4>
+<p>This subpackage defines the complete representation of storage units, including
+their parameters, decision variables, constraints, and cost functions, suitable
+for Mixed-Integer Linear Programming (MILP) and Mixed-Integer Nonlinear Programming (MINLP)
+formulations using <strong>Pyomo</strong>.</p>
+</section>
+<section id="modules">
+<h4>Modules<a class="headerlink" href="#modules" title="Link to this heading"></a></h4>
+<dl class="simple">
+<dt>StorageBuilder</dt><dd><p>High-level routines for constructing complete storage models.</p>
+</dd>
+<dt>StorageDataTypes</dt><dd><p>Data classes defining the structure and typing of storage unit data.</p>
+</dd>
+<dt>StorageEquations</dt><dd><p>Symbolic expressions for cost and power balance aggregation.</p>
+</dd>
+<dt>StorageObjective</dt><dd><p>Objective function for total storage cost minimization.</p>
+</dd>
+<dt>StorageVars</dt><dd><p>Model variables, sets, and parameters declaration.</p>
+</dd>
+</dl>
+</section>
+<section id="structure-overview">
+<h4>Structure Overview<a class="headerlink" href="#structure-overview" title="Link to this heading"></a></h4>
+<p>The <cite>Storage</cite> subpackage provides modular integration of storage subsystems
+into larger system models. It follows a builder pattern to maintain
+clarity and extensibility.</p>
+<p>Typical usage:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Storage</span><span class="w"> </span><span class="kn">import</span> <span class="n">StorageData</span><span class="p">,</span> <span class="n">StorageUnit</span><span class="p">,</span> <span class="n">build_storage</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">StorageData</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">build_storage</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">include_objective</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="exports">
+<h4>Exports<a class="headerlink" href="#exports" title="Link to this heading"></a></h4>
+<p>This <cite>__init__.py</cite> file re-exports all relevant symbols to simplify
+namespace access.
+Users may import either individual modules or the entire storage
+subsystem directly via:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Storage</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>All modules are compatible with <strong>Pyomo 6.x</strong>.</p></li>
+<li><p>Energy and power units follow the SI convention (MWh, MW).</p></li>
+<li><p>Cost parameters are assumed to be in consistent monetary units.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL. <em>DESSEM — Manual de Metodologia</em>, 2023.
+[2] Unsihuay Vila, C. <em>Introdução aos Sistemas de Energia Elétrica</em>, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
@@ -109,19 +180,19 @@
 <h3>Storage Builder Module<a class="headerlink" href="#storage-builder-module" title="Link to this heading"></a></h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="author">
-<h4>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h4>
+<section id="id1">
+<h4>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="summary">
-<h4>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h4>
+<section id="id2">
+<h4>Summary<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
 <p>This module defines the construction logic of the <strong>energy storage subsystem</strong>
 within the MDI optimization framework. It provides high-level builder functions
 that assemble the complete storage model — including sets, parameters,
 variables, constraints, and the objective function — from structured input data.</p>
 </section>
-<section id="description">
-<h4>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h4>
+<section id="id3">
+<h4>Description<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
 <p>Two functions are defined in this module:</p>
 <ol class="arabic simple">
 <li><p><strong>`build_storage(data, include_objective=True)`</strong>
@@ -260,19 +331,19 @@ represent an energy storage unit within the optimization framework.</p>
 <h3>Storage Constraints Module<a class="headerlink" href="#storage-constraints-module" title="Link to this heading"></a></h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="id1">
-<h4>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
+<section id="id4">
+<h4>Author<a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id2">
-<h4>Summary<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
+<section id="id5">
+<h4>Summary<a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
 <p>This module defines all <strong>physical and operational constraints</strong> for the
 energy storage subsystem of the MDI optimization model.
 It ensures consistency between energy balance, power limits, state-of-charge
 (SoC) boundaries, and investment linkage dynamics.</p>
 </section>
-<section id="id3">
-<h4>Description<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
+<section id="id6">
+<h4>Description<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
 <p>Four main constraint groups are provided:</p>
 <ol class="arabic simple">
 <li><p><strong>Energy Balance Constraint</strong>
@@ -319,8 +390,8 @@ x_{s,t} = x_{s,t-1} + y_{s,t}
 - (y_{s,t}) — binary investment decision
 - (Delta t) — duration of time step (hours)</p>
 </section>
-<section id="id4">
-<h4>Functions<a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
+<section id="id7">
+<h4>Functions<a class="headerlink" href="#id7" title="Link to this heading"></a></h4>
 <dl class="simple">
 <dt>add_storage_energy_balance_constraint(m)</dt><dd><p>Adds the intertemporal energy conservation constraint.</p>
 </dd>
@@ -345,8 +416,8 @@ between existence and new builds.</p>
 <div><p>EELT7030/UFPR, 2023.</p>
 </div></blockquote>
 </section>
-<section id="id5">
-<h4>Module Dependencies<a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
+<section id="id8">
+<h4>Module Dependencies<a class="headerlink" href="#id8" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><strong>External:</strong> <code class="docutils literal notranslate"><span class="pre">pyomo.environ.Constraint</span></code></p></li>
 </ul>
@@ -439,19 +510,19 @@ limits as a function of the installed capacity and operational state.</p>
 <h3>Storage Data Types Module<a class="headerlink" href="#storage-data-types-module" title="Link to this heading"></a></h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="id6">
-<h4>Author<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
+<section id="id9">
+<h4>Author<a class="headerlink" href="#id9" title="Link to this heading"></a></h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id7">
-<h4>Summary<a class="headerlink" href="#id7" title="Link to this heading"></a></h4>
+<section id="id10">
+<h4>Summary<a class="headerlink" href="#id10" title="Link to this heading"></a></h4>
 <p>This module defines the fundamental <strong>data structures</strong> that describe
 the technical, economic, and operational attributes of <strong>energy storage units</strong>.
 It serves as the foundation for building symbolic Pyomo models used in
 optimization formulations for system operation and expansion.</p>
 </section>
-<section id="id8">
-<h4>Description<a class="headerlink" href="#id8" title="Link to this heading"></a></h4>
+<section id="id11">
+<h4>Description<a class="headerlink" href="#id11" title="Link to this heading"></a></h4>
 <p>Two main dataclasses are defined:</p>
 <ol class="arabic simple">
 <li><p><strong>`StorageUnit`</strong>
@@ -583,23 +654,23 @@ patamar and time index.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id9">
-<span class="sig-name descname"><span class="pre">demand</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id9" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id10">
-<span class="sig-name descname"><span class="pre">horizon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id10" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id11">
-<span class="sig-name descname"><span class="pre">level_hours</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id11" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="id12">
-<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#MDI.Storage.StorageDataTypes.StorageUnit" title="MDI.Storage.StorageDataTypes.StorageUnit"><span class="pre">StorageUnit</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id12" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">demand</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id12" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id13">
+<span class="sig-name descname"><span class="pre">horizon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id13" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id14">
+<span class="sig-name descname"><span class="pre">level_hours</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id14" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id15">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#MDI.Storage.StorageDataTypes.StorageUnit" title="MDI.Storage.StorageDataTypes.StorageUnit"><span class="pre">StorageUnit</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#id15" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -731,58 +802,58 @@ patamar and time index.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id13">
-<span class="sig-name descname"><span class="pre">Eini</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id13" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id14">
-<span class="sig-name descname"><span class="pre">Emax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id14" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id15">
-<span class="sig-name descname"><span class="pre">Emin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id15" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="id16">
-<span class="sig-name descname"><span class="pre">Pch_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id16" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">Eini</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id16" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id17">
-<span class="sig-name descname"><span class="pre">Pdis_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id17" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">Emax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id17" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id18">
-<span class="sig-name descname"><span class="pre">c_inv</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id18" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">Emin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id18" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id19">
-<span class="sig-name descname"><span class="pre">c_op</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id19" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">Pch_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id19" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id20">
-<span class="sig-name descname"><span class="pre">eta_c</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id20" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">Pdis_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id20" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id21">
-<span class="sig-name descname"><span class="pre">eta_d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id21" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">c_inv</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id21" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id22">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id22" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">c_op</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id22" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id23">
-<span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id23" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">eta_c</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id23" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id24">
+<span class="sig-name descname"><span class="pre">eta_d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#id24" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id25">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#id25" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id26">
+<span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#id26" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -794,19 +865,19 @@ patamar and time index.</p>
 <h3>Storage Equations Module<a class="headerlink" href="#storage-equations-module" title="Link to this heading"></a></h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="id24">
-<h4>Author<a class="headerlink" href="#id24" title="Link to this heading"></a></h4>
+<section id="id27">
+<h4>Author<a class="headerlink" href="#id27" title="Link to this heading"></a></h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id25">
-<h4>Summary<a class="headerlink" href="#id25" title="Link to this heading"></a></h4>
+<section id="id28">
+<h4>Summary<a class="headerlink" href="#id28" title="Link to this heading"></a></h4>
 <p>This module defines <strong>symbolic expressions</strong> for energy storage subsystems,
 used in the model composition phase to aggregate costs and power balances.
 It provides reusable components for constructing higher-level formulations
 (e.g., integrated generation–storage–transmission systems).</p>
 </section>
-<section id="id26">
-<h4>Description<a class="headerlink" href="#id26" title="Link to this heading"></a></h4>
+<section id="id29">
+<h4>Description<a class="headerlink" href="#id29" title="Link to this heading"></a></h4>
 <p>Two main symbolic functions are defined:</p>
 <ol class="arabic simple">
 <li><p><strong>`add_storage_cost_expression()`</strong>
@@ -820,8 +891,8 @@ power balance in each time step and load level.</p></li>
 <p>These expressions are not constraints by themselves, but <strong>building blocks</strong>
 that can be embedded in multi-component optimization formulations.</p>
 </section>
-<section id="id27">
-<h4>Mathematical Formulation<a class="headerlink" href="#id27" title="Link to this heading"></a></h4>
+<section id="id30">
+<h4>Mathematical Formulation<a class="headerlink" href="#id30" title="Link to this heading"></a></h4>
 <p>1. <strong>Cost Expression</strong>
 [
 C_{storage} =
@@ -850,8 +921,8 @@ rac{1}{eta_c} , P^{ch}_{s,t,p}
 | (x_{s,t}) | Binary existence variable |
 | (SU, T, P) | Sets of storage units, time periods, and load levels |</p>
 </section>
-<section id="id28">
-<h4>Functions<a class="headerlink" href="#id28" title="Link to this heading"></a></h4>
+<section id="id31">
+<h4>Functions<a class="headerlink" href="#id31" title="Link to this heading"></a></h4>
 <dl class="simple">
 <dt>add_storage_cost_expression(m, cost_array)</dt><dd><p>Appends the total storage cost expression to a given list of cost terms.</p>
 </dd>
@@ -874,8 +945,8 @@ allowing modular model assembly.</p></li>
 <div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
 </div></blockquote>
 </section>
-<section id="id29">
-<h4>Module Dependencies<a class="headerlink" href="#id29" title="Link to this heading"></a></h4>
+<section id="id32">
+<h4>Module Dependencies<a class="headerlink" href="#id32" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><strong>Internal:</strong> None</p></li>
 <li><p><strong>External:</strong> <cite>pyomo.environ</cite>, <cite>typing</cite></p></li>
@@ -961,18 +1032,18 @@ of the storage subsystem.</p></li>
 <h3>Storage Objective Function Module<a class="headerlink" href="#storage-objective-function-module" title="Link to this heading"></a></h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="id30">
-<h4>Author<a class="headerlink" href="#id30" title="Link to this heading"></a></h4>
+<section id="id33">
+<h4>Author<a class="headerlink" href="#id33" title="Link to this heading"></a></h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id31">
-<h4>Summary<a class="headerlink" href="#id31" title="Link to this heading"></a></h4>
+<section id="id34">
+<h4>Summary<a class="headerlink" href="#id34" title="Link to this heading"></a></h4>
 <p>This module defines the <strong>objective function</strong> for the energy storage subsystem,
 used in the Mixed-Integer Linear Programming (MILP) formulation of the
 operation and expansion planning problem.</p>
 </section>
-<section id="id32">
-<h4>Description<a class="headerlink" href="#id32" title="Link to this heading"></a></h4>
+<section id="id35">
+<h4>Description<a class="headerlink" href="#id35" title="Link to this heading"></a></h4>
 <p>The objective function represents the <strong>total system cost</strong> associated
 with the operation and investment of storage units.
 It aggregates two main cost components:</p>
@@ -985,8 +1056,8 @@ capacity throughout the planning horizon.</p></li>
 <p>Both cost components are expressed as additive terms in a global minimization
 objective, consistent with standard formulations in expansion planning models.</p>
 </section>
-<section id="id33">
-<h4>Mathematical Formulation<a class="headerlink" href="#id33" title="Link to this heading"></a></h4>
+<section id="id36">
+<h4>Mathematical Formulation<a class="headerlink" href="#id36" title="Link to this heading"></a></h4>
 <p>The objective function is defined as:</p>
 <p>[
 min ; Z =
@@ -1012,8 +1083,8 @@ c^{inv}_s , x_{s,t}</p></li>
 | (x_{s,t}) | Binary existence variable |
 | (SU, T, P) | Sets of storage units, time steps, and load levels |</p>
 </section>
-<section id="id34">
-<h4>Functions<a class="headerlink" href="#id34" title="Link to this heading"></a></h4>
+<section id="id37">
+<h4>Functions<a class="headerlink" href="#id37" title="Link to this heading"></a></h4>
 <dl class="simple">
 <dt>set_objective_storage(m)</dt><dd><p>Adds the objective function to the Pyomo model, minimizing total storage costs.</p>
 </dd>
@@ -1071,19 +1142,19 @@ named <cite>OBJ</cite>.</p>
 <h3>Storage Variables and Parameters Module<a class="headerlink" href="#storage-variables-and-parameters-module" title="Link to this heading"></a></h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="id35">
-<h4>Author<a class="headerlink" href="#id35" title="Link to this heading"></a></h4>
+<section id="id38">
+<h4>Author<a class="headerlink" href="#id38" title="Link to this heading"></a></h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id36">
-<h4>Summary<a class="headerlink" href="#id36" title="Link to this heading"></a></h4>
+<section id="id39">
+<h4>Summary<a class="headerlink" href="#id39" title="Link to this heading"></a></h4>
 <p>This module defines all <strong>sets, parameters, and decision variables</strong>
 related to the <strong>energy storage subsystem</strong> of the MDI optimization framework.
 It provides the symbolic foundation required by the storage constraints
 and objective function.</p>
 </section>
-<section id="id37">
-<h4>Description<a class="headerlink" href="#id37" title="Link to this heading"></a></h4>
+<section id="id40">
+<h4>Description<a class="headerlink" href="#id40" title="Link to this heading"></a></h4>
 <p>Two main functions are implemented:</p>
 <ol class="arabic simple">
 <li><p><strong>`storage_add_sets_and_params(m, data)`</strong>
@@ -1097,8 +1168,8 @@ energy state, and investment decisions.</p></li>
 and can be embedded seamlessly within larger optimization systems
 that couple generation, transmission, and storage components.</p>
 </section>
-<section id="id38">
-<h4>Mathematical Overview<a class="headerlink" href="#id38" title="Link to this heading"></a></h4>
+<section id="id41">
+<h4>Mathematical Overview<a class="headerlink" href="#id41" title="Link to this heading"></a></h4>
 <p><strong>Continuous variables</strong>
 [
 egin{align}
@@ -1119,8 +1190,8 @@ end{align}
 - State (x_{0})
 - Duration of time step (Delta t)</p>
 </section>
-<section id="id39">
-<h4>Functions<a class="headerlink" href="#id39" title="Link to this heading"></a></h4>
+<section id="id42">
+<h4>Functions<a class="headerlink" href="#id42" title="Link to this heading"></a></h4>
 <dl class="simple">
 <dt>storage_add_sets_and_params(m, data)</dt><dd><p>Define the sets and parameters related to the storage subsystem.</p>
 </dd>
@@ -1141,8 +1212,8 @@ when they are not yet defined in the parent model.</p></li>
 <div><p>EELT7030/UFPR, 2023.</p>
 </div></blockquote>
 </section>
-<section id="id40">
-<h4>Module Dependencies<a class="headerlink" href="#id40" title="Link to this heading"></a></h4>
+<section id="id43">
+<h4>Module Dependencies<a class="headerlink" href="#id43" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><strong>Internal:</strong> <code class="docutils literal notranslate"><span class="pre">StorageDataTypes</span></code></p></li>
 <li><p><strong>External:</strong> <code class="docutils literal notranslate"><span class="pre">pyomo.environ</span></code> (RangeSet, Set, Param, Var, NonNegativeReals, Binary, ConcreteModel)</p></li>
@@ -1194,77 +1265,6 @@ the storage units and demand profiles.</p></li>
 </dl>
 </dd></dl>
 
-</section>
-<section id="module-MDI.Storage">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-MDI.Storage" title="Link to this heading"></a></h2>
-<section id="storage-subpackage">
-<h3>Storage Subpackage<a class="headerlink" href="#storage-subpackage" title="Link to this heading"></a></h3>
-<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
-Federal University of Paraná (UFPR)</p>
-<section id="id41">
-<h4>Author<a class="headerlink" href="#id41" title="Link to this heading"></a></h4>
-<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
-</section>
-<section id="id42">
-<h4>Summary<a class="headerlink" href="#id42" title="Link to this heading"></a></h4>
-<p>The <strong>Storage</strong> subpackage implements all the symbolic, data, and structural
-components required to model the operation and expansion of <strong>energy storage systems</strong> within
-the broader <strong>MDI (Modular Decision Infrastructure)</strong> optimization framework.</p>
-</section>
-<section id="id43">
-<h4>Description<a class="headerlink" href="#id43" title="Link to this heading"></a></h4>
-<p>This subpackage defines the complete representation of storage units, including
-their parameters, decision variables, constraints, and cost functions, suitable
-for Mixed-Integer Linear Programming (MILP) and Mixed-Integer Nonlinear Programming (MINLP)
-formulations using <strong>Pyomo</strong>.</p>
-</section>
-<section id="modules">
-<h4>Modules<a class="headerlink" href="#modules" title="Link to this heading"></a></h4>
-<dl class="simple">
-<dt>StorageBuilder</dt><dd><p>High-level routines for constructing complete storage models.</p>
-</dd>
-<dt>StorageDataTypes</dt><dd><p>Data classes defining the structure and typing of storage unit data.</p>
-</dd>
-<dt>StorageEquations</dt><dd><p>Symbolic expressions for cost and power balance aggregation.</p>
-</dd>
-<dt>StorageObjective</dt><dd><p>Objective function for total storage cost minimization.</p>
-</dd>
-<dt>StorageVars</dt><dd><p>Model variables, sets, and parameters declaration.</p>
-</dd>
-</dl>
-</section>
-<section id="structure-overview">
-<h4>Structure Overview<a class="headerlink" href="#structure-overview" title="Link to this heading"></a></h4>
-<p>The <cite>Storage</cite> subpackage provides modular integration of storage subsystems
-into larger system models. It follows a builder pattern to maintain
-clarity and extensibility.</p>
-<p>Typical usage:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Storage</span><span class="w"> </span><span class="kn">import</span> <span class="n">StorageData</span><span class="p">,</span> <span class="n">StorageUnit</span><span class="p">,</span> <span class="n">build_storage</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">StorageData</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">build_storage</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">include_objective</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="exports">
-<h4>Exports<a class="headerlink" href="#exports" title="Link to this heading"></a></h4>
-<p>This <cite>__init__.py</cite> file re-exports all relevant symbols to simplify
-namespace access.
-Users may import either individual modules or the entire storage
-subsystem directly via:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Storage</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
-</pre></div>
-</div>
-<p class="rubric">Notes</p>
-<ul class="simple">
-<li><p>All modules are compatible with <strong>Pyomo 6.x</strong>.</p></li>
-<li><p>Energy and power units follow the SI convention (MWh, MW).</p></li>
-<li><p>Cost parameters are assumed to be in consistent monetary units.</p></li>
-</ul>
-<p class="rubric">References</p>
-<p>[1] CEPEL. <em>DESSEM — Manual de Metodologia</em>, 2023.
-[2] Unsihuay Vila, C. <em>Introdução aos Sistemas de Energia Elétrica</em>, Lecture Notes, EELT7030/UFPR, 2023.</p>
-</section>
-</section>
 </section>
 </section>
 

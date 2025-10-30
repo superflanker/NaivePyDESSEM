@@ -1,6 +1,14 @@
 NaivePyDECOMP.cli package
 =========================
 
+Module contents
+---------------
+
+.. automodule:: NaivePyDECOMP.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -24,14 +32,6 @@ NaivePyDECOMP.cli.plot\_cli module
 ----------------------------------
 
 .. automodule:: NaivePyDECOMP.cli.plot_cli
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: NaivePyDECOMP.cli
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,6 +1,14 @@
 NaivePyDESSEM.HydraulicGenerator package
 ========================================
 
+Module contents
+---------------
+
+.. automodule:: NaivePyDESSEM.HydraulicGenerator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -80,14 +88,6 @@ NaivePyDESSEM.HydraulicGenerator.SimplifiedConstantProductivityFPH module
 -------------------------------------------------------------------------
 
 .. automodule:: NaivePyDESSEM.HydraulicGenerator.SimplifiedConstantProductivityFPH
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: NaivePyDESSEM.HydraulicGenerator
    :members:
    :undoc-members:
    :show-inheritance:
