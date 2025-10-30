@@ -201,19 +201,87 @@
     <span class="p">]</span>
 
     <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
-        <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
-            <span class="c1"># Operational cost (proportional to energy generated)</span>
-            <span class="n">m</span><span class="o">.</span><span class="n">level_hours</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_c_op</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_P</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">GU</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span>
-        <span class="p">)</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span>
-            <span class="c1"># Investment cost (proportional to installed capacity)</span>
-            <span class="n">m</span><span class="o">.</span><span class="n">gen_c_inv</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_x</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">GU</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span>
-        <span class="p">)</span>
-
+        <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">parcel_investment</span><span class="p">:</span>
+            <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+                <span class="c1"># Operational cost (proportional to energy generated)</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">level_hours</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_c_op</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_P</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">GU</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span>
+            <span class="p">)</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span>
+                <span class="c1"># Investment cost (proportional to installed capacity)</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">gen_c_inv</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_x</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">GU</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+                <span class="c1"># Operational cost (proportional to energy generated)</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">level_hours</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_c_op</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_P</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">GU</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span>
+            <span class="p">)</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span>
+                <span class="c1"># Investment cost (proportional to installed capacity)</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">gen_c_inv</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_y</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">GU</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span>
+            <span class="p">)</span>
         <span class="n">cost_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">cost_array</span></div>
+
+
+
+<div class="viewcode-block" id="add_generator_capacity_expression">
+<a class="viewcode-back" href="../../../MDI.Generator.html#MDI.Generator.GeneratorEquations.add_generator_capacity_expression">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_generator_capacity_expression</span><span class="p">(</span>
+    <span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span>
+    <span class="n">t</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">p</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">capacity_array</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build and append the generation capacity expression for a given time and level.</span>
+
+<span class="sd">    Computes the total generation capacity across all units for the specified</span>
+<span class="sd">    time period and demand level, and appends it to ``capacity_array``.</span>
+<span class="sd">    The result serves as the left-hand side of the system-level</span>
+<span class="sd">    generation capacity constraint.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model containing generator sets and variables.</span>
+<span class="sd">    t : Any</span>
+<span class="sd">        Time period index.</span>
+<span class="sd">    p : Any</span>
+<span class="sd">        Load level index.</span>
+<span class="sd">    capacity_array : list of pyomo expressions</span>
+<span class="sd">        List to which the generation capacity expression will be appended.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of pyomo expressions</span>
+<span class="sd">        The same list, extended with the generation capacity expression.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The capacity expression is defined as:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        G_{bal}(t,p) = \\sum_{g} P_{g,t,p}</span>
+
+<span class="sd">    representing the total available generation at each period and load level.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">required</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;GU&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="s1">&#39;gen_P&#39;</span>
+    <span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
+        <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="c1"># Net power generation by unit and load level</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">gen_cap</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">GU</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">gen_include_cap</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="n">capacity_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">capacity_array</span></div>
 
 
 

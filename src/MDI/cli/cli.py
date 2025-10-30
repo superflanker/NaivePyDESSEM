@@ -178,6 +178,7 @@ def main():
     model, data = solve(args.yaml)
     df = build_dispatch_dataframe(model)
     df[abs(df) < 1e-3] = 0.0
+    df.fillna(0.0, inplace=True)
     save_dataframe(df, output_path)
 
     print(f"{Fore.CYAN}Results saved to:{Style.RESET_ALL} {output_path}")

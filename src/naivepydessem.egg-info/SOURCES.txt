@@ -17,7 +17,9 @@ examples/DESSEM/trabalho01_caso03.yaml
 examples/DESSEM/trabalho01_caso04.yaml
 examples/DESSEM/trabalho01_caso05.yaml
 examples/MDI/trabalho03_ex01.yaml
+examples/MDI/trabalho03_ex01_anualizado.yaml
 examples/MDI/trabalho03_ex02.yaml
+examples/MDI/trabalho03_ex02_anualizado.yaml
 src/MDI/Builder.py
 src/MDI/DataFrames.py
 src/MDI/Formatters.py

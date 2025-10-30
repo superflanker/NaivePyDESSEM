@@ -67,6 +67,91 @@ import pandas as pd
 from pyomo.environ import ConcreteModel, value
 from .ModelCheck import *
 
+from copy import deepcopy
+from pyomo.environ import ConcreteModel, SolverFactory, value
+
+def compute_CME_by_period(model: ConcreteModel,
+                          solver_name: str = "glpk",
+                          delta_E: float = 1.0,
+                          reserve_margin: float = 0.15) -> dict:
+    """
+    Compute CME (Custo Marginal de Energia) and CME de Expansão
+    for each time period individually via incremental perturbation.
+
+    Parameters
+    ----------
+    model : ConcreteModel
+        Pyomo model with 'Adequacy' and 'Balance' constraints.
+    solver_name : str, optional
+        MILP solver name (default: 'glpk').
+    delta_E : float, optional
+        Increment applied to demand in each period (default: 1.0).
+    reserve_margin : float, optional
+        Fractional capacity increase used in expansion case (default: 0.15).
+
+    Returns
+    -------
+    dict
+        {
+            "Custo_Base": float,
+            "CME_energia_por_periodo": { (p,t): value },
+            "CME_expansao_por_periodo": { (p,t): value },
+            "CME_global": float,
+            "CME_expansao_global": float
+        }
+    """
+    solver = SolverFactory(solver_name)
+
+    # =============================================================
+    # 1. Resolver o modelo base
+    # =============================================================
+    base_model = deepcopy(model)
+    solver.solve(base_model, tee=False)
+    C0 = value(base_model.OBJ)
+
+    CME_energia_dict = {}
+    CME_expansao_dict = {}
+
+    # =============================================================
+    # 2. Loop sobre períodos e patamares
+    # =============================================================
+    for p in model.P:
+        for t in model.T:
+
+            # ---------------------------------------------------------
+            # 2.1 CME de Energia (CMO) — perturba demanda pontual
+            # ---------------------------------------------------------
+            mE = deepcopy(model)
+            mE.d[p][t-1] += delta_E
+            solver.solve(mE, tee=False)
+            C_E = value(mE.OBJ)
+            CME_energia_dict[(p, t)] = (C_E - C0) / delta_E
+
+            # ---------------------------------------------------------
+            # 2.2 CME de Expansão — perturba demanda e capacidade
+            # ---------------------------------------------------------
+            mExp = deepcopy(model)
+            mExp.d[p][t-1] = mExp.d[p][t-1] * (1 + reserve_margin) + delta_E
+            solver.solve(mExp, tee=False)
+            C_Exp = value(mExp.OBJ)
+            CME_expansao_dict[(p, t)] = (C_Exp - C0) / delta_E
+
+    # =============================================================
+    # 3. Médias globais (ponderadas)
+    # =============================================================
+    CME_media = sum(CME_energia_dict.values()) / len(CME_energia_dict)
+    CME_exp_media = sum(CME_expansao_dict.values()) / len(CME_expansao_dict)
+
+    result = {
+        "CB": C0,
+        "CMO": CME_energia_dict,
+        "CME": CME_expansao_dict,
+        "CME_global_R$/MWh": CME_media,
+        "CME_expansao_global_R$/MWh": CME_exp_media
+    }
+
+    return result
+
 
 def add_generator_dispatch_to_dataframe(df: pd.DataFrame,
                                         model: ConcreteModel) -> pd.DataFrame:
@@ -97,7 +182,8 @@ def add_generator_dispatch_to_dataframe(df: pd.DataFrame,
 
         for g in G:
             for p in P:
-                df[f'G_{{{{g_{g}}}{{p_{p}}}}}'] = [
+                ps = r'{' + p + r'}'
+                df[f'G_{{{{g_{g}}}{{p_{ps}}}}}'] = [
                     value(model.gen_P[g, t, p]) for t in T]
             df[f'Y_{{g_{g}}}'] = [value(model.gen_y[g, t]) for t in T]
             df[f'X_{{g_{g}}}'] = [value(model.gen_x[g, t]) for t in T]
@@ -133,13 +219,14 @@ def add_storage_dispatch_to_dataframe(df: pd.DataFrame,
         P = list(model.P)
         for s in S:
             for p in P:
-                df[f'D_{{{{s_{s}}}{{p_{p}}}}}'] = [
+                ps = r'{' + p + r'}'
+                df[f'D_{{{{s_{s}}}{{p_{ps}}}}}'] = [
                     value(model.storage_dis[s, t, p]) for t in T]
-                df[f'C_{{{{s_{s}}}{{p_{p}}}}}'] = [
+                df[f'C_{{{{s_{s}}}{{p_{ps}}}}}'] = [
                     -value(model.storage_ch[s, t, p]) for t in T]
-                df[f'G_{{{{s_{s}}}{{p_{p}}}}}'] = [
+                df[f'G_{{{{s_{s}}}{{p_{ps}}}}}'] = [
                     value(model.storage_dis[s, t, p] - model.storage_ch[s, t, p]) for t in T]
-                df[f'E_{{{{s_{s}}}{{p_{p}}}}}'] = [
+                df[f'E_{{{{s_{s}}}{{p_{ps}}}}}'] = [
                     value(model.storage_E[s, t, p]) for t in T]
             df[f'Y_{{b_{s}}}'] = [value(model.storage_y[s, t]) for t in T]
             df[f'X_{{b_{s}}}'] = [value(model.storage_x[s, t]) for t in T]
@@ -174,13 +261,19 @@ def add_cost_to_dataframe(df: pd.DataFrame,
         total_hours = sum(model.level_hours[p] for p in model.P)
 
         for t in model.T:
-            weighted_sum = sum(model.dual[model.Balance[t, p]] * model.level_hours[p] for p in model.P)
+            weighted_sum = sum(value(model.dual[model.Balance[t, p]] * model.level_hours[p]) for p in model.P)
             avg_CMO[t] = weighted_sum / total_hours
 
         return avg_CMO
+    
     def compute_average_CME(model):
-        avg_CME = list(model.dual[model.Adequacy[t]] for t in model.T)
-        return avg_CME
+        """avg_CME = {}
+
+        for t in model.T:
+            avg_CME[t] = value(model.dual[model.Adequacy[t]])
+
+        return avg_CME"""
+        return compute_average_CMO(model)
     
     T = list(model.T)
 
@@ -204,10 +297,11 @@ def add_cost_to_dataframe(df: pd.DataFrame,
 
     for p in P:
 
-        df[f'Ge_{{Total}}_{p}'] = [x + y for x, y in zip(generator_generation[p],
+        ps = r'{' + p + r'}'
+        df[f'Ge_{{{{Total}}_{ps}}}'] = [x + y for x, y in zip(generator_generation[p],
                                                          storage_generation[p])]
 
-        df['Demand'] = [value(model.d[p][t-1]) for t in T]
+        df[f'Demand_{ps}'] = [value(model.d[p][t-1]) for t in T]
 
     cost_var, cost_inv = [], []
     # Custos por período (se possível)
@@ -223,15 +317,21 @@ def add_cost_to_dataframe(df: pd.DataFrame,
                 )
                 for s in model.SU for p in model.P)
             )
-
-            cost_inv_t += value(sum(model.storage_c_inv[s]
-                                * model.storage_x[s, t] for s in model.SU))
+            if model.parcel_investment:
+                cost_inv_t += value(sum(model.storage_c_inv[s]
+                                    * model.storage_x[s, t] for s in model.SU))
+            else:
+                cost_inv_t += value(sum(model.storage_c_inv[s]
+                                    * model.storage_y[s, t] for s in model.SU))
         if has_generator_model(model):
             cost_var_t += value(sum(
                 model.level_hours[p] * model.gen_c_op[g] * model.gen_P[g, t, p]
                 for g in model.GU for p in model.P))
-            
-            cost_inv_t += value(sum(model.gen_c_inv[g] * model.gen_x[g, t] for g in model.GU))
+
+            if model.parcel_investment:
+                cost_inv_t += value(sum(model.gen_c_inv[g] * model.gen_x[g, t] for g in model.GU))
+            else:
+                cost_inv_t += value(sum(model.gen_c_inv[g] * model.gen_y[g, t] for g in model.GU))
         cost_var.append(cost_var_t)
         cost_inv.append(cost_inv_t)
     df['Cost_{var}'] = cost_var

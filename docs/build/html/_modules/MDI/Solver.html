@@ -111,6 +111,7 @@
 
 <span class="n">colorama_init</span><span class="p">(</span><span class="n">autoreset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
+
 <div class="viewcode-block" id="solve">
 <a class="viewcode-back" href="../../MDI.html#MDI.Solver.solve">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">solve</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]:</span>
@@ -161,14 +162,12 @@
                 <span class="n">mip_solver</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mip_solver&#39;</span><span class="p">,</span> <span class="s1">&#39;glpk&#39;</span><span class="p">),</span>
                 <span class="n">nlp_solver</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nlp_solver&#39;</span><span class="p">,</span> <span class="s1">&#39;cyipopt&#39;</span><span class="p">),</span>
                 <span class="n">strategy</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;strategy&#39;</span><span class="p">,</span> <span class="s1">&#39;OA&#39;</span><span class="p">),</span>
-                <span class="n">tee</span><span class="o">=</span><span class="kc">False</span>
+                <span class="n">tee</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">suffixes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;dual&quot;</span><span class="p">]</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-        <span class="c1"># Optional: print/write results if available</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s1">&#39;write&#39;</span><span class="p">):</span>
-            <span class="n">res</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                            <span class="n">suffixes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;dual&quot;</span><span class="p">])</span>
 
         <span class="c1"># Check termination condition</span>
         <span class="n">term_cond</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">termination_condition</span>

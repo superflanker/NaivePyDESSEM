@@ -87,6 +87,7 @@ class GeneratorUnit:
         Investment cost associated with capacity expansion in R$
     p_max : float
         Maximum generation capacity (MW) of the unit.
+    include_cap: whether to include in capacity restriction or not
 
     Notes
     -----
@@ -100,6 +101,7 @@ class GeneratorUnit:
     c_op: float
     c_inv: float
     p_max: float
+    include_cap: bool
 
 
 @dataclass

@@ -157,7 +157,8 @@ def load_dataframe(path: str) -> pd.DataFrame:
 
 
 def select_variable_columns(df: pd.DataFrame,
-                            category: str) -> pd.DataFrame:
+                            category: str,
+                            level: str = None) -> pd.DataFrame: # Adicionar level
     """
     Filter DataFrame columns based on a single category.
 
@@ -184,6 +185,19 @@ def select_variable_columns(df: pd.DataFrame,
 
     if category == "GT":
         return df.filter(regex=r"^(G_|Ge_|Deficit|Demand).*")
+    elif category == "G":
+        # Se um level (patamar) for fornecido, a regex filtra por ele.
+        # Ex: Se level="Ponta", a regex se torna r"^(G_.*Ponta).*$"
+        # Caso contrário, mantém a regex original r"^(G_).*$"
+        if level:
+            # Garante que o level termine a string da variável ou seja seguido por '_'
+            # para evitar correspondências parciais indesejadas
+            # Ex: r"^(G_.*Ponta).*$"
+            regex_str = r"^(G_.*" + level + r"*).*$"
+            print(f"{Fore.BLUE}Filtering G with level regex: {regex_str}{Style.RESET_ALL}")
+            return df.filter(regex=regex_str)
+        else:
+            return df.filter(regex=r"^(G_).*")
     elif category == "BAT":
         return df.filter(regex=r"^(D_|C_|E_).*")
     elif category.lower() == "cost":
@@ -195,8 +209,10 @@ def select_variable_columns(df: pd.DataFrame,
             f"{Fore.RED}Unrecognized category: {category}{Style.RESET_ALL}")
 
 
+
 def select_columns_multi(df: pd.DataFrame,
-                         categories: list[str]) -> pd.DataFrame:
+                         categories: list[str],
+                         level: str = None) -> pd.DataFrame:
     """
     Filter and concatenate DataFrame columns across multiple categories.
 
@@ -220,14 +236,18 @@ def select_columns_multi(df: pd.DataFrame,
     ValueError
         If no categories are provided.
     """
-
     if not categories:
         raise ValueError(
             f"{Fore.RED}At least one category must be provided.{Style.RESET_ALL}")
     parts = []
     seen = set()
     for cat in categories:
-        sub = select_variable_columns(df, cat)
+        # Passa o level para select_variable_columns APENAS se a categoria for G ou GT
+        current_level = level if cat in ["G"] else None
+        
+        # Chama a função modificada
+        sub = select_variable_columns(df, cat, level=current_level) 
+        
         cols = [c for c in sub.columns if c not in seen]
         parts.append(sub[cols])
         seen.update(cols)
@@ -351,7 +371,8 @@ def handle_plot(df: pd.DataFrame,
                 title: str = None,
                 ylabel: str = None,
                 out_dir: str = None,
-                out_file: str = None):
+                out_file: str = None,
+                level: str = None): 
     """
     Generate and export plots for selected variable categories.
 
@@ -383,14 +404,17 @@ def handle_plot(df: pd.DataFrame,
     None
         Saves the plot to disk and prints the file location.
     """
-    plot_style = (plot_style or prompt("Line or bar plot? (line/bar)")).lower()
     title = title or prompt("Enter the title of the plot [optional]")
     ylabel = ylabel or prompt("Enter the y-axis label [optional]")
     out_dir = out_dir or prompt("Enter the output directory for the figure")
     out_file = out_file or prompt(
         "Enter the output file name (e.g., plot.png)")
     os.makedirs(out_dir, exist_ok=True)
-    series = select_columns_multi(df, categories)
+    
+    # Passar o level para a função de seleção de colunas
+    series = select_columns_multi(df, categories, level=level) 
+    
+    # ... (resto da função plot)
     t = df["T"] if "T" in df.columns else df.index
     title_use = title if title else ", ".join(categories)
     ylabel_use = ylabel if ylabel else ", ".join(categories)
@@ -458,11 +482,12 @@ def main():
     parser.add_argument("--mode", choices=["table", "plot", "ctrl"],
                         help="Export mode: LaTeX table, plot, or CTRL (U/Y/W) matrix")
     parser.add_argument("--category", "-c", nargs="+",
-                        help="One or more categories (e.g., G GG Q S V BAT cost)")
+                        help="One or more categories (e.g., G ctrl BAT cost)")
     parser.add_argument(
         "--plot-style", choices=["line", "bar"], help="Plot style")
     parser.add_argument("--stacked", action="store_true",
                         help="Use stacked bars (bar plots only)")
+    parser.add_argument("--level", help="Generation level for G/GT categories (e.g., Ponta, Fora)")
     parser.add_argument("--title", help="Plot title or LaTeX caption")
     parser.add_argument("--ylabel", help="Y-axis label (plots)")
     parser.add_argument("--out-dir", help="Output directory")
@@ -471,7 +496,7 @@ def main():
     parser.add_argument("--label", help="LaTeX label (tables)")
     args = parser.parse_args()
     df = load_dataframe(args.input_file)
-    print("Available categories: G (Generation), Q (Turbine flow), S (Spillage), V (Volume), cost, CTRL (U/Y/W), BAT")
+    print("Available categories: G (Generation), cost, CTRL (Y/X), BAT")
     mode = args.mode or prompt(
         "Generate table, plot, or CTRL matrix? (table/plot/ctrl)").lower()
     if mode == "ctrl":
@@ -485,7 +510,8 @@ def main():
                      out_file=args.out_file, caption=args.title, label=args.label)
     elif mode == "plot":
         handle_plot(df, categories, plot_style=args.plot_style, stacked=args.stacked,
-                    title=args.title, ylabel=args.ylabel, out_dir=args.out_dir, out_file=args.out_file)
+                            title=args.title, ylabel=args.ylabel, out_dir=args.out_dir, 
+                            out_file=args.out_file, level=args.level) # Passar args.level
     else:
         print("Unrecognized mode.")
 

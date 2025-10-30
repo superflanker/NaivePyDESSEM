@@ -111,8 +111,14 @@ def add_generator_power_limits_constraint(m: ConcreteModel) -> ConcreteModel:
         def _gen_min_rule(m, g, t, p):
             return m.gen_P[g, t, p] >= 0.0
 
-        m.gen_power_upper_constraint = Constraint(m.GU, m.T, m.P, rule=_gen_max_rule)
-        m.gen_power_lower_constraint = Constraint(m.GU, m.T, m.P, rule=_gen_min_rule)
+        def _gen_cap_rule(m, g, t, p):
+            return m.gen_cap[g, t, p] == m.gen_pmax[g] * m.gen_x[g, t]
+
+        m.gen_cap_constraint = Constraint(m.GU, m.T, m.P, rule=_gen_cap_rule)
+        m.gen_power_upper_constraint = Constraint(
+            m.GU, m.T, m.P, rule=_gen_max_rule)
+        m.gen_power_lower_constraint = Constraint(
+            m.GU, m.T, m.P, rule=_gen_min_rule)
 
     return m
 
@@ -163,8 +169,9 @@ def add_generator_investment_link_constraint(m: ConcreteModel) -> ConcreteModel:
                 return m.gen_x[g, t] == m.gen_y[g, t]
             return m.gen_x[g, t] == m.gen_x[g, m.T.prev(t)] + m.gen_y[g, t]
 
-        m.gen_initial_state_constraint = Constraint(m.GU, m.T, rule=_inv_initial_value_rule)
-        m.gen_investment_link_constraint = Constraint(m.GU, m.T, rule=_inv_link_rule)
+        m.gen_initial_state_constraint = Constraint(
+            m.GU, m.T, rule=_inv_initial_value_rule)
+        m.gen_investment_link_constraint = Constraint(
+            m.GU, m.T, rule=_inv_link_rule)
 
     return m
-

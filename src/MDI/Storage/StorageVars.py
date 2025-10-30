@@ -180,6 +180,7 @@ def storage_add_variables(m: ConcreteModel) -> ConcreteModel:
     m.storage_E = Var(m.SU, m.T, m.P, within=NonNegativeReals)
     m.storage_ch = Var(m.SU, m.T, m.P, within=NonNegativeReals)
     m.storage_dis = Var(m.SU, m.T, m.P, within=NonNegativeReals)
+    m.storage_cap = Var(m.SU, m.T, m.P, within=NonNegativeReals)
 
     # Investment and operational binary variables
     m.storage_y = Var(m.SU, m.T, within=Binary)  # Construction decision

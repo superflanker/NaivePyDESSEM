@@ -125,20 +125,78 @@ def add_storage_cost_expression(
     ]
 
     if all(hasattr(m, attr) for attr in required):
-        expr = sum(
-            # Operational cost (proportional to energy moved)
-            m.level_hours[p] * m.storage_c_op[s] * (
-                m.storage_ch[s, t, p] + m.storage_dis[s, t, p]
+        if m.parcel_investment:
+            expr = sum(
+                # Operational cost (proportional to energy moved)
+                m.level_hours[p] * m.storage_c_op[s] * (
+                    m.storage_ch[s, t, p] + m.storage_dis[s, t, p]
+                )
+                for s in m.SU for t in m.T for p in m.P
+            ) + sum(
+                # Investment cost (proportional to existence)
+                m.storage_c_inv[s] * m.storage_x[s, t]
+                for s in m.SU for t in m.T
             )
-            for s in m.SU for t in m.T for p in m.P
-        ) + sum(
-            # Investment cost (proportional to existence)
-            m.storage_c_inv[s] * m.storage_x[s, t]
-            for s in m.SU for t in m.T
-        )
+        else:
+            expr = sum(
+                # Operational cost (proportional to energy moved)
+                m.level_hours[p] * m.storage_c_op[s] * (
+                    m.storage_ch[s, t, p] + m.storage_dis[s, t, p]
+                )
+                for s in m.SU for t in m.T for p in m.P
+            ) + sum(
+                # Investment cost (proportional to existence)
+                m.storage_c_inv[s] * m.storage_y[s, t]
+                for s in m.SU for t in m.T
+            )
         cost_array.append(expr)
 
     return cost_array
+
+
+def add_storage_capacity_expression(
+    m: ConcreteModel,
+    t: Any,
+    p: Any,
+    capacity_array: List[Any]
+) -> List[Any]:
+    """
+    Add the net storage capacity expression to the capacity array.
+
+    The expression represents the net contribution of storage units
+    to the system capacity in each time period and load level.
+
+    Parameters
+    ----------
+    m : pyomo.environ.ConcreteModel
+        Pyomo model instance containing the relevant storage variables and parameters.
+    t : Any
+        Time index for which the capacity expression is computed.
+    p : Any
+        Load level index corresponding to the current capacity term.
+    capacity_array : list of Any
+        External list to which the resulting expression will be appended.
+
+    Returns
+    -------
+    list of Any
+        The updated list of capacity expressions including the storage term.
+    """
+    required = [
+        'SU', 'T', 'P',
+        'storage_ch', 'storage_dis',
+        'storage_eta_c', 'storage_eta_d'
+    ]
+
+    if all(hasattr(m, attr) for attr in required):
+        expr = sum(
+            # Net power injected into the system (discharge - charge)
+            m.storage_cap[s, t, p]
+            for s in m.SU
+        )
+        capacity_array.append(expr)
+
+    return capacity_array
 
 
 def add_storage_balance_expression(
@@ -177,10 +235,7 @@ def add_storage_balance_expression(
     ]
 
     if all(hasattr(m, attr) for attr in required):
-        expr = sum(
-            # Net power injected into the system (discharge - charge)
-            m.storage_eta_d[s] * m.storage_dis[s, t, p]
-            - (1 / m.storage_eta_c[s]) * m.storage_ch[s, t, p]
+        expr = sum(m.storage_dis[s, t, p]- m.storage_ch[s, t, p]
             for s in m.SU
         )
         balance_array.append(expr)

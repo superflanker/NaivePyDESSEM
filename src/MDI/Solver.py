@@ -40,6 +40,7 @@ from .ModelFormatters import *
 
 colorama_init(autoreset=True)
 
+
 def solve(path: str) -> Tuple[ConcreteModel, Dict]:
     """
     Build and solve a Pyomo optimization model from a configuration file.
@@ -88,14 +89,12 @@ def solve(path: str) -> Tuple[ConcreteModel, Dict]:
                 mip_solver=options.get('mip_solver', 'glpk'),
                 nlp_solver=options.get('nlp_solver', 'cyipopt'),
                 strategy=options.get('strategy', 'OA'),
-                tee=False
+                tee=False,
+                suffixes=["dual"]
             )
         else:
-            res = opt.solve(model, tee=False)
-
-        # Optional: print/write results if available
-        if hasattr(res, 'write'):
-            res.write()
+            res = opt.solve(model, tee=False,
+                            suffixes=["dual"])
 
         # Check termination condition
         term_cond = res.solver.termination_condition

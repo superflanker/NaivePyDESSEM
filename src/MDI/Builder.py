@@ -81,14 +81,16 @@ from MDI.Generator.GeneratorDataTypes import GeneratorData, GeneratorUnit
 from MDI.Generator.GeneratorBuilder import add_generator_problem
 from MDI.Generator.GeneratorEquations import (
     add_generator_cost_expression,
-    add_generator_balance_expression
+    add_generator_balance_expression,
+    add_generator_capacity_expression
 )
 
 from MDI.Storage.StorageDataTypes import StorageData, StorageUnit
 from MDI.Storage.StorageBuilder import add_storage_problem
 from MDI.Storage.StorageEquations import (
     add_storage_cost_expression,
-    add_storage_balance_expression
+    add_storage_balance_expression,
+    add_storage_capacity_expression
 )
 
 from .YAMLLoader import yaml_loader
@@ -158,7 +160,8 @@ def _mk_generator_data(root: Dict[str, Any]) -> GeneratorData:
             state=int(u["state"]),
             c_op=float(u["c_op"]),
             c_inv=float(u["c_inv"]),
-            p_max=float(u["p_max"])
+            p_max=float(u["p_max"]),
+            include_cap=bool(u["include_cap"])
         )
     return GeneratorData(
         horizon=H,
@@ -199,44 +202,49 @@ def _mk_storage_data(root: Dict[str, Any]) -> StorageData:
         level_hours=level_hours
     )
 
-def compute_mean_demand(m: ConcreteModel, yaml_data: Dict[str, Any]) -> ConcreteModel:
-    demand = yaml_data["meta"]["demand"]
-    level_hours = yaml_data["meta"]["level_hours"]
-    P = list(yaml_data["meta"]["demand"].keys())
-    mean_demand = np.zeros(yaml_data["meta"]["horizon"])
-    total_hours = 0.0
-    for p in P:
-        mean_demand += level_hours[p] * np.array(demand[p])
-        total_hours += level_hours[p]
-    mean_demand /= total_hours
-    m.mean_d = mean_demand.tolist()
-    return m
-
-
-def add_system_adequacy_expression(m: ConcreteModel) -> ConcreteModel:
-   
-    def adequacy_rule(m, t):
-        total_capacity = 0
-        if hasattr(m, 'GU') and hasattr(m, 'gen_pmax'):
-            total_capacity += sum(m.gen_pmax[g] * m.gen_x[g, t] for g in m.GU )
-        if hasattr(m, 'SU') and hasattr(m, 'storage_Emax') and hasattr(m, 'storage_Emin'):
-            total_capacity += sum((m.storage_Emax[s] - m.storage_Emin[s]) * m.storage_x[s, t] for s in m.SU)
-        return total_capacity >= m.mean_d[t-1]
-    
-    m.Adequacy = Constraint(m.T, rule=adequacy_rule)
-    return m
-
 # ============================================================================
 # Master entry point
 # ============================================================================
 def build_balance_and_objective_from_yaml(model: ConcreteModel, yaml_data: Dict[str, Any]) -> ConcreteModel:
-   
+
+    demand_data = yaml_data["meta"]["demand"]
+    reserve_margin = 1.10 
+    
+    peak_demand_per_period = []
+    peak_level_per_period = []
+    
+    num_periods = len(list(demand_data.values())[0])
+    patamares = list(demand_data.keys())
+    
+    for periodo in range(num_periods):
+        demands_in_period = {patamar: demand_data[patamar][periodo] for patamar in patamares}
+        peak_patamar = max(demands_in_period, key=demands_in_period.get)
+        peak_demand = demands_in_period[peak_patamar]
+        
+        peak_demand_per_period.append(peak_demand * reserve_margin)
+        peak_level_per_period.append(peak_patamar)
+    
+    model.peak_demand = peak_demand_per_period
+    model.peak_level = peak_level_per_period
+    
     # --------------------------
     # ADEQUACY CONSTRAINT
     # --------------------------
-    compute_mean_demand(m=model, yaml_data=yaml_data)
-    add_system_adequacy_expression(model)
+    def capacity_balance_rule(m, t):
+        capacity_terms: List[Any] = []
+        
+        p_pico = model.peak_level[t-1] 
+        
+        if 'generator' in yaml_data:
+            add_generator_capacity_expression(m, t, p_pico, capacity_terms)
+        if 'storage' in yaml_data:
+            add_storage_capacity_expression(m, t, p_pico, capacity_terms)
 
+        idx = t-1
+        return sum(capacity_terms) >= model.peak_demand[idx]
+
+    model.Adequacy = Constraint(model.T, rule=capacity_balance_rule)
+    
     # --------------------------
     # BALANCE CONSTRAINT
     # --------------------------
@@ -280,6 +288,7 @@ def build_model_from_file(path: str) -> Tuple[ConcreteModel, Dict]:
     # Basic validations
     _validate_meta(root["meta"])
     T = int(root["meta"]["horizon"])
+    parcel_investment = bool(root["meta"]["parcel_investment"])
     _validate_demand(root["meta"]["demand"], T)
     has_valid_units = False
     if "generator" in root and root["generator"] is not None:
@@ -297,7 +306,7 @@ def build_model_from_file(path: str) -> Tuple[ConcreteModel, Dict]:
                                 data=storage_data,
                                 include_objective=False)
         has_valid_units = True
-
+    m.parcel_investment = parcel_investment
     if not has_valid_units:
         raise ValueError("No buildable sections found. Provide at least one of "
                          "{generators, storage}.")

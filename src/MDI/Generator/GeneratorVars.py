@@ -156,6 +156,7 @@ def generator_add_sets_and_params(m: ConcreteModel,
     m.gen_c_op = Param(m.GU, initialize={u: data.units[u].c_op for u in U})
     m.gen_c_inv = Param(m.GU, initialize={u: data.units[u].c_inv for u in U})
     m.gen_state = Param(m.GU, initialize={u: data.units[u].state for u in U})
+    m.gen_include_cap = Param(m.GU, initialize={u: data.units[u].include_cap for u in U})
 
     return m
 
@@ -194,6 +195,7 @@ def generator_add_variables(m: ConcreteModel) -> ConcreteModel:
     """
     # Generated power by unit, time, and level
     m.gen_P = Var(m.GU, m.T, m.P, within=NonNegativeReals)
+    m.gen_cap = Var(m.GU, m.T, m.P, within=NonNegativeReals)
 
     # Binary investment and operational decision variables
     m.gen_y = Var(m.GU, m.T, within=Binary)  # investment decision

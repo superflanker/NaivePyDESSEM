@@ -128,19 +128,84 @@ def add_generator_cost_expression(
     ]
 
     if all(hasattr(m, attr) for attr in required):
-        expr = sum(
-            # Operational cost (proportional to energy generated)
-            m.level_hours[p] * m.gen_c_op[g] * m.gen_P[g, t, p]
-            for g in m.GU for t in m.T for p in m.P
-        ) + sum(
-            # Investment cost (proportional to installed capacity)
-            m.gen_c_inv[g] * m.gen_x[g, t]
-            for g in m.GU for t in m.T
-        )
-
+        if m.parcel_investment:
+            expr = sum(
+                # Operational cost (proportional to energy generated)
+                m.level_hours[p] * m.gen_c_op[g] * m.gen_P[g, t, p]
+                for g in m.GU for t in m.T for p in m.P
+            ) + sum(
+                # Investment cost (proportional to installed capacity)
+                m.gen_c_inv[g] * m.gen_x[g, t]
+                for g in m.GU for t in m.T
+            )
+        else:
+            expr = sum(
+                # Operational cost (proportional to energy generated)
+                m.level_hours[p] * m.gen_c_op[g] * m.gen_P[g, t, p]
+                for g in m.GU for t in m.T for p in m.P
+            ) + sum(
+                # Investment cost (proportional to installed capacity)
+                m.gen_c_inv[g] * m.gen_y[g, t]
+                for g in m.GU for t in m.T
+            )
         cost_array.append(expr)
 
     return cost_array
+
+
+def add_generator_capacity_expression(
+    m: ConcreteModel,
+    t: Any,
+    p: Any,
+    capacity_array: List[Any]
+) -> List[Any]:
+    """
+    Build and append the generation capacity expression for a given time and level.
+
+    Computes the total generation capacity across all units for the specified
+    time period and demand level, and appends it to ``capacity_array``.
+    The result serves as the left-hand side of the system-level
+    generation capacity constraint.
+
+    Parameters
+    ----------
+    m : pyomo.environ.ConcreteModel
+        Pyomo model containing generator sets and variables.
+    t : Any
+        Time period index.
+    p : Any
+        Load level index.
+    capacity_array : list of pyomo expressions
+        List to which the generation capacity expression will be appended.
+
+    Returns
+    -------
+    list of pyomo expressions
+        The same list, extended with the generation capacity expression.
+
+    Notes
+    -----
+    The capacity expression is defined as:
+
+    .. math::
+
+        G_{bal}(t,p) = \\sum_{g} P_{g,t,p}
+
+    representing the total available generation at each period and load level.
+    """
+    required = [
+        'GU', 'T', 'P', 'gen_P'
+    ]
+
+    if all(hasattr(m, attr) for attr in required):
+        expr = sum(
+            # Net power generation by unit and load level
+            m.gen_cap[g, t, p]
+            for g in m.GU if m.gen_include_cap[g] == True
+        )
+        capacity_array.append(expr)
+
+    return capacity_array
 
 
 def add_generator_balance_expression(

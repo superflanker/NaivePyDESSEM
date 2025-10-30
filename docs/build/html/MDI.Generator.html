@@ -492,7 +492,7 @@ with other modules of the MDI framework.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorUnit">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorDataTypes.</span></span><span class="sig-name descname"><span class="pre">GeneratorUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_inv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MDI/Generator/GeneratorDataTypes.html#GeneratorUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorDataTypes.</span></span><span class="sig-name descname"><span class="pre">GeneratorUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_inv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_cap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MDI/Generator/GeneratorDataTypes.html#GeneratorUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Representation of a single dispatchable generation unit.</p>
 <p>This dataclass stores the economic and technical parameters
@@ -506,6 +506,7 @@ operational state, variable and fixed costs, and rated capacity.</p>
 <li><p><strong>c_op</strong> (<em>float</em>) – Variable operational cost (e.g., fuel or maintenance) in R$/MWh.</p></li>
 <li><p><strong>c_inv</strong> (<em>float</em>) – Investment cost associated with capacity expansion in R$</p></li>
 <li><p><strong>p_max</strong> (<em>float</em>) – Maximum generation capacity (MW) of the unit.</p></li>
+<li><p><strong>include_cap</strong> (<em>whether to include in capacity restriction</em><em> or </em><em>not</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -524,6 +525,11 @@ via the generator builder module.</p></li>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorUnit.c_op">
 <span class="sig-name descname"><span class="pre">c_op</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit.c_op" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorUnit.include_cap">
+<span class="sig-name descname"><span class="pre">include_cap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit.include_cap" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -649,6 +655,37 @@ energy balance constraint.</p>
 </dl>
 <p class="rubric">Notes</p>
 <p>The balance expression is defined as:</p>
+<div class="math notranslate nohighlight">
+\[G_{bal}(t,p) = \sum_{g} P_{g,t,p}\]</div>
+<p>representing the total available generation at each period and load level.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorEquations.add_generator_capacity_expression">
+<span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorEquations.</span></span><span class="sig-name descname"><span class="pre">add_generator_capacity_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capacity_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/MDI/Generator/GeneratorEquations.html#add_generator_capacity_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorEquations.add_generator_capacity_expression" title="Link to this definition"></a></dt>
+<dd><p>Build and append the generation capacity expression for a given time and level.</p>
+<p>Computes the total generation capacity across all units for the specified
+time period and demand level, and appends it to <code class="docutils literal notranslate"><span class="pre">capacity_array</span></code>.
+The result serves as the left-hand side of the system-level
+generation capacity constraint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model containing generator sets and variables.</p></li>
+<li><p><strong>t</strong> (<em>Any</em>) – Time period index.</p></li>
+<li><p><strong>p</strong> (<em>Any</em>) – Load level index.</p></li>
+<li><p><strong>capacity_array</strong> (<em>list</em><em> of </em><em>pyomo expressions</em>) – List to which the generation capacity expression will be appended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same list, extended with the generation capacity expression.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of pyomo expressions</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The capacity expression is defined as:</p>
 <div class="math notranslate nohighlight">
 \[G_{bal}(t,p) = \sum_{g} P_{g,t,p}\]</div>
 <p>representing the total available generation at each period and load level.</p>

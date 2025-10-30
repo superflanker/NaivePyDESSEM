@@ -81,11 +81,19 @@ def __compute_investment_cost(model: ConcreteModel) -> float:
     """
     total_investment = 0.0
     if has_generator_model(model):
-        total_investment += sum(value(model.gen_c_inv[g] * model.gen_x[g, t])
-                                for g in model.GU for t in model.T)
+        if model.parcel_investment:
+            total_investment += sum(value(model.gen_c_inv[g] * model.gen_x[g, t])
+                                    for g in model.GU for t in model.T)
+        else:
+            total_investment += sum(value(model.gen_c_inv[g] * model.gen_y[g, t])
+                                    for g in model.GU for t in model.T)
     if has_storage_model(model):
-        total_investment += sum(value(
-            model.storage_c_inv[s] * model.storage_x[s, t]) for s in model.SU for t in model.T)
+        if model.parcel_investment:
+            total_investment += sum(value(
+                model.storage_c_inv[s] * model.storage_x[s, t]) for s in model.SU for t in model.T)
+        else:
+            total_investment += sum(value(
+                model.storage_c_inv[s] * model.storage_y[s, t]) for s in model.SU for t in model.T)
     return total_investment
 
 

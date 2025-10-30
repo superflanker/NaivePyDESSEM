@@ -11,13 +11,13 @@ meta:
   name: "UFPR-EELT7030-Trabalho3-Ex02"
   horizon: 10                 # TODO: nº de períodos (ex.: 24)
   delta_t: 1.0                # duração do período (anos)
+  parcel_investment: False    # investimento anualizado ou não
   Solver: cbc
   Solver_Options:
     mip_solver: glpk
     nlp_solver: cyipopt
     strategy: OA
     time_limit: 3600
-
   # -------------------------
   # Demanda do sistema
   # -------------------------
@@ -26,7 +26,6 @@ meta:
   
   level_hours: {"Ponta": 2000,
                 "Fora": 6740}
-
 generator:
   units:                      # Dict[str, GeneratorUnit]
     UHE_1:                    # convenção: {GER}_{UNIT}
@@ -34,36 +33,43 @@ generator:
       p_max: 600              # potência máxima projetada
       c_op: 0                 # custos de operação
       c_inv: 0                # custos de investimento e O&M
+      include_cap: True       # incluir na restrição de capacidade
     UHE_2:                    # convenção: {GER}_{UNIT}
       state: 0                # candidata
       p_max: 500              # potência máxima projetada
       c_op: 0                 # custos de operação
       c_inv: 75_000_000       # custos de investimento e O&M
+      include_cap: True       # incluir na restrição de capacidade
     UTE_1:                    # convenção: {GER}_{UNIT}
       state: 1                # existente
       p_max: 250              # potência máxima projetada
       c_op: 55                # custos de operação
       c_inv: 0                # custos de investimento e O&M
+      include_cap: True       # incluir na restrição de capacidade
     UTE_2:                    # convenção: {GER}_{UNIT}
       state: 0                # candidata
       p_max: 250              # potência máxima projetada
       c_op: 40                # custos de operação
       c_inv: 15_000_000       # custos de investimento e O&M
+      include_cap: True       # incluir na restrição de capacidade
     SOL_1: 
       state: 0                # candidata
       p_max: 100              # potência máxima projetada
       c_op: 0                 # custos de operação
       c_inv: 15_000_000       # custos de investimento e O&M
+      include_cap: True       # incluir na restrição de capacidade
     EOL_1:
       state: 0                # candidata
       p_max: 100              # potência máxima projetada
       c_op: 0                 # custos de operação
       c_inv: 10_000_000       # custos de investimento e O&M
+      include_cap: True       # incluir na restrição de capacidade
     Def_1:                    # Dict[str, GeneratorUnit]
       state: 1                # candidata
       p_max: 10000            # potência máxima projetada
       c_op: 5000              # custos de operação
       c_inv: 0                # custos de investimento e O&M
+      include_cap: False      # incluir na restrição de capacidade
 
 storage:
   delta_t: 1.0                # usa meta.delta_t por padrão; mantenha aqui por clareza

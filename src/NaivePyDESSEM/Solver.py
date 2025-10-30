@@ -91,9 +91,6 @@ def solve(path: str) -> Tuple[ConcreteModel, Dict]:
         else:
             res = opt.solve(model, tee=False)
 
-        # Optional: print/write results if available
-        if hasattr(res, 'write'):
-            res.write()
 
         # Check termination condition
         term_cond = res.solver.termination_condition

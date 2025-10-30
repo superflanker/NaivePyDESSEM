@@ -58,10 +58,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-MDI.Builder">MDI.Builder module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#builder-module">Builder Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#MDI.Builder.add_system_adequacy_expression"><code class="docutils literal notranslate"><span class="pre">add_system_adequacy_expression()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#MDI.Builder.build_balance_and_objective_from_yaml"><code class="docutils literal notranslate"><span class="pre">build_balance_and_objective_from_yaml()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#MDI.Builder.build_model_from_file"><code class="docutils literal notranslate"><span class="pre">build_model_from_file()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#MDI.Builder.compute_mean_demand"><code class="docutils literal notranslate"><span class="pre">compute_mean_demand()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-MDI.DataFrames">MDI.DataFrames module</a><ul>
@@ -70,6 +68,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#MDI.DataFrames.add_generator_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_generator_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#MDI.DataFrames.add_storage_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_storage_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#MDI.DataFrames.build_dispatch_dataframe"><code class="docutils literal notranslate"><span class="pre">build_dispatch_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#MDI.DataFrames.compute_CME_by_period"><code class="docutils literal notranslate"><span class="pre">compute_CME_by_period()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-MDI.Formatters">MDI.Formatters module</a><ul>
@@ -207,6 +206,7 @@
 <li class="toctree-l3"><a class="reference internal" href="MDI.Generator.html#MDI.Generator.GeneratorDataTypes.GeneratorUnit"><code class="docutils literal notranslate"><span class="pre">GeneratorUnit</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html#MDI.Generator.GeneratorDataTypes.GeneratorUnit.c_inv"><code class="docutils literal notranslate"><span class="pre">GeneratorUnit.c_inv</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html#MDI.Generator.GeneratorDataTypes.GeneratorUnit.c_op"><code class="docutils literal notranslate"><span class="pre">GeneratorUnit.c_op</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html#MDI.Generator.GeneratorDataTypes.GeneratorUnit.include_cap"><code class="docutils literal notranslate"><span class="pre">GeneratorUnit.include_cap</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html#MDI.Generator.GeneratorDataTypes.GeneratorUnit.name"><code class="docutils literal notranslate"><span class="pre">GeneratorUnit.name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html#MDI.Generator.GeneratorDataTypes.GeneratorUnit.p_max"><code class="docutils literal notranslate"><span class="pre">GeneratorUnit.p_max</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html#MDI.Generator.GeneratorDataTypes.GeneratorUnit.state"><code class="docutils literal notranslate"><span class="pre">GeneratorUnit.state</span></code></a></li>
@@ -224,6 +224,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.Generator.html#MDI.Generator.GeneratorEquations.add_generator_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_generator_balance_expression()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.Generator.html#MDI.Generator.GeneratorEquations.add_generator_capacity_expression"><code class="docutils literal notranslate"><span class="pre">add_generator_capacity_expression()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.Generator.html#MDI.Generator.GeneratorEquations.add_generator_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_generator_cost_expression()</span></code></a></li>
 </ul>
 </li>
@@ -360,6 +361,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.Storage.html#MDI.Storage.StorageEquations.add_storage_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_storage_balance_expression()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.Storage.html#MDI.Storage.StorageEquations.add_storage_capacity_expression"><code class="docutils literal notranslate"><span class="pre">add_storage_capacity_expression()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.Storage.html#MDI.Storage.StorageEquations.add_storage_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_storage_cost_expression()</span></code></a></li>
 </ul>
 </li>
@@ -525,11 +527,6 @@ and returns a complete <cite>ConcreteModel</cite>.</p>
 </section>
 </section>
 <dl class="py function">
-<dt class="sig sig-object py" id="MDI.Builder.add_system_adequacy_expression">
-<span class="sig-prename descclassname"><span class="pre">MDI.Builder.</span></span><span class="sig-name descname"><span class="pre">add_system_adequacy_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/MDI/Builder.html#add_system_adequacy_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Builder.add_system_adequacy_expression" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="MDI.Builder.build_balance_and_objective_from_yaml">
 <span class="sig-prename descclassname"><span class="pre">MDI.Builder.</span></span><span class="sig-name descname"><span class="pre">build_balance_and_objective_from_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaml_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/MDI/Builder.html#build_balance_and_objective_from_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Builder.build_balance_and_objective_from_yaml" title="Link to this definition"></a></dt>
 <dd></dd></dl>
@@ -537,11 +534,6 @@ and returns a complete <cite>ConcreteModel</cite>.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="MDI.Builder.build_model_from_file">
 <span class="sig-prename descclassname"><span class="pre">MDI.Builder.</span></span><span class="sig-name descname"><span class="pre">build_model_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ConcreteModel</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/MDI/Builder.html#build_model_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Builder.build_model_from_file" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="MDI.Builder.compute_mean_demand">
-<span class="sig-prename descclassname"><span class="pre">MDI.Builder.</span></span><span class="sig-name descname"><span class="pre">compute_mean_demand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaml_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/MDI/Builder.html#compute_mean_demand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Builder.compute_mean_demand" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </section>
@@ -691,6 +683,38 @@ into a single structured pandas DataFrame.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.DataFrames.compute_CME_by_period">
+<span class="sig-prename descclassname"><span class="pre">MDI.DataFrames.</span></span><span class="sig-name descname"><span class="pre">compute_CME_by_period</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'glpk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_E</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserve_margin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.15</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/MDI/DataFrames.html#compute_CME_by_period"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.DataFrames.compute_CME_by_period" title="Link to this definition"></a></dt>
+<dd><p>Compute CME (Custo Marginal de Energia) and CME de Expansão
+for each time period individually via incremental perturbation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>ConcreteModel</em>) – Pyomo model with ‘Adequacy’ and ‘Balance’ constraints.</p></li>
+<li><p><strong>solver_name</strong> (<em>str</em><em>, </em><em>optional</em>) – MILP solver name (default: ‘glpk’).</p></li>
+<li><p><strong>delta_E</strong> (<em>float</em><em>, </em><em>optional</em>) – Increment applied to demand in each period (default: 1.0).</p></li>
+<li><p><strong>reserve_margin</strong> (<em>float</em><em>, </em><em>optional</em>) – Fractional capacity increase used in expansion case (default: 0.15).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>{</dt><dd><p>“Custo_Base”: float,
+“CME_energia_por_periodo”: { (p,t): value },
+“CME_expansao_por_periodo”: { (p,t): value },
+“CME_global”: float,
+“CME_expansao_global”: float</p>
+</dd>
+</dl>
+<p>}</p>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -865,10 +889,10 @@ provide clarity and visual feedback about the simulation setup.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="MDI.ModelFormatters.format_generator_model">
 <span class="sig-prename descclassname"><span class="pre">MDI.ModelFormatters.</span></span><span class="sig-name descname"><span class="pre">format_generator_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">case</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/MDI/ModelFormatters.html#format_generator_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.ModelFormatters.format_generator_model" title="Link to this definition"></a></dt>
-<dd><p>Print formatted information for each hydropower unit.</p>
+<dd><p>Print formatted information for each generator power unit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>case</strong> (<em>dict</em>) – Dictionary containing ‘hydro’ section with unit definitions.</p>
+<dd class="field-odd"><p><strong>case</strong> (<em>dict</em>) – Dictionary containing ‘generator’ section with unit definitions.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -898,7 +922,7 @@ provide clarity and visual feedback about the simulation setup.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="MDI.ModelFormatters.model_properties">
 <span class="sig-prename descclassname"><span class="pre">MDI.ModelFormatters.</span></span><span class="sig-name descname"><span class="pre">model_properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">case</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/MDI/ModelFormatters.html#model_properties"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.ModelFormatters.model_properties" title="Link to this definition"></a></dt>
-<dd><p>Print a concise list of subsystems included in the case (hydro, thermal, etc.).</p>
+<dd><p>Print a concise list of subsystems included in the case (generator, thermal, etc.).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>case</strong> (<em>dict</em>) – Parsed input configuration containing subsystem definitions.</p>
