@@ -144,8 +144,8 @@ def storage_add_sets_and_params(m: ConcreteModel,
     m.storage_Emin = Param(m.SU, initialize={u: data.units[u].Emin for u in U})
     m.storage_Emax = Param(m.SU, initialize={u: data.units[u].Emax for u in U})
     m.storage_Eini = Param(m.SU, initialize={u: data.units[u].Eini for u in U})
-    m.storage_Pch_max = Param(m.SU, initialize={u: data.units[u].Pch_max for u in U})
-    m.storage_Pdis_max = Param(m.SU, initialize={u: data.units[u].Pdis_max for u in U})
+    m.storage_Pch_max = Param(m.SU, m.P, initialize={(u, p): data.units[u].Pch_max for u in U for p in P})
+    m.storage_Pdis_max = Param(m.SU, m.P, initialize={(u, p): data.units[u].Pdis_max for u in U for p in P})
     m.storage_eta_c = Param(m.SU, initialize={u: data.units[u].eta_c for u in U})
     m.storage_eta_d = Param(m.SU, initialize={u: data.units[u].eta_d for u in U})
 

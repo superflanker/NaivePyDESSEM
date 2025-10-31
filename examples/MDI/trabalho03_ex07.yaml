@@ -8,10 +8,10 @@
 # - Volume: hm3
 
 meta:
-  name: "UFPR-EELT7030-Trabalho3-Ex03-Anualizado"
+  name: "UFPR-EELT7030-Trabalho3-Ex04"
   horizon: 10                 # TODO: nº de períodos (ex.: 24)
   delta_t: 1.0                # duração do período (anos)
-  parcel_investment: True     # investimento anualizado ou não
+  parcel_investment: False    # investimento anualizado ou não
   Solver: cbc
   Solver_Options:
     mip_solver: glpk
@@ -78,12 +78,12 @@ storage:
     BAT_1:                    # convenção {GER}_{UNIT}
       state: 0                # candidata
       c_op: 0                 # custos de operação
-      c_inv: 25_000_000       # custos de investimento e O&M
-      Emin:    50.0           # SoCmin (MWh)
-      Emax:    500.0          # SoCmax (MWh)
-      Eini:    100.0          # SoC0   (MWh)
-      Pch_max: 300.0          # MWh/patamar
-      Pdis_max: 300.0         # MWh/patamar
+      c_inv:  5_000_000       # custos de investimento e O&M
+      Emin:    50000.0        # SoCmin (MWh)
+      Emax:    5000000.0      # SoCmax (MWh)
+      Eini:    100000.0       # SoC0   (MWh)
+      Pch_max: 325310.0       # MWh/patamar
+      Pdis_max: 325310.0      # MWh/patamar
       eta_c: 0.95             # eficiência de carga (0-1)
-      eta_d: 0.95             # eficiência de descarga (0-1)   
-      include_cap: True       # incluir na restrição de capacidade       
+      eta_d: 0.95             # eficiência de descarga (0-1) 
+      include_cap: True       # incluir na restrição de capacidade            

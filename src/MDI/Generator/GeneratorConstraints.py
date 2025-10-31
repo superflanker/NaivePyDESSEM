@@ -111,10 +111,6 @@ def add_generator_power_limits_constraint(m: ConcreteModel) -> ConcreteModel:
         def _gen_min_rule(m, g, t, p):
             return m.gen_P[g, t, p] >= 0.0
 
-        def _gen_cap_rule(m, g, t, p):
-            return m.gen_cap[g, t, p] == m.gen_pmax[g] * m.gen_x[g, t]
-
-        m.gen_cap_constraint = Constraint(m.GU, m.T, m.P, rule=_gen_cap_rule)
         m.gen_power_upper_constraint = Constraint(
             m.GU, m.T, m.P, rule=_gen_max_rule)
         m.gen_power_lower_constraint = Constraint(

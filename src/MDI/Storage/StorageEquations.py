@@ -191,7 +191,9 @@ def add_storage_capacity_expression(
     if all(hasattr(m, attr) for attr in required):
         expr = sum(
             # Capacity available only if the storage unit exists in period t
-            m.storage_Pdis_max[s] * m.storage_x[s, t]
+            # since Pdis_max is in MWh/level, this must be MWh per level
+            # this is the maximum eergy capacity that storage can deliver per level
+            m.storage_Pdis_max[s, p] * m.storage_x[s, t]
             for s in m.SU
         )
         capacity_array.append(expr)

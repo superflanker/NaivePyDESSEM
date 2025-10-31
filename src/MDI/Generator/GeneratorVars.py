@@ -195,7 +195,6 @@ def generator_add_variables(m: ConcreteModel) -> ConcreteModel:
     """
     # Generated power by unit, time, and level
     m.gen_P = Var(m.GU, m.T, m.P, within=NonNegativeReals)
-    m.gen_cap = Var(m.GU, m.T, m.P, within=NonNegativeReals)
 
     # Binary investment and operational decision variables
     m.gen_y = Var(m.GU, m.T, within=Binary)  # investment decision

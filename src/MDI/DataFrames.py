@@ -268,12 +268,14 @@ def add_cost_to_dataframe(df: pd.DataFrame,
     
     def compute_average_CME(model):
         avg_CME = {}
+        avg_CMO = compute_average_CMO(model)
+        total_hours = sum(model.level_hours[p] for p in model.P)
 
         for t in model.T:
-            avg_CME[t] = value(model.dual[model.Adequacy[t]])
+            weighted_sum = sum(value(model.dual[model.Adequacy[t, p]]) for p in model.P)
+            avg_CME[t] = avg_CMO[t] + weighted_sum / total_hours
 
         return avg_CME
-        # return compute_average_CMO(model)
     
     T = list(model.T)
 

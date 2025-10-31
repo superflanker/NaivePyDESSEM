@@ -13,4 +13,6 @@ mdi-solve examples/MDI/trabalho03_ex05.yaml --out_dir resultados/MDI/ --out_file
 mdi-solve examples/MDI/trabalho03_ex05_anualizado.yaml --out_dir resultados/MDI/ --out_file planejamento_expansao_ex05_anualizado.csv
 mdi-solve examples/MDI/trabalho03_ex06.yaml --out_dir resultados/MDI/ --out_file planejamento_expansao_ex06.csv
 mdi-solve examples/MDI/trabalho03_ex06_anualizado.yaml --out_dir resultados/MDI/ --out_file planejamento_expansao_ex06_anualizado.csv
+mdi-solve examples/MDI/trabalho03_ex07.yaml --out_dir resultados/MDI/ --out_file planejamento_expansao_ex07.csv
+mdi-solve examples/MDI/trabalho03_ex07_anualizado.yaml --out_dir resultados/MDI/ --out_file planejamento_expansao_ex07_anualizado.csv
 deactivate

@@ -82,8 +82,8 @@ storage:
       Emin:    50.0           # SoCmin (MWh)
       Emax:    500.0          # SoCmax (MWh)
       Eini:    100.0          # SoC0   (MWh)
-      Pch_max: 300.0          # MW
-      Pdis_max: 300.0         # MW
+      Pch_max: 300.0          # MWh/patamar
+      Pdis_max: 300.0         # MWh/patamar
       eta_c: 0.95             # eficiência de carga (0-1)
       eta_d: 0.95             # eficiência de descarga (0-1) 
       include_cap: True       # incluir na restrição de capacidade         

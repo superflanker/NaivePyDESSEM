@@ -194,13 +194,13 @@ def add_generator_capacity_expression(
     representing the total available generation at each period and load level.
     """
     required = [
-        'GU', 'T', 'P', 'gen_P'
+        'GU', 'T', 'P', 'gen_pmax'
     ]
 
     if all(hasattr(m, attr) for attr in required):
         expr = sum(
             # Net power generation by unit and load level
-            m.gen_pmax[g] * m.gen_x[g, t]
+            m.gen_pmax[g] * m.level_hours[p] * m.gen_x[g, t]
             for g in m.GU if m.gen_include_cap[g] == True
         )
         capacity_array.append(expr)

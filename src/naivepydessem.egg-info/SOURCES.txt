@@ -54,6 +54,8 @@ examples/MDI/trabalho03_ex05.yaml
 examples/MDI/trabalho03_ex05_anualizado.yaml
 examples/MDI/trabalho03_ex06.yaml
 examples/MDI/trabalho03_ex06_anualizado.yaml
+examples/MDI/trabalho03_ex07.yaml
+examples/MDI/trabalho03_ex07_anualizado.yaml
 src/MDI/Builder.py
 src/MDI/DataFrames.py
 src/MDI/Formatters.py

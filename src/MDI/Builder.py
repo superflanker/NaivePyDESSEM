@@ -206,44 +206,23 @@ def _mk_storage_data(root: Dict[str, Any]) -> StorageData:
 # Master entry point
 # ============================================================================
 def build_balance_and_objective_from_yaml(model: ConcreteModel, yaml_data: Dict[str, Any]) -> ConcreteModel:
-
-    demand_data = yaml_data["meta"]["demand"]
-    reserve_margin = 1.10 
-    
-    peak_demand_per_period = []
-    peak_level_per_period = []
-    
-    num_periods = len(list(demand_data.values())[0])
-    patamares = list(demand_data.keys())
-    
-    for periodo in range(num_periods):
-        demands_in_period = {patamar: demand_data[patamar][periodo] for patamar in patamares}
-        peak_patamar = max(demands_in_period, key=demands_in_period.get)
-        peak_demand = demands_in_period[peak_patamar]
-        
-        peak_demand_per_period.append(peak_demand * reserve_margin)
-        peak_level_per_period.append(peak_patamar)
-    
-    model.peak_demand = peak_demand_per_period
-    model.peak_level = peak_level_per_period
     
     # --------------------------
     # ADEQUACY CONSTRAINT
     # --------------------------
-    def capacity_balance_rule(m, t):
+    def capacity_balance_rule(m, t, p):
         capacity_terms: List[Any] = []
         
-        p_pico = model.peak_level[t-1] 
         
         if 'generator' in yaml_data:
-            add_generator_capacity_expression(m, t, p_pico, capacity_terms)
+            add_generator_capacity_expression(m, t, p, capacity_terms)
         if 'storage' in yaml_data:
-            add_storage_capacity_expression(m, t, p_pico, capacity_terms)
+            add_storage_capacity_expression(m, t, p, capacity_terms)
 
         idx = t-1
-        return sum(capacity_terms) >= model.peak_demand[idx]
+        return sum(capacity_terms) >= model.level_hours[p] * model.d[p][idx]
 
-    model.Adequacy = Constraint(model.T, rule=capacity_balance_rule)
+    model.Adequacy = Constraint(model.T, model.P, rule=capacity_balance_rule)
     
     # --------------------------
     # BALANCE CONSTRAINT

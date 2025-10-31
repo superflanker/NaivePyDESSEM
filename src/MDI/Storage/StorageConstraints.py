@@ -206,18 +206,13 @@ def add_storage_power_limits_constraint(m):
     """
     def _ch_limit_rule(m, s, t, p):
         # power must be represented as MWh/h, not MWh/level
-        return m.storage_ch[s, t, p] <= (m.storage_Pch_max[s] / m.level_hours[p]) * m.storage_x[s, t]
+        return m.storage_ch[s, t, p] <= (m.storage_Pch_max[s, p] / m.level_hours[p]) * m.storage_x[s, t]
         # 
 
     def _dis_limit_rule(m, s, t, p):
         # power must be represented as MWh/h, not MWh/level
-        return m.storage_dis[s, t, p] <= (m.storage_Pdis_max[s] / m.level_hours[p]) * m.storage_x[s, t]
+        return m.storage_dis[s, t, p] <= (m.storage_Pdis_max[s, p] / m.level_hours[p]) * m.storage_x[s, t]
     
-    def _storage_cap_rule(m, s, t, p):
-        # since Pch_nax is represented as MWh/level, this must be the energy capacity of the storage system
-        return m.storage_cap[s,t,p] == m.storage_Pch_max[s] * m.storage_x[s, t]
-
-    m.storage_cap_constraint = Constraint(m.SU, m.T, m.P, rule=_storage_cap_rule)
     m.storage_charge_limit_constraint = Constraint(m.SU, m.T, m.P, rule=_ch_limit_rule)
     m.storage_discharge_limit_constraint = Constraint(m.SU, m.T, m.P, rule=_dis_limit_rule)
     return m
