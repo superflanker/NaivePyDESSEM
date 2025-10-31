@@ -161,37 +161,37 @@ def add_storage_capacity_expression(
     capacity_array: List[Any]
 ) -> List[Any]:
     """
-    Add the net storage capacity expression to the capacity array.
+    Add the net storage capacity expression to the capacity array,
+    considering only storage units that exist (x[s,t] = 1).
 
-    The expression represents the net contribution of storage units
-    to the system capacity in each time period and load level.
+    The expression represents the net power contribution (discharge minus charge)
+    weighted by the operational existence of the unit in the given period.
 
     Parameters
     ----------
     m : pyomo.environ.ConcreteModel
-        Pyomo model instance containing the relevant storage variables and parameters.
+        Model instance containing storage sets, parameters, and variables.
     t : Any
-        Time index for which the capacity expression is computed.
+        Time index.
     p : Any
-        Load level index corresponding to the current capacity term.
+        Load level index.
     capacity_array : list of Any
         External list to which the resulting expression will be appended.
 
     Returns
     -------
     list of Any
-        The updated list of capacity expressions including the storage term.
+        Updated list of capacity expressions.
     """
     required = [
         'SU', 'T', 'P',
-        'storage_ch', 'storage_dis',
-        'storage_eta_c', 'storage_eta_d'
+        'storage_Pdis_max', 'storage_x'
     ]
 
     if all(hasattr(m, attr) for attr in required):
         expr = sum(
-            # Net power injected into the system (discharge - charge)
-            m.storage_cap[s, t, p]
+            # Capacity available only if the storage unit exists in period t
+            m.storage_Pdis_max[s] * m.storage_x[s, t]
             for s in m.SU
         )
         capacity_array.append(expr)

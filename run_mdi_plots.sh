@@ -1,7 +1,7 @@
 # instalando o NaivePyDESSEM
 # assumo aqui que no ambiente virtual já se tenha instalado o Pyomo e  os solvers
 # a instalação do NaivePyDESSEM já instala o Pyomo como dependência, contudo é necessário
-# rodar o seguinte comando para que alguns solvers functionem:
+# rodar o seguinte comando para que alguns solvers funcionem:
 # $ pyomo build-extensions
 
 source venv/bin/activate

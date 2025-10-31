@@ -85,5 +85,5 @@ storage:
       Pch_max: 300.0          # MW
       Pdis_max: 300.0         # MW
       eta_c: 0.95             # eficiência de carga (0-1)
-      eta_d: 0.95             # eficiência de descarga (0-1) 
-      include_cap: True       # incluir na restrição de capacidade         
+      eta_d: 0.95             # eficiência de descarga (0-1)
+      include_cap: True       # incluir na restrição de capacidade          

@@ -8,7 +8,7 @@
 # - Volume: hm3
 
 meta:
-  name: "UFPR-EELT7030-Trabalho3-Ex01-Anualizado"
+  name: "UFPR-EELT7030-Trabalho3-Ex06-Anualizado"
   horizon: 10                 # TODO: nº de períodos (ex.: 24)
   delta_t: 1.0                # duração do período (anos)
   parcel_investment: True     # investimento anualizado ou não

@@ -267,13 +267,13 @@ def add_cost_to_dataframe(df: pd.DataFrame,
         return avg_CMO
     
     def compute_average_CME(model):
-        """avg_CME = {}
+        avg_CME = {}
 
         for t in model.T:
             avg_CME[t] = value(model.dual[model.Adequacy[t]])
 
-        return avg_CME"""
-        return compute_average_CMO(model)
+        return avg_CME
+        # return compute_average_CMO(model)
     
     T = list(model.T)
 

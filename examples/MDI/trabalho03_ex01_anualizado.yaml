@@ -10,7 +10,7 @@
 meta:
   name: "UFPR-EELT7030-Trabalho3-Ex01-Anualizado"
   horizon: 10                 # TODO: nº de períodos (ex.: 24)
-  delta_t: 1.0                # duração do período (anos)
+  delta_t: 0.5                # duração do período (anos)
   parcel_investment: True     # investimento anualizado ou não
   Solver: cbc
   Solver_Options:
@@ -73,7 +73,7 @@ generator:
       include_cap: True       # incluir na restrição de capacidade
 
 storage:
-  delta_t: 1.0                # usa meta.delta_t por padrão; mantenha aqui por clareza
+  delta_t: 0.5                # usa meta.delta_t por padrão; mantenha aqui por clareza
   units:                      # Dict[str, StorageUnit]
     BAT_1:                    # convenção {GER}_{UNIT}
       state: 0                # existente

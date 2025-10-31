@@ -285,7 +285,7 @@ def build_model_from_file(path: str) -> Tuple[ConcreteModel, Dict]:
         raise ValueError("File must contain 'meta' sections.")
 
     m = ConcreteModel()
-    
+
     m.level_precedence = level_precedence
     m.parcel_investment = parcel_investment
 

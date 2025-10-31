@@ -143,15 +143,15 @@ def add_storage_energy_balance_constraint(m):
                 return m.storage_E[s, t, p] == (
                     m.storage_E[s, m.T.prev(t), precedence[-1]]
                     + m.storage_Eini[s] * m.storage_y[s, t]
-                    + m.storage_eta_c[s] * m.storage_ch[s, t, p] * m.storage_delta_t
-                    - (m.storage_dis[s, t, p] / m.storage_eta_d[s]) * m.storage_delta_t
+                    + m.storage_eta_c[s] * m.storage_ch[s, t, p] * m.level_hours[p]
+                    - (m.storage_dis[s, t, p] / m.storage_eta_d[s]) * m.level_hours[p]
                 )
 
         p_prev = precedence[idx - 1]
         return m.storage_E[s, t, p] == (
             m.storage_E[s, t, p_prev]
-            + m.storage_eta_c[s] * m.storage_ch[s, t, p] * m.storage_delta_t
-            - (m.storage_dis[s, t, p] / m.storage_eta_d[s]) * m.storage_delta_t
+            + m.storage_eta_c[s] * m.storage_ch[s, t, p] * m.level_hours[p]
+            - (m.storage_dis[s, t, p] / m.storage_eta_d[s]) * m.level_hours[p]
         )
 
 
@@ -205,13 +205,17 @@ def add_storage_power_limits_constraint(m):
         The model with charging and discharging power limits enforced.
     """
     def _ch_limit_rule(m, s, t, p):
-        return m.storage_ch[s, t, p] <= m.storage_Pch_max[s] * m.storage_x[s, t]
+        # power must be represented as MWh/h, not MWh/level
+        return m.storage_ch[s, t, p] <= (m.storage_Pch_max[s] / m.level_hours[p]) * m.storage_x[s, t]
+        # 
 
     def _dis_limit_rule(m, s, t, p):
-        return m.storage_dis[s, t, p] <= m.storage_Pdis_max[s] * m.storage_x[s, t]
+        # power must be represented as MWh/h, not MWh/level
+        return m.storage_dis[s, t, p] <= (m.storage_Pdis_max[s] / m.level_hours[p]) * m.storage_x[s, t]
     
     def _storage_cap_rule(m, s, t, p):
-        return m.storage_cap[s,t,p] == m.storage_Pdis_max[s] * m.storage_x[s, t]
+        # since Pch_nax is represented as MWh/level, this must be the energy capacity of the storage system
+        return m.storage_cap[s,t,p] == m.storage_Pch_max[s] * m.storage_x[s, t]
 
     m.storage_cap_constraint = Constraint(m.SU, m.T, m.P, rule=_storage_cap_rule)
     m.storage_charge_limit_constraint = Constraint(m.SU, m.T, m.P, rule=_ch_limit_rule)

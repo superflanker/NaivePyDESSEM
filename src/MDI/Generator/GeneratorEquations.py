@@ -200,7 +200,7 @@ def add_generator_capacity_expression(
     if all(hasattr(m, attr) for attr in required):
         expr = sum(
             # Net power generation by unit and load level
-            m.gen_cap[g, t, p]
+            m.gen_pmax[g] * m.gen_x[g, t]
             for g in m.GU if m.gen_include_cap[g] == True
         )
         capacity_array.append(expr)
