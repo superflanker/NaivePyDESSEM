@@ -50,6 +50,10 @@ mdi-plot resultados/MDI/planejamento_expansao_ex01.csv \
   --out-dir relatorios/MDI/ex01/imagens \
   --out-file geracao_ex01_fora.png
 
+if [ -f relatorios/MDI/ex01/imagens/geracao_ex01.png ]; then
+  rm -f relatorios/MDI/ex01/imagens/geracao_ex01.png
+fi
+
 ffmpeg -i relatorios/MDI/ex01/imagens/geracao_ex01_ponta.png -i relatorios/MDI/ex01/imagens/geracao_ex01_fora.png -filter_complex hstack relatorios/MDI/ex01/imagens/geracao_ex01.png
 
 mdi-plot resultados/MDI/planejamento_expansao_ex01.csv \
@@ -110,6 +114,10 @@ mdi-plot resultados/MDI/planejamento_expansao_ex01_anualizado.csv \
   --ylabel "Geração (\$MWmed\$)" \
   --out-dir relatorios/MDI/ex01/imagens \
   --out-file geracao_ex01_anualizado_fora.png
+
+if [ -f relatorios/MDI/ex01/imagens/geracao_ex01_anualizado.png ]; then
+  rm -f relatorios/MDI/ex01/imagens/geracao_ex01_anualizado.png
+fi
 
 ffmpeg -i relatorios/MDI/ex01/imagens/geracao_ex01_anualizado_ponta.png -i relatorios/MDI/ex01/imagens/geracao_ex01_anualizado_fora.png -filter_complex hstack relatorios/MDI/ex01/imagens/geracao_ex01_anualizado.png
 
@@ -172,6 +180,10 @@ mdi-plot resultados/MDI/planejamento_expansao_ex02.csv \
   --out-dir relatorios/MDI/ex02/imagens \
   --out-file geracao_ex02_fora.png
 
+if [ -f relatorios/MDI/ex02/imagens/geracao_ex02.png ]; then
+  rm -f relatorios/MDI/ex02/imagens/geracao_ex02.png
+fi
+
 ffmpeg -i relatorios/MDI/ex02/imagens/geracao_ex02_ponta.png -i relatorios/MDI/ex02/imagens/geracao_ex02_fora.png -filter_complex hstack relatorios/MDI/ex02/imagens/geracao_ex02.png
 
 mdi-plot resultados/MDI/planejamento_expansao_ex02.csv \
@@ -232,6 +244,10 @@ mdi-plot resultados/MDI/planejamento_expansao_ex02_anualizado.csv \
   --ylabel "Geração (\$MWmed\$)" \
   --out-dir relatorios/MDI/ex02/imagens \
   --out-file geracao_ex02_anualizado_fora.png
+
+if [ -f relatorios/MDI/ex02/imagens/geracao_ex02_anualizado.png ]; then
+  rm -f relatorios/MDI/ex02/imagens/geracao_ex02_anualizado.png
+fi
 
 ffmpeg -i relatorios/MDI/ex02/imagens/geracao_ex02_anualizado_ponta.png -i relatorios/MDI/ex02/imagens/geracao_ex02_anualizado_fora.png -filter_complex hstack relatorios/MDI/ex02/imagens/geracao_ex02_anualizado.png
 
@@ -294,6 +310,10 @@ mdi-plot resultados/MDI/planejamento_expansao_ex03.csv \
   --out-dir relatorios/MDI/ex03/imagens \
   --out-file geracao_ex03_fora.png
 
+if [ -f relatorios/MDI/ex03/imagens/geracao_ex03.png ]; then
+  rm -f relatorios/MDI/ex03/imagens/geracao_ex03.png
+fi
+
 ffmpeg -i relatorios/MDI/ex03/imagens/geracao_ex03_ponta.png -i relatorios/MDI/ex03/imagens/geracao_ex03_fora.png -filter_complex hstack relatorios/MDI/ex03/imagens/geracao_ex03.png
 
 mdi-plot resultados/MDI/planejamento_expansao_ex03.csv \
@@ -354,6 +374,10 @@ mdi-plot resultados/MDI/planejamento_expansao_ex03_anualizado.csv \
   --ylabel "Geração (\$MWmed\$)" \
   --out-dir relatorios/MDI/ex03/imagens \
   --out-file geracao_ex03_anualizado_fora.png
+
+if [ -f relatorios/MDI/ex03/imagens/geracao_ex03_anualizado.png ]; then
+  rm -f relatorios/MDI/ex03/imagens/geracao_ex03_anualizado.png
+fi
 
 ffmpeg -i relatorios/MDI/ex03/imagens/geracao_ex03_anualizado_ponta.png -i relatorios/MDI/ex03/imagens/geracao_ex03_anualizado_fora.png -filter_complex hstack relatorios/MDI/ex03/imagens/geracao_ex03_anualizado.png
 
