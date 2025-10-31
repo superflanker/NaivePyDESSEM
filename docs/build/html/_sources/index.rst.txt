@@ -1,8 +1,8 @@
 NaivePyDESSEM documentation
 ===========================
 
-Official documentation of the **NaivePyDESSEM**,  **NaivePyDECOMP** and **MDI** projects, 
-two pedagogical and modular economic dispatch/ explansion panning solvers based on Pyomo.
+Official Documentation of NaivePyDESSEM Project — A Pedagogical and Modular Framework for Hydrothermal Economic Dispatch and Expansion Planning in Pyomo (DESSEM, DECOMP, and MDI-like Solvers)
+
 
 .. include:: README.md
    :parser: myst_parser.sphinx_

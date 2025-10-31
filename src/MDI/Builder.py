@@ -278,17 +278,20 @@ def build_balance_and_objective_from_yaml(model: ConcreteModel, yaml_data: Dict[
 def build_model_from_file(path: str) -> Tuple[ConcreteModel, Dict]:
    
     root = yaml_loader(path)
+    level_precedence = root["meta"]["level_precedence"]
+    parcel_investment = bool(root["meta"]["parcel_investment"])
+
     if "meta" not in root:
         raise ValueError("File must contain 'meta' sections.")
 
     m = ConcreteModel()
-
-    balance_expressions = []
+    
+    m.level_precedence = level_precedence
+    m.parcel_investment = parcel_investment
 
     # Basic validations
     _validate_meta(root["meta"])
     T = int(root["meta"]["horizon"])
-    parcel_investment = bool(root["meta"]["parcel_investment"])
     _validate_demand(root["meta"]["demand"], T)
     has_valid_units = False
     if "generator" in root and root["generator"] is not None:
@@ -306,7 +309,6 @@ def build_model_from_file(path: str) -> Tuple[ConcreteModel, Dict]:
                                 data=storage_data,
                                 include_objective=False)
         has_valid_units = True
-    m.parcel_investment = parcel_investment
     if not has_valid_units:
         raise ValueError("No buildable sections found. Provide at least one of "
                          "{generators, storage}.")

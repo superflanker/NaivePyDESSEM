@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="en"
+ unique-identifier="unknown"
+ prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/">
+  <metadata xmlns:opf="http://www.idpf.org/2007/opf"
+        xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:language>en</dc:language>
+    <dc:title>NaivePyDESSEM</dc:title>
+    <dc:description>unknown</dc:description>
+    <dc:creator>Augusto Mathias Adams</dc:creator>
+    <dc:contributor>unknown</dc:contributor>
+    <dc:publisher>Augusto Mathias Adams</dc:publisher>
+    <dc:rights>2025, Augusto Mathias Adams</dc:rights>
+    <dc:identifier id="unknown">unknown</dc:identifier>
+    <dc:date>2025-10-30T17:02:29Z</dc:date>
+    <meta property="dcterms:modified">2025-10-30T17:02:29Z</meta>
+    <meta property="ibooks:version"></meta>
+    <meta property="ibooks:specified-fonts">true</meta>
+    <meta property="ibooks:binding">true</meta>
+    <meta property="ibooks:scroll-axis">vertical</meta>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+    <item id="epub-0" href="MDI.Generator.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-1" href="MDI.Storage.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-2" href="MDI.cli.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-3" href="MDI.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-4" href="NaivePyDECOMP.HydraulicGenerator.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-5" href="NaivePyDECOMP.RenewableGenerator.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-6" href="NaivePyDECOMP.Storage.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-7" href="NaivePyDECOMP.ThermalGenerator.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-8" href="NaivePyDECOMP.cli.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-9" href="NaivePyDECOMP.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-10" href="NaivePyDESSEM.HydraulicGenerator.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-11" href="NaivePyDESSEM.RenewableGenerator.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-12" href="NaivePyDESSEM.Storage.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-13" href="NaivePyDESSEM.ThermalGenerator.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-14" href="NaivePyDESSEM.cli.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-15" href="NaivePyDESSEM.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-16" href="README.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-17" href="genindex.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-18" href="index.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-19" href="modules.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-20" href="py-modindex.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-21" href="UserGuide/introduction.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-22" href="UserGuide/userguide.xhtml" media-type="application/xhtml+xml" />
+    <item id="epub-23" href="_images/GitHub-NaivePyDESSEM-181717.svg" media-type="image/svg+xml" />
+    <item id="epub-24" href="_images/License-GPLv3-blue.svg" media-type="image/svg+xml" />
+    <item id="epub-25" href="_images/badge.svg" media-type="image/svg+xml" />
+    <item id="epub-26" href="_images/badge1.svg" media-type="image/svg+xml" />
+    <item id="epub-27" href="_static/basic.css" media-type="text/css" />
+    <item id="epub-28" href="_static/epub.css" media-type="text/css" />
+    <item id="epub-29" href="_static/file.png" media-type="image/png" />
+    <item id="epub-30" href="_static/minus.png" media-type="image/png" />
+    <item id="epub-31" href="_static/plus.png" media-type="image/png" />
+    <item id="epub-32" href="_static/pygments.css" media-type="text/css" />
+  </manifest>
+  <spine toc="ncx" page-progression-direction="ltr">
+    <itemref idref="epub-18" />
+    <itemref idref="epub-19" />
+    <itemref idref="epub-15" />
+    <itemref idref="epub-10" />
+    <itemref idref="epub-11" />
+    <itemref idref="epub-12" />
+    <itemref idref="epub-13" />
+    <itemref idref="epub-14" />
+    <itemref idref="epub-9" />
+    <itemref idref="epub-4" />
+    <itemref idref="epub-5" />
+    <itemref idref="epub-6" />
+    <itemref idref="epub-7" />
+    <itemref idref="epub-8" />
+    <itemref idref="epub-3" />
+    <itemref idref="epub-0" />
+    <itemref idref="epub-1" />
+    <itemref idref="epub-2" />
+    <itemref idref="epub-20" />
+    <itemref idref="epub-17" />
+    <itemref idref="epub-16" linear="no" />
+    <itemref idref="epub-21" linear="no" />
+    <itemref idref="epub-22" linear="no" />
+  </spine>
+  <guide>
+    <reference type="toc" title="Table of Contents" href="index.xhtml" />
+  </guide>
+</package>

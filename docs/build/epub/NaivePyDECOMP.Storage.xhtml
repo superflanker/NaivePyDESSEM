@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NaivePyDECOMP.Storage package</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="naivepydecomp-storage-package">
+<h1>NaivePyDECOMP.Storage package</h1>
+<section id="module-NaivePyDECOMP.Storage">
+<span id="module-contents"></span><h2>Module contents</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Package: Energy Storage Modeling (Storage)</p>
+<section id="author">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="description">
+<h3>Description</h3>
+<p>The <strong>Storage</strong> package provides a modular framework for incorporating
+battery energy storage systems (BESS) into Pyomo-based dispatch and unit
+commitment models. It defines the necessary data structures, sets,
+parameters, variables, constraints, objectives, and builder functions
+to assemble storage-only or hybrid optimization models.</p>
+</section>
+<section id="submodules">
+<h3>Submodules</h3>
+<dl class="simple">
+<dt>StorageDataTypes</dt><dd><p>Dataclasses for storage units and system-level configuration.</p>
+</dd>
+<dt>StorageVars</dt><dd><p>Initialization of Pyomo sets, parameters, and variables.</p>
+</dd>
+<dt>StorageConstraints</dt><dd><p>Constraint builders (SoC balance, bounds, power limits, etc.).</p>
+</dd>
+<dt>StorageObjectives</dt><dd><p>Objective function definitions for storage-only models.</p>
+</dd>
+<dt>StorageBuilder</dt><dd><p>High-level routines to assemble complete storage models.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The package is designed to be interoperable with the Hydro, Thermal,
+and Renewable packages, enabling the construction of hybrid models.</p></li>
+<li><p>Naming conventions are consistent across subsystems for clarity and
+maintainability.</p></li>
+<li><p>Extensions (e.g., cycling cost, degradation models) can be added
+within this package without altering the external interface.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+<section id="id1">
+<h2>Submodules</h2>
+</section>
+<section id="module-NaivePyDECOMP.Storage.StorageBuilder">
+<span id="naivepydecomp-storage-storagebuilder-module"></span><h2>NaivePyDECOMP.Storage.StorageBuilder module</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Energy Storage — Model Builder</p>
+<section id="id2">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id3">
+<h3>Description</h3>
+<p>High-level builders for storage-only optimization models in Pyomo. This
+module assembles the complete model structure by combining storage sets,
+parameters, variables, constraints, and an optional objective function.</p>
+</section>
+<section id="functions">
+<h3>Functions</h3>
+<dl class="simple">
+<dt>build_storage(data, include_objective=True)</dt><dd><p>Create a new <code class="docutils literal notranslate"><span class="pre">ConcreteModel</span></code> with storage components and, optionally,
+the balance constraint and objective.</p>
+</dd>
+<dt>add_storage_problem(m, data, include_objective=False)</dt><dd><p>Add storage components (sets/params/vars/constraints) to an existing
+model and, optionally, attach the balance constraint and objective.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The default objective minimizes deficit cost (no explicit storage
+operating costs). If you have cycling costs or degradation penalties,
+replace the objective accordingly.</p></li>
+<li><p>For hybrid systems (hydro/thermal/renewables + storage), prefer a
+combined system balance and a joint objective in a higher-level builder.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.Storage.StorageBuilder.add_storage_subproblem">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.Storage.StorageBuilder.</span></span><span class="sig-name descname"><span class="pre">add_storage_subproblem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><span class="pre">StorageData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Add storage dispatch problem structure to an existing model.</p>
+<p>This routine initializes storage sets and parameters, declares decision
+variables, and attaches operational constraints. Optionally, it enforces
+a storage-only system balance and adds a deficit-penalizing objective.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Target model to be updated.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="MDI.Storage.xhtml#MDI.Storage.StorageDataTypes.StorageData" title="MDI.Storage.StorageDataTypes.StorageData"><em>StorageData</em></a>) – Input container with horizon, units, and time-step duration.</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, add the storage-only balance constraint and attach the
+deficit objective (default is <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated model with storage components and, optionally, the
+balance constraint and objective.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Constraints added (always):</dt><dd><ul>
+<li><p>Energy (SoC) balance</p></li>
+<li><p>SoC bounds (min/max)</p></li>
+<li><p>Charge/discharge power limits</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>If <code class="docutils literal notranslate"><span class="pre">include_objective=True</span></code>:</dt><dd><ul>
+<li><p>Add storage-only balance: Σ(dis − ch) + D = d</p></li>
+<li><p>Attach deficit objective</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.Storage.StorageConstraints">
+<span id="naivepydecomp-storage-storageconstraints-module"></span><h2>NaivePyDECOMP.Storage.StorageConstraints module</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Energy Storage — Constraints</p>
+<section id="id4">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id5">
+<h3>Description</h3>
+<p>This module defines the operational constraints for battery energy storage
+systems (BESS) within Pyomo-based dispatch and unit commitment models.
+The formulation is consistent with the hydraulic and renewable modules,
+ensuring interoperability in hybrid optimization frameworks.</p>
+</section>
+<section id="id6">
+<h3>Functions</h3>
+<dl class="simple">
+<dt>add_storage_energy_balance_constraint(m)</dt><dd><p>Enforce intertemporal state-of-charge balance with charge/discharge
+efficiencies and time-step duration.</p>
+</dd>
+<dt>add_storage_soc_bounds_constraint(m)</dt><dd><p>Impose minimum and maximum state-of-charge limits.</p>
+</dd>
+<dt>add_storage_power_limits_constraint(m)</dt><dd><p>Impose per-period charging and discharging power limits.</p>
+</dd>
+<dt>add_storage_mutual_exclusion_constraint(m)</dt><dd><p>(Optional) Prohibit simultaneous charging and discharging through a
+big-M formulation with binary mode variables.</p>
+</dd>
+<dt>add_storage_only_balance_constraint(m)</dt><dd><p>Enforce system-wide balance for storage-only models, equating net
+injection plus deficit to the demand at each period.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The efficiencies (<code class="docutils literal notranslate"><span class="pre">eta_c</span></code>, <code class="docutils literal notranslate"><span class="pre">eta_d</span></code>) can be specified per stage or
+derived from a round-trip value split by the user.</p></li>
+<li><p>For hybrid models (hydro, thermal, renewable, storage), the global
+balance should be implemented at a higher builder level.</p></li>
+<li><p>The formulation assumes a fixed period duration <code class="docutils literal notranslate"><span class="pre">delta_t</span></code> in hours,
+used to convert power (MW) to energy (MWh).</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+<section id="module-NaivePyDECOMP.Storage.StorageDataTypes">
+<span id="naivepydecomp-storage-storagedatatypes-module"></span><h2>NaivePyDECOMP.Storage.StorageDataTypes module</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Energy Storage Bank — Data Structures</p>
+<section id="id7">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id8">
+<h3>Description</h3>
+<p>Lightweight data classes for battery energy storage systems (BESS). These
+structures provide standardized inputs for Pyomo-based unit commitment and
+dispatch models.</p>
+</section>
+<section id="classes">
+<h3>Classes</h3>
+<dl class="simple">
+<dt>StorageUnit</dt><dd><p>Parameters of a single storage unit (SoC bounds, power limits,
+efficiencies, initial state).</p>
+</dd>
+<dt>StorageData</dt><dd><p>System-level container that aggregates storage units and common
+parameters such as time-step duration.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The efficiencies can be specified per stage (charge/discharge) or derived
+from a round-trip value split across both stages by the user before
+instantiation.</p></li>
+<li><p>The time-step duration <code class="docutils literal notranslate"><span class="pre">delta_t</span></code> (hours) converts power (MW) to energy
+(MWh) in the state-of-charge balance.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+<section id="module-NaivePyDECOMP.Storage.StorageEquations">
+<span id="naivepydecomp-storage-storageequations-module"></span><h2>NaivePyDECOMP.Storage.StorageEquations module</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Storage Model Expression Utilities for Pyomo Optimization</p>
+<section id="id9">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id10">
+<h3>Description</h3>
+<p>This module provides helper functions to construct symbolic expressions
+related to energy storage systems in Pyomo-based optimization models.
+These expressions can be incrementally assembled and integrated into
+constraints (e.g., state-of-charge evolution) or cost functions (e.g.,
+charging/discharging costs).</p>
+<p>The functions are designed to support modular model construction and
+hybrid system integration. They can be used in conjunction with other
+technology modules (e.g., thermal, hydro, renewable) to build power
+balance constraints and system-wide cost objectives.</p>
+<p>All expressions are symbolic and compatible with Pyomo’s modeling
+framework. Each function includes safeguards to ensure that required
+model components exist before attempting to generate expressions.</p>
+</section>
+<section id="intended-use">
+<h3>Intended Use</h3>
+<ul class="simple">
+<li><p>To append storage-related cost and energy balance expressions to lists
+that contribute to the overall objective function and constraint set.</p></li>
+<li><p>To modularize and standardize storage modeling across different hybrid
+energy system configurations.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cost_terms</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_storage_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">TotalCost</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">cost_terms</span><span class="p">),</span> <span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">balance_terms</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_storage_balance_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">balance_array</span><span class="o">=</span><span class="n">balance_terms</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">StorageBalance</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">balance_terms</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This module assumes that storage behavior is modeled using variables such as:
+<cite>storage_E</cite>, <cite>storage_ch</cite>, <cite>storage_dis</cite>, <cite>storage_Eini</cite>,
+and parameters like <cite>storage_eta_c</cite>, <cite>storage_eta_d</cite>, and <cite>storage_delta_t</cite>.</p></li>
+<li><p>The structure is compatible with Pyomo’s ConstraintList and indexed Constraint(T).</p></li>
+<li><p>Expressions are constructed incrementally and can be combined with other
+sources (e.g., thermal, hydro) in hybrid dispatch models.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023..</p>
+</section>
+</section>
+<section id="module-NaivePyDECOMP.Storage.StorageObjective">
+<span id="naivepydecomp-storage-storageobjective-module"></span><h2>NaivePyDECOMP.Storage.StorageObjective module</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Energy Storage — Objective Function</p>
+<section id="id11">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id12">
+<h3>Description</h3>
+<p>Defines the objective function for storage-only dispatch models in Pyomo.
+The formulation minimizes the total penalty cost associated with unmet
+demand (deficit) over the planning horizon, using the parameter <code class="docutils literal notranslate"><span class="pre">Cdef</span></code>.</p>
+</section>
+<section id="id13">
+<h3>Functions</h3>
+<dl class="simple">
+<dt>set_objective_storage(m)</dt><dd><p>Attach a minimization objective to the model that penalizes unmet
+demand through <code class="docutils literal notranslate"><span class="pre">Cdef</span> <span class="pre">*</span> <span class="pre">D[t]</span></code>.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This objective is tailored for storage-only systems without explicit
+operating or cycling costs.</p></li>
+<li><p>The penalty coefficient <code class="docutils literal notranslate"><span class="pre">Cdef</span></code> should be chosen sufficiently high
+to discourage deficits under normal operating conditions.</p></li>
+<li><p>For hybrid models (hydro, thermal, renewable, storage), a combined
+system-wide objective should be defined at a higher level.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+<section id="module-NaivePyDECOMP.Storage.StorageVars">
+<span id="naivepydecomp-storage-storagevars-module"></span><h2>NaivePyDECOMP.Storage.StorageVars module</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Energy Storage — Sets, Parameters, and Variables</p>
+<section id="id14">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id15">
+<h3>Description</h3>
+<p>Provides initialization routines for adding storage-related sets, parameters,
+and decision variables to Pyomo-based dispatch and unit commitment models.
+This module ensures a consistent interface for modeling battery energy storage
+systems (BESS) across different formulations.</p>
+</section>
+<section id="id16">
+<h3>Functions</h3>
+<dl class="simple">
+<dt>storage_add_sets_and_params(m, data)</dt><dd><p>Initialize sets and Pyomo parameters for storage units, including
+state-of-charge bounds, initial conditions, power limits, efficiencies,
+and time-step duration.</p>
+</dd>
+<dt>storage_add_variables(m)</dt><dd><p>Declare continuous decision variables for state-of-charge, charging
+power, and discharging power. If absent, also define a deficit variable
+for feasibility.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Parameters are namespaced with the prefix <code class="docutils literal notranslate"><span class="pre">storage_</span></code> for clarity and
+compatibility with other subsystems (hydro, thermal, renewable).</p></li>
+<li><p>The time-step duration (<code class="docutils literal notranslate"><span class="pre">delta_t</span></code>) converts power (MW) to energy (MWh)
+within the state-of-charge balance equation.</p></li>
+<li><p>The variables are declared as non-negative and continuous. Binary
+variables may be added in other modules if mutual exclusion between
+charge and discharge is required.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

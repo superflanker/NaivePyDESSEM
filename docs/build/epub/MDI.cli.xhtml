@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MDI.cli package</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="mdi-cli-package">
+<h1>MDI.cli package</h1>
+<section id="module-MDI.cli">
+<span id="module-contents"></span><h2>Module contents</h2>
+<section id="naivepydessem-cli-subpackage">
+<h3>NaivePyDESSEM – CLI Subpackage</h3>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="author">
+<h4>Author</h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="description">
+<h4>Description</h4>
+<p>This subpackage contains the command-line interface (CLI) utilities for
+the <strong>NaivePyDESSEM</strong> project. It enables interactive and scripted execution
+of core workflows such as solving dispatch models and visualizing results,
+without requiring direct code interaction.</p>
+</section>
+<section id="modules">
+<h4>Modules</h4>
+<dl class="simple">
+<dt>cli.py</dt><dd><p>Solver CLI entry point. Loads a YAML case file, builds and solves the model,
+and exports dispatch results to a spreadsheet.</p>
+</dd>
+<dt>plot_cli.py</dt><dd><p>Interactive and scriptable plotting/export interface. Allows users to load
+dispatch data from files, select categories, and export LaTeX tables or
+visual plots (bar or line).</p>
+</dd>
+</dl>
+</section>
+<section id="features">
+<h4>Features</h4>
+<ul class="simple">
+<li><p>Modular CLI design for pedagogical workflows.</p></li>
+<li><p>Integration with Colorama for enhanced terminal output.</p></li>
+<li><p>Supports interactive prompts and fully scriptable modes.</p></li>
+<li><p>Compatible with <em>.csv</em>, <em>.xlsx</em>, and <em>.parquet</em> formats.</p></li>
+<li><p>Export options include LaTeX tables (with styling) and high-quality plots.</p></li>
+</ul>
+</section>
+<section id="example-usage">
+<h4>Example Usage</h4>
+<p>Solve a dispatch case and export results to CSV:</p>
+<blockquote>
+<div><p>$ python -m NaivePyDESSEM.CLI.cli_solve case.yaml –out_dir results –out_file output.csv</p>
+</div></blockquote>
+<p>Export selected results as LaTeX table and plots:</p>
+<blockquote>
+<div><p>$ python -m NaivePyDESSEM.CLI.cli_plot results/output.csv –mode table -c G Q V –out_dir latex –out_file table.tex</p>
+</div></blockquote>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The CLI scripts are intended for instructional use in energy systems modeling.</p></li>
+<li><p>Users can extend or modify CLI logic to accommodate other workflows or backends.</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.Solver.solve" title="NaivePyDESSEM.Solver.solve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NaivePyDESSEM.Solver.solve</span></code></a></dt><dd><p>Model construction and solving routine.</p>
+</dd>
+<dt><a class="reference internal" href="NaivePyDESSEM.xhtml#module-NaivePyDESSEM.DataFrames" title="NaivePyDESSEM.DataFrames"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NaivePyDESSEM.DataFrames</span></code></a></dt><dd><p>Functions for assembling dispatch outputs.</p>
+</dd>
+<dt><a class="reference internal" href="NaivePyDESSEM.xhtml#module-NaivePyDESSEM.Utils" title="NaivePyDESSEM.Utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NaivePyDESSEM.Utils</span></code></a></dt><dd><p>Formatting, LaTeX, and input helpers.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+</section>
+<section id="submodules">
+<h2>Submodules</h2>
+</section>
+<section id="module-MDI.cli.cli">
+<span id="mdi-cli-cli-module"></span><h2>MDI.cli.cli module</h2>
+<section id="mdi-command-line-interface-cli">
+<h3>MDI Command-Line Interface (CLI)</h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="id1">
+<h4>Author</h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="summary">
+<h4>Summary</h4>
+<p>This module provides a command-line interface (CLI) for executing the
+MDI (Modular Didactic Infrastructure) optimization framework, which
+is based on the NaivePyDESSEM package and implemented using Pyomo.</p>
+<p>It enables users to load YAML model definitions, execute the solver,
+and export results in various tabular formats. The CLI offers convenient
+command-line options for input specification, output management, and
+result visualization.</p>
+</section>
+<section id="id2">
+<h4>Description</h4>
+<p>The CLI is intended primarily for educational and experimental use in
+energy system operation and expansion planning. It automates the execution
+of the <cite>MDI.Solver</cite> module, the construction of dataframes from model
+outputs, and the export of dispatch and cost results.</p>
+<p>The module also provides formatted console outputs with color-coded
+information using the <cite>colorama</cite> package to improve readability during
+interactive execution.</p>
+</section>
+<section id="functions">
+<h4>Functions</h4>
+<dl class="simple">
+<dt>print_welcome_banner()</dt><dd><p>Displays a formatted welcome banner with course and author information.</p>
+</dd>
+<dt>save_dataframe(df, path)</dt><dd><p>Saves a given Pandas DataFrame to a file in one of the supported formats
+(.csv, .xlsx, .xls, .parquet).</p>
+</dd>
+<dt>main()</dt><dd><p>Parses command-line arguments, executes the solver, and exports results
+to the specified directory and file.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul>
+<li><p>The CLI uses the <cite>argparse</cite> module for argument parsing.</p></li>
+<li><p>Colorized console output is handled via <cite>colorama</cite>.</p></li>
+<li><p>The script is typically invoked directly from the terminal, e.g.:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">python</span> <span class="pre">-m</span> <span class="pre">MDI.cli</span> <span class="pre">input_case.yaml</span> <span class="pre">--out_dir</span> <span class="pre">results</span> <span class="pre">--out_file</span> <span class="pre">output.csv</span>
+<span class="pre">`</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Compatible with all major operating systems (Windows, macOS, Linux).</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL. <em>DESSEM — Manual de Metodologia</em>, 2023.
+[2] Unsihuay Vila, C. <em>Introdução aos Sistemas de Energia Elétrica</em>,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.cli.cli.main">
+<span class="sig-prename descclassname"><span class="pre">MDI.cli.cli.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Execute the command-line interface for the MDI framework.</p>
+<p>Parses command-line arguments, initializes the solver, builds
+the dispatch results DataFrame, and exports results to the
+specified output file.</p>
+<section id="workflow">
+<h3>Workflow</h3>
+<ol class="arabic simple">
+<li><p>Initialize color output with <cite>colorama_init()</cite>.</p></li>
+<li><p>Parse arguments: input YAML, output directory, and output file.</p></li>
+<li><p>Solve the optimization model using <cite>MDI.Solver.solve()</cite>.</p></li>
+<li><p>Build results with <cite>MDI.DataFrames.build_dispatch_dataframe()</cite>.</p></li>
+<li><p>Save results via <cite>save_dataframe()</cite> in the requested format.</p></li>
+</ol>
+</section>
+<section id="command-line-arguments">
+<h3>Command-Line Arguments</h3>
+<dl class="simple">
+<dt>yaml<span class="classifier">str</span></dt><dd><p>Path to the YAML input file containing model data and configuration.</p>
+</dd>
+<dt>–out_dir<span class="classifier">str</span></dt><dd><p>Path to the directory where output files will be stored.</p>
+</dd>
+<dt>–out_file<span class="classifier">str</span></dt><dd><p>Output file name with extension (.csv, .xlsx, or .parquet).</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The function automatically creates the output directory if it does not exist.</p></li>
+<li><p>Small numerical artifacts (&lt; 1e-3) are rounded to zero for clarity.</p></li>
+<li><p>The first few rows of the resulting DataFrame are printed to the console.</p></li>
+</ul>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.cli.cli.print_welcome_banner">
+<span class="sig-prename descclassname"><span class="pre">MDI.cli.cli.</span></span><span class="sig-name descname"><span class="pre">print_welcome_banner</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Print a formatted welcome banner with project information and author credit.</p>
+<p>The banner includes colorized and bold text for better readability
+in terminal environments. It provides visual emphasis on the
+course title, project name, and author identification.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Uses <cite>colorama.Fore</cite> and <cite>colorama.Style</cite> for ANSI color formatting.</p></li>
+<li><p>Automatically resets color after printing via <cite>colorama.init(autoreset=True)</cite>.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.cli.cli.save_dataframe">
+<span class="sig-prename descclassname"><span class="pre">MDI.cli.cli.</span></span><span class="sig-name descname"><span class="pre">save_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Save a Pandas DataFrame to a file in one of the supported formats.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – The DataFrame to be exported.</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – Path (including filename and extension) where the DataFrame
+should be saved. The extension determines the output format.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the file extension is not among the supported types
+    (.csv, .xlsx, .xls, .parquet).</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The function automatically determines the export format based
+on the file extension.</p></li>
+<li><p>Supported formats: CSV, Excel, and Parquet.</p></li>
+<li><p>The index is omitted (<cite>index=False</cite>) in all exports.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-MDI.cli.plot_cli">
+<span id="mdi-cli-plot-cli-module"></span><h2>MDI.cli.plot_cli module</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: CLI — Visualization and Export Interface</p>
+<section id="id3">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id4">
+<h3>Description</h3>
+<p>This module provides a command-line interface (CLI) for inspecting and exporting
+the results of a solved NaivePyDESSEM dispatch model.</p>
+<p>The CLI supports both interactive and non-interactive use, allowing users to:</p>
+<ul class="simple">
+<li><p>Export generation and control data as LaTeX tables.</p></li>
+<li><p>Generate bar and line plots from selected result categories.</p></li>
+<li><p>Save control variables (U, Y, W) as visually annotated LaTeX matrices.</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>Features</h3>
+<ul class="simple">
+<li><p>Supports CSV, Excel, and Parquet input formats.</p></li>
+<li><p>Category-based selection of variables (e.g., G, Q, V, S, BAT, cost, CTRL).</p></li>
+<li><p>Automated LaTeX formatting and colored control tables.</p></li>
+<li><p>Customizable plot styling, labeling, and output paths.</p></li>
+</ul>
+</section>
+<section id="categories">
+<h3>Categories</h3>
+<ul class="simple">
+<li><p>‘G’     : Generation (thermal, renewable, battery)</p></li>
+<li><p>‘BAT’   : Battery-specific (charge/discharge/SoC)</p></li>
+<li><p>‘cost’  : Cost components per stage</p></li>
+<li><p>‘CTRL’  : Control variables (Y, X)</p></li>
+</ul>
+</section>
+<section id="dependencies">
+<h3>Dependencies</h3>
+<ul class="simple">
+<li><p>pandas</p></li>
+<li><p>matplotlib</p></li>
+<li><p>colorama</p></li>
+<li><p>argparse</p></li>
+<li><p>NaivePyDESSEM utilities: plotting, formatting, LaTeX export</p></li>
+</ul>
+</section>
+<section id="usage">
+<h3>Usage</h3>
+<dl class="simple">
+<dt>Run via command line:</dt><dd><p>$ python plot_cli.py results.csv –mode table –category G cost –out-dir tables</p>
+</dd>
+<dt>Or interactively:</dt><dd><p>$ python plot_cli.py results.parquet</p>
+</dd>
+</dl>
+</section>
+<section id="quick-examples">
+<h3>Quick examples</h3>
+<p># 1) Non-interactive: stacked bar plot for Generation + Spillage
+python plot_results_cli.py results/day1.parquet –mode plot –category G  –plot-style bar –stacked –title “Generation” –ylabel MW –out-dir plots –out-file gen_spill.png</p>
+<p># 2) Non-interactive: LaTeX table for Volume and Costs
+python plot_results_cli.py results/day1.csv –mode table –category V cost –title “Reservoir Volume and Cost Variables” –label tab:vol_cost –out-dir tables –out-file vol_cost.tex</p>
+<p># 3) Non-interactive: CTRL matrix (U/Y/W) with custom caption/label
+python plot_results_cli.py results/day1.xlsx –mode ctrl –title “Unit Commitment Status” –label tab:uyw –out-dir tables –out-file uyw.tex</p>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.cli.plot_cli.handle_control_variables">
+<span class="sig-prename descclassname"><span class="pre">MDI.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">handle_control_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span></dt>
+<dd><p>Generate and export a colored LaTeX table for binary control variables.</p>
+<p>This function prompts the user (if necessary) for export parameters and produces
+a LaTeX table that visualizes control variables (U, Y, W) using a binary
+color-coded scheme.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame containing control variable columns.</p></li>
+<li><p><strong>out_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – Output directory path. Prompted if not provided.</p></li>
+<li><p><strong>out_file</strong> (<em>str</em><em>, </em><em>optional</em>) – Output .tex file name. Prompted if not provided.</p></li>
+<li><p><strong>caption</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Caption text for the LaTeX table. Prompted if None.</p></li>
+<li><p><strong>label</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – LaTeX label for referencing the table. Prompted if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The function saves the LaTeX file to disk and prints the location.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.cli.plot_cli.handle_plot">
+<span class="sig-prename descclassname"><span class="pre">MDI.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">handle_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacked</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Generate and export plots for selected variable categories.</p>
+<p>Supports both line and bar charts, including stacked bar plots. If not
+fully specified via arguments, the function prompts the user for relevant
+plot metadata and output settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – DataFrame containing simulation results.</p></li>
+<li><p><strong>categories</strong> (<em>list</em><em> of </em><em>str</em>) – List of category identifiers to include in the plot.</p></li>
+<li><p><strong>plot_style</strong> (<em>str</em><em>, </em><em>optional</em>) – Plot type (“line” or “bar”). Prompted if not provided.</p></li>
+<li><p><strong>stacked</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to stack bars (applies only to bar plots).</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – Title of the plot. Prompted if not provided.</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the Y-axis. Prompted if not provided.</p></li>
+<li><p><strong>out_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – Directory to save the plot. Prompted if not provided.</p></li>
+<li><p><strong>out_file</strong> (<em>str</em><em>, </em><em>optional</em>) – File name for the saved image. Prompted if not provided.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Saves the plot to disk and prints the file location.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.cli.plot_cli.handle_table">
+<span class="sig-prename descclassname"><span class="pre">MDI.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">handle_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Export selected variables as a LaTeX table.</p>
+<p>Filters the DataFrame based on one or more variable categories, formats it into
+LaTeX using custom styling, and saves the result to a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – DataFrame with simulation results.</p></li>
+<li><p><strong>categories</strong> (<em>list</em><em> of </em><em>str</em>) – One or more category identifiers to include.</p></li>
+<li><p><strong>out_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – Output directory path. Prompted if not provided.</p></li>
+<li><p><strong>out_file</strong> (<em>str</em><em>, </em><em>optional</em>) – Output .tex file name. Prompted if not provided.</p></li>
+<li><p><strong>caption</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – Caption for the LaTeX table.</p></li>
+<li><p><strong>label</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – LaTeX label for the table.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Writes the LaTeX table to the specified file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.cli.plot_cli.load_dataframe">
+<span class="sig-prename descclassname"><span class="pre">MDI.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">load_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span></dt>
+<dd><p>Load a pandas DataFrame from a supported file format.</p>
+<p>Supports CSV, Excel (.xlsx, .xls), and Parquet formats. The file extension is used
+to determine the appropriate loader.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Full path to the data file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The loaded DataFrame.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the file format is not supported.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.cli.plot_cli.main">
+<span class="sig-prename descclassname"><span class="pre">MDI.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Command-line interface (CLI) entry point for visualization and export.</p>
+<p>This function enables both interactive and scripted execution modes for exporting
+results from NaivePyDESSEM simulations. It supports the generation of:</p>
+<ul class="simple">
+<li><p>LaTeX tables for generation, flow, spillage, storage, cost, and control variables.</p></li>
+<li><p>Binary control matrix tables with color-coded LaTeX formatting (U/Y/W).</p></li>
+<li><p>Time-series plots (line or bar, stacked or grouped) for selected variable categories.</p></li>
+</ul>
+<p>The CLI can be invoked directly via command line with arguments, or interactively
+with user prompts when arguments are omitted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Results are saved to disk in the specified format. No value is returned.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Command-line usage:</p>
+<blockquote>
+<div><p>$ python plot_xli.py results.csv –mode table -c G cost –out-dir out –out-file results.tex</p>
+</div></blockquote>
+<p>Interactive usage:</p>
+<blockquote>
+<div><p>$ python plot_cli.py results.csv
+&gt; Generate table, plot, or CTRL matrix? (table/plot/ctrl)
+&gt; Enter category(ies) separated by spaces (e.g., G S V):
+&gt; …</p>
+</div></blockquote>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Categories are case-insensitive. Recognized categories include:
+“G”, “Q”, “S”, “V”, “BAT”, “cost”, “CTRL”.</p></li>
+<li><p>For LaTeX export, output directory and file name are required.</p></li>
+<li><p>For plotting, time column ‘T’ is used if available; otherwise, index is used.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.cli.plot_cli.print_welcome_banner">
+<span class="sig-prename descclassname"><span class="pre">MDI.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">print_welcome_banner</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Print a formatted welcome banner with project information and author credit.</p>
+<p>Uses colored and bold text to enhance readability in the terminal.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.cli.plot_cli.prompt">
+<span class="sig-prename descclassname"><span class="pre">MDI.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">prompt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span></dt>
+<dd><p>Prompt the user for input with a highlighted message.</p>
+<p>If the message ends with “[optional]”, the user may press Enter to return an empty string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>str</em>) – The message displayed to the user.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The user response, stripped of leading and trailing whitespace.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.cli.plot_cli.select_columns_multi">
+<span class="sig-prename descclassname"><span class="pre">MDI.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">select_columns_multi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span></dt>
+<dd><p>Filter and concatenate DataFrame columns across multiple categories.</p>
+<p>Avoids column duplication by tracking previously added columns. Used to
+assemble a view of variables spanning multiple categories (e.g., flow and volume).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input DataFrame containing simulation results.</p></li>
+<li><p><strong>categories</strong> (<em>list</em><em> of </em><em>str</em>) – List of category identifiers (e.g., [“G”, “S”, “V”, “cost”]).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A DataFrame composed of all selected columns, in order of appearance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If no categories are provided.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.cli.plot_cli.select_variable_columns">
+<span class="sig-prename descclassname"><span class="pre">MDI.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">select_variable_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span></dt>
+<dd><p>Filter DataFrame columns based on a single category.</p>
+<p>The function selects columns corresponding to predefined variable categories
+such as generation, flow, storage, control actions, and cost.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input DataFrame containing simulation results.</p></li>
+<li><p><strong>category</strong> (<em>str</em>) – One of: {“G”, “Q”, “S”, “V”, “BAT”, “cost”, “CTRL”}.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A filtered view of the DataFrame containing only relevant columns.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the category is unrecognized.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

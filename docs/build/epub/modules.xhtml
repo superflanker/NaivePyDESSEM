@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DESSEM/DECOMP/MDI</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="dessem-decomp-mdi">
+<h1>DESSEM/DECOMP/MDI</h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NaivePyDESSEM.xhtml">NaivePyDESSEM package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.xhtml#module-NaivePyDESSEM">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#author">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.xhtml#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml">NaivePyDESSEM.HydraulicGenerator package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#module-NaivePyDESSEM.HydraulicGenerator">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#id1">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#module-NaivePyDESSEM.HydraulicGenerator.ConstantProductivityFPH">NaivePyDESSEM.HydraulicGenerator.ConstantProductivityFPH module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#module-NaivePyDESSEM.HydraulicGenerator.ExactFPH">NaivePyDESSEM.HydraulicGenerator.ExactFPH module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#module-NaivePyDESSEM.HydraulicGenerator.HydraulicConstraints">NaivePyDESSEM.HydraulicGenerator.HydraulicConstraints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#module-NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes">NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#module-NaivePyDESSEM.HydraulicGenerator.HydraulicEquations">NaivePyDESSEM.HydraulicGenerator.HydraulicEquations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#module-NaivePyDESSEM.HydraulicGenerator.HydraulicGeneratorBuilder">NaivePyDESSEM.HydraulicGenerator.HydraulicGeneratorBuilder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#module-NaivePyDESSEM.HydraulicGenerator.HydraulicObjectives">NaivePyDESSEM.HydraulicGenerator.HydraulicObjectives module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#module-NaivePyDESSEM.HydraulicGenerator.HydraulicVars">NaivePyDESSEM.HydraulicGenerator.HydraulicVars module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#module-NaivePyDESSEM.HydraulicGenerator.PEFPH">NaivePyDESSEM.HydraulicGenerator.PEFPH module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#module-NaivePyDESSEM.HydraulicGenerator.SimplifiedConstantProductivityFPH">NaivePyDESSEM.HydraulicGenerator.SimplifiedConstantProductivityFPH module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml">NaivePyDESSEM.RenewableGenerator package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#module-NaivePyDESSEM.RenewableGenerator">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#id1">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#module-NaivePyDESSEM.RenewableGenerator.RenewableConstraints">NaivePyDESSEM.RenewableGenerator.RenewableConstraints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#module-NaivePyDESSEM.RenewableGenerator.RenewableDataTypes">NaivePyDESSEM.RenewableGenerator.RenewableDataTypes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#module-NaivePyDESSEM.RenewableGenerator.RenewableEquations">NaivePyDESSEM.RenewableGenerator.RenewableEquations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#module-NaivePyDESSEM.RenewableGenerator.RenewableGeneratorBuilder">NaivePyDESSEM.RenewableGenerator.RenewableGeneratorBuilder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#module-NaivePyDESSEM.RenewableGenerator.RenewableObjectives">NaivePyDESSEM.RenewableGenerator.RenewableObjectives module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#module-NaivePyDESSEM.RenewableGenerator.RenewableVars">NaivePyDESSEM.RenewableGenerator.RenewableVars module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml">NaivePyDESSEM.Storage package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#module-NaivePyDESSEM.Storage">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#id1">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#module-NaivePyDESSEM.Storage.StorageBuilder">NaivePyDESSEM.Storage.StorageBuilder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#module-NaivePyDESSEM.Storage.StorageConstraints">NaivePyDESSEM.Storage.StorageConstraints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#module-NaivePyDESSEM.Storage.StorageDataTypes">NaivePyDESSEM.Storage.StorageDataTypes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#module-NaivePyDESSEM.Storage.StorageEquations">NaivePyDESSEM.Storage.StorageEquations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#module-NaivePyDESSEM.Storage.StorageObjective">NaivePyDESSEM.Storage.StorageObjective module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#module-NaivePyDESSEM.Storage.StorageVars">NaivePyDESSEM.Storage.StorageVars module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml">NaivePyDESSEM.ThermalGenerator package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#module-NaivePyDESSEM.ThermalGenerator">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#id1">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#module-NaivePyDESSEM.ThermalGenerator.ThermalConstraints">NaivePyDESSEM.ThermalGenerator.ThermalConstraints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#module-NaivePyDESSEM.ThermalGenerator.ThermalDataTypes">NaivePyDESSEM.ThermalGenerator.ThermalDataTypes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#module-NaivePyDESSEM.ThermalGenerator.ThermalEquations">NaivePyDESSEM.ThermalGenerator.ThermalEquations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#module-NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder">NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#module-NaivePyDESSEM.ThermalGenerator.ThermalObjectives">NaivePyDESSEM.ThermalGenerator.ThermalObjectives module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#module-NaivePyDESSEM.ThermalGenerator.ThermalPieceWise">NaivePyDESSEM.ThermalGenerator.ThermalPieceWise module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#module-NaivePyDESSEM.ThermalGenerator.ThermalVars">NaivePyDESSEM.ThermalGenerator.ThermalVars module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.cli.xhtml">NaivePyDESSEM.cli package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.cli.xhtml#module-NaivePyDESSEM.cli">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.cli.xhtml#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.cli.xhtml#module-NaivePyDESSEM.cli.cli">NaivePyDESSEM.cli.cli module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.cli.xhtml#module-NaivePyDESSEM.cli.plot_cli">NaivePyDESSEM.cli.plot_cli module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.xhtml#id1">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.xhtml#module-NaivePyDESSEM.Builder">NaivePyDESSEM.Builder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id2">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id3">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.Builder.build_balance_and_objective_from_yaml"><code class="docutils literal notranslate"><span class="pre">build_balance_and_objective_from_yaml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.Builder.build_model_from_file"><code class="docutils literal notranslate"><span class="pre">build_model_from_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.xhtml#module-NaivePyDESSEM.DataFrames">NaivePyDESSEM.DataFrames module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id4">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id5">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.DataFrames.add_cost_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_cost_to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.DataFrames.add_hydro_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_hydro_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.DataFrames.add_renewable_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_renewable_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.DataFrames.add_storage_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_storage_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.DataFrames.add_thermal_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_thermal_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.DataFrames.build_dispatch_dataframe"><code class="docutils literal notranslate"><span class="pre">build_dispatch_dataframe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.xhtml#module-NaivePyDESSEM.Formatters">NaivePyDESSEM.Formatters module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id6">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id7">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.Formatters.format_brl"><code class="docutils literal notranslate"><span class="pre">format_brl()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.xhtml#module-NaivePyDESSEM.ModelCheck">NaivePyDESSEM.ModelCheck module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id8">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id9">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#usage-example">Usage Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.ModelCheck.has_hydro_model"><code class="docutils literal notranslate"><span class="pre">has_hydro_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.ModelCheck.has_renewable_model"><code class="docutils literal notranslate"><span class="pre">has_renewable_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.ModelCheck.has_storage_model"><code class="docutils literal notranslate"><span class="pre">has_storage_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.ModelCheck.has_thermal_model"><code class="docutils literal notranslate"><span class="pre">has_thermal_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.xhtml#module-NaivePyDESSEM.ModelFormatters">NaivePyDESSEM.ModelFormatters module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id10">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id11">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.ModelFormatters.format_hydro_model"><code class="docutils literal notranslate"><span class="pre">format_hydro_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.ModelFormatters.format_models"><code class="docutils literal notranslate"><span class="pre">format_models()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.ModelFormatters.format_renewable_model"><code class="docutils literal notranslate"><span class="pre">format_renewable_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.ModelFormatters.format_storage_model"><code class="docutils literal notranslate"><span class="pre">format_storage_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.ModelFormatters.format_thermal_model"><code class="docutils literal notranslate"><span class="pre">format_thermal_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.ModelFormatters.model_properties"><code class="docutils literal notranslate"><span class="pre">model_properties()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.ModelFormatters.print_welcome_banner"><code class="docutils literal notranslate"><span class="pre">print_welcome_banner()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.ModelFormatters.print_welcome_message"><code class="docutils literal notranslate"><span class="pre">print_welcome_message()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.xhtml#module-NaivePyDESSEM.PlotSeries">NaivePyDESSEM.PlotSeries module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id12">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id13">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id14">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#conventions">Conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.PlotSeries.get_distinct_colors"><code class="docutils literal notranslate"><span class="pre">get_distinct_colors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.PlotSeries.plot_series"><code class="docutils literal notranslate"><span class="pre">plot_series()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.PlotSeries.plot_series_bar"><code class="docutils literal notranslate"><span class="pre">plot_series_bar()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.xhtml#module-NaivePyDESSEM.Reporting">NaivePyDESSEM.Reporting module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id15">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id16">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.Reporting.dispatch_summary"><code class="docutils literal notranslate"><span class="pre">dispatch_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.Reporting.hydro_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">hydro_dispatch_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.Reporting.renewable_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">renewable_dispatch_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.Reporting.storage_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">storage_dispatch_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.Reporting.thermal_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">thermal_dispatch_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.xhtml#module-NaivePyDESSEM.Solver">NaivePyDESSEM.Solver module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id17">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id18">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.Solver.solve"><code class="docutils literal notranslate"><span class="pre">solve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.xhtml#module-NaivePyDESSEM.Utils">NaivePyDESSEM.Utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id19">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id20">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id21">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#parameters-shared">Parameters (Shared)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#additional-parameters">Additional Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.Utils.binary_df_to_colored_latex"><code class="docutils literal notranslate"><span class="pre">binary_df_to_colored_latex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.Utils.custom_df_to_latex"><code class="docutils literal notranslate"><span class="pre">custom_df_to_latex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.xhtml#module-NaivePyDESSEM.YAMLLoader">NaivePyDESSEM.YAMLLoader module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id22">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id23">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#id24">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.YAMLLoader.key_replace"><code class="docutils literal notranslate"><span class="pre">key_replace()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.YAMLLoader.pre_process"><code class="docutils literal notranslate"><span class="pre">pre_process()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.xhtml#NaivePyDESSEM.YAMLLoader.yaml_loader"><code class="docutils literal notranslate"><span class="pre">yaml_loader()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NaivePyDECOMP.xhtml">NaivePyDECOMP package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#module-NaivePyDECOMP">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#author">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml">NaivePyDECOMP.HydraulicGenerator package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#module-NaivePyDECOMP.HydraulicGenerator">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#id1">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#module-NaivePyDECOMP.HydraulicGenerator.HydraulicConstraints">NaivePyDECOMP.HydraulicGenerator.HydraulicConstraints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#module-NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes">NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#module-NaivePyDECOMP.HydraulicGenerator.HydraulicEquations">NaivePyDECOMP.HydraulicGenerator.HydraulicEquations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#module-NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder">NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#module-NaivePyDECOMP.HydraulicGenerator.HydraulicObjectives">NaivePyDECOMP.HydraulicGenerator.HydraulicObjectives module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#module-NaivePyDECOMP.HydraulicGenerator.HydraulicVars">NaivePyDECOMP.HydraulicGenerator.HydraulicVars module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#module-NaivePyDECOMP.HydraulicGenerator.SimplifiedConstantProductivityFPH">NaivePyDECOMP.HydraulicGenerator.SimplifiedConstantProductivityFPH module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.xhtml">NaivePyDECOMP.RenewableGenerator package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.xhtml#module-NaivePyDECOMP.RenewableGenerator">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.xhtml#id1">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.xhtml#module-NaivePyDECOMP.RenewableGenerator.RenewableConstraints">NaivePyDECOMP.RenewableGenerator.RenewableConstraints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.xhtml#module-NaivePyDECOMP.RenewableGenerator.RenewableDataTypes">NaivePyDECOMP.RenewableGenerator.RenewableDataTypes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.xhtml#module-NaivePyDECOMP.RenewableGenerator.RenewableEquations">NaivePyDECOMP.RenewableGenerator.RenewableEquations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.xhtml#module-NaivePyDECOMP.RenewableGenerator.RenewableGeneratorBuilder">NaivePyDECOMP.RenewableGenerator.RenewableGeneratorBuilder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.xhtml#module-NaivePyDECOMP.RenewableGenerator.RenewableObjectives">NaivePyDECOMP.RenewableGenerator.RenewableObjectives module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.xhtml#module-NaivePyDECOMP.RenewableGenerator.RenewableVars">NaivePyDECOMP.RenewableGenerator.RenewableVars module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.Storage.xhtml">NaivePyDECOMP.Storage package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.Storage.xhtml#module-NaivePyDECOMP.Storage">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.Storage.xhtml#id1">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.Storage.xhtml#module-NaivePyDECOMP.Storage.StorageBuilder">NaivePyDECOMP.Storage.StorageBuilder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.Storage.xhtml#module-NaivePyDECOMP.Storage.StorageConstraints">NaivePyDECOMP.Storage.StorageConstraints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.Storage.xhtml#module-NaivePyDECOMP.Storage.StorageDataTypes">NaivePyDECOMP.Storage.StorageDataTypes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.Storage.xhtml#module-NaivePyDECOMP.Storage.StorageEquations">NaivePyDECOMP.Storage.StorageEquations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.Storage.xhtml#module-NaivePyDECOMP.Storage.StorageObjective">NaivePyDECOMP.Storage.StorageObjective module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.Storage.xhtml#module-NaivePyDECOMP.Storage.StorageVars">NaivePyDECOMP.Storage.StorageVars module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml">NaivePyDECOMP.ThermalGenerator package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#module-NaivePyDECOMP.ThermalGenerator">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#id1">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#module-NaivePyDECOMP.ThermalGenerator.ThermalConstraints">NaivePyDECOMP.ThermalGenerator.ThermalConstraints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#module-NaivePyDECOMP.ThermalGenerator.ThermalDataTypes">NaivePyDECOMP.ThermalGenerator.ThermalDataTypes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#module-NaivePyDECOMP.ThermalGenerator.ThermalEquations">NaivePyDECOMP.ThermalGenerator.ThermalEquations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#module-NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder">NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#module-NaivePyDECOMP.ThermalGenerator.ThermalObjectives">NaivePyDECOMP.ThermalGenerator.ThermalObjectives module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#module-NaivePyDECOMP.ThermalGenerator.ThermalVars">NaivePyDECOMP.ThermalGenerator.ThermalVars module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.cli.xhtml">NaivePyDECOMP.cli package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.cli.xhtml#module-NaivePyDECOMP.cli">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.cli.xhtml#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.cli.xhtml#module-NaivePyDECOMP.cli.cli">NaivePyDECOMP.cli.cli module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.cli.xhtml#module-NaivePyDECOMP.cli.pddd_cli">NaivePyDECOMP.cli.pddd_cli module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.cli.xhtml#module-NaivePyDECOMP.cli.plot_cli">NaivePyDECOMP.cli.plot_cli module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#id1">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#module-NaivePyDECOMP.Builder">NaivePyDECOMP.Builder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id2">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id3">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.Builder.build_balance_and_objective_from_yaml"><code class="docutils literal notranslate"><span class="pre">build_balance_and_objective_from_yaml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.Builder.build_model_from_data"><code class="docutils literal notranslate"><span class="pre">build_model_from_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.Builder.build_model_from_file"><code class="docutils literal notranslate"><span class="pre">build_model_from_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#module-NaivePyDECOMP.BuilderPDDD">NaivePyDECOMP.BuilderPDDD module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id4">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id5">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id6">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.BuilderPDDD.build_pddd_balance_and_objective_from_yaml"><code class="docutils literal notranslate"><span class="pre">build_pddd_balance_and_objective_from_yaml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.BuilderPDDD.build_pddd_data_from_file"><code class="docutils literal notranslate"><span class="pre">build_pddd_data_from_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#module-NaivePyDECOMP.DataFrames">NaivePyDECOMP.DataFrames module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id7">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id8">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.DataFrames.add_cost_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_cost_to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.DataFrames.add_hydro_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_hydro_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.DataFrames.add_thermal_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_thermal_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.DataFrames.build_dispatch_dataframe"><code class="docutils literal notranslate"><span class="pre">build_dispatch_dataframe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#module-NaivePyDECOMP.Formatters">NaivePyDECOMP.Formatters module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id9">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id10">Description</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#module-NaivePyDECOMP.ModelCheck">NaivePyDECOMP.ModelCheck module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id11">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id12">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#usage-example">Usage Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.ModelCheck.has_thermal_model"><code class="docutils literal notranslate"><span class="pre">has_thermal_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#module-NaivePyDECOMP.ModelFormatters">NaivePyDECOMP.ModelFormatters module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id13">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id14">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.ModelFormatters.format_hydro_model"><code class="docutils literal notranslate"><span class="pre">format_hydro_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.ModelFormatters.format_models"><code class="docutils literal notranslate"><span class="pre">format_models()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.ModelFormatters.format_thermal_model"><code class="docutils literal notranslate"><span class="pre">format_thermal_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.ModelFormatters.model_properties"><code class="docutils literal notranslate"><span class="pre">model_properties()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.ModelFormatters.print_welcome_banner"><code class="docutils literal notranslate"><span class="pre">print_welcome_banner()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.ModelFormatters.print_welcome_message"><code class="docutils literal notranslate"><span class="pre">print_welcome_message()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#module-NaivePyDECOMP.PlotSeries">NaivePyDECOMP.PlotSeries module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id15">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id16">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id17">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#conventions">Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#module-NaivePyDECOMP.PDDDMergeModels">NaivePyDECOMP.PDDDMergeModels module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id18">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id19">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#main-functionality">Main Functionality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#intended-use">Intended Use</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.PDDDMergeModels.generate_dummy_model"><code class="docutils literal notranslate"><span class="pre">generate_dummy_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#module-NaivePyDECOMP.Reporting">NaivePyDECOMP.Reporting module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id20">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id21">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.Reporting.dispatch_summary"><code class="docutils literal notranslate"><span class="pre">dispatch_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.Reporting.hydro_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">hydro_dispatch_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.Reporting.renewable_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">renewable_dispatch_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.Reporting.storage_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">storage_dispatch_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.Reporting.thermal_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">thermal_dispatch_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#module-NaivePyDECOMP.SolverPDDD">NaivePyDECOMP.SolverPDDD module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id22">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id23">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.SolverPDDD.compute_fcf"><code class="docutils literal notranslate"><span class="pre">compute_fcf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.SolverPDDD.fcf_from_cuts"><code class="docutils literal notranslate"><span class="pre">fcf_from_cuts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.SolverPDDD.solve_pddd"><code class="docutils literal notranslate"><span class="pre">solve_pddd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.SolverPDDD.solve_stage_pddd"><code class="docutils literal notranslate"><span class="pre">solve_stage_pddd()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#module-NaivePyDECOMP.Solver">NaivePyDECOMP.Solver module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id24">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id25">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#NaivePyDECOMP.Solver.solve"><code class="docutils literal notranslate"><span class="pre">solve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#module-NaivePyDECOMP.Utils">NaivePyDECOMP.Utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id26">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id27">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id28">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#parameters-shared">Parameters (Shared)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#additional-parameters">Additional Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.xhtml#module-NaivePyDECOMP.YAMLLoader">NaivePyDECOMP.YAMLLoader module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id29">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id30">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.xhtml#id31">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="MDI.xhtml">MDI package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MDI.xhtml#module-MDI">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#mdi-a-didactic-expansion-planning-framework-for-the-naivepydessem-package">MDI — A Didactic Expansion Planning Framework for the NaivePyDESSEM Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#author">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#summary">Summary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#description">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#submodules">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.xhtml#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.Generator.xhtml">MDI.Generator package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.xhtml#module-MDI.Generator">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.xhtml#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.xhtml#module-MDI.Generator.GeneratorBuilder">MDI.Generator.GeneratorBuilder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.xhtml#module-MDI.Generator.GeneratorConstraints">MDI.Generator.GeneratorConstraints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.xhtml#module-MDI.Generator.GeneratorDataTypes">MDI.Generator.GeneratorDataTypes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.xhtml#module-MDI.Generator.GeneratorEquations">MDI.Generator.GeneratorEquations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.xhtml#module-MDI.Generator.GeneratorObjectives">MDI.Generator.GeneratorObjectives module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Generator.xhtml#module-MDI.Generator.GeneratorVars">MDI.Generator.GeneratorVars module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.Storage.xhtml">MDI.Storage package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.xhtml#module-MDI.Storage">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.xhtml#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.xhtml#module-MDI.Storage.StorageBuilder">MDI.Storage.StorageBuilder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.xhtml#module-MDI.Storage.StorageConstraints">MDI.Storage.StorageConstraints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.xhtml#module-MDI.Storage.StorageDataTypes">MDI.Storage.StorageDataTypes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.xhtml#module-MDI.Storage.StorageEquations">MDI.Storage.StorageEquations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.xhtml#module-MDI.Storage.StorageObjective">MDI.Storage.StorageObjective module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.Storage.xhtml#module-MDI.Storage.StorageVars">MDI.Storage.StorageVars module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.cli.xhtml">MDI.cli package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.cli.xhtml#module-MDI.cli">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.cli.xhtml#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.cli.xhtml#module-MDI.cli.cli">MDI.cli.cli module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.cli.xhtml#module-MDI.cli.plot_cli">MDI.cli.plot_cli module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.xhtml#id1">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.xhtml#module-MDI.Builder">MDI.Builder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#builder-module">Builder Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id2">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id3">Summary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id4">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.Builder.build_balance_and_objective_from_yaml"><code class="docutils literal notranslate"><span class="pre">build_balance_and_objective_from_yaml()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.Builder.build_model_from_file"><code class="docutils literal notranslate"><span class="pre">build_model_from_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.xhtml#module-MDI.DataFrames">MDI.DataFrames module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#dataframes-module">Dataframes Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id5">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id6">Summary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id7">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id8">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.DataFrames.add_cost_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_cost_to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.DataFrames.add_generator_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_generator_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.DataFrames.add_storage_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_storage_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.DataFrames.build_dispatch_dataframe"><code class="docutils literal notranslate"><span class="pre">build_dispatch_dataframe()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.DataFrames.compute_CME_by_period"><code class="docutils literal notranslate"><span class="pre">compute_CME_by_period()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.xhtml#module-MDI.Formatters">MDI.Formatters module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#id9">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#id10">Description</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.xhtml#module-MDI.ModelCheck">MDI.ModelCheck module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#modelcheck-module">ModelCheck Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id11">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id12">Summary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id13">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id14">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#usage-example">Usage Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.ModelCheck.has_generator_model"><code class="docutils literal notranslate"><span class="pre">has_generator_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.ModelCheck.has_storage_model"><code class="docutils literal notranslate"><span class="pre">has_storage_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.xhtml#module-MDI.ModelFormatters">MDI.ModelFormatters module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#id15">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#id16">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.ModelFormatters.format_generator_model"><code class="docutils literal notranslate"><span class="pre">format_generator_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.ModelFormatters.format_models"><code class="docutils literal notranslate"><span class="pre">format_models()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.ModelFormatters.format_storage_model"><code class="docutils literal notranslate"><span class="pre">format_storage_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.ModelFormatters.model_properties"><code class="docutils literal notranslate"><span class="pre">model_properties()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.ModelFormatters.print_welcome_banner"><code class="docutils literal notranslate"><span class="pre">print_welcome_banner()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.ModelFormatters.print_welcome_message"><code class="docutils literal notranslate"><span class="pre">print_welcome_message()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.xhtml#module-MDI.PlotSeries">MDI.PlotSeries module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#plotseries-module">PlotSeries Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id17">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id18">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id19">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#conventions">Conventions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.xhtml#module-MDI.Reporting">MDI.Reporting module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#id20">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#id21">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.Reporting.dispatch_summary"><code class="docutils literal notranslate"><span class="pre">dispatch_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.Reporting.generator_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">generator_dispatch_summary()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.Reporting.storage_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">storage_dispatch_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.xhtml#module-MDI.Solver">MDI.Solver module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#id22">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#id23">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#MDI.Solver.solve"><code class="docutils literal notranslate"><span class="pre">solve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.xhtml#module-MDI.Utils">MDI.Utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#utils-module">Utils Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id24">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id25">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id26">Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#parameters-shared">Parameters (Shared)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#additional-parameters">Additional Parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.xhtml#module-MDI.YAMLLoader">MDI.YAMLLoader module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MDI.xhtml#yamlloader-module">YAMLLoader Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id27">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id28">Summary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id29">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.xhtml#id30">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

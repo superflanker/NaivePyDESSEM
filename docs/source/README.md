@@ -5,6 +5,14 @@
 [![Docs](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/docs.yml/badge.svg)](https://superflanker.github.io/NaivePyDESSEM/)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-NaivePyDESSEM-181717?logo=github)](https://github.com/superflanker/NaivePyDESSEM)
 
+**NaivePyDESSEM** is a pedagogical project that brings together **three complementary packages** for teaching and research in power system operation planning:
+
+- **NaivePyDESSEM** — inspired by DESSEM, it models the **short-term** (daily/hourly) operation with detailed individual plant representation.  
+- **NaivePyDECOMP** — inspired by DECOMP, it models the **medium-term** (weekly/monthly) operation with deterministic dual dynamic programming (PDDD).  
+- **MDI** — Generation Expansion Planning inspired by **MDI** methodology.
+
+Both are implemented in **Pyomo**, with modular architecture and integrated documentation via Sphinx.
+
 ---
 
 ## 🔎 Overview

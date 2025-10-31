@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NaivePyDECOMP.HydraulicGenerator package</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="naivepydecomp-hydraulicgenerator-package">
+<h1>NaivePyDECOMP.HydraulicGenerator package</h1>
+<section id="module-NaivePyDECOMP.HydraulicGenerator">
+<span id="module-contents"></span><h2>Module contents</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Package: Hydraulic Generation Modeling (HydraulicGenerator)</p>
+<section id="author">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="description">
+<h3>Description</h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">HydraulicGenerator</span></code> package provides a modular framework for modeling
+hydropower systems in Pyomo-based dispatch and unit commitment models. It
+includes flexible hydropower production functions (FPH), reservoir balance
+constraints, and terminal storage requirements.</p>
+</section>
+<section id="submodules">
+<h3>Submodules</h3>
+<dl class="simple">
+<dt>HydraulicDataTypes</dt><dd><p>Dataclasses defining hydropower unit and system-wide data.</p>
+</dd>
+<dt>HydraulicVars</dt><dd><p>Initialization routines for Pyomo sets, parameters, and variables.</p>
+</dd>
+<dt>HydraulicConstraints</dt><dd><p>Constraint builders (generation, reservoir balance, SoC limits, targets).</p>
+</dd>
+<dt>HydraulicObjectives</dt><dd><p>Objective function definitions for hydro-only models.</p>
+</dd>
+<dt>HydraulicGeneratorBuilder</dt><dd><p>High-level routines to assemble complete hydropower dispatch models.
+Simple FPH based on constant productivity.</p>
+</dd>
+<dt>SimplifiedConstantProductivityFPH</dt><dd><p>Didactic constant productivity model (simplified).</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Multiple FPH modes are supported (constant, simplified, specific, exact).</p></li>
+<li><p>Reservoir mass balance constraints ensure intertemporal consistency.</p></li>
+<li><p>Designed for interoperability with Thermal, Renewable, and Storage packages
+in hybrid models.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+<section id="id1">
+<h2>Submodules</h2>
+</section>
+<section id="module-NaivePyDECOMP.HydraulicGenerator.HydraulicConstraints">
+<span id="naivepydecomp-hydraulicgenerator-hydraulicconstraints-module"></span><h2>NaivePyDECOMP.HydraulicGenerator.HydraulicConstraints module</h2>
+<section id="hydropower-constraints-module-for-multi-mode-generation-modeling">
+<h3>Hydropower Constraints Module for Multi-Mode Generation Modeling</h3>
+<p>This module implements hydropower-related constraints for Unit Commitment
+and Dispatch models in Pyomo. It supports multiple representations of the
+hydraulic production function (FPH), including constant productivity,
+specific productivity (fixed head), simplified polynomial approximations,
+and exact head-dependent formulations.</p>
+<p>The functions herein enforce:
+- Generation computation using plant-specific FPH callables;
+- Reservoir mass balance via continuity constraints;
+- Upstream water aggregation for cascaded systems (no travel time);
+- Final storage requirements;
+- System-wide demand balance for hydropower-only settings.</p>
+<p>Each hydropower mode (constant, specific, exact, simplified) must be
+associated with a callable set in the model attribute m.hydro_FPH[h].
+The upstream connectivity and inflows must be available as
+m.hydro_upstreams[h] and m.hydro_afluencia[h][t-1], respectively.
+This module assumes <strong>no routing delay</strong> between cascaded plants.</p>
+<p>This interface is compatible with Pyomo-based MILP/MIQP dispatch models
+and is intended to interoperate cleanly with thermal subsystems when a
+combined balance is used elsewhere.</p>
+<section id="imported-dependencies">
+<h4>Imported Dependencies</h4>
+<ul class="simple">
+<li><p>pyomo.environ.Constraint</p></li>
+</ul>
+</section>
+<section id="functions">
+<h4>Functions</h4>
+<ul class="simple">
+<li><p>add_hydro_generation_constraint(m)</p></li>
+<li><p>hydro_total_inflow_expr(m, h, t)</p></li>
+<li><p>add_hydro_qmin_constraint(m)</p></li>
+<li><p>add_hydro_qmax_constraint(m)</p></li>
+<li><p>add_hydro_volume_continuity_constraint(m)</p></li>
+<li><p>add_hydro_volume_max_constraint(m)</p></li>
+<li><p>add_hydro_volume_mim_constraint(m)</p></li>
+<li><p>add_hydro_balance_constraint(m)</p></li>
+</ul>
+</section>
+<section id="model-requirements">
+<h4>Model Requirements</h4>
+<dl class="simple">
+<dt>Sets</dt><dd><p>m.HG : hydropower units
+m.T  : time periods</p>
+</dd>
+<dt>Variables</dt><dd><p>m.hydro_V[h,t] : storage volume (hm^3)
+m.hydro_Q[h,t] : turbined discharge (hm^3)
+m.hydro_S[h,t] : spill discharge (m^3/s)
+m.hydro_G[h,t] : hydropower generation (MW)
+m.D[t]         : deficit (MW), if used</p>
+</dd>
+<dt>Parameters</dt><dd><p>m.hydro_Vini[h]  : initial storage (hm^3)
+m.hydro_Vmin[h]  : minimum storage (hm^3)
+m.hydro_Vmax[h]  : maximum storage (hm^3)
+m.hydro_afluencia[h][t-1] : natural inflow (m^3/s), 0-based external array
+m.hydro_upstreams[h]      : collection of upstream units for h
+m.hydro_FPH[h]            : callable FPH(Q,V,S) =&gt; MW
+m.hydro_compute_total_inflow[h] : bool flag to aggregate upstream releases
+m.horizon : last period index, if used for terminal constraints
+m.d[t]    : demand (MW), if hydropower-only balance is applied</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicConstraints.add_hydro_volume_continuity_constraint">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.HydraulicGenerator.HydraulicConstraints.</span></span><span class="sig-name descname"><span class="pre">add_hydro_volume_continuity_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Add reservoir mass balance (water continuity) constraints.</p>
+<p>Updates stored volume using natural + upstream inflows (no delay),
+turbined discharge, and spill. Uses the initial storage at the first
+period.</p>
+<dl class="simple">
+<dt>For each (h, t):</dt><dd><dl class="simple">
+<dt>if t == 1:</dt><dd><dl class="simple">
+<dt>m.hydro_V[h,1] == m.hydro_Vini[h]</dt><dd><ul class="simple">
+<li><p>m.hydro_zeta_vol * (Inflow(h,1) - Q[h,1] - S[h,1])</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>else:</dt><dd><dl class="simple">
+<dt>m.hydro_V[h,t] == m.hydro_V[h,t-1]</dt><dd><ul class="simple">
+<li><p>m.hydro_zeta_vol * (Inflow(h,t) - Q[h,t] - S[h,t])</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.core.base.PyomoModel.ConcreteModel</em>) – Model with variables m.hydro_V, m.hydro_Q, m.hydro_S,
+sets m.HG, m.T, and parameters
+m.hydro_zeta_vol, m.hydro_Vini. Inflow is given by
+<code class="xref py py-func docutils literal notranslate"><span class="pre">hydro_total_inflow_expr()</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Constraint block m.hydro_volume_balance_constraint added to the model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.core.expr.relational.EqualityExpression</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>m.hydro_zeta_vol converts flow (m^3/s) into volume (hm^3) over one period
+(e.g., 3600 / 1e6 for hourly steps).</p>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes">
+<span id="naivepydecomp-hydraulicgenerator-hydraulicdatatypes-module"></span><h2>NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes module</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Hydraulic System Data Classes for Reservoir Optimization</p>
+<section id="id2">
+<h3>Description</h3>
+<p>This module defines data classes for modeling structural and operational
+characteristics of hydroelectric systems in short-term dispatch and
+unit-commitment studies. The classes are designed to serve as a clean
+interface between problem data and Pyomo-based optimization models.</p>
+</section>
+<section id="overview">
+<h3>Overview</h3>
+<p>Two classes are provided:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">HydraulicUnit</span></code>: describes a single hydro plant, including storage bounds,
+turbined-flow limits, initial/terminal volumes, natural inflows, cascade
+topology, and optional coefficients for alternative FPH (hydropower
+production function) modes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HydraulicData</span></code>: encapsulates system-wide information such as planning
+horizon, hourly demand, plant map, and conversion/penalty constants.</p></li>
+</ul>
+</section>
+<section id="conventions-and-units">
+<h3>Conventions and Units</h3>
+<ul class="simple">
+<li><p>Time is discretized in periods <code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">1,</span> <span class="pre">…,</span> <span class="pre">horizon</span></code> (integers).</p></li>
+<li><p>Discharges (Q, S) are in hm^3.</p></li>
+<li><p>Storage volumes (V) are in hm^3.</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Cascade routing: this data layer assumes <strong>no travel time</strong>. If routing
+delays are relevant, they should be handled in the modeling layer.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.</span></span><span class="sig-name descname"><span class="pre">HydraulicData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit"><span class="pre">HydraulicUnit</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cdef</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000.0</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>System-wide hydropower data for planning and dispatch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>horizon</strong> (<em>int</em>) – Number of time periods in the planning horizon.</p></li>
+<li><p><strong>demand</strong> (<em>Dict</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – Mapping from period <code class="docutils literal notranslate"><span class="pre">t</span></code> (1-based) to system demand (MW).</p></li>
+<li><p><strong>units</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit"><em>HydraulicUnit</em></a><em>]</em>) – Map from plant name to its <code class="docutils literal notranslate"><span class="pre">HydraulicUnit</span></code> data structure.</p></li>
+<li><p><strong>Cdef</strong> (<em>float</em><em>, </em><em>optional</em>) – Penalty cost for unmet demand (R$/MWh), to be used by objectives in
+optimization models. Default is <code class="docutils literal notranslate"><span class="pre">1000.0</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The dictionary <code class="docutils literal notranslate"><span class="pre">demand</span></code> is assumed to be 1-based (<code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">1..horizon</span></code>).
+If your data are 0-based, map them accordingly before constructing this
+object.</p></li>
+<li><p>The interpretation of <code class="docutils literal notranslate"><span class="pre">zeta</span></code> depends on where power conversion is
+performed (inside the FPH callable or in the model).</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.Cdef">
+<span class="sig-name descname"><span class="pre">Cdef</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1000.0</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.demand">
+<span class="sig-name descname"><span class="pre">demand</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.horizon">
+<span class="sig-name descname"><span class="pre">horizon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit"><span class="pre">HydraulicUnit</span></a><span class="p"><span class="pre">]</span></span></em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.</span></span><span class="sig-name descname"><span class="pre">HydraulicUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Qmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Qmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Vini</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">afluencia</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upstreams</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_total_inflow</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Hydropower plant data container.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Unique identifier of the hydro plant.</p></li>
+<li><p><strong>Qmin</strong> (<em>float</em>) – Minimum allowed turbined flow (hm^3).</p></li>
+<li><p><strong>Qmax</strong> (<em>float</em>) – Maximum allowed turbined flow (hm^3).</p></li>
+<li><p><strong>Vmin</strong> (<em>float</em>) – Minimum storage volume (hm^3).</p></li>
+<li><p><strong>Vmax</strong> (<em>float</em>) – Maximum storage volume (hm^3).</p></li>
+<li><p><strong>Vini</strong> (<em>float</em>) – Initial storage volume at the beginning of the horizon (hm^3).</p></li>
+<li><p><strong>afluencia</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – Natural inflow time series (hm^3); external, 0-based list aligned
+with model periods (accessed as <code class="docutils literal notranslate"><span class="pre">afluencia[t-1]</span></code>).</p></li>
+<li><p><strong>upstreams</strong> (<em>List</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – List of immediate upstream plant names that feed this unit.
+Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code> (treated as no upstreams).</p></li>
+<li><p><strong>p</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – Global productivity coefficient (used in constant/simplified models;
+unit interpretation depends on how head is handled in the FPH).</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em>, </em><em>optional</em>) – Generation-mode selector. Valid options include
+{“constant”, “specific”, “exact”, “simplified”}.
+Default is “constant”.</p></li>
+<li><p><strong>compute_total_inflow</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, total inflow will include upstream releases in addition
+to exogenous natural inflow in expressions that support it.
+Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Qmax">
+<span class="sig-name descname"><span class="pre">Qmax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Qmin">
+<span class="sig-name descname"><span class="pre">Qmin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Vini">
+<span class="sig-name descname"><span class="pre">Vini</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Vmax">
+<span class="sig-name descname"><span class="pre">Vmax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Vmin">
+<span class="sig-name descname"><span class="pre">Vmin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.afluencia">
+<span class="sig-name descname"><span class="pre">afluencia</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.compute_total_inflow">
+<span class="sig-name descname"><span class="pre">compute_total_inflow</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.p">
+<span class="sig-name descname"><span class="pre">p</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.upstreams">
+<span class="sig-name descname"><span class="pre">upstreams</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.HydraulicGenerator.HydraulicEquations">
+<span id="naivepydecomp-hydraulicgenerator-hydraulicequations-module"></span><h2>NaivePyDECOMP.HydraulicGenerator.HydraulicEquations module</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Hydraulic Model Expression Utilities for Pyomo Optimization</p>
+<section id="id3">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id4">
+<h3>Description</h3>
+<p>This module provides helper functions to construct symbolic expressions
+related to energy hydraulic systems in Pyomo-based optimization models.
+These expressions can be incrementally assembled and integrated into
+constraints (e.g., energy balance) or cost functions (e.g.,
+generation costs).</p>
+<p>The functions are designed to support modular model construction and
+hybrid system integration. They can be used in conjunction with other
+technology modules (e.g., thermal, hydro, renewable) to build power
+balance constraints and system-wide cost objectives.</p>
+<p>All expressions are symbolic and compatible with Pyomo’s modeling
+framework. Each function includes safeguards to ensure that required
+model components exist before attempting to generate expressions.</p>
+</section>
+<section id="intended-use">
+<h3>Intended Use</h3>
+<ul class="simple">
+<li><p>To append hydraulic-related cost and energy balance expressions to lists
+that contribute to the overall objective function and constraint set.</p></li>
+<li><p>To modularize and standardize hydraulic modeling across different hybrid
+energy system configurations.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cost_terms</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_hydraulic_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">TotalCost</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">cost_terms</span><span class="p">),</span> <span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">balance_terms</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_hydraulic_balance_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">balance_array</span><span class="o">=</span><span class="n">balance_terms</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">HydraulicBalance</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">balance_terms</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This module assumes that hydraulic behavior is modeled using variables such as
+<cite>hydro_G</cite>.</p></li>
+<li><p>The structure is compatible with Pyomo’s ConstraintList and indexed Constraint(T).</p></li>
+<li><p>Expressions are constructed incrementally and can be combined with other
+sources (e.g., thermal, renewable) in hybrid dispatch models.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023..</p>
+</section>
+</section>
+<section id="module-NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder">
+<span id="naivepydecomp-hydraulicgenerator-hydraulicgeneratorbuilder-module"></span><h2>NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder module</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Hydropower Dispatch Model Builder</p>
+<section id="id5">
+<h3>Description</h3>
+<p>This module defines the construction logic for assembling a <strong>hydropower-only</strong>
+optimization model in Pyomo. It integrates the full sequence of:</p>
+<ul class="simple">
+<li><p>Set and parameter initialization,</p></li>
+<li><p>Decision variable declaration,</p></li>
+<li><p>Piecewise or analytical hydropower production modeling (FPH),</p></li>
+<li><p>Operational constraints,</p></li>
+<li><p>Objective function (optional).</p></li>
+</ul>
+</section>
+<section id="supported-generation-modes-per-unit">
+<h3>Supported generation modes (per unit)</h3>
+<ul class="simple">
+<li><p>Constant productivity</p></li>
+<li><p>Specific productivity with fixed head</p></li>
+<li><p>Exact head-dependent generation with nonlinear losses</p></li>
+<li><p>Simplified constant productivity (didactic)</p></li>
+</ul>
+</section>
+<section id="id6">
+<h3>Functions</h3>
+<dl class="simple">
+<dt>build_FPHs(m, data)</dt><dd><p>Initialize the hydropower production function (FPH) callable for each unit.</p>
+</dd>
+<dt>build_hydro_dispatch(data, include_objective=True)</dt><dd><p>Assemble a complete Pyomo model for hydropower dispatch optimization.</p>
+</dd>
+</dl>
+</section>
+<section id="modeling-conventions-and-units">
+<h3>Modeling Conventions and Units</h3>
+<ul class="simple">
+<li><p>Time periods are indexed as integers t = 1, …, horizon.</p></li>
+<li><p>Turbined and spill discharges (Q, S): hm^3.</p></li>
+<li><p>Storage volume (V): hm^3.</p></li>
+<li><p>Power (G) and demand (d): MWh.</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This builder targets <strong>pure hydropower</strong> systems. To include thermal units,
+couple with a combined system balance elsewhere.</p></li>
+<li><p>The callable stored in m.hydro_FPH[h] must accept the signature
+FPH(Q, V, S) → MW and be consistent with model units.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.add_hydro_problem">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.</span></span><span class="sig-name descname"><span class="pre">add_hydro_problem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><span class="pre">HydraulicData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Assemble a hydropower dispatch problem in Pyomo.</p>
+<p>This builder configures a Pyomo model for reservoir-based hydropower
+optimization. It attaches sets, parameters, decision variables, the
+hydropower production functions (FPHs), and all relevant operational
+constraints. Optionally, it includes the demand balance and the
+cost-minimization objective.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model to which the hydropower problem will be added.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data object containing planning horizon, demand mapping,
+unit definitions, inflows, storage bounds, and productivity
+coefficients.</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, add the system-wide demand balance and deficit-penalizing
+objective function (default is False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated Pyomo model with hydropower sets, parameters, variables,
+constraints, and optionally the objective.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.add_hydro_subproblem">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.</span></span><span class="sig-name descname"><span class="pre">add_hydro_subproblem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><span class="pre">HydraulicData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Assemble a hydropower dispatch problem in Pyomo.</p>
+<p>This builder configures a Pyomo model for reservoir-based hydropower
+optimization. It attaches sets, parameters, decision variables, the
+hydropower production functions (FPHs), and all relevant operational
+constraints. Optionally, it includes the demand balance and the
+cost-minimization objective.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model to which the hydropower problem will be added.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data object containing planning horizon, demand mapping,
+unit definitions, inflows, storage bounds, and productivity
+coefficients.</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, add the system-wide demand balance and deficit-penalizing
+objective function (default is False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated Pyomo model with hydropower sets, parameters, variables,
+constraints, and optionally the objective.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.build_FPHs">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.</span></span><span class="sig-name descname"><span class="pre">build_FPHs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><span class="pre">HydraulicData</span></a></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Initialize hydropower production functions (FPH) for all units.</p>
+<p>For each hydro unit h, this function selects and constructs a callable
+FPH according to the unit’s declared mode (constant, simplified,
+specific, or exact) and assigns it to m.hydro_FPH[h] with
+the signature FPH(Q, V, S) =&gt; MW.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.core.base.PyomoModel.ConcreteModel</em>) – Pyomo model into which the FPH callables will be attached.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Configuration object containing unit maps and modes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The model m is modified in place. A dictionary m.hydro_FPH is
+created, indexed by unit name, each entry being a callable of the form
+FPH(Q, V, S).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.build_hydro_dispatch">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder.</span></span><span class="sig-name descname"><span class="pre">build_hydro_dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><span class="pre">HydraulicData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Assemble a complete Pyomo model for hydropower dispatch.</p>
+<p>The resulting model includes:</p>
+<ul class="simple">
+<li><p>Set and parameter definitions (via hydraulyc_add_sets_and_params)</p></li>
+<li><p>Continuous decision variables (via hydralic_add_variables_g)</p></li>
+<li><p>Per-unit FPH callables (via build_FPHs)</p></li>
+<li><p>Operational constraints: generation equation, reservoir mass balance,
+Qmin/Qmax, volume bounds, terminal storage target</p></li>
+<li><p>Optional system-wide demand balance and cost-minimization objective</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data with horizon, demand, unit map, and conversion constants.</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, add the hydropower balance constraint and define the
+objective function. Default is True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Pyomo ConcreteModel ready to be passed to a solver.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.core.base.PyomoModel.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Designed for hydropower-only settings. For mixed hydro-thermal
+systems, use an extended builder with a combined balance equation.</p></li>
+<li><p>The order of operations ensures FPH callables are available before
+generation constraints are added.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.HydraulicGenerator.HydraulicObjectives">
+<span id="naivepydecomp-hydraulicgenerator-hydraulicobjectives-module"></span><h2>NaivePyDECOMP.HydraulicGenerator.HydraulicObjectives module</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Objective Function for Pure Hydropower Dispatch</p>
+<section id="id7">
+<h3>Description</h3>
+<p>This module defines the objective for reservoir-based <strong>hydropower-only</strong>
+optimization models. The objective minimizes (i) the total cost of unmet
+energy (deficit) and (ii) a small penalty on water spillage to discourage
+gratuitous releases, thereby promoting more efficient water usage.</p>
+</section>
+<section id="id8">
+<h3>Functions</h3>
+<dl class="simple">
+<dt>set_objective_hydro(m)</dt><dd><p>Attach a minimization objective to a Pyomo model that penalizes
+deficit and spillage over the planning horizon.</p>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h3>Modeling Conventions and Units</h3>
+<ul class="simple">
+<li><p>Time periods: integers <code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">1,</span> <span class="pre">…,</span> <span class="pre">horizon</span></code>.</p></li>
+<li><p>Deficit <code class="docutils literal notranslate"><span class="pre">D[t]</span></code>: MW (interpreted per-period, consistent with objective scaling).</p></li>
+<li><p>Spill <code class="docutils literal notranslate"><span class="pre">hydro_S[h,t]</span></code>: m^3/s.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Cdef</span></code>: $/MWh (ensure consistency with how deficit is modeled and aggregated).</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Designed for <strong>pure hydropower</strong> systems (no thermal generation).</p></li>
+<li><p>The spillage penalty uses a fixed coefficient (0.3). Adjust as needed
+to break degeneracy or steer solutions away from unnecessary spill.</p></li>
+<li><p>Compatible with NaivePyDECOMP hydropower data and constraints.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+<section id="module-NaivePyDECOMP.HydraulicGenerator.HydraulicVars">
+<span id="naivepydecomp-hydraulicgenerator-hydraulicvars-module"></span><h2>NaivePyDECOMP.HydraulicGenerator.HydraulicVars module</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Hydropower Model Initialization: Sets, Parameters, and Variables</p>
+<section id="id10">
+<h3>Description</h3>
+<p>This module provides initialization routines for setting up the basic
+sets, parameters, and continuous variables required by hydropower
+optimization models in Pyomo. It accommodates multiple hydropower
+generation modes, natural-inflow handling, and head-dependent power
+relationships supplied elsewhere in the modeling stack.</p>
+</section>
+<section id="id11">
+<h3>Functions</h3>
+<dl class="simple">
+<dt>hydraulyc_add_sets_and_params(m, data)</dt><dd><p>Initialize sets and model-level parameters/containers for hydropower units
+and system-wide demand.</p>
+</dd>
+<dt>hydralic_add_variables_g(m)</dt><dd><p>Declare continuous decision variables for hydropower dispatch modeling.</p>
+</dd>
+</dl>
+</section>
+<section id="id12">
+<h3>Modeling Conventions and Units</h3>
+<ul class="simple">
+<li><p>Time periods are indexed as integers <code class="docutils literal notranslate"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">1,</span> <span class="pre">…,</span> <span class="pre">horizon</span></code>.</p></li>
+<li><p>Turbined/Spill discharges (Q, S): hm^3.</p></li>
+<li><p>Storage volume (V): hm^3.</p></li>
+<li><p>Demand and power (d, G): MWh.</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The argument <code class="docutils literal notranslate"><span class="pre">data</span></code> is expected to be an instance of <code class="docutils literal notranslate"><span class="pre">HydraulicData</span></code>,
+where each unit is a <code class="docutils literal notranslate"><span class="pre">HydraulicUnit</span></code>.</p></li>
+<li><p>Some attributes attached to the model are plain Python containers
+(e.g., dictionaries) rather than Pyomo <code class="docutils literal notranslate"><span class="pre">Param</span></code> objects, by design.</p></li>
+<li><p>This module targets short-term planning models and is suitable for
+integration into MILP/MIQP hydropower (or hydrothermal) formulations.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.HydraulicGenerator.HydraulicVars.hydraulyc_add_sets_and_params">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.HydraulicGenerator.HydraulicVars.</span></span><span class="sig-name descname"><span class="pre">hydraulyc_add_sets_and_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Initialize hydropower sets and model-level parameters/containers.</p>
+<p>Configures the Pyomo model <code class="docutils literal notranslate"><span class="pre">m</span></code> with time and hydropower unit sets,
+system-level demand, and per-unit attributes such as flow limits,
+storage bounds, initial/terminal storages, natural inflows, cascade
+topology, and flags used by inflow aggregation. Values are sourced
+from the <code class="docutils literal notranslate"><span class="pre">HydraulicData</span></code>/<code class="docutils literal notranslate"><span class="pre">HydraulicUnit</span></code> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.core.base.PyomoModel.ConcreteModel</em>) – Target Pyomo model to be populated with sets and parameters.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData" title="NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><em>HydraulicData</em></a>) – Input data object with planning horizon, demand mapping, and the
+dictionary of hydropower units.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model <code class="docutils literal notranslate"><span class="pre">m</span></code> with initialized sets and parameters/containers.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.core.base.PyomoModel.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>All plant-specific containers are indexed by the hydropower unit set
+<code class="docutils literal notranslate"><span class="pre">m.HG</span></code>.</p></li>
+<li><p>Time-varying arrays (e.g., <code class="docutils literal notranslate"><span class="pre">afluencia</span></code>) are assumed to be external,
+0-based Python lists that are accessed as <code class="docutils literal notranslate"><span class="pre">[t-1]</span></code> inside constraints.</p></li>
+<li><p>Some attributes (e.g., <code class="docutils literal notranslate"><span class="pre">m.hydro_Qmin</span></code>, <code class="docutils literal notranslate"><span class="pre">m.hydro_Vmax</span></code>) are plain
+Python dictionaries attached to the model for convenience; others
+(e.g., <code class="docutils literal notranslate"><span class="pre">m.d</span></code>) are Pyomo <code class="docutils literal notranslate"><span class="pre">Param</span></code> objects.</p></li>
+<li><p>The attribute <code class="docutils literal notranslate"><span class="pre">m.horizon</span></code> stores the number of periods for quick access.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.HydraulicGenerator.SimplifiedConstantProductivityFPH">
+<span id="naivepydecomp-hydraulicgenerator-simplifiedconstantproductivityfph-module"></span><h2>NaivePyDECOMP.HydraulicGenerator.SimplifiedConstantProductivityFPH module</h2>
+<p>EELT 7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Simplified Constant Productivity FPH Function</p>
+<section id="id13">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id14">
+<h3>Description</h3>
+<p>Defines a simplified hydropower production function (FPH) for short-term
+operation models. The generation is assumed to be proportional to turbine
+discharge, scaled by a constant productivity coefficient.</p>
+<p>The FPH is expressed as:</p>
+<blockquote>
+<div><p>FPH(Q) = P * Q</p>
+</div></blockquote>
+<p>where:
+- Q : turbine discharge (hm^3)
+- P : global productivity coefficient (dimensionless)</p>
+<p>This formulation is particularly useful for approximate dispatch models,
+sensitivity analyses, or didactic examples that do not require head-dependent
+hydraulic modeling.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Unlike the more detailed constant-productivity model, this simplified
+function does not include the <code class="docutils literal notranslate"><span class="pre">zeta</span></code> scaling factor. If desired, the
+conversion constant can be absorbed directly into <code class="docutils literal notranslate"><span class="pre">P</span></code> to yield MW.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

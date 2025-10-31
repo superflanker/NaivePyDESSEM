@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MDI.Storage package</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="mdi-storage-package">
+<h1>MDI.Storage package</h1>
+<section id="module-MDI.Storage">
+<span id="module-contents"></span><h2>Module contents</h2>
+<section id="storage-subpackage">
+<h3>Storage Subpackage</h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="author">
+<h4>Author</h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="summary">
+<h4>Summary</h4>
+<p>The <strong>Storage</strong> subpackage implements all the symbolic, data, and structural
+components required to model the operation and expansion of <strong>energy storage systems</strong> within
+the broader <strong>MDI (Modular Decision Infrastructure)</strong> optimization framework.</p>
+</section>
+<section id="description">
+<h4>Description</h4>
+<p>This subpackage defines the complete representation of storage units, including
+their parameters, decision variables, constraints, and cost functions, suitable
+for Mixed-Integer Linear Programming (MILP) and Mixed-Integer Nonlinear Programming (MINLP)
+formulations using <strong>Pyomo</strong>.</p>
+</section>
+<section id="modules">
+<h4>Modules</h4>
+<dl class="simple">
+<dt>StorageBuilder</dt><dd><p>High-level routines for constructing complete storage models.</p>
+</dd>
+<dt>StorageDataTypes</dt><dd><p>Data classes defining the structure and typing of storage unit data.</p>
+</dd>
+<dt>StorageEquations</dt><dd><p>Symbolic expressions for cost and power balance aggregation.</p>
+</dd>
+<dt>StorageObjective</dt><dd><p>Objective function for total storage cost minimization.</p>
+</dd>
+<dt>StorageVars</dt><dd><p>Model variables, sets, and parameters declaration.</p>
+</dd>
+</dl>
+</section>
+<section id="structure-overview">
+<h4>Structure Overview</h4>
+<p>The <cite>Storage</cite> subpackage provides modular integration of storage subsystems
+into larger system models. It follows a builder pattern to maintain
+clarity and extensibility.</p>
+<p>Typical usage:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Storage</span><span class="w"> </span><span class="kn">import</span> <span class="n">StorageData</span><span class="p">,</span> <span class="n">StorageUnit</span><span class="p">,</span> <span class="n">build_storage</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">StorageData</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">build_storage</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">include_objective</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="exports">
+<h4>Exports</h4>
+<p>This <cite>__init__.py</cite> file re-exports all relevant symbols to simplify
+namespace access.
+Users may import either individual modules or the entire storage
+subsystem directly via:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Storage</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>All modules are compatible with <strong>Pyomo 6.x</strong>.</p></li>
+<li><p>Energy and power units follow the SI convention (MWh, MW).</p></li>
+<li><p>Cost parameters are assumed to be in consistent monetary units.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL. <em>DESSEM — Manual de Metodologia</em>, 2023.
+[2] Unsihuay Vila, C. <em>Introdução aos Sistemas de Energia Elétrica</em>, Lecture Notes, EELT7030/UFPR, 2023.</p>
+</section>
+</section>
+</section>
+<section id="submodules">
+<h2>Submodules</h2>
+</section>
+<section id="module-MDI.Storage.StorageBuilder">
+<span id="mdi-storage-storagebuilder-module"></span><h2>MDI.Storage.StorageBuilder module</h2>
+<section id="storage-builder-module">
+<h3>Storage Builder Module</h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="id1">
+<h4>Author</h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id2">
+<h4>Summary</h4>
+<p>This module defines the construction logic of the <strong>energy storage subsystem</strong>
+within the MDI optimization framework. It provides high-level builder functions
+that assemble the complete storage model — including sets, parameters,
+variables, constraints, and the objective function — from structured input data.</p>
+</section>
+<section id="id3">
+<h4>Description</h4>
+<p>Two functions are defined in this module:</p>
+<ol class="arabic simple">
+<li><p><strong>`build_storage(data, include_objective=True)`</strong>
+Creates and initializes a standalone Pyomo model for the storage subsystem,
+suitable for testing or modular integration.</p></li>
+<li><p><strong>`add_storage_problem(m, data, include_objective=False)`</strong>
+Extends an existing Pyomo model with the complete storage problem definition,
+including constraints and (optionally) the objective function.</p></li>
+</ol>
+<p>The builder integrates all necessary symbolic components:
+sets and parameters, decision variables, constraints on power,
+energy balance, state-of-charge (SoC), and investment logic.</p>
+</section>
+<section id="mathematical-overview">
+<h4>Mathematical Overview</h4>
+<p>The storage subsystem typically includes the following formulations:</p>
+<p><strong>Energy balance</strong>
+[
+E_{t} = E_{t-1} + eta_c P^{ch}_{t} -
+rac{1}{eta_d} P^{dis}_{t}
+]</p>
+<p><strong>Power limits</strong>
+[
+0 leq P^{ch}_{t}, P^{dis}_{t} leq P^{max} , x_{t}
+]</p>
+<p><strong>State of charge bounds</strong>
+[
+E^{min} leq E_{t} leq E^{max}
+]</p>
+<p><strong>Investment linkage</strong>
+[
+x_{t} = x_{t-1} + y_{t}
+]</p>
+<p>where:
+- (E_t): energy stored at period <em>t</em>
+- (P^{ch}_t, P^{dis}_t): charging/discharging power
+- (eta_c, eta_d): charging/discharging efficiencies
+- (x_t, y_t): operational and investment binary decisions</p>
+</section>
+<section id="functions">
+<h4>Functions</h4>
+<dl class="simple">
+<dt>build_storage(data, include_objective=True)</dt><dd><p>Creates and returns a complete Pyomo model for the storage subsystem.</p>
+</dd>
+<dt>add_storage_problem(m, data, include_objective=False)</dt><dd><p>Adds the storage problem definition to an existing model.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The <cite>include_objective</cite> flag controls whether the subsystem-level
+objective (minimization of total storage cost) is included.</p></li>
+<li><p>The modular structure mirrors that of the generator subsystem
+to ensure composability within hybrid systems (hydrothermal or
+generation-storage models).</p></li>
+<li><p>All internal components (sets, variables, constraints) are
+imported from specialized modules to maintain separation of concerns.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL. <em>DESSEM — Manual de Metodologia</em>, 2023.
+[2] Unsihuay Vila, C. <em>Introdução aos Sistemas de Energia Elétrica</em>, Lecture Notes,</p>
+<blockquote>
+<div><p>EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+<section id="module-dependencies">
+<h4>Module Dependencies</h4>
+<ul class="simple">
+<li><p><strong>Internal:</strong>
+- <code class="docutils literal notranslate"><span class="pre">StorageDataTypes</span></code>
+- <code class="docutils literal notranslate"><span class="pre">StorageObjective</span></code>
+- <code class="docutils literal notranslate"><span class="pre">StorageVars</span></code>
+- <code class="docutils literal notranslate"><span class="pre">StorageConstraints</span></code></p></li>
+<li><p><strong>External:</strong>
+- <code class="docutils literal notranslate"><span class="pre">pyomo.environ</span></code> (ConcreteModel, Objective, minimize)</p></li>
+</ul>
+</section>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Storage.StorageBuilder.add_storage_problem">
+<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageBuilder.</span></span><span class="sig-name descname"><span class="pre">add_storage_problem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MDI.Storage.StorageDataTypes.StorageData" title="MDI.Storage.StorageDataTypes.StorageData"><span class="pre">StorageData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Add the complete storage problem definition to a given model.</p>
+<p>Extends an existing Pyomo model with the full symbolic formulation of
+the energy storage subsystem, including all relevant constraints and,
+optionally, the objective function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model to which the storage subsystem will be appended.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#MDI.Storage.StorageDataTypes.StorageData" title="MDI.Storage.StorageDataTypes.StorageData"><em>StorageData</em></a>) – Structured data object defining all storage parameters and time horizon.</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, includes the storage cost minimization objective. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model instance extended with storage sets, variables,
+constraints, and (optionally) the objective function.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The following constraints are added to the model:
+- Power limits (charging/discharging capacity)
+- Energy balance (state-of-charge dynamics)
+- Investment linkage (capacity expansion logic)
+- SoC bounds (minimum and maximum limits)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Storage.StorageBuilder.build_storage">
+<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageBuilder.</span></span><span class="sig-name descname"><span class="pre">build_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MDI.Storage.StorageDataTypes.StorageData" title="MDI.Storage.StorageDataTypes.StorageData"><span class="pre">StorageData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Build a standalone Pyomo model for the storage subsystem.</p>
+<p>This function creates a new ConcreteModel instance and populates it
+with all the sets, parameters, variables, and constraints required to
+represent an energy storage unit within the optimization framework.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="#MDI.Storage.StorageDataTypes.StorageData" title="MDI.Storage.StorageDataTypes.StorageData"><em>StorageData</em></a>) – Structured input data describing storage characteristics and parameters.</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, includes the subsystem objective function. Default is True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A fully defined storage model ready for integration or standalone analysis.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-MDI.Storage.StorageConstraints">
+<span id="mdi-storage-storageconstraints-module"></span><h2>MDI.Storage.StorageConstraints module</h2>
+<section id="storage-constraints-module">
+<h3>Storage Constraints Module</h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="id4">
+<h4>Author</h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id5">
+<h4>Summary</h4>
+<p>This module defines all <strong>physical and operational constraints</strong> for the
+energy storage subsystem of the MDI optimization model.
+It ensures consistency between energy balance, power limits, state-of-charge
+(SoC) boundaries, and investment linkage dynamics.</p>
+</section>
+<section id="id6">
+<h4>Description</h4>
+<p>Four main constraint groups are provided:</p>
+<ol class="arabic simple">
+<li><p><strong>Energy Balance Constraint</strong>
+Ensures conservation of stored energy over time, accounting for
+charging/discharging power and round-trip efficiency.</p></li>
+<li><p><strong>SoC Bounds Constraint</strong>
+Enforces upper and lower limits on the energy stored as a function
+of installed capacity and operational state.</p></li>
+<li><p><strong>Power Limits Constraint</strong>
+Restricts the charging and discharging power to their respective
+maximum values.</p></li>
+<li><p><strong>Investment Link Constraint</strong>
+Links investment decisions with the operational availability of
+storage units across time.</p></li>
+</ol>
+</section>
+<section id="mathematical-formulation">
+<h4>Mathematical Formulation</h4>
+<p><strong>Energy balance</strong>
+[
+E_{s,t} = E_{s,t-1} +
+eta_c P^{ch}_{s,t} Delta t -</p>
+<p>rac{P^{dis}_{s,t}}{eta_d} Delta t
+]</p>
+<p><strong>SoC bounds</strong>
+[
+E^{min}_s x_{s,t} leq E_{s,t} leq E^{max}_s x_{s,t}
+]</p>
+<p><strong>Power limits</strong>
+[
+0 leq P^{ch}_{s,t} leq P^{ch,max}_s x_{s,t}
+quad   ext{and}quad
+0 leq P^{dis}_{s,t} leq P^{dis,max}_s x_{s,t}
+]</p>
+<p><strong>Investment linkage</strong>
+[
+x_{s,t} = x_{s,t-1} + y_{s,t}
+]</p>
+<p>where:
+- (E_{s,t}) — state of charge (MWh)
+- (P^{ch}_{s,t}), (P^{dis}_{s,t}) — charging/discharging power (MW)
+- (eta_c, eta_d) — charging/discharging efficiencies
+- (x_{s,t}) — operational existence of storage unit (s)
+- (y_{s,t}) — binary investment decision
+- (Delta t) — duration of time step (hours)</p>
+</section>
+<section id="id7">
+<h4>Functions</h4>
+<dl class="simple">
+<dt>add_storage_energy_balance_constraint(m)</dt><dd><p>Adds the intertemporal energy conservation constraint.</p>
+</dd>
+<dt>add_storage_soc_bounds_constraint(m)</dt><dd><p>Adds the upper and lower bounds on the state of charge.</p>
+</dd>
+<dt>add_storage_power_limits_constraint(m)</dt><dd><p>Adds the power limit constraints for charging and discharging.</p>
+</dd>
+<dt>add_storage_investment_link_constraint(m)</dt><dd><p>Adds the investment linkage constraint ensuring logical consistency
+between existence and new builds.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The formulation assumes uniform time steps ((Delta t)) across the horizon.</p></li>
+<li><p>Charging and discharging are modeled as separate nonnegative variables.</p></li>
+<li><p>Constraints are fully compatible with multi-level (patamar) formulations.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL. <em>DESSEM — Manual de Metodologia</em>, 2023.
+[2] Unsihuay Vila, C. <em>Introdução aos Sistemas de Energia Elétrica</em>, Lecture Notes,</p>
+<blockquote>
+<div><p>EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+<section id="id8">
+<h4>Module Dependencies</h4>
+<ul class="simple">
+<li><p><strong>External:</strong> <code class="docutils literal notranslate"><span class="pre">pyomo.environ.Constraint</span></code></p></li>
+</ul>
+</section>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Storage.StorageConstraints.add_storage_energy_balance_constraint">
+<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageConstraints.</span></span><span class="sig-name descname"><span class="pre">add_storage_energy_balance_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Add the state-of-charge (SoC) energy balance constraint.</p>
+<p>Defines the recursive relationship for the stored energy as a function
+of previous state, charging/discharging flows, efficiencies, and
+time-step duration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing storage-related sets, variables,
+and parameters.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The model with the energy balance constraint added.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Storage.StorageConstraints.add_storage_investment_link_constraint">
+<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageConstraints.</span></span><span class="sig-name descname"><span class="pre">add_storage_investment_link_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Add the investment linkage constraint for storage units.</p>
+<p>Defines the relationship between construction decisions and
+operational availability across time periods.
+Ensures that the existence variable accumulates investments
+over the planning horizon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing the investment and operational variables.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The model with investment linkage and initial-state constraints applied.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Storage.StorageConstraints.add_storage_power_limits_constraint">
+<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageConstraints.</span></span><span class="sig-name descname"><span class="pre">add_storage_power_limits_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Add charging and discharging power limit constraints.</p>
+<p>Ensures that the charging and discharging power of each storage
+unit does not exceed its respective rated capacity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance with storage-related variables and parameters.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The model with charging and discharging power limits enforced.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Storage.StorageConstraints.add_storage_soc_bounds_constraint">
+<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageConstraints.</span></span><span class="sig-name descname"><span class="pre">add_storage_soc_bounds_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Add upper and lower bounds on the state of charge (SoC).</p>
+<p>Enforces that the stored energy remains within defined physical
+limits as a function of the installed capacity and operational state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing storage sets, variables, and parameters.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The model with SoC boundary constraints applied.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-MDI.Storage.StorageDataTypes">
+<span id="mdi-storage-storagedatatypes-module"></span><h2>MDI.Storage.StorageDataTypes module</h2>
+<section id="storage-data-types-module">
+<h3>Storage Data Types Module</h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="id9">
+<h4>Author</h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id10">
+<h4>Summary</h4>
+<p>This module defines the fundamental <strong>data structures</strong> that describe
+the technical, economic, and operational attributes of <strong>energy storage units</strong>.
+It serves as the foundation for building symbolic Pyomo models used in
+optimization formulations for system operation and expansion.</p>
+</section>
+<section id="id11">
+<h4>Description</h4>
+<p>Two main dataclasses are defined:</p>
+<ol class="arabic simple">
+<li><p><strong>`StorageUnit`</strong>
+Represents a single energy storage unit, including its operational
+parameters, efficiency characteristics, and economic coefficients.</p></li>
+<li><p><strong>`StorageData`</strong>
+Aggregates all input data required to formulate a storage optimization
+problem, including horizon definition, demand, level duration,
+and a collection of <cite>StorageUnit</cite> instances.</p></li>
+</ol>
+<p>Both classes provide a lightweight, strongly typed data interface for
+Python–Pyomo integration, facilitating modular problem definition
+and reproducible experiment design.</p>
+</section>
+<section id="mathematical-interpretation">
+<h4>Mathematical Interpretation</h4>
+<p>Each storage unit <em>s</em> is characterized by:</p>
+<ul class="simple">
+<li><p>( E_{min}, E_{max}, E_{ini} ): Minimum, maximum, and initial energy levels.</p></li>
+<li><p>( P^{ch}_{max}, P^{dis}_{max} ): Maximum charging and discharging powers.</p></li>
+<li><p>( eta_c, eta_d ): Charging and discharging efficiencies.</p></li>
+<li><p>( c_{op}, c_{inv} ): Operating and investment costs.</p></li>
+<li><p>( state ): Binary indicator of existing capacity (0 or 1).</p></li>
+</ul>
+<p>The <cite>StorageData</cite> structure encapsulates:</p>
+<ul class="simple">
+<li><p>Temporal horizon ( T )</p></li>
+<li><p>Demand curves by patamar and time</p></li>
+<li><p>Duration of load levels (in hours)</p></li>
+<li><p>Dictionary of <cite>StorageUnit</cite> definitions.</p></li>
+</ul>
+</section>
+<section id="usage">
+<h4>Usage</h4>
+<p>Instances of <cite>StorageData</cite> are typically created from preprocessed
+input datasets and passed directly to model-construction functions such as:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">.StorageBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_storage</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">build_storage</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">storage_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="classes">
+<h4>Classes</h4>
+<dl class="simple">
+<dt>StorageUnit</dt><dd><p>Defines the parameters of a single storage unit.</p>
+</dd>
+<dt>StorageData</dt><dd><p>Encapsulates all data required for the formulation of the storage problem.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This data structure is <strong>independent of Pyomo</strong> and can be serialized
+or deserialized to JSON for reproducibility.</p></li>
+<li><p>Units follow the SI convention: MWh for energy, MW for power, and
+monetary units for costs.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, <em>DESSEM — Manual de Metodologia</em>, 2023.
+[2] Unsihuay Vila, C., <em>Introdução aos Sistemas de Energia Elétrica</em>,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageDataTypes.</span></span><span class="sig-name descname"><span class="pre">StorageData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level_hours</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#MDI.Storage.StorageDataTypes.StorageUnit" title="MDI.Storage.StorageDataTypes.StorageUnit"><span class="pre">StorageUnit</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Aggregates all data required for the storage optimization problem.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageData.horizon">
+<span class="sig-name descname"><span class="pre">horizon</span></span></dt>
+<dd><p>Number of discrete time periods in the planning horizon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageData.demand">
+<span class="sig-name descname"><span class="pre">demand</span></span></dt>
+<dd><p>Dictionary of demand profiles, organized by
+patamar and time index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, List[float]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageData.level_hours">
+<span class="sig-name descname"><span class="pre">level_hours</span></span></dt>
+<dd><p>Duration (in hours) associated with each demand level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageData.delta_t">
+<span class="sig-name descname"><span class="pre">delta_t</span></span></dt>
+<dd><p>Time step (years) used in the energy balance equations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageData.units">
+<span class="sig-name descname"><span class="pre">units</span></span></dt>
+<dd><p>Dictionary of storage units indexed by their identifiers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, <a class="reference internal" href="#MDI.Storage.StorageDataTypes.StorageUnit" title="MDI.Storage.StorageDataTypes.StorageUnit">StorageUnit</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">delta_t</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id12">
+<span class="sig-name descname"><span class="pre">demand</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id13">
+<span class="sig-name descname"><span class="pre">horizon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id14">
+<span class="sig-name descname"><span class="pre">level_hours</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id15">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#MDI.Storage.StorageDataTypes.StorageUnit" title="MDI.Storage.StorageDataTypes.StorageUnit"><span class="pre">StorageUnit</span></a><span class="p"><span class="pre">]</span></span></em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageDataTypes.</span></span><span class="sig-name descname"><span class="pre">StorageUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_inv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eini</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pch_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pdis_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Defines the parameters of a single storage unit.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit.name">
+<span class="sig-name descname"><span class="pre">name</span></span></dt>
+<dd><p>Identifier of the storage unit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit.state">
+<span class="sig-name descname"><span class="pre">state</span></span></dt>
+<dd><p>Initial state (0 = not installed, 1 = existing).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit.c_op">
+<span class="sig-name descname"><span class="pre">c_op</span></span></dt>
+<dd><p>Operational cost (per MWh of discharge or equivalent).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit.c_inv">
+<span class="sig-name descname"><span class="pre">c_inv</span></span></dt>
+<dd><p>Investment cost (annualized).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit.Emin">
+<span class="sig-name descname"><span class="pre">Emin</span></span></dt>
+<dd><p>Minimum stored energy capacity (MWh).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit.Emax">
+<span class="sig-name descname"><span class="pre">Emax</span></span></dt>
+<dd><p>Maximum stored energy capacity (MWh).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit.Eini">
+<span class="sig-name descname"><span class="pre">Eini</span></span></dt>
+<dd><p>Initial stored energy at the beginning of the horizon (MWh).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit.Pch_max">
+<span class="sig-name descname"><span class="pre">Pch_max</span></span></dt>
+<dd><p>Maximum charging power (MW).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit.Pdis_max">
+<span class="sig-name descname"><span class="pre">Pdis_max</span></span></dt>
+<dd><p>Maximum discharging power (MW).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit.eta_c">
+<span class="sig-name descname"><span class="pre">eta_c</span></span></dt>
+<dd><p>Charging efficiency (fraction between 0 and 1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit.eta_d">
+<span class="sig-name descname"><span class="pre">eta_d</span></span></dt>
+<dd><p>Discharging efficiency (fraction between 0 and 1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id16">
+<span class="sig-name descname"><span class="pre">Eini</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id17">
+<span class="sig-name descname"><span class="pre">Emax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id18">
+<span class="sig-name descname"><span class="pre">Emin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id19">
+<span class="sig-name descname"><span class="pre">Pch_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id20">
+<span class="sig-name descname"><span class="pre">Pdis_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id21">
+<span class="sig-name descname"><span class="pre">c_inv</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id22">
+<span class="sig-name descname"><span class="pre">c_op</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id23">
+<span class="sig-name descname"><span class="pre">eta_c</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id24">
+<span class="sig-name descname"><span class="pre">eta_d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id25">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id26">
+<span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-MDI.Storage.StorageEquations">
+<span id="mdi-storage-storageequations-module"></span><h2>MDI.Storage.StorageEquations module</h2>
+<section id="storage-equations-module">
+<h3>Storage Equations Module</h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="id27">
+<h4>Author</h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id28">
+<h4>Summary</h4>
+<p>This module defines <strong>symbolic expressions</strong> for energy storage subsystems,
+used in the model composition phase to aggregate costs and power balances.
+It provides reusable components for constructing higher-level formulations
+(e.g., integrated generation–storage–transmission systems).</p>
+</section>
+<section id="id29">
+<h4>Description</h4>
+<p>Two main symbolic functions are defined:</p>
+<ol class="arabic simple">
+<li><p><strong>`add_storage_cost_expression()`</strong>
+Builds the total operational and investment cost expression of all
+storage units and appends it to a global cost array.</p></li>
+<li><p><strong>`add_storage_balance_expression()`</strong>
+Builds the net energy balance expression (discharge minus charge)
+to represent the effective contribution of storage units to the system
+power balance in each time step and load level.</p></li>
+</ol>
+<p>These expressions are not constraints by themselves, but <strong>building blocks</strong>
+that can be embedded in multi-component optimization formulations.</p>
+</section>
+<section id="id30">
+<h4>Mathematical Formulation</h4>
+<p>1. <strong>Cost Expression</strong>
+[
+C_{storage} =
+sum_{s in SU} sum_{t in T} sum_{p in P}
+h_p , c^{op}_s , (P^{ch}_{s,t,p} + P^{dis}_{s,t,p})
++ sum_{s in SU} sum_{t in T}
+c^{inv}_s , x_{s,t}
+]</p>
+<p>2. <strong>Balance Expression</strong>
+[
+B_{storage}(t,p) =
+sum_{s in SU} eta_d , P^{dis}_{s,t,p}
+-
+rac{1}{eta_c} , P^{ch}_{s,t,p}
+]</p>
+<p>where:</p>
+<div class="line-block">
+<div class="line">Symbol | Description |</div>
+</div>
+<p><a href="#id44"><span class="problematic" id="id45">|:--------|</span></a>:————|
+| (h_p) | Duration of load level (p) (hours) |
+| (c^{op}_s) | Operational cost per MWh |
+| (c^{inv}_s) | Investment cost |
+| (P^{ch}_{s,t,p}), (P^{dis}_{s,t,p}) | Charging/discharging power (MW) |
+| (eta_c, eta_d) | Charging/discharging efficiencies |
+| (x_{s,t}) | Binary existence variable |
+| (SU, T, P) | Sets of storage units, time periods, and load levels |</p>
+</section>
+<section id="id31">
+<h4>Functions</h4>
+<dl class="simple">
+<dt>add_storage_cost_expression(m, cost_array)</dt><dd><p>Appends the total storage cost expression to a given list of cost terms.</p>
+</dd>
+<dt>add_storage_balance_expression(m, t, p, balance_array)</dt><dd><p>Appends the net storage power balance expression (discharge – charge)
+to a given list of balance terms.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The functions <strong>do not create Pyomo constraints</strong>; they only define symbolic
+expressions that can be aggregated later.</p></li>
+<li><p>Each expression is appended to an externally provided list (e.g. <cite>cost_array</cite>),
+allowing modular model assembly.</p></li>
+<li><p>The caller must ensure that all required model attributes exist before invocation.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, <em>DESSEM — Manual de Metodologia</em>, 2023.
+[2] Unsihuay Vila, C., <em>Introdução aos Sistemas de Energia Elétrica</em>,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+<section id="id32">
+<h4>Module Dependencies</h4>
+<ul class="simple">
+<li><p><strong>Internal:</strong> None</p></li>
+<li><p><strong>External:</strong> <cite>pyomo.environ</cite>, <cite>typing</cite></p></li>
+</ul>
+</section>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Storage.StorageEquations.add_storage_balance_expression">
+<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageEquations.</span></span><span class="sig-name descname"><span class="pre">add_storage_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dd><p>Add the net storage balance expression to the balance array.</p>
+<p>The expression represents the net contribution of storage units
+to the system power balance in each time period and load level,
+considering both charge and discharge efficiencies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing the relevant storage variables and parameters.</p></li>
+<li><p><strong>t</strong> (<em>Any</em>) – Time index for which the balance expression is computed.</p></li>
+<li><p><strong>p</strong> (<em>Any</em>) – Load level index corresponding to the current balance term.</p></li>
+<li><p><strong>balance_array</strong> (<em>list</em><em> of </em><em>Any</em>) – External list to which the resulting expression will be appended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated list of balance expressions including the storage term.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Storage.StorageEquations.add_storage_capacity_expression">
+<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageEquations.</span></span><span class="sig-name descname"><span class="pre">add_storage_capacity_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capacity_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dd><p>Add the net storage capacity expression to the capacity array.</p>
+<p>The expression represents the net contribution of storage units
+to the system capacity in each time period and load level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing the relevant storage variables and parameters.</p></li>
+<li><p><strong>t</strong> (<em>Any</em>) – Time index for which the capacity expression is computed.</p></li>
+<li><p><strong>p</strong> (<em>Any</em>) – Load level index corresponding to the current capacity term.</p></li>
+<li><p><strong>capacity_array</strong> (<em>list</em><em> of </em><em>Any</em>) – External list to which the resulting expression will be appended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated list of capacity expressions including the storage term.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Storage.StorageEquations.add_storage_cost_expression">
+<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageEquations.</span></span><span class="sig-name descname"><span class="pre">add_storage_cost_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dd><p>Add the total cost expression of all storage units to the cost array.</p>
+<p>The expression combines operational and investment costs across all
+time periods and load levels, weighted by load duration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing sets, parameters, and variables
+of the storage subsystem.</p></li>
+<li><p><strong>cost_array</strong> (<em>list</em><em> of </em><em>Any</em>) – External list to which the resulting cost expression will be appended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated list of cost expressions including the storage cost term.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-MDI.Storage.StorageObjective">
+<span id="mdi-storage-storageobjective-module"></span><h2>MDI.Storage.StorageObjective module</h2>
+<section id="storage-objective-function-module">
+<h3>Storage Objective Function Module</h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="id33">
+<h4>Author</h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id34">
+<h4>Summary</h4>
+<p>This module defines the <strong>objective function</strong> for the energy storage subsystem,
+used in the Mixed-Integer Linear Programming (MILP) formulation of the
+operation and expansion planning problem.</p>
+</section>
+<section id="id35">
+<h4>Description</h4>
+<p>The objective function represents the <strong>total system cost</strong> associated
+with the operation and investment of storage units.
+It aggregates two main cost components:</p>
+<ol class="arabic simple">
+<li><p><strong>Operational Cost (c_op)</strong> — proportional to the total amount of energy moved
+(charging and discharging), weighted by the duration of each load level.</p></li>
+<li><p><strong>Investment Cost (c_inv)</strong> — proportional to the existence of installed
+capacity throughout the planning horizon.</p></li>
+</ol>
+<p>Both cost components are expressed as additive terms in a global minimization
+objective, consistent with standard formulations in expansion planning models.</p>
+</section>
+<section id="id36">
+<h4>Mathematical Formulation</h4>
+<p>The objective function is defined as:</p>
+<p>[
+min ; Z =
+sum_{s in SU} sum_{t in T} sum_{p in P}</p>
+<blockquote>
+<div><p>h_p , c^{op}_s , (P^{ch}_{s,t,p} + P^{dis}_{s,t,p})</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>sum_{s in SU} sum_{t in T}
+c^{inv}_s , x_{s,t}</p></li>
+</ul>
+<p>]</p>
+<p>where:</p>
+<div class="line-block">
+<div class="line">Symbol | Description |</div>
+</div>
+<p><a href="#id46"><span class="problematic" id="id47">|:--------|</span></a>:————|
+| (h_p) | Duration of load level (p) (hours) |
+| (c^{op}_s) | Operational cost of unit (s) (per MWh) |
+| (c^{inv}_s) | Investment cost of unit (s) |
+| (P^{ch}_{s,t,p}) | Charging power (MW) |
+| (P^{dis}_{s,t,p}) | Discharging power (MW) |
+| (x_{s,t}) | Binary existence variable |
+| (SU, T, P) | Sets of storage units, time steps, and load levels |</p>
+</section>
+<section id="id37">
+<h4>Functions</h4>
+<dl class="simple">
+<dt>set_objective_storage(m)</dt><dd><p>Adds the objective function to the Pyomo model, minimizing total storage costs.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The function assumes that all sets, parameters, and variables
+have already been defined (typically via <cite>storage_add_sets_and_params</cite>
+and <cite>storage_add_variables</cite>).</p></li>
+<li><p>Units are consistent with the rest of the framework:
+MW for power, MWh for energy, and monetary units for costs.</p></li>
+<li><p>The resulting objective is fully compatible with mixed-integer solvers
+such as CBC, GLPK, or commercial solvers (Gurobi, CPLEX).</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL. <em>DESSEM — Manual de Metodologia</em>, 2023.
+[2] Unsihuay Vila, C. <em>Introdução aos Sistemas de Energia Elétrica</em>, Lecture Notes, UFPR, 2023.</p>
+</section>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Storage.StorageObjective.set_objective_storage">
+<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageObjective.</span></span><span class="sig-name descname"><span class="pre">set_objective_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Define the total cost minimization objective for the storage subsystem.</p>
+<p>This function constructs a Pyomo <cite>Objective</cite> expression that
+aggregates operational and investment costs for all storage units
+across time steps and load levels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing all sets, parameters, and variables
+related to the storage subsystem.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model instance, now with an attached objective function
+named <cite>OBJ</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># (Assume sets and parameters already defined)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">set_objective_storage</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">OBJ</span><span class="o">.</span><span class="n">sense</span><span class="p">)</span>
+<span class="go">minimize</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-MDI.Storage.StorageVars">
+<span id="mdi-storage-storagevars-module"></span><h2>MDI.Storage.StorageVars module</h2>
+<section id="storage-variables-and-parameters-module">
+<h3>Storage Variables and Parameters Module</h3>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<section id="id38">
+<h4>Author</h4>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id39">
+<h4>Summary</h4>
+<p>This module defines all <strong>sets, parameters, and decision variables</strong>
+related to the <strong>energy storage subsystem</strong> of the MDI optimization framework.
+It provides the symbolic foundation required by the storage constraints
+and objective function.</p>
+</section>
+<section id="id40">
+<h4>Description</h4>
+<p>Two main functions are implemented:</p>
+<ol class="arabic simple">
+<li><p><strong>`storage_add_sets_and_params(m, data)`</strong>
+Initializes all Pyomo sets and parameters related to the storage units,
+including physical limits, efficiencies, operational costs, and time structure.</p></li>
+<li><p><strong>`storage_add_variables(m)`</strong>
+Declares the decision variables for charging, discharging,
+energy state, and investment decisions.</p></li>
+</ol>
+<p>The storage formulation supports a <strong>multi-patamar (load level)</strong> representation
+and can be embedded seamlessly within larger optimization systems
+that couple generation, transmission, and storage components.</p>
+</section>
+<section id="id41">
+<h4>Mathematical Overview</h4>
+<p><strong>Continuous variables</strong>
+[
+egin{align}
+E_{s,t,p} &amp;ge 0 quad &amp;        ext{(stored energy)} P^{ch}_{s,t,p} &amp;ge 0 quad &amp;   ext{(charging power)} P^{dis}_{s,t,p} &amp;ge 0 quad &amp;  ext{(discharging power)}
+end{align}
+]</p>
+<p><strong>Binary variables</strong>
+[
+egin{align}
+x_{s,t} &amp;in {0,1} quad &amp;    ext{(existence of unit)} y_{s,t} &amp;in {0,1} quad &amp;    ext{(investment decision)}
+end{align}
+]</p>
+<p>Parameters are defined for:
+- Energy bounds (E^{min}, E^{max}, E^{ini})
+- Power limits (P^{ch,max}, P^{dis,max})
+- Efficiencies (eta_c, eta_d)
+- Costs (c_{op}, c_{inv})
+- State (x_{0})
+- Duration of time step (Delta t)</p>
+</section>
+<section id="id42">
+<h4>Functions</h4>
+<dl class="simple">
+<dt>storage_add_sets_and_params(m, data)</dt><dd><p>Define the sets and parameters related to the storage subsystem.</p>
+</dd>
+<dt>storage_add_variables(m)</dt><dd><p>Define the decision variables associated with energy, power, and investment.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The function automatically initializes missing time and patamar sets (<cite>m.T</cite>, <cite>m.P</cite>)
+when they are not yet defined in the parent model.</p></li>
+<li><p>The formulation is fully compatible with a mixed-integer linear structure (MILP).</p></li>
+<li><p>The energy is represented in MWh, power in MW, and costs in monetary units.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL. <em>DESSEM — Manual de Metodologia</em>, 2023.
+[2] Unsihuay Vila, C. <em>Introdução aos Sistemas de Energia Elétrica</em>, Lecture Notes,</p>
+<blockquote>
+<div><p>EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+<section id="id43">
+<h4>Module Dependencies</h4>
+<ul class="simple">
+<li><p><strong>Internal:</strong> <code class="docutils literal notranslate"><span class="pre">StorageDataTypes</span></code></p></li>
+<li><p><strong>External:</strong> <code class="docutils literal notranslate"><span class="pre">pyomo.environ</span></code> (RangeSet, Set, Param, Var, NonNegativeReals, Binary, ConcreteModel)</p></li>
+</ul>
+</section>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Storage.StorageVars.storage_add_sets_and_params">
+<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageVars.</span></span><span class="sig-name descname"><span class="pre">storage_add_sets_and_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MDI.Storage.StorageDataTypes.StorageData" title="MDI.Storage.StorageDataTypes.StorageData"><span class="pre">StorageData</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Define the sets and parameters for the storage subsystem.</p>
+<p>Initializes all symbolic structures needed for the storage model,
+including time horizon, load levels, physical parameters, and
+investment-related costs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance to which sets and parameters will be added.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#MDI.Storage.StorageDataTypes.StorageData" title="MDI.Storage.StorageDataTypes.StorageData"><em>StorageData</em></a>) – Structured data object containing the full specification of
+the storage units and demand profiles.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The model instance with all sets and parameters defined.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.Storage.StorageVars.storage_add_variables">
+<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageVars.</span></span><span class="sig-name descname"><span class="pre">storage_add_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Define the decision variables for the storage subsystem.</p>
+<p>Includes continuous and binary variables representing:
+- Energy stored
+- Charging/discharging power
+- Construction and operational existence decisions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance where variables will be defined.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The model instance with all storage-related variables declared.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

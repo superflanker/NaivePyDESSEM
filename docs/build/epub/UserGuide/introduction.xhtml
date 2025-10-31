@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>NaivePyDESSEM User Guide</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/epub.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="naivepydessem-user-guide">
+<h1>NaivePyDESSEM User Guide</h1>
+<section id="introduction">
+<h2>1. Introduction</h2>
+<section id="purpose-and-scope">
+<h3>Purpose and Scope</h3>
+<p>The <strong>NaivePyDESSEM Project Suite</strong> is a pedagogical framework designed to provide a transparent, modular, and fully reproducible environment for the study and experimentation of <strong>power system operation and expansion planning</strong>. The suite comprises three complementary packages — <strong>NaivePyDESSEM</strong>, <strong>NaivePyDECOMP</strong>, and <strong>MDI</strong> — which collectively simulate, analyze, and optimize short-term dispatch, medium-term operation, and data integration within the energy systems domain.</p>
+<p>This User Guide is intended for researchers, graduate students, and professionals seeking to understand the internal logic, structure, and usage of the NaivePyDESSEM ecosystem. The document adopts a formal technical tone consistent with academic and professional documentation standards, offering detailed explanations of modeling principles, solver integration, data preparation, and output interpretation.</p>
+</section>
+<section id="conceptual-foundations">
+<h3>Conceptual Foundations</h3>
+<p>The NaivePyDESSEM family mirrors the conceptual hierarchy established in the <strong>CEPEL</strong> models — <em>DESSEM</em> for short-term operation, <em>DECOMP</em> for medium-term optimization, and <em>NEWAVE</em> for long-term planning — while maintaining a simplified yet analytically rigorous structure suitable for academic research and classroom experimentation.</p>
+<p>Each package is built atop the <strong>Pyomo</strong> optimization framework, leveraging its declarative modeling language to define decision variables, constraints, and objective functions for deterministic and stochastic optimization problems. The design emphasizes clarity of implementation, mathematical transparency, and reproducibility, allowing users to directly inspect, modify, and extend each model component.</p>
+</section>
+<section id="target-audience">
+<h3>Target Audience</h3>
+<p>This guide addresses three primary user profiles:</p>
+<ol class="arabic simple">
+<li><p><strong>Students and Educators</strong> – who require a didactic framework for demonstrating fundamental principles of energy systems operation and optimization.</p></li>
+<li><p><strong>Researchers and Developers</strong> – who seek a modular foundation for developing or benchmarking novel optimization methodologies, including stochastic, metaheuristic, or decomposition-based approaches.</p></li>
+<li><p><strong>Industry Professionals</strong> – who wish to experiment with open, interpretable models before transitioning to large-scale proprietary tools.</p></li>
+</ol>
+</section>
+<section id="system-requirements">
+<h3>System Requirements</h3>
+<p>To ensure optimal performance and reproducibility, the following environment is recommended:</p>
+<ul class="simple">
+<li><p><strong>Operating System:</strong> Linux (preferred), macOS, or Windows 10/11.</p></li>
+<li><p><strong>Python Version:</strong> 3.9 or higher.</p></li>
+<li><p><strong>Required Dependencies:</strong> <code class="docutils literal notranslate"><span class="pre">pyomo</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, and <code class="docutils literal notranslate"><span class="pre">mealpy</span></code> (for metaheuristic integration).</p></li>
+<li><p><strong>Optional Solvers:</strong> <code class="docutils literal notranslate"><span class="pre">GLPK</span></code>, <code class="docutils literal notranslate"><span class="pre">CPLEX</span></code>, <code class="docutils literal notranslate"><span class="pre">Gurobi</span></code>, or <code class="docutils literal notranslate"><span class="pre">IPOPT</span></code>.</p></li>
+</ul>
+<p>Installation can be performed via standard Python package management tools:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>naivepydessem
+</pre></div>
+</div>
+</section>
+<section id="documentation-conventions">
+<h3>Documentation Conventions</h3>
+<p>Throughout this guide, the following conventions are used:</p>
+<ul class="simple">
+<li><p><strong>Monospaced text</strong> denotes command-line inputs or code fragments.</p></li>
+<li><p><em>Italics</em> identify technical terms, functions, or variables introduced in the text.</p></li>
+<li><p>Boldface (**) is used to highlight crucial terms or key conceptual distinctions.</p></li>
+<li><p>Mathematical expressions appear in inline LaTeX syntax when applicable.</p></li>
+</ul>
+<p>Example:</p>
+<blockquote>
+<div><p>The <strong>economic dispatch problem</strong> seeks to minimize the total operational cost ( C = \sum_{i} c_i P_i ) subject to power balance and generation limits.</p>
+</div></blockquote>
+</section>
+<section id="versioning-and-licensing">
+<h3>Versioning and Licensing</h3>
+<p>All packages within the NaivePyDESSEM ecosystem adhere to <strong>semantic versioning (SemVer)</strong> principles. Updates follow a structured pattern of incremental releases:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MAJOR</span></code> – structural redesign or interface-breaking changes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MINOR</span></code> – feature additions or functional extensions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PATCH</span></code> – bug fixes, documentation, or minor corrections.</p></li>
+</ul>
+<p>The project is distributed under the <strong>MIT License</strong>, ensuring unrestricted use, modification, and distribution for educational and research purposes. Users are encouraged to cite the project in academic publications using the official bibliographic entry provided in the <em>References</em> section of this guide.</p>
+<hr class="docutils" />
+<p><strong>Next Section:</strong> <a class="reference internal" href="#2-conceptual-background"><span class="xref myst">Conceptual Background →</span></a></p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

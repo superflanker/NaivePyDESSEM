@@ -26,6 +26,7 @@ meta:
   
   level_hours: {"Ponta": 2000,
                 "Fora": 6740}
+  level_precedence: ["Ponta", "Fora"]
 generator:
   units:                      # Dict[str, GeneratorUnit]
     UHE_1:                    # convenção: {GER}_{UNIT}
@@ -69,19 +70,20 @@ generator:
       p_max: 10000            # potência máxima projetada
       c_op: 5000              # custos de operação
       c_inv: 0                # custos de investimento e O&M
-      include_cap: False      # incluir na restrição de capacidade
+      include_cap: True       # incluir na restrição de capacidade
 
 storage:
   delta_t: 1.0                # usa meta.delta_t por padrão; mantenha aqui por clareza
   units:                      # Dict[str, StorageUnit]
     BAT_1:                    # convenção {GER}_{UNIT}
-      state: 1                # candidata
+      state: 0                # candidata
       c_op: 0                 # custos de operação
-      c_inv: 25_000_000       # custos de investimento e O&M
+      c_inv: 10_000_000       # custos de investimento e O&M
       Emin:    50.0           # SoCmin (MWh)
       Emax:    500.0          # SoCmax (MWh)
       Eini:    100.0          # SoC0   (MWh)
       Pch_max: 300.0          # MW
       Pdis_max: 300.0         # MW
       eta_c: 0.95             # eficiência de carga (0-1)
-      eta_d: 0.95             # eficiência de descarga (0-1)          
+      eta_d: 0.95             # eficiência de descarga (0-1) 
+      include_cap: True       # incluir na restrição de capacidade         

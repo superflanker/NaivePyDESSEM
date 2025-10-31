@@ -26,13 +26,14 @@ meta:
   
   level_hours: {"Ponta": 2000,
                 "Fora": 6740}
+  level_precedence: ["Ponta", "Fora"]
 generator:
   units:                      # Dict[str, GeneratorUnit]
     UHE_1:                    # convenção: {GER}_{UNIT}
-      state: 0                # existente
+      state: 1                # existente
       p_max: 100              # potência máxima projetada
       c_op: 0                 # custos de operação
-      c_inv: 15_000_000       # custos de investimento e O&M
+      c_inv: 0_000_000        # custos de investimento e O&M
       include_cap: True       # incluir na restrição de capacidade
     UHE_2:                    # convenção: {GER}_{UNIT}
       state: 0                # candidata
@@ -69,5 +70,5 @@ generator:
       p_max: 10000            # potência máxima projetada
       c_op: 5000              # custos de operação
       c_inv: 0                # custos de investimento e O&M
-      include_cap: False      # incluir na restrição de capacidade
+      include_cap: True       # incluir na restrição de capacidade
          

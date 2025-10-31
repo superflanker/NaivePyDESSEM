@@ -1,3 +1,5 @@
+# NaivePyDESSEM — A Pedagogical and Modular Framework for Hydrothermal Economic Dispatch and Expansion Planning in Pyomo (DESSEM, DECOMP, and MDI-like Solvers)
+
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![CI](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml/badge.svg)](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml)
 [![Docs](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/docs.yml/badge.svg)](https://superflanker.github.io/NaivePyDESSEM/)
@@ -10,47 +12,6 @@
 - **MDI** — Generation Expansion Planning inspired by **MDI** methodology.
 
 Both are implemented in **Pyomo**, with modular architecture and integrated documentation via Sphinx.
-
----
-
-## 🔍 Overview
-
-This project replicates key concepts of the **DESSEM**, **DECOMP** and **MDI** methodologies, covering hybrid economic dispatch problems involving thermal, hydro, renewable, and storage units.
-
-The goal is to provide a **clean teaching tool** for courses such as *EELT 7030 — Operation and Expansion Planning of Electric Power Systems*.
-
----
-
-## 🔍 Features
-
-- **NaivePyDESSEM**:
-  - Detailed short-term hydrothermal dispatch (hourly/daily).  
-  - Individual representation of hydro and thermal units (MILP/MIQP).  
-  - Includes ramping limits, startup/shutdown, minimum up/down time, etc.  
-
-- **NaivePyDECOMP**:
-  - Aggregated medium-term hydrothermal dispatch (weekly/monthly).  
-  - Simplified thermal representation (Gmin, Gmax, Cost).  
-  - Hydros aggregated into REEs with constant productivity.  
-  - Supports **single LP** or **Deterministic Dual Dynamic Programming (PDDD)**.  
-
-- **MDI**:
-  - Generation Expansion Planning using Mixed Integer Linear Programing (MILP)
-  - Simplified Generation Representation
-
-- Shared features:  
-  - Modular equation/constraint builders.  
-  - CLI tools for solving and exporting results.  
-  - LaTeX export and plotting utilities.  
-  - YAML-driven model configuration.  
-
-The goal is to provide a **clean teaching tool** for courses such as *EELT 7030 — Operation and Expansion Planning of Electric Power Systems*
-# NaivePyDESSEM — A Pedagogical and Modular Framework for Hydrothermal Economic Dispatch and Expansion Planning in Pyomo (DESSEM, DECOMP, and MDI-like Solvers)
-
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![CI](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml/badge.svg)](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml)
-[![Docs](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/docs.yml/badge.svg)](https://superflanker.github.io/NaivePyDESSEM/)
-[![GitHub Repo](https://img.shields.io/badge/GitHub-NaivePyDESSEM-181717?logo=github)](https://github.com/superflanker/NaivePyDESSEM)
 
 ---
 

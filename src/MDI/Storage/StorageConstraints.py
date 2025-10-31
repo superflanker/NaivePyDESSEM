@@ -123,14 +123,37 @@ def add_storage_energy_balance_constraint(m):
     pyomo.environ.ConcreteModel
         The model with the energy balance constraint added.
     """
-    def _soc_rule(m, s, t, p):
+    """ def _soc_rule(m, s, t, p):
         if t == 1:
             return m.storage_E[s, t, p] == m.storage_Eini[s] \
                    + m.storage_eta_c[s] * m.storage_ch[s, t, p] * m.storage_delta_t \
                    - (m.storage_dis[s, t, p] / m.storage_eta_d[s]) * m.storage_delta_t
         return m.storage_E[s, t, p] == m.storage_E[s, m.T.prev(t), p] \
                + m.storage_eta_c[s] * m.storage_ch[s, t, p] * m.storage_delta_t \
-               - (m.storage_dis[s, t, p] / m.storage_eta_d[s]) * m.storage_delta_t
+               - (m.storage_dis[s, t, p] / m.storage_eta_d[s]) * m.storage_delta_t """
+    
+    def _soc_rule(m, s, t, p):
+        precedence = list(m.level_precedence)
+        idx = precedence.index(p)
+
+        if idx == 0:
+            if t == 1:
+                return m.storage_E[s, t, p] == m.storage_Eini[s] * m.storage_x[s, t]
+            else:
+                return m.storage_E[s, t, p] == (
+                    m.storage_E[s, m.T.prev(t), precedence[-1]]
+                    + m.storage_Eini[s] * m.storage_y[s, t]
+                    + m.storage_eta_c[s] * m.storage_ch[s, t, p] * m.storage_delta_t
+                    - (m.storage_dis[s, t, p] / m.storage_eta_d[s]) * m.storage_delta_t
+                )
+
+        p_prev = precedence[idx - 1]
+        return m.storage_E[s, t, p] == (
+            m.storage_E[s, t, p_prev]
+            + m.storage_eta_c[s] * m.storage_ch[s, t, p] * m.storage_delta_t
+            - (m.storage_dis[s, t, p] / m.storage_eta_d[s]) * m.storage_delta_t
+        )
+
 
     m.storage_energy_balance_constraint = Constraint(m.SU, m.T, m.P, rule=_soc_rule)
     return m
