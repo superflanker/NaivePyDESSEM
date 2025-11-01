@@ -220,7 +220,7 @@ def build_balance_and_objective_from_yaml(model: ConcreteModel, yaml_data: Dict[
             add_storage_capacity_expression(m, t, p, capacity_terms)
 
         idx = t-1
-        return sum(capacity_terms) >= model.level_hours[p] * model.d[p][idx]
+        return sum(capacity_terms) >= model.d[p][idx]
 
     model.Adequacy = Constraint(model.T, model.P, rule=capacity_balance_rule)
     

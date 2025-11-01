@@ -70,89 +70,6 @@ from .ModelCheck import *
 from copy import deepcopy
 from pyomo.environ import ConcreteModel, SolverFactory, value
 
-def compute_CME_by_period(model: ConcreteModel,
-                          solver_name: str = "glpk",
-                          delta_E: float = 1.0,
-                          reserve_margin: float = 0.15) -> dict:
-    """
-    Compute CME (Custo Marginal de Energia) and CME de Expansão
-    for each time period individually via incremental perturbation.
-
-    Parameters
-    ----------
-    model : ConcreteModel
-        Pyomo model with 'Adequacy' and 'Balance' constraints.
-    solver_name : str, optional
-        MILP solver name (default: 'glpk').
-    delta_E : float, optional
-        Increment applied to demand in each period (default: 1.0).
-    reserve_margin : float, optional
-        Fractional capacity increase used in expansion case (default: 0.15).
-
-    Returns
-    -------
-    dict
-        {
-            "Custo_Base": float,
-            "CME_energia_por_periodo": { (p,t): value },
-            "CME_expansao_por_periodo": { (p,t): value },
-            "CME_global": float,
-            "CME_expansao_global": float
-        }
-    """
-    solver = SolverFactory(solver_name)
-
-    # =============================================================
-    # 1. Resolver o modelo base
-    # =============================================================
-    base_model = deepcopy(model)
-    solver.solve(base_model, tee=False)
-    C0 = value(base_model.OBJ)
-
-    CME_energia_dict = {}
-    CME_expansao_dict = {}
-
-    # =============================================================
-    # 2. Loop sobre períodos e patamares
-    # =============================================================
-    for p in model.P:
-        for t in model.T:
-
-            # ---------------------------------------------------------
-            # 2.1 CME de Energia (CMO) — perturba demanda pontual
-            # ---------------------------------------------------------
-            mE = deepcopy(model)
-            mE.d[p][t-1] += delta_E
-            solver.solve(mE, tee=False)
-            C_E = value(mE.OBJ)
-            CME_energia_dict[(p, t)] = (C_E - C0) / delta_E
-
-            # ---------------------------------------------------------
-            # 2.2 CME de Expansão — perturba demanda e capacidade
-            # ---------------------------------------------------------
-            mExp = deepcopy(model)
-            mExp.d[p][t-1] = mExp.d[p][t-1] * (1 + reserve_margin) + delta_E
-            solver.solve(mExp, tee=False)
-            C_Exp = value(mExp.OBJ)
-            CME_expansao_dict[(p, t)] = (C_Exp - C0) / delta_E
-
-    # =============================================================
-    # 3. Médias globais (ponderadas)
-    # =============================================================
-    CME_media = sum(CME_energia_dict.values()) / len(CME_energia_dict)
-    CME_exp_media = sum(CME_expansao_dict.values()) / len(CME_expansao_dict)
-
-    result = {
-        "CB": C0,
-        "CMO": CME_energia_dict,
-        "CME": CME_expansao_dict,
-        "CME_global_R$/MWh": CME_media,
-        "CME_expansao_global_R$/MWh": CME_exp_media
-    }
-
-    return result
-
-
 def add_generator_dispatch_to_dataframe(df: pd.DataFrame,
                                         model: ConcreteModel) -> pd.DataFrame:
     """
@@ -221,9 +138,9 @@ def add_storage_dispatch_to_dataframe(df: pd.DataFrame,
             for p in P:
                 ps = r'{' + p + r'}'
                 df[f'D_{{{{s_{s}}}{{p_{ps}}}}}'] = [
-                    value(model.storage_dis[s, t, p]) for t in T]
+                    value(model.storage_dis[s, t, p] * model.level_hours[p]) for t in T]
                 df[f'C_{{{{s_{s}}}{{p_{ps}}}}}'] = [
-                    -value(model.storage_ch[s, t, p]) for t in T]
+                    -value(model.storage_ch[s, t, p] * model.level_hours[p]) for t in T]
                 df[f'G_{{{{s_{s}}}{{p_{ps}}}}}'] = [
                     value(model.storage_dis[s, t, p] - model.storage_ch[s, t, p]) for t in T]
                 df[f'E_{{{{s_{s}}}{{p_{ps}}}}}'] = [

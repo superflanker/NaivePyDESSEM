@@ -193,7 +193,7 @@ def add_storage_capacity_expression(
             # Capacity available only if the storage unit exists in period t
             # since Pdis_max is in MWh/level, this must be MWh per level
             # this is the maximum eergy capacity that storage can deliver per level
-            m.storage_Pdis_max[s, p] * m.storage_x[s, t]
+            (m.storage_Pdis_max[s, p] / m.level_hours[p]) * m.storage_x[s, t]
             for s in m.SU
         )
         capacity_array.append(expr)

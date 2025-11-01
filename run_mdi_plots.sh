@@ -755,5 +755,133 @@ mdi-plot resultados/MDI/planejamento_expansao_ex06_anualizado.csv \
   --ylabel "Custos (\\$)" \
   --out-dir relatorios/MDI/ex06/imagens \
   --out-file custos_geracao_ex06_anualizado.png
+# caso07, tabelas - investimento único
 
+mdi-plot resultados/MDI/planejamento_expansao_ex07.csv \
+  --mode table --category GT \
+  --title "Tabela de Geração (\$MWh/h\$) - Ex07 - Investimento Único" \
+  --label tab:geracao_ex07 \
+  --out-dir relatorios/MDI/ex07/tabelas/ \
+  --out-file tabela_geracao_ex07.tex
+
+mdi-plot resultados/MDI/planejamento_expansao_ex07.csv \
+  --mode table --category cost \
+  --title "Custos Operacionais e Investimento - Ex07 - Investimento Único" \
+  --label tab:custos_geracao_ex07 \
+  --out-dir relatorios/MDI/ex07/tabelas/ \
+  --out-file tabela_custos_ex07.tex
+
+mdi-plot resultados/MDI/planejamento_expansao_ex07.csv \
+  --mode ctrl \
+  --title "Decisão de Construção e Existência de Usinas (X, Y) - Ex07 - Investimento Único" \
+  --label tab:ctrl_ex07 \
+  --out-dir relatorios/MDI/ex07/tabelas/ \
+  --out-file decisoes_ex07.tex
+
+# caso07, gráficos - Investimento Único
+
+mdi-plot resultados/MDI/planejamento_expansao_ex07.csv \
+  --mode plot --category G  \
+  --plot-style bar --stacked \
+  --level Ponta \
+  --title "Geração - Ponta - Ex07 - Investimento Único" \
+  --ylabel "Geração (\$MWmed\$)" \
+  --out-dir relatorios/MDI/ex07/imagens \
+  --out-file geracao_ex07_ponta.png
+
+mdi-plot resultados/MDI/planejamento_expansao_ex07.csv \
+  --mode plot --category G  \
+  --plot-style bar --stacked \
+  --level Fora \
+  --title "Geração - Fora - Ex07 - Investimento Único" \
+  --ylabel "Geração (\$MWmed\$)" \
+  --out-dir relatorios/MDI/ex07/imagens \
+  --out-file geracao_ex07_fora.png
+
+if [ -f relatorios/MDI/ex07/imagens/geracao_ex07.png ]; then
+  rm -f relatorios/MDI/ex07/imagens/geracao_ex07.png
+fi
+
+ffmpeg -i relatorios/MDI/ex07/imagens/geracao_ex07_ponta.png -i relatorios/MDI/ex07/imagens/geracao_ex07_fora.png -filter_complex hstack relatorios/MDI/ex07/imagens/geracao_ex07.png
+
+mdi-plot resultados/MDI/planejamento_expansao_ex07.csv \
+  --mode plot --category cost  \
+  --plot-style bar \
+  --title "Custos de Geração - Ex07 - Investimento Único" \
+  --ylabel "Custos (\\$)" \
+  --out-dir relatorios/MDI/ex07/imagens \
+  --out-file custos_geracao_ex07.png
+
+mdi-plot resultados/MDI/planejamento_expansao_ex07.csv\
+  --mode plot --category BAT  \
+  --plot-style bar \
+  --title "Carga/Descarga das Baterias - Ex07 - Investimento Único" \
+  --ylabel "Carga/Dscarga (\$MWh/h\$)" \
+  --out-dir relatorios//MDI/ex07/imagens \
+  --out-file carga_descarga_baterias_ex07.png
+
+# caso07, tabelas - Investimento Anualizado
+
+mdi-plot resultados/MDI/planejamento_expansao_ex07_anualizado.csv \
+  --mode table --category GT \
+  --title "Tabela de Geração (\$MWh/h\$) - Ex07 - Anualizado" \
+  --label tab:geracao_ex07_anualizado \
+  --out-dir relatorios/MDI/ex07/tabelas/ \
+  --out-file tabela_geracao_ex07_anualizado.tex
+
+mdi-plot resultados/MDI/planejamento_expansao_ex07_anualizado.csv \
+  --mode table --category cost \
+  --title "Custos Operacionais e Investimento - Ex07 - Anualizado" \
+  --label tab:custos_geracao_ex07_anualizado \
+  --out-dir relatorios/MDI/ex07/tabelas/ \
+  --out-file tabela_custos_ex07_anualizado.tex
+
+mdi-plot resultados/MDI/planejamento_expansao_ex07_anualizado.csv \
+  --mode ctrl \
+  --title "Decisão de Construção e Existência de Usinas (X, Y) - Ex07 - Anualizado" \
+  --label tab:ctrl_ex07_anualizado \
+  --out-dir relatorios/MDI/ex07/tabelas/ \
+  --out-file decisoes_ex07_anualizado.tex
+
+# caso07, gráficos - Investimento Anualizado
+
+mdi-plot resultados/MDI/planejamento_expansao_ex07_anualizado.csv \
+  --mode plot --category G  \
+  --plot-style bar --stacked \
+  --level Ponta \
+  --title "Geração - Ponta - Ex07 - Anualizado" \
+  --ylabel "Geração (\$MWmed\$)" \
+  --out-dir relatorios/MDI/ex07/imagens \
+  --out-file geracao_ex07_anualizado_ponta.png
+
+mdi-plot resultados/MDI/planejamento_expansao_ex07_anualizado.csv \
+  --mode plot --category G  \
+  --plot-style bar --stacked \
+  --level Fora \
+  --title "Geração - Fora - Ex07 - Anualizado" \
+  --ylabel "Geração (\$MWmed\$)" \
+  --out-dir relatorios/MDI/ex07/imagens \
+  --out-file geracao_ex07_anualizado_fora.png
+
+if [ -f relatorios/MDI/ex07/imagens/geracao_ex07_anualizado.png ]; then
+  rm -f relatorios/MDI/ex07/imagens/geracao_ex07_anualizado.png
+fi
+
+ffmpeg -i relatorios/MDI/ex07/imagens/geracao_ex07_anualizado_ponta.png -i relatorios/MDI/ex07/imagens/geracao_ex07_anualizado_fora.png -filter_complex hstack relatorios/MDI/ex07/imagens/geracao_ex07_anualizado.png
+
+mdi-plot resultados/MDI/planejamento_expansao_ex07_anualizado.csv \
+  --mode plot --category cost  \
+  --plot-style bar \
+  --title "Custos de Geração - Ex07 - Anualizado" \
+  --ylabel "Custos (\\$)" \
+  --out-dir relatorios/MDI/ex07/imagens \
+  --out-file custos_geracao_ex07_anualizado.png
+
+mdi-plot resultados/MDI/planejamento_expansao_ex07_anualizado.csv\
+  --mode plot --category BAT  \
+  --plot-style bar \
+  --title "Carga/Descarga das Baterias - Ex07 - Anualizado" \
+  --ylabel "Carga/Descarga (\$MWh/h\$)" \
+  --out-dir relatorios//MDI/ex07/imagens \
+  --out-file carga_descarga_baterias_ex07_anualizado.png
 deactivate

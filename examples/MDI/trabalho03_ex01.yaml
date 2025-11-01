@@ -78,7 +78,7 @@ storage:
     BAT_1:                    # convenção {GER}_{UNIT}
       state: 0                # existente
       c_op: 0                 # custos de operação
-      c_inv: 5_000_000        # custos de investimento e O&M
+      c_inv: 5_000            # custos de investimento e O&M
       Emin:    50.0           # SoCmin (MWh)
       Emax:    500.0          # SoCmax (MWh)
       Eini:    100.0          # SoC0   (MWh)
