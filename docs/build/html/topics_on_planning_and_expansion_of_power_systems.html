@@ -1,0 +1,1991 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=05624691" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/katex.min.js?v=5cc8ed51"></script>
+      <script src="_static/auto-render.min.js?v=af98beb9"></script>
+      <script src="_static/katex_autorenderer.js?v=bebc588a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NaivePyDESSEM User Guide" href="userguide.html" />
+    <link rel="prev" title="MDI.cli package" href="MDI.cli.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#objectives">OBJECTIVES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cheatsheet-content-organogram">CHEATSHEET – CONTENT ORGANOGRAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview-and-structure-of-the-electric-power-sector">OVERVIEW AND STRUCTURE OF THE ELECTRIC POWER SECTOR</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#full-competition">FULL COMPETITION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spot-market-and-settlement-price-pld">SPOT MARKET AND SETTLEMENT PRICE (PLD)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functions-of-the-national-system-operator-ons">FUNCTIONS OF THE NATIONAL SYSTEM OPERATOR (ONS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#renewable-energy-vs-clean-energy">RENEWABLE ENERGY VS. CLEAN ENERGY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#energy-transition">ENERGY TRANSITION</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#thermal-and-hydraulic-generation">THERMAL AND HYDRAULIC GENERATION</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">ENERGY TRANSITION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#advantages-of-thermal-power-plants">ADVANTAGES OF THERMAL POWER PLANTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#disadvantages-of-thermal-power-plants">DISADVANTAGES OF THERMAL POWER PLANTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#economic-dispatch">ECONOMIC DISPATCH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unit-commitment">UNIT COMMITMENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lagrange-multipliers">LAGRANGE MULTIPLIERS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reservoirs">RESERVOIRS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#water-balance-equation">WATER BALANCE EQUATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cascading-hydro-plants">CASCADING HYDRO PLANTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hydropower-production-function">HYDROPOWER PRODUCTION FUNCTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hydraulic-losses">HYDRAULIC LOSSES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#turbine-generator-efficiency">TURBINE-GENERATOR EFFICIENCY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prohibited-operating-zones">PROHIBITED OPERATING ZONES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spillage">SPILLAGE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#temporal-coupling">TEMPORAL COUPLING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spatial-coupling">SPATIAL COUPLING</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#hydrothermal-planning-and-optimization">HYDROTHERMAL PLANNING AND OPTIMIZATION</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#main-objective-of-hydrothermal-planning">MAIN OBJECTIVE OF HYDROTHERMAL PLANNING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#medium-term-planning-newave">MEDIUM-TERM PLANNING (NEWAVE)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#short-term-planning-decomp">SHORT-TERM PLANNING (DECOMP)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#very-short-term-planning-dessem">VERY SHORT-TERM PLANNING (DESSEM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#marginal-operating-cost-cmo">MARGINAL OPERATING COST (CMO)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#future-cost-cf">FUTURE COST (CF)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#immediate-cost-ci">IMMEDIATE COST (CI)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bellmans-principle-of-optimality">BELLMAN’S PRINCIPLE OF OPTIMALITY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#curse-of-dimensionality">CURSE OF DIMENSIONALITY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#future-cost-function-using-benders-cuts">FUTURE COST FUNCTION USING BENDERS CUTS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reliability-and-emerging-energy-sources">RELIABILITY AND EMERGING ENERGY SOURCES</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adequacy">ADEQUACY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#security">SECURITY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#traditional-reliability-indicators">TRADITIONAL RELIABILITY INDICATORS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#new-reliability-indicators-with-renewables">NEW RELIABILITY INDICATORS WITH RENEWABLES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dunkelflaute">DUNKELFLAUTE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bioenergy">BIOENERGY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#low-carbon-hydrogen">LOW-CARBON HYDROGEN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#energy-storage-systems-ess">ENERGY STORAGE SYSTEMS (ESS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#electric-vehicles-evs">ELECTRIC VEHICLES (EVs)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#carbon-capture-utilization-and-storage-ccus">CARBON CAPTURE, UTILIZATION, AND STORAGE (CCUS)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#distribution-networks-microgrids-and-uncertainties">DISTRIBUTION NETWORKS, MICROGRIDS, AND UNCERTAINTIES</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#distribution-network-assets">DISTRIBUTION NETWORK ASSETS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#active-distribution-networks-adns">ACTIVE DISTRIBUTION NETWORKS (ADNs)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#microgrids-mgs">MICROGRIDS (MGs)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#demand-response-dr">DEMAND RESPONSE (DR)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#smart-transformers-st">SMART TRANSFORMERS (ST)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#challenges-of-distributed-energy-resources-ders">CHALLENGES OF DISTRIBUTED ENERGY RESOURCES (DERs)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#curtailment">CURTAILMENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hierarchical-optimization-in-adns">HIERARCHICAL OPTIMIZATION IN ADNs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robustness-against-uncertainties">ROBUSTNESS AGAINST UNCERTAINTIES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-three-ds-of-energy">THE THREE Ds OF ENERGY</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generation-and-transmission-expansion">GENERATION AND TRANSMISSION EXPANSION</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#concept-and-purpose">CONCEPT AND PURPOSE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structure-of-the-mdi">STRUCTURE OF THE MDI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#demand-representation">DEMAND REPRESENTATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modeled-generation-sources">MODELED GENERATION SOURCES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#objective-function">OBJECTIVE FUNCTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#main-constraints">MAIN CONSTRAINTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uncertainty-treatment">UNCERTAINTY TREATMENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#decision-variables">DECISION VARIABLES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-outputs">MODEL OUTPUTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#relationship-with-the-marginal-expansion-cost-cme">RELATIONSHIP WITH THE MARGINAL EXPANSION COST (CME)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#technical-appendix-summary-of-the-dessem-manual">TECHNICAL APPENDIX: SUMMARY OF THE DESSEM MANUAL</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#purpose-of-dessem">PURPOSE OF DESSEM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mathematical-formulation">MATHEMATICAL FORMULATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hydraulic-representation">HYDRAULIC REPRESENTATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#thermal-representation">THERMAL REPRESENTATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#electrical-network-representation">ELECTRICAL NETWORK REPRESENTATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modular-structure-of-the-model">MODULAR STRUCTURE OF THE MODEL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integration-with-other-models">INTEGRATION WITH OTHER MODELS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#practical-applications">PRACTICAL APPLICATIONS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mathematical-modeling-of-dessem">Mathematical Modeling of DESSEM</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hydropower-plants">Hydropower Plants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#thermal-power-plants">Thermal Power Plants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#renewable-energies-and-storage">Renewable Energies and Storage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">Objective Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#power-balance-load-supply">Power Balance (Load Supply)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#technical-appendix-summary-of-the-decomp-manual">TECHNICAL APPENDIX: SUMMARY OF THE DECOMP MANUAL</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#strategic-planning">STRATEGIC PLANNING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#immediate-future-and-total-cost-functions-in-strategic-planning">IMMEDIATE, FUTURE, AND TOTAL COST FUNCTIONS IN STRATEGIC PLANNING</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#immediate-cost-function-fci">Immediate Cost Function (FCI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#future-cost-function-fcf">Future Cost Function (FCF)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#total-cost-function-fct">Total Cost Function (FCT)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#application">Application</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">MARGINAL OPERATING COST (CMO)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#definition">Definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#relationship-with-cost-functions">Relationship with Cost Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#role-in-planning">Role in Planning</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-concepts-in-strategic-operation-planning">ADVANCED CONCEPTS IN STRATEGIC OPERATION PLANNING</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#risk-aversion">Risk Aversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">Spatial Coupling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#curse-of-dimensionality-and-decomposition">Curse of Dimensionality and Decomposition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integration-with-price-formation">Integration with Price Formation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#solution-strategies-for-strategic-operation-planning">SOLUTION STRATEGIES FOR STRATEGIC OPERATION PLANNING</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#multistage-linear-programming-lp">Multistage Linear Programming (LP)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deterministic-dynamic-programming-pdd">Deterministic Dynamic Programming (PDD)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deterministic-dual-dynamic-programming-pddd">Deterministic Dual Dynamic Programming (PDDD)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stochastic-dual-dynamic-programming-pdde">Stochastic Dual Dynamic Programming (PDDE)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#very-short-term-deterministic-formulations">Very Short-Term Deterministic Formulations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#comparative-overview-of-strategies">COMPARATIVE OVERVIEW OF STRATEGIES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mathematical-modeling-of-decomp">Mathematical Modeling of DECOMP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id13">Hydropower Plants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#thermal-units">Thermal Units</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id25">Renewable Energies and Storage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id33">Objective Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#power-balance-load-requirement">Power Balance (Load Requirement)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#technical-appendix-summary-of-epe-manuals-on-the-mdi">TECHNICAL APPENDIX: SUMMARY OF EPE MANUALS ON THE MDI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#central-concept">CENTRAL CONCEPT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-structure">MODEL STRUCTURE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id34">Demand Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#system-components">System Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id35">Objective Function</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fundamental-constraints">FUNDAMENTAL CONSTRAINTS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#energy-balance">Energy Balance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#capacity-adequacy">Capacity Adequacy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#source-availability">Source Availability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#system-representation">System Representation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#investment-restrictions">Investment Restrictions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#additional-policy-constraints">Additional Policy Constraints</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#generation-source-modeling">GENERATION SOURCE MODELING</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hydroelectric-plants">Hydroelectric Plants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#thermal-plants">Thermal Plants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#renewable-sources">Renewable Sources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#energy-storage-projects">Energy Storage Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#uncertainty-scenarios">UNCERTAINTY SCENARIOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#marginal-expansion-cost-cme">MARGINAL EXPANSION COST (CME)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id36">Definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#calculation">Calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#key-concepts">KEY CONCEPTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mathematical-modeling-of-mdi">Mathematical Modeling of MDI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sets">Sets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id37">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id38">Decision Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id39">Constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id40">Capacity Adequacy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generation-limits">Generation Limits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#storage-dynamics">Storage Dynamics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#state-of-charge-limits">State of Charge Limits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#charge-discharge-power-limits">Charge/Discharge Power Limits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#initial-state">Initial State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#expansion-dynamics-existence-accumulation">Expansion Dynamics (Existence Accumulation)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unique-construction">Unique Construction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#monotonic-growth">Monotonic Growth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id41">Objective Function</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#technical-appendix-optimization-methods">TECHNICAL APPENDIX: OPTIMIZATION METHODS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lp-linear-programming-continuous-linear-programming">LP (LINEAR PROGRAMMING – CONTINUOUS LINEAR PROGRAMMING)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#milp-mixed-integer-linear-programming">MILP (MIXED-INTEGER LINEAR PROGRAMMING)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qp-quadratic-programming-convex-continuous-quadratic-programming">QP (QUADRATIC PROGRAMMING – CONVEX CONTINUOUS QUADRATIC PROGRAMMING)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#miqp-mixed-integer-quadratic-programming-convex-formulation">MIQP (MIXED-INTEGER QUADRATIC PROGRAMMING – CONVEX FORMULATION)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nlp-nonlinear-programming-continuous-nonlinear-programming">NLP (NONLINEAR PROGRAMMING – CONTINUOUS NONLINEAR PROGRAMMING)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#minlp-mixed-integer-nonlinear-programming">MINLP (MIXED-INTEGER NONLINEAR PROGRAMMING)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#summary-table">Summary Table</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#supplementary-appendix-uncertainties-and-d-opf">SUPPLEMENTARY APPENDIX: UNCERTAINTIES AND D-OPF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#optimization-under-uncertainty">OPTIMIZATION UNDER UNCERTAINTY</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#stochastic-programming-sp">Stochastic Programming (SP)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#robust-optimization-ro">Robust Optimization (RO)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-driven-distributionally-robust-optimization-dddro">Data-Driven Distributionally Robust Optimization (DDDRO)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#d-opf-formulations-optimal-power-flow-in-distribution-networks">D-OPF FORMULATIONS (OPTIMAL POWER FLOW IN DISTRIBUTION NETWORKS)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#exact-ac-formulation">Exact AC Formulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convex-relaxations">Convex Relaxations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mixed-integer-extensions">Mixed-Integer Extensions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#summary-of-d-opf-formulations">Summary of D-OPF Formulations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">NaivePyDESSEM User Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/topics_on_planning_and_expansion_of_power_systems.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="topics-in-power-system-generation-and-expansion-planning">
+<h1>TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING<a class="headerlink" href="#topics-in-power-system-generation-and-expansion-planning" title="Link to this heading"></a></h1>
+<section id="objectives">
+<h2>OBJECTIVES<a class="headerlink" href="#objectives" title="Link to this heading"></a></h2>
+<p>The purpose of this summary is to provide a <strong>comprehensive and structured review material</strong> for the course <strong>EELT7030 – Planning of Power System Operation and Expansion</strong>.</p>
+<p>This document organizes <strong>60 essential study topics</strong>, distributed across six main sections that cover the fundamental pillars of the discipline:</p>
+<ol class="arabic simple">
+<li><p>Overview and Structure of the Electric Power Sector</p></li>
+<li><p>Thermal and Hydraulic Generation</p></li>
+<li><p>Hydrothermal Planning and Optimization</p></li>
+<li><p>Reliability and Emerging Energy Sources</p></li>
+<li><p>Distribution Networks, Microgrids, and Uncertainties</p></li>
+<li><p>Power System Expansion Planning</p></li>
+</ol>
+<p>In addition, the compendium includes <strong>five detailed appendices</strong>, which delve into specific methods, tools, and models:</p>
+<ul class="simple">
+<li><p><strong>Appendix A:</strong> Technical Summary of DESSEM</p></li>
+<li><p><strong>Appendix B:</strong> Strategies of DECOMP and NEWAVE</p></li>
+<li><p><strong>Appendix C:</strong> EPE’s MDI Model</p></li>
+<li><p><strong>Appendix D:</strong> Optimization Methods (LP, MILP, QP, MIQP, NLP, MINLP)</p></li>
+<li><p><strong>Appendix E:</strong> Uncertainties and D-OPF Formulations</p></li>
+</ul>
+<p>Thus, this summary offers a <strong>unified and complementary view</strong> of the theoretical and practical aspects necessary for a solid understanding of the subject and for good performance in essay-based evaluations.<br />
+Happy studying!</p>
+</section>
+<hr class="docutils" />
+<section id="cheatsheet-content-organogram">
+<h2>CHEATSHEET – CONTENT ORGANOGRAM<a class="headerlink" href="#cheatsheet-content-organogram" title="Link to this heading"></a></h2>
+<p><img alt="Quick Reference to Summary Sections" src="_images/organogram.png" />
+<em>Figure 1 – Quick Reference to the Summary Sections</em></p>
+</section>
+<section id="overview-and-structure-of-the-electric-power-sector">
+<h2>OVERVIEW AND STRUCTURE OF THE ELECTRIC POWER SECTOR<a class="headerlink" href="#overview-and-structure-of-the-electric-power-sector" title="Link to this heading"></a></h2>
+<section id="full-competition">
+<h3>FULL COMPETITION<a class="headerlink" href="#full-competition" title="Link to this heading"></a></h3>
+<p>Full competition in the electric power sector refers to a market model in which all consumers—regardless of size—are free to choose their electricity suppliers. In this scenario, the exclusivity of service by the local distribution company is eliminated, allowing direct negotiations between consumers and generators or energy traders. This arrangement aims to increase the sector’s economic efficiency, foster competition, and reduce costs for the end user. However, such competition also requires <strong>strong regulatory oversight</strong> to ensure fair access to transmission and distribution networks, preventing discriminatory practices. In practical terms, full competition is an important step toward modernizing the market and aligning the sector with international best practices.</p>
+</section>
+<section id="spot-market-and-settlement-price-pld">
+<h3>SPOT MARKET AND SETTLEMENT PRICE (PLD)<a class="headerlink" href="#spot-market-and-settlement-price-pld" title="Link to this heading"></a></h3>
+<p>The <strong>short-term market</strong>, or <strong>spot market</strong>, is the environment where the settlement of differences between contracted and effectively consumed or generated energy takes place. This market is priced by the <strong>Settlement Price for Differences (PLD)</strong>, calculated weekly based on optimization models that reflect the system’s operating conditions. The PLD seeks to indicate the <strong>marginal cost of system operation</strong>, considering both hydrological conditions and thermal plant availability. As such, it provides economic signals that influence consumption, contracting, and investment decisions. The PLD is therefore a <strong>central mechanism</strong> in the operation of the Brazilian electricity market, affecting both free and captive market participants.</p>
+</section>
+<section id="functions-of-the-national-system-operator-ons">
+<h3>FUNCTIONS OF THE NATIONAL SYSTEM OPERATOR (ONS)<a class="headerlink" href="#functions-of-the-national-system-operator-ons" title="Link to this heading"></a></h3>
+<p>The <strong>National System Operator (ONS)</strong> performs three essential functions: <strong>technical coordination</strong>, <strong>security</strong>, and <strong>economic optimization</strong>.</p>
+<ul class="simple">
+<li><p><em>Technical coordination</em> involves real-time control of generation and transmission, ensuring balance between supply and demand.</p></li>
+<li><p><em>System security</em> seeks to reduce the risk of rationing or blackouts through reliability criteria and preventive planning.</p></li>
+<li><p><em>Economic optimization</em> aims to dispatch energy resources in a way that minimizes total costs—both present and future—while respecting physical and environmental constraints.<br />
+Thus, ONS is a <strong>key institution</strong> ensuring both the reliability and the economic efficiency of the interconnected Brazilian power system.</p></li>
+</ul>
+</section>
+<section id="renewable-energy-vs-clean-energy">
+<h3>RENEWABLE ENERGY VS. CLEAN ENERGY<a class="headerlink" href="#renewable-energy-vs-clean-energy" title="Link to this heading"></a></h3>
+<p>Although often used interchangeably, <strong>renewable energy</strong> and <strong>clean energy</strong> are not identical concepts.</p>
+<ul class="simple">
+<li><p><em>Renewable energy</em> refers to sources that naturally regenerate on human timescales, such as solar, wind, biomass, and hydropower.</p></li>
+<li><p><em>Clean energy</em>, on the other hand, refers to the <strong>environmental impact</strong> of the source, being characterized by very low or zero emissions of pollutants and greenhouse gases.</p></li>
+</ul>
+<p>Consequently, a source may be renewable without being entirely clean—for example, <strong>biomass</strong>, which, despite being renewable, can emit pollutants. Conversely, <strong>nuclear energy</strong> is not renewable, but it can be considered clean from the perspective of direct emissions.</p>
+</section>
+<section id="energy-transition">
+<h3>ENERGY TRANSITION<a class="headerlink" href="#energy-transition" title="Link to this heading"></a></h3>
+<p><strong>Energy transition</strong> is the process of transforming the energy matrix by reducing the share of fossil fuels in favor of renewable and low-impact sources. This transformation arises from the need to mitigate <strong>climate change</strong>, lowering greenhouse gas emissions and promoting long-term sustainability. Moreover, energy transition encompasses <strong>technological innovation</strong>, <strong>new consumption models</strong>, and <strong>profound socio-economic shifts</strong>. It is directly linked to the concept of <strong>sustainable development</strong>, as it aims to meet current energy needs without compromising the welfare of future generations. In the electric power sector, this transition is expressed through the growing integration of <strong>wind, solar, biomass, and green hydrogen</strong> resources.</p>
+</section>
+</section>
+<section id="thermal-and-hydraulic-generation">
+<h2>THERMAL AND HYDRAULIC GENERATION<a class="headerlink" href="#thermal-and-hydraulic-generation" title="Link to this heading"></a></h2>
+<section id="id1">
+<h3>ENERGY TRANSITION<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>The <strong>energy transition</strong> is the process of transforming the energy matrix by reducing the participation of fossil fuels in favor of renewable and low-impact sources. This transformation arises from the need to mitigate the effects of <strong>climate change</strong>, lowering greenhouse gas emissions and promoting greater sustainability. In addition, it involves <strong>technological innovation</strong>, <strong>new consumption models</strong>, and <strong>deep socioeconomic changes</strong>. The concept is directly linked to <strong>sustainable development</strong>, aiming to meet current energy demands without compromising the welfare of future generations. In the electric sector, the transition is characterized by the growing integration of <strong>wind, solar, biomass, and green hydrogen</strong> technologies.</p>
+</section>
+<section id="advantages-of-thermal-power-plants">
+<h3>ADVANTAGES OF THERMAL POWER PLANTS<a class="headerlink" href="#advantages-of-thermal-power-plants" title="Link to this heading"></a></h3>
+<p>Thermal power plants offer several operational advantages. One of the main benefits is the possibility of being located near load centers, reducing transmission losses and improving system reliability. They also have relatively short construction times, allowing a faster response to demand growth. Another key aspect is their independence from hydrological conditions, making them crucial during drought periods. Furthermore, thermal plants provide <strong>operational flexibility</strong>, complementing renewable generation when its availability is low. These factors justify their strategic importance, despite their higher environmental and economic costs.</p>
+</section>
+<section id="disadvantages-of-thermal-power-plants">
+<h3>DISADVANTAGES OF THERMAL POWER PLANTS<a class="headerlink" href="#disadvantages-of-thermal-power-plants" title="Link to this heading"></a></h3>
+<p>Despite their strategic role, thermal power plants have notable drawbacks. Environmentally, they contribute to <strong>air pollution</strong>, <strong>greenhouse gas emissions</strong>, and, in the case of nuclear plants, <strong>radioactive waste</strong> that is difficult to manage. From a cost perspective, they tend to be more expensive to operate compared to low marginal-cost renewable sources. Other disadvantages include the <strong>thermal pollution</strong> of nearby water bodies due to cooling systems and <strong>social and environmental impacts</strong> related to biomass land use. Therefore, while indispensable in power systems, their use must be balanced with cleaner and more sustainable alternatives.</p>
+</section>
+<section id="economic-dispatch">
+<h3>ECONOMIC DISPATCH<a class="headerlink" href="#economic-dispatch" title="Link to this heading"></a></h3>
+<p>The <strong>economic dispatch problem</strong> determines the optimal generation allocation among available units to meet demand at the lowest possible cost. It is a continuous optimization problem considering the variable production costs of each plant and their operational limits. Unlike Unit Commitment, it does not decide whether a unit should be turned on or off — only how much each online unit should generate. This method is widely used in daily system operations because it minimizes costs while respecting power limits. Although relatively simple, it forms the basis for more complex models such as <strong>Unit Commitment (UC)</strong>.</p>
+</section>
+<section id="unit-commitment">
+<h3>UNIT COMMITMENT<a class="headerlink" href="#unit-commitment" title="Link to this heading"></a></h3>
+<p>The <strong>Unit Commitment (UC)</strong> problem extends the economic dispatch by deciding <strong>which generating units should be turned on or off</strong> at each time period, in addition to determining their production levels. It introduces <strong>binary (integer) variables</strong>, representing the discrete nature of on/off decisions. The model includes additional constraints such as minimum up/down times, ramping limits, and hot/cold startup costs. Due to its complexity, UC is typically solved using <strong>advanced mathematical programming techniques</strong>. It is an essential tool for <strong>short-term operation planning</strong>, ensuring cost-effective and reliable generation scheduling.</p>
+</section>
+<section id="lagrange-multipliers">
+<h3>LAGRANGE MULTIPLIERS<a class="headerlink" href="#lagrange-multipliers" title="Link to this heading"></a></h3>
+<p>In the context of power system operation, <strong>Lagrange multipliers</strong> have an important <strong>economic interpretation</strong>. They represent the <strong>shadow price</strong> of a constraint — that is, the rate at which the total cost would change if the constraint were relaxed by one unit. For example, if the generation limit of a thermal unit increased by 1 MW, the multiplier indicates how much the minimum cost would decrease. When associated with demand balance constraints, they represent the <strong>marginal operating cost</strong> of the system. Therefore, Lagrange multipliers are crucial for understanding <strong>price formation</strong> and guiding <strong>planning and investment decisions</strong>.</p>
+</section>
+<section id="reservoirs">
+<h3>RESERVOIRS<a class="headerlink" href="#reservoirs" title="Link to this heading"></a></h3>
+<p>Hydropower plants can be classified as <strong>run-of-river</strong>, which have negligible storage capacity, or <strong>reservoir plants</strong>, which store significant amounts of water. The latter provide <strong>flexibility</strong> by allowing water storage during wet periods for use during dry seasons, acting as <strong>natural energy batteries</strong> that ensure supply reliability. In computational models, reservoir representation varies with planning horizon — more aggregated in the medium term and more detailed in the short term. Efficient reservoir management is thus a <strong>central element</strong> of hydrothermal operation.</p>
+</section>
+<section id="water-balance-equation">
+<h3>WATER BALANCE EQUATION<a class="headerlink" href="#water-balance-equation" title="Link to this heading"></a></h3>
+<p>The <strong>water balance equation</strong> is the fundamental relationship governing the operation of a hydropower plant with a reservoir. It relates the final storage volume to the initial volume, plus inflows, minus the outflows due to <strong>turbining and spillage</strong>. Mathematically, it expresses the <strong>conservation of mass</strong> in the hydrological system. This balance is critical in both short- and long-term studies, as it predicts future generation availability and ensures that operation complies with physical reservoir limits. It also links <strong>present water use</strong> with its <strong>future value</strong>, forming the basis of hydrothermal optimization models.</p>
+</section>
+<section id="cascading-hydro-plants">
+<h3>CASCADING HYDRO PLANTS<a class="headerlink" href="#cascading-hydro-plants" title="Link to this heading"></a></h3>
+<p>Hydropower plants arranged in <strong>cascades</strong> are hydraulically coupled since the <strong>discharge from an upstream plant becomes the inflow</strong> of the downstream one. This interdependence adds significant complexity to system operation, requiring models that capture these interactions. Coordinated management of cascaded reservoirs allows maximizing global energy generation while avoiding water spillage. It is also necessary to account for <strong>water travel times</strong> between plants, introducing temporal delays in the hydraulic balance. Consequently, the planning of cascaded hydropower systems must be approached <strong>integratively and systematically</strong>.</p>
+</section>
+<section id="hydropower-production-function">
+<h3>HYDROPOWER PRODUCTION FUNCTION<a class="headerlink" href="#hydropower-production-function" title="Link to this heading"></a></h3>
+<p>The <strong>hydropower production function</strong> establishes the relationship between <strong>turbined flow</strong> and <strong>generated power</strong>. It depends on the <strong>net head height</strong> and the <strong>turbine-generator efficiency</strong>. In simplified form, power can be approximated as the product of flow and plant productivity. However, in reality, this function is <strong>nonlinear</strong>, since the net head varies with reservoir level and hydraulic losses. Understanding this function is essential for <strong>optimizing water use</strong>, maximizing generation efficiency, and ensuring economic dispatch within tariff constraints.</p>
+</section>
+<section id="hydraulic-losses">
+<h3>HYDRAULIC LOSSES<a class="headerlink" href="#hydraulic-losses" title="Link to this heading"></a></h3>
+<p><strong>Hydraulic losses</strong> occur during water flow through penstocks and other hydraulic structures of a plant. They are typically modeled as <strong>quadratic or cubic functions</strong> of the turbined flow. As flow increases, losses grow, reducing the <strong>available net head</strong> for generation. These losses must be considered in operation models since they directly affect the effective power output. Ignoring them leads to <strong>overestimation of generation potential</strong>. Accurate modeling of hydraulic losses thus contributes to more realistic simulations of hydropower performance.</p>
+</section>
+<section id="turbine-generator-efficiency">
+<h3>TURBINE-GENERATOR EFFICIENCY<a class="headerlink" href="#turbine-generator-efficiency" title="Link to this heading"></a></h3>
+<p>The <strong>turbine-generator efficiency</strong> is a key determinant of hydropower plant performance, representing the proportion of hydraulic energy converted into useful electrical energy. In practice, efficiency is <strong>non-constant</strong>, varying nonlinearly with both <strong>turbined flow</strong> and <strong>available head</strong>. Efficiency curves typically feature a <strong>peak region</strong> of optimal operation and zones of reduced performance. Operating close to the optimal range enhances generation efficiency and reduces costs. Planning and optimization models frequently include these efficiency curves for a more accurate physical representation of plant behavior.</p>
+</section>
+<section id="prohibited-operating-zones">
+<h3>PROHIBITED OPERATING ZONES<a class="headerlink" href="#prohibited-operating-zones" title="Link to this heading"></a></h3>
+<p>Some hydropower plants have <strong>prohibited operating zones</strong> due to mechanical, hydraulic, or environmental constraints. These correspond to power or flow ranges that should be avoided to prevent <strong>vibrations, cavitation</strong>, or <strong>negative ecological impacts</strong>. Operational dispatch must respect these restrictions to ensure equipment safety and longevity. In mathematical models, such zones are represented as <strong>non-feasible intervals</strong> within the generation domain. Compliance with these constraints is therefore both a <strong>technical and environmental requirement</strong> in hydropower operation.</p>
+</section>
+<section id="spillage">
+<h3>SPILLAGE<a class="headerlink" href="#spillage" title="Link to this heading"></a></h3>
+<p><strong>Spillage</strong> occurs when a portion of the reservoir inflow cannot be used for generation and must be released through spillways. This typically happens during high inflow periods when <strong>turbine capacity limits</strong> are reached or <strong>hydraulic restrictions</strong> must be met. While necessary for plant safety, spillage represents a <strong>loss of potential energy</strong>. Planning models seek to minimize spillage by maximizing the utilization of turbined water. In some cases, however, controlled spillage is <strong>mandated for environmental reasons</strong>, such as maintaining minimum downstream flow.</p>
+</section>
+<section id="temporal-coupling">
+<h3>TEMPORAL COUPLING<a class="headerlink" href="#temporal-coupling" title="Link to this heading"></a></h3>
+<p><strong>Temporal coupling</strong> is a key characteristic of reservoirs: the decision to release water in one period directly affects future storage availability. This means operational decisions must be <strong>intertemporal</strong>, not isolated by stage. In optimization models, this coupling is captured through the <strong>reservoir volume as a state variable</strong>. It justifies the use of techniques such as <strong>dynamic programming</strong>, which handle sequential dependencies. Correctly modeling temporal coupling ensures more efficient and sustainable water use throughout the planning horizon.</p>
+</section>
+<section id="spatial-coupling">
+<h3>SPATIAL COUPLING<a class="headerlink" href="#spatial-coupling" title="Link to this heading"></a></h3>
+<p><strong>Spatial coupling</strong> arises in systems with multiple hydraulically connected reservoirs, such as cascaded plants. In such systems, the operation of one reservoir affects not only its own storage but also downstream conditions. This interdependence increases the complexity of the optimization problem since interactions between multiple reservoirs must be considered simultaneously. In practical terms, upstream releases can <strong>increase or decrease downstream generation capacity</strong>, depending on cascade topology. Therefore, <strong>integrated hydro system planning</strong> is essential to maximize economic and energetic benefits.</p>
+</section>
+</section>
+<section id="hydrothermal-planning-and-optimization">
+<h2>HYDROTHERMAL PLANNING AND OPTIMIZATION<a class="headerlink" href="#hydrothermal-planning-and-optimization" title="Link to this heading"></a></h2>
+<section id="main-objective-of-hydrothermal-planning">
+<h3>MAIN OBJECTIVE OF HYDROTHERMAL PLANNING<a class="headerlink" href="#main-objective-of-hydrothermal-planning" title="Link to this heading"></a></h3>
+<p>The main goal of <strong>hydrothermal system operation planning</strong> is to minimize the total operating cost of the power system while ensuring reliable demand supply. This process considers the <strong>physical constraints</strong> of generating units—such as generation limits and hydraulic balance—as well as <strong>electrical network constraints</strong>. It must also comply with <strong>environmental and regulatory requirements</strong>, including minimum flow levels and emission limits. The <strong>objective function</strong> incorporates both thermal generation costs and energy deficit penalties. Thus, hydrothermal planning seeks to balance <strong>economic efficiency</strong>, <strong>energy security</strong>, and <strong>environmental sustainability</strong>.</p>
+</section>
+<section id="medium-term-planning-newave">
+<h3>MEDIUM-TERM PLANNING (NEWAVE)<a class="headerlink" href="#medium-term-planning-newave" title="Link to this heading"></a></h3>
+<p>The <strong>NEWAVE model</strong> is used for <strong>medium-term planning</strong>, representing the hydroelectric park through <strong>Equivalent Energy Reservoirs (REEs)</strong>. This aggregation simplifies the problem by grouping plants within hydrologically equivalent regions, reducing computational complexity. The adopted solution method is <strong>Stochastic Dual Dynamic Programming (SDDP)</strong>, which handles inflow uncertainty probabilistically. NEWAVE produces <strong>Marginal Operating Cost (CMO)</strong> series, which act as price signals for market agents. Despite its simplifications, NEWAVE provides a consistent foundation for defining long-term operational strategies across multiple years.</p>
+</section>
+<section id="short-term-planning-decomp">
+<h3>SHORT-TERM PLANNING (DECOMP)<a class="headerlink" href="#short-term-planning-decomp" title="Link to this heading"></a></h3>
+<p>The <strong>DECOMP model</strong> is employed for <strong>short-term planning</strong>, with a horizon of weeks to months. Unlike NEWAVE, it represents <strong>individual hydro plants</strong>, allowing for a more detailed description of operational constraints. Its solution method is <strong>Deterministic Dual Dynamic Programming (DDDP)</strong>, in which inflows are represented through fixed scenarios rather than stochastic processes. DECOMP enables the evaluation of <strong>detailed operation strategies</strong>, accounting for hydraulic losses, efficiencies, and network constraints. It serves as the <strong>main operational planning tool</strong> used by the <strong>National System Operator (ONS)</strong> to guide mid-term dispatch decisions.</p>
+</section>
+<section id="very-short-term-planning-dessem">
+<h3>VERY SHORT-TERM PLANNING (DESSEM)<a class="headerlink" href="#very-short-term-planning-dessem" title="Link to this heading"></a></h3>
+<p>The <strong>DESSEM model</strong> operates on a <strong>very short-term horizon</strong>, ranging from hours to days, with <strong>hourly time resolution</strong>. It explicitly represents the <strong>electrical network</strong> using DC power flow or, in more advanced versions, full AC formulations. DESSEM integrates multiple generation types—hydroelectric, thermal, wind, solar—and <strong>storage systems</strong>, in a unified framework. Its formulation is typically a <strong>Mixed-Integer Linear Programming (MILP)</strong> problem due to the presence of discrete variables (e.g., unit commitment decisions). DESSEM is used for <strong>daily energy dispatch</strong>, providing high-precision scheduling that supports <strong>real-time operation</strong> of the national grid.</p>
+</section>
+<section id="marginal-operating-cost-cmo">
+<h3>MARGINAL OPERATING COST (CMO)<a class="headerlink" href="#marginal-operating-cost-cmo" title="Link to this heading"></a></h3>
+<p>The <strong>Marginal Operating Cost (CMO)</strong> represents the <strong>incremental cost of meeting an additional 1 MW of demand</strong>. It corresponds to the <strong>Lagrange multiplier</strong> associated with the power balance constraint in the optimization problem. The CMO reflects the <strong>economic value of stored water</strong>, since current reservoir use directly impacts future thermal generation costs. Moreover, it functions as a <strong>price signal</strong> in the short-term electricity market, influencing both generation and consumption decisions. In summary, the CMO is a <strong>central indicator</strong> of system efficiency and economic equilibrium in the electric sector.</p>
+</section>
+<section id="future-cost-cf">
+<h3>FUTURE COST (CF)<a class="headerlink" href="#future-cost-cf" title="Link to this heading"></a></h3>
+<p>The <strong>future cost</strong> quantifies the economic value of water storage for future periods, embodying the <strong>intertemporal nature</strong> of hydro operation. It is estimated using methods such as <strong>Dynamic Programming</strong> or <strong>Benders Decomposition</strong>, which approximate the multi-stage cost function. The future cost acts as a <strong>proxy for the benefit of conserving water</strong>, discouraging excessive generation in the present. Consequently, it guides the <strong>optimal turbining policy</strong> at each stage. Proper representation of future cost ensures <strong>balance between short-term and long-term operation</strong>, promoting sustainable system management.</p>
+</section>
+<section id="immediate-cost-ci">
+<h3>IMMEDIATE COST (CI)<a class="headerlink" href="#immediate-cost-ci" title="Link to this heading"></a></h3>
+<p>The <strong>immediate cost</strong> refers to the <strong>actual operating cost</strong> incurred in a specific stage, considering thermal dispatch, spillage, deficits, and imports. It is computed based on the generation decisions made within that period, without accounting for future effects. This concept complements the <strong>future cost</strong>, as together they form the <strong>expected total cost</strong>. Minimizing only the immediate cost may lead to <strong>myopic decisions</strong>, such as inefficient reservoir depletion. Therefore, optimal planning requires balancing both <strong>immediate and future costs</strong> to achieve efficient intertemporal operation.</p>
+</section>
+<section id="bellmans-principle-of-optimality">
+<h3>BELLMAN’S PRINCIPLE OF OPTIMALITY<a class="headerlink" href="#bellmans-principle-of-optimality" title="Link to this heading"></a></h3>
+<p><strong>Bellman’s Principle of Optimality</strong> states that an optimal policy possesses the property that, regardless of the initial state or decision, subsequent decisions must form an optimal policy for the resulting state. This principle underpins <strong>Dynamic Programming</strong>, enabling the decomposition of a global optimization problem into smaller, sequential subproblems. In energy planning, it governs the decision-making process for <strong>turbining and water storage</strong> in each stage, ensuring intertemporal consistency. Bellman’s principle is therefore a <strong>fundamental theoretical foundation</strong> for hydrothermal system modeling.</p>
+</section>
+<section id="curse-of-dimensionality">
+<h3>CURSE OF DIMENSIONALITY<a class="headerlink" href="#curse-of-dimensionality" title="Link to this heading"></a></h3>
+<p>The <strong>curse of dimensionality</strong> arises when the number of state and decision variables in an optimization problem grows exponentially with the number of reservoirs, time steps, or discretization granularity. This phenomenon is a major limitation of <strong>Dynamic Programming</strong>, where detailed reservoir representation leads to intractable problem sizes. To mitigate this issue, <strong>aggregation</strong>, <strong>approximation</strong>, and <strong>decomposition techniques</strong> are employed. A common example is the use of <strong>Equivalent Energy Reservoirs (REEs)</strong> in the NEWAVE model. Thus, the curse of dimensionality remains one of the <strong>greatest computational challenges</strong> in hydrothermal planning.</p>
+</section>
+<section id="future-cost-function-using-benders-cuts">
+<h3>FUTURE COST FUNCTION USING BENDERS CUTS<a class="headerlink" href="#future-cost-function-using-benders-cuts" title="Link to this heading"></a></h3>
+<p><strong>Benders cuts</strong> are a <strong>decomposition technique</strong> used to approximate the future cost function in multi-stage problems. The method solves the problem iteratively, adding <strong>linear cuts</strong> at each iteration to refine the approximation of the cost-to-go function. This approach significantly reduces computational complexity, making large-scale optimization feasible. In the context of hydrothermal planning, <strong>Benders cuts approximate the future value of stored water</strong>, ensuring intertemporal consistency between stages. As a result, they enable robust and efficient operation planning under <strong>hydrological uncertainty</strong>.</p>
+</section>
+</section>
+<section id="reliability-and-emerging-energy-sources">
+<h2>RELIABILITY AND EMERGING ENERGY SOURCES<a class="headerlink" href="#reliability-and-emerging-energy-sources" title="Link to this heading"></a></h2>
+<section id="adequacy">
+<h3>ADEQUACY<a class="headerlink" href="#adequacy" title="Link to this heading"></a></h3>
+<p><strong>Adequacy</strong> is one of the key pillars of power system reliability. It refers to the system’s structural capacity to meet demand under normal operating conditions. Adequacy depends on having sufficient <strong>installed generation, transmission, and distribution capacity</strong> to supply projected loads. In planning, it involves ensuring <strong>reserve margins</strong> that guarantee service even under load growth scenarios. This assessment relies on <strong>historical consumption data</strong>, <strong>future projections</strong>, and <strong>resource availability</strong>. Therefore, adequacy measures the <strong>long-term structural robustness</strong> of the power system.</p>
+</section>
+<section id="security">
+<h3>SECURITY<a class="headerlink" href="#security" title="Link to this heading"></a></h3>
+<p><strong>Security</strong> is the second pillar of reliability and relates to the system’s ability to withstand unexpected disturbances such as <strong>transmission line outages, generator failures, or extreme weather events</strong>. It is evaluated using criteria such as the <strong>N-1 rule</strong>, which requires the system to remain stable after the loss of any single component. Security encompasses <strong>transient and voltage stability</strong> as well as <strong>protection coordination</strong>. In summary, while adequacy ensures sufficient resources, security ensures <strong>resilience and operational continuity</strong> in the face of disruptions.</p>
+</section>
+<section id="traditional-reliability-indicators">
+<h3>TRADITIONAL RELIABILITY INDICATORS<a class="headerlink" href="#traditional-reliability-indicators" title="Link to this heading"></a></h3>
+<p>Traditional reliability indicators quantify the expected performance of the power system under uncertainty. The most commonly used include:</p>
+<ul class="simple">
+<li><p><strong>LOLP (Loss of Load Probability):</strong> probability that demand will not be met;</p></li>
+<li><p><strong>LOLE (Loss of Load Expectation):</strong> expected number of hours of load curtailment within a period;</p></li>
+<li><p><strong>EENS (Expected Energy Not Supplied):</strong> expected value of unserved energy.</p></li>
+</ul>
+<p>These indices provide a <strong>quantitative foundation</strong> for planning and operational decisions and are widely used in <strong>generation expansion studies</strong> and the definition of <strong>long-term energy security criteria</strong>.</p>
+</section>
+<section id="new-reliability-indicators-with-renewables">
+<h3>NEW RELIABILITY INDICATORS WITH RENEWABLES<a class="headerlink" href="#new-reliability-indicators-with-renewables" title="Link to this heading"></a></h3>
+<p>With the increasing share of <strong>variable renewable energy sources</strong>, new reliability metrics have been developed to capture their specific characteristics. Examples include:</p>
+<ul class="simple">
+<li><p><strong>ESEC (Expected Solar Energy Curtailment):</strong> measures solar energy that could not be utilized;</p></li>
+<li><p><strong>EWES (Expected Wind Energy Spillage):</strong> analogous metric for wind generation losses.</p></li>
+</ul>
+<p>These indices allow a more realistic assessment of renewable integration challenges by accounting for both <strong>technical curtailments</strong> and <strong>oversupply scenarios</strong>. Thus, they complement classical indicators and provide more appropriate metrics for <strong>renewable-dominated systems</strong>.</p>
+</section>
+<section id="dunkelflaute">
+<h3>DUNKELFLAUTE<a class="headerlink" href="#dunkelflaute" title="Link to this heading"></a></h3>
+<p>The German term <strong><em>Dunkelflaute</em></strong>, meaning “dark lull,” describes <strong>extended periods with little to no wind or sunlight</strong>. This phenomenon poses a critical challenge for systems with high shares of intermittent renewables, as it may threaten supply reliability. During such periods, <strong>backup resources</strong>—such as thermal plants, hydropower, or <strong>energy storage systems</strong>—are essential. Dunkelflaute highlights the importance of <strong>energy diversification</strong> and <strong>technological integration</strong>. Planning for this phenomenon is crucial for countries pursuing <strong>deep decarbonization</strong> of their power sectors.</p>
+</section>
+<section id="bioenergy">
+<h3>BIOENERGY<a class="headerlink" href="#bioenergy" title="Link to this heading"></a></h3>
+<p><strong>Bioenergy</strong> is produced from <strong>biological resources</strong> such as ethanol, biodiesel, biogas, and biomethane. It is considered <strong>renewable</strong>, as its feedstocks can be replenished over time. Beyond electricity generation, bioenergy plays an important role in <strong>transportation</strong> and <strong>industrial processes</strong>. However, its classification as “clean energy” is relative, since combustion may release pollutants. One of its main advantages is <strong>dispatchability</strong>—the ability to be stored and used on demand, unlike intermittent sources such as wind or solar. Thus, bioenergy remains a key component in <strong>energy diversification strategies</strong>.</p>
+</section>
+<section id="low-carbon-hydrogen">
+<h3>LOW-CARBON HYDROGEN<a class="headerlink" href="#low-carbon-hydrogen" title="Link to this heading"></a></h3>
+<p><strong>Low-carbon hydrogen</strong>—often referred to as <strong>green hydrogen</strong> when produced using renewable electricity—is one of the most promising energy carriers for future power systems. It can be generated through <strong>water electrolysis</strong> powered by renewable sources, avoiding carbon emissions in the process. Hydrogen offers significant potential as an <strong>energy vector</strong>, suitable for <strong>transport, industry, and power generation</strong>. Its flexibility also makes it ideal for <strong>long-term energy storage</strong>, helping to address renewable intermittency. Despite its promise, hydrogen still faces challenges related to <strong>costs</strong> and <strong>infrastructure</strong> for production and transport.</p>
+</section>
+<section id="energy-storage-systems-ess">
+<h3>ENERGY STORAGE SYSTEMS (ESS)<a class="headerlink" href="#energy-storage-systems-ess" title="Link to this heading"></a></h3>
+<p><strong>Energy Storage Systems (ESS)</strong> are essential components of modern power systems, enabling <strong>energy shifting</strong> from periods of surplus to periods of scarcity. Technologies include <strong>batteries</strong>, <strong>pumped hydro storage</strong>, and <strong>hydrogen-based systems</strong>. ESS provide services such as <strong>frequency regulation</strong>, <strong>renewable smoothing</strong>, and <strong>enhanced reliability</strong>. From a planning perspective, they reduce operating costs by limiting the dispatch of high-cost thermal units. Additionally, storage systems play a key role in <strong>smart grid development</strong> and the integration of <strong>electric vehicles</strong> into the power network.</p>
+</section>
+<section id="electric-vehicles-evs">
+<h3>ELECTRIC VEHICLES (EVs)<a class="headerlink" href="#electric-vehicles-evs" title="Link to this heading"></a></h3>
+<p><strong>Electric Vehicles (EVs)</strong> represent both a new type of load and an opportunity for grid flexibility. When widely adopted, they can significantly <strong>increase power demand</strong>, especially during peak hours. However, with <strong>smart and bidirectional charging technologies</strong>, EVs can function as <strong>distributed storage systems</strong>. The <strong>Vehicle-to-Grid (V2G)</strong> concept allows EVs to return energy to the grid when needed, contributing to <strong>system stability, flexibility, and renewable integration</strong>. Proper modeling of EV penetration is therefore crucial for <strong>future operation and planning studies</strong>.</p>
+</section>
+<section id="carbon-capture-utilization-and-storage-ccus">
+<h3>CARBON CAPTURE, UTILIZATION, AND STORAGE (CCUS)<a class="headerlink" href="#carbon-capture-utilization-and-storage-ccus" title="Link to this heading"></a></h3>
+<p><strong>Carbon Capture, Utilization, and Storage (CCUS)</strong> technologies aim to reduce emissions from fossil-fueled power plants, mitigating their environmental impacts. The process involves <strong>capturing CO₂ emissions</strong>, transporting them, and <strong>storing them in geological formations</strong> or using them in <strong>industrial applications</strong>. This approach allows continued operation of thermal plants while supporting <strong>decarbonization goals</strong>. Although costly and infrastructure-intensive, CCUS is considered a <strong>strategic transitional technology</strong>, bridging the gap between the current fossil-based energy system and a <strong>renewable, low-carbon future</strong>.</p>
+</section>
+</section>
+<section id="distribution-networks-microgrids-and-uncertainties">
+<h2>DISTRIBUTION NETWORKS, MICROGRIDS, AND UNCERTAINTIES<a class="headerlink" href="#distribution-networks-microgrids-and-uncertainties" title="Link to this heading"></a></h2>
+<section id="distribution-network-assets">
+<h3>DISTRIBUTION NETWORK ASSETS<a class="headerlink" href="#distribution-network-assets" title="Link to this heading"></a></h3>
+<p>The <strong>distribution network</strong> comprises various assets that ensure the reliable delivery of electricity to end users. Among the most important are <strong>feeders</strong>, which carry power from substations to load centers, and <strong>power transformers</strong>, which adjust voltage levels for transmission and distribution. Other critical components include <strong>voltage regulators</strong>, <strong>capacitor banks</strong>, and <strong>protection devices</strong> such as circuit breakers and reclosers. Proper coordination of these assets is essential to maintain <strong>power quality</strong> and <strong>supply continuity</strong>. Accurate modeling of these elements is fundamental for <strong>distribution system planning and operation studies</strong>.</p>
+</section>
+<section id="active-distribution-networks-adns">
+<h3>ACTIVE DISTRIBUTION NETWORKS (ADNs)<a class="headerlink" href="#active-distribution-networks-adns" title="Link to this heading"></a></h3>
+<p><strong>Active Distribution Networks (ADNs)</strong> represent the evolution of traditional distribution grids into <strong>active and intelligent networks</strong>. In these systems, <strong>distributed generation</strong>, <strong>energy storage systems</strong>, and <strong>demand response resources</strong> interact in a coordinated manner. Active management allows the network not only to consume power but also to <strong>supply it back to the grid</strong> when needed. This enhances <strong>flexibility</strong>, improves <strong>reliability</strong>, and reduces <strong>losses</strong>. ADNs are therefore a cornerstone of the <strong>energy transition</strong>, enabling greater integration of renewables and advanced services. Their planning requires <strong>sophisticated optimization and control techniques</strong>.</p>
+</section>
+<section id="microgrids-mgs">
+<h3>MICROGRIDS (MGs)<a class="headerlink" href="#microgrids-mgs" title="Link to this heading"></a></h3>
+<p><strong>Microgrids</strong> are small-scale power systems that integrate <strong>distributed generation</strong>, <strong>energy storage</strong>, and <strong>controllable loads</strong> under centralized or local coordination. They can operate either <strong>connected to the main grid</strong> or in <strong>islanded mode</strong>, providing autonomy during outages. This concept increases <strong>energy resilience</strong>, allowing critical loads to remain supplied during network disturbances. Additionally, microgrids promote the use of <strong>local energy resources</strong> such as solar and biomass. From a planning perspective, they introduce new coordination challenges but also offer <strong>innovative solutions</strong> for efficient distributed resource integration.</p>
+</section>
+<section id="demand-response-dr">
+<h3>DEMAND RESPONSE (DR)<a class="headerlink" href="#demand-response-dr" title="Link to this heading"></a></h3>
+<p><strong>Demand Response (DR)</strong> enables consumers to <strong>reduce or shift their electricity usage</strong> in response to price signals or financial incentives. It helps balance the system during <strong>peak demand periods</strong> or <strong>generation shortages</strong>. Beyond improving reliability, DR lowers operational costs by avoiding the dispatch of expensive peaking plants. There are two main types of DR programs: <strong>price-based</strong> and <strong>incentive-based</strong>. In operational planning, DR should be modeled as a <strong>dispatchable resource</strong>, capable of providing <strong>flexibility comparable to generation units</strong>.</p>
+</section>
+<section id="smart-transformers-st">
+<h3>SMART TRANSFORMERS (ST)<a class="headerlink" href="#smart-transformers-st" title="Link to this heading"></a></h3>
+<p><strong>Smart Transformers (STs)</strong> are advanced electronic devices that function as <strong>energy routers</strong> within hybrid <strong>AC/DC microgrids</strong>. In addition to traditional voltage transformation, they incorporate power converters capable of <strong>independent control of active and reactive power</strong>. This enables <strong>bidirectional power flow management</strong> and enhances <strong>voltage quality</strong>. STs also facilitate the integration of <strong>renewables and storage systems</strong>, reducing the need for auxiliary equipment. In operational planning, they represent a <strong>technological breakthrough</strong>, expanding control capabilities in <strong>complex and interactive grids</strong>.</p>
+</section>
+<section id="challenges-of-distributed-energy-resources-ders">
+<h3>CHALLENGES OF DISTRIBUTED ENERGY RESOURCES (DERs)<a class="headerlink" href="#challenges-of-distributed-energy-resources-ders" title="Link to this heading"></a></h3>
+<p>The integration of <strong>Distributed Energy Resources (DERs)</strong>—such as solar PV and wind—poses significant challenges for distribution networks. One is <strong>reverse power flow</strong>, which can stress equipment designed for unidirectional operation. Another is <strong>voltage regulation</strong>, affected by renewable intermittency. Higher DER penetration may also increase <strong>losses</strong> and <strong>dispatch complexity</strong>. These issues demand <strong>new control, planning, and investment strategies</strong>. Hence, DERs bring both <strong>benefits and challenges</strong> to grid modernization efforts.</p>
+</section>
+<section id="curtailment">
+<h3>CURTAILMENT<a class="headerlink" href="#curtailment" title="Link to this heading"></a></h3>
+<p><strong>Curtailment</strong> refers to the <strong>intentional reduction of renewable generation</strong> when production exceeds demand or when technical constraints prevent full utilization. Although it results in the loss of clean energy, curtailment may be necessary to <strong>maintain system stability</strong> and <strong>adhere to safety limits</strong>. With growing renewable penetration, curtailment is becoming increasingly frequent. In planning models, it can be represented as a <strong>decision variable</strong> with zero generation cost but constrained by the grid’s absorption capacity. Thus, curtailment reflects a <strong>trade-off between efficiency and operational security</strong>.</p>
+</section>
+<section id="hierarchical-optimization-in-adns">
+<h3>HIERARCHICAL OPTIMIZATION IN ADNs<a class="headerlink" href="#hierarchical-optimization-in-adns" title="Link to this heading"></a></h3>
+<p>The operation of <strong>Active Distribution Networks</strong> can be structured under a <strong>hierarchical optimization framework</strong>. In this configuration, a <strong>master level</strong> coordinates global decisions such as power flows and resource dispatch, while <strong>local levels (slaves)</strong> optimize the performance of individual microgrids or subsystems. This approach reduces computational complexity by <strong>distributing decision-making</strong> across scales. It also enhances <strong>data privacy</strong> and <strong>local autonomy</strong>. In planning applications, hierarchical optimization is viewed as a <strong>promising solution</strong> for managing systems with numerous distributed resources.</p>
+</section>
+<section id="robustness-against-uncertainties">
+<h3>ROBUSTNESS AGAINST UNCERTAINTIES<a class="headerlink" href="#robustness-against-uncertainties" title="Link to this heading"></a></h3>
+<p>Operational planning must contend with uncertainties in <strong>renewable availability</strong>, <strong>demand variability</strong>, and <strong>equipment failures</strong>. Purely deterministic methods are often inadequate for such conditions. Consequently, <strong>stochastic</strong>, <strong>robust</strong>, and <strong>data-driven optimization techniques</strong> are employed. <strong>Robust optimization</strong> seeks secure solutions under worst-case scenarios, whereas <strong>data-driven methods</strong> leverage historical information to build realistic uncertainty sets. These approaches minimize the risk of inefficient or insecure operations. Therefore, <strong>robustness to uncertainty</strong> is a key requirement in modern <strong>energy planning models</strong>.</p>
+</section>
+<section id="the-three-ds-of-energy">
+<h3>THE THREE Ds OF ENERGY<a class="headerlink" href="#the-three-ds-of-energy" title="Link to this heading"></a></h3>
+<p>The so-called <strong>Three Ds of Energy</strong>—<strong>Decarbonization</strong>, <strong>Digitalization</strong>, and <strong>Decentralization</strong>—represent the major trends shaping the 21st-century power sector.</p>
+<ul class="simple">
+<li><p><strong>Decarbonization</strong> aims to cut greenhouse gas emissions through renewable expansion and energy efficiency.</p></li>
+<li><p><strong>Digitalization</strong> integrates communication and control technologies, enabling <strong>smart grids</strong> and greater consumer participation.</p></li>
+<li><p><strong>Decentralization</strong> emphasizes <strong>distributed generation</strong>, <strong>microgrids</strong>, and <strong>local autonomy</strong>.</p></li>
+</ul>
+<p>In some contexts, a <strong>fourth D—Democratization</strong>—is added, referring to consumer empowerment in energy markets. Together, these principles define the <strong>future trajectory of global power systems</strong>.</p>
+</section>
+</section>
+<section id="generation-and-transmission-expansion">
+<h2>GENERATION AND TRANSMISSION EXPANSION<a class="headerlink" href="#generation-and-transmission-expansion" title="Link to this heading"></a></h2>
+<section id="concept-and-purpose">
+<h3>CONCEPT AND PURPOSE<a class="headerlink" href="#concept-and-purpose" title="Link to this heading"></a></h3>
+<p>The <strong>Investment Decision Model (MDI)</strong> is a <strong>Mixed-Integer Linear Programming (MILP)</strong> formulation developed by the <strong>Energy Research Office (EPE)</strong> to determine the optimal <strong>generation and transmission expansion plan</strong> for the Brazilian <strong>National Interconnected System (SIN)</strong>. Its main goal is to minimize the <strong>expected total cost of expansion</strong>—comprising investment and operating costs—over a ten-year planning horizon, while accounting for uncertainties related to <strong>hydrological and wind conditions</strong>. The MDI ensures an <strong>efficient and economically sustainable expansion</strong> of the generation fleet, maintaining supply security and adequacy to meet projected demand.</p>
+</section>
+<section id="structure-of-the-mdi">
+<h3>STRUCTURE OF THE MDI<a class="headerlink" href="#structure-of-the-mdi" title="Link to this heading"></a></h3>
+<p>The MDI is implemented in the <strong>Pyomo modeling environment</strong> and solved using the <strong>CPLEX</strong> solver, employing a <strong>graph-based representation</strong> of interconnected subsystems. Each subsystem is defined by its <strong>average energy demand</strong> and <strong>peak load</strong>, while generation plants—existing, contracted, or candidate—are explicitly modeled. The framework also represents <strong>interconnections between subsystems</strong> and their <strong>transmission exchange capacities</strong>. The formulation incorporates <strong>stochastic uncertainty treatment</strong>, enabling the optimal expansion plan to be derived by <strong>minimizing the expected cost</strong>, weighted by the probability of hydrological and wind scenarios.</p>
+</section>
+<section id="demand-representation">
+<h3>DEMAND REPRESENTATION<a class="headerlink" href="#demand-representation" title="Link to this heading"></a></h3>
+<p>System demand is modeled using <strong>four load segments</strong>—light, medium, heavy, and peak—each associated with a specific duration and intensity. This segmentation preserves <strong>monthly average energy</strong> while capturing the temporal variability of consumption. Modeling multiple load levels allows for performance assessment of different generation technologies across <strong>daily and seasonal variations</strong>, while capacity constraints ensure that <strong>available power</strong> satisfies <strong>instantaneous peak demand plus reserve requirements</strong>. This guarantees both <strong>energy and capacity adequacy</strong> throughout the planning horizon.</p>
+</section>
+<section id="modeled-generation-sources">
+<h3>MODELED GENERATION SOURCES<a class="headerlink" href="#modeled-generation-sources" title="Link to this heading"></a></h3>
+<p>The MDI represents all major generation technologies in detail.</p>
+<ul class="simple">
+<li><p><strong>Hydropower plants</strong> are modeled using energy and power series derived from the <strong>SUISHI</strong> and <strong>NEWAVE</strong> hydrothermal models.</p></li>
+<li><p><strong>Thermal plants</strong> are characterized by their <strong>Variable Operation Cost (CVU)</strong>, <strong>inflexibility levels</strong>, and <strong>load-level dispatch</strong>.</p></li>
+<li><p><strong>Non-dispatchable renewable sources</strong> (wind, solar, and small hydro) are represented through <strong>average contribution factors</strong> and <strong>seasonal generation profiles</strong>.</p></li>
+<li><p><strong>Energy storage technologies</strong>, including <strong>batteries</strong> and <strong>pumped-storage plants</strong>, can be incorporated to transfer energy between load levels, accounting for <strong>losses and associated costs</strong>.</p></li>
+</ul>
+</section>
+<section id="objective-function">
+<h3>OBJECTIVE FUNCTION<a class="headerlink" href="#objective-function" title="Link to this heading"></a></h3>
+<p>The objective of the MDI is to <strong>minimize the expected total expansion cost</strong>, encompassing <strong>investment</strong>, <strong>operation</strong>, and <strong>penalty costs</strong>, while optionally including a <strong>perpetuity term</strong>. This perpetuity component ensures that investment decisions made near the end of the planning horizon are properly valued, avoiding the so-called <em>“end-of-horizon problem.”</em> The function sums <strong>discounted costs</strong> using a defined rate, thereby representing the <strong>present value</strong> of all investment and operation decisions. The resulting plan defines the <strong>economically optimal expansion strategy</strong>, balancing cost minimization with system reliability.</p>
+</section>
+<section id="main-constraints">
+<h3>MAIN CONSTRAINTS<a class="headerlink" href="#main-constraints" title="Link to this heading"></a></h3>
+<p>The MDI includes several constraint categories to ensure <strong>technical and operational feasibility</strong>:</p>
+<ul class="simple">
+<li><p><strong>Energy balance constraints</strong> ensure that the sum of generation, exchanges, and deficits—minus stored energy—is sufficient to meet demand in each load level and subsystem.</p></li>
+<li><p><strong>Capacity constraints</strong> guarantee that peak demand is covered with an adequate <strong>operational reserve margin</strong>.</p></li>
+<li><p><strong>Resource availability constraints</strong> prevent decommissioning of existing units.</p></li>
+<li><p><strong>Transmission constraints</strong> limit energy exchanges between subsystems based on interconnection capacities.</p></li>
+<li><p><strong>Investment and regulatory constraints</strong> govern the <strong>pace, timing, and proportion</strong> of expansion in line with national energy policy.</p></li>
+</ul>
+<p>Together, these constraints ensure that the expansion plan is <strong>technically viable</strong> and <strong>consistent with real-world regulatory and operational conditions</strong>.</p>
+</section>
+<section id="uncertainty-treatment">
+<h3>UNCERTAINTY TREATMENT<a class="headerlink" href="#uncertainty-treatment" title="Link to this heading"></a></h3>
+<p>The MDI addresses <strong>hydrological and wind uncertainties</strong> through the generation of multiple <strong>scenarios</strong>, each associated with a <strong>probability of occurrence</strong>. These scenarios are organized in a <strong>decision tree structure</strong>, where investment decisions must remain robust across future conditions. The model applies the <strong>deterministic equivalent approach</strong>, converting the stochastic problem into a single optimization problem by <strong>weighting expected costs</strong> according to scenario probabilities. This ensures that the proposed expansion is <strong>resilient</strong> and <strong>cost-effective</strong> under diverse natural resource conditions.</p>
+</section>
+<section id="decision-variables">
+<h3>DECISION VARIABLES<a class="headerlink" href="#decision-variables" title="Link to this heading"></a></h3>
+<p>The MDI’s decision variables describe the <strong>system state and decisions</strong> at each time step, including:</p>
+<ul class="simple">
+<li><p><strong>Investment decisions</strong> (<span class="math">\(x_{i,t}\)</span>)</p></li>
+<li><p><strong>Generation per load level and period</strong> (<span class="math">\(G_{i,p,t}\)</span>)</p></li>
+<li><p><strong>Installed capacity</strong> (<span class="math">\(C_{i,t}\)</span>)</p></li>
+<li><p><strong>Inter-subsystem energy and power exchanges</strong> (<span class="math">\(I_{ij,p,t}\)</span>)</p></li>
+<li><p><strong>Energy and capacity deficits</strong> (<span class="math">\(D_{p,t}\)</span>)</p></li>
+<li><p><strong>Stored energy</strong> (<span class="math">\(B_{a,p,t}\)</span>)</p></li>
+</ul>
+<p>Together, these variables allow the model to <strong>jointly optimize</strong> investment, dispatch, and exchange decisions, subject to technical and economic constraints. Their <strong>mixed (continuous and binary)</strong> nature makes the problem computationally challenging but ensures <strong>realism and accuracy</strong> in system representation.</p>
+</section>
+<section id="model-outputs">
+<h3>MODEL OUTPUTS<a class="headerlink" href="#model-outputs" title="Link to this heading"></a></h3>
+<p>The outputs of the MDI provide a comprehensive view of the <strong>optimal expansion plan</strong> for the power system. Key results include:</p>
+<ul class="simple">
+<li><p><strong>Commissioning schedule</strong> for new plants;</p></li>
+<li><p><strong>Marginal expansion and operation costs (CME and CMO)</strong>;</p></li>
+<li><p><strong>Inter-regional power flows</strong>;</p></li>
+<li><p><strong>System reliability indicators</strong>.</p></li>
+</ul>
+<p>Additionally, the model identifies <strong>transmission bottlenecks</strong> and quantifies the <strong>contribution of each generation source</strong> to load supply. These results serve as technical input for the <strong>Ten-Year Energy Expansion Plan (PDE)</strong>, guiding <strong>public policy</strong> and <strong>investment decisions</strong> based on consistent techno-economic criteria.</p>
+</section>
+<section id="relationship-with-the-marginal-expansion-cost-cme">
+<h3>RELATIONSHIP WITH THE MARGINAL EXPANSION COST (CME)<a class="headerlink" href="#relationship-with-the-marginal-expansion-cost-cme" title="Link to this heading"></a></h3>
+<p>The <strong>Marginal Expansion Cost (CME)</strong> is directly derived from the MDI through the <strong>dual multipliers</strong> associated with energy and capacity constraints. It represents the <strong>incremental cost of meeting an additional unit of demand</strong>, simultaneously reflecting the need for <strong>energy expansion</strong> and <strong>peak capacity</strong>. The CME is calculated by introducing a <strong>1 MW increase in demand</strong> for each load level and observing the resulting impact on total expansion cost.</p>
+<p>In the <strong>PDE 2030</strong> horizon, the <strong>average CME</strong> was estimated at <strong>R<span class="math">\( 187.46/MWh**, with energy and capacity components of **R\)</span> 105.65/MWh</strong> and <strong>R$ 688.18/kW/year</strong>, respectively. This metric provides a unified reference for assessing <strong>economic efficiency</strong> and <strong>investment adequacy</strong> in Brazil’s long-term power sector planning.</p>
+</section>
+</section>
+<section id="technical-appendix-summary-of-the-dessem-manual">
+<h2>TECHNICAL APPENDIX: SUMMARY OF THE DESSEM MANUAL<a class="headerlink" href="#technical-appendix-summary-of-the-dessem-manual" title="Link to this heading"></a></h2>
+<section id="purpose-of-dessem">
+<h3>PURPOSE OF DESSEM<a class="headerlink" href="#purpose-of-dessem" title="Link to this heading"></a></h3>
+<p><strong>DESSEM</strong> is the computational model used for <strong>very short-term operation planning</strong>, with a horizon of up to seven days and <strong>hourly discretization</strong>. Its main objective is to determine the <strong>optimal dispatch</strong> of hydro, thermal, and complementary resources while minimizing the total system cost. The model explicitly represents the <strong>electrical network</strong>, ensuring operational security and feasibility. As such, DESSEM provides the <strong>initial conditions for real-time operation</strong> and supports the <strong>centralized dispatch</strong> performed by the <strong>National System Operator (ONS)</strong>.</p>
+</section>
+<section id="mathematical-formulation">
+<h3>MATHEMATICAL FORMULATION<a class="headerlink" href="#mathematical-formulation" title="Link to this heading"></a></h3>
+<p>The mathematical formulation of DESSEM is based on <strong>Mixed-Integer Linear Programming (MILP)</strong>, incorporating both continuous and binary variables.</p>
+<ul class="simple">
+<li><p><strong>Continuous variables</strong> represent <strong>generation levels</strong> and <strong>network power flows</strong>.</p></li>
+<li><p><strong>Binary variables</strong> represent <strong>Unit Commitment</strong> decisions, such as switching thermal units on or off.</p></li>
+</ul>
+<p>This formulation allows a realistic representation of operational constraints but also increases computational complexity. Consequently, DESSEM employs <strong>decomposition techniques</strong> and <strong>high-performance algorithms</strong> to ensure convergence within practical computational times.</p>
+</section>
+<section id="hydraulic-representation">
+<h3>HYDRAULIC REPRESENTATION<a class="headerlink" href="#hydraulic-representation" title="Link to this heading"></a></h3>
+<p>The <strong>hydraulic subsystem</strong> in DESSEM models the <strong>hourly operation of hydroelectric plants</strong>, accounting for reservoir volumes, inflows, turbine discharges, spillage, and minimum downstream releases. <strong>Water balance constraints</strong> ensure mass conservation at each stage. The model also incorporates <strong>plant-specific productivity coefficients</strong>, <strong>hydraulic losses</strong>, and <strong>turbine flow limits</strong>. This detailed representation ensures that <strong>hydraulic energy is optimally utilized</strong> in compliance with environmental and physical restrictions.</p>
+</section>
+<section id="thermal-representation">
+<h3>THERMAL REPRESENTATION<a class="headerlink" href="#thermal-representation" title="Link to this heading"></a></h3>
+<p>Thermal generation units are modeled considering their <strong>variable operating costs</strong>, <strong>minimum and maximum generation limits</strong>, <strong>startup and shutdown costs</strong>, and <strong>ramping constraints</strong>. The inclusion of <strong>Unit Commitment logic</strong> ensures temporal consistency by enforcing <strong>minimum up and down times</strong>. This level of detail captures the actual operational characteristics of thermal plants, allowing the model to determine <strong>both the generation output and the on/off status</strong> of each unit at every hour.</p>
+</section>
+<section id="electrical-network-representation">
+<h3>ELECTRICAL NETWORK REPRESENTATION<a class="headerlink" href="#electrical-network-representation" title="Link to this heading"></a></h3>
+<p>DESSEM uses a <strong>DC power flow (linearized)</strong> formulation to represent <strong>transmission constraints</strong> and approximate <strong>network losses</strong>. Each bus in the network is subject to <strong>active power balance equations</strong>, and transmission lines and transformers are modeled with <strong>capacity limits</strong>. Contingencies and <strong>inter-regional exchange limits</strong> can also be included. This network representation ensures that dispatch results are not only <strong>economically optimal</strong> but also <strong>electrically feasible</strong>, integrating both the <strong>energy</strong> and <strong>network perspectives</strong> of system operation.</p>
+</section>
+<section id="modular-structure-of-the-model">
+<h3>MODULAR STRUCTURE OF THE MODEL<a class="headerlink" href="#modular-structure-of-the-model" title="Link to this heading"></a></h3>
+<p>DESSEM is organized into <strong>modular components</strong>, each responsible for a specific aspect of the problem:</p>
+<ul class="simple">
+<li><p><strong>Hydraulics</strong> – reservoir operation and water balance;</p></li>
+<li><p><strong>Thermal</strong> – generation and commitment;</p></li>
+<li><p><strong>Network</strong> – transmission constraints;</p></li>
+<li><p><strong>Operational reserves</strong> – system security margins.</p></li>
+</ul>
+<p>These modules are combined within a <strong>main optimization framework</strong>, enabling <strong>parallel computation</strong> and efficient scalability. This modular design improves <strong>maintainability, flexibility, and computational performance</strong>, making DESSEM suitable for large-scale systems such as the <strong>Brazilian SIN</strong>.</p>
+</section>
+<section id="integration-with-other-models">
+<h3>INTEGRATION WITH OTHER MODELS<a class="headerlink" href="#integration-with-other-models" title="Link to this heading"></a></h3>
+<p>DESSEM operates in conjunction with other models in the planning chain.</p>
+<ul class="simple">
+<li><p>It receives <strong>initial conditions</strong>—such as reservoir volumes and operating policies—from the <strong>medium-term models DECOMP and NEWAVE</strong>.</p></li>
+<li><p>DESSEM refines these results with <strong>hourly precision</strong>, bridging the gap between medium-term planning and <strong>real-time operation</strong>.</p></li>
+<li><p>Its outputs then serve as inputs for the <strong>ONS’s real-time dispatch</strong>.</p></li>
+</ul>
+<p>This integration ensures <strong>coherence across planning horizons</strong>, avoiding inconsistencies between <strong>short-, medium-, and long-term</strong> decision processes.</p>
+</section>
+<section id="practical-applications">
+<h3>PRACTICAL APPLICATIONS<a class="headerlink" href="#practical-applications" title="Link to this heading"></a></h3>
+<p>In practice, DESSEM is used to:</p>
+<ul class="simple">
+<li><p>Determine the <strong>hourly Marginal Operating Cost (CMO)</strong>;</p></li>
+<li><p>Identify the <strong>optimal dispatch</strong> of each generation resource;</p></li>
+<li><p>Evaluate <strong>inter-regional energy exchanges</strong>;</p></li>
+<li><p>Set <strong>short-term market prices</strong>;</p></li>
+<li><p>Conduct <strong>electrical security analyses</strong>, such as transmission limits and load shedding assessments.</p></li>
+</ul>
+<p>The model is particularly critical in systems with <strong>high shares of variable renewable generation</strong>, as it can integrate <strong>hourly wind and solar forecasts</strong>. In doing so, DESSEM provides a <strong>robust decision-support framework</strong> for operation planning in increasingly complex and dynamic energy environments.</p>
+</section>
+<section id="mathematical-modeling-of-dessem">
+<h3>Mathematical Modeling of DESSEM<a class="headerlink" href="#mathematical-modeling-of-dessem" title="Link to this heading"></a></h3>
+<section id="hydropower-plants">
+<h4>Hydropower Plants<a class="headerlink" href="#hydropower-plants" title="Link to this heading"></a></h4>
+<section id="sets-and-indices">
+<h5>Sets and Indices<a class="headerlink" href="#sets-and-indices" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(\mathcal{T} = \{1,\dots,T\}\)</span> – hourly periods</p></li>
+<li><p><span class="math">\(\mathcal{H} = \{\text{UHE}_1, \dots, \text{UHE}_{n_h}\}\)</span> – hydropower plants</p></li>
+<li><p><span class="math">\(\mathcal{U}(h) \subseteq \mathcal{H}\)</span> – set of upstream hydropower plants of <span class="math">\(h\)</span></p></li>
+</ul>
+</section>
+<section id="parameters-data">
+<h5>Parameters (Data)<a class="headerlink" href="#parameters-data" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(a_{h,t}\)</span> – natural inflow to plant <span class="math">\(h\)</span> in period <span class="math">\(t\)</span> (m<span class="math">\(^3\)</span>/s)</p></li>
+<li><p><span class="math">\(d_t\)</span> – demand in period <span class="math">\(t\)</span> (MWh/h)</p></li>
+<li><p><span class="math">\(\zeta_{\text{vol}}\)</span> – volume–flow conversion factor (hm<span class="math">\(^3\)</span>/h) <span class="math">\(\Rightarrow \frac{3600}{10^6}\)</span></p></li>
+<li><p><span class="math">\(\zeta\)</span> – hydraulic constant <span class="math">\(\Rightarrow \frac{9.81}{1000}\)</span> (MW per m<span class="math">\(^3\)</span>/sm of head)</p></li>
+<li><p><span class="math">\(V_{{\min}_h},\,V_{{\max}_h}\)</span> – volume limits (hm<span class="math">\(^3\)</span>)</p></li>
+<li><p><span class="math">\(Q_{{\min}_h},\,Q_{{\max}_h}\)</span> – turbined flow limits (m<span class="math">\(^3\)</span>/s)</p></li>
+<li><p><span class="math">\(V_{{\text{ini}}_h}\)</span> – initial reservoir volume (hm<span class="math">\(^3\)</span>)</p></li>
+<li><p><span class="math">\(V_{{\text{meta}}_h}\)</span>  – target terminal volume (hm<span class="math">\(^3\)</span>)</p></li>
+<li><p><span class="math">\(C_{{\text{def}}}\)</span> – unitary cost of deficit ($/MWh)</p></li>
+<li><p><span class="math">\(\alpha_{h,k},\,\beta_{h,k},\,\gamma_{h,k}\)</span> – polynomial coefficients for <span class="math">\(h_{\text{up}}\)</span>, <span class="math">\(h_{\text{down}}\)</span>, <span class="math">\(h_{\text{loss}}\)</span></p></li>
+<li><p><span class="math">\(\rho_{h,k}\)</span> – \text{polynomial coefficients of the specific productivity <span class="math">\(\rho_h\)</span></p></li>
+</ul>
+</section>
+<section id="id2">
+<h5>Decision Variables<a class="headerlink" href="#id2" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(Q_{h,t} \ge 0\)</span> – turbined flow (m<span class="math">\(^3\)</span>/s)</p></li>
+<li><p><span class="math">\(S_{h,t} \ge 0\)</span> – spillage (m<span class="math">\(^3\)</span>/s)</p></li>
+<li><p><span class="math">\(V_{h,t} \ge 0\)</span> – stored volume (hm<span class="math">\(^3\)</span>)</p></li>
+<li><p><span class="math">\(G_{h,t} \ge 0\)</span> – hydropower generation (MWh/h)</p></li>
+<li><p><span class="math">\(D_t \ge 0\)</span> – energy deficit (MWh/h)</p></li>
+</ul>
+</section>
+<section id="hydraulic-polynomial-functions-for-plant-h">
+<h5>Hydraulic Polynomial Functions for Plant <span class="math">\(h\)</span><a class="headerlink" href="#hydraulic-polynomial-functions-for-plant-h" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(\rho(Q, H_{\text{net}}) = \zeta \,\Big( \rho_0 + \rho_1 Q + \rho_2 H_{\text{net}} + \rho_3 Q H_{\text{net}} + \rho_4 Q^2 + \rho_5 H_{\text{net}}^2
+\Big), \text{ (CEPEL, 2023)}\)</span></p></li>
+<li><p><span class="math">\(h_{\text{up},h}(V) = \sum_{k=0}^{K_a} \alpha_{h,k}\, V^k, \)</span></p></li>
+<li><p><span class="math">\(h_{\text{down},h}(q) = \sum_{k=0}^{K_b} \beta_{h,k}\, q^k,\)</span></p></li>
+<li><p><span class="math">\(h_{\text{loss},h}(Q) = \sum_{k=0}^{K_\gamma} \gamma_{h,k}\, Q^k.\)</span></p></li>
+</ul>
+</section>
+<section id="hydropower-production-function-hpf">
+<h5>Hydropower Production Function (HPF)<a class="headerlink" href="#hydropower-production-function-hpf" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(H_{{\text{net}}_{h,t}} = h_{\text{up},h}(V_{h,t})- h_{\text{down},h}(Q_{h,t}+S_{h,t}) - h_{\text{loss},h}(Q_{h,t}),\)</span></p></li>
+<li><p><span class="math">\(G_{h,t} = \zeta \, Q_{h,t}\, \rho_h(Q_{h,t}, H_{{\text{net}}_{h,t}})\, H_{{\text{net}}_{h,t}} \quad \textbf{(Exact HPF)},\)</span></p></li>
+<li><p><span class="math">\(G_{h,t} = \zeta \mathrm{PE} H_{{\mathrm{net}}_{h,t}} Q_{h,t} \quad \textbf{(HPF with constant PE)},\)</span></p></li>
+<li><p><span class="math">\(G_{h,t} = \mathrm{P}  Q_{h,t} \quad \textbf{(Linearized HPF)}.\)</span></p></li>
+</ul>
+</section>
+<section id="total-instantaneous-inflow-cascade-without-delay">
+<h5>Total Instantaneous Inflow (Cascade without Delay)<a class="headerlink" href="#total-instantaneous-inflow-cascade-without-delay" title="Link to this heading"></a></h5>
+<div class="math">
+\[
+I_{h,t} = a_{h,t} + \sum_{u \in \mathcal{U}(h)} ( Q_{u,t} + S_{u,t} ), 
+\quad \forall h\in\mathcal{H},\; \forall t\in\mathcal{T}.
+\]</div>
+</section>
+<section id="constraints">
+<h5>Constraints<a class="headerlink" href="#constraints" title="Link to this heading"></a></h5>
+<section id="generation">
+<h6>Generation<a class="headerlink" href="#generation" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+G_{h,t} = HPF(Q,V,S), \quad \forall h\in\mathcal{H},\, t\in\mathcal{T}.
+\]</div>
+</section>
+<section id="reservoir-mass-balance">
+<h6>Reservoir Mass Balance<a class="headerlink" href="#reservoir-mass-balance" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p><span class="math">\(V_{h,1} = V_{{\text{ini}}_h} + \zeta_{\text{vol}} ( I_{h,1} - Q_{h,1} - S_{h,1}),\)</span></p></li>
+<li><p><span class="math">\(V_{h,t} = V_{h,t-1} + \zeta_{\text{vol}} ( I_{h,t} - Q_{h,t} - S_{h,t}),
+\quad \forall t=2,\dots,T.\)</span></p></li>
+</ul>
+</section>
+<section id="targets-and-operational-limits">
+<h6>Targets and Operational Limits<a class="headerlink" href="#targets-and-operational-limits" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p><span class="math">\(V_{h,T} \ge V_{{\text{meta}}_h},\)</span></p></li>
+<li><p><span class="math">\(V_{{\min}_h} \le V_{h,t} \le V_{{\max}_h},\)</span></p></li>
+<li><p><span class="math">\(Q_{{\min}_h} \le Q_{h,t} \le Q_{{\max}_h},\)</span></p></li>
+<li><p><span class="math">\(S_{h,t},\, G_{h,t},\, D_t \ge 0.\)</span></p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="thermal-power-plants">
+<h4>Thermal Power Plants<a class="headerlink" href="#thermal-power-plants" title="Link to this heading"></a></h4>
+<section id="id3">
+<h5>Sets and Indices<a class="headerlink" href="#id3" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(\mathcal{T} = \{1,\dots,T\}, \quad\)</span></p></li>
+<li><p><span class="math">\(\mathcal{G} = \{\text{UTE}_1,\dots,\text{UTE}_{n_g}\}.\)</span></p></li>
+</ul>
+</section>
+<section id="parameters">
+<h5>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(d_t\)</span> – system demand (MW)</p></li>
+<li><p><span class="math">\(P_{{\min}_g},\, P_{{\max}_g}\)</span> – generation limits of plant <span class="math">\(g\)</span> (MW) (CEPEL, 2023)</p></li>
+<li><p><span class="math">\(a_g,\, b_g,\, c_g\)</span> – thermal cost coefficients of plant <span class="math">\(g\)</span></p></li>
+<li><p><span class="math">\(SC_g\)</span> – startup cost of plant <span class="math">\(g\)</span></p></li>
+<li><p><span class="math">\(R U_g,\, R D_g\)</span> – ramp-up/ramp-down rates (MW per interval)</p></li>
+<li><p><span class="math">\(t_{{\uparrow}_g},\, t_{{\downarrow}_g}\)</span> – minimum up/down times (h)</p></li>
+<li><p><span class="math">\(C_{\text{def}}\)</span> – deficit penalty cost (R$/MWh)</p></li>
+<li><p><span class="math">\(u_{g,0},\, p_{g,0}\)</span> – initial on/off status and generation (from initial status data)</p></li>
+</ul>
+</section>
+<section id="id4">
+<h5>Decision Variables<a class="headerlink" href="#id4" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(p_{g,t}\ge 0,\quad\)</span></p></li>
+<li><p><span class="math">\(u_{g,t}, y_{g,t}, w_{g,t}\in\{0,1\},\quad\)</span></p></li>
+<li><p><span class="math">\(D_t\ge 0.\)</span></p></li>
+</ul>
+<p>(where <span class="math">\(u\)</span> = on, <span class="math">\(y\)</span> = startup, <span class="math">\(w\)</span> = shutdown.)</p>
+</section>
+<section id="id5">
+<h5>Constraints<a class="headerlink" href="#id5" title="Link to this heading"></a></h5>
+<section id="power-balance">
+<h6>Power Balance<a class="headerlink" href="#power-balance" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+\sum_{g\in\mathcal{G}} p_{g,t} + D_t = d_t, \quad \forall t.
+\]</div>
+</section>
+<section id="conditional-capacity">
+<h6>Conditional Capacity<a class="headerlink" href="#conditional-capacity" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+P_{{\min}_g} u_{g,t} \le p_{g,t} \le P_{{\max}_g} u_{g,t}.
+\]</div>
+</section>
+<section id="startup-shutdown-logic">
+<h6>Startup/Shutdown Logic<a class="headerlink" href="#startup-shutdown-logic" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+u_{g,t} - u_{g,t-1} = y_{g,t} - w_{g,t}.
+\]</div>
+</section>
+<section id="ramping-limits">
+<h6>Ramping Limits<a class="headerlink" href="#ramping-limits" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p><span class="math">\(p_{g,t} - p_{g,t-1} \le RU_g + P_{{\max}_g} y_{g,t}\)</span></p></li>
+<li><p><span class="math">\(p_{g,t-1} - p_{g,t} \le RD_g + P_{{\max}_g} w_{g,t}\)</span></p></li>
+</ul>
+</section>
+<section id="minimum-up-down-time">
+<h6>Minimum Up/Down Time<a class="headerlink" href="#minimum-up-down-time" title="Link to this heading"></a></h6>
+<ul class="simple">
+<li><p><span class="math">\(\sum_{\tau=t-t^{\uparrow}_g+1}^{t} y_{g,\tau} \le u_{g,t},\)</span></p></li>
+<li><p><span class="math">\(\sum_{\tau=t-t^{\downarrow}_g+1}^{t} w_{g,\tau} \le 1-u_{g,t}.\)</span></p></li>
+</ul>
+</section>
+<section id="consistent-initial-conditions">
+<h6>Consistent Initial Conditions<a class="headerlink" href="#consistent-initial-conditions" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+p_{g,0}\in
+\begin{cases}
+[\,P_{{\min}_g},\,P_{{\max}_g}\,], & \text{if } u_{g,0}=1,\\
+\{0\}, & \text{if } u_{g,0}=0.
+\end{cases}
+\]</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="renewable-energies-and-storage">
+<h4>Renewable Energies and Storage<a class="headerlink" href="#renewable-energies-and-storage" title="Link to this heading"></a></h4>
+<section id="id6">
+<h5>Sets and Indices<a class="headerlink" href="#id6" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(\mathcal{T} = \{1,\dots,T\},\quad\)</span></p></li>
+<li><p><span class="math">\(\mathcal{R} = \{1,\dots,R_{n_r}\},\quad\)</span></p></li>
+<li><p><span class="math">\(\mathcal{S} = \{1,\dots,S_{n_s}\}.\)</span></p></li>
+</ul>
+</section>
+<section id="id7">
+<h5>Parameters<a class="headerlink" href="#id7" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(\overline{g}_{r,t}\)</span> – exogenous renewable availability profile (MW avg)</p></li>
+<li><p><span class="math">\(\Delta t\)</span> – time step (typically 1 h)</p></li>
+<li><p><span class="math">\(E_{{\min}_s},\,E_{{\max}_s}\)</span> – energy storage limits (MWh)</p></li>
+<li><p><span class="math">\(E_{{\mathrm{ini}}_s}\)</span> – initial energy (MWh)</p></li>
+<li><p><span class="math">\(\overline{P}_{{\mathrm{ch}}_{s}},\,\overline{P}_{{\mathrm{dis}}_{s}}\)</span> – max charge/discharge power (MW)</p></li>
+<li><p><span class="math">\(\eta_{{\mathrm{c}}_{s}},\,\eta_{{\mathrm{d}}_{s}}\)</span> – charge and discharge efficiencies</p></li>
+</ul>
+</section>
+<section id="id8">
+<h5>Decision Variables<a class="headerlink" href="#id8" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(g_{{\mathrm{ren}}_{r,t}} \ge 0\)</span> – \text{dispatched renewable generation (MW)}</p></li>
+<li><p><span class="math">\(E_{s,t} \ge 0\)</span> – \text{stored energy (MWh)</p></li>
+<li><p><span class="math">\(P_{{\mathrm{ch}}_{s,t}},\,P_{{\mathrm{dis}}_{s,t}} \ge 0\)</span> – charging/discharging power (MW)</p></li>
+</ul>
+</section>
+<section id="id9">
+<h5>Constraints<a class="headerlink" href="#id9" title="Link to this heading"></a></h5>
+<section id="renewable-generation-availability-limit">
+<h6>Renewable Generation — Availability Limit<a class="headerlink" href="#renewable-generation-availability-limit" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+0 \le g_{{\mathrm{ren}}_{r,t}} \le \overline{g}_{r,t}, \quad \forall r,t.
+\]</div>
+</section>
+<section id="storage-energy-balance-soc">
+<h6>Storage — Energy Balance (SoC)<a class="headerlink" href="#storage-energy-balance-soc" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+E_{s,1} = E_{{\mathrm{ini}}_s} + \eta_{{\mathrm{c}}_{s}} P_{{\mathrm{ch}}_{s,1}} \Delta t - \frac{1}{\eta_{{\mathrm{d}}_{s}}} P_{{\mathrm{dis}}_{s,1}} \Delta t,\\
+E_{s,t} = E_{s,t-1} + \eta_{{\mathrm{c}}_{s}} P_{{\mathrm{ch}}_{s,t}} \Delta t - \frac{1}{\eta_{{\mathrm{d}}_{s}}} P_{{\mathrm{dis}}_{s,t}} \Delta t, \quad \forall t=2,\dots,T.
+\]</div>
+</section>
+<section id="storage-state-of-charge-soc-limits">
+<h6>Storage — State of Charge (SoC) Limits<a class="headerlink" href="#storage-state-of-charge-soc-limits" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+E_{{\min}_s} \le E_{s,t} \le E_{{\max}_s}.
+\]</div>
+</section>
+<section id="storage-power-limits">
+<h6>Storage — Power Limits<a class="headerlink" href="#storage-power-limits" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+0 \le P_{{\mathrm{ch}}_{s,t}} \le \overline{P}_{{\mathrm{ch}}_{s}},\\
+0 \le P_{{\mathrm{dis}}_{s,t}} \le \overline{P}_{{\mathrm{dis}}_{s}}.
+\]</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id10">
+<h4>Objective Function<a class="headerlink" href="#id10" title="Link to this heading"></a></h4>
+<p>The hydrothermal dispatch problem is formulated as a minimization of total generation and deficit costs, including:</p>
+<ul class="simple">
+<li><p>Thermal generation costs;</p></li>
+<li><p>Deficit costs (represented by a thermal deficit unit with fixed cost, as per Unsihuay, 2023);</p></li>
+<li><p>Penalty for reservoir spillage.</p></li>
+</ul>
+<div class="math">
+\[
+\begin{aligned}
+\min Z =\; &\sum_{g\in\mathcal{G}}\sum_{t\in\mathcal{T}} c_g\,p_{g,t} \\
+&+ 0.3\sum_{h\in\mathcal{H}}\sum_{t\in\mathcal{T}} S_{h,t} \\
+&+ C_{def}\sum_{t\in\mathcal{T}} D_t
+\end{aligned}
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="power-balance-load-supply">
+<h4>Power Balance (Load Supply)<a class="headerlink" href="#power-balance-load-supply" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+\sum_{h \in \mathcal{H}} G_{h,t} +
+\sum_{g \in \mathcal{G}} p_{g,t} +
+\sum_{r \in \mathcal{R}} g_{{\mathrm{ren}}_{r,t}} +
+\sum_{s \in \mathcal{S}} ( P_{{\mathrm{dis}}_{s,t}} - P_{{\mathrm{ch}}_{s,t}} ) +
+D_t = d_t, \quad \forall t \in \mathcal{T}.
+\]</div>
+</section>
+</section>
+</section>
+<section id="technical-appendix-summary-of-the-decomp-manual">
+<h2>TECHNICAL APPENDIX: SUMMARY OF THE DECOMP MANUAL<a class="headerlink" href="#technical-appendix-summary-of-the-decomp-manual" title="Link to this heading"></a></h2>
+<section id="strategic-planning">
+<h3>STRATEGIC PLANNING<a class="headerlink" href="#strategic-planning" title="Link to this heading"></a></h3>
+<p>The <strong>strategic planning of hydrothermal power system operation</strong> involves defining generation targets for hydro and thermal plants over a <strong>multi-year horizon</strong>, while respecting electrical and operational constraints and seeking to <strong>minimize total operating costs</strong>. The complexity of this problem stems from two main factors:</p>
+<ul class="simple">
+<li><p><strong>Temporal coupling</strong>, since current decisions affect future costs due to hydrological uncertainty;</p></li>
+<li><p><strong>Spatial coupling</strong>, arising from interdependent operation of cascade reservoirs.</p></li>
+</ul>
+<p>This leads to the <strong>decision-maker’s dilemma</strong>: intensive use of water today may cause high thermal costs in future dry periods, whereas excessive thermal dispatch may lead to spillage and wasted energy during wet periods.</p>
+<p>The formulation of the problem considers <strong>Immediate Cost (FCI)</strong> and <strong>Future Cost (FCF)</strong> functions, whose sum defines the <strong>Total Cost Function (FCT)</strong>. The derivative of the FCF with respect to stored volume defines the <strong>value of water</strong>, i.e., the marginal cost of using water stored in reservoirs. The balance between the marginal thermal generation cost and the value of water determines the <strong>optimal dispatch policy</strong>.</p>
+<p>Given the scale of the <strong>Brazilian National Interconnected System (SIN)</strong> and the hydrological uncertainty, the planning process is decomposed into multiple time horizons:</p>
+<ul class="simple">
+<li><p><strong>Medium term (NEWAVE)</strong>: up to five years, with <strong>energy-equivalent reservoirs</strong>;</p></li>
+<li><p><strong>Short term (DECOMP)</strong>: two months, with <strong>individual plant representation</strong>;</p></li>
+<li><p><strong>Very short term (DESSEM)</strong>: hourly or sub-hourly, covering up to two weeks.</p></li>
+</ul>
+<p>This hierarchical modeling chain, developed by <strong>CEPEL</strong>, ensures consistency across planning horizons.</p>
+</section>
+<section id="immediate-future-and-total-cost-functions-in-strategic-planning">
+<h3>IMMEDIATE, FUTURE, AND TOTAL COST FUNCTIONS IN STRATEGIC PLANNING<a class="headerlink" href="#immediate-future-and-total-cost-functions-in-strategic-planning" title="Link to this heading"></a></h3>
+<section id="immediate-cost-function-fci">
+<h4>Immediate Cost Function (FCI)<a class="headerlink" href="#immediate-cost-function-fci" title="Link to this heading"></a></h4>
+<p>The <strong>FCI</strong> represents the cost arising from decisions at the current stage.</p>
+<ul class="simple">
+<li><p>If demand is met by hydropower, the cost is nearly zero.</p></li>
+<li><p>If thermal plants are dispatched, the FCI reflects <strong>fuel costs</strong>.</p></li>
+<li><p>If demand is unmet, the <strong>deficit cost</strong> (penalty) is included.</p></li>
+</ul>
+<p>Formally, for a stage ( t ):
+$<span class="math">\(
+\text{FCI}_t = C_T \cdot g_t + C_D \cdot DEF_t
+\)</span>$
+where ( C_T ) is the thermal generation cost, ( g_t ) the thermal generation, ( C_D ) the deficit cost, and ( DEF_t ) the unserved energy.</p>
+</section>
+<section id="future-cost-function-fcf">
+<h4>Future Cost Function (FCF)<a class="headerlink" href="#future-cost-function-fcf" title="Link to this heading"></a></h4>
+<p>The <strong>FCF</strong> represents the expected cost of current decisions on future stages. When reservoirs are low, future costs rise due to increased thermal dispatch; when full, future costs drop.<br />
+The <strong>Bellman equation</strong> expresses this recursive relationship:
+$<span class="math">\(
+\alpha_t(v_{t-1}) = \min \Big\{ C_T \cdot g_t + C_D \cdot def_t + \alpha_{t+1}(v_t) \Big\}
+\)</span>$
+subject to water balance and demand constraints.<br />
+The slope of the FCF defines the <strong>value of water</strong>, representing the <strong>marginal opportunity cost</strong> of stored energy.</p>
+</section>
+<section id="total-cost-function-fct">
+<h4>Total Cost Function (FCT)<a class="headerlink" href="#total-cost-function-fct" title="Link to this heading"></a></h4>
+<p>The total cost is:
+$<span class="math">\(
+\text{FCT} = \text{FCI} + \text{FCF}
+\)</span><span class="math">\(
+The optimal policy satisfies:
+\)</span><span class="math">\(
+\frac{\partial \text{FCI}}{\partial V} = - \frac{\partial \text{FCF}}{\partial V}
+\)</span>$
+ensuring equilibrium between immediate and future costs — the <strong>marginal water value</strong> equals the <strong>marginal thermal cost</strong>.</p>
+</section>
+<section id="application">
+<h4>Application<a class="headerlink" href="#application" title="Link to this heading"></a></h4>
+<p>The joint use of FCI, FCF, and FCT enables robust <strong>multi-period water management</strong>. These functions form the conceptual foundation of <strong>NEWAVE, DECOMP, and DESSEM</strong>, where the <strong>FCF</strong> links successive planning horizons.</p>
+</section>
+</section>
+<section id="id11">
+<h3>MARGINAL OPERATING COST (CMO)<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<p>The <strong>Marginal Operating Cost (CMO)</strong> quantifies the <strong>incremental cost</strong> of supplying one additional megawatt-hour.<br />
+It reflects the <strong>marginal opportunity cost of water</strong> or the <strong>benefit of retaining water</strong> for future use.</p>
+<section id="definition">
+<h4>Definition<a class="headerlink" href="#definition" title="Link to this heading"></a></h4>
+<p>According to <strong>DESSEM’s methodology</strong>, the CMO is determined in two steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Marginal Cost per Bus (CMB):</strong> obtained from the dual multipliers of bus power balance constraints.</p></li>
+<li><p><strong>Submarket CMO:</strong> the weighted average of bus CMOs, with weights based on bus demand.</p></li>
+</ol>
+</section>
+<section id="relationship-with-cost-functions">
+<h4>Relationship with Cost Functions<a class="headerlink" href="#relationship-with-cost-functions" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>FCI:</strong> immediate thermal and deficit costs → CMO equals current marginal thermal cost.</p></li>
+<li><p><strong>FCF:</strong> captures future water value → implicit marginal hydro cost.</p></li>
+<li><p><strong>FCT:</strong> derivative equals total system CMO, balancing present and future costs.</p></li>
+</ul>
+<p>Thus, CMO reflects the <strong>optimal equilibrium</strong> between water usage and conservation.</p>
+</section>
+<section id="role-in-planning">
+<h4>Role in Planning<a class="headerlink" href="#role-in-planning" title="Link to this heading"></a></h4>
+<p>The <strong>CMO</strong> guides hydrothermal dispatch, market price formation (short-term PLD), and ensures <strong>inter-horizon consistency</strong> across NEWAVE, DECOMP, and DESSEM.</p>
+</section>
+</section>
+<section id="advanced-concepts-in-strategic-operation-planning">
+<h3>ADVANCED CONCEPTS IN STRATEGIC OPERATION PLANNING<a class="headerlink" href="#advanced-concepts-in-strategic-operation-planning" title="Link to this heading"></a></h3>
+<section id="risk-aversion">
+<h4>Risk Aversion<a class="headerlink" href="#risk-aversion" title="Link to this heading"></a></h4>
+<p>Traditional planning minimizes <strong>expected cost</strong>, assuming <strong>risk neutrality</strong>. To address hydrological uncertainty, <strong>risk-averse measures</strong> such as <strong>Value-at-Risk (VaR)</strong> and <strong>Conditional Value-at-Risk (CVaR)</strong> are introduced, penalizing extreme deficit scenarios and promoting <strong>more secure operational policies</strong>.</p>
+</section>
+<section id="id12">
+<h4>Spatial Coupling<a class="headerlink" href="#id12" title="Link to this heading"></a></h4>
+<p>Spatial coupling arises from hydraulic interdependence among cascade plants and inter-area energy exchanges. It makes the <strong>FCF multidimensional</strong>, as it depends on multiple reservoir volumes simultaneously, greatly increasing model complexity.</p>
+</section>
+<section id="curse-of-dimensionality-and-decomposition">
+<h4>Curse of Dimensionality and Decomposition<a class="headerlink" href="#curse-of-dimensionality-and-decomposition" title="Link to this heading"></a></h4>
+<p>Classical Dynamic Programming (DP) suffers from exponential state-space growth. The <strong>Stochastic Dual Dynamic Programming (SDDP)</strong> approach mitigates this through <strong>Benders decomposition</strong>, approximating the FCF with <strong>piecewise-linear cuts</strong>, enabling multi-year tractable planning.</p>
+</section>
+<section id="integration-with-price-formation">
+<h4>Integration with Price Formation<a class="headerlink" href="#integration-with-price-formation" title="Link to this heading"></a></h4>
+<p>The <strong>CMO</strong>, derived from optimization duals, is the foundation for Brazil’s <strong>Short-Term Settlement Price (PLD)</strong>. Thus, planning results not only guide dispatch but also <strong>transmit economic signals</strong>, ensuring efficient and stable market operation.</p>
+</section>
+</section>
+<section id="solution-strategies-for-strategic-operation-planning">
+<h3>SOLUTION STRATEGIES FOR STRATEGIC OPERATION PLANNING<a class="headerlink" href="#solution-strategies-for-strategic-operation-planning" title="Link to this heading"></a></h3>
+<p>The <strong>Strategic Operation Planning Problem</strong> of the SIN is complex, involving hydrological uncertainty, coupling effects, and multiple decision layers. The main approaches include:</p>
+<ul class="simple">
+<li><p><strong>Linear Programming (LP)</strong></p></li>
+<li><p><strong>Dynamic Programming (DP)</strong></p></li>
+<li><p><strong>Dual and Stochastic Extensions (PDD, PDDE)</strong></p></li>
+<li><p><strong>Decomposition-based methods</strong> (as in CEPEL’s models).</p></li>
+</ul>
+<section id="multistage-linear-programming-lp">
+<h4>Multistage Linear Programming (LP)<a class="headerlink" href="#multistage-linear-programming-lp" title="Link to this heading"></a></h4>
+<p>Represents the entire planning horizon as a single linear model, with hydraulic and operational constraints. Provides global optimality but is computationally intractable for large systems.</p>
+</section>
+<section id="deterministic-dynamic-programming-pdd">
+<h4>Deterministic Dynamic Programming (PDD)<a class="headerlink" href="#deterministic-dynamic-programming-pdd" title="Link to this heading"></a></h4>
+<p>Solves the problem recursively via <strong>Bellman’s principle</strong>, assuming known inflows. Pedagogically useful but limited by dimensionality.</p>
+</section>
+<section id="deterministic-dual-dynamic-programming-pddd">
+<h4>Deterministic Dual Dynamic Programming (PDDD)<a class="headerlink" href="#deterministic-dual-dynamic-programming-pddd" title="Link to this heading"></a></h4>
+<p>Approximates the FCF via <strong>Benders cuts</strong>, iteratively refined through forward and backward passes until convergence. Foundation of <strong>DECOMP</strong>.</p>
+</section>
+<section id="stochastic-dual-dynamic-programming-pdde">
+<h4>Stochastic Dual Dynamic Programming (PDDE)<a class="headerlink" href="#stochastic-dual-dynamic-programming-pdde" title="Link to this heading"></a></h4>
+<p>Extends the dual formulation to stochastic inflows (NEWAVE model), evaluating <strong>expected future costs</strong> under probability distributions.</p>
+</section>
+<section id="very-short-term-deterministic-formulations">
+<h4>Very Short-Term Deterministic Formulations<a class="headerlink" href="#very-short-term-deterministic-formulations" title="Link to this heading"></a></h4>
+<p>Used in <strong>DESSEM</strong>, which employs a <strong>Mixed-Integer Linear Program (MILP)</strong> to represent hourly hydrothermal dispatch and network constraints, coupled with DECOMP via the <strong>Future Cost Function</strong>.</p>
+</section>
+</section>
+<section id="comparative-overview-of-strategies">
+<h3>COMPARATIVE OVERVIEW OF STRATEGIES<a class="headerlink" href="#comparative-overview-of-strategies" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Aspect</strong></p></th>
+<th class="head"><p><strong>Multistage LP</strong></p></th>
+<th class="head"><p><strong>PDD / PDDD</strong></p></th>
+<th class="head"><p><strong>PDDE (NEWAVE)</strong></p></th>
+<th class="head"><p><strong>DESSEM</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Typical Horizon</strong></p></td>
+<td><p>Medium/short (small systems)</p></td>
+<td><p>Medium (deterministic)</p></td>
+<td><p>Long-term (stochastic)</p></td>
+<td><p>Very short-term (hourly)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Uncertainty Handling</strong></p></td>
+<td><p>None</p></td>
+<td><p>Deterministic</p></td>
+<td><p>Stochastic scenarios</p></td>
+<td><p>Deterministic</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Future Cost (FCF)</strong></p></td>
+<td><p>Implicit</p></td>
+<td><p>Approximated via Benders cuts</p></td>
+<td><p>Stochastic Benders cuts</p></td>
+<td><p>Coupled via DECOMP</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Coupling</strong></p></td>
+<td><p>Temporal &amp; spatial (explicit)</p></td>
+<td><p>Temporal via recursion</p></td>
+<td><p>Temporal &amp; spatial (aggregated)</p></td>
+<td><p>Temporal &amp; spatial (detailed)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Advantages</strong></p></td>
+<td><p>Exact global optimum</p></td>
+<td><p>Conceptually clear; didactic</p></td>
+<td><p>Treats uncertainty efficiently</p></td>
+<td><p>High temporal resolution</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Limitations</strong></p></td>
+<td><p>Infeasible for large systems</p></td>
+<td><p>Suffers from dimensionality</p></td>
+<td><p>May yield conservative policies</p></td>
+<td><p>Deterministic only</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Practical Use</strong></p></td>
+<td><p>Academic</p></td>
+<td><p>Basis of DECOMP</p></td>
+<td><p>Basis of NEWAVE</p></td>
+<td><p>Basis of DESSEM</p></td>
+</tr>
+</tbody>
+</table>
+<p>These methods form a <strong>hierarchical chain</strong>:</p>
+<ul class="simple">
+<li><p><strong>NEWAVE (PDDE)</strong> defines mid-term water value policies,</p></li>
+<li><p><strong>DECOMP (PDDD)</strong> refines monthly dispatch and inter-area exchanges,</p></li>
+<li><p><strong>DESSEM (MILP)</strong> determines hourly operation and market pricing.</p></li>
+</ul>
+<p>Together, they ensure <strong>temporal and economic consistency</strong> across Brazil’s entire energy planning framework.</p>
+</section>
+<section id="mathematical-modeling-of-decomp">
+<h3>Mathematical Modeling of DECOMP<a class="headerlink" href="#mathematical-modeling-of-decomp" title="Link to this heading"></a></h3>
+<section id="id13">
+<h4>Hydropower Plants<a class="headerlink" href="#id13" title="Link to this heading"></a></h4>
+<section id="id14">
+<h5>Sets and Indices<a class="headerlink" href="#id14" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(\mathcal{T} = \{1,\dots,T\}\)</span> – periods</p></li>
+<li><p><span class="math">\(\mathcal{H} = \{\text{UHE}_1, \dots, \text{UHE}_{n_h}\}\)</span> – hydropower plants</p></li>
+<li><p><span class="math">\(\mathcal{U}(h) \subseteq \mathcal{H}\)</span> – set of upstream hydropower plants of <span class="math">\(h\)</span></p></li>
+</ul>
+</section>
+<section id="id15">
+<h5>Parameters (Data)<a class="headerlink" href="#id15" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(a_{h,t}\)</span> – natural inflow to plant <span class="math">\(h\)</span> in period <span class="math">\(t\)</span> (hm<span class="math">\(^3\)</span>)</p></li>
+<li><p><span class="math">\(d_t\)</span> – demand in period <span class="math">\(t\)</span> (MWh)</p></li>
+<li><p><span class="math">\(V_{{\min}_h},\,V_{{\max}_h}\)</span> – storage limits (hm<span class="math">\(^3\)</span>)</p></li>
+<li><p><span class="math">\(Q_{{\min}_h},\,Q_{{\max}_h}\)</span> – turbined flow limits (hm<span class="math">\(^3\)</span>)</p></li>
+<li><p><span class="math">\(V_{{\text{ini}}_h}\)</span> – initial reservoir volume (hm<span class="math">\(^3\)</span>)</p></li>
+<li><p><span class="math">\(V_{{\text{meta}}_h}\)</span> – target terminal volume (hm<span class="math">\(^3\)</span>)</p></li>
+<li><p><span class="math">\(C_{{\text{def}}}\)</span> – unitary cost of deficit ($/MWh)</p></li>
+</ul>
+</section>
+<section id="id16">
+<h5>Decision Variables<a class="headerlink" href="#id16" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(Q_{h,t} \ge 0\)</span> – turbined flow (hm<span class="math">\(^3\)</span>)</p></li>
+<li><p><span class="math">\(S_{h,t} \ge 0\)</span> – spillage (m<span class="math">\(^3\)</span>)</p></li>
+<li><p><span class="math">\(V_{h,t} \ge 0\)</span> – stored volume (hm<span class="math">\(^3\)</span>)</p></li>
+<li><p><span class="math">\(G_{h,t} \ge 0\)</span> – hydropower generation (MWmed)</p></li>
+<li><p><span class="math">\(D_t \ge 0\)</span> – energy deficit (MWh/h)</p></li>
+</ul>
+</section>
+<section id="id17">
+<h5>Hydropower Production Function (HPF)<a class="headerlink" href="#id17" title="Link to this heading"></a></h5>
+<div class="math">
+\[
+G_{h,t} = P\, Q_{h,t} \quad \textbf{(Linearized HPF)}
+\]</div>
+</section>
+<section id="id18">
+<h5>Constraints<a class="headerlink" href="#id18" title="Link to this heading"></a></h5>
+<section id="id19">
+<h6>Total Instantaneous Inflow (Cascade without Delay)<a class="headerlink" href="#id19" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+I_{h,t} = a_{h,t} + \sum_{u \in \mathcal{U}(h)} ( Q_{u,t} + S_{u,t} ), \quad \forall h \in \mathcal{H}, \; \forall t \in \mathcal{T}
+\]</div>
+</section>
+<section id="id20">
+<h6>Reservoir Mass Balance<a class="headerlink" href="#id20" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+V_{h,1} = V_{\text{ini}_h} + ( I_{h,1} - Q_{h,1} - S_{h,1} ), \quad \forall h, \; t = 1\\
+V_{h,t} = V_{h,t-1} + ( I_{h,t} - Q_{h,t} - S_{h,t} ), \quad \forall h, \; t = 2,\dots,T
+\]</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="thermal-units">
+<h4>Thermal Units<a class="headerlink" href="#thermal-units" title="Link to this heading"></a></h4>
+<section id="id21">
+<h5>Sets and Indices<a class="headerlink" href="#id21" title="Link to this heading"></a></h5>
+<div class="math">
+\[
+    \mathcal{T} = \{1,\dots,T\}, \quad\\
+    \mathcal{G} = \{\text{UTE}_1,\dots,\text{UTE}_{n}\}.
+\]</div>
+</section>
+<section id="id22">
+<h5>Parameters<a class="headerlink" href="#id22" title="Link to this heading"></a></h5>
+<div class="math">
+\[
+G_{\min_g}, G_{\max_g} \text{ — generation limits of unit } g \text{ (MW)}\\
+c_g \text{ — thermal generation cost of unit } g
+\]</div>
+</section>
+<section id="id23">
+<h5>Decision Variables<a class="headerlink" href="#id23" title="Link to this heading"></a></h5>
+<div class="math">
+\[
+p_{g,t} \ge 0 \text{ (MW)}
+\]</div>
+</section>
+<section id="id24">
+<h5>Constraints<a class="headerlink" href="#id24" title="Link to this heading"></a></h5>
+<section id="capacity">
+<h6>Capacity<a class="headerlink" href="#capacity" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+G_{\min_g} \le p_{g,t} \le G_{\max_g}, \quad \forall g, t
+\]</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id25">
+<h4>Renewable Energies and Storage<a class="headerlink" href="#id25" title="Link to this heading"></a></h4>
+<section id="id26">
+<h5>Sets and Indices<a class="headerlink" href="#id26" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(\mathcal{T} = \{1,2,\dots,T\} \quad\)</span> — periods</p></li>
+<li><p><span class="math">\(\mathcal{R} = \{1,2,\dots,N_R\} \quad\)</span> — set of renewable units (wind/solar)</p></li>
+<li><p><span class="math">\(\mathcal{S} = \{1,2,\dots,N_S\} \quad\)</span> — set of storage units (batteries)</p></li>
+</ul>
+</section>
+<section id="id27">
+<h5>Parameters<a class="headerlink" href="#id27" title="Link to this heading"></a></h5>
+<p>For each <span class="math">\(t \in \mathcal{T}\)</span>, <span class="math">\(r \in \mathcal{R}\)</span>, and <span class="math">\(s \in \mathcal{S}\)</span>:</p>
+<ul class="simple">
+<li><p><span class="math">\(\overline{g}_{r,t} \text{ — exogenous renewable availability profile (MWmed)}\)</span></p></li>
+<li><p><span class="math">\(\Delta t \text{ — time step (T), typically } \Delta t = 1\)</span></p></li>
+<li><p><span class="math">\(E_{\min_s}, E_{\max_s} \text{ — min/max stored energy limits (MWh)}\)</span></p></li>
+<li><p><span class="math">\(E_{\text{ini}_s} \text{ — initial energy (MWh)}\)</span></p></li>
+<li><p><span class="math">\(\overline{P}_{\text{ch}_s}, \overline{P}_{\text{dis}_s} \text{ — maximum charge/discharge power (MW)}\)</span></p></li>
+<li><p><span class="math">\(\eta_{\text{c}_s}, \eta_{\text{d}_s} \in (0,1] – \text{ — charging and discharging efficiencies}\)</span></p></li>
+</ul>
+</section>
+<section id="id28">
+<h5>Decision Variables<a class="headerlink" href="#id28" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(g_{\text{ren}_{r,t}} \ge 0 \text{ — dispatched renewable generation of unit } r \text{ at } t \text{ (MWavg)}\)</span></p></li>
+<li><p><span class="math">\(E_{s,t} \ge 0 \text{ — stored energy (SoC) of battery } s \text{ at } t \text{ (MWh)}\)</span></p></li>
+<li><p><span class="math">\(P_{\text{ch}_{s,t}}, P_{\text{dis}_{s,t}} \ge 0 \text{ — charge/discharge powers (MW)}\)</span></p></li>
+</ul>
+</section>
+<section id="id29">
+<h5>Constraints<a class="headerlink" href="#id29" title="Link to this heading"></a></h5>
+<section id="renewable-sources-availability-limit">
+<h6>Renewable Sources — Availability Limit<a class="headerlink" href="#renewable-sources-availability-limit" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+0 \le g_{\text{ren}_{r,t}} \le \overline{g}_{r,t}, \quad \forall r \in \mathcal{R}, \; \forall t \in \mathcal{T}
+\]</div>
+</section>
+<section id="id30">
+<h6>Storage — Energy Balance (SoC)<a class="headerlink" href="#id30" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+E_{s,1} = – E_{\text{ini}_s} + \eta_{\text{c}_s} P_{\text{ch}_{s,1}} \Delta t - \frac{1}{\eta_{\text{d}_s}} P_{\text{dis}_{s,1}} \Delta t, \quad \forall s \in \mathcal{S}\\
+E_{s,t} = – E_{s,t-1} + \eta_{\text{c}_s} P_{\text{ch}_{s,t}} \Delta t - \frac{1}{\eta_{\text{d}_s}} P_{\text{dis}_{s,t}} \Delta t, \quad \forall s \in \mathcal{S}, \; t=2,\dots,T
+\]</div>
+</section>
+<section id="id31">
+<h6>Storage — State of Charge (SoC) Limits<a class="headerlink" href="#id31" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+E_{\min_s} \le E_{s,t} \le E_{\max_s}, \quad \forall s \in \mathcal{S}, \; \forall t \in \mathcal{T}
+\]</div>
+</section>
+<section id="id32">
+<h6>Storage — Power Limits<a class="headerlink" href="#id32" title="Link to this heading"></a></h6>
+<div class="math">
+\[
+0 \le P_{\text{ch}_{s,t}} \le \overline{P}_{\text{ch}_s}, – \quad \forall s \in \mathcal{S}, \; \forall t \in \mathcal{T}\\
+0 \le P_{\text{dis}_{s,t}} \le \overline{P}_{\text{dis}_s}, \quad \forall s \in \mathcal{S}, \; \forall t \in \mathcal{T}
+\]</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id33">
+<h4>Objective Function<a class="headerlink" href="#id33" title="Link to this heading"></a></h4>
+<p>The hydrothermal dispatch problem is formulated as the minimization of total generation and deficit costs, namely:</p>
+<ul class="simple">
+<li><p>Thermal generation costs</p></li>
+<li><p>Deficit cost (represented by a thermal unit with fixed cost, as in Unsihuay, 2023)</p></li>
+<li><p>Spillage penalty (energy waste)</p></li>
+<li><p>For the PDDD case, the future cost term <span class="math">\(\alpha\)</span> (FCF) is included</p></li>
+</ul>
+<section id="single-lp-objective-function">
+<h5>Single LP Objective Function<a class="headerlink" href="#single-lp-objective-function" title="Link to this heading"></a></h5>
+<div class="math">
+\[
+\min Z = \sum_{g\in\mathcal{G}} \sum_{t\in\mathcal{T}} (c_g p_{g,t}) + 0.3 \sum_{h\in\mathcal{H}} \sum_{t\in\mathcal{T}} S_{h,t} + C_{\text{def}} \sum_{t\in\mathcal{T}} D_t
+\]</div>
+</section>
+<section id="objective-function-for-pddd">
+<h5>Objective Function for PDDD<a class="headerlink" href="#objective-function-for-pddd" title="Link to this heading"></a></h5>
+<div class="math">
+\[
+\min Z = \sum_{g\in\mathcal{G}} \sum_{t\in\mathcal{T}} (c_g p_{g,t}) + 0.3 \sum_{h\in\mathcal{H}} \sum_{t\in\mathcal{T}} S_{h,t} + C_{\text{def}} \sum_{t\in\mathcal{T}} D_t + \sum_{t\in\mathcal{T}} \alpha_{k_t}
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="power-balance-load-requirement">
+<h4>Power Balance (Load Requirement)<a class="headerlink" href="#power-balance-load-requirement" title="Link to this heading"></a></h4>
+<p>The load balance constraint requires that the total generation from all available sources, plus battery discharge and any incurred deficit, exactly meets the system demand:</p>
+<div class="math">
+\[
+\sum_{h \in \mathcal{H}} G_{h,t} + \sum_{g \in \mathcal{G}} p_{g,t} + \sum_{r \in \mathcal{R}} g_{\text{ren}_{r,t}} + \sum_{s \in \mathcal{S}} ( P_{\text{dis}_{s,t}} - P_{\text{ch}_{s,t}} ) + D_t = d_t, \quad \forall t \in \mathcal{T}
+\]</div>
+</section>
+</section>
+</section>
+<section id="technical-appendix-summary-of-epe-manuals-on-the-mdi">
+<h2>TECHNICAL APPENDIX: SUMMARY OF EPE MANUALS ON THE MDI<a class="headerlink" href="#technical-appendix-summary-of-epe-manuals-on-the-mdi" title="Link to this heading"></a></h2>
+<section id="central-concept">
+<h3>CENTRAL CONCEPT<a class="headerlink" href="#central-concept" title="Link to this heading"></a></h3>
+<p>The <strong>Investment Decision Model (MDI)</strong> is the analytical tool developed by the <strong>Energy Research Office (EPE)</strong> to determine the <strong>optimal expansion plan</strong> for Brazil’s electricity generation system, as used in the <strong>Ten-Year Energy Expansion Plan (PDE 2030)</strong>.</p>
+<p>The model minimizes the <strong>expected total cost of expansion</strong>, given by:</p>
+<div class="math">
+\[
+C_{\text{total}} = C_{\text{investment}} + C_{\text{operation}}
+\]</div>
+<p>It is formulated as a <strong>Mixed-Integer Linear Programming (MILP)</strong> problem, implemented in <strong>Pyomo</strong> and solved using <strong>CPLEX</strong>.</p>
+</section>
+<hr class="docutils" />
+<section id="model-structure">
+<h3>MODEL STRUCTURE<a class="headerlink" href="#model-structure" title="Link to this heading"></a></h3>
+<section id="id34">
+<h4>Demand Representation<a class="headerlink" href="#id34" title="Link to this heading"></a></h4>
+<p>Electricity demand is segmented into <strong>load levels</strong>—light, medium, heavy, and peak—each with its own duration and intensity. The total energy across levels equals the monthly average demand:</p>
+<div class="math">
+\[
+\sum_{p} \tau_p D_p = D_{\text{average}}
+\]</div>
+<p>This representation allows a more accurate assessment of how generation technologies meet the system’s load profile.</p>
+</section>
+<section id="system-components">
+<h4>System Components<a class="headerlink" href="#system-components" title="Link to this heading"></a></h4>
+<p>The MDI explicitly models:</p>
+<ul class="simple">
+<li><p>Existing, planned, and candidate generation units;</p></li>
+<li><p>Interconnections between subsystems (represented as a capacitated graph);</p></li>
+<li><p>Operational reserves and capacity constraints.</p></li>
+</ul>
+</section>
+<section id="id35">
+<h4>Objective Function<a class="headerlink" href="#id35" title="Link to this heading"></a></h4>
+<p>The objective is to <strong>minimize the expected total discounted cost</strong> of expansion, with or without perpetuity:</p>
+<div class="math">
+\[
+\min Z = \sum_{k \in K} \frac{1}{(1 + tx)^k}
+\left[C_{\text{operation}} + C_{\text{investment}} + C_{\text{penalties}}\right]
+\]</div>
+<p>The function includes fixed costs (investment, O&amp;M, capital charges) and variable costs (thermal dispatch, deficits), as well as penalty terms.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="fundamental-constraints">
+<h3>FUNDAMENTAL CONSTRAINTS<a class="headerlink" href="#fundamental-constraints" title="Link to this heading"></a></h3>
+<section id="energy-balance">
+<h4>Energy Balance<a class="headerlink" href="#energy-balance" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+G + I + D - B \ge D_{\text{demand}}
+\]</div>
+<p>The sum of <strong>generation</strong>, <strong>interchanges</strong>, and <strong>deficits</strong>, minus <strong>stored energy</strong>, must meet or exceed the demand in each subsystem, scenario, and load level.</p>
+</section>
+<section id="capacity-adequacy">
+<h4>Capacity Adequacy<a class="headerlink" href="#capacity-adequacy" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+P_{\text{thermal}} + P_{\text{other sources}} + I_{\text{cap}} + D_{\text{cap}} \ge (1 + \text{Reserve}) \, D_{\text{max}}
+\]</div>
+<p>Ensures that <strong>peak demand plus reserve margin</strong> (typically 104% in PDE 2030) is met across all subsystems.</p>
+</section>
+<section id="source-availability">
+<h4>Source Availability<a class="headerlink" href="#source-availability" title="Link to this heading"></a></h4>
+<p>Establishes lower and upper bounds for generation and prevents <strong>disinvestment</strong>, ensuring that installed capacity does not decline over time.</p>
+</section>
+<section id="system-representation">
+<h4>System Representation<a class="headerlink" href="#system-representation" title="Link to this heading"></a></h4>
+<p>Limits energy interchange between subsystems:
+$<span class="math">\(
+I_{ij,p} \le C_{ij,\text{existing}} + C_{ij,\text{expansion}}
+\)</span>$
+incorporating <strong>losses</strong>, <strong>regional aggregation</strong>, and <strong>dynamic limits</strong>.</p>
+</section>
+<section id="investment-restrictions">
+<h4>Investment Restrictions<a class="headerlink" href="#investment-restrictions" title="Link to this heading"></a></h4>
+<p>Each project is represented by a <strong>binary decision variable</strong> ((x_{i,t} \in {0,1})) indicating the period of investment. A project can only be built <strong>once</strong> within the planning horizon.</p>
+</section>
+<section id="additional-policy-constraints">
+<h4>Additional Policy Constraints<a class="headerlink" href="#additional-policy-constraints" title="Link to this heading"></a></h4>
+<p>Used to enforce regulatory or strategic rules, such as:</p>
+<ul class="simple">
+<li><p>Uniform or stepwise expansion;</p></li>
+<li><p>Annual and incremental limits;</p></li>
+<li><p>Minimum self-sufficiency by subsystem;</p></li>
+<li><p>Expansion restricted to specific months (e.g., January/July).</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="generation-source-modeling">
+<h3>GENERATION SOURCE MODELING<a class="headerlink" href="#generation-source-modeling" title="Link to this heading"></a></h3>
+<section id="hydroelectric-plants">
+<h4>Hydroelectric Plants<a class="headerlink" href="#hydroelectric-plants" title="Link to this heading"></a></h4>
+<p>Hydropower generation is represented using <strong>energy and capacity time series</strong> obtained from <strong>SUISHI</strong> and <strong>NEWAVE</strong> simulations. The investment decision is binary (installed or not), and capacity is assumed to increase linearly after commissioning.</p>
+</section>
+<section id="thermal-plants">
+<h4>Thermal Plants<a class="headerlink" href="#thermal-plants" title="Link to this heading"></a></h4>
+<p>Thermal generation is dispatched by load level. Projects can be <strong>continuous</strong> (generic expansion) or <strong>integer</strong> (specific projects). The <strong>Variable Operating Cost (CVU)</strong> is adjusted annually based on <strong>EIA</strong> projections.</p>
+</section>
+<section id="renewable-sources">
+<h4>Renewable Sources<a class="headerlink" href="#renewable-sources" title="Link to this heading"></a></h4>
+<p>Includes <strong>wind</strong>, <strong>solar</strong>, and <strong>small hydro (PCH)</strong> plants. They are modeled using <strong>monthly seasonality</strong> and <strong>average contribution factors</strong> by load level.</p>
+</section>
+<section id="energy-storage-projects">
+<h4>Energy Storage Projects<a class="headerlink" href="#energy-storage-projects" title="Link to this heading"></a></h4>
+<p>Models both charging and discharging in the same period, considering <strong>round-trip efficiency losses</strong> and <strong>energy purchase costs</strong> for recharging.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="uncertainty-scenarios">
+<h3>UNCERTAINTY SCENARIOS<a class="headerlink" href="#uncertainty-scenarios" title="Link to this heading"></a></h3>
+<p>The MDI accounts for <strong>hydrological and wind uncertainties</strong> through a <strong>scenario tree structure</strong> (deterministic equivalent formulation).<br />
+The goal is to minimize the <strong>expected value of total cost</strong> across all scenarios:</p>
+<div class="math">
+\[
+\min \mathbb{E}[C_{\text{total}}]
+\]</div>
+<p>Each scenario branch represents possible outcomes of future conditions, with corresponding probabilities.</p>
+</section>
+<hr class="docutils" />
+<section id="marginal-expansion-cost-cme">
+<h3>MARGINAL EXPANSION COST (CME)<a class="headerlink" href="#marginal-expansion-cost-cme" title="Link to this heading"></a></h3>
+<section id="id36">
+<h4>Definition<a class="headerlink" href="#id36" title="Link to this heading"></a></h4>
+<p>The <strong>Marginal Expansion Cost (CME)</strong> quantifies the <strong>incremental cost</strong> of meeting an additional unit of demand:</p>
+<div class="math">
+\[
+CME = CME_{\text{energy}} + CME_{\text{capacity}}
+\]</div>
+</section>
+<section id="calculation">
+<h4>Calculation<a class="headerlink" href="#calculation" title="Link to this heading"></a></h4>
+<p>CME is derived from the <strong>dual variables</strong> of the energy and capacity constraints. The procedure adds <strong>one unit of demand</strong> per load level and measures the incremental cost impact.<br />
+To preserve the load shape:</p>
+<ul class="simple">
+<li><p>+1 unit to <strong>energy demand</strong>,</p></li>
+<li><p>+(1 + Reserve Margin) to <strong>power demand</strong>.</p></li>
+</ul>
+<p>This yields the <strong>energy and capacity components</strong> of the CME.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="key-concepts">
+<h3>KEY CONCEPTS<a class="headerlink" href="#key-concepts" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Concept</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>CME</strong></p></td>
+<td><p>Marginal Expansion Cost (sum of energy and capacity components).</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>MDI</strong></p></td>
+<td><p>Investment Decision Model for expansion planning.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>CMO</strong></p></td>
+<td><p>Marginal Operating Cost (short-term).</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Operational Reserve</strong></p></td>
+<td><p>Safety margin above maximum demand (≈ 4%).</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Perpetuity</strong></p></td>
+<td><p>Ensures end-of-horizon consistency by valuing long-term investments.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Solver</strong></p></td>
+<td><p>Optimization engine: <strong>CPLEX</strong> via <strong>Pyomo</strong>.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Simulation Models</strong></p></td>
+<td><p><strong>SUISHI</strong> and <strong>NEWAVE</strong> provide hydro and energy series inputs.</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>In summary, the <strong>MDI</strong> integrates <strong>economic, technical, and stochastic modeling</strong> to produce a consistent, cost-optimal expansion plan for Brazil’s power system, bridging the gap between <strong>hydrothermal simulation</strong> and <strong>long-term investment strategy</strong>.</p>
+</section>
+<section id="mathematical-modeling-of-mdi">
+<h3>Mathematical Modeling of MDI<a class="headerlink" href="#mathematical-modeling-of-mdi" title="Link to this heading"></a></h3>
+<p>The objective of this model is to determine the <strong>optimal expansion plan</strong> of the electric generation system, minimizing the total investment and operation cost, considering the availability of multiple technologies (hydroelectric, thermal, solar, wind, and battery storage), the demand satisfaction in two load levels (peak and off-peak), and the distinction between existing and candidate units.</p>
+<p>This constitutes a <strong>Mixed-Integer Linear Programming (MILP)</strong> problem, solved by decomposition methods or <strong>Branch and Bound</strong>, as discussed in the theoretical overview.</p>
+<hr class="docutils" />
+<section id="sets">
+<h4>Sets<a class="headerlink" href="#sets" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><span class="math">\(\mathcal{G}\)</span> – total set of generating units (hydroelectric, thermal, solar, and wind)</p></li>
+<li><p><span class="math">\(\mathcal{G}_E \subset \mathcal{G}\)</span> – subset of existing plants</p></li>
+<li><p><span class="math">\(\mathcal{G}_C \subset \mathcal{G}\)</span> – subset of candidate plants</p></li>
+<li><p><span class="math">\(\mathcal{B}\)</span> – total set of storage units (batteries)</p></li>
+<li><p><span class="math">\(\mathcal{B}_E \subset \mathcal{B}\)</span> – subset of existing batteries</p></li>
+<li><p><span class="math">\(\mathcal{B}_C \subset \mathcal{B}\)</span> – subset of candidate batteries</p></li>
+<li><p><span class="math">\(\mathcal{T}\)</span> – planning periods (<span class="math">\(t = 1,\dots,10\)</span>)</p></li>
+<li><p><span class="math">\(\mathcal{P}\)</span> – load levels (peak and off-peak)</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id37">
+<h4>Parameters<a class="headerlink" href="#id37" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><span class="math">\(C_{\text{inv}_g}\)</span> – investment cost of generator <span class="math">\(g\)</span> [R$ /MW]</p></li>
+<li><p><span class="math">\(C_{\text{op}_g}\)</span> – operating cost of generator <span class="math">\(g\)</span> [R$ /MWh]</p></li>
+<li><p><span class="math">\(P_{\text{max}_g}\)</span> – maximum capacity of generator <span class="math">\(g\)</span> [MW]</p></li>
+<li><p><span class="math">\(C_{\text{inv}_b}\)</span> – investment cost of battery <span class="math">\(b\)</span> [R$ /MW]</p></li>
+<li><p><span class="math">\(C_{\text{op}_b}\)</span> – operating cost of battery <span class="math">\(b\)</span> [R$ /MWh]</p></li>
+<li><p><span class="math">\(E_{\text{max}_b}\)</span>, <span class="math">\(E_{\text{min}_b}\)</span> – state-of-charge limits for battery <span class="math">\(b\)</span> [MWh]</p></li>
+<li><p><span class="math">\(P_{\text{bat}_{\text{max}_b}}\)</span> – maximum charge/discharge power of battery <span class="math">\(b\)</span> [MW]</p></li>
+<li><p><span class="math">\(E_{0_b}\)</span> – initial state of charge of battery <span class="math">\(b\)</span> [MWh]</p></li>
+<li><p><span class="math">\(\eta_{c_b}\)</span>, <span class="math">\(\eta_{d_b}\)</span> – charge/discharge efficiencies (0.95)</p></li>
+<li><p><span class="math">\(D_{p,t}\)</span> – demand in load level <span class="math">\(p\)</span> and period <span class="math">\(t\)</span> [MW]</p></li>
+<li><p><span class="math">\(h_p\)</span> – duration of load level <span class="math">\(p\)</span> [h/year]</p></li>
+<li><p><span class="math">\(x_{g,0}\)</span> – 1 if generator <span class="math">\(g\)</span> exists at the beginning of the horizon, 0 otherwise</p></li>
+<li><p><span class="math">\(x_{b,0}\)</span> – 1 if battery <span class="math">\(b\)</span> exists at the beginning of the horizon, 0 otherwise</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id38">
+<h4>Decision Variables<a class="headerlink" href="#id38" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><span class="math">\(y_{g,t} \in \{0,1\}\)</span> – construction (1) or not (0) of candidate generator <span class="math">\(g\)</span> in period <span class="math">\(t\)</span></p></li>
+<li><p><span class="math">\(y_{b,t} \in \{0,1\}\)</span> – construction (1) or not (0) of candidate battery <span class="math">\(b\)</span> in period <span class="math">\(t\)</span></p></li>
+<li><p><span class="math">\(x_{g,t} \in \{0,1\}\)</span> – existence of generator <span class="math">\(g\)</span> in period <span class="math">\(t\)</span> (1 if built up to <span class="math">\(t\)</span>)</p></li>
+<li><p><span class="math">\(x_{b,t} \in \{0,1\}\)</span> – existence of battery <span class="math">\(b\)</span> in period <span class="math">\(t\)</span> (1 if built up to <span class="math">\(t\)</span>)</p></li>
+<li><p><span class="math">\(P_{g,p,t} \ge 0\)</span> – generation of unit <span class="math">\(g\)</span> in load level <span class="math">\(p\)</span> and period <span class="math">\(t\)</span> [MW]</p></li>
+<li><p><span class="math">\(P^{c}_{b,p,t} \ge 0\)</span> – charging power of battery <span class="math">\(b\)</span> [MW]</p></li>
+<li><p><span class="math">\(P^{d}_{b,p,t} \ge 0\)</span> – discharging power of battery <span class="math">\(b\)</span> [MW]</p></li>
+<li><p><span class="math">\(E_{b,p,t}\)</span> – state of charge (SoC) of battery <span class="math">\(b\)</span> [MWh]</p></li>
+</ul>
+<hr class="docutils" />
+</section>
+<hr class="docutils" />
+<section id="id39">
+<h4>Constraints<a class="headerlink" href="#id39" title="Link to this heading"></a></h4>
+<section id="demand-requirement">
+<h5>Demand Requirement<a class="headerlink" href="#demand-requirement" title="Link to this heading"></a></h5>
+<div class="math">
+\[
+\sum_{g \in \mathcal{G}} P_{g,t,p} + \sum_{b \in \mathcal{B}} ( P^{d}_{b,t,p} - P^{c}_{b,t,p} ) = D_{t,p}, \quad \forall t \in \mathcal{T}, \, p \in \mathcal{P}
+\]</div>
+<p>This ensures power balance at each period and load level: total net generation (generation plus storage balance) equals system demand.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id40">
+<h4>Capacity Adequacy<a class="headerlink" href="#id40" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+\sum_{g \in \mathcal{G}} G^{\max}_g x_{g,t} + \sum_{s \in \mathcal{S}} P^{\text{dis,max}}_{s,p} x_{s,t} \ge D_{t,p}, \quad \forall t,p
+\]</div>
+<p>Guarantees that total available capacity (generation + discharge) is sufficient to meet demand in all time steps.</p>
+</section>
+<hr class="docutils" />
+<section id="generation-limits">
+<h4>Generation Limits<a class="headerlink" href="#generation-limits" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+0 \le P_{g,t,p} \le P^{\max}_g x_{g,t}, \quad \forall g,t,p
+\]</div>
+<p>Ensures that generation of each unit does not exceed its maximum capacity and is zero when inactive.</p>
+</section>
+<hr class="docutils" />
+<section id="storage-dynamics">
+<h4>Storage Dynamics<a class="headerlink" href="#storage-dynamics" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+E_{s,t,p} = \begin{cases} 
+E_{\text{ini},s} x_{s,t}, & t = 1, p = p_1, \\
+E_{s,t-1,p_{|\mathcal{P}|}} + E_{\text{ini},s} y_{s,t} + \eta_c P^{ch}_{s,t,p} \Delta t_p - \dfrac{P^{dis}_{s,t,p}}{\eta_d} \Delta t_p, & t > 1, p = p_1, \\
+E_{s,t,p-1} + \eta_c P^{ch}_{s,t,p} \Delta t_p - \dfrac{P^{dis}_{s,t,p}}{\eta_d} \Delta t_p, & p \neq p_1
+\end{cases}
+\]</div>
+<p>Ensures energy continuity across load levels and periods, applying charge/discharge efficiencies and introducing initial energy only when the unit is built.</p>
+</section>
+<hr class="docutils" />
+<section id="state-of-charge-limits">
+<h4>State of Charge Limits<a class="headerlink" href="#state-of-charge-limits" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+E^{\min}_b x_{b,t} \le E_{b,t,p} \le E^{\max}_b x_{b,t}, \quad \forall b,t,p
+\]</div>
+<p>Keeps the state of charge within the operational range, proportional to the unit’s availability.</p>
+</section>
+<hr class="docutils" />
+<section id="charge-discharge-power-limits">
+<h4>Charge/Discharge Power Limits<a class="headerlink" href="#charge-discharge-power-limits" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+0 \le P^{c}_{b,t,p}, P^{d}_{b,t,p} \le P^{\max}_{\text{bat}_b} x_{b,t}, \quad \forall b,t,p
+\]</div>
+<p>Restricts charging and discharging powers according to the installed battery capacity and availability.</p>
+</section>
+<hr class="docutils" />
+<section id="initial-state">
+<h4>Initial State<a class="headerlink" href="#initial-state" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+E_{b,1,p} = E_{0_b}, \quad \forall b,p
+\]</div>
+<p>Defines the initial energy level for each battery, ensuring consistency in the dynamic storage model.</p>
+</section>
+<hr class="docutils" />
+<section id="expansion-dynamics-existence-accumulation">
+<h4>Expansion Dynamics (Existence Accumulation)<a class="headerlink" href="#expansion-dynamics-existence-accumulation" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+    x_{g,t} = x_{g,t-1} + y_{g,t}, \quad\\
+x_{b,t} = x_{b,t-1} + y_{b,t}, \quad \\
+\forall g,b,t>1\\
+x_{g,0}, x_{b,0} \text{ given (initial existence)}
+\]</div>
+<p>Guarantees temporal coherence of the expansion plan: units exist only if previously constructed.</p>
+</section>
+<hr class="docutils" />
+<section id="unique-construction">
+<h4>Unique Construction<a class="headerlink" href="#unique-construction" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+\sum_{t \in \mathcal{T}} y_{g,t} \le 1, \quad
+\sum_{t \in \mathcal{T}} y_{b,t} \le 1, \quad \forall g \in \mathcal{G}_C, b \in \mathcal{B}_C
+\]</div>
+<p>Prevents multiple constructions of the same unit within the planning horizon.</p>
+</section>
+<hr class="docutils" />
+<section id="monotonic-growth">
+<h4>Monotonic Growth<a class="headerlink" href="#monotonic-growth" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+x_{g,t} \ge x_{g,t-1}, \quad
+x_{b,t} \ge x_{b,t-1}, \quad \forall g,b,t
+\]</div>
+<p>Ensures that the set of existing units grows monotonically, avoiding deactivation after construction and maintaining temporal consistency in expansion.</p>
+</section>
+<section id="id41">
+<h4>Objective Function<a class="headerlink" href="#id41" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+\min Z = \sum_{t \in \mathcal{T}} \Bigg[\sum_{g \in \mathcal{G}} C^{\text{inv}}_g x_{g,t}+ \sum_{b \in \mathcal{B}} C^{\text{inv}}_b x_{b,t} + \sum_{p \in \mathcal{P}} h_p \Big( \sum_{g \in \mathcal{G}} C^{\text{op}}_g P_{g,t,p} + \sum_{b \in \mathcal{B}} C^{\text{op}}_b (P^{d}_{b,t,p} +  P^{c}_{b,t,p}) \Big) \Bigg]
+\]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math">\(Z\)</span> — total objective function value (minimum system cost)</p></li>
+<li><p><span class="math">\(C^{\text{inv}}_{g}, C^{\text{inv}}_{b}\)</span> — investment costs for generation and storage units [$]</p></li>
+<li><p><span class="math">\(C^{\text{op}}_{g}, C^{\text{op}}_{b}\)</span> — operating costs for generation and storage units [$/MWh]</p></li>
+<li><p><span class="math">\(x_{g,t}, x_{b,t}\)</span> — binary variables for existence of generation/storage units</p></li>
+<li><p><span class="math">\(P_{g,t,p}\)</span> — generated power [MW]</p></li>
+<li><p><span class="math">\(P^{d}_{b,t,p}, P^{c}_{b,t,p}\)</span> — discharging and charging powers [MW]</p></li>
+<li><p><span class="math">\(h_p\)</span> — duration of load level <span class="math">\(p\)</span> [h]</p></li>
+</ul>
+<p>This objective minimizes total system cost across the planning horizon, combining investment and operating costs weighted by the duration of each load level. The formulation captures the trade-off between capacity expansion and operation, ensuring an economically optimal solution under technical and energy constraints.</p>
+</section>
+</section>
+</section>
+<section id="technical-appendix-optimization-methods">
+<h2>TECHNICAL APPENDIX: OPTIMIZATION METHODS<a class="headerlink" href="#technical-appendix-optimization-methods" title="Link to this heading"></a></h2>
+<section id="lp-linear-programming-continuous-linear-programming">
+<h3>LP (LINEAR PROGRAMMING – CONTINUOUS LINEAR PROGRAMMING)<a class="headerlink" href="#lp-linear-programming-continuous-linear-programming" title="Link to this heading"></a></h3>
+<p><strong>Linear Programming (LP)</strong> solves problems where both the objective function and all constraints are linear, and all variables are continuous. LP models are <strong>highly efficient and robust</strong>, supported by commercial solvers such as <strong>CPLEX</strong> and <strong>Gurobi</strong>, as well as open-source alternatives like <strong>HiGHS</strong> and <strong>CBC</strong>.<br />
+Common applications include <strong>relaxations of integer problems</strong>, <strong>feasibility verification</strong>, or <strong>piecewise linear cost formulations (PWL)</strong> without binary variables. LP serves as the <strong>foundation</strong> for most advanced optimization formulations.</p>
+</section>
+<hr class="docutils" />
+<section id="milp-mixed-integer-linear-programming">
+<h3>MILP (MIXED-INTEGER LINEAR PROGRAMMING)<a class="headerlink" href="#milp-mixed-integer-linear-programming" title="Link to this heading"></a></h3>
+<p><strong>MILP</strong> extends LP by introducing <strong>integer or binary variables</strong>, enabling the modeling of discrete decisions such as the <strong>on/off status of power plants</strong>. It is widely used in <strong>Unit Commitment (UC)</strong> problems, incorporating:</p>
+<ul class="simple">
+<li><p>Piecewise linear costs (PWL);</p></li>
+<li><p>Minimum up/down time constraints;</p></li>
+<li><p>Ramp-up and ramp-down limits;</p></li>
+<li><p>Hot and cold start-up costs.</p></li>
+</ul>
+<p>The most efficient solvers are <strong>Gurobi</strong> and <strong>CPLEX</strong>, with <strong>HiGHS</strong> emerging as a strong open-source alternative.<br />
+MILP is the <strong>workhorse formulation</strong> for real-world power system operations.</p>
+</section>
+<hr class="docutils" />
+<section id="qp-quadratic-programming-convex-continuous-quadratic-programming">
+<h3>QP (QUADRATIC PROGRAMMING – CONVEX CONTINUOUS QUADRATIC PROGRAMMING)<a class="headerlink" href="#qp-quadratic-programming-convex-continuous-quadratic-programming" title="Link to this heading"></a></h3>
+<p><strong>Quadratic Programming (QP)</strong> deals with problems featuring a <strong>convex quadratic objective</strong> and <strong>linear constraints</strong>. It is well-suited for representing <strong>smooth quadratic generation cost curves</strong> without discrete decisions.<br />
+Typical applications include <strong>continuous economic dispatch</strong> problems, where fuel cost functions are quadratic.<br />
+Solvers such as <strong>Gurobi</strong>, <strong>CPLEX</strong>, and <strong>SCIP</strong> efficiently handle convex QP formulations.<br />
+QP models strike a balance between realism and computational simplicity.</p>
+</section>
+<hr class="docutils" />
+<section id="miqp-mixed-integer-quadratic-programming-convex-formulation">
+<h3>MIQP (MIXED-INTEGER QUADRATIC PROGRAMMING – CONVEX FORMULATION)<a class="headerlink" href="#miqp-mixed-integer-quadratic-programming-convex-formulation" title="Link to this heading"></a></h3>
+<p><strong>MIQP</strong> combines <strong>integer variables</strong> with a <strong>convex quadratic objective function</strong>. It is useful for <strong>Unit Commitment</strong> models that maintain <strong>quadratic fuel cost representations</strong> while still accounting for binary on/off decisions.<br />
+Although more computationally demanding than MILP, solvers like <strong>Gurobi</strong>, <strong>CPLEX</strong>, and <strong>SCIP</strong> deliver robust performance.<br />
+MIQP is frequently employed in <strong>academic and research applications</strong> seeking higher cost fidelity.</p>
+</section>
+<hr class="docutils" />
+<section id="nlp-nonlinear-programming-continuous-nonlinear-programming">
+<h3>NLP (NONLINEAR PROGRAMMING – CONTINUOUS NONLINEAR PROGRAMMING)<a class="headerlink" href="#nlp-nonlinear-programming-continuous-nonlinear-programming" title="Link to this heading"></a></h3>
+<p><strong>Nonlinear Programming (NLP)</strong> addresses problems where the objective and/or constraints are <strong>nonlinear</strong>, with all variables continuous.<br />
+A classic example is the <strong>exact Hydropower Production Function (HPF)</strong>, which is nonlinear due to the interaction between flow, head, and efficiency.<br />
+Other examples include <strong>nonlinear hydraulic balance equations</strong> and <strong>smooth operational constraints</strong>.<br />
+The <strong>Ipopt</strong> solver is widely used for this class of problems.<br />
+While NLP allows <strong>greater physical realism</strong>, it relies on <strong>convexity assumptions</strong> or <strong>heuristics</strong> to avoid local minima.</p>
+</section>
+<hr class="docutils" />
+<section id="minlp-mixed-integer-nonlinear-programming">
+<h3>MINLP (MIXED-INTEGER NONLINEAR PROGRAMMING)<a class="headerlink" href="#minlp-mixed-integer-nonlinear-programming" title="Link to this heading"></a></h3>
+<p><strong>MINLP</strong> represents the most general class of optimization problems, combining <strong>discrete and continuous variables</strong> under <strong>nonlinear relationships</strong>.<br />
+It is applied in hybrid cases such as:</p>
+<ul class="simple">
+<li><p><strong>Unit Commitment with nonlinear hydro constraints</strong>;</p></li>
+<li><p><strong>Joint cost–operation formulations</strong>;</p></li>
+<li><p><strong>Complex multi-energy system integration</strong>.</p></li>
+</ul>
+<p>In the <strong>Pyomo</strong> ecosystem, the <strong>MindtPy</strong> solver is a key tool for solving MINLPs.<br />
+Despite their flexibility, MINLPs are <strong>computationally intensive</strong> and often require <strong>relaxation techniques</strong>, <strong>Benders decomposition</strong>, or <strong>outer approximation</strong> to become tractable in large-scale systems.<br />
+They provide <strong>maximum modeling realism</strong> at the expense of computational complexity.</p>
+<hr class="docutils" />
+<section id="summary-table">
+<h4>Summary Table<a class="headerlink" href="#summary-table" title="Link to this heading"></a></h4>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Method</strong></p></th>
+<th class="head"><p><strong>Variable Type</strong></p></th>
+<th class="head"><p><strong>Objective Type</strong></p></th>
+<th class="head"><p><strong>Typical Application</strong></p></th>
+<th class="head"><p><strong>Main Solvers</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>LP</strong></p></td>
+<td><p>Continuous</p></td>
+<td><p>Linear</p></td>
+<td><p>Relaxations, feasibility, PWL models</p></td>
+<td><p>CPLEX, Gurobi, HiGHS, CBC</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>MILP</strong></p></td>
+<td><p>Continuous + Integer</p></td>
+<td><p>Linear</p></td>
+<td><p>Unit Commitment, expansion planning</p></td>
+<td><p>CPLEX, Gurobi, HiGHS</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>QP</strong></p></td>
+<td><p>Continuous</p></td>
+<td><p>Quadratic (Convex)</p></td>
+<td><p>Economic Dispatch (continuous)</p></td>
+<td><p>CPLEX, Gurobi, SCIP</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>MIQP</strong></p></td>
+<td><p>Continuous + Integer</p></td>
+<td><p>Quadratic (Convex)</p></td>
+<td><p>UC with quadratic costs</p></td>
+<td><p>CPLEX, Gurobi, SCIP</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>NLP</strong></p></td>
+<td><p>Continuous</p></td>
+<td><p>Nonlinear</p></td>
+<td><p>Exact HPF, hydraulic modeling</p></td>
+<td><p>Ipopt</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>MINLP</strong></p></td>
+<td><p>Continuous + Integer</p></td>
+<td><p>Nonlinear</p></td>
+<td><p>Hybrid UC + hydro problems</p></td>
+<td><p>MindtPy, SCIP, CPLEX-NLP</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>In conclusion, these optimization paradigms form the <strong>computational backbone</strong> of modern energy system modeling. Each class trades off <strong>mathematical precision, computational effort, and interpretability</strong>, allowing planners and researchers to select the most suitable formulation for the <strong>scale, realism, and temporal scope</strong> of the problem under study.</p>
+</section>
+</section>
+</section>
+<section id="supplementary-appendix-uncertainties-and-d-opf">
+<h2>SUPPLEMENTARY APPENDIX: UNCERTAINTIES AND D-OPF<a class="headerlink" href="#supplementary-appendix-uncertainties-and-d-opf" title="Link to this heading"></a></h2>
+<section id="optimization-under-uncertainty">
+<h3>OPTIMIZATION UNDER UNCERTAINTY<a class="headerlink" href="#optimization-under-uncertainty" title="Link to this heading"></a></h3>
+<p>The operation of modern electric power systems is subject to significant <strong>uncertainties</strong>, primarily related to <strong>hydrological inflows</strong>, <strong>renewable generation</strong>, and <strong>load variability</strong>.<br />
+To address these sources of uncertainty, several mathematical paradigms of optimization have been developed, each with different trade-offs between <strong>robustness</strong>, <strong>complexity</strong>, and <strong>economic efficiency</strong>.</p>
+<section id="stochastic-programming-sp">
+<h4>Stochastic Programming (SP)<a class="headerlink" href="#stochastic-programming-sp" title="Link to this heading"></a></h4>
+<p><strong>Stochastic Programming</strong> explicitly models uncertainty using <strong>probabilistic scenarios</strong>, each associated with a likelihood of occurrence.<br />
+The objective is to <strong>minimize the expected operational cost</strong> across all scenarios:</p>
+<div class="math">
+\[
+\min \mathbb{E}[C(x, \xi)] = \sum_{s \in S} p_s \, C(x_s, \xi_s)
+\]</div>
+<p>where ( p_s ) is the probability of scenario ( s ), ( C(x_s, \xi_s) ) the corresponding cost, and ( x_s ) the decision variables.<br />
+SP captures the statistical nature of uncertainty but can become <strong>computationally intractable</strong> as the number of scenarios grows, due to the <strong>curse of dimensionality</strong>.</p>
+</section>
+<section id="robust-optimization-ro">
+<h4>Robust Optimization (RO)<a class="headerlink" href="#robust-optimization-ro" title="Link to this heading"></a></h4>
+<p><strong>Robust Optimization</strong> takes a different stance: instead of relying on probabilistic information, it defines an <strong>uncertainty set</strong> ( \mathcal{U} ) within which all possible realizations of uncertain parameters must lie.<br />
+The optimization then seeks the <strong>best worst-case solution</strong>:</p>
+<div class="math">
+\[
+\min_{x} \max_{\xi \in \mathcal{U}} C(x, \xi)
+\]</div>
+<p>This approach <strong>sacrifices part of optimality</strong> under nominal conditions in exchange for <strong>guaranteed feasibility</strong> across all admissible realizations.<br />
+RO is particularly useful in operational contexts requiring <strong>high reliability</strong>, such as critical infrastructure and distribution network operation.</p>
+</section>
+<section id="data-driven-distributionally-robust-optimization-dddro">
+<h4>Data-Driven Distributionally Robust Optimization (DDDRO)<a class="headerlink" href="#data-driven-distributionally-robust-optimization-dddro" title="Link to this heading"></a></h4>
+<p>A more recent and advanced approach, <strong>Data-Driven Distributionally Robust Optimization (DDDRO)</strong>, combines the strengths of SP and RO.<br />
+It constructs <strong>ambiguity sets</strong> of probability distributions based on <strong>historical data</strong>, typically using <strong>Wasserstein distances</strong> or <strong>moment-based metrics</strong>.<br />
+The objective is to ensure robustness against <strong>unknown or misspecified distributions</strong>, minimizing the <strong>worst-case expected cost</strong> across all plausible distributions:</p>
+<div class="math">
+\[
+\min_x \sup_{P \in \mathcal{P}} \mathbb{E}_P[C(x, \xi)]
+\]</div>
+<p>DDDRO thus provides a <strong>balance between stochastic realism and robust guarantees</strong>, making it highly suitable for systems with <strong>intermittent renewables</strong>, where statistical patterns evolve dynamically.<br />
+These methods enable <strong>resilient and adaptive energy planning</strong> under deep uncertainty.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="d-opf-formulations-optimal-power-flow-in-distribution-networks">
+<h3>D-OPF FORMULATIONS (OPTIMAL POWER FLOW IN DISTRIBUTION NETWORKS)<a class="headerlink" href="#d-opf-formulations-optimal-power-flow-in-distribution-networks" title="Link to this heading"></a></h3>
+<p>The <strong>Distribution Optimal Power Flow (D-OPF)</strong> problem determines the <strong>optimal power dispatch</strong> and <strong>network configuration</strong> in <strong>distribution systems</strong> that include <strong>Distributed Energy Resources (DERs)</strong>, <strong>energy storage</strong>, and <strong>ancillary services</strong>.<br />
+Unlike transmission-level OPF, the D-OPF must handle <strong>radial or weakly meshed topologies</strong>, <strong>voltage-dependent losses</strong>, and <strong>bidirectional power flows</strong>.</p>
+<section id="exact-ac-formulation">
+<h4>Exact AC Formulation<a class="headerlink" href="#exact-ac-formulation" title="Link to this heading"></a></h4>
+<p>The <strong>AC D-OPF</strong> formulation is based on nonlinear and non-convex power flow equations derived from <strong>Kirchhoff’s laws</strong>:</p>
+<div class="math">
+\[
+P_i = V_i \sum_{j} V_j (G_{ij}\cos\theta_{ij} + B_{ij}\sin\theta_{ij})
+\]</div>
+<div class="math">
+\[
+Q_i = V_i \sum_{j} V_j (G_{ij}\sin\theta_{ij} - B_{ij}\cos\theta_{ij})
+\]</div>
+<p>where ( P_i, Q_i ) are active and reactive powers, ( V_i ) the voltage magnitude, and ( \theta_{ij} ) the phase angle difference.<br />
+Due to their <strong>non-convexity</strong>, these equations make the AC-OPF problem <strong>NP-hard</strong>.</p>
+</section>
+<section id="convex-relaxations">
+<h4>Convex Relaxations<a class="headerlink" href="#convex-relaxations" title="Link to this heading"></a></h4>
+<p>To make D-OPF computationally tractable, <strong>convex relaxations</strong> are often applied:</p>
+<ol class="arabic simple">
+<li><p><strong>Second-Order Cone Programming (SOCP)</strong><br />
+Approximates nonlinearities via convex cones, providing near-exact results for radial networks under moderate loading conditions.<br />
+It ensures <strong>polynomial-time solvability</strong> while preserving reasonable physical fidelity.</p></li>
+<li><p><strong>Semidefinite Programming (SDP)</strong><br />
+Relaxes the voltage products into a positive semidefinite matrix constraint.<br />
+SDP formulations offer <strong>tight approximations</strong> and can recover globally optimal solutions under certain network conditions, though at higher computational cost.</p></li>
+</ol>
+<p>These relaxations transform the D-OPF into a <strong>convex optimization problem</strong>, solvable by efficient algorithms and modern solvers.</p>
+</section>
+<section id="mixed-integer-extensions">
+<h4>Mixed-Integer Extensions<a class="headerlink" href="#mixed-integer-extensions" title="Link to this heading"></a></h4>
+<p>Real-world distribution systems include <strong>discrete operational decisions</strong>—such as switching configurations, capacitor banks, or DER activation.<br />
+These are modeled using <strong>Mixed-Integer Second-Order Cone Programming (MISOCP)</strong>, which combines the tractability of SOCP with the <strong>binary decision modeling</strong> of MILP:</p>
+<div class="math">
+\[
+\min_{x \in \mathbb{R}^n, \, z \in \{0,1\}^m} C(x, z)
+\quad \text{s.t.} \quad f(x,z) \in \text{SOCP constraints.}
+\]</div>
+<p>MISOCP formulations are essential for <strong>Active Distribution Networks (ADNs)</strong> and <strong>microgrids</strong>, enabling optimal scheduling, network reconfiguration, and participation in ancillary service markets.</p>
+</section>
+<hr class="docutils" />
+<section id="summary-of-d-opf-formulations">
+<h4>Summary of D-OPF Formulations<a class="headerlink" href="#summary-of-d-opf-formulations" title="Link to this heading"></a></h4>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Formulation</strong></p></th>
+<th class="head"><p><strong>Nature</strong></p></th>
+<th class="head"><p><strong>Convexity</strong></p></th>
+<th class="head"><p><strong>Typical Application</strong></p></th>
+<th class="head"><p><strong>Solver Examples</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>AC D-OPF</strong></p></td>
+<td><p>Nonlinear, nonconvex</p></td>
+<td><p>✗</p></td>
+<td><p>Accurate modeli</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="MDI.cli.html" class="btn btn-neutral float-left" title="MDI.cli package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="userguide.html" class="btn btn-neutral float-right" title="NaivePyDESSEM User Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

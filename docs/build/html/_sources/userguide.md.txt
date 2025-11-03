@@ -10,7 +10,7 @@ This User Guide is intended for researchers, graduate students, and professional
 
 ### Conceptual Foundations
 
-The NaivePyDESSEM family mirrors the conceptual hierarchy established in the **CEPEL** models — *DESSEM* for short-term operation, *DECOMP* for medium-term optimization, and *NEWAVE* for long-term planning — while maintaining a simplified yet analytically rigorous structure suitable for academic research and classroom experimentation.
+The NaivePyDESSEM family mirrors the conceptual hierarchy established in the **CEPEL** models — *DESSEM* for short-term operation, *DECOMP* for medium-term optimization, and *MDI* for long-term expansion planning — while maintaining a simplified yet analytically rigorous structure suitable for academic research and classroom experimentation.
 
 Each package is built atop the **Pyomo** optimization framework, leveraging its declarative modeling language to define decision variables, constraints, and objective functions for deterministic and stochastic optimization problems. The design emphasizes clarity of implementation, mathematical transparency, and reproducibility, allowing users to directly inspect, modify, and extend each model component.
 
@@ -29,7 +29,7 @@ To ensure optimal performance and reproducibility, the following environment is 
 * **Operating System:** Linux (preferred), macOS, or Windows 10/11.
 * **Python Version:** 3.9 or higher.
 * **Required Dependencies:** `pyomo`, `pandas`, `numpy`, `yaml`, `matplotlib`, and `mealpy` (for metaheuristic integration).
-* **Optional Solvers:** `GLPK`, `CPLEX`, `Gurobi`, or `IPOPT`.
+* **Optional Solvers:** `GLPK`, `CPLEX`, `Gurobi`, or `IPOPT` - Any solver, including open-source that works with **Pyomo** and meets the problem's requirements will work with **NaivePyDESSEM**. Please refer to *Pyomo Documentation* and *Solver's Documentation* for instalation instructions.
 
 ## 2. Installation Guide
 
@@ -214,7 +214,7 @@ In summary, these models together form a consistent multi-horizon optimization c
 
 | Model | Horizon | Decision Type | Mathematical Nature | Main Objective |
 |:------|:---------|:---------------|:--------------------|:----------------|
-| **DESSEM** | Short-term (hours–days) | Operational dispatch | MILP | Minimize operating cost |
+| **DESSEM** | Short-term (hours–days) | Operational dispatch | MILP/MIQP/MINLP/LP | Minimize operating cost |
 | **DECOMP** | Medium-term (weeks–months) | Operation planning | Linear or PDDD | Optimize hydrothermal coordination |
 | **MDI** | Long-term (years) | Expansion planning | MILP | Minimize investment + operation cost |
 
@@ -671,7 +671,7 @@ Ensures that generation of each unit does not exceed its maximum capacity and is
 $$
 E_{s,t,p} = \begin{cases} 
 E_{\text{ini},s} x_{s,t}, & t = 1, p = p_1, \\
-E_{s,t-1,p_{|\mathcal{P}|}} + E_{\text{ini},s} y_{s,t} + \eta_c P^{ch}_{s,t,p} \Delta t_p - \dfrac{P^{dis}_{s,t,p}}{\eta_d} \Delta t_p, & t > 1, p  p_1, \\
+E_{s,t-1,p_{|\mathcal{P}|}} + E_{\text{ini},s} y_{s,t} + \eta_c P^{ch}_{s,t,p} \Delta t_p - \dfrac{P^{dis}_{s,t,p}}{\eta_d} \Delta t_p, & t > 1, p = p_1, \\
 E_{s,t,p-1} + \eta_c P^{ch}_{s,t,p} \Delta t_p - \dfrac{P^{dis}_{s,t,p}}{\eta_d} \Delta t_p, & p \neq p_1
 \end{cases}
 $$
@@ -1194,7 +1194,7 @@ thermal:
 📘 **Notes**
 - Each **UT_x** corresponds to a thermal unit (e.g., gas or coal plant).  
 - Cost coefficients follow a quadratic cost function:  
-  $$ C(p) = a + b\,p + c\,p^2 $$
+  $ C(p) = a + b\,p + c\,p^2 $
 - Use `has_history: true` to indicate the model should consider previous operational states.
 
 ---

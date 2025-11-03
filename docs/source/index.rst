@@ -12,6 +12,7 @@ Official Documentation of NaivePyDESSEM Project — A Pedagogical and Modular Fr
    :caption: Main modules (DESSEM/DECOMP/MDI):
 
    modules
+   topics_on_planning_and_expansion_of_power_systems
    userguide
    
 Indexes

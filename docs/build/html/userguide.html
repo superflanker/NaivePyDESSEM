@@ -24,7 +24,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="MDI.cli package" href="MDI.cli.html" /> 
+    <link rel="prev" title="TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING" href="topics_on_planning_and_expansion_of_power_systems.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,6 +49,7 @@
               <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">NaivePyDESSEM User Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">1. Introduction</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#purpose-and-scope">Purpose and Scope</a></li>
@@ -195,7 +196,7 @@
 </section>
 <section id="conceptual-foundations">
 <h3>Conceptual Foundations<a class="headerlink" href="#conceptual-foundations" title="Link to this heading"></a></h3>
-<p>The NaivePyDESSEM family mirrors the conceptual hierarchy established in the <strong>CEPEL</strong> models — <em>DESSEM</em> for short-term operation, <em>DECOMP</em> for medium-term optimization, and <em>NEWAVE</em> for long-term planning — while maintaining a simplified yet analytically rigorous structure suitable for academic research and classroom experimentation.</p>
+<p>The NaivePyDESSEM family mirrors the conceptual hierarchy established in the <strong>CEPEL</strong> models — <em>DESSEM</em> for short-term operation, <em>DECOMP</em> for medium-term optimization, and <em>MDI</em> for long-term expansion planning — while maintaining a simplified yet analytically rigorous structure suitable for academic research and classroom experimentation.</p>
 <p>Each package is built atop the <strong>Pyomo</strong> optimization framework, leveraging its declarative modeling language to define decision variables, constraints, and objective functions for deterministic and stochastic optimization problems. The design emphasizes clarity of implementation, mathematical transparency, and reproducibility, allowing users to directly inspect, modify, and extend each model component.</p>
 </section>
 <section id="target-audience">
@@ -214,7 +215,7 @@
 <li><p><strong>Operating System:</strong> Linux (preferred), macOS, or Windows 10/11.</p></li>
 <li><p><strong>Python Version:</strong> 3.9 or higher.</p></li>
 <li><p><strong>Required Dependencies:</strong> <code class="docutils literal notranslate"><span class="pre">pyomo</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, and <code class="docutils literal notranslate"><span class="pre">mealpy</span></code> (for metaheuristic integration).</p></li>
-<li><p><strong>Optional Solvers:</strong> <code class="docutils literal notranslate"><span class="pre">GLPK</span></code>, <code class="docutils literal notranslate"><span class="pre">CPLEX</span></code>, <code class="docutils literal notranslate"><span class="pre">Gurobi</span></code>, or <code class="docutils literal notranslate"><span class="pre">IPOPT</span></code>.</p></li>
+<li><p><strong>Optional Solvers:</strong> <code class="docutils literal notranslate"><span class="pre">GLPK</span></code>, <code class="docutils literal notranslate"><span class="pre">CPLEX</span></code>, <code class="docutils literal notranslate"><span class="pre">Gurobi</span></code>, or <code class="docutils literal notranslate"><span class="pre">IPOPT</span></code> - Any solver, including open-source that works with <strong>Pyomo</strong> and meets the problem’s requirements will work with <strong>NaivePyDESSEM</strong>. Please refer to <em>Pyomo Documentation</em> and <em>Solver’s Documentation</em> for instalation instructions.</p></li>
 </ul>
 </section>
 </section>
@@ -419,7 +420,7 @@ Determines the optimal investment and operation plan for generation and storage 
 <tr class="row-even"><td class="text-left"><p><strong>DESSEM</strong></p></td>
 <td class="text-left"><p>Short-term (hours–days)</p></td>
 <td class="text-left"><p>Operational dispatch</p></td>
-<td class="text-left"><p>MILP</p></td>
+<td class="text-left"><p>MILP/MIQP/MINLP/LP</p></td>
 <td class="text-left"><p>Minimize operating cost</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><strong>DECOMP</strong></p></td>
@@ -994,7 +995,7 @@ E_{\min_s} \le E_{s,t} \le E_{\max_s}, \quad \forall s \in \mathcal{S}, \; \fora
 \[
 E_{s,t,p} = \begin{cases} 
 E_{\text{ini},s} x_{s,t}, & t = 1, p = p_1, \\
-E_{s,t-1,p_{|\mathcal{P}|}} + E_{\text{ini},s} y_{s,t} + \eta_c P^{ch}_{s,t,p} \Delta t_p - \dfrac{P^{dis}_{s,t,p}}{\eta_d} \Delta t_p, & t > 1, p  p_1, \\
+E_{s,t-1,p_{|\mathcal{P}|}} + E_{\text{ini},s} y_{s,t} + \eta_c P^{ch}_{s,t,p} \Delta t_p - \dfrac{P^{dis}_{s,t,p}}{\eta_d} \Delta t_p, & t > 1, p = p_1, \\
 E_{s,t,p-1} + \eta_c P^{ch}_{s,t,p} \Delta t_p - \dfrac{P^{dis}_{s,t,p}}{\eta_d} \Delta t_p, & p \neq p_1
 \end{cases}
 \]</div>
@@ -1481,7 +1482,7 @@ The <strong><code class="docutils literal notranslate"><span class="pre">hydro</
 <ul class="simple">
 <li><p>Each <strong>UT_x</strong> corresponds to a thermal unit (e.g., gas or coal plant).</p></li>
 <li><p>Cost coefficients follow a quadratic cost function:<br />
-$<span class="math">\( C(p) = a + b\,p + c\,p^2 \)</span>$</p></li>
+<span class="math">\( C(p) = a + b\,p + c\,p^2 \)</span></p></li>
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">has_history:</span> <span class="pre">true</span></code> to indicate the model should consider previous operational states.</p></li>
 </ul>
 </section>
@@ -1961,7 +1962,7 @@ Each section defines parameters and structures that control investment, operatio
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="MDI.cli.html" class="btn btn-neutral float-left" title="MDI.cli package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="topics_on_planning_and_expansion_of_power_systems.html" class="btn btn-neutral float-left" title="TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
