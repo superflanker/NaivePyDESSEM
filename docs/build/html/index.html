@@ -80,6 +80,65 @@
   <section id="naivepydessem-documentation">
 <h1>NaivePyDESSEM documentation<a class="headerlink" href="#naivepydessem-documentation" title="Link to this heading"></a></h1>
 <p>Official Documentation of NaivePyDESSEM Project — A Pedagogical and Modular Framework for Hydrothermal Economic Dispatch and Expansion Planning in Pyomo (DESSEM, DECOMP, and MDI-like Solvers)</p>
+<section class="tex2jax_ignore mathjax_ignore" id="executive-summary-sumario-executivo">
+<h2>Executive Summary / Sumário Executivo<a class="headerlink" href="#executive-summary-sumario-executivo" title="Link to this heading"></a></h2>
+<section id="english-version">
+<h3>English Version 🇬🇧<a class="headerlink" href="#english-version" title="Link to this heading"></a></h3>
+<p><strong>NaivePyDESSEM</strong> is an educational and modular framework designed for teaching and research in <strong>hydrothermal operation and expansion planning</strong> of electric power systems.
+Developed as part of the graduate course <strong>EELT7030 – Planning of Operation and Expansion of Electric Power Systems</strong> at the <strong>Federal University of Paraná (UFPR)</strong>, this initiative aims to bridge the gap between academic theory and computational practice.</p>
+<p>The framework implements simplified versions of Brazil’s main optimization models — <strong>DESSEM, DECOMP, and MDI</strong> — using <strong>Pyomo</strong> as the modeling environment.
+It provides transparent access to mathematical formulations, datasets, and solver configurations, supporting both <strong>didactic exploration</strong> and <strong>research replication</strong>.</p>
+<p>This documentation consolidates the theoretical foundation of the course, covering:</p>
+<ul class="simple">
+<li><p>The mathematical modeling of DESSEM, DECOMP, and MDI;</p></li>
+<li><p>The hierarchy of short-, medium-, and long-term operation planning;</p></li>
+<li><p>Key optimization paradigms (LP, MILP, MIQP, MINLP, etc.);</p></li>
+<li><p>Advanced topics such as uncertainty modeling, stochastic programming, and D-OPF formulations.</p></li>
+</ul>
+<p>By unifying theory, models, and reproducible examples, <strong>NaivePyDESSEM</strong> aspires to serve as an <strong>open reference for energy planning education worldwide</strong>, fostering knowledge exchange between academia, research centers, and the power industry.</p>
+</section>
+<hr class="docutils" />
+<section id="versao-em-portugues">
+<h3>Versão em Português 🇧🇷<a class="headerlink" href="#versao-em-portugues" title="Link to this heading"></a></h3>
+<p>O <strong>NaivePyDESSEM</strong> é um framework educacional e modular voltado ao ensino e à pesquisa em <strong>planejamento da operação e expansão hidrotérmica</strong> de sistemas elétricos de potência.
+Desenvolvido no contexto da disciplina <strong>EELT7030 – Planejamento da Operação e Expansão de Sistemas Elétricos de Potência</strong> da <strong>Universidade Federal do Paraná (UFPR)</strong>, o projeto busca conectar a teoria acadêmica à prática computacional.</p>
+<p>O framework implementa versões didáticas dos principais modelos de otimização do setor elétrico brasileiro — <strong>DESSEM, DECOMP e MDI</strong> — utilizando o ambiente <strong>Pyomo</strong> para formulação e resolução.
+Oferece acesso transparente às formulações matemáticas, conjuntos de dados e configurações de solver, permitindo a <strong>exploração didática</strong> e a <strong>reprodução de experimentos de pesquisa</strong>.</p>
+<p>Esta documentação reúne os fundamentos teóricos da disciplina, abrangendo:</p>
+<ul class="simple">
+<li><p>A modelagem matemática dos modelos DESSEM, DECOMP e MDI;</p></li>
+<li><p>A hierarquia do planejamento de operação de curto, médio e longo prazo;</p></li>
+<li><p>Os principais paradigmas de otimização (LP, MILP, MIQP, MINLP, etc.);</p></li>
+<li><p>Tópicos avançados como incertezas, programação estocástica e formulações D-OPF.</p></li>
+</ul>
+<p>Ao unificar teoria, modelos e exemplos reprodutíveis, o <strong>NaivePyDESSEM</strong> busca consolidar-se como uma <strong>referência aberta e global para o ensino de planejamento energético</strong>, promovendo o intercâmbio de conhecimento entre universidades, centros de pesquisa e o setor elétrico.</p>
+</section>
+<hr class="docutils" />
+<section id="institutional-credits-creditos-institucionais">
+<h3>Institutional Credits / Créditos Institucionais<a class="headerlink" href="#institutional-credits-creditos-institucionais" title="Link to this heading"></a></h3>
+<p>Developed within the
+<strong>Federal University of Paraná (UFPR)</strong> – <em>Post-Graduate Program in Electrical Engineering (PPGEE)</em>
+<strong>Department of Electrical Engineering (DELT)</strong></p>
+<p>Supervised by faculty of the professor Dr. Clodomiro Unsihuay Vila, Phd,
+in collaboration with a student of the course <strong>EELT7030</strong>, Augusto Mathias Adams.</p>
+<p>Desenvolvido no âmbito da
+<strong>Universidade Federal do Paraná (UFPR)</strong> – <em>Programa de Pós-Graduação em Engenharia Elétrica (PPGEE)</em>
+<strong>Departamento de Engenharia Elétrica (DELT)</strong></p>
+<p>Com orientação docente do professor Dr. Clodomiro Unsihuay Vila, Phd,
+em colaboração com o discente da disciplina <strong>EELT7030</strong>, Augusto Mathias Adams.</p>
+</section>
+<hr class="docutils" />
+<section id="license-licenca">
+<h3>License / Licença<a class="headerlink" href="#license-licenca" title="Link to this heading"></a></h3>
+<p>This project is licensed under the <strong>GNU General Public License, version 3 (GPL-3.0)</strong>.
+You may freely use, modify, and distribute this work, provided that all copies and derivative works remain under the same license.
+No warranty of any kind is provided. For more information, see: <a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0.html">https://www.gnu.org/licenses/gpl-3.0.html</a></p>
+<p>Este projeto está licenciado sob a <strong>Licença Pública Geral GNU, versão 3 (GPL-3.0)</strong>.
+É permitido o uso, modificação e redistribuição deste trabalho, desde que todas as cópias e obras derivadas mantenham a mesma licença.
+Nenhuma garantia é fornecida. Para mais informações, consulte: <a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0.html">https://www.gnu.org/licenses/gpl-3.0.html</a></p>
+<p><a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0.html"><img alt="License: GPL v3" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a></p>
+</section>
+</section>
 <section class="tex2jax_ignore mathjax_ignore" id="naivepydessem-a-pedagogical-and-modular-framework-for-hydrothermal-economic-dispatch-and-expansion-planning-in-pyomo-dessem-decomp-and-mdi-like-solvers">
 <h2>NaivePyDESSEM — A Pedagogical and Modular Framework for Hydrothermal Economic Dispatch and Expansion Planning in Pyomo (DESSEM, DECOMP, and MDI-like Solvers)<a class="headerlink" href="#naivepydessem-a-pedagogical-and-modular-framework-for-hydrothermal-economic-dispatch-and-expansion-planning-in-pyomo-dessem-decomp-and-mdi-like-solvers" title="Link to this heading"></a></h2>
 <p><a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0"><img alt="License: GPL v3" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a>
@@ -1825,9 +1884,9 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#exact-ac-formulation">Exact AC Formulation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#convex-relaxations">Convex Relaxations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#mixed-integer-extensions">Mixed-Integer Extensions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#summary-of-d-opf-formulations">Summary of D-OPF Formulations</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#summary-of-d-opf-formulations">Summary of D-OPF Formulations</a></li>
 </ul>
 </li>
 </ul>

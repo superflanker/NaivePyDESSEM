@@ -3,6 +3,8 @@ NaivePyDESSEM documentation
 
 Official Documentation of NaivePyDESSEM Project — A Pedagogical and Modular Framework for Hydrothermal Economic Dispatch and Expansion Planning in Pyomo (DESSEM, DECOMP, and MDI-like Solvers)
 
+.. include:: executive_summary.md
+   :parser: myst_parser.sphinx_
 
 .. include:: README.md
    :parser: myst_parser.sphinx_
