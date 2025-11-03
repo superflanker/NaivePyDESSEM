@@ -956,7 +956,7 @@ The architecture follows a layered modular pattern:
 
 - **Solver Layer** — Interfaces with external solvers and manages solution logging.
 
-- **Visualization Layer** — Generation of time series plots and value.CTRL tables in LaTex format.
+- **Visualization Layer** — Generation of time series plots and value/CTRL tables in LaTex format.
 
 This hierarchy promotes clarity, reusability, and transparency in both model development and numerical experimentation.
 
