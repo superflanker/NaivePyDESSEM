@@ -755,7 +755,7 @@ Where:
 
 This objective minimizes total system cost across the planning horizon, combining investment and operating costs weighted by the duration of each load level. The formulation captures the trade-off between capacity expansion and operation, ensuring an economically optimal solution under technical and energy constraints.
 
-## **4 Model Architecture**
+## 4. Model Architecture
 
 ### **Overview**
 
@@ -956,7 +956,7 @@ The architecture follows a layered modular pattern:
 
 - **Solver Layer** — Interfaces with external solvers and manages solution logging.
 
-- **Visualization Layer** — Generation of time series plots and .
+- **Visualization Layer** — Generation of time series plots and value.CTRL tables in LaTex format.
 
 This hierarchy promotes clarity, reusability, and transparency in both model development and numerical experimentation.
 
