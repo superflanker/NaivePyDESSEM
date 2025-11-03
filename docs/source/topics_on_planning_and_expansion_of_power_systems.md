@@ -337,7 +337,7 @@ The model is particularly critical in systems with **high shares of variable ren
 - $V_{{\text{meta}}_h}$  – target terminal volume (hm$^3$)
 - $C_{{\text{def}}}$ – unitary cost of deficit (\$/MWh)
 - $\alpha_{h,k},\,\beta_{h,k},\,\gamma_{h,k}$ – polynomial coefficients for $h_{\text{up}}$, $h_{\text{down}}$, $h_{\text{loss}}$
-- $\rho_{h,k}$ – \text{polynomial coefficients of the specific productivity $\rho_h$
+- $\rho_{h,k}$ – polynomial coefficients of the specific productivity $\rho_h$
 
 ##### Decision Variables
 
@@ -469,8 +469,8 @@ $$
 
 ##### Decision Variables
 
-- $g_{{\mathrm{ren}}_{r,t}} \ge 0$ – \text{dispatched renewable generation (MW)}
-- $E_{s,t} \ge 0$ – \text{stored energy (MWh)
+- $g_{{\mathrm{ren}}_{r,t}} \ge 0$ – dispatched renewable generation (MW)
+- $E_{s,t} \ge 0$ – stored energy (MWh)
 - $P_{{\mathrm{ch}}_{s,t}},\,P_{{\mathrm{dis}}_{s,t}} \ge 0$ – charging/discharging power (MW)
 
 ##### Constraints
