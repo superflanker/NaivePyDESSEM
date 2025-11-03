@@ -3,6 +3,7 @@ MANIFEST.in
 README.md
 pyproject.toml
 setup.cfg
+docs/UserGuide/ModelsUsed.md
 docs/UserGuide/introduction.md
 docs/UserGuide/section3.md
 docs/UserGuide/userguide.md
@@ -30,6 +31,9 @@ docs/build/markdown/modules.md
 docs/build/markdown/UserGuide/introduction.md
 docs/build/markdown/UserGuide/userguide.md
 docs/source/README.md
+docs/source/executive_summary.md
+docs/source/topics_on_planning_and_expansion_of_power_systems.md
+docs/source/userguide.md
 examples/DECOMP/trabalho02_caso01.yaml
 examples/DECOMP/trabalho02_caso02.yaml
 examples/DECOMP/trabalho02_caso03.yaml

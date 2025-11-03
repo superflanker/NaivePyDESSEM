@@ -1,5 +1,9 @@
 # NaivePyDESSEM — A Pedagogical and Modular Framework for Hydrothermal Economic Dispatch and Expansion Planning in Pyomo (DESSEM, DECOMP, and MDI-like Solvers)
 
+<p align="center">
+  <img src="/imagens/logo.png" alt="NaivePyDESSEM Logo" width="300"/>
+</p>
+
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![CI](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml/badge.svg)](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml)
 [![Docs](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/docs.yml/badge.svg)](https://superflanker.github.io/NaivePyDESSEM/)
@@ -380,9 +384,6 @@ This implementation is aligned with the pedagogical materials of UFPR (Federal U
 - Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030, UFPR, 2023.
 
 - CEPEL. Manual de Metodologia do DESSEM, 2023.
-
-- CEPEL. Modelo DECOMP — Manual de Referência Técnica, 2022.
-
 - EPE. Plano Decenal de Expansão de Energia (PDE) — Metodologia MDI, 2023.
 
 ---
@@ -391,6 +392,11 @@ This implementation is aligned with the pedagogical materials of UFPR (Federal U
 
 Full API and usage documentation is built with **Sphinx** and available here:  
 👉 [NaivePyDessem Documentation](https://superflanker.github.io/NaivePyDESSEM/)
+
+
+This project is hosted on GitHub at:
+
+👉 [NaivePyDessem GitHub Repo](https://github.com/superflanker/NaivePyDESSEM)
 
 ---
 

@@ -113,7 +113,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#model-architecture"><strong>4 Model Architecture</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#model-architecture">4. Model Architecture</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#overview"><strong>Overview</strong></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#package-hierarchy"><strong>Package Hierarchy</strong></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#design-overview">Design Overview</a></li>
@@ -1081,7 +1081,7 @@ x_{b,t} \ge x_{b,t-1}, \quad \forall g,b,t
 </section>
 </section>
 <section id="model-architecture">
-<h2><strong>4 Model Architecture</strong><a class="headerlink" href="#model-architecture" title="Link to this heading"></a></h2>
+<h2>4. Model Architecture<a class="headerlink" href="#model-architecture" title="Link to this heading"></a></h2>
 <section id="overview">
 <h3><strong>Overview</strong><a class="headerlink" href="#overview" title="Link to this heading"></a></h3>
 <p>The <strong>NaivePyDESSEM</strong> package follows a layered architecture that mirrors the hierarchical structure of the Brazilian energy models (<em>MDI</em>, <em>DECOMP</em>, and <em>DESSEM</em>).<br />
@@ -1268,7 +1268,7 @@ Its design ensures separation between <strong>data ingestion</strong>, <strong>m
 <li><p><strong>Data Layer</strong> — YAML configuration parsing, type definitions, and validation.</p></li>
 <li><p><strong>Model Layer</strong> — Definition of decision variables, constraints, and objectives for each subsystem.</p></li>
 <li><p><strong>Solver Layer</strong> — Interfaces with external solvers and manages solution logging.</p></li>
-<li><p><strong>Visualization Layer</strong> — Generation of time series plots and .</p></li>
+<li><p><strong>Visualization Layer</strong> — Generation of time series plots and value/CTRL tables in LaTex format.</p></li>
 </ul>
 <p>This hierarchy promotes clarity, reusability, and transparency in both model development and numerical experimentation.</p>
 </section>
@@ -1293,7 +1293,7 @@ Solves the hourly hydrothermal scheduling problem.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pydessem-solve<span class="w"> </span>path/to/case.yaml<span class="w"> </span>--out_dir<span class="w"> </span>results/<span class="w"> </span>--out_file<span class="w"> </span>dispatch.csv
 </pre></div>
 </div>
-<p><strong>DESSEM-like dispatch (short-term)</strong></p>
+<p><strong>DECOMP-like dispatch (short-term)</strong></p>
 <p>Single-LP (Linear Program):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pydecomp-solve<span class="w"> </span>path/to/case.yaml<span class="w"> </span>--out_dir<span class="w"> </span>results/<span class="w"> </span>--out_file<span class="w"> </span>dispatch.csv
 </pre></div>
