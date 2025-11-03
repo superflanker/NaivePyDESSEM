@@ -301,8 +301,8 @@ $$
 - $\mathcal{G} = \{\text{UTE}_1,\dots,\text{UTE}_{n_g}\}.$
 
 ##### Parameters
-- $d_t$ – \text{system demand (MW)
-- $P_{{\min}_g},\, P_{{\max}_g}$ – generation limits of plant $g$ (MW)} (CEPEL, 2023)
+- $d_t$ – system demand (MW)
+- $P_{{\min}_g},\, P_{{\max}_g}$ – generation limits of plant $g$ (MW) (CEPEL, 2023)
 - $a_g,\, b_g,\, c_g$ – thermal cost coefficients of plant $g$ 
 - $SC_g$ – startup cost of plant $g$
 - $R U_g,\, R D_g$ – ramp-up/ramp-down rates (MW per interval)
@@ -436,15 +436,15 @@ $$
 #### Hydropower Plants
 
 ##### Sets and Indices
-- $\mathcal{T} = \{1,\dots,T\}$ – periods \\
+- $\mathcal{T} = \{1,\dots,T\}$ – periods
 - $\mathcal{H} = \{\text{UHE}_1, \dots, \text{UHE}_{n_h}\}$ – hydropower plants
 - $\mathcal{U}(h) \subseteq \mathcal{H}$ – set of upstream hydropower plants of $h$
 
 ##### Parameters (Data)
 
 - $a_{h,t}$ – natural inflow to plant $h$ in period $t$ (hm$^3$)
-- $d_t – demand in period $t$ (MWh)
-- $V_{{\min}_h},\,V_{{\max}_h} – storage limits (hm$^3$)
+- $d_t$ – demand in period $t$ (MWh)
+- $V_{{\min}_h},\,V_{{\max}_h}$ – storage limits (hm$^3$)
 - $Q_{{\min}_h},\,Q_{{\max}_h}$ – turbined flow limits (hm$^3$)
 - $V_{{\text{ini}}_h}$ – initial reservoir volume (hm$^3$)
 - $V_{{\text{meta}}_h}$ – target terminal volume (hm$^3$)
@@ -482,7 +482,7 @@ $$
 
 ##### Sets and Indices
 $$
-    \mathcal{T} = – \{1,\dots,T\}, \quad\\
+    \mathcal{T} = \{1,\dots,T\}, \quad\\
     \mathcal{G} = \{\text{UTE}_1,\dots,\text{UTE}_{n}\}.
 $$
 ##### Parameters
@@ -576,7 +576,7 @@ $$
 
 ---
 
-#### Power Balance (Load Satisfaction)
+#### Power Balance (Load Requirement)
 
 The load balance constraint requires that the total generation from all available sources, plus battery discharge and any incurred deficit, exactly meets the system demand:
 
@@ -640,7 +640,7 @@ This constitutes a **Mixed-Integer Linear Programming (MILP)** problem, solved b
 
 #### Constraints
 
-##### Demand Satisfaction
+##### Demand Requirement
 $$
 \sum_{g \in \mathcal{G}} P_{g,t,p} + \sum_{b \in \mathcal{B}} ( P^{d}_{b,t,p} - P^{c}_{b,t,p} ) = D_{t,p}, \quad \forall t \in \mathcal{T}, \, p \in \mathcal{P}
 $$

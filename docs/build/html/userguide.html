@@ -90,7 +90,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#thermal-units">Thermal Units</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id20">Renewable Energies and Storage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id28">Objective Function</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#power-balance-load-satisfaction">Power Balance (Load Satisfaction)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#power-balance-load-requirement">Power Balance (Load Requirement)</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#mathematical-modeling-of-mdi">Mathematical Modeling of MDI</a><ul>
@@ -544,8 +544,8 @@ G_{h,t} = HPF(Q,V,S), \quad \forall h\in\mathcal{H},\, t\in\mathcal{T}.
 <section id="parameters">
 <h5>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h5>
 <ul class="simple">
-<li><p><span class="math">\(d_t\)</span> – \text{system demand (MW)</p></li>
-<li><p><span class="math">\(P_{{\min}_g},\, P_{{\max}_g}\)</span> – generation limits of plant <span class="math">\(g\)</span> (MW)} (CEPEL, 2023)</p></li>
+<li><p><span class="math">\(d_t\)</span> – system demand (MW)</p></li>
+<li><p><span class="math">\(P_{{\min}_g},\, P_{{\max}_g}\)</span> – generation limits of plant <span class="math">\(g\)</span> (MW) (CEPEL, 2023)</p></li>
 <li><p><span class="math">\(a_g,\, b_g,\, c_g\)</span> – thermal cost coefficients of plant <span class="math">\(g\)</span></p></li>
 <li><p><span class="math">\(SC_g\)</span> – startup cost of plant <span class="math">\(g\)</span></p></li>
 <li><p><span class="math">\(R U_g,\, R D_g\)</span> – ramp-up/ramp-down rates (MW per interval)</p></li>
@@ -715,7 +715,7 @@ D_t = d_t, \quad \forall t \in \mathcal{T}.
 <section id="id9">
 <h5>Sets and Indices<a class="headerlink" href="#id9" title="Link to this heading"></a></h5>
 <ul class="simple">
-<li><p>$\mathcal{T} = {1,\dots,T}$ – periods \</p></li>
+<li><p><span class="math">\(\mathcal{T} = \{1,\dots,T\}\)</span> – periods</p></li>
 <li><p><span class="math">\(\mathcal{H} = \{\text{UHE}_1, \dots, \text{UHE}_{n_h}\}\)</span> – hydropower plants</p></li>
 <li><p><span class="math">\(\mathcal{U}(h) \subseteq \mathcal{H}\)</span> – set of upstream hydropower plants of <span class="math">\(h\)</span></p></li>
 </ul>
@@ -724,8 +724,8 @@ D_t = d_t, \quad \forall t \in \mathcal{T}.
 <h5>Parameters (Data)<a class="headerlink" href="#id10" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(a_{h,t}\)</span> – natural inflow to plant <span class="math">\(h\)</span> in period <span class="math">\(t\)</span> (hm<span class="math">\(^3\)</span>)</p></li>
-<li><p><span class="math">\(d_t – demand in period \)</span>t$ (MWh)</p></li>
-<li><p><span class="math">\(V_{{\min}_h},\,V_{{\max}_h} – storage limits (hm\)</span>^3$)</p></li>
+<li><p><span class="math">\(d_t\)</span> – demand in period <span class="math">\(t\)</span> (MWh)</p></li>
+<li><p><span class="math">\(V_{{\min}_h},\,V_{{\max}_h}\)</span> – storage limits (hm<span class="math">\(^3\)</span>)</p></li>
 <li><p><span class="math">\(Q_{{\min}_h},\,Q_{{\max}_h}\)</span> – turbined flow limits (hm<span class="math">\(^3\)</span>)</p></li>
 <li><p><span class="math">\(V_{{\text{ini}}_h}\)</span> – initial reservoir volume (hm<span class="math">\(^3\)</span>)</p></li>
 <li><p><span class="math">\(V_{{\text{meta}}_h}\)</span> – target terminal volume (hm<span class="math">\(^3\)</span>)</p></li>
@@ -775,7 +775,7 @@ V_{h,t} = V_{h,t-1} + ( I_{h,t} - Q_{h,t} - S_{h,t} ), \quad \forall h, \; t = 2
 <h5>Sets and Indices<a class="headerlink" href="#id16" title="Link to this heading"></a></h5>
 <div class="math">
 \[
-    \mathcal{T} = – \{1,\dots,T\}, \quad\\
+    \mathcal{T} = \{1,\dots,T\}, \quad\\
     \mathcal{G} = \{\text{UTE}_1,\dots,\text{UTE}_{n}\}.
 \]</div>
 </section>
@@ -896,8 +896,8 @@ E_{\min_s} \le E_{s,t} \le E_{\max_s}, \quad \forall s \in \mathcal{S}, \; \fora
 </section>
 </section>
 <hr class="docutils" />
-<section id="power-balance-load-satisfaction">
-<h4>Power Balance (Load Satisfaction)<a class="headerlink" href="#power-balance-load-satisfaction" title="Link to this heading"></a></h4>
+<section id="power-balance-load-requirement">
+<h4>Power Balance (Load Requirement)<a class="headerlink" href="#power-balance-load-requirement" title="Link to this heading"></a></h4>
 <p>The load balance constraint requires that the total generation from all available sources, plus battery discharge and any incurred deficit, exactly meets the system demand:</p>
 <div class="math">
 \[
@@ -960,8 +960,8 @@ E_{\min_s} \le E_{s,t} \le E_{\max_s}, \quad \forall s \in \mathcal{S}, \; \fora
 <hr class="docutils" />
 <section id="id31">
 <h4>Constraints<a class="headerlink" href="#id31" title="Link to this heading"></a></h4>
-<section id="demand-satisfaction">
-<h5>Demand Satisfaction<a class="headerlink" href="#demand-satisfaction" title="Link to this heading"></a></h5>
+<section id="demand-requirement">
+<h5>Demand Requirement<a class="headerlink" href="#demand-requirement" title="Link to this heading"></a></h5>
 <div class="math">
 \[
 \sum_{g \in \mathcal{G}} P_{g,t,p} + \sum_{b \in \mathcal{B}} ( P^{d}_{b,t,p} - P^{c}_{b,t,p} ) = D_{t,p}, \quad \forall t \in \mathcal{T}, \, p \in \mathcal{P}
