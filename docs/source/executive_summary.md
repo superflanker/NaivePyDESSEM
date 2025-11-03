@@ -65,4 +65,3 @@ Este projeto está licenciado sob a **Licença Pública Geral GNU, versão 3 (GP
 É permitido o uso, modificação e redistribuição deste trabalho, desde que todas as cópias e obras derivadas mantenham a mesma licença.  
 Nenhuma garantia é fornecida. Para mais informações, consulte: [https://www.gnu.org/licenses/gpl-3.0.html](https://www.gnu.org/licenses/gpl-3.0.html)
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
