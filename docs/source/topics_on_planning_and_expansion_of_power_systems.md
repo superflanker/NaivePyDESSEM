@@ -1285,8 +1285,18 @@ MISOCP formulations are essential for **Active Distribution Networks (ADNs)** an
 
 ---
 
-#### Summary of D-OPF Formulations
+### Summary of D-OPF Formulations
 
 | **Formulation** | **Nature** | **Convexity** | **Typical Application** | **Solver Examples** |
 |------------------|------------|----------------|--------------------------|----------------------|
-| **AC D-OPF** | Nonlinear, nonconvex | ✗ | Accurate modeli
+| **AC D-OPF** | Nonlinear, nonconvex | ✗ | Accurate modeling, research benchmarks | Ipopt, Knitro |
+| **SOCP D-OPF** | Convex relaxation | ✓ | Radial networks, fast operation | Gurobi, CPLEX, Mosek |
+| **SDP D-OPF** | Semidefinite relaxation | ✓ (tight) | Precise analysis, voltage optimization | CVX, SDPT3, SeDuMi |
+| **MISOCP D-OPF** | Mixed-integer convex | ✓ | DER dispatch, topology switching | Gurobi, CPLEX |
+
+---
+
+In conclusion, the integration of **uncertainty-aware optimization** with **advanced D-OPF formulations** provides the methodological foundation for **smart, resilient, and data-driven distribution systems**.  
+These approaches enable operators to make **risk-informed decisions**, optimize **distributed generation and flexibility**, and ensure **secure operation** even under **volatile renewable and demand conditions**.
+
+
