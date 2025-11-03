@@ -205,7 +205,7 @@ Each model represents a specific temporal and operational scope within the decis
   Formulates the hourly dispatch problem with detailed operational constraints for hydro, thermal, renewable, and storage units. It employs mixed-integer linear programming (MILP) formulations to capture short-term dynamics, including reservoir balance, ramping, and startup/shutdown logic.
 
 - **DECOMP (Medium-Term Hydrothermal Operation Model):**  
-  Represents weekly scheduling decisions using stochastic dual dynamic programming (SDDP) or deterministic decompositions. It approximates the stochastic inflow process and optimizes hydrothermal coordination under energy balance constraints, accounting for the trade-off between hydraulic and thermal generation costs.
+  Represents weekly scheduling decisions using deterministic dual dynamic programming (PDDD). It approximates the inflow process and optimizes hydrothermal coordination under energy balance constraints, accounting for the trade-off between hydraulic and thermal generation costs.
 
 - **MDI (Long-Term Expansion Planning Model):**  
   Determines the optimal investment and operation plan for generation and storage over a multi-year horizon. It is formulated as a **Mixed-Integer Linear Programming (MILP)** problem, aiming to minimize total system cost while satisfying capacity adequacy, reliability, and environmental criteria.
@@ -215,7 +215,7 @@ In summary, these models together form a consistent multi-horizon optimization c
 | Model | Horizon | Decision Type | Mathematical Nature | Main Objective |
 |:------|:---------|:---------------|:--------------------|:----------------|
 | **DESSEM** | Short-term (hours–days) | Operational dispatch | MILP | Minimize operating cost |
-| **DECOMP** | Medium-term (weeks–months) | Operation planning | Linear or Stochastic DP | Optimize hydrothermal coordination |
+| **DECOMP** | Medium-term (weeks–months) | Operation planning | Linear or PDDD | Optimize hydrothermal coordination |
 | **MDI** | Long-term (years) | Expansion planning | MILP | Minimize investment + operation cost |
 
 Each formulation in this chapter includes the complete definition of sets, parameters, decision variables, objective function, and constraints.  

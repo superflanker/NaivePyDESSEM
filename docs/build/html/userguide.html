@@ -401,7 +401,7 @@ Ensure environment variables (e.g., <code class="docutils literal notranslate"><
 <li><p><strong>DESSEM (Short-Term Hydrothermal Scheduling Model):</strong><br />
 Formulates the hourly dispatch problem with detailed operational constraints for hydro, thermal, renewable, and storage units. It employs mixed-integer linear programming (MILP) formulations to capture short-term dynamics, including reservoir balance, ramping, and startup/shutdown logic.</p></li>
 <li><p><strong>DECOMP (Medium-Term Hydrothermal Operation Model):</strong><br />
-Represents weekly scheduling decisions using stochastic dual dynamic programming (SDDP) or deterministic decompositions. It approximates the stochastic inflow process and optimizes hydrothermal coordination under energy balance constraints, accounting for the trade-off between hydraulic and thermal generation costs.</p></li>
+Represents weekly scheduling decisions using deterministic dual dynamic programming (PDDD). It approximates the inflow process and optimizes hydrothermal coordination under energy balance constraints, accounting for the trade-off between hydraulic and thermal generation costs.</p></li>
 <li><p><strong>MDI (Long-Term Expansion Planning Model):</strong><br />
 Determines the optimal investment and operation plan for generation and storage over a multi-year horizon. It is formulated as a <strong>Mixed-Integer Linear Programming (MILP)</strong> problem, aiming to minimize total system cost while satisfying capacity adequacy, reliability, and environmental criteria.</p></li>
 </ul>
@@ -425,7 +425,7 @@ Determines the optimal investment and operation plan for generation and storage 
 <tr class="row-odd"><td class="text-left"><p><strong>DECOMP</strong></p></td>
 <td class="text-left"><p>Medium-term (weeks–months)</p></td>
 <td class="text-left"><p>Operation planning</p></td>
-<td class="text-left"><p>Linear or Stochastic DP</p></td>
+<td class="text-left"><p>Linear or PDDD</p></td>
 <td class="text-left"><p>Optimize hydrothermal coordination</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><strong>MDI</strong></p></td>
