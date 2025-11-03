@@ -988,7 +988,7 @@ Solves the hourly hydrothermal scheduling problem.
 pydessem-solve path/to/case.yaml --out_dir results/ --out_file dispatch.csv
 ```
 
-**DESSEM-like dispatch (short-term)**  
+**DECOMP-like dispatch (short-term)**  
 
 Single-LP (Linear Program):
 
