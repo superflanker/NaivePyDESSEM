@@ -42,6 +42,7 @@
               <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">NaivePyDESSEM User Guide</a></li>
 </ul>
 
         </div>
@@ -237,37 +238,39 @@
     <span class="n">capacity_array</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Add the net storage capacity expression to the capacity array.</span>
+<span class="sd">    Add the net storage capacity expression to the capacity array,</span>
+<span class="sd">    considering only storage units that exist (x[s,t] = 1).</span>
 
-<span class="sd">    The expression represents the net contribution of storage units</span>
-<span class="sd">    to the system capacity in each time period and load level.</span>
+<span class="sd">    The expression represents the net power contribution (discharge minus charge)</span>
+<span class="sd">    weighted by the operational existence of the unit in the given period.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    m : pyomo.environ.ConcreteModel</span>
-<span class="sd">        Pyomo model instance containing the relevant storage variables and parameters.</span>
+<span class="sd">        Model instance containing storage sets, parameters, and variables.</span>
 <span class="sd">    t : Any</span>
-<span class="sd">        Time index for which the capacity expression is computed.</span>
+<span class="sd">        Time index.</span>
 <span class="sd">    p : Any</span>
-<span class="sd">        Load level index corresponding to the current capacity term.</span>
+<span class="sd">        Load level index.</span>
 <span class="sd">    capacity_array : list of Any</span>
 <span class="sd">        External list to which the resulting expression will be appended.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    list of Any</span>
-<span class="sd">        The updated list of capacity expressions including the storage term.</span>
+<span class="sd">        Updated list of capacity expressions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">required</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;SU&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;storage_ch&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_dis&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;storage_eta_c&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_eta_d&#39;</span>
+        <span class="s1">&#39;storage_Pdis_max&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_x&#39;</span>
     <span class="p">]</span>
 
     <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
         <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
-            <span class="c1"># Net power injected into the system (discharge - charge)</span>
-            <span class="n">m</span><span class="o">.</span><span class="n">storage_cap</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span>
+            <span class="c1"># Capacity available only if the storage unit exists in period t</span>
+            <span class="c1"># since Pdis_max is in MWh/level, this must be MWh per level</span>
+            <span class="c1"># this is the maximum eergy capacity that storage can deliver per level</span>
+            <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">storage_Pdis_max</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">/</span> <span class="n">m</span><span class="o">.</span><span class="n">level_hours</span><span class="p">[</span><span class="n">p</span><span class="p">])</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_x</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">SU</span>
         <span class="p">)</span>
         <span class="n">capacity_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>

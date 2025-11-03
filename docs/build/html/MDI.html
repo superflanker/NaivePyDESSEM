@@ -9,6 +9,8 @@
   <title>MDI package &mdash; NaivePyDESSEM 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=05624691" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -16,7 +18,9 @@
       <script src="_static/documentation_options.js?v=01f34227"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="_static/katex.min.js?v=5cc8ed51"></script>
+      <script src="_static/auto-render.min.js?v=af98beb9"></script>
+      <script src="_static/katex_autorenderer.js?v=bebc588a"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -72,7 +76,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#MDI.DataFrames.add_generator_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_generator_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#MDI.DataFrames.add_storage_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_storage_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#MDI.DataFrames.build_dispatch_dataframe"><code class="docutils literal notranslate"><span class="pre">build_dispatch_dataframe()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#MDI.DataFrames.compute_CME_by_period"><code class="docutils literal notranslate"><span class="pre">compute_CME_by_period()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-MDI.Formatters">MDI.Formatters module</a><ul>
@@ -127,6 +130,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">NaivePyDESSEM User Guide</a></li>
 </ul>
 
         </div>
@@ -764,38 +768,6 @@ into a single structured pandas DataFrame.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="MDI.DataFrames.compute_CME_by_period">
-<span class="sig-prename descclassname"><span class="pre">MDI.DataFrames.</span></span><span class="sig-name descname"><span class="pre">compute_CME_by_period</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'glpk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_E</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reserve_margin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.15</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/MDI/DataFrames.html#compute_CME_by_period"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.DataFrames.compute_CME_by_period" title="Link to this definition"></a></dt>
-<dd><p>Compute CME (Custo Marginal de Energia) and CME de Expansão
-for each time period individually via incremental perturbation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> (<em>ConcreteModel</em>) – Pyomo model with ‘Adequacy’ and ‘Balance’ constraints.</p></li>
-<li><p><strong>solver_name</strong> (<em>str</em><em>, </em><em>optional</em>) – MILP solver name (default: ‘glpk’).</p></li>
-<li><p><strong>delta_E</strong> (<em>float</em><em>, </em><em>optional</em>) – Increment applied to demand in each period (default: 1.0).</p></li>
-<li><p><strong>reserve_margin</strong> (<em>float</em><em>, </em><em>optional</em>) – Fractional capacity increase used in expansion case (default: 0.15).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><dl class="simple">
-<dt>{</dt><dd><p>“Custo_Base”: float,
-“CME_energia_por_periodo”: { (p,t): value },
-“CME_expansao_por_periodo”: { (p,t): value },
-“CME_global”: float,
-“CME_expansao_global”: float</p>
-</dd>
-</dl>
-<p>}</p>
-</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>

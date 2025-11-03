@@ -31,9 +31,13 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.viewcode',
     'sphinx.ext.imgconverter',
+    'sphinxcontrib.katex',
     'myst_parser'
 ]
-
+myst_enable_extensions = [
+    "dollarmath",
+    "amsmath",
+]
 autodoc_default_options = {
     'members': True,
     'undoc-members': True,  # isso força aparecer mesmo sem docstring

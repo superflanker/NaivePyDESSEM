@@ -9,6 +9,8 @@
   <title>NaivePyDESSEM documentation &mdash; NaivePyDESSEM 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=05624691" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -16,7 +18,9 @@
       <script src="_static/documentation_options.js?v=01f34227"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="_static/katex.min.js?v=5cc8ed51"></script>
+      <script src="_static/auto-render.min.js?v=af98beb9"></script>
+      <script src="_static/katex_autorenderer.js?v=bebc588a"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -45,6 +49,7 @@
               <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">NaivePyDESSEM User Guide</a></li>
 </ul>
 
         </div>
@@ -74,12 +79,19 @@
   <section id="naivepydessem-documentation">
 <h1>NaivePyDESSEM documentation<a class="headerlink" href="#naivepydessem-documentation" title="Link to this heading"></a></h1>
 <p>Official Documentation of NaivePyDESSEM Project — A Pedagogical and Modular Framework for Hydrothermal Economic Dispatch and Expansion Planning in Pyomo (DESSEM, DECOMP, and MDI-like Solvers)</p>
-<section id="naivepydessem-a-pedagogical-and-modular-framework-for-hydrothermal-economic-dispatch-and-expansion-planning-in-pyomo-dessem-decomp-and-mdi-like-solvers">
+<section class="tex2jax_ignore mathjax_ignore" id="naivepydessem-a-pedagogical-and-modular-framework-for-hydrothermal-economic-dispatch-and-expansion-planning-in-pyomo-dessem-decomp-and-mdi-like-solvers">
 <h2>NaivePyDESSEM — A Pedagogical and Modular Framework for Hydrothermal Economic Dispatch and Expansion Planning in Pyomo (DESSEM, DECOMP, and MDI-like Solvers)<a class="headerlink" href="#naivepydessem-a-pedagogical-and-modular-framework-for-hydrothermal-economic-dispatch-and-expansion-planning-in-pyomo-dessem-decomp-and-mdi-like-solvers" title="Link to this heading"></a></h2>
 <p><a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0"><img alt="License: GPL v3" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a>
 <a class="reference external" href="https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml/badge.svg" /></a>
 <a class="reference external" href="https://superflanker.github.io/NaivePyDESSEM/"><img alt="Docs" src="https://github.com/superflanker/NaivePyDESSEM/actions/workflows/docs.yml/badge.svg" /></a>
 <a class="reference external" href="https://github.com/superflanker/NaivePyDESSEM"><img alt="GitHub Repo" src="https://img.shields.io/badge/GitHub-NaivePyDESSEM-181717?logo=github" /></a></p>
+<p><strong>NaivePyDESSEM</strong> is a pedagogical project that brings together <strong>three complementary packages</strong> for teaching and research in power system operation planning:</p>
+<ul class="simple">
+<li><p><strong>NaivePyDESSEM</strong> — inspired by DESSEM, it models the <strong>short-term</strong> (daily/hourly) operation with detailed individual plant representation.</p></li>
+<li><p><strong>NaivePyDECOMP</strong> — inspired by DECOMP, it models the <strong>medium-term</strong> (weekly/monthly) operation with deterministic dual dynamic programming (PDDD).</p></li>
+<li><p><strong>MDI</strong> — Generation Expansion Planning inspired by <strong>MDI</strong> methodology.</p></li>
+</ul>
+<p>Both are implemented in <strong>Pyomo</strong>, with modular architecture and integrated documentation via Sphinx.</p>
 <hr class="docutils" />
 <section id="overview">
 <h3>🔎 Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h3>
@@ -188,218 +200,7 @@ Preserves the key structural and economic principles of real-world expansion mod
 <hr class="docutils" />
 <section id="project-structure">
 <h3>📂 Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading"></a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├── examples
-│   ├── DECOMP
-│   │   ├── trabalho02_caso01.yaml
-│   │   ├── trabalho02_caso02.yaml
-│   │   ├── trabalho02_caso03.yaml
-│   │   └── trabalho02_caso04.yaml
-│   ├── DESSEM
-│   │   ├── exemplo_despacho_hibrido.yaml
-│   │   ├── trabalho01_caso01_1.yaml
-│   │   ├── trabalho01_caso01_2.yaml
-│   │   ├── trabalho01_caso01_3.yaml
-│   │   ├── trabalho01_caso02.yaml
-│   │   ├── trabalho01_caso03.yaml
-│   │   ├── trabalho01_caso04.yaml
-│   │   └── trabalho01_caso05.yaml
-│   └── MDI
-│       ├── trabalho03_ex01.yaml
-│       ├── trabalho03_ex01_anualizado.yaml
-│       ├── trabalho03_ex01_anualizado_alternativo.yaml
-│       ├── trabalho03_ex02.yaml
-│       └── trabalho03_ex02_anualizado.yaml
-├── relatorios
-│   ├── DECOMP
-│   │   ├── caso01
-│   │   │   ├── imagens
-│   │   │   │   ├── custo_futuro_caso01_pddd.png
-│   │   │   │   ├── custos_geracao_caso01_pddd.png
-│   │   │   │   ├── custos_geracao_caso01_single_pl.png
-│   │   │   │   ├── geracao_caso01_pddd.png
-│   │   │   │   ├── geracao_caso01_single_pl.png
-│   │   │   │   ├── limites_convergencia_caso01_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso01_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso01_single_pl.png
-│   │   │   │   ├── volume_armazenado_caso01_pddd.png
-│   │   │   │   └── volume_armazenado_caso01_single_pl.png
-│   │   │   └── tabelas
-│   │   │       ├── custos_caso01_pddd.tex
-│   │   │       ├── custos_caso01_single_pl.tex
-│   │   │       ├── parametros_hidraulicos_caso01_pddd.tex
-│   │   │       ├── parametros_hidraulicos_caso01_single_pl.tex
-│   │   │       ├── tabela_geracao_caso01_pddd.tex
-│   │   │       └── tabela_geracao_caso01_single_pl.tex
-│   │   ├── caso02
-│   │   │   ├── imagens
-│   │   │   │   ├── custo_futuro_caso02_pddd.png
-│   │   │   │   ├── custos_geracao_caso02_pddd.png
-│   │   │   │   ├── custos_geracao_caso02_single_pl.png
-│   │   │   │   ├── geracao_caso02_pddd.png
-│   │   │   │   ├── geracao_caso02_single_pl.png
-│   │   │   │   ├── limites_convergencia_caso02_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso02_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso02_single_pl.png
-│   │   │   │   ├── volume_armazenado_caso02_pddd.png
-│   │   │   │   └── volume_armazenado_caso02_single_pl.png
-│   │   │   └── tabelas
-│   │   │       ├── custos_caso02_pddd.tex
-│   │   │       ├── custos_caso02_single_pl.tex
-│   │   │       ├── parametros_hidraulicos_caso02_pddd.tex
-│   │   │       ├── parametros_hidraulicos_caso02_single_pl.tex
-│   │   │       ├── tabela_geracao_caso02_pddd.tex
-│   │   │       └── tabela_geracao_caso02_single_pl.tex
-│   │   ├── caso03
-│   │   │   ├── imagens
-│   │   │   │   ├── carga_descarga_baterias_caso03_pddd.png
-│   │   │   │   ├── carga_descarga_baterias_caso03_single_pl.png
-│   │   │   │   ├── custo_futuro_caso03_pddd.png
-│   │   │   │   ├── custos_geracao_caso03_pddd.png
-│   │   │   │   ├── custos_geracao_caso03_single_pl.png
-│   │   │   │   ├── geracao_caso03_pddd.png
-│   │   │   │   ├── geracao_caso03_single_pl.png
-│   │   │   │   ├── limites_convergencia_caso03_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso03_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso03_single_pl.png
-│   │   │   │   ├── volume_armazenado_caso03_pddd.png
-│   │   │   │   └── volume_armazenado_caso03_single_pl.png
-│   │   │   └── tabelas
-│   │   │       ├── carga_descarga_baterias_caso03_pddd.tex
-│   │   │       ├── carga_descarga_baterias_caso03_single_pl.tex
-│   │   │       ├── custos_caso03_pddd.tex
-│   │   │       ├── custos_caso03_single_pl.tex
-│   │   │       ├── parametros_hidraulicos_caso03_pddd.tex
-│   │   │       ├── parametros_hidraulicos_caso03_single_pl.tex
-│   │   │       ├── tabela_geracao_caso03_pddd.tex
-│   │   │       └── tabela_geracao_caso03_single_pl.tex
-│   │   ├── caso04
-│   │   │   ├── imagens
-│   │   │   │   ├── carga_descarga_baterias_caso04_pddd.png
-│   │   │   │   ├── carga_descarga_baterias_caso04_single_pl.png
-│   │   │   │   ├── custo_futuro_caso04_pddd.png
-│   │   │   │   ├── custos_geracao_caso04_pddd.png
-│   │   │   │   ├── custos_geracao_caso04_single_pl.png
-│   │   │   │   ├── geracao_caso04_pddd.png
-│   │   │   │   ├── geracao_caso04_single_pl.png
-│   │   │   │   ├── limites_convergencia_caso04_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso04_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso04_single_pl.png
-│   │   │   │   ├── volume_armazenado_caso04_pddd.png
-│   │   │   │   └── volume_armazenado_caso04_single_pl.png
-│   │   │   └── tabelas
-│   │   │       ├── carga_descarga_baterias_caso04_pddd.tex
-│   │   │       ├── carga_descarga_baterias_caso04_single_pl.tex
-│   │   │       ├── custos_caso04_pddd.tex
-│   │   │       ├── custos_caso04_single_pl.tex
-│   │   │       ├── parametros_hidraulicos_caso04_pddd.tex
-│   │   │       ├── parametros_hidraulicos_caso04_single_pl.tex
-│   │   │       ├── tabela_geracao_caso04_pddd.tex
-│   │   │       └── tabela_geracao_caso04_single_pl.tex
-│   │   └── arquivos.txt
-│   ├── DESSEM
-│   │   └── caso_345
-│   │       ├── imagens
-│   │       │   ├── carga_descarga_baterias_caso04.png
-│   │       │   ├── carga_descarga_baterias_caso05.png
-│   │       │   ├── custos_geracao_caso03.png
-│   │       │   ├── custos_geracao_caso04.png
-│   │       │   ├── custos_geracao_caso05.png
-│   │       │   ├── geracao_caso03.png
-│   │       │   ├── geracao_caso04.png
-│   │       │   ├── geracao_caso05.png
-│   │       │   ├── geracao_desempilhada_caso04.png
-│   │       │   ├── geracao_desempilhada_caso05.png
-│   │       │   ├── vazao_turbinada_caso03.png
-│   │       │   ├── vazao_turbinada_caso04.png
-│   │       │   ├── vazao_turbinada_caso05.png
-│   │       │   ├── volume_armazenado_caso03.png
-│   │       │   ├── volume_armazenado_caso04.png
-│   │       │   └── volume_armazenado_caso05.png
-│   │       ├── controle_termicas_caso03.tex
-│   │       ├── controle_termicas_caso04.tex
-│   │       ├── controle_termicas_caso05.tex
-│   │       ├── custos_caso03.tex
-│   │       ├── custos_caso04.tex
-│   │       ├── custos_caso05.tex
-│   │       ├── parametros_hidraulicos_caso03.tex
-│   │       ├── parametros_hidraulicos_caso04.tex
-│   │       ├── parametros_hidraulicos_caso05.tex
-│   │       ├── tabela_geracao_caso03.tex
-│   │       ├── tabela_geracao_caso04.tex
-│   │       └── tabela_geracao_caso05.tex
-│   └── MDI
-│       ├── ex01
-│       │   ├── imagens
-│       │   │   ├── carga_descarga_baterias_ex01.png
-│       │   │   ├── carga_descarga_baterias_ex01_anualizado.png
-│       │   │   ├── custos_geracao_ex01.png
-│       │   │   ├── custos_geracao_ex01_anualizado.png
-│       │   │   ├── geracao_ex01.png
-│       │   │   ├── geracao_ex01_anualizado.png
-│       │   │   ├── geracao_ex01_anualizado_fora.png
-│       │   │   ├── geracao_ex01_anualizado_ponta.png
-│       │   │   ├── geracao_ex01_fora.png
-│       │   │   └── geracao_ex01_ponta.png
-│       │   └── tabelas
-│       │       ├── decisoes_ex01.tex
-│       │       ├── decisoes_ex01_anualizado.tex
-│       │       ├── tabela_custos_ex01.tex
-│       │       ├── tabela_custos_ex01_anualizado.tex
-│       │       ├── tabela_geracao_ex01.tex
-│       │       └── tabela_geracao_ex01_anualizado.tex
-│       └── ex02
-│           ├── imagens
-│           │   ├── carga_descarga_baterias_ex02.png
-│           │   ├── carga_descarga_baterias_ex02_anualizado.png
-│           │   ├── custos_geracao_ex02.png
-│           │   ├── custos_geracao_ex02_anualizado.png
-│           │   ├── geracao_ex02.png
-│           │   ├── geracao_ex02_anualizado.png
-│           │   ├── geracao_ex02_anualizado_fora.png
-│           │   ├── geracao_ex02_anualizado_ponta.png
-│           │   ├── geracao_ex02_fora.png
-│           │   └── geracao_ex02_ponta.png
-│           └── tabelas
-│               ├── decisoes_ex02.tex
-│               ├── decisoes_ex02_anualizado.tex
-│               ├── tabela_custos_ex02.tex
-│               ├── tabela_custos_ex02_anualizado.tex
-│               ├── tabela_geracao_ex02.tex
-│               └── tabela_geracao_ex02_anualizado.tex
-├── resultados
-│   ├── DECOMP
-│   │   ├── despacho_caso01_pddd.csv
-│   │   ├── despacho_caso01_pddd_alpha.csv
-│   │   ├── despacho_caso01_pddd_zlimits.csv
-│   │   ├── despacho_caso01_single_pl.csv
-│   │   ├── despacho_caso02_pddd.csv
-│   │   ├── despacho_caso02_pddd_alpha.csv
-│   │   ├── despacho_caso02_pddd_zlimits.csv
-│   │   ├── despacho_caso02_single_pl.csv
-│   │   ├── despacho_caso03_pddd.csv
-│   │   ├── despacho_caso03_pddd_alpha.csv
-│   │   ├── despacho_caso03_pddd_zlimits.csv
-│   │   ├── despacho_caso03_single_pl.csv
-│   │   ├── despacho_caso04.csv
-│   │   ├── despacho_caso04_pddd.csv
-│   │   ├── despacho_caso04_pddd_alpha.csv
-│   │   ├── despacho_caso04_pddd_zlimits.csv
-│   │   └── despacho_caso04_single_pl.csv
-│   ├── DESSEM
-│   │   ├── despacho_caso01_1.csv
-│   │   ├── despacho_caso01_2.csv
-│   │   ├── despacho_caso01_3.csv
-│   │   ├── despacho_caso02.csv
-│   │   ├── despacho_caso03.csv
-│   │   ├── despacho_caso04.csv
-│   │   └── despacho_caso05.csv
-│   └── MDI
-│       ├── planejamento_expansao_ex01.csv
-│       ├── planejamento_expansao_ex01_anualizado.csv
-│       ├── planejamento_expansao_ex01_anualizado_alternativo.csv
-│       ├── planejamento_expansao_ex02.csv
-│       └── planejamento_expansao_ex02_anualizado.csv
-├── src
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├── src
 │   ├── MDI
 │   │   ├── cli
 │   │   │   ├── __init__.py
@@ -1649,7 +1450,6 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.DataFrames.add_generator_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_generator_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.DataFrames.add_storage_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_storage_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.DataFrames.build_dispatch_dataframe"><code class="docutils literal notranslate"><span class="pre">build_dispatch_dataframe()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.DataFrames.compute_CME_by_period"><code class="docutils literal notranslate"><span class="pre">compute_CME_by_period()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Formatters">MDI.Formatters module</a><ul>
@@ -1724,6 +1524,194 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l5"><a class="reference internal" href="MDI.html#id30">Functions</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">NaivePyDESSEM User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#introduction">1. Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#purpose-and-scope">Purpose and Scope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#conceptual-foundations">Conceptual Foundations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#target-audience">Target Audience</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#system-requirements">System Requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#installation-guide">2. Installation Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#create-and-activate-a-virtual-environment">1. Create and Activate a Virtual Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#install-naivepydessem">2. Install NaivePyDESSEM</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#option-a-from-pypi-recommended-for-most-users">Option A – From PyPI (recommended for most users)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#option-b-from-source-https">Option B – From Source (HTTPS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#option-c-from-source-ssh">Option C – From Source (SSH)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#build-pyomo-extensions">3. Build Pyomo Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#install-and-configure-optimization-solvers">4. Install and Configure Optimization Solvers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#ibm-cplex"><strong>IBM CPLEX</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#gurobi"><strong>Gurobi</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#scip"><strong>SCIP</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#validate-the-environment">5. Validate the Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#optional-upgrade-or-uninstall">6. (Optional) Upgrade or Uninstall</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#problem-formulation-and-mathematical-modeling">2. Problem Formulation and Mathematical Modeling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#mathematical-modeling-of-dessem">Mathematical Modeling of DESSEM</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#hydropower-plants">Hydropower Plants</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#sets-and-indices">Sets and Indices</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#parameters-data">Parameters (Data)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#decision-variables">Decision Variables</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#hydraulic-polynomial-functions-for-plant-h">Hydraulic Polynomial Functions for Plant <span class="math">\(h\)</span></a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#hydropower-production-function-hpf">Hydropower Production Function (HPF)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#total-instantaneous-inflow-cascade-without-delay">Total Instantaneous Inflow (Cascade without Delay)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#constraints">Constraints</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#generation">Generation</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#reservoir-mass-balance">Reservoir Mass Balance</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#targets-and-operational-limits">Targets and Operational Limits</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#thermal-power-plants">Thermal Power Plants</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id1">Sets and Indices</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#parameters">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id2">Decision Variables</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id3">Constraints</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#power-balance">Power Balance</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#conditional-capacity">Conditional Capacity</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#startup-shutdown-logic">Startup/Shutdown Logic</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#ramping-limits">Ramping Limits</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#minimum-up-down-time">Minimum Up/Down Time</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#consistent-initial-conditions">Consistent Initial Conditions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#renewable-energies-and-storage">Renewable Energies and Storage</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id4">Sets and Indices</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id5">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id6">Decision Variables</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id7">Constraints</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#renewable-generation-availability-limit">Renewable Generation — Availability Limit</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#storage-energy-balance-soc">Storage — Energy Balance (SoC)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#storage-state-of-charge-soc-limits">Storage — State of Charge (SoC) Limits</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#storage-power-limits">Storage — Power Limits</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#objective-function">Objective Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#power-balance-load-supply">Power Balance (Load Supply)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#mathematical-modeling-of-decomp">Mathematical Modeling of DECOMP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id8">Hydropower Plants</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id9">Sets and Indices</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id10">Parameters (Data)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id11">Decision Variables</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id12">Hydropower Production Function (HPF)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id13">Constraints</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#id14">Total Instantaneous Inflow (Cascade without Delay)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#id15">Reservoir Mass Balance</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#thermal-units">Thermal Units</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id16">Sets and Indices</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id17">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id18">Decision Variables</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id19">Constraints</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#capacity">Capacity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id20">Renewable Energies and Storage</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id21">Sets and Indices</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id22">Parameters</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id23">Decision Variables</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id24">Constraints</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#renewable-sources-availability-limit">Renewable Sources — Availability Limit</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#id25">Storage — Energy Balance (SoC)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#id26">Storage — State of Charge (SoC) Limits</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#id27">Storage — Power Limits</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id28">Objective Function</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#single-lp-objective-function">Single LP Objective Function</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#objective-function-for-pddd">Objective Function for PDDD</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#power-balance-load-satisfaction">Power Balance (Load Satisfaction)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#mathematical-modeling-of-mdi">Mathematical Modeling of MDI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#sets">Sets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id29">Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id30">Decision Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id31">Constraints</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#demand-satisfaction">Demand Satisfaction</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#capacity-adequacy">Capacity Adequacy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#generation-limits">Generation Limits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#storage-dynamics">Storage Dynamics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#state-of-charge-limits">State of Charge Limits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#charge-discharge-power-limits">Charge/Discharge Power Limits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#initial-state">Initial State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#expansion-dynamics-existence-accumulation">Expansion Dynamics (Existence Accumulation)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#unique-construction">Unique Construction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#monotonic-growth">Monotonic Growth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id32">Objective Function</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#model-architecture"><strong>3. Model Architecture</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#overview"><strong>Overview</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#package-hierarchy"><strong>Package Hierarchy</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#design-overview">Design Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#command-line-interface-cli">🧭 Command-Line Interface (CLI)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#solving-a-model"><strong>1. Solving a Model</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#plotting-results">2. Plotting Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#cli-arguments">4. CLI Arguments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#solver-cli">1. Solver CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#plot-cli">2. Plot CLI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#yaml-configuration">4. YAML Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#step-by-step-building-a-dessem-configuration-file">🧩 Step-by-Step: Building a DESSEM Configuration File</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#header-and-metadata-meta">🪶 1. Header and Metadata (<code class="docutils literal notranslate"><span class="pre">meta</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#hydropower-data-hydro">🌊 2. Hydropower Data (<code class="docutils literal notranslate"><span class="pre">hydro</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#thermal-data-thermal">🔥 3. Thermal Data (<code class="docutils literal notranslate"><span class="pre">thermal</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#renewable-data-renewable">🌬️ 4. Renewable Data (<code class="docutils literal notranslate"><span class="pre">renewable</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#storage-data-storage">⚡ 5. Storage Data (<code class="docutils literal notranslate"><span class="pre">storage</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#final-checks">✅ 6. Final Checks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#step-by-step-building-a-decomp-configuration-file">🧩 Step-by-Step: Building a DECOMP Configuration File</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id33">🪶 1. Header and Metadata (<code class="docutils literal notranslate"><span class="pre">meta</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id34">🌊 2. Hydropower Data (<code class="docutils literal notranslate"><span class="pre">hydro</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id35">🔥 3. Thermal Data (<code class="docutils literal notranslate"><span class="pre">thermal</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id36">🌬️ 4. Renewable Data (<code class="docutils literal notranslate"><span class="pre">renewable</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id37">⚡ 5. Storage Data (<code class="docutils literal notranslate"><span class="pre">storage</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id38">✅ 6. Final Checks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#step-by-step-building-an-mdi-configuration-file">🧩 Step-by-Step: Building an MDI Configuration File</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id39">🪶 1. Header and Metadata (<code class="docutils literal notranslate"><span class="pre">meta</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#generator-data-generator">⚙️ 2. Generator Data (<code class="docutils literal notranslate"><span class="pre">generator</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id40">⚡ 3. Storage Data (<code class="docutils literal notranslate"><span class="pre">storage</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id41">✅ 4. Final Checks</a></li>
 </ul>
 </li>
 </ul>

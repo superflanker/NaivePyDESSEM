@@ -62,4 +62,4 @@ The project is distributed under the **MIT License**, ensuring unrestricted use,
 
 ---
 
-**Next Section:** [Conceptual Background →](#2-conceptual-background)
+
