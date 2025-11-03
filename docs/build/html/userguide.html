@@ -76,7 +76,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#optional-upgrade-or-uninstall">6. (Optional) Upgrade or Uninstall</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#problem-formulation-and-mathematical-modeling">2. Problem Formulation and Mathematical Modeling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#problem-formulation-and-mathematical-modeling">3. Problem Formulation and Mathematical Modeling</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#mathematical-modeling-of-dessem">Mathematical Modeling of DESSEM</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#hydropower-plants">Hydropower Plants</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#thermal-power-plants">Thermal Power Plants</a></li>
@@ -112,7 +112,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#model-architecture"><strong>3. Model Architecture</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#model-architecture"><strong>4 Model Architecture</strong></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#overview"><strong>Overview</strong></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#package-hierarchy"><strong>Package Hierarchy</strong></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#design-overview">Design Overview</a></li>
@@ -123,12 +123,12 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#cli-arguments">4. CLI Arguments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cli-arguments">5. CLI Arguments</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#solver-cli">1. Solver CLI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#plot-cli">2. Plot CLI</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#yaml-configuration">4. YAML Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#yaml-configuration">6. YAML Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#step-by-step-building-a-dessem-configuration-file">🧩 Step-by-Step: Building a DESSEM Configuration File</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#header-and-metadata-meta">🪶 1. Header and Metadata (<code class="docutils literal notranslate"><span class="pre">meta</span></code>)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#hydropower-data-hydro">🌊 2. Hydropower Data (<code class="docutils literal notranslate"><span class="pre">hydro</span></code>)</a></li>
@@ -394,7 +394,7 @@ Ensure environment variables (e.g., <code class="docutils literal notranslate"><
 </section>
 </section>
 <section id="problem-formulation-and-mathematical-modeling">
-<h2>2. Problem Formulation and Mathematical Modeling<a class="headerlink" href="#problem-formulation-and-mathematical-modeling" title="Link to this heading"></a></h2>
+<h2>3. Problem Formulation and Mathematical Modeling<a class="headerlink" href="#problem-formulation-and-mathematical-modeling" title="Link to this heading"></a></h2>
 <p>This chapter formalizes the mathematical structures that underpin each model, providing a unified notation and formulation style across planning horizons. Each model is expressed as a mixed-integer or linear optimization problem, with explicit definitions of sets, parameters, decision variables, objective functions, and constraints.</p>
 <p>Each model represents a specific temporal and operational scope within the decision hierarchy of the <strong>SIN (National Interconnected System)</strong>:</p>
 <ul class="simple">
@@ -1080,7 +1080,7 @@ x_{b,t} \ge x_{b,t-1}, \quad \forall g,b,t
 </section>
 </section>
 <section id="model-architecture">
-<h2><strong>3. Model Architecture</strong><a class="headerlink" href="#model-architecture" title="Link to this heading"></a></h2>
+<h2><strong>4 Model Architecture</strong><a class="headerlink" href="#model-architecture" title="Link to this heading"></a></h2>
 <section id="overview">
 <h3><strong>Overview</strong><a class="headerlink" href="#overview" title="Link to this heading"></a></h3>
 <p>The <strong>NaivePyDESSEM</strong> package follows a layered architecture that mirrors the hierarchical structure of the Brazilian energy models (<em>MDI</em>, <em>DECOMP</em>, and <em>DESSEM</em>).<br />
@@ -1309,11 +1309,20 @@ Determines the optimal multi-year investment and operation plan.</p>
 </section>
 <section id="plotting-results">
 <h4>2. Plotting Results<a class="headerlink" href="#plotting-results" title="Link to this heading"></a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pydessem-plot<span class="w"> </span>results/dispatch.csv<span class="w"> </span>--mode<span class="w"> </span>plot<span class="w"> </span>--category<span class="w"> </span>G<span class="w"> </span>V<span class="w"> </span>--plot-style<span class="w"> </span>line
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pydecomp-plot<span class="w"> </span>results/dispatch.csv<span class="w"> </span>--mode<span class="w"> </span>plot<span class="w"> </span>--category<span class="w"> </span>G<span class="w"> </span>V<span class="w"> </span>--plot-style<span class="w"> </span>line
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mdi-plot<span class="w"> </span>results/dispatch.csv<span class="w"> </span>--mode<span class="w"> </span>plot<span class="w"> </span>--category<span class="w"> </span>G<span class="w"> </span>--plot-style<span class="w"> </span>line
+</pre></div>
+</div>
 </section>
 </section>
 </section>
 <section id="cli-arguments">
-<h2>4. CLI Arguments<a class="headerlink" href="#cli-arguments" title="Link to this heading"></a></h2>
+<h2>5. CLI Arguments<a class="headerlink" href="#cli-arguments" title="Link to this heading"></a></h2>
 <section id="solver-cli">
 <h3>1. Solver CLI<a class="headerlink" href="#solver-cli" title="Link to this heading"></a></h3>
 <p>All solver commands share three common command-line arguments:</p>
@@ -1372,7 +1381,7 @@ LaTeX label identifier for referencing generated tables or figures.</p></li>
 </section>
 </section>
 <section id="yaml-configuration">
-<h2>4. YAML Configuration<a class="headerlink" href="#yaml-configuration" title="Link to this heading"></a></h2>
+<h2>6. YAML Configuration<a class="headerlink" href="#yaml-configuration" title="Link to this heading"></a></h2>
 <p>All models in the NaivePyDESSEM suite are configured via YAML files, which define system data, solver settings, and simulation parameters in a human-readable format.</p>
 <section id="step-by-step-building-a-dessem-configuration-file">
 <h3>🧩 Step-by-Step: Building a DESSEM Configuration File<a class="headerlink" href="#step-by-step-building-a-dessem-configuration-file" title="Link to this heading"></a></h3>

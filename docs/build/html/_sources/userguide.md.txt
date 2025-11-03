@@ -195,7 +195,7 @@ pip uninstall naivepydessem
 **Note:** Some solvers (e.g., CPLEX, Gurobi) require valid licenses.  
 Ensure environment variables (e.g., `PATH`, `CPLEX_HOME`, `GUROBI_HOME`) are correctly configured before executing optimization models.
 
-## 2. Problem Formulation and Mathematical Modeling
+## 3. Problem Formulation and Mathematical Modeling
 
 This chapter formalizes the mathematical structures that underpin each model, providing a unified notation and formulation style across planning horizons. Each model is expressed as a mixed-integer or linear optimization problem, with explicit definitions of sets, parameters, decision variables, objective functions, and constraints.
 
@@ -755,7 +755,7 @@ Where:
 
 This objective minimizes total system cost across the planning horizon, combining investment and operating costs weighted by the duration of each load level. The formulation captures the trade-off between capacity expansion and operation, ensuring an economically optimal solution under technical and energy constraints.
 
-## **3. Model Architecture**
+## **4 Model Architecture**
 
 ### **Overview**
 
@@ -1012,7 +1012,19 @@ mdi-solve path/to/case.yaml --out_dir results/ --out_file dispatch.csv
 
 #### 2. Plotting Results
 
-## 4. CLI Arguments
+```bash
+pydessem-plot results/dispatch.csv --mode plot --category G V --plot-style line
+```
+
+```bash
+pydecomp-plot results/dispatch.csv --mode plot --category G V --plot-style line
+```
+
+```bash
+mdi-plot results/dispatch.csv --mode plot --category G --plot-style line
+```
+
+## 5. CLI Arguments
 
 #### 1. Solver CLI
 
@@ -1074,7 +1086,7 @@ The basic plot CLI commands share the following options:
 - **`--label`**  
   LaTeX label identifier for referencing generated tables or figures.
 
-## 4. YAML Configuration
+## 6. YAML Configuration
 
 All models in the NaivePyDESSEM suite are configured via YAML files, which define system data, solver settings, and simulation parameters in a human-readable format. 
 
