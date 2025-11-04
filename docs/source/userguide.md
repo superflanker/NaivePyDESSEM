@@ -161,11 +161,24 @@ The following options are supported:
 To confirm successful installation, open a Python session and run:
 
 ```python
-import pyomo.environ as pyo
-import naivepydessem
+import pyomo as pyo
 
-print("Pyomo version:", pyo.version.__version__)
-print("NaivePyDESSEM successfully imported.")
+try:
+    import NaivePyDESSEM
+except ModuleNotFoundError as e:
+    print(e)
+
+try:
+    import NaivePyDECOMP
+except ModuleNotFoundError as e:
+    print(e)
+
+try:
+    import MDI
+except ModuleNotFoundError as e:
+    print(e)
+
+print("Pyomo version:", pyo.__version__)
 ```
 
 If no errors occur, the environment is properly configured.
