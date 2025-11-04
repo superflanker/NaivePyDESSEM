@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "naivepydessem"
-version = "0.1.2"
+version = "0.1.3"
 description = "A modular and pedagogical framework for power system operation and expansion planning using Pyomo (DESSEM, DECOMP, MDI-like solvers)"
 readme = "README.md"
 license = { text = "GPL-3.0" }
@@ -43,13 +43,6 @@ dependencies = [
   "pandas>=2.3.2",
   "pyomo>=6.9.3",
   "PyYAML>=6.0.2",
-  "highspy>=1.11.0",
-  "gurobipy>=12.0.3",
-  "glpk>=0.4.8",
-  "cplex>=22.1.2.0",
-  "cyipopt>=1.6.1",
-  "docplex>=2.30.251"
-
 ]
 
 [project.optional-dependencies]
