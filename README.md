@@ -1,6 +1,9 @@
-# NaivePyDESSEM — A Pedagogical and Modular Framework for Hydrothermal Economic Dispatch and Expansion Planning in Pyomo (DESSEM, DECOMP, and MDI-like Solvers)
 <p align="center">
-  <img src="/imagens/logo.png" alt="NaivePyDESSEM Logo" width="300"/>
+  <img src="https://raw.githubusercontent.com/superflanker/NaivePyDESSEM/main/imagens/logo.png" alt="NaivePyDESSEM Logo" width="260"/>
+</p>
+
+<p align="center">
+  <strong><H2>NaivePyDESSEM — A Pedagogical Framework for Hydrothermal Operation and Expansion Planning</H2></strong>
 </p>
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)

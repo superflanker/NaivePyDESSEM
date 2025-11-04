@@ -1,3 +1,15 @@
+.. raw:: html
+   
+         <p align="center">
+         <img src="https://raw.githubusercontent.com/superflanker/NaivePyDESSEM/main/imagens/logo.png" alt="NaivePyDESSEM Logo" width="260"/>
+         </p>
+
+         <p align="center">
+         <strong><H2>NaivePyDESSEM — A Pedagogical Framework for Hydrothermal Operation and Expansion Planning</H2></strong>
+         </p>
+
+---
+
 NaivePyDESSEM documentation
 ===========================
 
