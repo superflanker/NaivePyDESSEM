@@ -42,11 +42,28 @@ dependencies = [
   "scipy>=1.15.3",
   "pandas>=2.3.2",
   "pyomo>=6.9.3",
-  "PyYAML>=6.0.2",
+  "PyYAML>=6.0.2"
 ]
 
 [project.optional-dependencies]
+
 docs = ["sphinx>=7.2", "myst-parser>=2.0"]
+
+solvers = [
+  "highspy>=1.11.0",
+  "gurobipy>=12.0.3",
+  "glpk>=0.4.8",
+  "cplex>=22.1.2.0",
+  "cyipopt>=1.6.1",
+  "docplex>=2.30.251"
+]
+
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.5.0",         # Linter moderno (substitui flake8)
+    "black>=24.10.0",
+    "pre-commit>=3.8.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/superflanker/NaivePyDESSEM"

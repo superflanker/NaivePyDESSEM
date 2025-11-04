@@ -63,6 +63,12 @@ venv\Scripts\activate
 pip install naivepydessem
 ```
 
+Optionally, install with some open-source solvers:
+
+```bash
+pip install naivepydessem[solvers]
+```
+
 #### Option B – From Source (HTTPS)
 
 ```bash

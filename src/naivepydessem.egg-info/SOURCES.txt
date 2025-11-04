@@ -3,10 +3,6 @@ MANIFEST.in
 README.md
 pyproject.toml
 setup.cfg
-docs/UserGuide/ModelsUsed.md
-docs/UserGuide/introduction.md
-docs/UserGuide/section3.md
-docs/UserGuide/userguide.md
 docs/build/latex/naivepydessem.pdf
 docs/build/latex/naivepydessem.tex
 docs/build/markdown/MDI.Generator.md

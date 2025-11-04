@@ -307,7 +307,13 @@ The following Python packages are required to run **NaivePyDESSEM**:
 pip install naivepydessem
 ```
 
-Or from source:
+Optionally, install with some open-source solvers:
+
+```bash
+pip install naivepydessem[solvers]
+```
+
+You can install  from source:
 
 ```bash
 git clone https://github.com/superflanker/NaivePyDESSEM.git
