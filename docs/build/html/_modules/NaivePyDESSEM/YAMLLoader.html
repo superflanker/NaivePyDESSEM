@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -235,11 +235,19 @@
     <span class="k">for</span> <span class="n">unit</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">units</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">new_key</span> <span class="o">=</span> <span class="n">key_replace</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span> <span class="k">if</span> <span class="n">transform_names</span> <span class="k">else</span> <span class="n">unit</span>
         <span class="n">value</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;upstreams&quot;</span> <span class="ow">in</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;upstreams&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">value</span><span class="p">[</span><span class="s2">&quot;upstreams&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="p">[</span><span class="n">key_replace</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;upstreams&quot;</span><span class="p">]]</span> <span class="k">if</span> <span class="n">transform_names</span>
-                <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;upstreams&quot;</span><span class="p">])</span>
-            <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s2">&quot;upstreams&quot;</span> <span class="ow">in</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;upstreams&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">value</span><span class="p">[</span><span class="s2">&quot;upstreams&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="p">[</span><span class="n">key_replace</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;upstreams&quot;</span><span class="p">]]</span> <span class="k">if</span> <span class="n">transform_names</span>
+                    <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;upstreams&quot;</span><span class="p">])</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;bar&quot;</span> <span class="ow">in</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">value</span><span class="p">[</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">key_replace</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;bar&quot;</span><span class="p">])</span> <span class="k">if</span> <span class="n">transform_names</span> <span class="k">else</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;bar&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s1">&#39;endpoints&#39;</span> <span class="ow">in</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">value</span><span class="p">[</span><span class="s1">&#39;endpoints&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">value</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="p">[</span><span class="n">key_replace</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">]]</span> <span class="k">if</span> <span class="n">transform_names</span>
+                    <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">])</span>
+                <span class="p">)</span>
         <span class="n">out</span><span class="p">[</span><span class="n">new_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
     <span class="k">return</span> <span class="n">out</span>
 

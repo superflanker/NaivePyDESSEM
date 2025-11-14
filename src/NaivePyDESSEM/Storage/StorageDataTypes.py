@@ -50,6 +50,8 @@ class StorageUnit:
     ----------
     name : str
         Unique identifier of the storage unit.
+    bar: str
+        Connection Bar of the Unit (defaults to BAR_1)
     Emin : float
         Minimum energy content (MWh).
     Emax : float
@@ -72,6 +74,7 @@ class StorageUnit:
       ``eta_c`` and ``eta_d`` before creating the instance.
     """
     name: str
+    bar: str
     Emin: float
     Emax: float
     Eini: float
@@ -90,21 +93,15 @@ class StorageData:
     ----------
     horizon : int
         Number of time periods in the planning horizon.    
-    demand : Dict[int, float]
-        Mapping of each period ``t`` (1-based) to system demand (MW).
     units : Dict[str, StorageUnit]
         Mapping from unit identifier to :class:`StorageUnit`.
     delta_t : float
         Time-step duration (hours), used to convert MW to MWh.
-    Cdef: float, optional
-        Sets the deficit cost. Default is 1000.0
 
     Notes
     -----
     - Typical values for ``delta_t`` are 1.0 (hourly) or 0.5 (30 minutes).
     """
     horizon: int
-    demand: Dict[int, float]
     units: Dict[str, StorageUnit]
     delta_t: float
-    Cdef: float = 1000.0

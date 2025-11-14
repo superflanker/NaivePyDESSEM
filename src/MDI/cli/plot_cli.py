@@ -30,6 +30,8 @@ Categories
 ----------
 - 'G'     : Generation (thermal, renewable, battery)
 - 'BAT'   : Battery-specific (charge/discharge/SoC)
+- 'CB'    : Connection Bar Variables
+- 'LT'    : Transmission Lines Variables
 - 'cost'  : Cost components per stage
 - 'CTRL'  : Control variables (Y, X)
 
@@ -170,7 +172,7 @@ def select_variable_columns(df: pd.DataFrame,
     df : pd.DataFrame
         The input DataFrame containing simulation results.
     category : str
-        One of: {"G", "Q", "S", "V", "BAT", "cost", "CTRL"}.
+        One of: {"G", "BAT", "cost", "CTRL"}.
 
     Returns
     -------
@@ -183,31 +185,31 @@ def select_variable_columns(df: pd.DataFrame,
         If the category is unrecognized.
     """
 
-    if category == "GT":
-        return df.filter(regex=r"^(G_|Ge_|Deficit|Demand).*")
-    elif category == "G":
-        # Se um level (patamar) for fornecido, a regex filtra por ele.
-        # Ex: Se level="Ponta", a regex se torna r"^(G_.*Ponta).*$"
-        # Caso contrário, mantém a regex original r"^(G_).*$"
-        if level:
-            # Garante que o level termine a string da variável ou seja seguido por '_'
-            # para evitar correspondências parciais indesejadas
-            # Ex: r"^(G_.*Ponta).*$"
-            regex_str = r"^(G_.*" + level + r"*).*$"
-            print(f"{Fore.BLUE}Filtering G with level regex: {regex_str}{Style.RESET_ALL}")
-            return df.filter(regex=regex_str)
-        else:
-            return df.filter(regex=r"^(G_).*")
-    elif category == "BAT":
-        return df.filter(regex=r"^(D_|C_|E_).*")
-    elif category.lower() == "cost":
-        return df.filter(regex=r"^(Cost_|CMO|CME).*")
-    elif category.upper() == "CTRL":
-        return df.filter(regex=r"^(X_|Y_).*")
-    else:
-        raise ValueError(
-            f"{Fore.RED}Unrecognized category: {category}{Style.RESET_ALL}")
+    category = category.upper()
 
+    if category == "GT":
+        regex_str = (r"^(G_|Ge_|Deficit_|Demand_).*" + level + r".*$" if level
+                     else r"^(G_|Ge_|Deficit_|Demand_).*")
+    elif category == "G":
+        regex_str = (r"^(G_).*" + level + r".*$" if level
+                     else r"^(G_).*")
+    elif category == "CB":
+        regex_str = (r"^(\\Theta_|DemandBar_|DeficitBar_|CMOBar_|CMEBar_).*" + level + r".*$" if level
+                     else r"^(\\Theta_|DemandBar_|DeficitBar_|CMOBar_|CMEBar_).*")
+    elif category == "LT":
+        regex_str = (r"^(\\Delta_|F_|CMOT_|CMET_|CRT_|UR_).*" + level + r".*$" if level
+                     else r"^(\\Delta_|F_|CMOT_|CMET_|CRT_|UR_).*")
+    elif category == "BAT":
+        regex_str = r"^(D_|C_|E_).*"
+    elif category == "COST":
+        regex_str = r"^(Cost_|CMO_|CME_).*"
+    elif category == "CTRL":
+        regex_str = r"^(X_|Y_).*"
+    else:
+        raise ValueError(f"{Fore.RED}Unrecognized category: {category}{Style.RESET_ALL}")
+
+    print(f"{Fore.BLUE}Filtering columns with regex: {regex_str}{Style.RESET_ALL}")
+    return df.filter(regex=regex_str)
 
 
 def select_columns_multi(df: pd.DataFrame,
@@ -370,6 +372,7 @@ def handle_plot(df: pd.DataFrame,
                 stacked: str = None,
                 title: str = None,
                 ylabel: str = None,
+                xlabel: str = None,
                 out_dir: str = None,
                 out_file: str = None,
                 level: str = None): 
@@ -393,7 +396,9 @@ def handle_plot(df: pd.DataFrame,
     title : str, optional
         Title of the plot. Prompted if not provided.
     ylabel : str, optional
-        Label for the Y-axis. Prompted if not provided.
+        Label for the Y-axis. Prompted if not provided.    
+    xlabel : str, optional
+        Label for the X-axis. Prompted if not provided.
     out_dir : str, optional
         Directory to save the plot. Prompted if not provided.
     out_file : str, optional
@@ -406,6 +411,7 @@ def handle_plot(df: pd.DataFrame,
     """
     title = title or prompt("Enter the title of the plot [optional]")
     ylabel = ylabel or prompt("Enter the y-axis label [optional]")
+    xlabel = xlabel or prompt("Enter the x-axis label [optional]")
     out_dir = out_dir or prompt("Enter the output directory for the figure")
     out_file = out_file or prompt(
         "Enter the output file name (e.g., plot.png)")
@@ -418,6 +424,7 @@ def handle_plot(df: pd.DataFrame,
     t = df["T"] if "T" in df.columns else df.index
     title_use = title if title else ", ".join(categories)
     ylabel_use = ylabel if ylabel else ", ".join(categories)
+    xlabel_use = xlabel if xlabel else ", ".join(categories)
     path = os.path.join(out_dir, out_file)
     if plot_style == "line":
         plot_series(t, series.to_dict(orient="list"),
@@ -426,7 +433,7 @@ def handle_plot(df: pd.DataFrame,
         stacked = (stacked if stacked is not None else prompt(
             "Stacked bars? (y/n)").lower() == "y")
         plot_series_bar(t, series.to_dict(orient="list"), title=title_use,
-                        ylabel=ylabel_use, file=path, stacked=stacked)
+                        ylabel=ylabel_use, xlabel=xlabel_use, file=path, stacked=stacked)
     else:
         print(f"{Fore.RED}Unrecognized plot style.{Style.RESET_ALL}")
     print(f"{Fore.GREEN}✔ Figure saved to:{Style.RESET_ALL} {Fore.CYAN}{path}{Style.RESET_ALL}")
@@ -490,13 +497,14 @@ def main():
     parser.add_argument("--level", help="Generation level for G/GT categories (e.g., Ponta, Fora)")
     parser.add_argument("--title", help="Plot title or LaTeX caption")
     parser.add_argument("--ylabel", help="Y-axis label (plots)")
+    parser.add_argument("--xlabel", help="X-axis label (plots)")
     parser.add_argument("--out-dir", help="Output directory")
     parser.add_argument(
         "--out-file", help="Output file name (plot image or .tex)")
     parser.add_argument("--label", help="LaTeX label (tables)")
     args = parser.parse_args()
     df = load_dataframe(args.input_file)
-    print("Available categories: G (Generation), cost, CTRL (Y/X), BAT")
+    print("Available categories: G (Generation), CB (Connection Bars), \n LT (Transmission Lines), COST, CTRL (X/Y), BAT")
     mode = args.mode or prompt(
         "Generate table, plot, or CTRL matrix? (table/plot/ctrl)").lower()
     if mode == "ctrl":
@@ -510,7 +518,7 @@ def main():
                      out_file=args.out_file, caption=args.title, label=args.label)
     elif mode == "plot":
         handle_plot(df, categories, plot_style=args.plot_style, stacked=args.stacked,
-                            title=args.title, ylabel=args.ylabel, out_dir=args.out_dir, 
+                            title=args.title, ylabel=args.ylabel, xlabel=args.xlabel,out_dir=args.out_dir, 
                             out_file=args.out_file, level=args.level) # Passar args.level
     else:
         print("Unrecognized mode.")

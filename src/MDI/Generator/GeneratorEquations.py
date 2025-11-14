@@ -75,7 +75,7 @@ Module Dependencies
 - **External:** ``pyomo.environ (ConcreteModel)``, ``typing``
 """
 
-from typing import List, Any
+from typing import List, Dict, Any
 from pyomo.environ import ConcreteModel
 
 
@@ -131,21 +131,21 @@ def add_generator_cost_expression(
         if m.parcel_investment:
             expr = sum(
                 # Operational cost (proportional to energy generated)
-                m.level_hours[p] * m.gen_c_op[g] * m.gen_P[g, t, p]
+                m.discounts[t] * m.level_hours[p] * m.gen_c_op[g] * m.gen_P[g, t, p]
                 for g in m.GU for t in m.T for p in m.P
             ) + sum(
                 # Investment cost (proportional to installed capacity)
-                m.gen_c_inv[g] * m.gen_x[g, t]
+                m.discounts[t] * m.gen_c_inv[g] * m.gen_x[g, t]
                 for g in m.GU for t in m.T
             )
         else:
             expr = sum(
                 # Operational cost (proportional to energy generated)
-                m.level_hours[p] * m.gen_c_op[g] * m.gen_P[g, t, p]
+                m.discounts[t] * m.level_hours[p] * m.gen_c_op[g] * m.gen_P[g, t, p]
                 for g in m.GU for t in m.T for p in m.P
             ) + sum(
                 # Investment cost (proportional to installed capacity)
-                m.gen_c_inv[g] * m.gen_y[g, t]
+                m.discounts[t] * m.gen_c_inv[g] * m.gen_y[g, t]
                 for g in m.GU for t in m.T
             )
         cost_array.append(expr)
@@ -210,6 +210,7 @@ def add_generator_capacity_expression(
 
 def add_generator_balance_expression(
     m: ConcreteModel,
+    b: Any,
     t: Any,
     p: Any,
     balance_array: List[Any]
@@ -226,6 +227,8 @@ def add_generator_balance_expression(
     ----------
     m : pyomo.environ.ConcreteModel
         Pyomo model containing generator sets and variables.
+    b: Any
+        Connection Bar Name
     t : Any
         Time period index.
     p : Any
@@ -249,15 +252,16 @@ def add_generator_balance_expression(
     representing the total available generation at each period and load level.
     """
     required = [
-        'GU', 'T', 'P', 'gen_P'
+        'GU', 'T', 'P', 'gen_P', 'gen_bars'
     ]
 
     if all(hasattr(m, attr) for attr in required):
-        expr = sum(
-            # Net power generation by unit and load level
-            m.gen_P[g, t, p]
-            for g in m.GU
-        )
-        balance_array.append(expr)
-
+        temp_array: List = []
+        for g in m.GU:
+          bar = m.gen_bars[g]
+          if bar == b:
+              temp_array.append(m.gen_P[g, t, p])
+        if len(temp_array) > 0:
+            balance_array.append(sum(temp_array))
+        
     return balance_array

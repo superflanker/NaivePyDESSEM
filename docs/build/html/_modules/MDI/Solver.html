@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -89,12 +89,12 @@
 <span class="sd">Description</span>
 <span class="sd">-----------</span>
 <span class="sd">This utility builds and solves a Pyomo optimization model using input</span>
-<span class="sd">data provided in a YAML or JSON configuration file. The solver is selected </span>
+<span class="sd">data provided in a YAML configuration file. The solver is selected </span>
 <span class="sd">based on metadata, and can include support for decomposition strategies </span>
 <span class="sd">(e.g., MIN-DT via MindtPy).</span>
 
 <span class="sd">Features:</span>
-<span class="sd">- Automatic model construction via modular subsystems (thermal, hydro, storage, renewable).</span>
+<span class="sd">- Automatic model construction via modular subsystems (generator, storage, connection bar, transmission line).</span>
 <span class="sd">- Solver selection and configuration via YAML metadata.</span>
 <span class="sd">- Support for MINLP solvers such as MindtPy with strategy and time limits.</span>
 <span class="sd">- Termination condition validation to ensure feasibility or optimality.</span>
@@ -109,6 +109,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.opt</span><span class="w"> </span><span class="kn">import</span> <span class="n">SolverFactory</span><span class="p">,</span> <span class="n">TerminationCondition</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.common.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApplicationError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">Suffix</span><span class="p">,</span> <span class="n">value</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.contrib.latex_printer</span><span class="w"> </span><span class="kn">import</span> <span class="n">latex_printer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">colorama</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fore</span><span class="p">,</span> <span class="n">Style</span><span class="p">,</span> <span class="n">init</span> <span class="k">as</span> <span class="n">colorama_init</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.Builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_model_from_file</span>
@@ -155,6 +156,8 @@
     <span class="n">print_welcome_message</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">case</span><span class="p">)</span>
     <span class="c1"># Habilita captura dos valores duais</span>
     <span class="n">model</span><span class="o">.</span><span class="n">dual</span> <span class="o">=</span> <span class="n">Suffix</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="n">Suffix</span><span class="o">.</span><span class="n">IMPORT_EXPORT</span><span class="p">)</span>
+    <span class="c1"># print(latex_printer(model))</span>
+    <span class="c1"># exit()</span>
     <span class="c1"># Create solver instance</span>
     <span class="n">opt</span> <span class="o">=</span> <span class="n">SolverFactory</span><span class="p">(</span><span class="n">solver_str</span><span class="p">)</span>
 
@@ -188,6 +191,8 @@
     <span class="n">dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">generator_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">storage_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">connection_bar_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">transmission_line_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">case</span></div>
 

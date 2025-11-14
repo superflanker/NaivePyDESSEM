@@ -1,5 +1,5 @@
 """
-EELT 7030 — Operation and Expansion Planning of Electric Power Systems  
+EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)
 
 Renewable Model Expression Utilities for Pyomo Optimization
@@ -50,11 +50,11 @@ Notes
 
 References
 ----------
-[1] CEPEL, DESSEM. Manual de Metodologia, 2023  
+[1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica,  Lecture Notes EELT7030/UFPR.
 """
 
-from typing import List, Any
+from typing import List, Dict, Any
 from pyomo.environ import ConcreteModel, Var, Expression
 
 
@@ -96,8 +96,8 @@ def add_renewable_cost_expression(
 def add_renewable_balance_expression(
     m: ConcreteModel,
     t: Any,
-    balance_array: List[Any]
-) -> List[Any]:
+    balance_array: Dict[str, List[Any]]
+) -> Dict[str, List[Any]]:
     """
     Append renewable generation terms at time t to the power balance expression list.
 
@@ -112,14 +112,14 @@ def add_renewable_balance_expression(
         Pyomo model instance containing renewable generation variables.
     t : int
         Time index for which the renewable generation is evaluated.
-    balance_array : list of expressions
-        List of symbolic expressions contributing to the power balance equation.
+    balance_array : dict of list of expressions
+        List of symbolic expressions representing components of the power balance.
 
     Returns
     -------
-    list of expressions
-        The updated list including the total renewable generation at time t.
-
+    dict of list of expressions
+        The updated list including the hydro generation term at time t.
+        
     Notes
     -----
     - The model is expected to contain the following components:
@@ -128,10 +128,12 @@ def add_renewable_balance_expression(
       such as `Constraint(model.T, rule=...)` or within a ConstraintList.
     """
     required = [
-        'RU', 'T', 'renewable_gen'
+        'RU', 'T', 'renewable_gen', 'renewable_bars'
     ]
     if all(hasattr(m, attr) for attr in required):
-        expr = sum(m.renewable_gen[r, t] for r in m.RU)
-        balance_array.append(expr)
-        return balance_array
+        for r in m.RU:
+          bar = m.renewable_bars[r]
+          if bar not in balance_array:
+              balance_array[bar] = list()
+          balance_array[bar].append(m.renewable_gen[r, t])
     return balance_array

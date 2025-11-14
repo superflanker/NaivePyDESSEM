@@ -19,6 +19,8 @@ Subpackages
    NaivePyDESSEM.RenewableGenerator
    NaivePyDESSEM.Storage
    NaivePyDESSEM.ThermalGenerator
+   NaivePyDESSEM.ConnectionBar
+   NaivePyDESSEM.TransmissionLine
    NaivePyDESSEM.cli
 
 Submodules

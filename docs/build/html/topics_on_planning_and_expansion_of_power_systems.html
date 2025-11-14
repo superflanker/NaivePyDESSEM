@@ -24,7 +24,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="NaivePyDESSEM User Guide" href="userguide.html" />
+    <link rel="next" title="USER GUIDE" href="userguide.html" />
     <link rel="prev" title="MDI.cli package" href="MDI.cli.html" /> 
 </head>
 
@@ -47,12 +47,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#objectives">OBJECTIVES</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cheatsheet-content-organogram">CHEATSHEET – CONTENT ORGANOGRAM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#overview-and-structure-of-the-electric-power-sector">OVERVIEW AND STRUCTURE OF THE ELECTRIC POWER SECTOR</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#full-competition">FULL COMPETITION</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#spot-market-and-settlement-price-pld">SPOT MARKET AND SETTLEMENT PRICE (PLD)</a></li>
@@ -141,12 +140,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#modular-structure-of-the-model">MODULAR STRUCTURE OF THE MODEL</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#integration-with-other-models">INTEGRATION WITH OTHER MODELS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#practical-applications">PRACTICAL APPLICATIONS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mathematical-modeling-of-dessem">Mathematical Modeling of DESSEM</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#hydropower-plants">Hydropower Plants</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#thermal-power-plants">Thermal Power Plants</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#renewable-energies-and-storage">Renewable Energies and Storage</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id10">Objective Function</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#power-balance-load-supply">Power Balance (Load Supply)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mathematical-modeling-of-dessem">MATHEMATICAL MODELING OF DESSEM</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hydropower-plants">HYDROPOWER PLANTS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#thermal-power-plants">THERMAL POWER PLANTS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#renewable-energies-and-storage">RENEWABLE ENERGIES AND STORAGE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#transmission-lines-and-connection-bars">TRANSMISSION LINES AND CONNECTION BARS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">OBJECTIVE FUNCTION</a></li>
 </ul>
 </li>
 </ul>
@@ -154,40 +153,40 @@
 <li class="toctree-l2"><a class="reference internal" href="#technical-appendix-summary-of-the-decomp-manual">TECHNICAL APPENDIX: SUMMARY OF THE DECOMP MANUAL</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#strategic-planning">STRATEGIC PLANNING</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#immediate-future-and-total-cost-functions-in-strategic-planning">IMMEDIATE, FUTURE, AND TOTAL COST FUNCTIONS IN STRATEGIC PLANNING</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#immediate-cost-function-fci">Immediate Cost Function (FCI)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#future-cost-function-fcf">Future Cost Function (FCF)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#total-cost-function-fct">Total Cost Function (FCT)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#application">Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#immediate-cost-function-fci">IMMEDIATE COST FUNCTION (FCI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#future-cost-function-fcf">FUTURE COST FUNCTION (FCF)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#total-cost-function-fct">TOTAL COST FUNCTION (FCT)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#application">APPLICATION</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">MARGINAL OPERATING COST (CMO)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#definition">Definition</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#relationship-with-cost-functions">Relationship with Cost Functions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#role-in-planning">Role in Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">MARGINAL OPERATING COST (CMO)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#definition">DEFINITION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#relationship-with-cost-functions">RELATIONSHIP WITH COST FUNCTIONS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#role-in-planning">ROLE IN PLANNING</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#advanced-concepts-in-strategic-operation-planning">ADVANCED CONCEPTS IN STRATEGIC OPERATION PLANNING</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#risk-aversion">Risk Aversion</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id12">Spatial Coupling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#curse-of-dimensionality-and-decomposition">Curse of Dimensionality and Decomposition</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#integration-with-price-formation">Integration with Price Formation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#risk-aversion">RISK AVERSION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">SPATIAL COUPLING</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#curse-of-dimensionality-and-decomposition">CURSE OF DIMENSIONALITY AND DECOMPOSITION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integration-with-price-formation">INTEGRATION WITH PRICE FORMATION</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#solution-strategies-for-strategic-operation-planning">SOLUTION STRATEGIES FOR STRATEGIC OPERATION PLANNING</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#multistage-linear-programming-lp">Multistage Linear Programming (LP)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#deterministic-dynamic-programming-pdd">Deterministic Dynamic Programming (PDD)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#deterministic-dual-dynamic-programming-pddd">Deterministic Dual Dynamic Programming (PDDD)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#stochastic-dual-dynamic-programming-pdde">Stochastic Dual Dynamic Programming (PDDE)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#very-short-term-deterministic-formulations">Very Short-Term Deterministic Formulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multistage-linear-programming-lp">MULTISTAGE LINEAR PROGRAMMING (LP)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deterministic-dynamic-programming-pdd">DETERMINISTIC DYNAMIC PROGRAMMING (PDD)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deterministic-dual-dynamic-programming-pddd">DETERMINISTIC DUAL DYNAMIC PROGRAMMING (PDDD)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stochastic-dual-dynamic-programming-pdde">STOCHASTIC DUAL DYNAMIC PROGRAMMING (PDDE)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#very-short-term-deterministic-formulations">VERY SHORT-TERM DETERMINISTIC FORMULATIONS</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#comparative-overview-of-strategies">COMPARATIVE OVERVIEW OF STRATEGIES</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mathematical-modeling-of-decomp">Mathematical Modeling of DECOMP</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id13">Hydropower Plants</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#thermal-units">Thermal Units</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id25">Renewable Energies and Storage</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id33">Objective Function</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#power-balance-load-requirement">Power Balance (Load Requirement)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mathematical-modeling-of-decomp">MATHEMATICAL MODELING OF DECOMP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id16">HYDROPOWER PLANTS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#thermal-units">THERMAL UNITS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id28">RENEWABLE ENERGIES AND STORAGE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id36">TRANSMISSION LINES AND CONNECTION BARS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id44">OBJECTIVE FUNCTION</a></li>
 </ul>
 </li>
 </ul>
@@ -195,49 +194,52 @@
 <li class="toctree-l2"><a class="reference internal" href="#technical-appendix-summary-of-epe-manuals-on-the-mdi">TECHNICAL APPENDIX: SUMMARY OF EPE MANUALS ON THE MDI</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#central-concept">CENTRAL CONCEPT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#model-structure">MODEL STRUCTURE</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id34">Demand Representation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#system-components">System Components</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id35">Objective Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id45">DEMAND REPRESENTATION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#system-components">SYSTEM COMPONENTS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id46">OBJECTIVE FUNCTION</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#fundamental-constraints">FUNDAMENTAL CONSTRAINTS</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#energy-balance">Energy Balance</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#capacity-adequacy">Capacity Adequacy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#source-availability">Source Availability</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#system-representation">System Representation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#investment-restrictions">Investment Restrictions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#additional-policy-constraints">Additional Policy Constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#energy-balance">ENERGY BALANCE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#capacity-adequacy">CAPACITY ADEQUACY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#source-availability">SOURCE AVAILABILITY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#system-representation">SYSTEM REPRESENTATION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#investment-restrictions">INVESTMENT RESTRICTIONS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#additional-policy-constraints">ADDITIONAL POLICY CONSTRAINTS</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#generation-source-modeling">GENERATION SOURCE MODELING</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#hydroelectric-plants">Hydroelectric Plants</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#thermal-plants">Thermal Plants</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#renewable-sources">Renewable Sources</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#energy-storage-projects">Energy Storage Projects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hydroelectric-plants">HYDROELECTRIC PLANTS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#thermal-plants">THERMAL PLANTS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#renewable-sources">RENEWABLE SOURCES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#energy-storage-projects">ENERGY STORAGE PROJECTs</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#uncertainty-scenarios">UNCERTAINTY SCENARIOS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#marginal-expansion-cost-cme">MARGINAL EXPANSION COST (CME)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id36">Definition</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#calculation">Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id47">DEFINITION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#calculation">CALCULATION</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#key-concepts">KEY CONCEPTS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mathematical-modeling-of-mdi">Mathematical Modeling of MDI</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#sets">Sets</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id37">Parameters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id38">Decision Variables</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id39">Constraints</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id40">Capacity Adequacy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#generation-limits">Generation Limits</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#storage-dynamics">Storage Dynamics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#state-of-charge-limits">State of Charge Limits</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#charge-discharge-power-limits">Charge/Discharge Power Limits</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#initial-state">Initial State</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#expansion-dynamics-existence-accumulation">Expansion Dynamics (Existence Accumulation)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#unique-construction">Unique Construction</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#monotonic-growth">Monotonic Growth</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id41">Objective Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mathematical-modeling-of-mdi">MATHEMATICAL MODELING OF MDI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sets">SETS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id48">PARAMETERS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id49">DECISION VARIABLES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id50">CONSTRAINTS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#capacity-adequacy-per-bus">CAPACITY ADEQUACY PER BUS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generation-limits">GENERATION LIMITS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#storage-dynamics">STORAGE DYNAMICS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#state-of-charge-limits">STATE OF CHARGE LIMITS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#charge-discharge-power-limits">CHARGE/DISCHARGE POWER LIMITS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#initial-state">INITIAL STATE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#expansion-dynamics-existence-accumulation">EXPANSION DYNAMICS (EXISTENCE ACCUMULATION)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id51">DC FLOW APPROXIMATION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id52">TRANSMISSION CAPACITY LIMITS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id53">NETWORK REFERENCE (SLACK BUS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unique-construction">UNIQUE CONSTRUCTION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#monotonic-growth">MONOTONIC GROWTH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id54">OBJECTIVE FUNCTION</a></li>
 </ul>
 </li>
 </ul>
@@ -249,30 +251,30 @@
 <li class="toctree-l3"><a class="reference internal" href="#miqp-mixed-integer-quadratic-programming-convex-formulation">MIQP (MIXED-INTEGER QUADRATIC PROGRAMMING – CONVEX FORMULATION)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#nlp-nonlinear-programming-continuous-nonlinear-programming">NLP (NONLINEAR PROGRAMMING – CONTINUOUS NONLINEAR PROGRAMMING)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#minlp-mixed-integer-nonlinear-programming">MINLP (MIXED-INTEGER NONLINEAR PROGRAMMING)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#summary-table">Summary Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#summary-table">SUMMARY TABLE</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#supplementary-appendix-uncertainties-and-d-opf">SUPPLEMENTARY APPENDIX: UNCERTAINTIES AND D-OPF</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#optimization-under-uncertainty">OPTIMIZATION UNDER UNCERTAINTY</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#stochastic-programming-sp">Stochastic Programming (SP)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#robust-optimization-ro">Robust Optimization (RO)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data-driven-distributionally-robust-optimization-dddro">Data-Driven Distributionally Robust Optimization (DDDRO)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stochastic-programming-sp">STOCHASTIC PROGRAMMING (SP)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#robust-optimization-ro">ROBUST OPTIMIZATION (RO)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-driven-distributionally-robust-optimization-dddro">DATA-DRIVEN DISTRIBUTIONALLY ROBUST OPTIMIZATION (DDDRO)</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#d-opf-formulations-optimal-power-flow-in-distribution-networks">D-OPF FORMULATIONS (OPTIMAL POWER FLOW IN DISTRIBUTION NETWORKS)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#exact-ac-formulation">Exact AC Formulation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#convex-relaxations">Convex Relaxations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mixed-integer-extensions">Mixed-Integer Extensions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exact-ac-formulation">EXACT AC FORMULATION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convex-relaxations">CONVEX RELAXATIONS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mixed-integer-extensions">MIXED-INTEGER EXTENSIONS</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#summary-of-d-opf-formulations">Summary of D-OPF Formulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#summary-of-d-opf-formulations">SUMMARY OF D-OPF FORMULATIONS</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -325,11 +327,6 @@
 Happy studying!</p>
 </section>
 <hr class="docutils" />
-<section id="cheatsheet-content-organogram">
-<h2>CHEATSHEET – CONTENT ORGANOGRAM<a class="headerlink" href="#cheatsheet-content-organogram" title="Link to this heading"></a></h2>
-<p><img alt="Quick Reference to Summary Sections" src="_images/organogram.png" />
-<em>Figure 1 – Quick Reference to the Summary Sections</em></p>
-</section>
 <section id="overview-and-structure-of-the-electric-power-sector">
 <h2>OVERVIEW AND STRUCTURE OF THE ELECTRIC POWER SECTOR<a class="headerlink" href="#overview-and-structure-of-the-electric-power-sector" title="Link to this heading"></a></h2>
 <section id="full-competition">
@@ -648,7 +645,7 @@ Thus, ONS is a <strong>key institution</strong> ensuring both the reliability an
 <section id="relationship-with-the-marginal-expansion-cost-cme">
 <h3>RELATIONSHIP WITH THE MARGINAL EXPANSION COST (CME)<a class="headerlink" href="#relationship-with-the-marginal-expansion-cost-cme" title="Link to this heading"></a></h3>
 <p>The <strong>Marginal Expansion Cost (CME)</strong> is directly derived from the MDI through the <strong>dual multipliers</strong> associated with energy and capacity constraints. It represents the <strong>incremental cost of meeting an additional unit of demand</strong>, simultaneously reflecting the need for <strong>energy expansion</strong> and <strong>peak capacity</strong>. The CME is calculated by introducing a <strong>1 MW increase in demand</strong> for each load level and observing the resulting impact on total expansion cost.</p>
-<p>In the <strong>PDE 2030</strong> horizon, the <strong>average CME</strong> was estimated at <strong>R<span class="math">\( 187.46/MWh**, with energy and capacity components of **R\)</span> 105.65/MWh</strong> and <strong>R$ 688.18/kW/year</strong>, respectively. This metric provides a unified reference for assessing <strong>economic efficiency</strong> and <strong>investment adequacy</strong> in Brazil’s long-term power sector planning.</p>
+<p>In the <strong>PDE 2030</strong> horizon, the <strong>average CME</strong> was estimated at <strong>R$ 187.46/MWh</strong>, with energy and capacity components of <strong>R$ 105.65/MWh</strong> and <strong>R$ 688.18/kW/year</strong>, respectively. This metric provides a unified reference for assessing <strong>economic efficiency</strong> and <strong>investment adequacy</strong> in Brazil’s long-term power sector planning.</p>
 </section>
 </section>
 <section id="technical-appendix-summary-of-the-dessem-manual">
@@ -712,11 +709,11 @@ Thus, ONS is a <strong>key institution</strong> ensuring both the reliability an
 <p>The model is particularly critical in systems with <strong>high shares of variable renewable generation</strong>, as it can integrate <strong>hourly wind and solar forecasts</strong>. In doing so, DESSEM provides a <strong>robust decision-support framework</strong> for operation planning in increasingly complex and dynamic energy environments.</p>
 </section>
 <section id="mathematical-modeling-of-dessem">
-<h3>Mathematical Modeling of DESSEM<a class="headerlink" href="#mathematical-modeling-of-dessem" title="Link to this heading"></a></h3>
+<h3>MATHEMATICAL MODELING OF DESSEM<a class="headerlink" href="#mathematical-modeling-of-dessem" title="Link to this heading"></a></h3>
 <section id="hydropower-plants">
-<h4>Hydropower Plants<a class="headerlink" href="#hydropower-plants" title="Link to this heading"></a></h4>
+<h4>HYDROPOWER PLANTS<a class="headerlink" href="#hydropower-plants" title="Link to this heading"></a></h4>
 <section id="sets-and-indices">
-<h5>Sets and Indices<a class="headerlink" href="#sets-and-indices" title="Link to this heading"></a></h5>
+<h5>SETS AND INDICES<a class="headerlink" href="#sets-and-indices" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(\mathcal{T} = \{1,\dots,T\}\)</span> – hourly periods</p></li>
 <li><p><span class="math">\(\mathcal{H} = \{\text{UHE}_1, \dots, \text{UHE}_{n_h}\}\)</span> – hydropower plants</p></li>
@@ -724,7 +721,7 @@ Thus, ONS is a <strong>key institution</strong> ensuring both the reliability an
 </ul>
 </section>
 <section id="parameters-data">
-<h5>Parameters (Data)<a class="headerlink" href="#parameters-data" title="Link to this heading"></a></h5>
+<h5>PARAMETERS (DATA)<a class="headerlink" href="#parameters-data" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(a_{h,t}\)</span> – natural inflow to plant <span class="math">\(h\)</span> in period <span class="math">\(t\)</span> (m<span class="math">\(^3\)</span>/s)</p></li>
 <li><p><span class="math">\(d_t\)</span> – demand in period <span class="math">\(t\)</span> (MWh/h)</p></li>
@@ -740,7 +737,7 @@ Thus, ONS is a <strong>key institution</strong> ensuring both the reliability an
 </ul>
 </section>
 <section id="id2">
-<h5>Decision Variables<a class="headerlink" href="#id2" title="Link to this heading"></a></h5>
+<h5>DECISION VARIABLES<a class="headerlink" href="#id2" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(Q_{h,t} \ge 0\)</span> – turbined flow (m<span class="math">\(^3\)</span>/s)</p></li>
 <li><p><span class="math">\(S_{h,t} \ge 0\)</span> – spillage (m<span class="math">\(^3\)</span>/s)</p></li>
@@ -750,7 +747,7 @@ Thus, ONS is a <strong>key institution</strong> ensuring both the reliability an
 </ul>
 </section>
 <section id="hydraulic-polynomial-functions-for-plant-h">
-<h5>Hydraulic Polynomial Functions for Plant <span class="math">\(h\)</span><a class="headerlink" href="#hydraulic-polynomial-functions-for-plant-h" title="Link to this heading"></a></h5>
+<h5>HYDRAULIC POLYNOMIAL FUNCTIONS FOR PLANT <span class="math">\(h\)</span><a class="headerlink" href="#hydraulic-polynomial-functions-for-plant-h" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(\rho(Q, H_{\text{net}}) = \zeta \,\Big( \rho_0 + \rho_1 Q + \rho_2 H_{\text{net}} + \rho_3 Q H_{\text{net}} + \rho_4 Q^2 + \rho_5 H_{\text{net}}^2
 \Big), \text{ (CEPEL, 2023)}\)</span></p></li>
@@ -760,7 +757,7 @@ Thus, ONS is a <strong>key institution</strong> ensuring both the reliability an
 </ul>
 </section>
 <section id="hydropower-production-function-hpf">
-<h5>Hydropower Production Function (HPF)<a class="headerlink" href="#hydropower-production-function-hpf" title="Link to this heading"></a></h5>
+<h5>HYDROPOWER PRODUCTION FUNCTION (HPF)<a class="headerlink" href="#hydropower-production-function-hpf" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(H_{{\text{net}}_{h,t}} = h_{\text{up},h}(V_{h,t})- h_{\text{down},h}(Q_{h,t}+S_{h,t}) - h_{\text{loss},h}(Q_{h,t}),\)</span></p></li>
 <li><p><span class="math">\(G_{h,t} = \zeta \, Q_{h,t}\, \rho_h(Q_{h,t}, H_{{\text{net}}_{h,t}})\, H_{{\text{net}}_{h,t}} \quad \textbf{(Exact HPF)},\)</span></p></li>
@@ -769,7 +766,7 @@ Thus, ONS is a <strong>key institution</strong> ensuring both the reliability an
 </ul>
 </section>
 <section id="total-instantaneous-inflow-cascade-without-delay">
-<h5>Total Instantaneous Inflow (Cascade without Delay)<a class="headerlink" href="#total-instantaneous-inflow-cascade-without-delay" title="Link to this heading"></a></h5>
+<h5>TOTAL INSTANTANEOUS INFLOW (CASCADE WITHOUT DELAY)<a class="headerlink" href="#total-instantaneous-inflow-cascade-without-delay" title="Link to this heading"></a></h5>
 <div class="math">
 \[
 I_{h,t} = a_{h,t} + \sum_{u \in \mathcal{U}(h)} ( Q_{u,t} + S_{u,t} ), 
@@ -777,16 +774,16 @@ I_{h,t} = a_{h,t} + \sum_{u \in \mathcal{U}(h)} ( Q_{u,t} + S_{u,t} ),
 \]</div>
 </section>
 <section id="constraints">
-<h5>Constraints<a class="headerlink" href="#constraints" title="Link to this heading"></a></h5>
+<h5>CONSTRAINTS<a class="headerlink" href="#constraints" title="Link to this heading"></a></h5>
 <section id="generation">
-<h6>Generation<a class="headerlink" href="#generation" title="Link to this heading"></a></h6>
+<h6>GENERATION<a class="headerlink" href="#generation" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 G_{h,t} = HPF(Q,V,S), \quad \forall h\in\mathcal{H},\, t\in\mathcal{T}.
 \]</div>
 </section>
 <section id="reservoir-mass-balance">
-<h6>Reservoir Mass Balance<a class="headerlink" href="#reservoir-mass-balance" title="Link to this heading"></a></h6>
+<h6>RESERVOIR MASS BALANCE<a class="headerlink" href="#reservoir-mass-balance" title="Link to this heading"></a></h6>
 <ul class="simple">
 <li><p><span class="math">\(V_{h,1} = V_{{\text{ini}}_h} + \zeta_{\text{vol}} ( I_{h,1} - Q_{h,1} - S_{h,1}),\)</span></p></li>
 <li><p><span class="math">\(V_{h,t} = V_{h,t-1} + \zeta_{\text{vol}} ( I_{h,t} - Q_{h,t} - S_{h,t}),
@@ -794,7 +791,7 @@ G_{h,t} = HPF(Q,V,S), \quad \forall h\in\mathcal{H},\, t\in\mathcal{T}.
 </ul>
 </section>
 <section id="targets-and-operational-limits">
-<h6>Targets and Operational Limits<a class="headerlink" href="#targets-and-operational-limits" title="Link to this heading"></a></h6>
+<h6>TARGETS AND OPERATIONAL LIMITS<a class="headerlink" href="#targets-and-operational-limits" title="Link to this heading"></a></h6>
 <ul class="simple">
 <li><p><span class="math">\(V_{h,T} \ge V_{{\text{meta}}_h},\)</span></p></li>
 <li><p><span class="math">\(V_{{\min}_h} \le V_{h,t} \le V_{{\max}_h},\)</span></p></li>
@@ -806,16 +803,16 @@ G_{h,t} = HPF(Q,V,S), \quad \forall h\in\mathcal{H},\, t\in\mathcal{T}.
 </section>
 <hr class="docutils" />
 <section id="thermal-power-plants">
-<h4>Thermal Power Plants<a class="headerlink" href="#thermal-power-plants" title="Link to this heading"></a></h4>
+<h4>THERMAL POWER PLANTS<a class="headerlink" href="#thermal-power-plants" title="Link to this heading"></a></h4>
 <section id="id3">
-<h5>Sets and Indices<a class="headerlink" href="#id3" title="Link to this heading"></a></h5>
+<h5>SETS AND INDICES<a class="headerlink" href="#id3" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(\mathcal{T} = \{1,\dots,T\}, \quad\)</span></p></li>
 <li><p><span class="math">\(\mathcal{G} = \{\text{UTE}_1,\dots,\text{UTE}_{n_g}\}.\)</span></p></li>
 </ul>
 </section>
 <section id="parameters">
-<h5>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h5>
+<h5>PARAMETERS<a class="headerlink" href="#parameters" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(d_t\)</span> – system demand (MW)</p></li>
 <li><p><span class="math">\(P_{{\min}_g},\, P_{{\max}_g}\)</span> – generation limits of plant <span class="math">\(g\)</span> (MW) (CEPEL, 2023)</p></li>
@@ -828,7 +825,7 @@ G_{h,t} = HPF(Q,V,S), \quad \forall h\in\mathcal{H},\, t\in\mathcal{T}.
 </ul>
 </section>
 <section id="id4">
-<h5>Decision Variables<a class="headerlink" href="#id4" title="Link to this heading"></a></h5>
+<h5>DECISION VARIABLES<a class="headerlink" href="#id4" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(p_{g,t}\ge 0,\quad\)</span></p></li>
 <li><p><span class="math">\(u_{g,t}, y_{g,t}, w_{g,t}\in\{0,1\},\quad\)</span></p></li>
@@ -837,44 +834,44 @@ G_{h,t} = HPF(Q,V,S), \quad \forall h\in\mathcal{H},\, t\in\mathcal{T}.
 <p>(where <span class="math">\(u\)</span> = on, <span class="math">\(y\)</span> = startup, <span class="math">\(w\)</span> = shutdown.)</p>
 </section>
 <section id="id5">
-<h5>Constraints<a class="headerlink" href="#id5" title="Link to this heading"></a></h5>
+<h5>CONSTRAINTS<a class="headerlink" href="#id5" title="Link to this heading"></a></h5>
 <section id="power-balance">
-<h6>Power Balance<a class="headerlink" href="#power-balance" title="Link to this heading"></a></h6>
+<h6>POWER BALANCE<a class="headerlink" href="#power-balance" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 \sum_{g\in\mathcal{G}} p_{g,t} + D_t = d_t, \quad \forall t.
 \]</div>
 </section>
 <section id="conditional-capacity">
-<h6>Conditional Capacity<a class="headerlink" href="#conditional-capacity" title="Link to this heading"></a></h6>
+<h6>CONDITIONAL CAPACITY<a class="headerlink" href="#conditional-capacity" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 P_{{\min}_g} u_{g,t} \le p_{g,t} \le P_{{\max}_g} u_{g,t}.
 \]</div>
 </section>
 <section id="startup-shutdown-logic">
-<h6>Startup/Shutdown Logic<a class="headerlink" href="#startup-shutdown-logic" title="Link to this heading"></a></h6>
+<h6>STARTUP/SHUTDOWN LOGIC<a class="headerlink" href="#startup-shutdown-logic" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 u_{g,t} - u_{g,t-1} = y_{g,t} - w_{g,t}.
 \]</div>
 </section>
 <section id="ramping-limits">
-<h6>Ramping Limits<a class="headerlink" href="#ramping-limits" title="Link to this heading"></a></h6>
+<h6>RAMPING LIMITS<a class="headerlink" href="#ramping-limits" title="Link to this heading"></a></h6>
 <ul class="simple">
 <li><p><span class="math">\(p_{g,t} - p_{g,t-1} \le RU_g + P_{{\max}_g} y_{g,t}\)</span></p></li>
 <li><p><span class="math">\(p_{g,t-1} - p_{g,t} \le RD_g + P_{{\max}_g} w_{g,t}\)</span></p></li>
 </ul>
 </section>
 <section id="minimum-up-down-time">
-<h6>Minimum Up/Down Time<a class="headerlink" href="#minimum-up-down-time" title="Link to this heading"></a></h6>
+<h6>MINIMUM UP/DOWN TIME<a class="headerlink" href="#minimum-up-down-time" title="Link to this heading"></a></h6>
 <ul class="simple">
 <li><p><span class="math">\(\sum_{\tau=t-t^{\uparrow}_g+1}^{t} y_{g,\tau} \le u_{g,t},\)</span></p></li>
 <li><p><span class="math">\(\sum_{\tau=t-t^{\downarrow}_g+1}^{t} w_{g,\tau} \le 1-u_{g,t}.\)</span></p></li>
 </ul>
 </section>
 <section id="consistent-initial-conditions">
-<h6>Consistent Initial Conditions<a class="headerlink" href="#consistent-initial-conditions" title="Link to this heading"></a></h6>
+<h6>CONSISTENT INITIAL CONDITIONS<a class="headerlink" href="#consistent-initial-conditions" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 p_{g,0}\in
@@ -888,9 +885,9 @@ p_{g,0}\in
 </section>
 <hr class="docutils" />
 <section id="renewable-energies-and-storage">
-<h4>Renewable Energies and Storage<a class="headerlink" href="#renewable-energies-and-storage" title="Link to this heading"></a></h4>
+<h4>RENEWABLE ENERGIES AND STORAGE<a class="headerlink" href="#renewable-energies-and-storage" title="Link to this heading"></a></h4>
 <section id="id6">
-<h5>Sets and Indices<a class="headerlink" href="#id6" title="Link to this heading"></a></h5>
+<h5>SETS AND INDICES<a class="headerlink" href="#id6" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(\mathcal{T} = \{1,\dots,T\},\quad\)</span></p></li>
 <li><p><span class="math">\(\mathcal{R} = \{1,\dots,R_{n_r}\},\quad\)</span></p></li>
@@ -898,7 +895,7 @@ p_{g,0}\in
 </ul>
 </section>
 <section id="id7">
-<h5>Parameters<a class="headerlink" href="#id7" title="Link to this heading"></a></h5>
+<h5>PARAMETERS<a class="headerlink" href="#id7" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(\overline{g}_{r,t}\)</span> – exogenous renewable availability profile (MW avg)</p></li>
 <li><p><span class="math">\(\Delta t\)</span> – time step (typically 1 h)</p></li>
@@ -909,7 +906,7 @@ p_{g,0}\in
 </ul>
 </section>
 <section id="id8">
-<h5>Decision Variables<a class="headerlink" href="#id8" title="Link to this heading"></a></h5>
+<h5>DECISION VARIABLES<a class="headerlink" href="#id8" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(g_{{\mathrm{ren}}_{r,t}} \ge 0\)</span> – dispatched renewable generation (MW)</p></li>
 <li><p><span class="math">\(E_{s,t} \ge 0\)</span> – stored energy (MWh)</p></li>
@@ -917,16 +914,16 @@ p_{g,0}\in
 </ul>
 </section>
 <section id="id9">
-<h5>Constraints<a class="headerlink" href="#id9" title="Link to this heading"></a></h5>
+<h5>CONSTRAINTS<a class="headerlink" href="#id9" title="Link to this heading"></a></h5>
 <section id="renewable-generation-availability-limit">
-<h6>Renewable Generation — Availability Limit<a class="headerlink" href="#renewable-generation-availability-limit" title="Link to this heading"></a></h6>
+<h6>RENEWABLE GENERATION — AVAILABILITY LIMIT<a class="headerlink" href="#renewable-generation-availability-limit" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 0 \le g_{{\mathrm{ren}}_{r,t}} \le \overline{g}_{r,t}, \quad \forall r,t.
 \]</div>
 </section>
 <section id="storage-energy-balance-soc">
-<h6>Storage — Energy Balance (SoC)<a class="headerlink" href="#storage-energy-balance-soc" title="Link to this heading"></a></h6>
+<h6>STORAGE — ENERGY BALANCE (SoC)<a class="headerlink" href="#storage-energy-balance-soc" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 E_{s,1} = E_{{\mathrm{ini}}_s} + \eta_{{\mathrm{c}}_{s}} P_{{\mathrm{ch}}_{s,1}} \Delta t - \frac{1}{\eta_{{\mathrm{d}}_{s}}} P_{{\mathrm{dis}}_{s,1}} \Delta t,\\
@@ -934,14 +931,14 @@ E_{s,t} = E_{s,t-1} + \eta_{{\mathrm{c}}_{s}} P_{{\mathrm{ch}}_{s,t}} \Delta t -
 \]</div>
 </section>
 <section id="storage-state-of-charge-soc-limits">
-<h6>Storage — State of Charge (SoC) Limits<a class="headerlink" href="#storage-state-of-charge-soc-limits" title="Link to this heading"></a></h6>
+<h6>STORAGE — STATE OF CHARGE (SoC) LIMITS<a class="headerlink" href="#storage-state-of-charge-soc-limits" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 E_{{\min}_s} \le E_{s,t} \le E_{{\max}_s}.
 \]</div>
 </section>
 <section id="storage-power-limits">
-<h6>Storage — Power Limits<a class="headerlink" href="#storage-power-limits" title="Link to this heading"></a></h6>
+<h6>STORAGE — POWER LIMITS<a class="headerlink" href="#storage-power-limits" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 0 \le P_{{\mathrm{ch}}_{s,t}} \le \overline{P}_{{\mathrm{ch}}_{s}},\\
@@ -951,8 +948,73 @@ E_{{\min}_s} \le E_{s,t} \le E_{{\max}_s}.
 </section>
 </section>
 <hr class="docutils" />
+<section id="transmission-lines-and-connection-bars">
+<h4>TRANSMISSION LINES AND CONNECTION BARS<a class="headerlink" href="#transmission-lines-and-connection-bars" title="Link to this heading"></a></h4>
 <section id="id10">
-<h4>Objective Function<a class="headerlink" href="#id10" title="Link to this heading"></a></h4>
+<h5>SETS AND INDICES<a class="headerlink" href="#id10" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(\mathcal{T} = \{1,\dots,T\}\)</span> – time periods (typically hourly)</p></li>
+<li><p><span class="math">\(\mathcal{L} = \{\text{LINE}_{1}, \dots, \text{LINE}_{n_\ell}\}\)</span> – transmission lines</p></li>
+<li><p><span class="math">\(\mathcal{CB} = \{\text{BAR}_{1}, \dots, \text{BAR}_{n_b}\}\)</span> – connection bars (buses)</p></li>
+<li><p><span class="math">\((i,j) \in \mathcal{E} \subseteq \mathcal{B}\times\mathcal{B}\)</span> – ordered pair of bars defining endpoints of line <span class="math">\(\ell\)</span></p></li>
+<li><p><span class="math">\(\mathcal{L}(b)\)</span> – set of lines incident to bar <span class="math">\(b\)</span></p></li>
+</ul>
+</section>
+<section id="id11">
+<h5>PARAMETERS<a class="headerlink" href="#id11" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(b_{\ell}\)</span> – susceptance of line <span class="math">\(\ell\)</span> (p.u. or 1/x)</p></li>
+<li><p><span class="math">\(\overline{F}_{\ell}\)</span> – transmission capacity limit (MW)</p></li>
+<li><p><span class="math">\(\theta_{b,0}\)</span> – reference (slack) bus angle (rad)</p></li>
+<li><p><span class="math">\(p_{\text{base}}\)</span> – system base power (MW)  r</p></li>
+<li><p><span class="math">\(\text{CB} \in \mathcal{CB}\)</span> – subset of bars with associated demand <span class="math">\(d_{b,t}\)</span></p></li>
+</ul>
+</section>
+<section id="id12">
+<h5>DECISION VARIABLES<a class="headerlink" href="#id12" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(F_{\ell,t}\)</span> – active power flow through line <span class="math">\(\ell\)</span> (MW)</p></li>
+<li><p><span class="math">\(\theta_{b,t}\)</span> – phase angle at bus <span class="math">\(b\)</span> (radians)</p></li>
+</ul>
+</section>
+<section id="dc-flow-approximation">
+<h5>DC FLOW APPROXIMATION<a class="headerlink" href="#dc-flow-approximation" title="Link to this heading"></a></h5>
+<p>For each line <span class="math">\(\ell = (i,j)\)</span> and time <span class="math">\(t\)</span>:</p>
+<div class="math">
+\[
+F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}).
+\]</div>
+</section>
+<section id="transmission-capacity-limits">
+<h5>TRANSMISSION CAPACITY LIMITS<a class="headerlink" href="#transmission-capacity-limits" title="Link to this heading"></a></h5>
+<div class="math">
+\[
+-\,\overline{F}_{\ell} \le F_{\ell,t} \le \overline{F}_{\ell}\,,
+\quad \forall \ell \in \mathcal{L},\; t \in \mathcal{T}.
+\]</div>
+</section>
+<section id="power-balance-at-each-bus">
+<h5>POWER BALANCE AT EACH BUS<a class="headerlink" href="#power-balance-at-each-bus" title="Link to this heading"></a></h5>
+<p>Each bar <span class="math">\(b\)</span> satisfies Kirchhoff’s Current Law (KCL) in the DC approximation:</p>
+<div class="math">
+\[
+\sum_{\ell\in\mathcal{L}(b)} \delta_{b,\ell}\,F_{\ell,t} + \sum_{h \in \mathcal{H}(b)} G_{h,t} + \sum_{g \in \mathcal{G}(b)} p_{g,t} + \sum_{r \in \mathcal{R}(b)} g_{\mathrm{ren}_{r,t}}+ \sum_{s \in \mathcal{S}(b)} (P_{\mathrm{dis}_{s,t}} - P_{\mathrm{ch}_{s,t}}) + D_{b,t}
+= d_{b,t}, \quad \forall b,t,
+\]</div>
+<p>where <span class="math">\(\delta_{b,\ell} = +1\)</span> if bar <span class="math">\(b\)</span> is the sending end of <span class="math">\(\ell\)</span>, <span class="math">\(-1\)</span> if the receiving end, and <span class="math">\(0\)</span> otherwise.</p>
+</section>
+<section id="network-reference-slack-bus">
+<h5>NETWORK REFERENCE (SLACK BUS)<a class="headerlink" href="#network-reference-slack-bus" title="Link to this heading"></a></h5>
+<p>One bar must be defined as the phase-angle reference:</p>
+<div class="math">
+\[
+\theta_{b_0,t} = 0, \quad \forall t \in \mathcal{T}.
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id13">
+<h4>OBJECTIVE FUNCTION<a class="headerlink" href="#id13" title="Link to this heading"></a></h4>
 <p>The hydrothermal dispatch problem is formulated as a minimization of total generation and deficit costs, including:</p>
 <ul class="simple">
 <li><p>Thermal generation costs;</p></li>
@@ -964,20 +1026,8 @@ E_{{\min}_s} \le E_{s,t} \le E_{{\max}_s}.
 \begin{aligned}
 \min Z =\; &\sum_{g\in\mathcal{G}}\sum_{t\in\mathcal{T}} c_g\,p_{g,t} \\
 &+ 0.3\sum_{h\in\mathcal{H}}\sum_{t\in\mathcal{T}} S_{h,t} \\
-&+ C_{def}\sum_{t\in\mathcal{T}} D_t
+&+ \sum_{t\in\mathcal{T}} \sum_{b\in\mathcal{CB}} C_{{def}_{b}} D_{b,t}
 \end{aligned}
-\]</div>
-</section>
-<hr class="docutils" />
-<section id="power-balance-load-supply">
-<h4>Power Balance (Load Supply)<a class="headerlink" href="#power-balance-load-supply" title="Link to this heading"></a></h4>
-<div class="math">
-\[
-\sum_{h \in \mathcal{H}} G_{h,t} +
-\sum_{g \in \mathcal{G}} p_{g,t} +
-\sum_{r \in \mathcal{R}} g_{{\mathrm{ren}}_{r,t}} +
-\sum_{s \in \mathcal{S}} ( P_{{\mathrm{dis}}_{s,t}} - P_{{\mathrm{ch}}_{s,t}} ) +
-D_t = d_t, \quad \forall t \in \mathcal{T}.
 \]</div>
 </section>
 </section>
@@ -1004,52 +1054,56 @@ D_t = d_t, \quad \forall t \in \mathcal{T}.
 <section id="immediate-future-and-total-cost-functions-in-strategic-planning">
 <h3>IMMEDIATE, FUTURE, AND TOTAL COST FUNCTIONS IN STRATEGIC PLANNING<a class="headerlink" href="#immediate-future-and-total-cost-functions-in-strategic-planning" title="Link to this heading"></a></h3>
 <section id="immediate-cost-function-fci">
-<h4>Immediate Cost Function (FCI)<a class="headerlink" href="#immediate-cost-function-fci" title="Link to this heading"></a></h4>
+<h4>IMMEDIATE COST FUNCTION (FCI)<a class="headerlink" href="#immediate-cost-function-fci" title="Link to this heading"></a></h4>
 <p>The <strong>FCI</strong> represents the cost arising from decisions at the current stage.</p>
 <ul class="simple">
 <li><p>If demand is met by hydropower, the cost is nearly zero.</p></li>
 <li><p>If thermal plants are dispatched, the FCI reflects <strong>fuel costs</strong>.</p></li>
 <li><p>If demand is unmet, the <strong>deficit cost</strong> (penalty) is included.</p></li>
 </ul>
-<p>Formally, for a stage ( t ):
-$<span class="math">\(
+<p>Formally, for a stage ( t ):</p>
+<div class="math">
+\[
 \text{FCI}_t = C_T \cdot g_t + C_D \cdot DEF_t
-\)</span>$
-where ( C_T ) is the thermal generation cost, ( g_t ) the thermal generation, ( C_D ) the deficit cost, and ( DEF_t ) the unserved energy.</p>
+\]</div>
+<p>where ( C_T ) is the thermal generation cost, ( g_t ) the thermal generation, ( C_D ) the deficit cost, and ( DEF_t ) the unserved energy.</p>
 </section>
 <section id="future-cost-function-fcf">
-<h4>Future Cost Function (FCF)<a class="headerlink" href="#future-cost-function-fcf" title="Link to this heading"></a></h4>
+<h4>FUTURE COST FUNCTION (FCF)<a class="headerlink" href="#future-cost-function-fcf" title="Link to this heading"></a></h4>
 <p>The <strong>FCF</strong> represents the expected cost of current decisions on future stages. When reservoirs are low, future costs rise due to increased thermal dispatch; when full, future costs drop.<br />
-The <strong>Bellman equation</strong> expresses this recursive relationship:
-$<span class="math">\(
+The <strong>Bellman equation</strong> expresses this recursive relationship:</p>
+<div class="math">
+\[
 \alpha_t(v_{t-1}) = \min \Big\{ C_T \cdot g_t + C_D \cdot def_t + \alpha_{t+1}(v_t) \Big\}
-\)</span>$
-subject to water balance and demand constraints.<br />
+\]</div>
+<p>subject to water balance and demand constraints.<br />
 The slope of the FCF defines the <strong>value of water</strong>, representing the <strong>marginal opportunity cost</strong> of stored energy.</p>
 </section>
 <section id="total-cost-function-fct">
-<h4>Total Cost Function (FCT)<a class="headerlink" href="#total-cost-function-fct" title="Link to this heading"></a></h4>
-<p>The total cost is:
-$<span class="math">\(
+<h4>TOTAL COST FUNCTION (FCT)<a class="headerlink" href="#total-cost-function-fct" title="Link to this heading"></a></h4>
+<p>The total cost is:</p>
+<div class="math">
+\[
 \text{FCT} = \text{FCI} + \text{FCF}
-\)</span><span class="math">\(
-The optimal policy satisfies:
-\)</span><span class="math">\(
+\]</div>
+<p>The optimal policy satisfies:</p>
+<div class="math">
+\[
 \frac{\partial \text{FCI}}{\partial V} = - \frac{\partial \text{FCF}}{\partial V}
-\)</span>$
-ensuring equilibrium between immediate and future costs — the <strong>marginal water value</strong> equals the <strong>marginal thermal cost</strong>.</p>
+\]</div>
+<p>ensuring equilibrium between immediate and future costs — the <strong>marginal water value</strong> equals the <strong>marginal thermal cost</strong>.</p>
 </section>
 <section id="application">
-<h4>Application<a class="headerlink" href="#application" title="Link to this heading"></a></h4>
+<h4>APPLICATION<a class="headerlink" href="#application" title="Link to this heading"></a></h4>
 <p>The joint use of FCI, FCF, and FCT enables robust <strong>multi-period water management</strong>. These functions form the conceptual foundation of <strong>NEWAVE, DECOMP, and DESSEM</strong>, where the <strong>FCF</strong> links successive planning horizons.</p>
 </section>
 </section>
-<section id="id11">
-<h3>MARGINAL OPERATING COST (CMO)<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<section id="id14">
+<h3>MARGINAL OPERATING COST (CMO)<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
 <p>The <strong>Marginal Operating Cost (CMO)</strong> quantifies the <strong>incremental cost</strong> of supplying one additional megawatt-hour.<br />
 It reflects the <strong>marginal opportunity cost of water</strong> or the <strong>benefit of retaining water</strong> for future use.</p>
 <section id="definition">
-<h4>Definition<a class="headerlink" href="#definition" title="Link to this heading"></a></h4>
+<h4>DEFINITION<a class="headerlink" href="#definition" title="Link to this heading"></a></h4>
 <p>According to <strong>DESSEM’s methodology</strong>, the CMO is determined in two steps:</p>
 <ol class="arabic simple">
 <li><p><strong>Marginal Cost per Bus (CMB):</strong> obtained from the dual multipliers of bus power balance constraints.</p></li>
@@ -1057,7 +1111,7 @@ It reflects the <strong>marginal opportunity cost of water</strong> or the <stro
 </ol>
 </section>
 <section id="relationship-with-cost-functions">
-<h4>Relationship with Cost Functions<a class="headerlink" href="#relationship-with-cost-functions" title="Link to this heading"></a></h4>
+<h4>RELATIONSHIP WITH COST FUNCTIONS<a class="headerlink" href="#relationship-with-cost-functions" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><strong>FCI:</strong> immediate thermal and deficit costs → CMO equals current marginal thermal cost.</p></li>
 <li><p><strong>FCF:</strong> captures future water value → implicit marginal hydro cost.</p></li>
@@ -1066,26 +1120,26 @@ It reflects the <strong>marginal opportunity cost of water</strong> or the <stro
 <p>Thus, CMO reflects the <strong>optimal equilibrium</strong> between water usage and conservation.</p>
 </section>
 <section id="role-in-planning">
-<h4>Role in Planning<a class="headerlink" href="#role-in-planning" title="Link to this heading"></a></h4>
+<h4>ROLE IN PLANNING<a class="headerlink" href="#role-in-planning" title="Link to this heading"></a></h4>
 <p>The <strong>CMO</strong> guides hydrothermal dispatch, market price formation (short-term PLD), and ensures <strong>inter-horizon consistency</strong> across NEWAVE, DECOMP, and DESSEM.</p>
 </section>
 </section>
 <section id="advanced-concepts-in-strategic-operation-planning">
 <h3>ADVANCED CONCEPTS IN STRATEGIC OPERATION PLANNING<a class="headerlink" href="#advanced-concepts-in-strategic-operation-planning" title="Link to this heading"></a></h3>
 <section id="risk-aversion">
-<h4>Risk Aversion<a class="headerlink" href="#risk-aversion" title="Link to this heading"></a></h4>
+<h4>RISK AVERSION<a class="headerlink" href="#risk-aversion" title="Link to this heading"></a></h4>
 <p>Traditional planning minimizes <strong>expected cost</strong>, assuming <strong>risk neutrality</strong>. To address hydrological uncertainty, <strong>risk-averse measures</strong> such as <strong>Value-at-Risk (VaR)</strong> and <strong>Conditional Value-at-Risk (CVaR)</strong> are introduced, penalizing extreme deficit scenarios and promoting <strong>more secure operational policies</strong>.</p>
 </section>
-<section id="id12">
-<h4>Spatial Coupling<a class="headerlink" href="#id12" title="Link to this heading"></a></h4>
+<section id="id15">
+<h4>SPATIAL COUPLING<a class="headerlink" href="#id15" title="Link to this heading"></a></h4>
 <p>Spatial coupling arises from hydraulic interdependence among cascade plants and inter-area energy exchanges. It makes the <strong>FCF multidimensional</strong>, as it depends on multiple reservoir volumes simultaneously, greatly increasing model complexity.</p>
 </section>
 <section id="curse-of-dimensionality-and-decomposition">
-<h4>Curse of Dimensionality and Decomposition<a class="headerlink" href="#curse-of-dimensionality-and-decomposition" title="Link to this heading"></a></h4>
+<h4>CURSE OF DIMENSIONALITY AND DECOMPOSITION<a class="headerlink" href="#curse-of-dimensionality-and-decomposition" title="Link to this heading"></a></h4>
 <p>Classical Dynamic Programming (DP) suffers from exponential state-space growth. The <strong>Stochastic Dual Dynamic Programming (SDDP)</strong> approach mitigates this through <strong>Benders decomposition</strong>, approximating the FCF with <strong>piecewise-linear cuts</strong>, enabling multi-year tractable planning.</p>
 </section>
 <section id="integration-with-price-formation">
-<h4>Integration with Price Formation<a class="headerlink" href="#integration-with-price-formation" title="Link to this heading"></a></h4>
+<h4>INTEGRATION WITH PRICE FORMATION<a class="headerlink" href="#integration-with-price-formation" title="Link to this heading"></a></h4>
 <p>The <strong>CMO</strong>, derived from optimization duals, is the foundation for Brazil’s <strong>Short-Term Settlement Price (PLD)</strong>. Thus, planning results not only guide dispatch but also <strong>transmit economic signals</strong>, ensuring efficient and stable market operation.</p>
 </section>
 </section>
@@ -1099,23 +1153,23 @@ It reflects the <strong>marginal opportunity cost of water</strong> or the <stro
 <li><p><strong>Decomposition-based methods</strong> (as in CEPEL’s models).</p></li>
 </ul>
 <section id="multistage-linear-programming-lp">
-<h4>Multistage Linear Programming (LP)<a class="headerlink" href="#multistage-linear-programming-lp" title="Link to this heading"></a></h4>
+<h4>MULTISTAGE LINEAR PROGRAMMING (LP)<a class="headerlink" href="#multistage-linear-programming-lp" title="Link to this heading"></a></h4>
 <p>Represents the entire planning horizon as a single linear model, with hydraulic and operational constraints. Provides global optimality but is computationally intractable for large systems.</p>
 </section>
 <section id="deterministic-dynamic-programming-pdd">
-<h4>Deterministic Dynamic Programming (PDD)<a class="headerlink" href="#deterministic-dynamic-programming-pdd" title="Link to this heading"></a></h4>
+<h4>DETERMINISTIC DYNAMIC PROGRAMMING (PDD)<a class="headerlink" href="#deterministic-dynamic-programming-pdd" title="Link to this heading"></a></h4>
 <p>Solves the problem recursively via <strong>Bellman’s principle</strong>, assuming known inflows. Pedagogically useful but limited by dimensionality.</p>
 </section>
 <section id="deterministic-dual-dynamic-programming-pddd">
-<h4>Deterministic Dual Dynamic Programming (PDDD)<a class="headerlink" href="#deterministic-dual-dynamic-programming-pddd" title="Link to this heading"></a></h4>
+<h4>DETERMINISTIC DUAL DYNAMIC PROGRAMMING (PDDD)<a class="headerlink" href="#deterministic-dual-dynamic-programming-pddd" title="Link to this heading"></a></h4>
 <p>Approximates the FCF via <strong>Benders cuts</strong>, iteratively refined through forward and backward passes until convergence. Foundation of <strong>DECOMP</strong>.</p>
 </section>
 <section id="stochastic-dual-dynamic-programming-pdde">
-<h4>Stochastic Dual Dynamic Programming (PDDE)<a class="headerlink" href="#stochastic-dual-dynamic-programming-pdde" title="Link to this heading"></a></h4>
+<h4>STOCHASTIC DUAL DYNAMIC PROGRAMMING (PDDE)<a class="headerlink" href="#stochastic-dual-dynamic-programming-pdde" title="Link to this heading"></a></h4>
 <p>Extends the dual formulation to stochastic inflows (NEWAVE model), evaluating <strong>expected future costs</strong> under probability distributions.</p>
 </section>
 <section id="very-short-term-deterministic-formulations">
-<h4>Very Short-Term Deterministic Formulations<a class="headerlink" href="#very-short-term-deterministic-formulations" title="Link to this heading"></a></h4>
+<h4>VERY SHORT-TERM DETERMINISTIC FORMULATIONS<a class="headerlink" href="#very-short-term-deterministic-formulations" title="Link to this heading"></a></h4>
 <p>Used in <strong>DESSEM</strong>, which employs a <strong>Mixed-Integer Linear Program (MILP)</strong> to represent hourly hydrothermal dispatch and network constraints, coupled with DECOMP via the <strong>Future Cost Function</strong>.</p>
 </section>
 </section>
@@ -1184,19 +1238,19 @@ It reflects the <strong>marginal opportunity cost of water</strong> or the <stro
 <p>Together, they ensure <strong>temporal and economic consistency</strong> across Brazil’s entire energy planning framework.</p>
 </section>
 <section id="mathematical-modeling-of-decomp">
-<h3>Mathematical Modeling of DECOMP<a class="headerlink" href="#mathematical-modeling-of-decomp" title="Link to this heading"></a></h3>
-<section id="id13">
-<h4>Hydropower Plants<a class="headerlink" href="#id13" title="Link to this heading"></a></h4>
-<section id="id14">
-<h5>Sets and Indices<a class="headerlink" href="#id14" title="Link to this heading"></a></h5>
+<h3>MATHEMATICAL MODELING OF DECOMP<a class="headerlink" href="#mathematical-modeling-of-decomp" title="Link to this heading"></a></h3>
+<section id="id16">
+<h4>HYDROPOWER PLANTS<a class="headerlink" href="#id16" title="Link to this heading"></a></h4>
+<section id="id17">
+<h5>SETS AND INDICES<a class="headerlink" href="#id17" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(\mathcal{T} = \{1,\dots,T\}\)</span> – periods</p></li>
 <li><p><span class="math">\(\mathcal{H} = \{\text{UHE}_1, \dots, \text{UHE}_{n_h}\}\)</span> – hydropower plants</p></li>
 <li><p><span class="math">\(\mathcal{U}(h) \subseteq \mathcal{H}\)</span> – set of upstream hydropower plants of <span class="math">\(h\)</span></p></li>
 </ul>
 </section>
-<section id="id15">
-<h5>Parameters (Data)<a class="headerlink" href="#id15" title="Link to this heading"></a></h5>
+<section id="id18">
+<h5>PARAMETERS (DATA)<a class="headerlink" href="#id18" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(a_{h,t}\)</span> – natural inflow to plant <span class="math">\(h\)</span> in period <span class="math">\(t\)</span> (hm<span class="math">\(^3\)</span>)</p></li>
 <li><p><span class="math">\(d_t\)</span> – demand in period <span class="math">\(t\)</span> (MWh)</p></li>
@@ -1207,8 +1261,8 @@ It reflects the <strong>marginal opportunity cost of water</strong> or the <stro
 <li><p><span class="math">\(C_{{\text{def}}}\)</span> – unitary cost of deficit ($/MWh)</p></li>
 </ul>
 </section>
-<section id="id16">
-<h5>Decision Variables<a class="headerlink" href="#id16" title="Link to this heading"></a></h5>
+<section id="id19">
+<h5>DECISION VARIABLES<a class="headerlink" href="#id19" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(Q_{h,t} \ge 0\)</span> – turbined flow (hm<span class="math">\(^3\)</span>)</p></li>
 <li><p><span class="math">\(S_{h,t} \ge 0\)</span> – spillage (m<span class="math">\(^3\)</span>)</p></li>
@@ -1217,24 +1271,24 @@ It reflects the <strong>marginal opportunity cost of water</strong> or the <stro
 <li><p><span class="math">\(D_t \ge 0\)</span> – energy deficit (MWh/h)</p></li>
 </ul>
 </section>
-<section id="id17">
-<h5>Hydropower Production Function (HPF)<a class="headerlink" href="#id17" title="Link to this heading"></a></h5>
+<section id="id20">
+<h5>HYDROPOWER PRODUCTION FUNCTION (HPF)<a class="headerlink" href="#id20" title="Link to this heading"></a></h5>
 <div class="math">
 \[
 G_{h,t} = P\, Q_{h,t} \quad \textbf{(Linearized HPF)}
 \]</div>
 </section>
-<section id="id18">
-<h5>Constraints<a class="headerlink" href="#id18" title="Link to this heading"></a></h5>
-<section id="id19">
-<h6>Total Instantaneous Inflow (Cascade without Delay)<a class="headerlink" href="#id19" title="Link to this heading"></a></h6>
+<section id="id21">
+<h5>CONSTRAINTS<a class="headerlink" href="#id21" title="Link to this heading"></a></h5>
+<section id="id22">
+<h6>TOTAL INSTANTANEOUS INFLOW (CASCADE WITHOUT DELAY)<a class="headerlink" href="#id22" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 I_{h,t} = a_{h,t} + \sum_{u \in \mathcal{U}(h)} ( Q_{u,t} + S_{u,t} ), \quad \forall h \in \mathcal{H}, \; \forall t \in \mathcal{T}
 \]</div>
 </section>
-<section id="id20">
-<h6>Reservoir Mass Balance<a class="headerlink" href="#id20" title="Link to this heading"></a></h6>
+<section id="id23">
+<h6>RESERVOIR MASS BALANCE<a class="headerlink" href="#id23" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 V_{h,1} = V_{\text{ini}_h} + ( I_{h,1} - Q_{h,1} - S_{h,1} ), \quad \forall h, \; t = 1\\
@@ -1245,34 +1299,34 @@ V_{h,t} = V_{h,t-1} + ( I_{h,t} - Q_{h,t} - S_{h,t} ), \quad \forall h, \; t = 2
 </section>
 <hr class="docutils" />
 <section id="thermal-units">
-<h4>Thermal Units<a class="headerlink" href="#thermal-units" title="Link to this heading"></a></h4>
-<section id="id21">
-<h5>Sets and Indices<a class="headerlink" href="#id21" title="Link to this heading"></a></h5>
+<h4>THERMAL UNITS<a class="headerlink" href="#thermal-units" title="Link to this heading"></a></h4>
+<section id="id24">
+<h5>SETS AND INDICES<a class="headerlink" href="#id24" title="Link to this heading"></a></h5>
 <div class="math">
 \[
     \mathcal{T} = \{1,\dots,T\}, \quad\\
     \mathcal{G} = \{\text{UTE}_1,\dots,\text{UTE}_{n}\}.
 \]</div>
 </section>
-<section id="id22">
-<h5>Parameters<a class="headerlink" href="#id22" title="Link to this heading"></a></h5>
+<section id="id25">
+<h5>PARAMETERS<a class="headerlink" href="#id25" title="Link to this heading"></a></h5>
 <div class="math">
 \[
 G_{\min_g}, G_{\max_g} \text{ — generation limits of unit } g \text{ (MW)}\\
 c_g \text{ — thermal generation cost of unit } g
 \]</div>
 </section>
-<section id="id23">
-<h5>Decision Variables<a class="headerlink" href="#id23" title="Link to this heading"></a></h5>
+<section id="id26">
+<h5>DECISION VARIABLES<a class="headerlink" href="#id26" title="Link to this heading"></a></h5>
 <div class="math">
 \[
 p_{g,t} \ge 0 \text{ (MW)}
 \]</div>
 </section>
-<section id="id24">
-<h5>Constraints<a class="headerlink" href="#id24" title="Link to this heading"></a></h5>
+<section id="id27">
+<h5>CONSTRAINTS<a class="headerlink" href="#id27" title="Link to this heading"></a></h5>
 <section id="capacity">
-<h6>Capacity<a class="headerlink" href="#capacity" title="Link to this heading"></a></h6>
+<h6>CAPACITY<a class="headerlink" href="#capacity" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 G_{\min_g} \le p_{g,t} \le G_{\max_g}, \quad \forall g, t
@@ -1281,18 +1335,18 @@ G_{\min_g} \le p_{g,t} \le G_{\max_g}, \quad \forall g, t
 </section>
 </section>
 <hr class="docutils" />
-<section id="id25">
-<h4>Renewable Energies and Storage<a class="headerlink" href="#id25" title="Link to this heading"></a></h4>
-<section id="id26">
-<h5>Sets and Indices<a class="headerlink" href="#id26" title="Link to this heading"></a></h5>
+<section id="id28">
+<h4>RENEWABLE ENERGIES AND STORAGE<a class="headerlink" href="#id28" title="Link to this heading"></a></h4>
+<section id="id29">
+<h5>SETS AND INDICES<a class="headerlink" href="#id29" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(\mathcal{T} = \{1,2,\dots,T\} \quad\)</span> — periods</p></li>
 <li><p><span class="math">\(\mathcal{R} = \{1,2,\dots,N_R\} \quad\)</span> — set of renewable units (wind/solar)</p></li>
 <li><p><span class="math">\(\mathcal{S} = \{1,2,\dots,N_S\} \quad\)</span> — set of storage units (batteries)</p></li>
 </ul>
 </section>
-<section id="id27">
-<h5>Parameters<a class="headerlink" href="#id27" title="Link to this heading"></a></h5>
+<section id="id30">
+<h5>PARAMETERS<a class="headerlink" href="#id30" title="Link to this heading"></a></h5>
 <p>For each <span class="math">\(t \in \mathcal{T}\)</span>, <span class="math">\(r \in \mathcal{R}\)</span>, and <span class="math">\(s \in \mathcal{S}\)</span>:</p>
 <ul class="simple">
 <li><p><span class="math">\(\overline{g}_{r,t} \text{ — exogenous renewable availability profile (MWmed)}\)</span></p></li>
@@ -1303,40 +1357,40 @@ G_{\min_g} \le p_{g,t} \le G_{\max_g}, \quad \forall g, t
 <li><p><span class="math">\(\eta_{\text{c}_s}, \eta_{\text{d}_s} \in (0,1] – \text{ — charging and discharging efficiencies}\)</span></p></li>
 </ul>
 </section>
-<section id="id28">
-<h5>Decision Variables<a class="headerlink" href="#id28" title="Link to this heading"></a></h5>
+<section id="id31">
+<h5>DECISION VARIABLES<a class="headerlink" href="#id31" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p><span class="math">\(g_{\text{ren}_{r,t}} \ge 0 \text{ — dispatched renewable generation of unit } r \text{ at } t \text{ (MWavg)}\)</span></p></li>
 <li><p><span class="math">\(E_{s,t} \ge 0 \text{ — stored energy (SoC) of battery } s \text{ at } t \text{ (MWh)}\)</span></p></li>
 <li><p><span class="math">\(P_{\text{ch}_{s,t}}, P_{\text{dis}_{s,t}} \ge 0 \text{ — charge/discharge powers (MW)}\)</span></p></li>
 </ul>
 </section>
-<section id="id29">
-<h5>Constraints<a class="headerlink" href="#id29" title="Link to this heading"></a></h5>
+<section id="id32">
+<h5>CONSTRAINTS<a class="headerlink" href="#id32" title="Link to this heading"></a></h5>
 <section id="renewable-sources-availability-limit">
-<h6>Renewable Sources — Availability Limit<a class="headerlink" href="#renewable-sources-availability-limit" title="Link to this heading"></a></h6>
+<h6>RENEWABLE SOURCES — AVAILABILITY LIMIT<a class="headerlink" href="#renewable-sources-availability-limit" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 0 \le g_{\text{ren}_{r,t}} \le \overline{g}_{r,t}, \quad \forall r \in \mathcal{R}, \; \forall t \in \mathcal{T}
 \]</div>
 </section>
-<section id="id30">
-<h6>Storage — Energy Balance (SoC)<a class="headerlink" href="#id30" title="Link to this heading"></a></h6>
+<section id="id33">
+<h6>STORAGE — ENERGY BALANCE (SoC)<a class="headerlink" href="#id33" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 E_{s,1} = – E_{\text{ini}_s} + \eta_{\text{c}_s} P_{\text{ch}_{s,1}} \Delta t - \frac{1}{\eta_{\text{d}_s}} P_{\text{dis}_{s,1}} \Delta t, \quad \forall s \in \mathcal{S}\\
 E_{s,t} = – E_{s,t-1} + \eta_{\text{c}_s} P_{\text{ch}_{s,t}} \Delta t - \frac{1}{\eta_{\text{d}_s}} P_{\text{dis}_{s,t}} \Delta t, \quad \forall s \in \mathcal{S}, \; t=2,\dots,T
 \]</div>
 </section>
-<section id="id31">
-<h6>Storage — State of Charge (SoC) Limits<a class="headerlink" href="#id31" title="Link to this heading"></a></h6>
+<section id="id34">
+<h6>STORAGE - STATE OF CHARGE (SoC) LIMITS<a class="headerlink" href="#id34" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 E_{\min_s} \le E_{s,t} \le E_{\max_s}, \quad \forall s \in \mathcal{S}, \; \forall t \in \mathcal{T}
 \]</div>
 </section>
-<section id="id32">
-<h6>Storage — Power Limits<a class="headerlink" href="#id32" title="Link to this heading"></a></h6>
+<section id="id35">
+<h6>STORAGE — POWER LIMITS<a class="headerlink" href="#id35" title="Link to this heading"></a></h6>
 <div class="math">
 \[
 0 \le P_{\text{ch}_{s,t}} \le \overline{P}_{\text{ch}_s}, – \quad \forall s \in \mathcal{S}, \; \forall t \in \mathcal{T}\\
@@ -1346,8 +1400,73 @@ E_{\min_s} \le E_{s,t} \le E_{\max_s}, \quad \forall s \in \mathcal{S}, \; \fora
 </section>
 </section>
 <hr class="docutils" />
-<section id="id33">
-<h4>Objective Function<a class="headerlink" href="#id33" title="Link to this heading"></a></h4>
+<section id="id36">
+<h4>TRANSMISSION LINES AND CONNECTION BARS<a class="headerlink" href="#id36" title="Link to this heading"></a></h4>
+<section id="id37">
+<h5>SETS AND INDICES<a class="headerlink" href="#id37" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(\mathcal{T} = \{1,\dots,T\}\)</span> – time periods (typically hourly)</p></li>
+<li><p><span class="math">\(\mathcal{L} = \{\text{LINE}_{1}, \dots, \text{LINE}_{n_\ell}\}\)</span> – transmission lines</p></li>
+<li><p><span class="math">\(\mathcal{CB} = \{\text{BAR}_{1}, \dots, \text{BAR}_{n_b}\}\)</span> – connection bars (buses)</p></li>
+<li><p><span class="math">\((i,j) \in \mathcal{E} \subseteq \mathcal{B}\times\mathcal{B}\)</span> – ordered pair of bars defining endpoints of line <span class="math">\(\ell\)</span></p></li>
+<li><p><span class="math">\(\mathcal{L}(b)\)</span> – set of lines incident to bar <span class="math">\(b\)</span></p></li>
+</ul>
+</section>
+<section id="id38">
+<h5>PARAMETERS<a class="headerlink" href="#id38" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(b_{\ell}\)</span> – susceptance of line <span class="math">\(\ell\)</span> (p.u. or 1/x)</p></li>
+<li><p><span class="math">\(\overline{F}_{\ell}\)</span> – transmission capacity limit (MW)</p></li>
+<li><p><span class="math">\(\theta_{b,0}\)</span> – reference (slack) bus angle (rad)</p></li>
+<li><p><span class="math">\(p_{\text{base}}\)</span> – system base power (MW)  r</p></li>
+<li><p><span class="math">\(\text{CB} \in \mathcal{CB}\)</span> – subset of bars with associated demand <span class="math">\(d_{b,t}\)</span></p></li>
+</ul>
+</section>
+<section id="id39">
+<h5>DECISION VARIABLES<a class="headerlink" href="#id39" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p><span class="math">\(F_{\ell,t}\)</span> – active power flow through line <span class="math">\(\ell\)</span> (MW)</p></li>
+<li><p><span class="math">\(\theta_{b,t}\)</span> – phase angle at bus <span class="math">\(b\)</span> (radians)</p></li>
+</ul>
+</section>
+<section id="id40">
+<h5>DC FLOW APPROXIMATION<a class="headerlink" href="#id40" title="Link to this heading"></a></h5>
+<p>For each line <span class="math">\(\ell = (i,j)\)</span> and time <span class="math">\(t\)</span>:</p>
+<div class="math">
+\[
+F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}).
+\]</div>
+</section>
+<section id="id41">
+<h5>TRANSMISSION CAPACITY LIMITS<a class="headerlink" href="#id41" title="Link to this heading"></a></h5>
+<div class="math">
+\[
+-\,\overline{F}_{\ell} \le F_{\ell,t} \le \overline{F}_{\ell}\,,
+\quad \forall \ell \in \mathcal{L},\; t \in \mathcal{T}.
+\]</div>
+</section>
+<section id="id42">
+<h5>POWER BALANCE AT EACH BUS<a class="headerlink" href="#id42" title="Link to this heading"></a></h5>
+<p>Each bar <span class="math">\(b\)</span> satisfies Kirchhoff’s Current Law (KCL) in the DC approximation:</p>
+<div class="math">
+\[
+\sum_{\ell\in\mathcal{L}(b)} \delta_{b,\ell}\,F_{\ell,t} + \sum_{h \in \mathcal{H}(b)} G_{h,t} + \sum_{g \in \mathcal{G}(b)} p_{g,t} + \sum_{r \in \mathcal{R}(b)} g_{\mathrm{ren}_{r,t}}+ \sum_{s \in \mathcal{S}(b)} (P_{\mathrm{dis}_{s,t}} - P_{\mathrm{ch}_{s,t}}) + D_{b,t}
+= d_{b,t}, \quad \forall b,t,
+\]</div>
+<p>where <span class="math">\(\delta_{b,\ell} = +1\)</span> if bar <span class="math">\(b\)</span> is the sending end of <span class="math">\(\ell\)</span>, <span class="math">\(-1\)</span> if the receiving end, and <span class="math">\(0\)</span> otherwise.</p>
+</section>
+<section id="id43">
+<h5>NETWORK REFERENCE (SLACK BUS)<a class="headerlink" href="#id43" title="Link to this heading"></a></h5>
+<p>One bar must be defined as the phase-angle reference:</p>
+<div class="math">
+\[
+\theta_{b_0,t} = 0, \quad \forall t \in \mathcal{T}.
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id44">
+<h4>OBJECTIVE FUNCTION<a class="headerlink" href="#id44" title="Link to this heading"></a></h4>
 <p>The hydrothermal dispatch problem is formulated as the minimization of total generation and deficit costs, namely:</p>
 <ul class="simple">
 <li><p>Thermal generation costs</p></li>
@@ -1356,31 +1475,23 @@ E_{\min_s} \le E_{s,t} \le E_{\max_s}, \quad \forall s \in \mathcal{S}, \; \fora
 <li><p>For the PDDD case, the future cost term <span class="math">\(\alpha\)</span> (FCF) is included</p></li>
 </ul>
 <section id="single-lp-objective-function">
-<h5>Single LP Objective Function<a class="headerlink" href="#single-lp-objective-function" title="Link to this heading"></a></h5>
+<h5>SINGLE LP OBJECTIVE FUNCTION<a class="headerlink" href="#single-lp-objective-function" title="Link to this heading"></a></h5>
 <div class="math">
 \[
-\min Z = \sum_{g\in\mathcal{G}} \sum_{t\in\mathcal{T}} (c_g p_{g,t}) + 0.3 \sum_{h\in\mathcal{H}} \sum_{t\in\mathcal{T}} S_{h,t} + C_{\text{def}} \sum_{t\in\mathcal{T}} D_t
+\min Z = \sum_{g\in\mathcal{G}} \sum_{t\in\mathcal{T}} (c_g p_{g,t}) + 0.3 \sum_{h\in\mathcal{H}} \sum_{t\in\mathcal{T}} S_{h,t} + \sum_{t\in\mathcal{T}} \sum_{b\in\mathcal{CB}} C_{{def}_{b}} D_{b,t}
 \]</div>
 </section>
 <section id="objective-function-for-pddd">
-<h5>Objective Function for PDDD<a class="headerlink" href="#objective-function-for-pddd" title="Link to this heading"></a></h5>
+<h5>OBJECTIVE FUNCTION FOR PDDD<a class="headerlink" href="#objective-function-for-pddd" title="Link to this heading"></a></h5>
 <div class="math">
 \[
-\min Z = \sum_{g\in\mathcal{G}} \sum_{t\in\mathcal{T}} (c_g p_{g,t}) + 0.3 \sum_{h\in\mathcal{H}} \sum_{t\in\mathcal{T}} S_{h,t} + C_{\text{def}} \sum_{t\in\mathcal{T}} D_t + \sum_{t\in\mathcal{T}} \alpha_{k_t}
+\min Z = \sum_{g\in\mathcal{G}} \sum_{t\in\mathcal{T}} (c_g p_{g,t}) + 0.3 \sum_{h\in\mathcal{H}} \sum_{t\in\mathcal{T}} S_{h,t} + \sum_{t\in\mathcal{T}} \sum_{b\in\mathcal{CB}} C_{{def}_{b}} D_{b,t} + \sum_{t\in\mathcal{T}} \alpha_{k_t}
 \]</div>
+</section>
+</section>
 </section>
 </section>
 <hr class="docutils" />
-<section id="power-balance-load-requirement">
-<h4>Power Balance (Load Requirement)<a class="headerlink" href="#power-balance-load-requirement" title="Link to this heading"></a></h4>
-<p>The load balance constraint requires that the total generation from all available sources, plus battery discharge and any incurred deficit, exactly meets the system demand:</p>
-<div class="math">
-\[
-\sum_{h \in \mathcal{H}} G_{h,t} + \sum_{g \in \mathcal{G}} p_{g,t} + \sum_{r \in \mathcal{R}} g_{\text{ren}_{r,t}} + \sum_{s \in \mathcal{S}} ( P_{\text{dis}_{s,t}} - P_{\text{ch}_{s,t}} ) + D_t = d_t, \quad \forall t \in \mathcal{T}
-\]</div>
-</section>
-</section>
-</section>
 <section id="technical-appendix-summary-of-epe-manuals-on-the-mdi">
 <h2>TECHNICAL APPENDIX: SUMMARY OF EPE MANUALS ON THE MDI<a class="headerlink" href="#technical-appendix-summary-of-epe-manuals-on-the-mdi" title="Link to this heading"></a></h2>
 <section id="central-concept">
@@ -1396,8 +1507,8 @@ C_{\text{total}} = C_{\text{investment}} + C_{\text{operation}}
 <hr class="docutils" />
 <section id="model-structure">
 <h3>MODEL STRUCTURE<a class="headerlink" href="#model-structure" title="Link to this heading"></a></h3>
-<section id="id34">
-<h4>Demand Representation<a class="headerlink" href="#id34" title="Link to this heading"></a></h4>
+<section id="id45">
+<h4>DEMAND REPRESENTATION<a class="headerlink" href="#id45" title="Link to this heading"></a></h4>
 <p>Electricity demand is segmented into <strong>load levels</strong>—light, medium, heavy, and peak—each with its own duration and intensity. The total energy across levels equals the monthly average demand:</p>
 <div class="math">
 \[
@@ -1406,7 +1517,7 @@ C_{\text{total}} = C_{\text{investment}} + C_{\text{operation}}
 <p>This representation allows a more accurate assessment of how generation technologies meet the system’s load profile.</p>
 </section>
 <section id="system-components">
-<h4>System Components<a class="headerlink" href="#system-components" title="Link to this heading"></a></h4>
+<h4>SYSTEM COMPONENTS<a class="headerlink" href="#system-components" title="Link to this heading"></a></h4>
 <p>The MDI explicitly models:</p>
 <ul class="simple">
 <li><p>Existing, planned, and candidate generation units;</p></li>
@@ -1414,12 +1525,12 @@ C_{\text{total}} = C_{\text{investment}} + C_{\text{operation}}
 <li><p>Operational reserves and capacity constraints.</p></li>
 </ul>
 </section>
-<section id="id35">
-<h4>Objective Function<a class="headerlink" href="#id35" title="Link to this heading"></a></h4>
+<section id="id46">
+<h4>OBJECTIVE FUNCTION<a class="headerlink" href="#id46" title="Link to this heading"></a></h4>
 <p>The objective is to <strong>minimize the expected total discounted cost</strong> of expansion, with or without perpetuity:</p>
 <div class="math">
 \[
-\min Z = \sum_{k \in K} \frac{1}{(1 + tx)^k}
+\min Z = \sum_{k \in K} \frac{1}{(1 + t_x)^k}
 \left[C_{\text{operation}} + C_{\text{investment}} + C_{\text{penalties}}\right]
 \]</div>
 <p>The function includes fixed costs (investment, O&amp;M, capital charges) and variable costs (thermal dispatch, deficits), as well as penalty terms.</p>
@@ -1429,7 +1540,7 @@ C_{\text{total}} = C_{\text{investment}} + C_{\text{operation}}
 <section id="fundamental-constraints">
 <h3>FUNDAMENTAL CONSTRAINTS<a class="headerlink" href="#fundamental-constraints" title="Link to this heading"></a></h3>
 <section id="energy-balance">
-<h4>Energy Balance<a class="headerlink" href="#energy-balance" title="Link to this heading"></a></h4>
+<h4>ENERGY BALANCE<a class="headerlink" href="#energy-balance" title="Link to this heading"></a></h4>
 <div class="math">
 \[
 G + I + D - B \ge D_{\text{demand}}
@@ -1437,7 +1548,7 @@ G + I + D - B \ge D_{\text{demand}}
 <p>The sum of <strong>generation</strong>, <strong>interchanges</strong>, and <strong>deficits</strong>, minus <strong>stored energy</strong>, must meet or exceed the demand in each subsystem, scenario, and load level.</p>
 </section>
 <section id="capacity-adequacy">
-<h4>Capacity Adequacy<a class="headerlink" href="#capacity-adequacy" title="Link to this heading"></a></h4>
+<h4>CAPACITY ADEQUACY<a class="headerlink" href="#capacity-adequacy" title="Link to this heading"></a></h4>
 <div class="math">
 \[
 P_{\text{thermal}} + P_{\text{other sources}} + I_{\text{cap}} + D_{\text{cap}} \ge (1 + \text{Reserve}) \, D_{\text{max}}
@@ -1445,23 +1556,24 @@ P_{\text{thermal}} + P_{\text{other sources}} + I_{\text{cap}} + D_{\text{cap}} 
 <p>Ensures that <strong>peak demand plus reserve margin</strong> (typically 104% in PDE 2030) is met across all subsystems.</p>
 </section>
 <section id="source-availability">
-<h4>Source Availability<a class="headerlink" href="#source-availability" title="Link to this heading"></a></h4>
+<h4>SOURCE AVAILABILITY<a class="headerlink" href="#source-availability" title="Link to this heading"></a></h4>
 <p>Establishes lower and upper bounds for generation and prevents <strong>disinvestment</strong>, ensuring that installed capacity does not decline over time.</p>
 </section>
 <section id="system-representation">
-<h4>System Representation<a class="headerlink" href="#system-representation" title="Link to this heading"></a></h4>
-<p>Limits energy interchange between subsystems:
-$<span class="math">\(
+<h4>SYSTEM REPRESENTATION<a class="headerlink" href="#system-representation" title="Link to this heading"></a></h4>
+<p>Limits energy interchange between subsystems:</p>
+<div class="math">
+\[
 I_{ij,p} \le C_{ij,\text{existing}} + C_{ij,\text{expansion}}
-\)</span>$
-incorporating <strong>losses</strong>, <strong>regional aggregation</strong>, and <strong>dynamic limits</strong>.</p>
+\]</div>
+<p>incorporating <strong>losses</strong>, <strong>regional aggregation</strong>, and <strong>dynamic limits</strong>.</p>
 </section>
 <section id="investment-restrictions">
-<h4>Investment Restrictions<a class="headerlink" href="#investment-restrictions" title="Link to this heading"></a></h4>
-<p>Each project is represented by a <strong>binary decision variable</strong> ((x_{i,t} \in {0,1})) indicating the period of investment. A project can only be built <strong>once</strong> within the planning horizon.</p>
+<h4>INVESTMENT RESTRICTIONS<a class="headerlink" href="#investment-restrictions" title="Link to this heading"></a></h4>
+<p>Each project is represented by a <strong>binary decision variable</strong> (<span class="math">\(x_{i,t} \in \{0,1\}\)</span>) indicating the period of investment. A project can only be built <strong>once</strong> within the planning horizon.</p>
 </section>
 <section id="additional-policy-constraints">
-<h4>Additional Policy Constraints<a class="headerlink" href="#additional-policy-constraints" title="Link to this heading"></a></h4>
+<h4>ADDITIONAL POLICY CONSTRAINTS<a class="headerlink" href="#additional-policy-constraints" title="Link to this heading"></a></h4>
 <p>Used to enforce regulatory or strategic rules, such as:</p>
 <ul class="simple">
 <li><p>Uniform or stepwise expansion;</p></li>
@@ -1475,19 +1587,19 @@ incorporating <strong>losses</strong>, <strong>regional aggregation</strong>, an
 <section id="generation-source-modeling">
 <h3>GENERATION SOURCE MODELING<a class="headerlink" href="#generation-source-modeling" title="Link to this heading"></a></h3>
 <section id="hydroelectric-plants">
-<h4>Hydroelectric Plants<a class="headerlink" href="#hydroelectric-plants" title="Link to this heading"></a></h4>
+<h4>HYDROELECTRIC PLANTS<a class="headerlink" href="#hydroelectric-plants" title="Link to this heading"></a></h4>
 <p>Hydropower generation is represented using <strong>energy and capacity time series</strong> obtained from <strong>SUISHI</strong> and <strong>NEWAVE</strong> simulations. The investment decision is binary (installed or not), and capacity is assumed to increase linearly after commissioning.</p>
 </section>
 <section id="thermal-plants">
-<h4>Thermal Plants<a class="headerlink" href="#thermal-plants" title="Link to this heading"></a></h4>
+<h4>THERMAL PLANTS<a class="headerlink" href="#thermal-plants" title="Link to this heading"></a></h4>
 <p>Thermal generation is dispatched by load level. Projects can be <strong>continuous</strong> (generic expansion) or <strong>integer</strong> (specific projects). The <strong>Variable Operating Cost (CVU)</strong> is adjusted annually based on <strong>EIA</strong> projections.</p>
 </section>
 <section id="renewable-sources">
-<h4>Renewable Sources<a class="headerlink" href="#renewable-sources" title="Link to this heading"></a></h4>
+<h4>RENEWABLE SOURCES<a class="headerlink" href="#renewable-sources" title="Link to this heading"></a></h4>
 <p>Includes <strong>wind</strong>, <strong>solar</strong>, and <strong>small hydro (PCH)</strong> plants. They are modeled using <strong>monthly seasonality</strong> and <strong>average contribution factors</strong> by load level.</p>
 </section>
 <section id="energy-storage-projects">
-<h4>Energy Storage Projects<a class="headerlink" href="#energy-storage-projects" title="Link to this heading"></a></h4>
+<h4>ENERGY STORAGE PROJECTs<a class="headerlink" href="#energy-storage-projects" title="Link to this heading"></a></h4>
 <p>Models both charging and discharging in the same period, considering <strong>round-trip efficiency losses</strong> and <strong>energy purchase costs</strong> for recharging.</p>
 </section>
 </section>
@@ -1505,8 +1617,8 @@ The goal is to minimize the <strong>expected value of total cost</strong> across
 <hr class="docutils" />
 <section id="marginal-expansion-cost-cme">
 <h3>MARGINAL EXPANSION COST (CME)<a class="headerlink" href="#marginal-expansion-cost-cme" title="Link to this heading"></a></h3>
-<section id="id36">
-<h4>Definition<a class="headerlink" href="#id36" title="Link to this heading"></a></h4>
+<section id="id47">
+<h4>DEFINITION<a class="headerlink" href="#id47" title="Link to this heading"></a></h4>
 <p>The <strong>Marginal Expansion Cost (CME)</strong> quantifies the <strong>incremental cost</strong> of meeting an additional unit of demand:</p>
 <div class="math">
 \[
@@ -1514,7 +1626,7 @@ CME = CME_{\text{energy}} + CME_{\text{capacity}}
 \]</div>
 </section>
 <section id="calculation">
-<h4>Calculation<a class="headerlink" href="#calculation" title="Link to this heading"></a></h4>
+<h4>CALCULATION<a class="headerlink" href="#calculation" title="Link to this heading"></a></h4>
 <p>CME is derived from the <strong>dual variables</strong> of the energy and capacity constraints. The procedure adds <strong>one unit of demand</strong> per load level and measures the incremental cost impact.<br />
 To preserve the load shape:</p>
 <ul class="simple">
@@ -1561,12 +1673,12 @@ To preserve the load shape:</p>
 <p>In summary, the <strong>MDI</strong> integrates <strong>economic, technical, and stochastic modeling</strong> to produce a consistent, cost-optimal expansion plan for Brazil’s power system, bridging the gap between <strong>hydrothermal simulation</strong> and <strong>long-term investment strategy</strong>.</p>
 </section>
 <section id="mathematical-modeling-of-mdi">
-<h3>Mathematical Modeling of MDI<a class="headerlink" href="#mathematical-modeling-of-mdi" title="Link to this heading"></a></h3>
+<h3>MATHEMATICAL MODELING OF MDI<a class="headerlink" href="#mathematical-modeling-of-mdi" title="Link to this heading"></a></h3>
 <p>The objective of this model is to determine the <strong>optimal expansion plan</strong> of the electric generation system, minimizing the total investment and operation cost, considering the availability of multiple technologies (hydroelectric, thermal, solar, wind, and battery storage), the demand satisfaction in two load levels (peak and off-peak), and the distinction between existing and candidate units.</p>
 <p>This constitutes a <strong>Mixed-Integer Linear Programming (MILP)</strong> problem, solved by decomposition methods or <strong>Branch and Bound</strong>, as discussed in the theoretical overview.</p>
 <hr class="docutils" />
 <section id="sets">
-<h4>Sets<a class="headerlink" href="#sets" title="Link to this heading"></a></h4>
+<h4>SETS<a class="headerlink" href="#sets" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><span class="math">\(\mathcal{G}\)</span> – total set of generating units (hydroelectric, thermal, solar, and wind)</p></li>
 <li><p><span class="math">\(\mathcal{G}_E \subset \mathcal{G}\)</span> – subset of existing plants</p></li>
@@ -1576,17 +1688,23 @@ To preserve the load shape:</p>
 <li><p><span class="math">\(\mathcal{B}_C \subset \mathcal{B}\)</span> – subset of candidate batteries</p></li>
 <li><p><span class="math">\(\mathcal{T}\)</span> – planning periods (<span class="math">\(t = 1,\dots,10\)</span>)</p></li>
 <li><p><span class="math">\(\mathcal{P}\)</span> – load levels (peak and off-peak)</p></li>
+<li><p><span class="math">\(\mathcal{L} = \{\text{LINE}_{1}, \dots, \text{LINE}_{n_\ell}\}\)</span> – transmission lines</p></li>
+<li><p><span class="math">\(\mathcal{CB} = \{\text{BAR}_{1}, \dots, \text{BAR}_{n_b}\}\)</span> – connection bars (buses)</p></li>
+<li><p><span class="math">\((i,j) \in \mathcal{E} \subseteq \mathcal{B}\times\mathcal{B}\)</span> – ordered pair of bars defining endpoints of line <span class="math">\(\ell\)</span></p></li>
+<li><p><span class="math">\(\mathcal{L}(b)\)</span> – set of lines incident to bar <span class="math">\(b\)</span></p></li>
 </ul>
 </section>
 <hr class="docutils" />
-<section id="id37">
-<h4>Parameters<a class="headerlink" href="#id37" title="Link to this heading"></a></h4>
+<section id="id48">
+<h4>PARAMETERS<a class="headerlink" href="#id48" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><span class="math">\(C_{\text{inv}_g}\)</span> – investment cost of generator <span class="math">\(g\)</span> [R$ /MW]</p></li>
 <li><p><span class="math">\(C_{\text{op}_g}\)</span> – operating cost of generator <span class="math">\(g\)</span> [R$ /MWh]</p></li>
 <li><p><span class="math">\(P_{\text{max}_g}\)</span> – maximum capacity of generator <span class="math">\(g\)</span> [MW]</p></li>
 <li><p><span class="math">\(C_{\text{inv}_b}\)</span> – investment cost of battery <span class="math">\(b\)</span> [R$ /MW]</p></li>
 <li><p><span class="math">\(C_{\text{op}_b}\)</span> – operating cost of battery <span class="math">\(b\)</span> [R$ /MWh]</p></li>
+<li><p><span class="math">\(C_{\text{inv},\ell}\)</span> – investment cost of line <span class="math">\(\ell\)</span></p></li>
+<li><p><span class="math">\(C_{\text{op},\ell}\)</span> – operation cost of line <span class="math">\(\ell\)</span> (if candidate)</p></li>
 <li><p><span class="math">\(E_{\text{max}_b}\)</span>, <span class="math">\(E_{\text{min}_b}\)</span> – state-of-charge limits for battery <span class="math">\(b\)</span> [MWh]</p></li>
 <li><p><span class="math">\(P_{\text{bat}_{\text{max}_b}}\)</span> – maximum charge/discharge power of battery <span class="math">\(b\)</span> [MW]</p></li>
 <li><p><span class="math">\(E_{0_b}\)</span> – initial state of charge of battery <span class="math">\(b\)</span> [MWh]</p></li>
@@ -1595,11 +1713,18 @@ To preserve the load shape:</p>
 <li><p><span class="math">\(h_p\)</span> – duration of load level <span class="math">\(p\)</span> [h/year]</p></li>
 <li><p><span class="math">\(x_{g,0}\)</span> – 1 if generator <span class="math">\(g\)</span> exists at the beginning of the horizon, 0 otherwise</p></li>
 <li><p><span class="math">\(x_{b,0}\)</span> – 1 if battery <span class="math">\(b\)</span> exists at the beginning of the horizon, 0 otherwise</p></li>
+<li><p><span class="math">\(x_{\ell,0}\)</span> – 1 if line <span class="math">\(\ell\)</span> exists at the beginning of the horizon, 0 otherwise</p></li>
+<li><p><span class="math">\(b_{\ell}\)</span> – susceptance of line <span class="math">\(\ell\)</span> (p.u. or 1/x)</p></li>
+<li><p><span class="math">\(\overline{F}_{\ell}\)</span> – transmission capacity limit (MW)</p></li>
+<li><p><span class="math">\(\theta_{b,0}\)</span> – reference (slack) bus angle (rad)</p></li>
+<li><p><span class="math">\(p_{\text{base}}\)</span> – system base power (MW)</p></li>
+<li><p><span class="math">\(\zeta_{\ell}\)</span> – availability or transmission scaling factor</p></li>
+<li><p><span class="math">\(C_{\text{inv},\ell}\)</span> – investment cost of line <span class="math">\(\ell\)</span> (if candidate)</p></li>
 </ul>
 </section>
 <hr class="docutils" />
-<section id="id38">
-<h4>Decision Variables<a class="headerlink" href="#id38" title="Link to this heading"></a></h4>
+<section id="id49">
+<h4>DECISION VARIABLES<a class="headerlink" href="#id49" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p><span class="math">\(y_{g,t} \in \{0,1\}\)</span> – construction (1) or not (0) of candidate generator <span class="math">\(g\)</span> in period <span class="math">\(t\)</span></p></li>
 <li><p><span class="math">\(y_{b,t} \in \{0,1\}\)</span> – construction (1) or not (0) of candidate battery <span class="math">\(b\)</span> in period <span class="math">\(t\)</span></p></li>
@@ -1609,33 +1734,36 @@ To preserve the load shape:</p>
 <li><p><span class="math">\(P^{c}_{b,p,t} \ge 0\)</span> – charging power of battery <span class="math">\(b\)</span> [MW]</p></li>
 <li><p><span class="math">\(P^{d}_{b,p,t} \ge 0\)</span> – discharging power of battery <span class="math">\(b\)</span> [MW]</p></li>
 <li><p><span class="math">\(E_{b,p,t}\)</span> – state of charge (SoC) of battery <span class="math">\(b\)</span> [MWh]</p></li>
+<li><p><span class="math">\(F_{\ell,t}\)</span> – active power flow through line <span class="math">\(\ell\)</span> (MW)</p></li>
+<li><p><span class="math">\(\theta_{b,t}\)</span> – phase angle at bus <span class="math">\(b\)</span> (radians)</p></li>
+<li><p><span class="math">\(x_{\ell,t} \in \{0,1\}\)</span> – binary expansion variable (1 if line built by <span class="math">\(t\)</span>)</p></li>
+<li><p><span class="math">\(y_{\ell,t} \in \{0,1\}\)</span> – binary decision of construction in period <span class="math">\(t\)</span></p></li>
 </ul>
-<hr class="docutils" />
 </section>
 <hr class="docutils" />
-<section id="id39">
-<h4>Constraints<a class="headerlink" href="#id39" title="Link to this heading"></a></h4>
-<section id="demand-requirement">
-<h5>Demand Requirement<a class="headerlink" href="#demand-requirement" title="Link to this heading"></a></h5>
+<section id="id50">
+<h4>CONSTRAINTS<a class="headerlink" href="#id50" title="Link to this heading"></a></h4>
+<section id="demand-requirement-per-bus">
+<h5>DEMAND REQUIREMENT PER BUS<a class="headerlink" href="#demand-requirement-per-bus" title="Link to this heading"></a></h5>
 <div class="math">
 \[
-\sum_{g \in \mathcal{G}} P_{g,t,p} + \sum_{b \in \mathcal{B}} ( P^{d}_{b,t,p} - P^{c}_{b,t,p} ) = D_{t,p}, \quad \forall t \in \mathcal{T}, \, p \in \mathcal{P}
+\sum_{\ell\in\mathcal{L}(b)}\delta_{b,\ell}\,F_{\ell,t}  + \sum_{g \in \mathcal{G}} P_{g,b,t,p} + \sum_{b \in \mathcal{B}} ( P^{d}_{s,b,t,p} - P^{c}_{s,b,t,p} ) = D_{b,t,p}, \quad \forall b \in \mathcal{CB}, \, t \in \mathcal{T}, \, p \in \mathcal{P}
 \]</div>
 <p>This ensures power balance at each period and load level: total net generation (generation plus storage balance) equals system demand.</p>
 </section>
 </section>
 <hr class="docutils" />
-<section id="id40">
-<h4>Capacity Adequacy<a class="headerlink" href="#id40" title="Link to this heading"></a></h4>
+<section id="capacity-adequacy-per-bus">
+<h4>CAPACITY ADEQUACY PER BUS<a class="headerlink" href="#capacity-adequacy-per-bus" title="Link to this heading"></a></h4>
 <div class="math">
 \[
-\sum_{g \in \mathcal{G}} G^{\max}_g x_{g,t} + \sum_{s \in \mathcal{S}} P^{\text{dis,max}}_{s,p} x_{s,t} \ge D_{t,p}, \quad \forall t,p
+\sum_{g \in \mathcal{G}} G^{\max}_g x_{g,t} + \sum_{s \in \mathcal{S}} P^{\text{dis,max}}_{s,p} x_{s,t} \ge d_{b,t,p}, \quad \forall b \in \mathcal{CB}, t \in \mathcal{T}, p \in \mathcal{P}
 \]</div>
 <p>Guarantees that total available capacity (generation + discharge) is sufficient to meet demand in all time steps.</p>
 </section>
 <hr class="docutils" />
 <section id="generation-limits">
-<h4>Generation Limits<a class="headerlink" href="#generation-limits" title="Link to this heading"></a></h4>
+<h4>GENERATION LIMITS<a class="headerlink" href="#generation-limits" title="Link to this heading"></a></h4>
 <div class="math">
 \[
 0 \le P_{g,t,p} \le P^{\max}_g x_{g,t}, \quad \forall g,t,p
@@ -1644,7 +1772,7 @@ To preserve the load shape:</p>
 </section>
 <hr class="docutils" />
 <section id="storage-dynamics">
-<h4>Storage Dynamics<a class="headerlink" href="#storage-dynamics" title="Link to this heading"></a></h4>
+<h4>STORAGE DYNAMICS<a class="headerlink" href="#storage-dynamics" title="Link to this heading"></a></h4>
 <div class="math">
 \[
 E_{s,t,p} = \begin{cases} 
@@ -1657,7 +1785,7 @@ E_{s,t,p-1} + \eta_c P^{ch}_{s,t,p} \Delta t_p - \dfrac{P^{dis}_{s,t,p}}{\eta_d}
 </section>
 <hr class="docutils" />
 <section id="state-of-charge-limits">
-<h4>State of Charge Limits<a class="headerlink" href="#state-of-charge-limits" title="Link to this heading"></a></h4>
+<h4>STATE OF CHARGE LIMITS<a class="headerlink" href="#state-of-charge-limits" title="Link to this heading"></a></h4>
 <div class="math">
 \[
 E^{\min}_b x_{b,t} \le E_{b,t,p} \le E^{\max}_b x_{b,t}, \quad \forall b,t,p
@@ -1666,7 +1794,7 @@ E^{\min}_b x_{b,t} \le E_{b,t,p} \le E^{\max}_b x_{b,t}, \quad \forall b,t,p
 </section>
 <hr class="docutils" />
 <section id="charge-discharge-power-limits">
-<h4>Charge/Discharge Power Limits<a class="headerlink" href="#charge-discharge-power-limits" title="Link to this heading"></a></h4>
+<h4>CHARGE/DISCHARGE POWER LIMITS<a class="headerlink" href="#charge-discharge-power-limits" title="Link to this heading"></a></h4>
 <div class="math">
 \[
 0 \le P^{c}_{b,t,p}, P^{d}_{b,t,p} \le P^{\max}_{\text{bat}_b} x_{b,t}, \quad \forall b,t,p
@@ -1675,7 +1803,7 @@ E^{\min}_b x_{b,t} \le E_{b,t,p} \le E^{\max}_b x_{b,t}, \quad \forall b,t,p
 </section>
 <hr class="docutils" />
 <section id="initial-state">
-<h4>Initial State<a class="headerlink" href="#initial-state" title="Link to this heading"></a></h4>
+<h4>INITIAL STATE<a class="headerlink" href="#initial-state" title="Link to this heading"></a></h4>
 <div class="math">
 \[
 E_{b,1,p} = E_{0_b}, \quad \forall b,p
@@ -1684,50 +1812,83 @@ E_{b,1,p} = E_{0_b}, \quad \forall b,p
 </section>
 <hr class="docutils" />
 <section id="expansion-dynamics-existence-accumulation">
-<h4>Expansion Dynamics (Existence Accumulation)<a class="headerlink" href="#expansion-dynamics-existence-accumulation" title="Link to this heading"></a></h4>
+<h4>EXPANSION DYNAMICS (EXISTENCE ACCUMULATION)<a class="headerlink" href="#expansion-dynamics-existence-accumulation" title="Link to this heading"></a></h4>
 <div class="math">
 \[
-    x_{g,t} = x_{g,t-1} + y_{g,t}, \quad\\
+x_{g,t} = x_{g,t-1} + y_{g,t}, \quad\\
 x_{b,t} = x_{b,t-1} + y_{b,t}, \quad \\
-\forall g,b,t>1\\
-x_{g,0}, x_{b,0} \text{ given (initial existence)}
+x_{\ell,t} = x_{\ell,t-1} + y_{\ell,t}, \quad \\
+\forall g,b,\ell,t>1\\
+x_{g,0}, x_{b,0}, x_{\ell, 0} \text{ given (initial existence)}
 \]</div>
 <p>Guarantees temporal coherence of the expansion plan: units exist only if previously constructed.</p>
 </section>
 <hr class="docutils" />
+<section id="id51">
+<h4>DC FLOW APPROXIMATION<a class="headerlink" href="#id51" title="Link to this heading"></a></h4>
+<p>For each line <span class="math">\(\ell = (i,j)\)</span> and time <span class="math">\(t\)</span>:</p>
+<div class="math">
+\[
+F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t})\, x_{\ell,t}.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="id52">
+<h4>TRANSMISSION CAPACITY LIMITS<a class="headerlink" href="#id52" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+-\,\overline{F}_{\ell}\,x_{\ell,t} \le F_{\ell,t} \le \overline{F}_{\ell}\,x_{\ell,t},
+\quad \forall \ell \in \mathcal{L},\; t \in \mathcal{T}.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="id53">
+<h4>NETWORK REFERENCE (SLACK BUS)<a class="headerlink" href="#id53" title="Link to this heading"></a></h4>
+<p>One bar must be defined as the phase-angle reference:</p>
+<div class="math">
+\[
+\theta_{b_0,t} = 0, \quad \forall t \in \mathcal{T}.
+\]</div>
+</section>
+<hr class="docutils" />
 <section id="unique-construction">
-<h4>Unique Construction<a class="headerlink" href="#unique-construction" title="Link to this heading"></a></h4>
+<h4>UNIQUE CONSTRUCTION<a class="headerlink" href="#unique-construction" title="Link to this heading"></a></h4>
 <div class="math">
 \[
 \sum_{t \in \mathcal{T}} y_{g,t} \le 1, \quad
-\sum_{t \in \mathcal{T}} y_{b,t} \le 1, \quad \forall g \in \mathcal{G}_C, b \in \mathcal{B}_C
+\sum_{t \in \mathcal{T}} y_{b,t} \le 1, \quad
+\sum_{t \in \mathcal{T}} y_{\ell,t} \le 1, \quad \forall g \in \mathcal{G}_C, b \in \mathcal{B}_C
 \]</div>
 <p>Prevents multiple constructions of the same unit within the planning horizon.</p>
 </section>
 <hr class="docutils" />
 <section id="monotonic-growth">
-<h4>Monotonic Growth<a class="headerlink" href="#monotonic-growth" title="Link to this heading"></a></h4>
+<h4>MONOTONIC GROWTH<a class="headerlink" href="#monotonic-growth" title="Link to this heading"></a></h4>
 <div class="math">
 \[
 x_{g,t} \ge x_{g,t-1}, \quad
-x_{b,t} \ge x_{b,t-1}, \quad \forall g,b,t
+x_{b,t} \ge x_{b,t-1}, \quad 
+x_{\ell,t} \ge x_{\ell,t-1}, \quad \forall g,b,\ell,t
 \]</div>
 <p>Ensures that the set of existing units grows monotonically, avoiding deactivation after construction and maintaining temporal consistency in expansion.</p>
 </section>
-<section id="id41">
-<h4>Objective Function<a class="headerlink" href="#id41" title="Link to this heading"></a></h4>
+<hr class="docutils" />
+<section id="id54">
+<h4>OBJECTIVE FUNCTION<a class="headerlink" href="#id54" title="Link to this heading"></a></h4>
 <div class="math">
 \[
-\min Z = \sum_{t \in \mathcal{T}} \Bigg[\sum_{g \in \mathcal{G}} C^{\text{inv}}_g x_{g,t}+ \sum_{b \in \mathcal{B}} C^{\text{inv}}_b x_{b,t} + \sum_{p \in \mathcal{P}} h_p \Big( \sum_{g \in \mathcal{G}} C^{\text{op}}_g P_{g,t,p} + \sum_{b \in \mathcal{B}} C^{\text{op}}_b (P^{d}_{b,t,p} +  P^{c}_{b,t,p}) \Big) \Bigg]
+\min Z = \sum_{t \in \mathcal{T}} \frac{1}{(1 + t_x)^t}\Bigg[\sum_{g \in \mathcal{G}} C^{\text{inv}}_g x_{g,t} + \sum_{b \in \mathcal{B}} C^{\text{inv}}_b x_{b,t}+ \sum_{\ell \in \mathcal{L}} C^{\text{inv}}_\ell x_{b,t} + \sum_{p \in \mathcal{P}} h_p \Big( \sum_{g \in \mathcal{G}} C^{\text{op}}_g P_{g,t,p} +\sum_{\ell \in \mathcal{L}} C^{\text{op}}_\ell F_{l,t,p} + \sum_{b \in \mathcal{B}} C^{\text{op}}_b (P^{d}_{b,t,p} +  P^{c}_{b,t,p}) \Big) \Bigg]
 \]</div>
 <p>Where:</p>
 <ul class="simple">
 <li><p><span class="math">\(Z\)</span> — total objective function value (minimum system cost)</p></li>
-<li><p><span class="math">\(C^{\text{inv}}_{g}, C^{\text{inv}}_{b}\)</span> — investment costs for generation and storage units [$]</p></li>
-<li><p><span class="math">\(C^{\text{op}}_{g}, C^{\text{op}}_{b}\)</span> — operating costs for generation and storage units [$/MWh]</p></li>
-<li><p><span class="math">\(x_{g,t}, x_{b,t}\)</span> — binary variables for existence of generation/storage units</p></li>
+<li><p><span class="math">\(t_x\)</span> — discount rate (<span class="math">\(t_x \in [0,1)\)</span>)</p></li>
+<li><p><span class="math">\(C^{\text{inv}}_{g}, C^{\text{inv}}_{b} , C^{\text{inv}}_{\ell}\)</span> — investment costs for generation and storage units [$]</p></li>
+<li><p><span class="math">\(C^{\text{op}}_{g}, C^{\text{op}}_{b}, C^{\text{op}}_{\ell}\)</span> — operating costs for generation and storage units [$/MWh]</p></li>
+<li><p><span class="math">\(x_{g,t}, x_{b,t}, x_{\ell,t}\)</span> — binary variables for existence of generation/storage units</p></li>
 <li><p><span class="math">\(P_{g,t,p}\)</span> — generated power [MW]</p></li>
 <li><p><span class="math">\(P^{d}_{b,t,p}, P^{c}_{b,t,p}\)</span> — discharging and charging powers [MW]</p></li>
+<li><p><span class="math">\(F_{l,t,p}\)</span> - transmission line power flux [MW]</p></li>
 <li><p><span class="math">\(h_p\)</span> — duration of load level <span class="math">\(p\)</span> [h]</p></li>
 </ul>
 <p>This objective minimizes total system cost across the planning horizon, combining investment and operating costs weighted by the duration of each load level. The formulation captures the trade-off between capacity expansion and operation, ensuring an economically optimal solution under technical and energy constraints.</p>
@@ -1793,7 +1954,7 @@ Despite their flexibility, MINLPs are <strong>computationally intensive</strong>
 They provide <strong>maximum modeling realism</strong> at the expense of computational complexity.</p>
 <hr class="docutils" />
 <section id="summary-table">
-<h4>Summary Table<a class="headerlink" href="#summary-table" title="Link to this heading"></a></h4>
+<h4>SUMMARY TABLE<a class="headerlink" href="#summary-table" title="Link to this heading"></a></h4>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Method</strong></p></th>
@@ -1854,7 +2015,7 @@ They provide <strong>maximum modeling realism</strong> at the expense of computa
 <p>The operation of modern electric power systems is subject to significant <strong>uncertainties</strong>, primarily related to <strong>hydrological inflows</strong>, <strong>renewable generation</strong>, and <strong>load variability</strong>.<br />
 To address these sources of uncertainty, several mathematical paradigms of optimization have been developed, each with different trade-offs between <strong>robustness</strong>, <strong>complexity</strong>, and <strong>economic efficiency</strong>.</p>
 <section id="stochastic-programming-sp">
-<h4>Stochastic Programming (SP)<a class="headerlink" href="#stochastic-programming-sp" title="Link to this heading"></a></h4>
+<h4>STOCHASTIC PROGRAMMING (SP)<a class="headerlink" href="#stochastic-programming-sp" title="Link to this heading"></a></h4>
 <p><strong>Stochastic Programming</strong> explicitly models uncertainty using <strong>probabilistic scenarios</strong>, each associated with a likelihood of occurrence.<br />
 The objective is to <strong>minimize the expected operational cost</strong> across all scenarios:</p>
 <div class="math">
@@ -1865,7 +2026,7 @@ The objective is to <strong>minimize the expected operational cost</strong> acro
 SP captures the statistical nature of uncertainty but can become <strong>computationally intractable</strong> as the number of scenarios grows, due to the <strong>curse of dimensionality</strong>.</p>
 </section>
 <section id="robust-optimization-ro">
-<h4>Robust Optimization (RO)<a class="headerlink" href="#robust-optimization-ro" title="Link to this heading"></a></h4>
+<h4>ROBUST OPTIMIZATION (RO)<a class="headerlink" href="#robust-optimization-ro" title="Link to this heading"></a></h4>
 <p><strong>Robust Optimization</strong> takes a different stance: instead of relying on probabilistic information, it defines an <strong>uncertainty set</strong> ( \mathcal{U} ) within which all possible realizations of uncertain parameters must lie.<br />
 The optimization then seeks the <strong>best worst-case solution</strong>:</p>
 <div class="math">
@@ -1876,7 +2037,7 @@ The optimization then seeks the <strong>best worst-case solution</strong>:</p>
 RO is particularly useful in operational contexts requiring <strong>high reliability</strong>, such as critical infrastructure and distribution network operation.</p>
 </section>
 <section id="data-driven-distributionally-robust-optimization-dddro">
-<h4>Data-Driven Distributionally Robust Optimization (DDDRO)<a class="headerlink" href="#data-driven-distributionally-robust-optimization-dddro" title="Link to this heading"></a></h4>
+<h4>DATA-DRIVEN DISTRIBUTIONALLY ROBUST OPTIMIZATION (DDDRO)<a class="headerlink" href="#data-driven-distributionally-robust-optimization-dddro" title="Link to this heading"></a></h4>
 <p>A more recent and advanced approach, <strong>Data-Driven Distributionally Robust Optimization (DDDRO)</strong>, combines the strengths of SP and RO.<br />
 It constructs <strong>ambiguity sets</strong> of probability distributions based on <strong>historical data</strong>, typically using <strong>Wasserstein distances</strong> or <strong>moment-based metrics</strong>.<br />
 The objective is to ensure robustness against <strong>unknown or misspecified distributions</strong>, minimizing the <strong>worst-case expected cost</strong> across all plausible distributions:</p>
@@ -1894,7 +2055,7 @@ These methods enable <strong>resilient and adaptive energy planning</strong> und
 <p>The <strong>Distribution Optimal Power Flow (D-OPF)</strong> problem determines the <strong>optimal power dispatch</strong> and <strong>network configuration</strong> in <strong>distribution systems</strong> that include <strong>Distributed Energy Resources (DERs)</strong>, <strong>energy storage</strong>, and <strong>ancillary services</strong>.<br />
 Unlike transmission-level OPF, the D-OPF must handle <strong>radial or weakly meshed topologies</strong>, <strong>voltage-dependent losses</strong>, and <strong>bidirectional power flows</strong>.</p>
 <section id="exact-ac-formulation">
-<h4>Exact AC Formulation<a class="headerlink" href="#exact-ac-formulation" title="Link to this heading"></a></h4>
+<h4>EXACT AC FORMULATION<a class="headerlink" href="#exact-ac-formulation" title="Link to this heading"></a></h4>
 <p>The <strong>AC D-OPF</strong> formulation is based on nonlinear and non-convex power flow equations derived from <strong>Kirchhoff’s laws</strong>:</p>
 <div class="math">
 \[
@@ -1908,7 +2069,7 @@ Q_i = V_i \sum_{j} V_j (G_{ij}\sin\theta_{ij} - B_{ij}\cos\theta_{ij})
 Due to their <strong>non-convexity</strong>, these equations make the AC-OPF problem <strong>NP-hard</strong>.</p>
 </section>
 <section id="convex-relaxations">
-<h4>Convex Relaxations<a class="headerlink" href="#convex-relaxations" title="Link to this heading"></a></h4>
+<h4>CONVEX RELAXATIONS<a class="headerlink" href="#convex-relaxations" title="Link to this heading"></a></h4>
 <p>To make D-OPF computationally tractable, <strong>convex relaxations</strong> are often applied:</p>
 <ol class="arabic simple">
 <li><p><strong>Second-Order Cone Programming (SOCP)</strong><br />
@@ -1921,7 +2082,7 @@ SDP formulations offer <strong>tight approximations</strong> and can recover glo
 <p>These relaxations transform the D-OPF into a <strong>convex optimization problem</strong>, solvable by efficient algorithms and modern solvers.</p>
 </section>
 <section id="mixed-integer-extensions">
-<h4>Mixed-Integer Extensions<a class="headerlink" href="#mixed-integer-extensions" title="Link to this heading"></a></h4>
+<h4>MIXED-INTEGER EXTENSIONS<a class="headerlink" href="#mixed-integer-extensions" title="Link to this heading"></a></h4>
 <p>Real-world distribution systems include <strong>discrete operational decisions</strong>—such as switching configurations, capacitor banks, or DER activation.<br />
 These are modeled using <strong>Mixed-Integer Second-Order Cone Programming (MISOCP)</strong>, which combines the tractability of SOCP with the <strong>binary decision modeling</strong> of MILP:</p>
 <div class="math">
@@ -1934,7 +2095,7 @@ These are modeled using <strong>Mixed-Integer Second-Order Cone Programming (MIS
 </section>
 <hr class="docutils" />
 <section id="summary-of-d-opf-formulations">
-<h3>Summary of D-OPF Formulations<a class="headerlink" href="#summary-of-d-opf-formulations" title="Link to this heading"></a></h3>
+<h3>SUMMARY OF D-OPF FORMULATIONS<a class="headerlink" href="#summary-of-d-opf-formulations" title="Link to this heading"></a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Formulation</strong></p></th>
@@ -1983,7 +2144,7 @@ These approaches enable operators to make <strong>risk-informed decisions</stron
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="MDI.cli.html" class="btn btn-neutral float-left" title="MDI.cli package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="userguide.html" class="btn btn-neutral float-right" title="NaivePyDESSEM User Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="userguide.html" class="btn btn-neutral float-right" title="USER GUIDE" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

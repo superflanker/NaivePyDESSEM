@@ -116,11 +116,11 @@ It integrates investment and operational decisions into a unified **mixed-intege
   Incorporates candidate projects for thermal, hydro, renewable, and storage technologies, as well as transmission reinforcements.
 
 - **Specialized Submodules:**  
-  Subpackages `MDI.Generator` and `MDI.Storage` define project-level variables, constraints, and cost components.  
+  Subpackages `MDI.Generator`, `MDI.Storage`, `MDI.ConnectionBar` and `MDI.TransmissionLine` define project-level variables, constraints, and cost components.  
   The `Builder` module consolidates these into a system-wide energy balance, while `YAMLLoader` manages structured scenario data.
 
 - **Solution and Analysis:**  
-  Supports a variety of *Pyomo* solvers (`GLPK`, `CPLEX`, `IPOPT`, `MindtPy`) and provides post-solution tools (`Reporting`, `DataFrames`, `PlotSeries`) for sensitivity and scenario analysis.
+  Supports a variety of *Pyomo* solvers (`GLPK`, `CBC`, `HIGHS`, `CPLEX`) and provides post-solution tools (`Reporting`, `DataFrames`, `PlotSeries`) for sensitivity and scenario analysis.
 
 - **Educational Design:**  
   Preserves the key structural and economic principles of real-world expansion models while maintaining tractability for academic exercises.
@@ -136,6 +136,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── Generator
 │   │   │   ├── __init__.py
 │   │   │   ├── GeneratorBuilder.py
@@ -152,6 +159,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── StorageEquations.py
 │   │   │   ├── StorageObjective.py
 │   │   │   └── StorageVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── DataFrames.py
@@ -169,6 +183,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── cli.py
 │   │   │   ├── pddd_cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
 │   │   │   ├── HydraulicConstraints.py
@@ -202,6 +223,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── ThermalGeneratorBuilder.py
 │   │   │   ├── ThermalObjectives.py
 │   │   │   └── ThermalVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── BuilderPDDD.py
@@ -221,6 +249,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
 │   │   │   ├── ConstantProductivityFPH.py
@@ -258,6 +293,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── ThermalObjectives.py
 │   │   │   ├── ThermalPieceWise.py
 │   │   │   └── ThermalVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── DataFrames.py
@@ -399,6 +441,22 @@ Full API and usage documentation is built with **Sphinx** and available here:
 This project is hosted on GitHub at:
 
 👉 [NaivePyDessem GitHub Repo](https://github.com/superflanker/NaivePyDESSEM)
+
+---
+
+## 🌐 Get Involved
+
+You are cordially invited to explore the repository, review the examples, and adapt the framework to your own studies or applications.  
+This project was designed with openness and reproducibility in mind — whether you are conducting academic research, developing optimization tools, or exploring hybrid energy models, your engagement is most welcome.
+
+### 🤝 Contribute & Collaborate
+- 🧩 **Report Issues:** [Open an Issue](https://github.com/superflanker/NaivePyDESSEM/issues)  
+- 🍴 **Fork the Project:** [Create Your Own Branch](https://github.com/superflanker/NaivePyDESSEM/fork)  
+- 🧠 **Cite This Work:** If used in research, please acknowledge it in your publication.
+
+### ✉️ Contact
+For collaboration, technical inquiries, or academic exchange:  
+📨 **Augusto Mathias Adams** — augusto.adams@ufpr.br
 
 ---
 

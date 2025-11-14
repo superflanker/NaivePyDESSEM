@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -199,16 +199,11 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">):</span>
         <span class="n">m</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">RangeSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">):</span>
-        <span class="n">m</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">demand</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
-    
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;Cdef&quot;</span><span class="p">):</span>
-        <span class="n">m</span><span class="o">.</span><span class="n">Cdef</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">Cdef</span>
-
     <span class="n">m</span><span class="o">.</span><span class="n">TG</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">G</span><span class="p">)</span>
     <span class="n">m</span><span class="o">.</span><span class="n">thermal_Gmin</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">TG</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">g</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">.</span><span class="n">Gmin</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">})</span>
     <span class="n">m</span><span class="o">.</span><span class="n">thermal_Gmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">TG</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">g</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">.</span><span class="n">Gmax</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">})</span>
     <span class="n">m</span><span class="o">.</span><span class="n">thermal_Cost</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">TG</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">g</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">.</span><span class="n">Cost</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">})</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">thermal_bars</span> <span class="o">=</span> <span class="p">{</span><span class="n">g</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">g</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">}</span>
 
     <span class="k">return</span> <span class="n">m</span></div>
 
@@ -237,14 +232,6 @@
 
 <span class="sd">          * **m.p[g, t]** : generation [MW].</span>
 <span class="sd">          * **m.D[t]** : deficit [MW].</span>
-<span class="sd">          * **m.r[g, t]** : reserve [MW], optional.</span>
-<span class="sd">          * **m.Cvar[g, t]** : piecewise cost variable, optional.</span>
-
-<span class="sd">        - Binary:</span>
-
-<span class="sd">          * **m.u[g, t]** : commitment (on/off).</span>
-<span class="sd">          * **m.y[g, t]** : startup indicator.</span>
-<span class="sd">          * **m.w[g, t]** : shutdown indicator.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -256,25 +243,6 @@
 <span class="sd">    Variable p[UT1,1]</span>
 <span class="sd">    Domain: NonNegativeReals</span>
 
-<span class="sd">    Notes</span>
-<span class="sd">    -----</span>
-<span class="sd">    **Reserve modeling (**include_reserve=True**)**</span>
-
-<span class="sd">    - **Advantages**: Captures spinning reserve obligations; ensures reliability</span>
-<span class="sd">      under contingencies; critical for adequacy/security studies.</span>
-<span class="sd">    - **Trade-offs**: Increases model size with additional variables</span>
-<span class="sd">      **m.r[g, t]** and constraints; may slow down MILP/MIQP solution.</span>
-<span class="sd">    - **Guidance**: Use if reserve margins are central to the study; omit in</span>
-<span class="sd">      purely economic dispatch tests for simplicity.</span>
-
-<span class="sd">    **Piecewise costs (**use_pwl=True**)**4</span>
-<span class="sd">    </span>
-<span class="sd">    - **Advantages**: Converts quadratic costs to MILP form; exploits strong</span>
-<span class="sd">      LP relaxations; often faster and more scalable on large systems.</span>
-<span class="sd">    - **Trade-offs**: Approximation error unless sufficient breakpoints are</span>
-<span class="sd">      used; adds SOS2 or convex-combination variables, increasing model size.</span>
-<span class="sd">    - **Guidance**: Use when quadratic costs cannot be handled efficiently</span>
-<span class="sd">      by the chosen solver, or when MILP-only solvers are required.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Variáveis contínuas</span>
     <span class="n">m</span><span class="o">.</span><span class="n">thermal_p</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">TG</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>     <span class="c1"># geração</span>

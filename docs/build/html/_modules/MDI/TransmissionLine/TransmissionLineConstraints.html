@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MDI.TransmissionLine.TransmissionLineConstraints &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=05624691" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/katex.min.js?v=5cc8ed51"></script>
+      <script src="../../../_static/auto-render.min.js?v=af98beb9"></script>
+      <script src="../../../_static/katex_autorenderer.js?v=bebc588a"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NAIVE MODULES</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">USER GUIDE</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">MDI.TransmissionLine.TransmissionLineConstraints</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for MDI.TransmissionLine.TransmissionLineConstraints</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Module: Transmission Line — Constraints</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">Defines the physical and operational constraints for transmission</span>
+<span class="sd">lines in DC power flow formulations. These constraints link line</span>
+<span class="sd">flows to phase-angle differences through susceptance and limit</span>
+<span class="sd">the flow magnitude according to each line’s capacity.</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">add_transmission_line_flow_constraints(m)</span>
+<span class="sd">    Enforce the DC flow definition:</span>
+<span class="sd">    ``F_ij,t = b_ij (θ_i,t − θ_j,t)`` for all lines and time periods.</span>
+<span class="sd">add_transmission_line_flow_limits_constraints(m)</span>
+<span class="sd">    Apply the flow capacity limits:</span>
+<span class="sd">    ``−pmax_ij ≤ F_ij,t ≤ pmax_ij`` for all lines and time periods.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- Each line is characterized by:</span>
+<span class="sd">  - ``b_ij`` : susceptance (1/x_ij)</span>
+<span class="sd">  - ``pmax_ij`` : maximum active power flow (MW)</span>
+<span class="sd">  - ``endpoints`` : list of two bars [i, j]</span>
+<span class="sd">- These constraints are suitable for both static (operational)</span>
+<span class="sd">  and mixed-integer (expansion) formulations.</span>
+<span class="sd">- Phase angles ``θ_i,t`` and ``θ_j,t`` must exist in the model</span>
+<span class="sd">  before these constraints are declared.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.</span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</span>
+<span class="sd">    Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">Constraint</span><span class="p">,</span> <span class="n">ConcreteModel</span>
+
+<div class="viewcode-block" id="add_transmission_line_flow_constraints">
+<a class="viewcode-back" href="../../../MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineConstraints.add_transmission_line_flow_constraints">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_transmission_line_flow_constraints</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add DC flow definition constraints to the model with MILP-compatible linearization.</span>
+
+<span class="sd">    Enforces, for each line ``l``, time ``t``, and load level ``p``:</span>
+<span class="sd">        F[l,t,p] = b[l] * (θ[i,t,p] − θ[j,t,p]) * x[l,t]</span>
+
+<span class="sd">    To preserve MILP linearity, this relation is linearized using a Big-M formulation:</span>
+
+<span class="sd">        -M * (1 - x[l,t]) &lt;= F[l,t,p] - b[l]*(θ[i,t,p] - θ[j,t,p]) &lt;= M * (1 - x[l,t])</span>
+
+<span class="sd">    where:</span>
+<span class="sd">        M = lines_Fmax[l]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Model containing:</span>
+<span class="sd">        - ``m.LT`` : set of transmission lines</span>
+<span class="sd">        - ``m.T`` : set of time periods</span>
+<span class="sd">        - ``m.P`` : set of load levels</span>
+<span class="sd">        - ``m.lines_flow[l,t,p]`` : power flow variable (MW)</span>
+<span class="sd">        - ``m.lines_b[l]`` : line susceptance (1/x)</span>
+<span class="sd">        - ``m.lines_Fmax[l]`` : flow capacity (MW)</span>
+<span class="sd">        - ``m.lines_endpoints[l]`` : tuple/list [i, j]</span>
+<span class="sd">        - ``m.theta[b,t,p]`` : phase angle (radians)</span>
+<span class="sd">        - ``m.lines_x[l,t]`` : binary operational state (1 if built)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        Model with constraint block ``m.FlowDefinitionConstraint`` added.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The formulation ensures linearity by relaxing the DC flow equation</span>
+<span class="sd">      when the line is not built (x = 0).</span>
+<span class="sd">    - Flow limits (±Fmax) should already be enforced elsewhere.</span>
+<span class="sd">    - ``m.p_base`` (power base) is optional and defaults to 1 if not present.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_flow_rule_pos</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Upper inequality: F - b*(θ_i - θ_j) ≤ M*(1 - x)&quot;&quot;&quot;</span>
+        <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_endpoints</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_transmission_model</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;dc&quot;</span><span class="p">:</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_pmax</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">lines_flow</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span>
+                <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">p_base</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_b</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">])</span>
+                <span class="o">&lt;=</span> <span class="n">M</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_x</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_flow_rule_neg</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Lower inequality: F - b*(θ_i - θ_j) ≥ -M*(1 - x)&quot;&quot;&quot;</span>
+        <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_endpoints</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_transmission_model</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;dc&quot;</span><span class="p">:</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_pmax</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">lines_flow</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span>
+                <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">p_base</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_b</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">])</span>
+                <span class="o">&gt;=</span> <span class="o">-</span><span class="n">M</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_x</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+    <span class="c1"># Add constraints to model</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">FlowDefinitionConstraint_pos</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">LT</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_flow_rule_pos</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">FlowDefinitionConstraint_neg</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">LT</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_flow_rule_neg</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+<div class="viewcode-block" id="add_transmission_line_flow_limits_constraints">
+<a class="viewcode-back" href="../../../MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineConstraints.add_transmission_line_flow_limits_constraints">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_transmission_line_flow_limits_constraints</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add flow capacity limit constraints to the model.</span>
+
+<span class="sd">    For each line ``l`` and time period ``t``:</span>
+<span class="sd">    ``−pmax_ij ≤ F_ij,t ≤ pmax_ij``</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model containing:</span>
+<span class="sd">        - ``m.LT`` : set of transmission lines</span>
+<span class="sd">        - ``m.T`` : set of time periods</span>
+<span class="sd">        - ``m.lines_flow[l,t]`` : power flow variable (MW)</span>
+<span class="sd">        - ``m.lines_pmax[l]`` : maximum capacity (MW)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model with constraint block ``m.LinesFlowMaxLimitConstraint`` and </span>
+<span class="sd">        ``m.LinesFlowMinLimitConstraint``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The limit is symmetric (±pmax) and applies to both flow directions.</span>
+<span class="sd">    - These constraints should be added after</span>
+<span class="sd">      :func:`add_transmission_line_flow_constraints`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_flow_max_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_flow</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_pmax</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_x</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_flow_min_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_flow</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="n">m</span><span class="o">.</span><span class="n">lines_pmax</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_x</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+    
+    <span class="n">m</span><span class="o">.</span><span class="n">LinesFlowMaxLimitConstraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">LT</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_flow_max_rule</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">LinesFlowMinLimitConstraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">LT</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_flow_min_rule</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+
+<div class="viewcode-block" id="add_transmission_line_investment_link_constraints">
+<a class="viewcode-back" href="../../../MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineConstraints.add_transmission_line_investment_link_constraints">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_transmission_line_investment_link_constraints</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add the investment linkage constraint for transmission line units.</span>
+
+<span class="sd">    Defines the relationship between construction decisions and</span>
+<span class="sd">    operational availability across time periods.  </span>
+<span class="sd">    Ensures that the existence variable accumulates investments</span>
+<span class="sd">    over the planning horizon.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model instance containing the investment and operational variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The model with investment linkage and initial-state constraints applied.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_inv_initial_value_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_x</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_state</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">Constraint</span><span class="o">.</span><span class="n">Skip</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_inv_link_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_x</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_y</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_x</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_x</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">prev</span><span class="p">(</span><span class="n">t</span><span class="p">)]</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">lines_y</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">lines_initial_state_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">LT</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_inv_initial_value_rule</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">lines_investment_link_constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">LT</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_inv_link_rule</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

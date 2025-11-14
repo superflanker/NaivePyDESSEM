@@ -87,7 +87,7 @@ def print_welcome_banner():
     print(f"{Fore.CYAN}{Style.BRIGHT}" + "=" * 70)
     print(f"{Fore.YELLOW}{Style.BRIGHT}EELT 7030 — Operation and Expansion Planning of Electric Power Systems")
     print(f"{Fore.YELLOW}Federal University of Paraná (UFPR)\n")
-    print(f"{Fore.GREEN}{Style.BRIGHT}MDI: {Fore.CYAN}Generation Expandion Planning Solver CLI based on {Fore.MAGENTA}PyOMO{Style.RESET_ALL}\n")
+    print(f"{Fore.GREEN}{Style.BRIGHT}MDI: {Fore.CYAN}Gen/Trans Expansion Planning Solver CLI based on {Fore.MAGENTA}PyOMO{Style.RESET_ALL}\n")
     print(f"{Fore.BLUE}Author: {Fore.WHITE}{Style.BRIGHT}Augusto Mathias Adams {Fore.BLUE}<augusto.adams@ufpr.br>")
     print(f"{Fore.CYAN}{Style.BRIGHT}" + "=" * 70)
 
@@ -182,7 +182,6 @@ def main():
     save_dataframe(df, output_path)
 
     print(f"{Fore.CYAN}Results saved to:{Style.RESET_ALL} {output_path}")
-    print(df.head(10))
 
 
 if __name__ == '__main__':

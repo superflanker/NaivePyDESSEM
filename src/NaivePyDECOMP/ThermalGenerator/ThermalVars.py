@@ -119,16 +119,11 @@ def thermal_add_sets_and_params(m: ConcreteModel,
     if not hasattr(m, "T"):
         m.T = RangeSet(1, T)
 
-    if not hasattr(m, "d"):
-        m.d = Param(m.T, initialize=data.demand, within=NonNegativeReals)
-    
-    if not hasattr(m, "Cdef"):
-        m.Cdef = data.Cdef
-
     m.TG = Set(initialize=G)
     m.thermal_Gmin = Param(m.TG, initialize={g: data.units[g].Gmin for g in G})
     m.thermal_Gmax = Param(m.TG, initialize={g: data.units[g].Gmax for g in G})
     m.thermal_Cost = Param(m.TG, initialize={g: data.units[g].Cost for g in G})
+    m.thermal_bars = {g: data.units[g].bar for g in G}
 
     return m
 
@@ -154,14 +149,6 @@ def thermal_add_variables_uc(m):
 
           * **m.p[g, t]** : generation [MW].
           * **m.D[t]** : deficit [MW].
-          * **m.r[g, t]** : reserve [MW], optional.
-          * **m.Cvar[g, t]** : piecewise cost variable, optional.
-
-        - Binary:
-
-          * **m.u[g, t]** : commitment (on/off).
-          * **m.y[g, t]** : startup indicator.
-          * **m.w[g, t]** : shutdown indicator.
 
     Examples
     --------
@@ -173,25 +160,6 @@ def thermal_add_variables_uc(m):
     Variable p[UT1,1]
     Domain: NonNegativeReals
 
-    Notes
-    -----
-    **Reserve modeling (**include_reserve=True**)**
-
-    - **Advantages**: Captures spinning reserve obligations; ensures reliability
-      under contingencies; critical for adequacy/security studies.
-    - **Trade-offs**: Increases model size with additional variables
-      **m.r[g, t]** and constraints; may slow down MILP/MIQP solution.
-    - **Guidance**: Use if reserve margins are central to the study; omit in
-      purely economic dispatch tests for simplicity.
-
-    **Piecewise costs (**use_pwl=True**)**4
-    
-    - **Advantages**: Converts quadratic costs to MILP form; exploits strong
-      LP relaxations; often faster and more scalable on large systems.
-    - **Trade-offs**: Approximation error unless sufficient breakpoints are
-      used; adds SOS2 or convex-combination variables, increasing model size.
-    - **Guidance**: Use when quadratic costs cannot be handled efficiently
-      by the chosen solver, or when MILP-only solvers are required.
     """
     # Variáveis contínuas
     m.thermal_p = Var(m.TG, m.T, domain=NonNegativeReals)     # geração

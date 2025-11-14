@@ -17,6 +17,8 @@ Subpackages
 
    MDI.Generator
    MDI.Storage
+   MDI.ConnectionBar
+   MDI.TransmissionLine
    MDI.cli
 
 Submodules

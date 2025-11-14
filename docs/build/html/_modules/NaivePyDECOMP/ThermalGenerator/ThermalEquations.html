@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -132,7 +132,7 @@
 <span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span> <span class="n">Expression</span>
 
 
@@ -176,8 +176,8 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">add_thermal_balance_expression</span><span class="p">(</span>
     <span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span>
     <span class="n">t</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>  <span class="c1"># normalmente int</span>
-    <span class="n">balance_array</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+    <span class="n">balance_array</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Append the thermal generation expression at a given time step t</span>
 <span class="sd">    to the balance equation expression list.</span>
@@ -201,7 +201,11 @@
 <span class="sd">        The updated list including the thermal power contribution at time t.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s1">&#39;TG&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s1">&#39;thermal_p&#39;</span><span class="p">):</span>
-        <span class="n">balance_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">thermal_p</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">TG</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">TG</span><span class="p">:</span>
+            <span class="n">bar</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">thermal_bars</span><span class="p">[</span><span class="n">g</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">bar</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">balance_array</span><span class="p">:</span>
+                <span class="n">balance_array</span><span class="p">[</span><span class="n">bar</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="n">balance_array</span><span class="p">[</span><span class="n">bar</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">thermal_p</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">balance_array</span></div>
 
 

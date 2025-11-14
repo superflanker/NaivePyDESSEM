@@ -3,153 +3,432 @@
 ## 📂 Project Structure
 
 ```text
+├── dist
+│   ├── naivepydessem-0.1.3-py3-none-any.whl
+│   ├── naivepydessem-0.1.3.tar.gz
+│   ├── naivepydessem-0.1.4-py3-none-any.whl
+│   └── naivepydessem-0.1.4.tar.gz
 ├── docs
 │   ├── build
 │   │   ├── doctrees
 │   │   │   ├── environment.pickle
+│   │   │   ├── executive_summary.doctree
 │   │   │   ├── index.doctree
 │   │   │   ├── MDI.cli.doctree
+│   │   │   ├── MDI.ConnectionBar.doctree
 │   │   │   ├── MDI.doctree
 │   │   │   ├── MDI.Generator.doctree
 │   │   │   ├── MDI.Storage.doctree
+│   │   │   ├── MDI.TransmissionLine.doctree
 │   │   │   ├── modules.doctree
 │   │   │   ├── NaivePyDECOMP.cli.doctree
+│   │   │   ├── NaivePyDECOMP.ConnectionBar.doctree
 │   │   │   ├── NaivePyDECOMP.doctree
 │   │   │   ├── NaivePyDECOMP.HydraulicGenerator.doctree
 │   │   │   ├── NaivePyDECOMP.RenewableGenerator.doctree
 │   │   │   ├── NaivePyDECOMP.Storage.doctree
 │   │   │   ├── NaivePyDECOMP.ThermalGenerator.doctree
+│   │   │   ├── NaivePyDECOMP.TransmissionLine.doctree
 │   │   │   ├── NaivePyDESSEM.cli.doctree
+│   │   │   ├── NaivePyDESSEM.ConnectionBar.doctree
 │   │   │   ├── NaivePyDESSEM.doctree
 │   │   │   ├── NaivePyDESSEM.HydraulicGenerator.doctree
 │   │   │   ├── NaivePyDESSEM.RenewableGenerator.doctree
 │   │   │   ├── NaivePyDESSEM.Storage.doctree
 │   │   │   ├── NaivePyDESSEM.ThermalGenerator.doctree
-│   │   │   └── README.doctree
-│   │   └── html
-│   │       ├── _modules
-│   │       │   ├── MDI
-│   │       │   │   ├── cli
-│   │       │   │   │   ├── cli.html
-│   │       │   │   │   └── plot_cli.html
-│   │       │   │   ├── Generator
-│   │       │   │   │   ├── GeneratorBuilder.html
-│   │       │   │   │   ├── GeneratorConstraints.html
-│   │       │   │   │   ├── GeneratorDataTypes.html
-│   │       │   │   │   ├── GeneratorEquations.html
-│   │       │   │   │   ├── GeneratorObjectives.html
-│   │       │   │   │   └── GeneratorVars.html
-│   │       │   │   ├── Storage
-│   │       │   │   │   ├── StorageBuilder.html
-│   │       │   │   │   ├── StorageConstraints.html
-│   │       │   │   │   ├── StorageDataTypes.html
-│   │       │   │   │   ├── StorageEquations.html
-│   │       │   │   │   ├── StorageObjective.html
-│   │       │   │   │   └── StorageVars.html
-│   │       │   │   ├── Builder.html
-│   │       │   │   ├── DataFrames.html
-│   │       │   │   ├── ModelCheck.html
-│   │       │   │   ├── ModelFormatters.html
-│   │       │   │   ├── Reporting.html
-│   │       │   │   └── Solver.html
-│   │       │   ├── NaivePyDECOMP
-│   │       │   │   ├── cli
-│   │       │   │   │   ├── cli.html
-│   │       │   │   │   ├── pddd_cli.html
-│   │       │   │   │   └── plot_cli.html
-│   │       │   │   ├── HydraulicGenerator
-│   │       │   │   │   ├── HydraulicConstraints.html
-│   │       │   │   │   ├── HydraulicDataTypes.html
-│   │       │   │   │   ├── HydraulicGeneratorBuilder.html
-│   │       │   │   │   └── HydraulicVars.html
-│   │       │   │   ├── RenewableGenerator
-│   │       │   │   │   └── RenewableGeneratorBuilder.html
-│   │       │   │   ├── Storage
-│   │       │   │   │   └── StorageBuilder.html
-│   │       │   │   ├── ThermalGenerator
-│   │       │   │   │   ├── ThermalConstraints.html
-│   │       │   │   │   ├── ThermalDataTypes.html
-│   │       │   │   │   ├── ThermalEquations.html
-│   │       │   │   │   ├── ThermalGeneratorBuilder.html
-│   │       │   │   │   ├── ThermalObjectives.html
-│   │       │   │   │   └── ThermalVars.html
-│   │       │   │   ├── Builder.html
-│   │       │   │   ├── BuilderPDDD.html
-│   │       │   │   ├── DataFrames.html
-│   │       │   │   ├── ModelCheck.html
-│   │       │   │   ├── ModelFormatters.html
-│   │       │   │   ├── PDDDMergeModels.html
-│   │       │   │   ├── Reporting.html
-│   │       │   │   ├── Solver.html
-│   │       │   │   └── SolverPDDD.html
-│   │       │   ├── NaivePyDESSEM
-│   │       │   │   ├── cli
-│   │       │   │   │   ├── cli.html
-│   │       │   │   │   └── plot_cli.html
-│   │       │   │   ├── HydraulicGenerator
-│   │       │   │   │   ├── ConstantProductivityFPH.html
-│   │       │   │   │   ├── ExactFPH.html
-│   │       │   │   │   ├── HydraulicConstraints.html
-│   │       │   │   │   ├── HydraulicDataTypes.html
-│   │       │   │   │   ├── HydraulicEquations.html
-│   │       │   │   │   ├── HydraulicGeneratorBuilder.html
-│   │       │   │   │   ├── HydraulicObjectives.html
-│   │       │   │   │   ├── HydraulicVars.html
-│   │       │   │   │   ├── PEFPH.html
-│   │       │   │   │   └── SimplifiedConstantProductivityFPH.html
-│   │       │   │   ├── RenewableGenerator
-│   │       │   │   │   ├── RenewableConstraints.html
-│   │       │   │   │   ├── RenewableDataTypes.html
-│   │       │   │   │   ├── RenewableEquations.html
-│   │       │   │   │   ├── RenewableGeneratorBuilder.html
-│   │       │   │   │   ├── RenewableObjectives.html
-│   │       │   │   │   └── RenewableVars.html
-│   │       │   │   ├── Storage
-│   │       │   │   │   ├── StorageBuilder.html
-│   │       │   │   │   ├── StorageConstraints.html
-│   │       │   │   │   ├── StorageDataTypes.html
-│   │       │   │   │   ├── StorageEquations.html
-│   │       │   │   │   ├── StorageObjective.html
-│   │       │   │   │   └── StorageVars.html
-│   │       │   │   ├── ThermalGenerator
-│   │       │   │   │   ├── ThermalConstraints.html
-│   │       │   │   │   ├── ThermalDataTypes.html
-│   │       │   │   │   ├── ThermalEquations.html
-│   │       │   │   │   ├── ThermalGeneratorBuilder.html
-│   │       │   │   │   ├── ThermalObjectives.html
-│   │       │   │   │   ├── ThermalPieceWise.html
-│   │       │   │   │   └── ThermalVars.html
-│   │       │   │   ├── Builder.html
-│   │       │   │   ├── DataFrames.html
-│   │       │   │   ├── Formatters.html
-│   │       │   │   ├── ModelCheck.html
-│   │       │   │   ├── ModelFormatters.html
-│   │       │   │   ├── PlotSeries.html
-│   │       │   │   ├── Reporting.html
-│   │       │   │   ├── Solver.html
-│   │       │   │   ├── Utils.html
-│   │       │   │   └── YAMLLoader.html
-│   │       │   └── index.html
-│   │       ├── _sources
-│   │       │   ├── index.rst.txt
-│   │       │   ├── MDI.cli.rst.txt
-│   │       │   ├── MDI.Generator.rst.txt
-│   │       │   ├── MDI.rst.txt
-│   │       │   ├── MDI.Storage.rst.txt
-│   │       │   ├── modules.rst.txt
-│   │       │   ├── NaivePyDECOMP.cli.rst.txt
-│   │       │   ├── NaivePyDECOMP.HydraulicGenerator.rst.txt
-│   │       │   ├── NaivePyDECOMP.RenewableGenerator.rst.txt
-│   │       │   ├── NaivePyDECOMP.rst.txt
-│   │       │   ├── NaivePyDECOMP.Storage.rst.txt
-│   │       │   ├── NaivePyDECOMP.ThermalGenerator.rst.txt
-│   │       │   ├── NaivePyDESSEM.cli.rst.txt
-│   │       │   ├── NaivePyDESSEM.HydraulicGenerator.rst.txt
-│   │       │   ├── NaivePyDESSEM.RenewableGenerator.rst.txt
-│   │       │   ├── NaivePyDESSEM.rst.txt
-│   │       │   ├── NaivePyDESSEM.Storage.rst.txt
-│   │       │   ├── NaivePyDESSEM.ThermalGenerator.rst.txt
-│   │       │   └── README.md.txt
+│   │   │   ├── NaivePyDESSEM.TransmissionLine.doctree
+│   │   │   ├── README.doctree
+│   │   │   ├── topics_on_planning_and_expansion_of_power_systems.doctree
+│   │   │   └── userguide.doctree
+│   │   ├── epub
+│   │   │   ├── _images
+│   │   │   │   ├── badge.svg
+│   │   │   │   ├── badge1.svg
+│   │   │   │   ├── GitHub-NaivePyDESSEM-181717.svg
+│   │   │   │   └── License-GPLv3-blue.svg
+│   │   │   ├── _static
+│   │   │   │   ├── basic.css
+│   │   │   │   ├── doctools.js
+│   │   │   │   ├── documentation_options.js
+│   │   │   │   ├── epub.css
+│   │   │   │   ├── file.png
+│   │   │   │   ├── language_data.js
+│   │   │   │   ├── minus.png
+│   │   │   │   ├── plus.png
+│   │   │   │   ├── pygments.css
+│   │   │   │   ├── searchtools.js
+│   │   │   │   └── sphinx_highlight.js
+│   │   │   ├── META-INF
+│   │   │   │   └── container.xml
+│   │   │   ├── UserGuide
+│   │   │   │   ├── introduction.xhtml
+│   │   │   │   └── userguide.xhtml
+│   │   │   ├── content.opf
+│   │   │   ├── genindex.xhtml
+│   │   │   ├── index.xhtml
+│   │   │   ├── MDI.cli.xhtml
+│   │   │   ├── MDI.Generator.xhtml
+│   │   │   ├── MDI.Storage.xhtml
+│   │   │   ├── MDI.xhtml
+│   │   │   ├── mimetype
+│   │   │   ├── modules.xhtml
+│   │   │   ├── NaivePyDECOMP.cli.xhtml
+│   │   │   ├── NaivePyDECOMP.HydraulicGenerator.xhtml
+│   │   │   ├── NaivePyDECOMP.RenewableGenerator.xhtml
+│   │   │   ├── NaivePyDECOMP.Storage.xhtml
+│   │   │   ├── NaivePyDECOMP.ThermalGenerator.xhtml
+│   │   │   ├── NaivePyDECOMP.xhtml
+│   │   │   ├── NaivePyDESSEM.cli.xhtml
+│   │   │   ├── NaivePyDESSEM.epub
+│   │   │   ├── NaivePyDESSEM.HydraulicGenerator.xhtml
+│   │   │   ├── NaivePyDESSEM.RenewableGenerator.xhtml
+│   │   │   ├── NaivePyDESSEM.Storage.xhtml
+│   │   │   ├── NaivePyDESSEM.ThermalGenerator.xhtml
+│   │   │   ├── NaivePyDESSEM.xhtml
+│   │   │   ├── nav.xhtml
+│   │   │   ├── py-modindex.xhtml
+│   │   │   ├── README.xhtml
+│   │   │   └── toc.ncx
+│   │   ├── html
+│   │   │   ├── _images
+│   │   │   │   └── organogram.png
+│   │   │   ├── _modules
+│   │   │   │   ├── MDI
+│   │   │   │   │   ├── cli
+│   │   │   │   │   │   ├── cli.html
+│   │   │   │   │   │   └── plot_cli.html
+│   │   │   │   │   ├── ConnectionBar
+│   │   │   │   │   │   ├── ConnectionBarBuilder.html
+│   │   │   │   │   │   ├── ConnectionBarConstraints.html
+│   │   │   │   │   │   ├── ConnectionBarDataTypes.html
+│   │   │   │   │   │   ├── ConnectionBarEquations.html
+│   │   │   │   │   │   └── ConnectionBarVars.html
+│   │   │   │   │   ├── Generator
+│   │   │   │   │   │   ├── GeneratorBuilder.html
+│   │   │   │   │   │   ├── GeneratorConstraints.html
+│   │   │   │   │   │   ├── GeneratorDataTypes.html
+│   │   │   │   │   │   ├── GeneratorEquations.html
+│   │   │   │   │   │   ├── GeneratorObjectives.html
+│   │   │   │   │   │   └── GeneratorVars.html
+│   │   │   │   │   ├── Storage
+│   │   │   │   │   │   ├── StorageBuilder.html
+│   │   │   │   │   │   ├── StorageConstraints.html
+│   │   │   │   │   │   ├── StorageDataTypes.html
+│   │   │   │   │   │   ├── StorageEquations.html
+│   │   │   │   │   │   ├── StorageObjective.html
+│   │   │   │   │   │   └── StorageVars.html
+│   │   │   │   │   ├── TransmissionLine
+│   │   │   │   │   │   ├── TransmissionLineBuilder.html
+│   │   │   │   │   │   ├── TransmissionLineConstraints.html
+│   │   │   │   │   │   ├── TransmissionLineDataTypes.html
+│   │   │   │   │   │   ├── TransmissionLineEquations.html
+│   │   │   │   │   │   └── TransmissionLineVars.html
+│   │   │   │   │   ├── Builder.html
+│   │   │   │   │   ├── DataFrames.html
+│   │   │   │   │   ├── ModelCheck.html
+│   │   │   │   │   ├── ModelFormatters.html
+│   │   │   │   │   ├── Reporting.html
+│   │   │   │   │   └── Solver.html
+│   │   │   │   ├── NaivePyDECOMP
+│   │   │   │   │   ├── cli
+│   │   │   │   │   │   ├── cli.html
+│   │   │   │   │   │   ├── pddd_cli.html
+│   │   │   │   │   │   └── plot_cli.html
+│   │   │   │   │   ├── ConnectionBar
+│   │   │   │   │   │   ├── ConnectionBarBuilder.html
+│   │   │   │   │   │   ├── ConnectionBarConstraints.html
+│   │   │   │   │   │   └── ConnectionBarEquations.html
+│   │   │   │   │   ├── HydraulicGenerator
+│   │   │   │   │   │   ├── HydraulicConstraints.html
+│   │   │   │   │   │   ├── HydraulicDataTypes.html
+│   │   │   │   │   │   ├── HydraulicGeneratorBuilder.html
+│   │   │   │   │   │   └── HydraulicVars.html
+│   │   │   │   │   ├── RenewableGenerator
+│   │   │   │   │   │   └── RenewableGeneratorBuilder.html
+│   │   │   │   │   ├── Storage
+│   │   │   │   │   │   └── StorageBuilder.html
+│   │   │   │   │   ├── ThermalGenerator
+│   │   │   │   │   │   ├── ThermalConstraints.html
+│   │   │   │   │   │   ├── ThermalDataTypes.html
+│   │   │   │   │   │   ├── ThermalEquations.html
+│   │   │   │   │   │   ├── ThermalGeneratorBuilder.html
+│   │   │   │   │   │   ├── ThermalObjectives.html
+│   │   │   │   │   │   └── ThermalVars.html
+│   │   │   │   │   ├── TransmissionLine
+│   │   │   │   │   │   └── TransmissionLineBuilder.html
+│   │   │   │   │   ├── Builder.html
+│   │   │   │   │   ├── BuilderPDDD.html
+│   │   │   │   │   ├── DataFrames.html
+│   │   │   │   │   ├── ModelCheck.html
+│   │   │   │   │   ├── ModelFormatters.html
+│   │   │   │   │   ├── PDDDMergeModels.html
+│   │   │   │   │   ├── Reporting.html
+│   │   │   │   │   ├── Solver.html
+│   │   │   │   │   └── SolverPDDD.html
+│   │   │   │   ├── NaivePyDESSEM
+│   │   │   │   │   ├── cli
+│   │   │   │   │   │   ├── cli.html
+│   │   │   │   │   │   └── plot_cli.html
+│   │   │   │   │   ├── ConnectionBar
+│   │   │   │   │   │   ├── ConnectionBarBuilder.html
+│   │   │   │   │   │   ├── ConnectionBarConstraints.html
+│   │   │   │   │   │   ├── ConnectionBarDataTypes.html
+│   │   │   │   │   │   ├── ConnectionBarEquations.html
+│   │   │   │   │   │   └── ConnectionBarVars.html
+│   │   │   │   │   ├── HydraulicGenerator
+│   │   │   │   │   │   ├── ConstantProductivityFPH.html
+│   │   │   │   │   │   ├── ExactFPH.html
+│   │   │   │   │   │   ├── HydraulicConstraints.html
+│   │   │   │   │   │   ├── HydraulicDataTypes.html
+│   │   │   │   │   │   ├── HydraulicEquations.html
+│   │   │   │   │   │   ├── HydraulicGeneratorBuilder.html
+│   │   │   │   │   │   ├── HydraulicObjectives.html
+│   │   │   │   │   │   ├── HydraulicVars.html
+│   │   │   │   │   │   ├── PEFPH.html
+│   │   │   │   │   │   └── SimplifiedConstantProductivityFPH.html
+│   │   │   │   │   ├── RenewableGenerator
+│   │   │   │   │   │   ├── RenewableConstraints.html
+│   │   │   │   │   │   ├── RenewableDataTypes.html
+│   │   │   │   │   │   ├── RenewableEquations.html
+│   │   │   │   │   │   ├── RenewableGeneratorBuilder.html
+│   │   │   │   │   │   ├── RenewableObjectives.html
+│   │   │   │   │   │   └── RenewableVars.html
+│   │   │   │   │   ├── Storage
+│   │   │   │   │   │   ├── StorageBuilder.html
+│   │   │   │   │   │   ├── StorageConstraints.html
+│   │   │   │   │   │   ├── StorageDataTypes.html
+│   │   │   │   │   │   ├── StorageEquations.html
+│   │   │   │   │   │   ├── StorageObjective.html
+│   │   │   │   │   │   └── StorageVars.html
+│   │   │   │   │   ├── ThermalGenerator
+│   │   │   │   │   │   ├── ThermalConstraints.html
+│   │   │   │   │   │   ├── ThermalDataTypes.html
+│   │   │   │   │   │   ├── ThermalEquations.html
+│   │   │   │   │   │   ├── ThermalGeneratorBuilder.html
+│   │   │   │   │   │   ├── ThermalObjectives.html
+│   │   │   │   │   │   ├── ThermalPieceWise.html
+│   │   │   │   │   │   └── ThermalVars.html
+│   │   │   │   │   ├── TransmissionLine
+│   │   │   │   │   │   ├── TransmissionLineBuilder.html
+│   │   │   │   │   │   ├── TransmissionLineConstraints.html
+│   │   │   │   │   │   ├── TransmissionLineDataTypes.html
+│   │   │   │   │   │   ├── TransmissionLineEquations.html
+│   │   │   │   │   │   └── TransmissionLineVars.html
+│   │   │   │   │   ├── Builder.html
+│   │   │   │   │   ├── DataFrames.html
+│   │   │   │   │   ├── Formatters.html
+│   │   │   │   │   ├── ModelCheck.html
+│   │   │   │   │   ├── ModelFormatters.html
+│   │   │   │   │   ├── PlotSeries.html
+│   │   │   │   │   ├── Reporting.html
+│   │   │   │   │   ├── Solver.html
+│   │   │   │   │   ├── Utils.html
+│   │   │   │   │   └── YAMLLoader.html
+│   │   │   │   └── index.html
+│   │   │   ├── _sources
+│   │   │   │   ├── executive_summary.md.txt
+│   │   │   │   ├── index.rst.txt
+│   │   │   │   ├── MDI.cli.rst.txt
+│   │   │   │   ├── MDI.ConnectionBar.rst.txt
+│   │   │   │   ├── MDI.Generator.rst.txt
+│   │   │   │   ├── MDI.rst.txt
+│   │   │   │   ├── MDI.Storage.rst.txt
+│   │   │   │   ├── MDI.TransmissionLine.rst.txt
+│   │   │   │   ├── modules.rst.txt
+│   │   │   │   ├── NaivePyDECOMP.cli.rst.txt
+│   │   │   │   ├── NaivePyDECOMP.ConnectionBar.rst.txt
+│   │   │   │   ├── NaivePyDECOMP.HydraulicGenerator.rst.txt
+│   │   │   │   ├── NaivePyDECOMP.RenewableGenerator.rst.txt
+│   │   │   │   ├── NaivePyDECOMP.rst.txt
+│   │   │   │   ├── NaivePyDECOMP.Storage.rst.txt
+│   │   │   │   ├── NaivePyDECOMP.ThermalGenerator.rst.txt
+│   │   │   │   ├── NaivePyDECOMP.TransmissionLine.rst.txt
+│   │   │   │   ├── NaivePyDESSEM.cli.rst.txt
+│   │   │   │   ├── NaivePyDESSEM.ConnectionBar.rst.txt
+│   │   │   │   ├── NaivePyDESSEM.HydraulicGenerator.rst.txt
+│   │   │   │   ├── NaivePyDESSEM.RenewableGenerator.rst.txt
+│   │   │   │   ├── NaivePyDESSEM.rst.txt
+│   │   │   │   ├── NaivePyDESSEM.Storage.rst.txt
+│   │   │   │   ├── NaivePyDESSEM.ThermalGenerator.rst.txt
+│   │   │   │   ├── NaivePyDESSEM.TransmissionLine.rst.txt
+│   │   │   │   ├── README.md.txt
+│   │   │   │   ├── topics_on_planning_and_expansion_of_power_systems.md.txt
+│   │   │   │   └── userguide.md.txt
+│   │   │   ├── _static
+│   │   │   │   ├── css
+│   │   │   │   │   ├── fonts
+│   │   │   │   │   │   ├── fontawesome-webfont.eot
+│   │   │   │   │   │   ├── fontawesome-webfont.svg
+│   │   │   │   │   │   ├── fontawesome-webfont.ttf
+│   │   │   │   │   │   ├── fontawesome-webfont.woff
+│   │   │   │   │   │   ├── fontawesome-webfont.woff2
+│   │   │   │   │   │   ├── lato-bold-italic.woff
+│   │   │   │   │   │   ├── lato-bold-italic.woff2
+│   │   │   │   │   │   ├── lato-bold.woff
+│   │   │   │   │   │   ├── lato-bold.woff2
+│   │   │   │   │   │   ├── lato-normal-italic.woff
+│   │   │   │   │   │   ├── lato-normal-italic.woff2
+│   │   │   │   │   │   ├── lato-normal.woff
+│   │   │   │   │   │   ├── lato-normal.woff2
+│   │   │   │   │   │   ├── Roboto-Slab-Bold.woff
+│   │   │   │   │   │   ├── Roboto-Slab-Bold.woff2
+│   │   │   │   │   │   ├── Roboto-Slab-Regular.woff
+│   │   │   │   │   │   └── Roboto-Slab-Regular.woff2
+│   │   │   │   │   ├── badge_only.css
+│   │   │   │   │   └── theme.css
+│   │   │   │   ├── fonts
+│   │   │   │   │   ├── Lato
+│   │   │   │   │   │   ├── lato-bold.eot
+│   │   │   │   │   │   ├── lato-bold.ttf
+│   │   │   │   │   │   ├── lato-bold.woff
+│   │   │   │   │   │   ├── lato-bold.woff2
+│   │   │   │   │   │   ├── lato-bolditalic.eot
+│   │   │   │   │   │   ├── lato-bolditalic.ttf
+│   │   │   │   │   │   ├── lato-bolditalic.woff
+│   │   │   │   │   │   ├── lato-bolditalic.woff2
+│   │   │   │   │   │   ├── lato-italic.eot
+│   │   │   │   │   │   ├── lato-italic.ttf
+│   │   │   │   │   │   ├── lato-italic.woff
+│   │   │   │   │   │   ├── lato-italic.woff2
+│   │   │   │   │   │   ├── lato-regular.eot
+│   │   │   │   │   │   ├── lato-regular.ttf
+│   │   │   │   │   │   ├── lato-regular.woff
+│   │   │   │   │   │   └── lato-regular.woff2
+│   │   │   │   │   └── RobotoSlab
+│   │   │   │   │       ├── roboto-slab-v7-bold.eot
+│   │   │   │   │       ├── roboto-slab-v7-bold.ttf
+│   │   │   │   │       ├── roboto-slab-v7-bold.woff
+│   │   │   │   │       ├── roboto-slab-v7-bold.woff2
+│   │   │   │   │       ├── roboto-slab-v7-regular.eot
+│   │   │   │   │       ├── roboto-slab-v7-regular.ttf
+│   │   │   │   │       ├── roboto-slab-v7-regular.woff
+│   │   │   │   │       └── roboto-slab-v7-regular.woff2
+│   │   │   │   ├── js
+│   │   │   │   │   ├── badge_only.js
+│   │   │   │   │   ├── theme.js
+│   │   │   │   │   └── versions.js
+│   │   │   │   ├── _sphinx_javascript_frameworks_compat.js
+│   │   │   │   ├── auto-render.min.js
+│   │   │   │   ├── basic.css
+│   │   │   │   ├── doctools.js
+│   │   │   │   ├── documentation_options.js
+│   │   │   │   ├── file.png
+│   │   │   │   ├── jquery.js
+│   │   │   │   ├── katex-math.css
+│   │   │   │   ├── katex.min.js
+│   │   │   │   ├── katex_autorenderer.js
+│   │   │   │   ├── language_data.js
+│   │   │   │   ├── minus.png
+│   │   │   │   ├── plus.png
+│   │   │   │   ├── pygments.css
+│   │   │   │   ├── searchtools.js
+│   │   │   │   └── sphinx_highlight.js
+│   │   │   ├── executive_summary.html
+│   │   │   ├── genindex.html
+│   │   │   ├── index.html
+│   │   │   ├── MDI.cli.html
+│   │   │   ├── MDI.ConnectionBar.html
+│   │   │   ├── MDI.Generator.html
+│   │   │   ├── MDI.html
+│   │   │   ├── MDI.Storage.html
+│   │   │   ├── MDI.TransmissionLine.html
+│   │   │   ├── modules.html
+│   │   │   ├── NaivePyDECOMP.cli.html
+│   │   │   ├── NaivePyDECOMP.ConnectionBar.html
+│   │   │   ├── NaivePyDECOMP.html
+│   │   │   ├── NaivePyDECOMP.HydraulicGenerator.html
+│   │   │   ├── NaivePyDECOMP.RenewableGenerator.html
+│   │   │   ├── NaivePyDECOMP.Storage.html
+│   │   │   ├── NaivePyDECOMP.ThermalGenerator.html
+│   │   │   ├── NaivePyDECOMP.TransmissionLine.html
+│   │   │   ├── NaivePyDESSEM.cli.html
+│   │   │   ├── NaivePyDESSEM.ConnectionBar.html
+│   │   │   ├── NaivePyDESSEM.html
+│   │   │   ├── NaivePyDESSEM.HydraulicGenerator.html
+│   │   │   ├── NaivePyDESSEM.RenewableGenerator.html
+│   │   │   ├── NaivePyDESSEM.Storage.html
+│   │   │   ├── NaivePyDESSEM.ThermalGenerator.html
+│   │   │   ├── NaivePyDESSEM.TransmissionLine.html
+│   │   │   ├── objects.inv
+│   │   │   ├── py-modindex.html
+│   │   │   ├── README.html
+│   │   │   ├── search.html
+│   │   │   ├── searchindex.js
+│   │   │   ├── topics_on_planning_and_expansion_of_power_systems.html
+│   │   │   └── userguide.html
+│   │   ├── latex
+│   │   │   ├── badge.png
+│   │   │   ├── badge1.png
+│   │   │   ├── GitHub-NaivePyDESSEM-181717.png
+│   │   │   ├── latexmkjarc
+│   │   │   ├── latexmkrc
+│   │   │   ├── LatinRules.xdy
+│   │   │   ├── License-GPLv3-blue.png
+│   │   │   ├── LICRcyr2utf8.xdy
+│   │   │   ├── LICRlatin2utf8.xdy
+│   │   │   ├── make.bat
+│   │   │   ├── Makefile
+│   │   │   ├── naivepydessem.aux
+│   │   │   ├── naivepydessem.fdb_latexmk
+│   │   │   ├── naivepydessem.fls
+│   │   │   ├── naivepydessem.idx
+│   │   │   ├── naivepydessem.ilg
+│   │   │   ├── naivepydessem.ind
+│   │   │   ├── naivepydessem.log
+│   │   │   ├── naivepydessem.out
+│   │   │   ├── naivepydessem.pdf
+│   │   │   ├── naivepydessem.tex
+│   │   │   ├── naivepydessem.toc
+│   │   │   ├── python.ist
+│   │   │   ├── sphinx.sty
+│   │   │   ├── sphinx.xdy
+│   │   │   ├── sphinxhighlight.sty
+│   │   │   ├── sphinxhowto.cls
+│   │   │   ├── sphinxlatexadmonitions.sty
+│   │   │   ├── sphinxlatexcontainers.sty
+│   │   │   ├── sphinxlatexgraphics.sty
+│   │   │   ├── sphinxlatexindbibtoc.sty
+│   │   │   ├── sphinxlatexlists.sty
+│   │   │   ├── sphinxlatexliterals.sty
+│   │   │   ├── sphinxlatexnumfig.sty
+│   │   │   ├── sphinxlatexobjects.sty
+│   │   │   ├── sphinxlatexshadowbox.sty
+│   │   │   ├── sphinxlatexstyleheadings.sty
+│   │   │   ├── sphinxlatexstylepage.sty
+│   │   │   ├── sphinxlatexstyletext.sty
+│   │   │   ├── sphinxlatextables.sty
+│   │   │   ├── sphinxmanual.cls
+│   │   │   ├── sphinxmessages.sty
+│   │   │   ├── sphinxoptionsgeometry.sty
+│   │   │   ├── sphinxoptionshyperref.sty
+│   │   │   ├── sphinxpackageboxes.sty
+│   │   │   ├── sphinxpackagecyrillic.sty
+│   │   │   ├── sphinxpackagefootnote.sty
+│   │   │   └── sphinxpackagesubstitutefont.sty
+│   │   ├── markdown
+│   │   │   ├── UserGuide
+│   │   │   │   ├── introduction.md
+│   │   │   │   └── userguide.md
+│   │   │   ├── index.md
+│   │   │   ├── MDI.cli.md
+│   │   │   ├── MDI.Generator.md
+│   │   │   ├── MDI.md
+│   │   │   ├── MDI.Storage.md
+│   │   │   ├── modules.md
+│   │   │   ├── NaivePyDECOMP.cli.md
+│   │   │   ├── NaivePyDECOMP.HydraulicGenerator.md
+│   │   │   ├── NaivePyDECOMP.md
+│   │   │   ├── NaivePyDECOMP.RenewableGenerator.md
+│   │   │   ├── NaivePyDECOMP.Storage.md
+│   │   │   ├── NaivePyDECOMP.ThermalGenerator.md
+│   │   │   ├── NaivePyDESSEM.cli.md
+│   │   │   ├── NaivePyDESSEM.HydraulicGenerator.md
+│   │   │   ├── NaivePyDESSEM.md
+│   │   │   ├── NaivePyDESSEM.RenewableGenerator.md
+│   │   │   ├── NaivePyDESSEM.Storage.md
+│   │   │   ├── NaivePyDESSEM.ThermalGenerator.md
+│   │   │   └── README.md
+│   │   └── singlehtml
 │   │       ├── _static
 │   │       │   ├── css
 │   │       │   │   ├── fonts
@@ -215,51 +494,42 @@
 │   │       │   ├── pygments.css
 │   │       │   ├── searchtools.js
 │   │       │   └── sphinx_highlight.js
-│   │       ├── genindex.html
 │   │       ├── index.html
-│   │       ├── MDI.cli.html
-│   │       ├── MDI.Generator.html
-│   │       ├── MDI.html
-│   │       ├── MDI.Storage.html
-│   │       ├── modules.html
-│   │       ├── NaivePyDECOMP.cli.html
-│   │       ├── NaivePyDECOMP.html
-│   │       ├── NaivePyDECOMP.HydraulicGenerator.html
-│   │       ├── NaivePyDECOMP.RenewableGenerator.html
-│   │       ├── NaivePyDECOMP.Storage.html
-│   │       ├── NaivePyDECOMP.ThermalGenerator.html
-│   │       ├── NaivePyDESSEM.cli.html
-│   │       ├── NaivePyDESSEM.html
-│   │       ├── NaivePyDESSEM.HydraulicGenerator.html
-│   │       ├── NaivePyDESSEM.RenewableGenerator.html
-│   │       ├── NaivePyDESSEM.Storage.html
-│   │       ├── NaivePyDESSEM.ThermalGenerator.html
-│   │       ├── objects.inv
-│   │       ├── py-modindex.html
-│   │       ├── README.html
-│   │       ├── search.html
-│   │       └── searchindex.js
+│   │       └── objects.inv
 │   ├── source
+│   │   ├── imagens
+│   │   │   ├── logo.png
+│   │   │   └── organogram.png
 │   │   ├── conf.py
+│   │   ├── executive_summary.md
 │   │   ├── index.rst
 │   │   ├── MDI.cli.rst
+│   │   ├── MDI.ConnectionBar.rst
 │   │   ├── MDI.Generator.rst
 │   │   ├── MDI.rst
 │   │   ├── MDI.Storage.rst
+│   │   ├── MDI.TransmissionLine.rst
 │   │   ├── modules.rst
 │   │   ├── NaivePyDECOMP.cli.rst
+│   │   ├── NaivePyDECOMP.ConnectionBar.rst
 │   │   ├── NaivePyDECOMP.HydraulicGenerator.rst
 │   │   ├── NaivePyDECOMP.RenewableGenerator.rst
 │   │   ├── NaivePyDECOMP.rst
 │   │   ├── NaivePyDECOMP.Storage.rst
 │   │   ├── NaivePyDECOMP.ThermalGenerator.rst
+│   │   ├── NaivePyDECOMP.TransmissionLine.rst
 │   │   ├── NaivePyDESSEM.cli.rst
+│   │   ├── NaivePyDESSEM.ConnectionBar.rst
 │   │   ├── NaivePyDESSEM.HydraulicGenerator.rst
 │   │   ├── NaivePyDESSEM.RenewableGenerator.rst
 │   │   ├── NaivePyDESSEM.rst
 │   │   ├── NaivePyDESSEM.Storage.rst
 │   │   ├── NaivePyDESSEM.ThermalGenerator.rst
-│   │   └── README.md
+│   │   ├── NaivePyDESSEM.TransmissionLine.rst
+│   │   ├── README.md
+│   │   ├── source_clean.py
+│   │   ├── topics_on_planning_and_expansion_of_power_systems.md
+│   │   └── userguide.md
 │   ├── Makefile
 │   └── requirements.txt
 ├── examples
@@ -269,7 +539,6 @@
 │   │   ├── trabalho02_caso03.yaml
 │   │   └── trabalho02_caso04.yaml
 │   ├── DESSEM
-│   │   ├── exemplo_despacho_hibrido.yaml
 │   │   ├── trabalho01_caso01_1.yaml
 │   │   ├── trabalho01_caso01_2.yaml
 │   │   ├── trabalho01_caso01_3.yaml
@@ -277,12 +546,29 @@
 │   │   ├── trabalho01_caso03.yaml
 │   │   ├── trabalho01_caso04.yaml
 │   │   └── trabalho01_caso05.yaml
-│   └── MDI
-│       ├── trabalho03_ex01.yaml
-│       ├── trabalho03_ex01_anualizado.yaml
-│       ├── trabalho03_ex01_anualizado_alternativo.yaml
-│       ├── trabalho03_ex02.yaml
-│       └── trabalho03_ex02_anualizado.yaml
+│   ├── MDI
+│   │   ├── trabalho03_ex01.yaml
+│   │   ├── trabalho03_ex01_anualizado.yaml
+│   │   ├── trabalho03_ex02.yaml
+│   │   ├── trabalho03_ex02_anualizado.yaml
+│   │   ├── trabalho03_ex03.yaml
+│   │   ├── trabalho03_ex03_anualizado.yaml
+│   │   ├── trabalho03_ex04.yaml
+│   │   ├── trabalho03_ex04_anualizado.yaml
+│   │   ├── trabalho03_ex05.yaml
+│   │   ├── trabalho03_ex05_anualizado.yaml
+│   │   ├── trabalho03_ex06.yaml
+│   │   ├── trabalho03_ex06_anualizado.yaml
+│   │   ├── trabalho03_ex07.yaml
+│   │   └── trabalho03_ex07_anualizado.yaml
+│   └── TRANSMISSION_LINES
+│       ├── decomp.yaml
+│       ├── dessem.yaml
+│       ├── mdi-dc.yaml
+│       └── mdi-hybrid.yaml
+├── imagens
+│   ├── logo.png
+│   └── organogram.png
 ├── relatorios
 │   ├── DECOMP
 │   │   ├── caso01
@@ -421,25 +707,116 @@
 │       │       ├── tabela_custos_ex01_anualizado.tex
 │       │       ├── tabela_geracao_ex01.tex
 │       │       └── tabela_geracao_ex01_anualizado.tex
-│       └── ex02
+│       ├── ex02
+│       │   ├── imagens
+│       │   │   ├── carga_descarga_baterias_ex02.png
+│       │   │   ├── carga_descarga_baterias_ex02_anualizado.png
+│       │   │   ├── custos_geracao_ex02.png
+│       │   │   ├── custos_geracao_ex02_anualizado.png
+│       │   │   ├── geracao_ex02.png
+│       │   │   ├── geracao_ex02_anualizado.png
+│       │   │   ├── geracao_ex02_anualizado_fora.png
+│       │   │   ├── geracao_ex02_anualizado_ponta.png
+│       │   │   ├── geracao_ex02_fora.png
+│       │   │   └── geracao_ex02_ponta.png
+│       │   └── tabelas
+│       │       ├── decisoes_ex02.tex
+│       │       ├── decisoes_ex02_anualizado.tex
+│       │       ├── tabela_custos_ex02.tex
+│       │       ├── tabela_custos_ex02_anualizado.tex
+│       │       ├── tabela_geracao_ex02.tex
+│       │       └── tabela_geracao_ex02_anualizado.tex
+│       ├── ex03
+│       │   ├── imagens
+│       │   │   ├── carga_descarga_baterias_ex03.png
+│       │   │   ├── carga_descarga_baterias_ex03_anualizado.png
+│       │   │   ├── custos_geracao_ex03.png
+│       │   │   ├── custos_geracao_ex03_anualizado.png
+│       │   │   ├── geracao_ex03.png
+│       │   │   ├── geracao_ex03_anualizado.png
+│       │   │   ├── geracao_ex03_anualizado_fora.png
+│       │   │   ├── geracao_ex03_anualizado_ponta.png
+│       │   │   ├── geracao_ex03_fora.png
+│       │   │   └── geracao_ex03_ponta.png
+│       │   └── tabelas
+│       │       ├── decisoes_ex03.tex
+│       │       ├── decisoes_ex03_anualizado.tex
+│       │       ├── tabela_custos_ex03.tex
+│       │       ├── tabela_custos_ex03_anualizado.tex
+│       │       ├── tabela_geracao_ex03.tex
+│       │       └── tabela_geracao_ex03_anualizado.tex
+│       ├── ex04
+│       │   ├── imagens
+│       │   │   ├── carga_descarga_baterias_ex04.png
+│       │   │   ├── carga_descarga_baterias_ex04_anualizado.png
+│       │   │   ├── custos_geracao_ex04.png
+│       │   │   ├── custos_geracao_ex04_anualizado.png
+│       │   │   ├── geracao_ex04.png
+│       │   │   ├── geracao_ex04_anualizado.png
+│       │   │   ├── geracao_ex04_anualizado_fora.png
+│       │   │   ├── geracao_ex04_anualizado_ponta.png
+│       │   │   ├── geracao_ex04_fora.png
+│       │   │   └── geracao_ex04_ponta.png
+│       │   └── tabelas
+│       │       ├── decisoes_ex04.tex
+│       │       ├── decisoes_ex04_anualizado.tex
+│       │       ├── tabela_custos_ex04.tex
+│       │       ├── tabela_custos_ex04_anualizado.tex
+│       │       ├── tabela_geracao_ex04.tex
+│       │       └── tabela_geracao_ex04_anualizado.tex
+│       ├── ex05
+│       │   ├── imagens
+│       │   │   ├── custos_geracao_ex05.png
+│       │   │   ├── custos_geracao_ex05_anualizado.png
+│       │   │   ├── geracao_ex05.png
+│       │   │   ├── geracao_ex05_anualizado.png
+│       │   │   ├── geracao_ex05_anualizado_fora.png
+│       │   │   ├── geracao_ex05_anualizado_ponta.png
+│       │   │   ├── geracao_ex05_fora.png
+│       │   │   └── geracao_ex05_ponta.png
+│       │   └── tabelas
+│       │       ├── decisoes_ex05.tex
+│       │       ├── decisoes_ex05_anualizado.tex
+│       │       ├── tabela_custos_ex05.tex
+│       │       ├── tabela_custos_ex05_anualizado.tex
+│       │       ├── tabela_geracao_ex05.tex
+│       │       └── tabela_geracao_ex05_anualizado.tex
+│       ├── ex06
+│       │   ├── imagens
+│       │   │   ├── custos_geracao_ex06.png
+│       │   │   ├── custos_geracao_ex06_anualizado.png
+│       │   │   ├── geracao_ex06.png
+│       │   │   ├── geracao_ex06_anualizado.png
+│       │   │   ├── geracao_ex06_anualizado_fora.png
+│       │   │   ├── geracao_ex06_anualizado_ponta.png
+│       │   │   ├── geracao_ex06_fora.png
+│       │   │   └── geracao_ex06_ponta.png
+│       │   └── tabelas
+│       │       ├── decisoes_ex06.tex
+│       │       ├── decisoes_ex06_anualizado.tex
+│       │       ├── tabela_custos_ex06.tex
+│       │       ├── tabela_custos_ex06_anualizado.tex
+│       │       ├── tabela_geracao_ex06.tex
+│       │       └── tabela_geracao_ex06_anualizado.tex
+│       └── ex07
 │           ├── imagens
-│           │   ├── carga_descarga_baterias_ex02.png
-│           │   ├── carga_descarga_baterias_ex02_anualizado.png
-│           │   ├── custos_geracao_ex02.png
-│           │   ├── custos_geracao_ex02_anualizado.png
-│           │   ├── geracao_ex02.png
-│           │   ├── geracao_ex02_anualizado.png
-│           │   ├── geracao_ex02_anualizado_fora.png
-│           │   ├── geracao_ex02_anualizado_ponta.png
-│           │   ├── geracao_ex02_fora.png
-│           │   └── geracao_ex02_ponta.png
+│           │   ├── carga_descarga_baterias_ex07.png
+│           │   ├── carga_descarga_baterias_ex07_anualizado.png
+│           │   ├── custos_geracao_ex07.png
+│           │   ├── custos_geracao_ex07_anualizado.png
+│           │   ├── geracao_ex07.png
+│           │   ├── geracao_ex07_anualizado.png
+│           │   ├── geracao_ex07_anualizado_fora.png
+│           │   ├── geracao_ex07_anualizado_ponta.png
+│           │   ├── geracao_ex07_fora.png
+│           │   └── geracao_ex07_ponta.png
 │           └── tabelas
-│               ├── decisoes_ex02.tex
-│               ├── decisoes_ex02_anualizado.tex
-│               ├── tabela_custos_ex02.tex
-│               ├── tabela_custos_ex02_anualizado.tex
-│               ├── tabela_geracao_ex02.tex
-│               └── tabela_geracao_ex02_anualizado.tex
+│               ├── decisoes_ex07.tex
+│               ├── decisoes_ex07_anualizado.tex
+│               ├── tabela_custos_ex07.tex
+│               ├── tabela_custos_ex07_anualizado.tex
+│               ├── tabela_geracao_ex07.tex
+│               └── tabela_geracao_ex07_anualizado.tex
 ├── resultados
 │   ├── DECOMP
 │   │   ├── despacho_caso01_pddd.csv
@@ -472,13 +849,30 @@
 │       ├── planejamento_expansao_ex01_anualizado.csv
 │       ├── planejamento_expansao_ex01_anualizado_alternativo.csv
 │       ├── planejamento_expansao_ex02.csv
-│       └── planejamento_expansao_ex02_anualizado.csv
+│       ├── planejamento_expansao_ex02_anualizado.csv
+│       ├── planejamento_expansao_ex03.csv
+│       ├── planejamento_expansao_ex03_anualizado.csv
+│       ├── planejamento_expansao_ex04.csv
+│       ├── planejamento_expansao_ex04_anualizado.csv
+│       ├── planejamento_expansao_ex05.csv
+│       ├── planejamento_expansao_ex05_anualizado.csv
+│       ├── planejamento_expansao_ex06.csv
+│       ├── planejamento_expansao_ex06_anualizado.csv
+│       ├── planejamento_expansao_ex07.csv
+│       └── planejamento_expansao_ex07_anualizado.csv
 ├── src
 │   ├── MDI
 │   │   ├── cli
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── Generator
 │   │   │   ├── __init__.py
 │   │   │   ├── GeneratorBuilder.py
@@ -495,6 +889,13 @@
 │   │   │   ├── StorageEquations.py
 │   │   │   ├── StorageObjective.py
 │   │   │   └── StorageVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── DataFrames.py
@@ -512,6 +913,13 @@
 │   │   │   ├── cli.py
 │   │   │   ├── pddd_cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
 │   │   │   ├── HydraulicConstraints.py
@@ -545,6 +953,13 @@
 │   │   │   ├── ThermalGeneratorBuilder.py
 │   │   │   ├── ThermalObjectives.py
 │   │   │   └── ThermalVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── BuilderPDDD.py
@@ -564,6 +979,13 @@
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
 │   │   │   ├── ConstantProductivityFPH.py
@@ -601,6 +1023,13 @@
 │   │   │   ├── ThermalObjectives.py
 │   │   │   ├── ThermalPieceWise.py
 │   │   │   └── ThermalVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── DataFrames.py
@@ -635,6 +1064,7 @@
 │   │   ├── docutils
 │   │   ├── f2py
 │   │   ├── fonttools
+│   │   ├── keyring
 │   │   ├── libcplex2212.so
 │   │   ├── markdown-it
 │   │   ├── mdi-plot
@@ -662,6 +1092,7 @@
 │   │   ├── pyftsubset
 │   │   ├── pygmentize
 │   │   ├── pyomo
+│   │   ├── pyproject-build
 │   │   ├── python
 │   │   ├── python3
 │   │   ├── python3.10
@@ -680,7 +1111,9 @@
 │   │   ├── sphinx-autogen
 │   │   ├── sphinx-build
 │   │   ├── sphinx-quickstart
+│   │   ├── tabulate
 │   │   ├── ttx
+│   │   ├── twine
 │   │   ├── uvicorn
 │   │   ├── watchfiles
 │   │   ├── websockets
@@ -1881,6 +2314,46 @@
 │   │           │   ├── RECORD
 │   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
+│   │           ├── backports
+│   │           │   ├── tarfile
+│   │           │   │   ├── compat
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   └── py38.py
+│   │           │   │   ├── __init__.py
+│   │           │   │   └── __main__.py
+│   │           │   └── __init__.py
+│   │           ├── backports.tarfile-1.2.0.dist-info
+│   │           │   ├── INSTALLER
+│   │           │   ├── LICENSE
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── build
+│   │           │   ├── _compat
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── importlib.py
+│   │           │   │   ├── tarfile.py
+│   │           │   │   └── tomllib.py
+│   │           │   ├── __init__.py
+│   │           │   ├── __main__.py
+│   │           │   ├── _builder.py
+│   │           │   ├── _ctx.py
+│   │           │   ├── _exceptions.py
+│   │           │   ├── _types.py
+│   │           │   ├── _util.py
+│   │           │   ├── env.py
+│   │           │   ├── py.typed
+│   │           │   └── util.py
+│   │           ├── build-1.3.0.dist-info
+│   │           │   ├── licenses
+│   │           │   │   └── LICENSE
+│   │           │   ├── entry_points.txt
+│   │           │   ├── INSTALLER
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── REQUESTED
+│   │           │   └── WHEEL
 │   │           ├── certifi
 │   │           │   ├── __init__.py
 │   │           │   ├── __main__.py
@@ -1890,6 +2363,39 @@
 │   │           ├── certifi-2025.8.3.dist-info
 │   │           │   ├── licenses
 │   │           │   │   └── LICENSE
+│   │           │   ├── INSTALLER
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── cffi
+│   │           │   ├── __init__.py
+│   │           │   ├── _cffi_errors.h
+│   │           │   ├── _cffi_include.h
+│   │           │   ├── _embedding.h
+│   │           │   ├── _imp_emulation.py
+│   │           │   ├── _shimmed_dist_utils.py
+│   │           │   ├── api.py
+│   │           │   ├── backend_ctypes.py
+│   │           │   ├── cffi_opcode.py
+│   │           │   ├── commontypes.py
+│   │           │   ├── cparser.py
+│   │           │   ├── error.py
+│   │           │   ├── ffiplatform.py
+│   │           │   ├── lock.py
+│   │           │   ├── model.py
+│   │           │   ├── parse_c_type.h
+│   │           │   ├── pkgconfig.py
+│   │           │   ├── recompiler.py
+│   │           │   ├── setuptools_ext.py
+│   │           │   ├── vengine_cpy.py
+│   │           │   ├── vengine_gen.py
+│   │           │   └── verifier.py
+│   │           ├── cffi-2.0.0.dist-info
+│   │           │   ├── licenses
+│   │           │   │   ├── AUTHORS
+│   │           │   │   └── LICENSE
+│   │           │   ├── entry_points.txt
 │   │           │   ├── INSTALLER
 │   │           │   ├── METADATA
 │   │           │   ├── RECORD
@@ -2037,6 +2543,134 @@
 │   │           │   ├── METADATA
 │   │           │   ├── RECORD
 │   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── cryptography
+│   │           │   ├── hazmat
+│   │           │   │   ├── asn1
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   └── asn1.py
+│   │           │   │   ├── backends
+│   │           │   │   │   ├── openssl
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   └── backend.py
+│   │           │   │   │   └── __init__.py
+│   │           │   │   ├── bindings
+│   │           │   │   │   ├── _rust
+│   │           │   │   │   │   ├── openssl
+│   │           │   │   │   │   │   ├── __init__.pyi
+│   │           │   │   │   │   │   ├── aead.pyi
+│   │           │   │   │   │   │   ├── ciphers.pyi
+│   │           │   │   │   │   │   ├── cmac.pyi
+│   │           │   │   │   │   │   ├── dh.pyi
+│   │           │   │   │   │   │   ├── dsa.pyi
+│   │           │   │   │   │   │   ├── ec.pyi
+│   │           │   │   │   │   │   ├── ed25519.pyi
+│   │           │   │   │   │   │   ├── ed448.pyi
+│   │           │   │   │   │   │   ├── hashes.pyi
+│   │           │   │   │   │   │   ├── hmac.pyi
+│   │           │   │   │   │   │   ├── kdf.pyi
+│   │           │   │   │   │   │   ├── keys.pyi
+│   │           │   │   │   │   │   ├── poly1305.pyi
+│   │           │   │   │   │   │   ├── rsa.pyi
+│   │           │   │   │   │   │   ├── x25519.pyi
+│   │           │   │   │   │   │   └── x448.pyi
+│   │           │   │   │   │   ├── __init__.pyi
+│   │           │   │   │   │   ├── _openssl.pyi
+│   │           │   │   │   │   ├── asn1.pyi
+│   │           │   │   │   │   ├── declarative_asn1.pyi
+│   │           │   │   │   │   ├── exceptions.pyi
+│   │           │   │   │   │   ├── ocsp.pyi
+│   │           │   │   │   │   ├── pkcs12.pyi
+│   │           │   │   │   │   ├── pkcs7.pyi
+│   │           │   │   │   │   ├── test_support.pyi
+│   │           │   │   │   │   └── x509.pyi
+│   │           │   │   │   ├── openssl
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── _conditional.py
+│   │           │   │   │   │   └── binding.py
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   └── _rust.abi3.so
+│   │           │   │   ├── decrepit
+│   │           │   │   │   ├── ciphers
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   └── algorithms.py
+│   │           │   │   │   └── __init__.py
+│   │           │   │   ├── primitives
+│   │           │   │   │   ├── asymmetric
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── dh.py
+│   │           │   │   │   │   ├── dsa.py
+│   │           │   │   │   │   ├── ec.py
+│   │           │   │   │   │   ├── ed25519.py
+│   │           │   │   │   │   ├── ed448.py
+│   │           │   │   │   │   ├── padding.py
+│   │           │   │   │   │   ├── rsa.py
+│   │           │   │   │   │   ├── types.py
+│   │           │   │   │   │   ├── utils.py
+│   │           │   │   │   │   ├── x25519.py
+│   │           │   │   │   │   └── x448.py
+│   │           │   │   │   ├── ciphers
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── aead.py
+│   │           │   │   │   │   ├── algorithms.py
+│   │           │   │   │   │   ├── base.py
+│   │           │   │   │   │   └── modes.py
+│   │           │   │   │   ├── kdf
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── argon2.py
+│   │           │   │   │   │   ├── concatkdf.py
+│   │           │   │   │   │   ├── hkdf.py
+│   │           │   │   │   │   ├── kbkdf.py
+│   │           │   │   │   │   ├── pbkdf2.py
+│   │           │   │   │   │   ├── scrypt.py
+│   │           │   │   │   │   └── x963kdf.py
+│   │           │   │   │   ├── serialization
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── base.py
+│   │           │   │   │   │   ├── pkcs12.py
+│   │           │   │   │   │   ├── pkcs7.py
+│   │           │   │   │   │   └── ssh.py
+│   │           │   │   │   ├── twofactor
+│   │           │   │   │   │   ├── __init__.py
+│   │           │   │   │   │   ├── hotp.py
+│   │           │   │   │   │   └── totp.py
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── _asymmetric.py
+│   │           │   │   │   ├── _cipheralgorithm.py
+│   │           │   │   │   ├── _serialization.py
+│   │           │   │   │   ├── cmac.py
+│   │           │   │   │   ├── constant_time.py
+│   │           │   │   │   ├── hashes.py
+│   │           │   │   │   ├── hmac.py
+│   │           │   │   │   ├── keywrap.py
+│   │           │   │   │   ├── padding.py
+│   │           │   │   │   └── poly1305.py
+│   │           │   │   ├── __init__.py
+│   │           │   │   └── _oid.py
+│   │           │   ├── x509
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── base.py
+│   │           │   │   ├── certificate_transparency.py
+│   │           │   │   ├── extensions.py
+│   │           │   │   ├── general_name.py
+│   │           │   │   ├── name.py
+│   │           │   │   ├── ocsp.py
+│   │           │   │   ├── oid.py
+│   │           │   │   └── verification.py
+│   │           │   ├── __about__.py
+│   │           │   ├── __init__.py
+│   │           │   ├── exceptions.py
+│   │           │   ├── fernet.py
+│   │           │   ├── py.typed
+│   │           │   └── utils.py
+│   │           ├── cryptography-46.0.3.dist-info
+│   │           │   ├── licenses
+│   │           │   │   ├── LICENSE
+│   │           │   │   ├── LICENSE.APACHE
+│   │           │   │   └── LICENSE.BSD
+│   │           │   ├── INSTALLER
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
 │   │           │   └── WHEEL
 │   │           ├── cvxopt
 │   │           │   ├── __init__.py
@@ -2288,6 +2922,17 @@
 │   │           │   ├── RECORD
 │   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
+│   │           ├── docs
+│   │           │   ├── changelog.rst
+│   │           │   ├── conf.py
+│   │           │   ├── configuration.rst
+│   │           │   ├── contributing.rst
+│   │           │   ├── definitions.py
+│   │           │   ├── examples.rst
+│   │           │   ├── index.rst
+│   │           │   ├── installation.rst
+│   │           │   ├── macros.rst
+│   │           │   └── usage.rst
 │   │           ├── docutils
 │   │           │   ├── languages
 │   │           │   │   ├── __init__.py
@@ -2991,6 +3636,20 @@
 │   │           │   ├── METADATA
 │   │           │   ├── RECORD
 │   │           │   └── WHEEL
+│   │           ├── id
+│   │           │   ├── _internal
+│   │           │   │   └── oidc
+│   │           │   │       ├── __init__.py
+│   │           │   │       └── ambient.py
+│   │           │   ├── __init__.py
+│   │           │   └── __main__.py
+│   │           ├── id-1.5.0.dist-info
+│   │           │   ├── entry_points.txt
+│   │           │   ├── INSTALLER
+│   │           │   ├── LICENSE
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   └── WHEEL
 │   │           ├── idna
 │   │           │   ├── __init__.py
 │   │           │   ├── codec.py
@@ -3016,6 +3675,107 @@
 │   │           │   ├── METADATA
 │   │           │   ├── RECORD
 │   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── importlib_metadata
+│   │           │   ├── compat
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── py311.py
+│   │           │   │   └── py39.py
+│   │           │   ├── __init__.py
+│   │           │   ├── _adapters.py
+│   │           │   ├── _collections.py
+│   │           │   ├── _compat.py
+│   │           │   ├── _functools.py
+│   │           │   ├── _itertools.py
+│   │           │   ├── _meta.py
+│   │           │   ├── _text.py
+│   │           │   ├── _typing.py
+│   │           │   ├── diagnose.py
+│   │           │   └── py.typed
+│   │           ├── importlib_metadata-8.7.0.dist-info
+│   │           │   ├── licenses
+│   │           │   │   └── LICENSE
+│   │           │   ├── INSTALLER
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── jaraco
+│   │           │   ├── classes
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── ancestry.py
+│   │           │   │   ├── meta.py
+│   │           │   │   ├── properties.py
+│   │           │   │   └── py.typed
+│   │           │   ├── context
+│   │           │   │   ├── __init__.py
+│   │           │   │   └── py.typed
+│   │           │   └── functools
+│   │           │       ├── __init__.py
+│   │           │       ├── __init__.pyi
+│   │           │       └── py.typed
+│   │           ├── jaraco.classes-3.4.0.dist-info
+│   │           │   ├── INSTALLER
+│   │           │   ├── LICENSE
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── jaraco.context-6.0.1.dist-info
+│   │           │   ├── INSTALLER
+│   │           │   ├── LICENSE
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── jaraco_functools-4.3.0.dist-info
+│   │           │   ├── licenses
+│   │           │   │   └── LICENSE
+│   │           │   ├── INSTALLER
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── jeepney
+│   │           │   ├── io
+│   │           │   │   ├── tests
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   ├── conftest.py
+│   │           │   │   │   ├── test_asyncio.py
+│   │           │   │   │   ├── test_blocking.py
+│   │           │   │   │   ├── test_threading.py
+│   │           │   │   │   ├── test_trio.py
+│   │           │   │   │   └── utils.py
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── asyncio.py
+│   │           │   │   ├── blocking.py
+│   │           │   │   ├── common.py
+│   │           │   │   ├── threading.py
+│   │           │   │   └── trio.py
+│   │           │   ├── tests
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── secrets_introspect.xml
+│   │           │   │   ├── test_auth.py
+│   │           │   │   ├── test_bindgen.py
+│   │           │   │   ├── test_bus.py
+│   │           │   │   ├── test_bus_messages.py
+│   │           │   │   ├── test_fds.py
+│   │           │   │   ├── test_low_level.py
+│   │           │   │   └── test_wrappers.py
+│   │           │   ├── __init__.py
+│   │           │   ├── auth.py
+│   │           │   ├── bindgen.py
+│   │           │   ├── bus.py
+│   │           │   ├── bus_messages.py
+│   │           │   ├── fds.py
+│   │           │   ├── low_level.py
+│   │           │   └── wrappers.py
+│   │           ├── jeepney-0.9.0.dist-info
+│   │           │   ├── licenses
+│   │           │   │   └── LICENSE
+│   │           │   ├── INSTALLER
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
 │   │           │   └── WHEEL
 │   │           ├── jinja2
 │   │           │   ├── __init__.py
@@ -3051,6 +3811,52 @@
 │   │           │   ├── INSTALLER
 │   │           │   ├── METADATA
 │   │           │   ├── RECORD
+│   │           │   └── WHEEL
+│   │           ├── keyring
+│   │           │   ├── backends
+│   │           │   │   ├── macOS
+│   │           │   │   │   ├── __init__.py
+│   │           │   │   │   └── api.py
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── chainer.py
+│   │           │   │   ├── fail.py
+│   │           │   │   ├── kwallet.py
+│   │           │   │   ├── libsecret.py
+│   │           │   │   ├── null.py
+│   │           │   │   ├── SecretService.py
+│   │           │   │   └── Windows.py
+│   │           │   ├── compat
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── properties.py
+│   │           │   │   ├── py312.py
+│   │           │   │   └── py38.py
+│   │           │   ├── testing
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── backend.py
+│   │           │   │   └── util.py
+│   │           │   ├── util
+│   │           │   │   ├── __init__.py
+│   │           │   │   └── platform_.py
+│   │           │   ├── __init__.py
+│   │           │   ├── __main__.py
+│   │           │   ├── backend.py
+│   │           │   ├── backend_complete.bash
+│   │           │   ├── backend_complete.zsh
+│   │           │   ├── cli.py
+│   │           │   ├── completion.py
+│   │           │   ├── core.py
+│   │           │   ├── credentials.py
+│   │           │   ├── devpi_client.py
+│   │           │   ├── errors.py
+│   │           │   ├── http.py
+│   │           │   └── py.typed
+│   │           ├── keyring-25.6.0.dist-info
+│   │           │   ├── entry_points.txt
+│   │           │   ├── INSTALLER
+│   │           │   ├── LICENSE
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
 │   │           ├── kiwisolver
 │   │           │   ├── __init__.py
@@ -3832,6 +4638,21 @@
 │   │           │   ├── METADATA
 │   │           │   ├── RECORD
 │   │           │   └── WHEEL
+│   │           ├── more_itertools
+│   │           │   ├── __init__.py
+│   │           │   ├── __init__.pyi
+│   │           │   ├── more.py
+│   │           │   ├── more.pyi
+│   │           │   ├── py.typed
+│   │           │   ├── recipes.py
+│   │           │   └── recipes.pyi
+│   │           ├── more_itertools-10.8.0.dist-info
+│   │           │   ├── licenses
+│   │           │   │   └── LICENSE
+│   │           │   ├── INSTALLER
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   └── WHEEL
 │   │           ├── mpl_toolkits
 │   │           │   ├── axes_grid1
 │   │           │   │   ├── tests
@@ -3922,7 +4743,7 @@
 │   │           │   ├── RECORD
 │   │           │   ├── REQUESTED
 │   │           │   └── WHEEL
-│   │           ├── naivepydessem-0.1.0.dist-info
+│   │           ├── naivepydessem-0.1.4.dist-info
 │   │           │   ├── licenses
 │   │           │   │   └── LICENSE
 │   │           │   ├── direct_url.json
@@ -3932,6 +4753,18 @@
 │   │           │   ├── RECORD
 │   │           │   ├── REQUESTED
 │   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── nh3
+│   │           │   ├── __init__.py
+│   │           │   ├── __init__.pyi
+│   │           │   ├── nh3.abi3.so
+│   │           │   └── py.typed
+│   │           ├── nh3-0.3.2.dist-info
+│   │           │   ├── licenses
+│   │           │   │   └── LICENSE
+│   │           │   ├── INSTALLER
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
 │   │           │   └── WHEEL
 │   │           ├── numpy
 │   │           │   ├── _core
@@ -7461,6 +8294,33 @@
 │   │           │   ├── RECORD
 │   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
+│   │           ├── pycparser
+│   │           │   ├── ply
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── cpp.py
+│   │           │   │   ├── ctokens.py
+│   │           │   │   ├── lex.py
+│   │           │   │   ├── yacc.py
+│   │           │   │   └── ygen.py
+│   │           │   ├── __init__.py
+│   │           │   ├── _ast_gen.py
+│   │           │   ├── _build_tables.py
+│   │           │   ├── _c_ast.cfg
+│   │           │   ├── ast_transforms.py
+│   │           │   ├── c_ast.py
+│   │           │   ├── c_generator.py
+│   │           │   ├── c_lexer.py
+│   │           │   ├── c_parser.py
+│   │           │   ├── lextab.py
+│   │           │   ├── plyparser.py
+│   │           │   └── yacctab.py
+│   │           ├── pycparser-2.23.dist-info
+│   │           │   ├── INSTALLER
+│   │           │   ├── LICENSE
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
 │   │           ├── pygments
 │   │           │   ├── filters
 │   │           │   │   └── __init__.py
@@ -9453,6 +10313,19 @@
 │   │           │   ├── METADATA
 │   │           │   ├── RECORD
 │   │           │   └── WHEEL
+│   │           ├── pyproject_hooks
+│   │           │   ├── _in_process
+│   │           │   │   ├── __init__.py
+│   │           │   │   └── _in_process.py
+│   │           │   ├── __init__.py
+│   │           │   ├── _impl.py
+│   │           │   └── py.typed
+│   │           ├── pyproject_hooks-1.2.0.dist-info
+│   │           │   ├── INSTALLER
+│   │           │   ├── LICENSE
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   └── WHEEL
 │   │           ├── python_dateutil-2.9.0.post0.dist-info
 │   │           │   ├── INSTALLER
 │   │           │   ├── LICENSE
@@ -10108,6 +10981,21 @@
 │   │           │   ├── RECORD
 │   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
+│   │           ├── readme_renderer
+│   │           │   ├── __init__.py
+│   │           │   ├── __main__.py
+│   │           │   ├── clean.py
+│   │           │   ├── markdown.py
+│   │           │   ├── py.typed
+│   │           │   ├── rst.py
+│   │           │   └── txt.py
+│   │           ├── readme_renderer-44.0.dist-info
+│   │           │   ├── INSTALLER
+│   │           │   ├── LICENSE
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
 │   │           ├── requests
 │   │           │   ├── __init__.py
 │   │           │   ├── __version__.py
@@ -10134,6 +11022,163 @@
 │   │           │   ├── METADATA
 │   │           │   ├── RECORD
 │   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── requests_toolbelt
+│   │           │   ├── adapters
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── appengine.py
+│   │           │   │   ├── fingerprint.py
+│   │           │   │   ├── host_header_ssl.py
+│   │           │   │   ├── socket_options.py
+│   │           │   │   ├── source.py
+│   │           │   │   ├── ssl.py
+│   │           │   │   └── x509.py
+│   │           │   ├── auth
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── _digest_auth_compat.py
+│   │           │   │   ├── guess.py
+│   │           │   │   ├── handler.py
+│   │           │   │   └── http_proxy_digest.py
+│   │           │   ├── cookies
+│   │           │   │   ├── __init__.py
+│   │           │   │   └── forgetful.py
+│   │           │   ├── downloadutils
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── stream.py
+│   │           │   │   └── tee.py
+│   │           │   ├── multipart
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── decoder.py
+│   │           │   │   └── encoder.py
+│   │           │   ├── threaded
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── pool.py
+│   │           │   │   └── thread.py
+│   │           │   ├── utils
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── deprecated.py
+│   │           │   │   ├── dump.py
+│   │           │   │   ├── formdata.py
+│   │           │   │   └── user_agent.py
+│   │           │   ├── __init__.py
+│   │           │   ├── _compat.py
+│   │           │   ├── exceptions.py
+│   │           │   ├── sessions.py
+│   │           │   └── streaming_iterator.py
+│   │           ├── requests_toolbelt-1.0.0.dist-info
+│   │           │   ├── AUTHORS.rst
+│   │           │   ├── INSTALLER
+│   │           │   ├── LICENSE
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── rfc3986
+│   │           │   ├── __init__.py
+│   │           │   ├── _mixin.py
+│   │           │   ├── abnf_regexp.py
+│   │           │   ├── api.py
+│   │           │   ├── builder.py
+│   │           │   ├── compat.py
+│   │           │   ├── exceptions.py
+│   │           │   ├── iri.py
+│   │           │   ├── misc.py
+│   │           │   ├── normalizers.py
+│   │           │   ├── parseresult.py
+│   │           │   ├── uri.py
+│   │           │   └── validators.py
+│   │           ├── rfc3986-2.0.0.dist-info
+│   │           │   ├── INSTALLER
+│   │           │   ├── LICENSE
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── rich
+│   │           │   ├── __init__.py
+│   │           │   ├── __main__.py
+│   │           │   ├── _cell_widths.py
+│   │           │   ├── _emoji_codes.py
+│   │           │   ├── _emoji_replace.py
+│   │           │   ├── _export_format.py
+│   │           │   ├── _extension.py
+│   │           │   ├── _fileno.py
+│   │           │   ├── _inspect.py
+│   │           │   ├── _log_render.py
+│   │           │   ├── _loop.py
+│   │           │   ├── _null_file.py
+│   │           │   ├── _palettes.py
+│   │           │   ├── _pick.py
+│   │           │   ├── _ratio.py
+│   │           │   ├── _spinners.py
+│   │           │   ├── _stack.py
+│   │           │   ├── _timer.py
+│   │           │   ├── _win32_console.py
+│   │           │   ├── _windows.py
+│   │           │   ├── _windows_renderer.py
+│   │           │   ├── _wrap.py
+│   │           │   ├── abc.py
+│   │           │   ├── align.py
+│   │           │   ├── ansi.py
+│   │           │   ├── bar.py
+│   │           │   ├── box.py
+│   │           │   ├── cells.py
+│   │           │   ├── color.py
+│   │           │   ├── color_triplet.py
+│   │           │   ├── columns.py
+│   │           │   ├── console.py
+│   │           │   ├── constrain.py
+│   │           │   ├── containers.py
+│   │           │   ├── control.py
+│   │           │   ├── default_styles.py
+│   │           │   ├── diagnose.py
+│   │           │   ├── emoji.py
+│   │           │   ├── errors.py
+│   │           │   ├── file_proxy.py
+│   │           │   ├── filesize.py
+│   │           │   ├── highlighter.py
+│   │           │   ├── json.py
+│   │           │   ├── jupyter.py
+│   │           │   ├── layout.py
+│   │           │   ├── live.py
+│   │           │   ├── live_render.py
+│   │           │   ├── logging.py
+│   │           │   ├── markdown.py
+│   │           │   ├── markup.py
+│   │           │   ├── measure.py
+│   │           │   ├── padding.py
+│   │           │   ├── pager.py
+│   │           │   ├── palette.py
+│   │           │   ├── panel.py
+│   │           │   ├── pretty.py
+│   │           │   ├── progress.py
+│   │           │   ├── progress_bar.py
+│   │           │   ├── prompt.py
+│   │           │   ├── protocol.py
+│   │           │   ├── py.typed
+│   │           │   ├── region.py
+│   │           │   ├── repr.py
+│   │           │   ├── rule.py
+│   │           │   ├── scope.py
+│   │           │   ├── screen.py
+│   │           │   ├── segment.py
+│   │           │   ├── spinner.py
+│   │           │   ├── status.py
+│   │           │   ├── style.py
+│   │           │   ├── styled.py
+│   │           │   ├── syntax.py
+│   │           │   ├── table.py
+│   │           │   ├── terminal_theme.py
+│   │           │   ├── text.py
+│   │           │   ├── theme.py
+│   │           │   ├── themes.py
+│   │           │   ├── traceback.py
+│   │           │   └── tree.py
+│   │           ├── rich-14.2.0.dist-info
+│   │           │   ├── INSTALLER
+│   │           │   ├── LICENSE
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
 │   │           │   └── WHEEL
 │   │           ├── scipy
 │   │           │   ├── _lib
@@ -11675,6 +12720,23 @@
 │   │           │   ├── libquadmath-96973f99-934c22de.so.0.0.0
 │   │           │   ├── libquadmath-96973f99.so.0.0.0
 │   │           │   └── libscipy_openblas-68440149.so
+│   │           ├── secretstorage
+│   │           │   ├── __init__.py
+│   │           │   ├── collection.py
+│   │           │   ├── defines.py
+│   │           │   ├── dhcrypto.py
+│   │           │   ├── exceptions.py
+│   │           │   ├── item.py
+│   │           │   ├── py.typed
+│   │           │   └── util.py
+│   │           ├── secretstorage-3.4.0.dist-info
+│   │           │   ├── licenses
+│   │           │   │   └── LICENSE
+│   │           │   ├── INSTALLER
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
 │   │           ├── setuptools
 │   │           │   ├── _distutils
 │   │           │   │   ├── command
@@ -13124,6 +14186,22 @@
 │   │           │   ├── RECORD
 │   │           │   ├── REQUESTED
 │   │           │   └── WHEEL
+│   │           ├── sphinx_markdown_builder
+│   │           │   ├── __init__.py
+│   │           │   ├── builder.py
+│   │           │   ├── contexts.py
+│   │           │   ├── escape.py
+│   │           │   ├── translator.py
+│   │           │   └── writer.py
+│   │           ├── sphinx_markdown_builder-0.6.8.dist-info
+│   │           │   ├── entry_points.txt
+│   │           │   ├── INSTALLER
+│   │           │   ├── LICENSE
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── REQUESTED
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
 │   │           ├── sphinx_rtd_theme
 │   │           │   ├── locale
 │   │           │   │   ├── da
@@ -14114,228 +15192,233 @@
 │   │           │   │   │   └── project.qhp
 │   │           │   │   ├── __init__.py
 │   │           │   │   └── py.typed
-│   │           │   └── serializinghtml
-│   │           │       ├── locales
-│   │           │       │   ├── ar
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── bg
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── bn
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── ca
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── cak
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── cs
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── cy
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── da
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── de
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── el
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── eo
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── es
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── et
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── eu
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── fa
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── fi
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── fr
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── he
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── hi
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── hi_IN
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── hr
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── hu
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── id
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── it
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── ja
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── ko
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── lt
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── lv
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── mk
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── nb_NO
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── ne
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── nl
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── pl
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── pt
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── pt_BR
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── pt_PT
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── ro
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── ru
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── si
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── sk
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── sl
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── sq
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── sr
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── sr@latin
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── sr_RS
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── sv
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── ta
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── te
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── tr
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── uk_UA
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── ur
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── vi
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── zh_CN
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   ├── zh_TW
-│   │           │       │   │   └── LC_MESSAGES
-│   │           │       │   │       ├── sphinxcontrib.serializinghtml.mo
-│   │           │       │   │       └── sphinxcontrib.serializinghtml.po
-│   │           │       │   └── sphinxcontrib.serializinghtml.pot
-│   │           │       ├── __init__.py
-│   │           │       ├── jsonimpl.py
-│   │           │       └── py.typed
+│   │           │   ├── serializinghtml
+│   │           │   │   ├── locales
+│   │           │   │   │   ├── ar
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── bg
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── bn
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── ca
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── cak
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── cs
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── cy
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── da
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── de
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── el
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── eo
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── es
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── et
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── eu
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── fa
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── fi
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── fr
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── he
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── hi
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── hi_IN
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── hr
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── hu
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── id
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── it
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── ja
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── ko
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── lt
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── lv
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── mk
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── nb_NO
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── ne
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── nl
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── pl
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── pt
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── pt_BR
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── pt_PT
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── ro
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── ru
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── si
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── sk
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── sl
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── sq
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── sr
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── sr@latin
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── sr_RS
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── sv
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── ta
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── te
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── tr
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── uk_UA
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── ur
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── vi
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── zh_CN
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   ├── zh_TW
+│   │           │   │   │   │   └── LC_MESSAGES
+│   │           │   │   │   │       ├── sphinxcontrib.serializinghtml.mo
+│   │           │   │   │   │       └── sphinxcontrib.serializinghtml.po
+│   │           │   │   │   └── sphinxcontrib.serializinghtml.pot
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── jsonimpl.py
+│   │           │   │   └── py.typed
+│   │           │   ├── auto-render.min.js
+│   │           │   ├── katex-math.css
+│   │           │   ├── katex-server.js
+│   │           │   ├── katex.min.js
+│   │           │   └── katex.py
 │   │           ├── sphinxcontrib_applehelp-2.0.0.dist-info
 │   │           │   ├── INSTALLER
 │   │           │   ├── METADATA
@@ -14365,6 +15448,15 @@
 │   │           │   ├── LICENSE
 │   │           │   ├── METADATA
 │   │           │   ├── namespace_packages.txt
+│   │           │   ├── RECORD
+│   │           │   ├── REQUESTED
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── sphinxcontrib_katex-0.9.11.dist-info
+│   │           │   ├── licenses
+│   │           │   │   └── LICENSE
+│   │           │   ├── INSTALLER
+│   │           │   ├── METADATA
 │   │           │   ├── RECORD
 │   │           │   ├── REQUESTED
 │   │           │   ├── top_level.txt
@@ -14425,6 +15517,19 @@
 │   │           │   ├── METADATA
 │   │           │   ├── RECORD
 │   │           │   └── WHEEL
+│   │           ├── tabulate
+│   │           │   ├── __init__.py
+│   │           │   └── version.py
+│   │           ├── tabulate-0.9.0.dist-info
+│   │           │   ├── entry_points.txt
+│   │           │   ├── INSTALLER
+│   │           │   ├── LICENSE
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── tests
+│   │           │   └── test_katex_server.py
 │   │           ├── tomli
 │   │           │   ├── __init__.py
 │   │           │   ├── _parser.py
@@ -14436,6 +15541,35 @@
 │   │           │   ├── LICENSE
 │   │           │   ├── METADATA
 │   │           │   ├── RECORD
+│   │           │   └── WHEEL
+│   │           ├── twine
+│   │           │   ├── commands
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── check.py
+│   │           │   │   ├── register.py
+│   │           │   │   └── upload.py
+│   │           │   ├── __init__.py
+│   │           │   ├── __main__.py
+│   │           │   ├── auth.py
+│   │           │   ├── cli.py
+│   │           │   ├── distribution.py
+│   │           │   ├── exceptions.py
+│   │           │   ├── package.py
+│   │           │   ├── py.typed
+│   │           │   ├── repository.py
+│   │           │   ├── sdist.py
+│   │           │   ├── settings.py
+│   │           │   ├── utils.py
+│   │           │   └── wheel.py
+│   │           ├── twine-6.2.0.dist-info
+│   │           │   ├── licenses
+│   │           │   │   └── LICENSE
+│   │           │   ├── entry_points.txt
+│   │           │   ├── INSTALLER
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── REQUESTED
+│   │           │   ├── top_level.txt
 │   │           │   └── WHEEL
 │   │           ├── typing_extensions-4.15.0.dist-info
 │   │           │   ├── licenses
@@ -15354,7 +16488,25 @@
 │   │           │   ├── scanner.py
 │   │           │   ├── serializer.py
 │   │           │   └── tokens.py
-│   │           ├── __editable__.naivepydessem-0.1.0.pth
+│   │           ├── zipp
+│   │           │   ├── compat
+│   │           │   │   ├── __init__.py
+│   │           │   │   ├── overlay.py
+│   │           │   │   ├── py310.py
+│   │           │   │   └── py313.py
+│   │           │   ├── __init__.py
+│   │           │   ├── _functools.py
+│   │           │   └── glob.py
+│   │           ├── zipp-3.23.0.dist-info
+│   │           │   ├── licenses
+│   │           │   │   └── LICENSE
+│   │           │   ├── INSTALLER
+│   │           │   ├── METADATA
+│   │           │   ├── RECORD
+│   │           │   ├── top_level.txt
+│   │           │   └── WHEEL
+│   │           ├── __editable__.naivepydessem-0.1.4.pth
+│   │           ├── _cffi_backend.cpython-310-x86_64-linux-gnu.so
 │   │           ├── _virtualenv.pth
 │   │           ├── _virtualenv.py
 │   │           ├── distutils-precedence.pth

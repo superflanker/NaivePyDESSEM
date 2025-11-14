@@ -14,6 +14,7 @@ meta:
   horizon: 24                 # TODO: nº de períodos (ex.: 24)
   delta_t: 1.0                # duração do período (h)
   Cdef: 1000.0                # penalidade de déficit [$ / MWh]
+  c_pmax: 10_000               # potência máxima do déficit
   Solver: cyipopt
   Solver_Options:
     mip_solver: cbc

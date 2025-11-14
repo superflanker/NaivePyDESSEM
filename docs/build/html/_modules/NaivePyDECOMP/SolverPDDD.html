@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -119,6 +119,7 @@
     <span class="n">build_pddd_data_from_file</span><span class="p">,</span>
     <span class="n">build_pddd_balance_and_objective_from_yaml</span>
 <span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_model_from_file</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.PDDDMergeModels</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_dummy_model</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
 
@@ -343,9 +344,9 @@
     <span class="c1"># --------------------------</span>
 
     <span class="n">results</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span>
-    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;hydro&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stage_hydros</span>
-    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;storage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stage_storage</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;hydro&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">stage_hydros</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s1">&#39;storage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">stage_storage</span><span class="p">)</span>
     <span class="n">results</span><span class="p">[</span><span class="s1">&#39;total_cost&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">OBJ</span><span class="p">()</span>
     <span class="n">results</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">value</span>
     <span class="n">results</span><span class="p">[</span><span class="s1">&#39;f_volume&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">h</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">hydro_V</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">HG</span><span class="p">}</span>
@@ -425,6 +426,9 @@
 <span class="sd">    - This implementation is pedagogical and emphasizes clarity and modularity </span>
 <span class="sd">      over computational performance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># === Compatibilidade com pl único ===</span>
+    <span class="n">npl_model</span><span class="p">,</span> <span class="n">npl_case</span> <span class="o">=</span> <span class="n">build_model_from_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">print_welcome_message</span><span class="p">(</span><span class="n">npl_model</span><span class="p">,</span> <span class="n">npl_case</span><span class="p">)</span>
     <span class="c1"># === Construção dos subproblemas ===</span>
     <span class="n">case</span> <span class="o">=</span> <span class="n">build_pddd_data_from_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="n">original_case</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">case</span><span class="p">)</span>
@@ -565,6 +569,8 @@
     <span class="n">thermal_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">renewable_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">storage_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">connection_bar_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">transmission_line_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">case</span><span class="p">,</span> <span class="n">alpha_values</span><span class="p">,</span> <span class="n">z_limits</span></div>
 

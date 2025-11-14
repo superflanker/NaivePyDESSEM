@@ -105,7 +105,8 @@ from .StorageConstraints import (
     add_storage_energy_balance_constraint,
     add_storage_investment_link_constraint,
     add_storage_power_limits_constraint,
-    add_storage_soc_bounds_constraint
+    add_storage_soc_bounds_constraint,
+    add_storage_mutual_exclusion_constraint
 )
 
 
@@ -176,6 +177,7 @@ def add_storage_problem(m: ConcreteModel,
     add_storage_energy_balance_constraint(m)
     add_storage_investment_link_constraint(m)
     add_storage_soc_bounds_constraint(m)
+    add_storage_mutual_exclusion_constraint(m)
 
     # Objective (optional)
     if include_objective:

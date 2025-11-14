@@ -92,7 +92,6 @@ def add_storage_subproblem(m: ConcreteModel,
     # data copy
     subproblem_data = copy.deepcopy(data)
     subproblem_data.horizon = 1
-    subproblem_data.demand = {1: data.demand[stage+1]}
     # sets & params
     storage_add_sets_and_params(m, data)
     # variables
@@ -101,7 +100,7 @@ def add_storage_subproblem(m: ConcreteModel,
     add_storage_energy_balance_constraint(m)
     add_storage_soc_bounds_constraint(m)
     add_storage_power_limits_constraint(m)
-    # add_storage_mutual_exclusion_constraint(m)  # descomente se usar binária
+    add_storage_mutual_exclusion_constraint(m)  # descomente se usar binária
 
     return m
 

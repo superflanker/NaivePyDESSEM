@@ -140,7 +140,8 @@ def thermal_add_sets_and_params(m: ConcreteModel,
     m.thermal_u0 = Param(m.TG, initialize={g: data.units[g].u0 for g in G})
     m.thermal_p0 = Param(m.TG, initialize={g: data.units[g].p0 for g in G})
     m.thermal_init_status = Param(m.TG, initialize={g: data.units[g].init_status_h for g in G})
-
+    m.thermal_bars = {g: data.units[g].bar for g in G}
+    
     if data.Rreq is not None:
         m.thermal_Rreq = Param(m.T, initialize=data.Rreq, within=NonNegativeReals)
 
@@ -217,9 +218,6 @@ def thermal_add_variables_uc(m, include_reserve: bool = False, use_pwl: bool = F
     """
     # Variáveis contínuas
     m.thermal_p = Var(m.TG, m.T, domain=NonNegativeReals)     # geração
-    
-    if not hasattr(m, 'D'):
-        m.D = Var(m.T, domain=NonNegativeReals)          # déficit
     
     if include_reserve:
         m.thermal_r = Var(m.TG, m.T, domain=NonNegativeReals)  # reserva

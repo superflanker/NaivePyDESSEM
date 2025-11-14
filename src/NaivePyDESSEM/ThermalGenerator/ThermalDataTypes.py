@@ -87,6 +87,8 @@ class ThermalUnit:
     ----------
     name : str
         Unique identifier of the thermal unit.
+    bar: str
+        Connection Bar of the Unit (defaults to BAR_1)
     Pmin : float
         Minimum operating power output (MW).
     Pmax : float
@@ -129,6 +131,7 @@ class ThermalUnit:
     - Piecewise approximations use ``pw_breaks`` and ``pw_costs`` for MILP models.
     """
     name: str
+    bar: str
     Pmin: float
     Pmax: float
     RU: float
@@ -156,12 +159,8 @@ class ThermalData:
     ----------
     horizon : int
         Number of time periods in the planning horizon.
-    demand : Dict[int, float]
-        Mapping of each period ``t`` to system demand (MW).
     units : Dict[str, ThermalUnit]
         Dictionary mapping unit identifiers to their ``ThermalUnit`` objects.
-    Cdef : float, optional
-        Deficit penalty cost ($/MWh), default is 1000.0.
     Rreq : Dict[int, float], optional
         Mapping of each period ``t`` to spinning reserve requirement (MW).
         Defaults to ``None``.
@@ -171,11 +170,8 @@ class ThermalData:
     -----
     - This class serves as a structured input for Pyomo-based UC models.
     - ``Rreq`` is optional; if not provided, reserve constraints must be disabled.
-    - ``Cdef`` penalizes unmet demand in the optimization objective.
     """
     horizon: int
-    demand: Dict[int, float]
     units: Dict[str, ThermalUnit]
-    Cdef: float = 1000.0
     Rreq: Optional[Dict[int, float]] = None
     has_history: bool = False 

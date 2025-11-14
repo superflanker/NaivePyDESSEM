@@ -80,7 +80,7 @@ def solve(path: str) -> Tuple[ConcreteModel, Dict]:
 
     if not opt.available():
         raise RuntimeError(
-            f"Solver '{solver_str}' is not available on this system.")
+            f"Solver '{solver_str}' is not available on this systemodel.")
 
     try:
         if solver_str.lower() == 'mindtpy':
@@ -104,10 +104,13 @@ def solve(path: str) -> Tuple[ConcreteModel, Dict]:
 
     except ApplicationError as e:
         raise RuntimeError(f"Solver execution failed: {e}")
-
+    
     dispatch_summary(model)
     hydro_dispatch_summary(model)
     thermal_dispatch_summary(model)
     renewable_dispatch_summary(model)
     storage_dispatch_summary(model)
+    connection_bar_dispatch_summary(model)
+    transmission_line_dispatch_summary(model)
+    
     return model, case

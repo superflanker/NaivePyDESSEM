@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -204,7 +204,9 @@
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
     <span class="n">model_properties</span><span class="p">(</span><span class="n">case</span><span class="p">)</span>
     <span class="n">format_generator_model</span><span class="p">(</span><span class="n">case</span><span class="p">)</span>
-    <span class="n">format_storage_model</span><span class="p">(</span><span class="n">case</span><span class="p">)</span></div>
+    <span class="n">format_storage_model</span><span class="p">(</span><span class="n">case</span><span class="p">)</span>
+    <span class="n">format_connection_bar_model</span><span class="p">(</span><span class="n">case</span><span class="p">)</span>
+    <span class="n">format_line_transmission_model</span><span class="p">(</span><span class="n">case</span><span class="p">)</span></div>
 
 
 
@@ -299,6 +301,83 @@
                 <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">eta_c, </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">eta_c</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">eta_d, </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">eta_d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="format_connection_bar_model">
+<a class="viewcode-back" href="../../MDI.html#MDI.ModelFormatters.format_connection_bar_model">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">format_connection_bar_model</span><span class="p">(</span><span class="n">case</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print formatted information for each connection bar unit.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    case : dict</span>
+<span class="sd">        Dictionary containing &#39;bars&#39; section with unit definitions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">connection_bars</span> <span class="o">=</span> <span class="n">case</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bars&#39;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">connection_bars_units</span> <span class="o">=</span> <span class="n">connection_bars</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">connection_bars_units</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">MAGENTA</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="si">}</span><span class="s2">Connection Bar Units</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">connection_bars_units</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">slack</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;slack&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">cdef</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Cdef&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">slack_text</span> <span class="o">=</span> <span class="s2">&quot;Yes&quot;</span> <span class="k">if</span> <span class="n">slack</span> <span class="k">else</span> <span class="s2">&quot;No&quot;</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Slack Bar?, </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">slack_text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Deficit Cost, </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: \$ </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">cdef</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="format_line_transmission_model">
+<a class="viewcode-back" href="../../MDI.html#MDI.ModelFormatters.format_line_transmission_model">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">format_line_transmission_model</span><span class="p">(</span><span class="n">case</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print formatted information for each transmission line unit.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    case : dict</span>
+<span class="sd">        Dictionary containing &#39;lines&#39; section with unit definitions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">transmission_lines</span> <span class="o">=</span> <span class="n">case</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">transmission_lines_units</span> <span class="o">=</span> <span class="n">transmission_lines</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;units&#39;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transmission_lines_units</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">MAGENTA</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="si">}</span><span class="s2">Transmission Line Units</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">transmission_lines_units</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">BRIGHT</span><span class="si">}{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;state&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">c_op</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;c_op&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">c_inv</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;c_inv&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">pmax</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pmax&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">endpoints</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;endpoints&quot;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;Candidate&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;Existing&quot;</span>
+            
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">State, </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">state</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">C_op, </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">c_op</span><span class="si">}</span><span class="s2"> $/MWh&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">C_inv, </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">c_inv</span><span class="si">}</span><span class="s2"> $&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Model, </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Line Susceptance , </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">b</span><span class="si">}</span><span class="s2"> p.u&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Max Power , </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">pmax</span><span class="si">}</span><span class="s2"> MW&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Endpoints , </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">endpoints</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 </pre></div>
 

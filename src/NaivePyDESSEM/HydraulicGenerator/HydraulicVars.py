@@ -106,6 +106,7 @@ def hydraulyc_add_sets_and_params(m, data):
     m.hydro_afluencia = {h: data.units[h].afluencia for h in H}
     m.hydro_upstreams = {h: data.units[h].upstreams for h in H}
     m.hydro_compute_total_inflow = {h: data.units[h].compute_total_inflow for h in H}
+    m.hydro_bars = {h: data.units[h].bar for h in H}
     return m
 
 
@@ -140,9 +141,6 @@ def hydralic_add_variables_g(m):
       different objective/balance formulations; keep only the one you use.
     """
     # Variáveis contínuas 
-
-    if not hasattr(m, 'D'):
-        m.D = Var(m.T, domain=NonNegativeReals)          # déficit
     
     m.hydro_Q = Var(m.HG, m.T, within=NonNegativeReals)
     m.hydro_V = Var(m.HG, m.T, within=NonNegativeReals)

@@ -92,12 +92,6 @@ def hydraulyc_add_sets_and_params(m, data):
     if not hasattr(m, "T"):
         m.T = RangeSet(1, T)
 
-    if not hasattr(m, "d"):
-        m.d = Param(m.T, initialize=data.demand, within=NonNegativeReals)
-    
-    if not hasattr(m, "Cdef"):
-        m.Cdef = data.Cdef
-
     m.horizon = T
 
     m.hydro_Qmin = {h: data.units[h].Qmin for h in H}
@@ -108,4 +102,5 @@ def hydraulyc_add_sets_and_params(m, data):
     m.hydro_afluencia = {h: data.units[h].afluencia for h in H}
     m.hydro_upstreams = {h: data.units[h].upstreams for h in H}
     m.hydro_compute_total_inflow = {h: data.units[h].compute_total_inflow for h in H}
+    m.hydro_bars = {h: data.units[h].bar for h in H}
     return m

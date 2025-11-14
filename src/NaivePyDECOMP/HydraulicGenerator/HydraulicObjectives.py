@@ -2,7 +2,7 @@
 EELT 7030 — Operation and Expansion Planning of Electric Power Systems  
 Federal University of Paraná (UFPR)
 
-Objective Function for Pure Hydropower Dispatch
+Objective Function for Pure Hydropower Dispatch - deprecated
 
 Description
 -----------

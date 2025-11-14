@@ -37,6 +37,7 @@ from NaivePyDESSEM.DataFrames import (
     add_storage_dispatch_to_dataframe
 )
 
+
 def add_hydro_dispatch_to_dataframe(df: pd.DataFrame,
                                     model: ConcreteModel) -> pd.DataFrame:
     """
@@ -69,6 +70,7 @@ def add_hydro_dispatch_to_dataframe(df: pd.DataFrame,
                     "The 't' column in df does not match model.T.")
         else:
             df['T'] = T
+            df = df.copy() # avoid fragmented DataFrame Warning
 
         for h in h_list:
             df[f'Q_{{h_{h}}}'] = [value(model.hydro_Q[h, t]) for t in T]
@@ -77,8 +79,9 @@ def add_hydro_dispatch_to_dataframe(df: pd.DataFrame,
             df[f'S_{{h_{h}}}'] = [value(model.hydro_S[h, t]) for t in T]
             if hasattr(model, 'CMA'):
                 df[f'CMA_{{h_{h}}}'] = [value(model.CMA[h, t]) for t in T]
-
+            df = df.copy() # avoid fragmented DataFrame Warning
     return df
+
 
 def add_thermal_dispatch_to_dataframe(df: pd.DataFrame,
                                       model: ConcreteModel) -> pd.DataFrame:
@@ -114,12 +117,79 @@ def add_thermal_dispatch_to_dataframe(df: pd.DataFrame,
                     "The 't' column in df does not match model.T.")
         else:
             df['T'] = T
+            df = df.copy() # avoid fragmented DataFrame Warning
 
         # Por usina
         for g in G:
             df[f'G_{{t_{g}}}'] = [value(model.thermal_p[g, t]) for t in T]
-
+            df = df.copy() # avoid fragmented DataFrame Warning
+        
     return df
+
+
+def add_transmission_line_dispatch_to_dataframe(df: pd.DataFrame,
+                                                model: ConcreteModel) -> pd.DataFrame:
+    """
+    Append transmission lines flow results to a pandas DataFrame.
+
+    This function extracts transmission lines flow values from the Pyomo model and
+    adds them as columns to the DataFrame.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The DataFrame to which the results will be appended.
+    model : ConcreteModel
+        A Pyomo model instance containing transmission lines unit variables.
+
+    Returns
+    -------
+    pd.DataFrame
+        The updated DataFrame including transmission lines flow dispatch results.
+    """
+    if has_transmission_line_model(model):
+        T = list(model.T)
+        L = list(model.LT)
+        for l in L:
+            i, j = model.lines_endpoints[l]
+            df[f'F_{{{{LT}}_{l}}}'] = [
+                value(model.lines_flow[l, t]) for t in T]
+            df[f'\\Delta_{{\\Theta_{{LT_{l}}}}}'] = [
+                value(model.theta[i, t] - model.theta[j, t]) for t in model.T]
+            df = df.copy() # avoid fragmented DataFrame Warning
+    return df
+
+
+def add_connection_bar_dispatch_to_dataframe(df: pd.DataFrame,
+                                             model: ConcreteModel) -> pd.DataFrame:
+    """
+    Append connection bar angles results to a pandas DataFrame.
+
+    This function extracts angles values from the Pyomo model and
+    adds them as columns to the DataFrame.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The DataFrame to which the results will be appended.
+    model : ConcreteModel
+        A Pyomo model instance containing storage unit variables.
+
+    Returns
+    -------
+    pd.DataFrame
+        The updated DataFrame including storage dispatch results.
+    """
+    if has_connection_bar_model(model):
+        T = list(model.T)
+        B = list(model.CB)
+        if not model.unique_bar:
+            for b in B:
+                df[f'\Theta_{{{{CB}}_{b}}}'] = [
+                    value(model.theta[b, t]) for t in T]
+                df = df.copy() # avoid fragmented DataFrame Warning
+    return df
+
 
 def add_cost_to_dataframe(df: pd.DataFrame,
                           model: ConcreteModel) -> pd.DataFrame:
@@ -177,13 +247,26 @@ def add_cost_to_dataframe(df: pd.DataFrame,
                                                             renewable_generation,
                                                             storage_generation)]
 
+    df = df.copy() # avoid fragmented DataFrame Warning
     # ---------------------------
     # DEMANDA / DÉFICIT
     # ---------------------------
-    if has_d:
-        df['Demand'] = [value(model.d[t]) for t in T]
-    if has_D:
-        df['Deficit'] = [value(model.D[t]) for t in T]
+    if has_connection_bar_model(model):
+        T = list(model.T)
+        B = list(model.CB)
+        for b in B:
+            df[f'DemandBar_{{b_{b}}}'] = [value(model.d[b, t]) for t in T]
+            df[f'DeficitBar_{{b_{b}}}'] = [value(model.D[b, t]) for t in T]
+            df = df.copy() # avoid fragmented DataFrame Warning
+
+        if has_d:
+            df['Demand_{Total}'] = [
+                sum(value(model.d[b, t]) for b in model.CB) for t in T]
+        if has_D:
+            df['Deficit_{Total}'] = [sum(value(model.D[b, t])
+                                         for b in model.CB) for t in T]
+        
+        df = df.copy() # avoid fragmented DataFrame Warning
 
     # ---------------------------
     # CUSTOS
@@ -194,13 +277,19 @@ def add_cost_to_dataframe(df: pd.DataFrame,
         for t in T:
             c_thermal_t = sum(value(model.thermal_Cost[g] * model.thermal_p[g, t])
                               for g in G) if has_y and has_cost else 0.0
-            c_def_t = value(model.Cdef) * value(model.D[t]) if has_def_cost else 0.0
+            c_def_t = 0.0
+            for b in model.CB:
+                c_def_t += value(model.Cdef[b]) * \
+                    value(model.D[b, t]) if has_def_cost else 0.0
             cost_var.append(c_thermal_t)
             cost_def.append(c_def_t)
             cost_t.append(c_thermal_t + c_def_t)
     elif not has_cost and has_def_cost:
         for t in T:
-            c_def_t = value(model.Cdef) * value(model.D[t]) if has_def_cost else 0.0
+            c_def_t = 0.0
+            for b in model.CB:
+                c_def_t += value(model.Cdef[b]) * \
+                    value(model.D[b, t]) if has_def_cost else 0.0
             cost_var.append(0.0)
             cost_def.append(c_def_t)
             cost_t.append(c_def_t)
@@ -213,6 +302,7 @@ def add_cost_to_dataframe(df: pd.DataFrame,
     df['Cost_{def}'] = cost_def
     df['Cost_{total}'] = cost_t
 
+    df = df.copy() # avoid fragmented DataFrame Warning
     cmo_series = []
     if hasattr(model, "CMO"):
         cmo_series = [value(model.CMO[t]) for t in T]
@@ -224,8 +314,9 @@ def add_cost_to_dataframe(df: pd.DataFrame,
     df['CMO'] = cmo_series
     if hasattr(model, 'FC'):
         df['FC'] = [value(model.FC[t]) for t in T]
-
+    df = df.copy() # avoid fragmented DataFrame Warning
     return df
+
 
 def build_dispatch_dataframe(model: ConcreteModel) -> pd.DataFrame:
     """
@@ -251,5 +342,8 @@ def build_dispatch_dataframe(model: ConcreteModel) -> pd.DataFrame:
     df = add_hydro_dispatch_to_dataframe(df, model)
     df = add_thermal_dispatch_to_dataframe(df, model)
     df = add_renewable_dispatch_to_dataframe(df, model)
+    df = add_connection_bar_dispatch_to_dataframe(df, model)
+    df = add_transmission_line_dispatch_to_dataframe(df, model)
     df = add_cost_to_dataframe(df, model)
+
     return df

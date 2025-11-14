@@ -35,7 +35,9 @@ from typing import Any, Tuple, Dict
 from colorama import Fore, Style
 from NaivePyDESSEM.ModelFormatters import (
     format_renewable_model,
-    format_storage_model
+    format_storage_model,
+    format_connection_bar_model,
+    format_line_transmission_model
 )
 
 
@@ -189,8 +191,8 @@ def format_thermal_model(case: Dict) -> None:
             gmax = u.get("Gmax", 0.0)
             cost = u.get("Cost", 0.0)
             print(
-                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Gmin, {Fore.BLUE} Value: {Fore.CYAN}{gmin} MWh")
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Gmin, {Fore.BLUE} Value: {Fore.CYAN}{gmin} MWmed")
             print(
-                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Gmax, {Fore.BLUE} Value: {Fore.CYAN}{gmax} MWh")
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Gmax, {Fore.BLUE} Value: {Fore.CYAN}{gmax} MWmed")
             print(
                 f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Cost, {Fore.BLUE} Value: {Fore.CYAN}{cost} $/MWh")

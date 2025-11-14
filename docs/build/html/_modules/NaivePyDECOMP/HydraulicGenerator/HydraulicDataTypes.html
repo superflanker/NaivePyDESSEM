@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -132,7 +132,9 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    name : str</span>
-<span class="sd">        Unique identifier of the hydro plant.</span>
+<span class="sd">        Unique identifier of the hydro plant.    </span>
+<span class="sd">    bar: str</span>
+<span class="sd">        Connection Bar of the Unit (defaults to BAR_1)</span>
 <span class="sd">    Qmin : float</span>
 <span class="sd">        Minimum allowed turbined flow (hm^3).</span>
 <span class="sd">    Qmax : float</span>
@@ -162,6 +164,7 @@
 <span class="sd">        Default is ``True``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">bar</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">Qmin</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">Qmax</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">Vmin</span><span class="p">:</span> <span class="nb">float</span>
@@ -185,13 +188,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    horizon : int</span>
 <span class="sd">        Number of time periods in the planning horizon.</span>
-<span class="sd">    demand : Dict[int, float]</span>
-<span class="sd">        Mapping from period ``t`` (1-based) to system demand (MW).</span>
 <span class="sd">    units : Dict[str, HydraulicUnit]</span>
 <span class="sd">        Map from plant name to its ``HydraulicUnit`` data structure.</span>
-<span class="sd">    Cdef : float, optional</span>
-<span class="sd">        Penalty cost for unmet demand (R$/MWh), to be used by objectives in</span>
-<span class="sd">        optimization models. Default is ``1000.0``.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
@@ -202,9 +200,7 @@
 <span class="sd">      performed (inside the FPH callable or in the model).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">horizon</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">demand</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
-    <span class="n">units</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">HydraulicUnit</span><span class="p">]</span>
-    <span class="n">Cdef</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1000.0</span></div>
+    <span class="n">units</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">HydraulicUnit</span><span class="p">]</span></div>
 
 </pre></div>
 

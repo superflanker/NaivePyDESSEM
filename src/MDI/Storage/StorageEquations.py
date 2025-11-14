@@ -126,27 +126,28 @@ def add_storage_cost_expression(
 
     if all(hasattr(m, attr) for attr in required):
         if m.parcel_investment:
+            
             expr = sum(
                 # Operational cost (proportional to energy moved)
-                m.level_hours[p] * m.storage_c_op[s] * (
+                m.discounts[t] * m.level_hours[p] * m.storage_c_op[s] * (
                     m.storage_ch[s, t, p] + m.storage_dis[s, t, p]
                 )
                 for s in m.SU for t in m.T for p in m.P
             ) + sum(
                 # Investment cost (proportional to existence)
-                m.storage_c_inv[s] * m.storage_x[s, t]
+                m. discounts[t] * m.storage_c_inv[s] * m.storage_x[s, t]
                 for s in m.SU for t in m.T
             )
         else:
             expr = sum(
                 # Operational cost (proportional to energy moved)
-                m.level_hours[p] * m.storage_c_op[s] * (
+                m.discounts[t] * m.level_hours[p] * m.storage_c_op[s] * (
                     m.storage_ch[s, t, p] + m.storage_dis[s, t, p]
                 )
                 for s in m.SU for t in m.T for p in m.P
             ) + sum(
                 # Investment cost (proportional to existence)
-                m.storage_c_inv[s] * m.storage_y[s, t]
+                m. discounts[t] * m.storage_c_inv[s] * m.storage_y[s, t]
                 for s in m.SU for t in m.T
             )
         cost_array.append(expr)
@@ -174,7 +175,7 @@ def add_storage_capacity_expression(
     t : Any
         Time index.
     p : Any
-        Load level index.
+        Load level index corresponding to the current balance term.
     capacity_array : list of Any
         External list to which the resulting expression will be appended.
 
@@ -189,6 +190,7 @@ def add_storage_capacity_expression(
     ]
 
     if all(hasattr(m, attr) for attr in required):
+        
         expr = sum(
             # Capacity available only if the storage unit exists in period t
             # since Pdis_max is in MWh/level, this must be MWh per level
@@ -203,8 +205,9 @@ def add_storage_capacity_expression(
 
 def add_storage_balance_expression(
     m: ConcreteModel,
+    b: Any,
     t: Any,
-    p: Any,
+    p: str,
     balance_array: List[Any]
 ) -> List[Any]:
     """
@@ -218,9 +221,11 @@ def add_storage_balance_expression(
     ----------
     m : pyomo.environ.ConcreteModel
         Pyomo model instance containing the relevant storage variables and parameters.
+    b: Any
+        Connection Bar Name
     t : Any
         Time index for which the balance expression is computed.
-    p : Any
+    p : str
         Load level index corresponding to the current balance term.
     balance_array : list of Any
         External list to which the resulting expression will be appended.
@@ -231,15 +236,18 @@ def add_storage_balance_expression(
         The updated list of balance expressions including the storage term.
     """
     required = [
-        'SU', 'T', 'P',
+        'SU', 'T', 'P', 'storage_bars',
         'storage_ch', 'storage_dis',
         'storage_eta_c', 'storage_eta_d'
     ]
 
     if all(hasattr(m, attr) for attr in required):
-        expr = sum(m.storage_dis[s, t, p]- m.storage_ch[s, t, p]
-            for s in m.SU
-        )
-        balance_array.append(expr)
-
+        temp_array: List = []
+        for s in m.SU:
+            bar = m.storage_bars[s]
+            if bar == b:
+                temp_array.append(m.storage_dis[s, t, p] - m.storage_ch[s, t, p])
+        if len(temp_array) > 0:
+            balance_array.append(sum(temp_array))
+        
     return balance_array

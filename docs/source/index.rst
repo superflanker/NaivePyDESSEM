@@ -23,7 +23,7 @@ Official Documentation of NaivePyDESSEM Project — A Pedagogical and Modular Fr
 
 .. toctree::
    :maxdepth: 6
-   :caption: Main modules (DESSEM/DECOMP/MDI):
+   :caption: Main modules:
 
    modules
    topics_on_planning_and_expansion_of_power_systems

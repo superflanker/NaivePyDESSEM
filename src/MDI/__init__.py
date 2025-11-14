@@ -33,37 +33,49 @@ emphasizing transparency and pedagogical clarity.
 
 Submodules
 ----------
-Generator : module  
+Generator
     Defines the data structures, constraints, and operational cost models
     for thermal and other dispatchable generation units.
 
-Storage : module  
+Storage 
     Models energy storage systems (e.g., batteries), including state-of-charge
     dynamics, charge/discharge limits, efficiencies, and integration into
     system-wide balance and cost formulations.
 
-YAMLLoader : module  
+ConnectionBar (New in version 0.1.4)  
+    Represents the nodal structure of the network, defining the electrical buses (bars) 
+    that aggregate demand, generation, deficit, and angular reference variables. Provides sets,
+    parameters, variables, and constraints for the nodal balance equations in MW, with optional 
+    angular limits and slack-bar reference handling.
+
+TransmissionLine (New in version 0.1.4)  
+    Models the physical interconnections between bars, using the DC power flow or transport 
+    formulations. Defines sets, parameters, and variables for line flows, susceptances,
+    capacities, and investment states, including both existing  and candidate circuits. 
+    Fully compatible with hybrid DC/transport network representations.
+
+YAMLLoader
     Provides a structured interface for loading problem instances from YAML
     or JSON files, including schema validation and automatic conversion
     to dataclass-based objects.
 
-Builder : module  
+Builder 
     Constructs the complete Pyomo model by invoking the relevant subsystems,
     generating the energy balance constraints, and defining the
     cost-minimizing objective function.
 
-Solver : module  
+Solver  
     Manages solver configuration and execution (e.g., GLPK, IPOPT, MindtPy),
     with optional reporting, sensitivity analysis, and feasibility diagnostics.
 
-DataFrames : module  
+DataFrames
     Exports decision variable trajectories and economic indicators
     to Pandas DataFrames for post-solution analysis and visualization.
 
-PlotSeries : module  
+PlotSeries
     Generates time-series and comparative dispatch plots using Matplotlib.
 
-Utils, Formatters, Reporting : module  
+Utils, Formatters, Reporting 
     Auxiliary modules for formatting, summary reporting, model validation,
     and console visualization using Colorama.
 
@@ -87,6 +99,8 @@ References
 
 from .Generator import *
 from .Storage import *
+from .ConnectionBar import *
+from .TransmissionLine import *
 from .DataFrames import *
 from .PlotSeries import *
 from .Utils import *

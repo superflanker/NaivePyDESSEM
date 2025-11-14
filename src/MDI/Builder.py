@@ -72,26 +72,29 @@ References
 
 from __future__ import annotations
 
-import json
 import numpy as np
 from typing import Any, Dict, List, Tuple
 from pyomo.environ import ConcreteModel, Objective, Constraint, minimize
 
 from MDI.Generator.GeneratorDataTypes import GeneratorData, GeneratorUnit
 from MDI.Generator.GeneratorBuilder import add_generator_problem
-from MDI.Generator.GeneratorEquations import (
-    add_generator_cost_expression,
-    add_generator_balance_expression,
-    add_generator_capacity_expression
-)
+from MDI.Generator.GeneratorEquations import add_generator_cost_expression
 
 from MDI.Storage.StorageDataTypes import StorageData, StorageUnit
 from MDI.Storage.StorageBuilder import add_storage_problem
-from MDI.Storage.StorageEquations import (
-    add_storage_cost_expression,
-    add_storage_balance_expression,
-    add_storage_capacity_expression
+from MDI.Storage.StorageEquations import add_storage_cost_expression
+
+from MDI.ConnectionBar.ConnectionBarDataTypes import ConnectionBarData, ConnectionBarUnit
+from MDI.ConnectionBar.ConnectionBarBuilder import add_connection_bar_problem
+from MDI.ConnectionBar.ConnectionBarConstraints import (
+    add_connection_bar_balance_constraints, 
+    add_connection_bar_capacity_constraints
 )
+from MDI.ConnectionBar.ConnectionBarEquations import add_connection_bar_cost_expression
+
+from MDI.TransmissionLine.TransmissionLineDataTypes import TransmissionLineData, TransmissionLineUnit
+from MDI.TransmissionLine.TransmissionLineBuilder import add_transmission_line_problem
+from MDI.TransmissionLine.TransmissionLineEquations import add_transmission_line_cost_expression
 
 from .YAMLLoader import yaml_loader
 
@@ -101,20 +104,55 @@ from .YAMLLoader import yaml_loader
 
 
 def _validate_meta(meta: Dict[str, Any]) -> None:
-   
+    """
+    Validate meta parameter.
+
+    Parameters
+    ----------
+    storage : dict
+        Dictionary containing meta configuration.
+
+    Raises
+    ------
+    ValueError
+        If meta is malformed
+    """
     horizon = meta.get("horizon")
     if not isinstance(horizon, int) or horizon <= 0:
         raise ValueError("meta.horizon must be a positive integer.")
 
 
 def _validate_demand(d: Dict[Any, Any], T: int) -> None:
-   
+    """
+    Validate demand parameter.
+
+    Parameters
+    ----------
+    storage : dict
+        Dictionary containing demand configuration .
+
+    Raises
+    ------
+    ValueError
+        If demand is malformed
+    """
     pass
 
 
-
 def _validate_storage(storage: Dict[str, Any]) -> None:
-   
+    """
+    Validate storage unit parameters.
+
+    Parameters
+    ----------
+    storage : dict
+        Dictionary containing storage unit configurations.
+
+    Raises
+    ------
+    ValueError
+        If storage unit is malformed
+    """
     units = storage.get("units", {})
     for name, u in units.items():
         if not (u["Emin"] <= u["Eini"] <= u["Emax"]):
@@ -126,9 +164,20 @@ def _validate_storage(storage: Dict[str, Any]) -> None:
                     f"storage.units[{name}].{k} must be in (0, 1].")
 
 
-            
 def _validate_generator(generators: Dict[str, Any]) -> None:
+    """
+    Validate generator unit parameters.
 
+    Parameters
+    ----------
+    storage : dict
+        Dictionary containing generator unit configurations.
+
+    Raises
+    ------
+    ValueError
+        If generator unit is malformed
+    """
     required = [
         'GU', 'T', 'P',
         'gen_P', 'gen_c_op', 'gen_c_inv',
@@ -139,24 +188,78 @@ def _validate_generator(generators: Dict[str, Any]) -> None:
     for name, u in units.items():
         if all(hasattr(u, attr) for attr in required):
             raise ValueError(
-                    f"generator.units[{name}] is invalid.")
+                f"generator.units[{name}] is invalid.")
+
+
+def _validate_connection_bars(bars: Dict[str, Any], T: int, levels: int) -> None:
+    """
+    Validate connection bars unit parameters.
+
+    Parameters
+    ----------
+    storage : dict
+        Dictionary containing connection bar unit configurations.
+
+    Raises
+    ------
+    ValueError
+        If connection bar unit is malformed
+    """
+    units = bars.get("units")
+    required = ['slack', 'Cdef']
+    for name, u in units.items():
+        if not all(attr in u for attr in required):
+            raise ValueError(
+                f"bars.units[{name}] is malformed.")
+
+        demand = u.get("demand", {})
+        if len(demand.keys()) != levels:
+            raise ValueError(
+                f"bars.units[{name}].demand must have length {levels}.")
+        for level, u in demand.items():
+            if len(u) != T:
+                raise ValueError(
+                    f"bars.units[{name}].demand[{level}] must have length {T}.")
+
+
+def _validate_transmission_lines(lines: Dict[str, Any]) -> None:
+    """
+    Validate transmission line unit parameters.
+
+    Parameters
+    ----------
+    storage : dict
+        Dictionary containing transmission lines unit configurations.
+
+    Raises
+    ------
+    ValueError
+        If transmission line unit is malformed
+    """
+    units = lines.get("units")
+    required = ['model', 'b', 'pmax', 'endpoints', 'c_op', 'c_inv']
+
+    for name, u in units.items():
+        if not all(attr in u for attr in required):
+            raise ValueError(
+                f"lines.units[{name}] is malformed.")
+
 
 # ============================================================================
 # Dataclass factories
 # ============================================================================
 
+
 def _mk_generator_data(root: Dict[str, Any]) -> GeneratorData:
-   
+
     meta = root["meta"]
     generators = root["generator"]
-    # demanda “global” veio em root["demand"]
     H = meta["horizon"]
-    level_hours = meta["level_hours"]
-    demand = meta["demand"]
     units = {}
     for name, u in generators["units"].items():
         units[name] = GeneratorUnit(
             name=name,
+            bar=str(u.get("bar", r"{BAR_{1}}")),
             state=int(u["state"]),
             c_op=float(u["c_op"]),
             c_inv=float(u["c_inv"]),
@@ -165,24 +268,21 @@ def _mk_generator_data(root: Dict[str, Any]) -> GeneratorData:
         )
     return GeneratorData(
         horizon=H,
-        demand=demand,
-        units=units,
-        level_hours=level_hours
+        units=units
     )
 
 
 def _mk_storage_data(root: Dict[str, Any]) -> StorageData:
-    
+
     storage = root["storage"]
     meta = root["meta"]
     H = meta["horizon"]
-    level_hours = meta["level_hours"]
     delta_t = float(storage.get("delta_t", meta.get("delta_t", 1.0)))
-    demand = meta["demand"]
     units = {}
     for name, u in storage["units"].items():
         units[name] = StorageUnit(
-            name=name,            
+            name=name,
+            bar=str(u.get("bar", r"{BAR_{1}}")),
             state=int(u["state"]),
             c_op=float(u["c_op"]),
             c_inv=float(u["c_inv"]),
@@ -196,48 +296,96 @@ def _mk_storage_data(root: Dict[str, Any]) -> StorageData:
         )
     return StorageData(
         horizon=H,
-        demand=demand,
         units=units,
-        delta_t=delta_t,
-        level_hours=level_hours
+        delta_t=delta_t
     )
+
+
+def _mk_connection_bar_data(root: Dict[str, Any]) -> ConnectionBarData:
+    """
+    Construct a ConnectionBarData object from parsed YAML root.
+
+    Parameters
+    ----------
+    root : dict
+        YAML-parsed dictionary containing 'meta' and 'bars' sections.
+
+    Returns
+    -------
+    ConnectionBarData
+        Structured dataclass containing all parsed connection bar data.
+    """
+    connection_bars = root["bars"]
+    meta = root["meta"]
+    H = meta["horizon"]
+    units = {}
+    for name, u in connection_bars["units"].items():
+        units[name] = ConnectionBarUnit(
+            name=name,
+            slack=bool(u.get("slack", False)),
+            Cdef=float(u.get("Cdef", 1000.0)),
+            c_pmax=float(u.get("c_pmax", 10000.0)),
+            demand=u.get("demand", {})
+        )
+    return ConnectionBarData(
+        horizon=H,
+        units=units
+    )
+
+
+def _mk_transmission_line_data(root: Dict[str, Any]) -> TransmissionLineData:
+    """
+    Construct a TransmissionLineData object from parsed YAML root.
+
+    Parameters
+    ----------
+    root : dict
+        YAML-parsed dictionary containing 'meta' and 'lines' sections.
+
+    Returns
+    -------
+    TransmissionLineData
+        Structured dataclass containing all parsed transmission lines data.
+    """
+    transmission_lines = root["lines"]
+    meta = root["meta"]
+    H = meta["horizon"]
+    units = {}
+    for name, u in transmission_lines["units"].items():
+        units[name] = TransmissionLineUnit(
+            name=name,
+            state=int(u["state"]),
+            c_op=float(u["c_op"]),
+            c_inv=float(u["c_inv"]),
+            model=str(u.get("model", "dc")).lower(),
+            b=float(u.get("b", 0.01)),
+            pmax=float(u.get("pmax", 100.0)),
+            endpoints=[str(x) for x in u.get("endpoints", [])]
+        )
+    return TransmissionLineData(
+        horizon=H,
+        units=units
+    )
+
 
 # ============================================================================
 # Master entry point
 # ============================================================================
+
+
 def build_balance_and_objective_from_yaml(model: ConcreteModel, yaml_data: Dict[str, Any]) -> ConcreteModel:
-    
+
     # --------------------------
     # ADEQUACY CONSTRAINT
     # --------------------------
-    def capacity_balance_rule(m, t, p):
-        capacity_terms: List[Any] = []
-        
-        
-        if 'generator' in yaml_data:
-            add_generator_capacity_expression(m, t, p, capacity_terms)
-        if 'storage' in yaml_data:
-            add_storage_capacity_expression(m, t, p, capacity_terms)
-
-        idx = t-1
-        return sum(capacity_terms) >= model.d[p][idx]
-
-    model.Adequacy = Constraint(model.T, model.P, rule=capacity_balance_rule)
     
+    add_connection_bar_capacity_constraints(model)
+
     # --------------------------
     # BALANCE CONSTRAINT
     # --------------------------
-    def power_balance_rule(m, t, p):
-        balance_terms: List[Any] = []
-        if 'generator' in yaml_data:
-            add_generator_balance_expression(m, t, p, balance_terms)
-        if 'storage' in yaml_data:
-            add_storage_balance_expression(m, t, p, balance_terms)
 
-        # Final balance expression
-        return sum(balance_terms) == m.d[p][t-1]
-
-    model.Balance = Constraint(model.T, model.P, rule=power_balance_rule)
+    add_connection_bar_balance_constraints(model)
 
     # --------------------------
     # OBJECTIVE FUNCTION
@@ -248,37 +396,72 @@ def build_balance_and_objective_from_yaml(model: ConcreteModel, yaml_data: Dict[
         add_generator_cost_expression(model, cost_terms)
     if 'storage' in yaml_data:
         add_storage_cost_expression(model, cost_terms)
-    
+    if 'lines' in yaml_data:
+        add_transmission_line_cost_expression(model, cost_terms)
+    if 'bars' in yaml_data:
+        add_connection_bar_cost_expression(model, cost_terms)
+
     model.OBJ = Objective(expr=sum(cost_terms), sense=minimize)
 
     return model
 
 
 def build_model_from_file(path: str) -> Tuple[ConcreteModel, Dict]:
-   
+
     root = yaml_loader(path)
-    level_precedence = root["meta"]["level_precedence"]
-    parcel_investment = bool(root["meta"]["parcel_investment"])
 
     if "meta" not in root:
         raise ValueError("File must contain 'meta' sections.")
 
+    level_precedence = root["meta"]["level_precedence"]
+    level_hours = root["meta"]["level_hours"]
+    parcel_investment = bool(root["meta"].get("parcel_investment", False))
+    interest_rate = float(root["meta"].get("interest_rate", 0.1))
+    p_base = float(root["meta"].get("p_base", 1.0))
     m = ConcreteModel()
 
+    m.p_base = p_base
     m.level_precedence = level_precedence
     m.parcel_investment = parcel_investment
+    m.interest_rate = interest_rate
+    m.level_hours = level_hours
+    m.P = level_precedence
 
     # Basic validations
     _validate_meta(root["meta"])
     T = int(root["meta"]["horizon"])
-    _validate_demand(root["meta"]["demand"], T)
+
     has_valid_units = False
+    # first of all, the bars
+    if not "bars" in root:
+        # default bar - described in meta section
+        _validate_demand(root["meta"]["demand"], T)
+        slack = True
+        Cdef = float(root["meta"]["Cdef"])
+        demand = root["meta"]["demand"]
+        root["bars"] = {"units": {"{BAR_{1}}": {"slack": slack,
+                                                "Cdef": Cdef,
+                                                "demand": demand}}}
+    if "bars" in root and root["bars"] is not None:
+        _validate_connection_bars(root["bars"], T, len(level_precedence))
+        bar_data = _mk_connection_bar_data(root)
+        m = add_connection_bar_problem(m=m,
+                                       data=bar_data,
+                                       include_objective=False)
+
+    if "lines" in root and root["lines"] is not None:
+        _validate_transmission_lines(root["lines"])
+        bar_data = _mk_transmission_line_data(root)
+        m = add_transmission_line_problem(m=m,
+                                          data=bar_data,
+                                          include_objective=False)
+
     if "generator" in root and root["generator"] is not None:
         _validate_generator(root["generator"])
         generator_data = _mk_generator_data(root)
         m = add_generator_problem(m=m,
-                              data=generator_data,
-                              include_objective=False)
+                                  data=generator_data,
+                                  include_objective=False)
         has_valid_units = True
 
     if "storage" in root and root["storage"] is not None:

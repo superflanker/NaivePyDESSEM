@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -113,7 +113,9 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">colorama</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fore</span><span class="p">,</span> <span class="n">Style</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDESSEM.ModelFormatters</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">format_renewable_model</span><span class="p">,</span>
-    <span class="n">format_storage_model</span>
+    <span class="n">format_storage_model</span><span class="p">,</span>
+    <span class="n">format_connection_bar_model</span><span class="p">,</span>
+    <span class="n">format_line_transmission_model</span>
 <span class="p">)</span>
 
 
@@ -284,9 +286,9 @@
             <span class="n">gmax</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Gmax&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
             <span class="n">cost</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Cost&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Gmin, </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">gmin</span><span class="si">}</span><span class="s2"> MWh&quot;</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Gmin, </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">gmin</span><span class="si">}</span><span class="s2"> MWmed&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Gmax, </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">gmax</span><span class="si">}</span><span class="s2"> MWh&quot;</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Gmax, </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">gmax</span><span class="si">}</span><span class="s2"> MWmed&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">  Parameter: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}</span><span class="s2">Cost, </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2"> Value: </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">cost</span><span class="si">}</span><span class="s2"> $/MWh&quot;</span><span class="p">)</span></div>
 

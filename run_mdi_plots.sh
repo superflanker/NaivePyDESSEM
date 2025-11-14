@@ -38,6 +38,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex01.csv \
   --level Ponta \
   --title "Geração - Ponta - Ex01 - Investimento Único" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex01/imagens \
   --out-file geracao_ex01_ponta.png
   
@@ -47,6 +48,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex01.csv \
   --level Fora \
   --title "Geração - Fora - Ex01 - Investimento Único" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex01/imagens \
   --out-file geracao_ex01_fora.png
 
@@ -61,6 +63,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex01.csv \
   --plot-style bar \
   --title "Custos de Geração - Ex01 - Investimento Único" \
   --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex01/imagens \
   --out-file custos_geracao_ex01.png
 
@@ -68,7 +71,8 @@ mdi-plot resultados/MDI/planejamento_expansao_ex01.csv\
   --mode plot --category BAT  \
   --plot-style bar \
   --title "Carga/Descarga das Baterias - Ex01 - Investimento Único" \
-  --ylabel "Carga/Dscarga \(\$MWh/h\$\)" \
+  --ylabel "Carga/Descarga \(\$MWh/h\$\)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios//MDI/ex01/imagens \
   --out-file carga_descarga_baterias_ex01.png
 
@@ -103,6 +107,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex01_anualizado.csv \
   --level Ponta \
   --title "Geração - Ponta - Ex01 - Anualizado" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex01/imagens \
   --out-file geracao_ex01_anualizado_ponta.png
   
@@ -112,6 +117,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex01_anualizado.csv \
   --level Fora \
   --title "Geração - Fora - Ex01 - Anualizado" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex01/imagens \
   --out-file geracao_ex01_anualizado_fora.png
 
@@ -126,6 +132,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex01_anualizado.csv \
   --plot-style bar \
   --title "Custos de Geração - Ex01 - Anualizado" \
   --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex01/imagens \
   --out-file custos_geracao_ex01_anualizado.png
 
@@ -133,7 +140,8 @@ mdi-plot resultados/MDI/planejamento_expansao_ex01_anualizado.csv\
   --mode plot --category BAT  \
   --plot-style bar \
   --title "Carga/Descarga das Baterias - Ex01 - Anualizado" \
-  --ylabel "Carga/Dscarga (\$MWh/h\$)" \
+  --ylabel "Carga/Descarga (\$MWh/h\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios//MDI/ex01/imagens \
   --out-file carga_descarga_baterias_ex01_anualizado.png
 
@@ -168,6 +176,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex02.csv \
   --level Ponta \
   --title "Geração - Ponta - Ex02 - Investimento Único" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex02/imagens \
   --out-file geracao_ex02_ponta.png
 
@@ -177,6 +186,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex02.csv \
   --level Fora \
   --title "Geração - Fora - Ex02 - Investimento Único" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex02/imagens \
   --out-file geracao_ex02_fora.png
 
@@ -191,6 +201,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex02.csv \
   --plot-style bar \
   --title "Custos de Geração - Ex02 - Investimento Único" \
   --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex02/imagens \
   --out-file custos_geracao_ex02.png
 
@@ -198,7 +209,8 @@ mdi-plot resultados/MDI/planejamento_expansao_ex02.csv\
   --mode plot --category BAT  \
   --plot-style bar \
   --title "Carga/Descarga das Baterias - Ex02 - Investimento Único" \
-  --ylabel "Carga/Dscarga (\$MWh/h\$)" \
+  --ylabel "Carga/Descarga (\$MWh/h\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios//MDI/ex02/imagens \
   --out-file carga_descarga_baterias_ex02.png
 
@@ -233,6 +245,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex02_anualizado.csv \
   --level Ponta \
   --title "Geração - Ponta - Ex02 - Anualizado" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex02/imagens \
   --out-file geracao_ex02_anualizado_ponta.png
 
@@ -242,6 +255,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex02_anualizado.csv \
   --level Fora \
   --title "Geração - Fora - Ex02 - Anualizado" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex02/imagens \
   --out-file geracao_ex02_anualizado_fora.png
 
@@ -256,6 +270,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex02_anualizado.csv \
   --plot-style bar \
   --title "Custos de Geração - Ex02 - Anualizado" \
   --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex02/imagens \
   --out-file custos_geracao_ex02_anualizado.png
 
@@ -264,6 +279,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex02_anualizado.csv\
   --plot-style bar \
   --title "Carga/Descarga das Baterias - Ex02 - Anualizado" \
   --ylabel "Carga/Descarga (\$MWh/h\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios//MDI/ex02/imagens \
   --out-file carga_descarga_baterias_ex02_anualizado.png
 
@@ -298,6 +314,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex03.csv \
   --level Ponta \
   --title "Geração - Ponta - Ex03 - Investimento Único" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex03/imagens \
   --out-file geracao_ex03_ponta.png
 
@@ -307,6 +324,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex03.csv \
   --level Fora \
   --title "Geração - Fora - Ex03 - Investimento Único" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex03/imagens \
   --out-file geracao_ex03_fora.png
 
@@ -321,6 +339,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex03.csv \
   --plot-style bar \
   --title "Custos de Geração - Ex03 - Investimento Único" \
   --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex03/imagens \
   --out-file custos_geracao_ex03.png
 
@@ -328,7 +347,8 @@ mdi-plot resultados/MDI/planejamento_expansao_ex03.csv\
   --mode plot --category BAT  \
   --plot-style bar \
   --title "Carga/Descarga das Baterias - Ex03 - Investimento Único" \
-  --ylabel "Carga/Dscarga (\$MWh/h\$)" \
+  --ylabel "Carga/Descarga (\$MWh/h\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios//MDI/ex03/imagens \
   --out-file carga_descarga_baterias_ex03.png
 
@@ -363,6 +383,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex03_anualizado.csv \
   --level Ponta \
   --title "Geração - Ponta - Ex03 - Anualizado" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex03/imagens \
   --out-file geracao_ex03_anualizado_ponta.png
 
@@ -372,6 +393,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex03_anualizado.csv \
   --level Fora \
   --title "Geração - Fora - Ex03 - Anualizado" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex03/imagens \
   --out-file geracao_ex03_anualizado_fora.png
 
@@ -386,6 +408,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex03_anualizado.csv \
   --plot-style bar \
   --title "Custos de Geração - Ex03 - Anualizado" \
   --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex03/imagens \
   --out-file custos_geracao_ex03_anualizado.png
 
@@ -394,6 +417,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex03_anualizado.csv\
   --plot-style bar \
   --title "Carga/Descarga das Baterias - Ex03 - Anualizado" \
   --ylabel "Carga/Descarga (\$MWh/h\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios//MDI/ex03/imagens \
   --out-file carga_descarga_baterias_ex03_anualizado.png
 
@@ -428,6 +452,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex04.csv \
   --level Ponta \
   --title "Geração - Ponta - Ex04 - Investimento Único" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex04/imagens \
   --out-file geracao_ex04_ponta.png
 
@@ -437,6 +462,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex04.csv \
   --level Fora \
   --title "Geração - Fora - Ex04 - Investimento Único" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex04/imagens \
   --out-file geracao_ex04_fora.png
 
@@ -451,6 +477,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex04.csv \
   --plot-style bar \
   --title "Custos de Geração - Ex04 - Investimento Único" \
   --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex04/imagens \
   --out-file custos_geracao_ex04.png
 
@@ -458,7 +485,8 @@ mdi-plot resultados/MDI/planejamento_expansao_ex04.csv\
   --mode plot --category BAT  \
   --plot-style bar \
   --title "Carga/Descarga das Baterias - Ex04 - Investimento Único" \
-  --ylabel "Carga/Dscarga (\$MWh/h\$)" \
+  --ylabel "Carga/Descarga (\$MWh/h\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios//MDI/ex04/imagens \
   --out-file carga_descarga_baterias_ex04.png
 
@@ -493,6 +521,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex04_anualizado.csv \
   --level Ponta \
   --title "Geração - Ponta - Ex04 - Anualizado" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex04/imagens \
   --out-file geracao_ex04_anualizado_ponta.png
 
@@ -502,6 +531,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex04_anualizado.csv \
   --level Fora \
   --title "Geração - Fora - Ex04 - Anualizado" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex04/imagens \
   --out-file geracao_ex04_anualizado_fora.png
 
@@ -516,6 +546,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex04_anualizado.csv \
   --plot-style bar \
   --title "Custos de Geração - Ex04 - Anualizado" \
   --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex04/imagens \
   --out-file custos_geracao_ex04_anualizado.png
 
@@ -524,6 +555,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex04_anualizado.csv\
   --plot-style bar \
   --title "Carga/Descarga das Baterias - Ex04 - Anualizado" \
   --ylabel "Carga/Descarga (\$MWh/h\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios//MDI/ex04/imagens \
   --out-file carga_descarga_baterias_ex04_anualizado.png
 
@@ -558,6 +590,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex05.csv \
   --level Ponta \
   --title "Geração - Ponta - Ex05 - Investimento Único" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex05/imagens \
   --out-file geracao_ex05_ponta.png
 
@@ -567,6 +600,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex05.csv \
   --level Fora \
   --title "Geração - Fora - Ex05 - Investimento Único" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex05/imagens \
   --out-file geracao_ex05_fora.png
 
@@ -581,6 +615,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex05.csv \
   --plot-style bar \
   --title "Custos de Geração - Ex05 - Investimento Único" \
   --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex05/imagens \
   --out-file custos_geracao_ex05.png
 
@@ -616,6 +651,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex05_anualizado.csv \
   --level Ponta \
   --title "Geração - Ponta - Ex05 - Anualizado" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex05/imagens \
   --out-file geracao_ex05_anualizado_ponta.png
 
@@ -625,6 +661,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex05_anualizado.csv \
   --level Fora \
   --title "Geração - Fora - Ex05 - Anualizado" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex05/imagens \
   --out-file geracao_ex05_anualizado_fora.png
 
@@ -639,6 +676,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex05_anualizado.csv \
   --plot-style bar \
   --title "Custos de Geração - Ex05 - Anualizado" \
   --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex05/imagens \
   --out-file custos_geracao_ex05_anualizado.png
 
@@ -673,6 +711,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex06.csv \
   --level Ponta \
   --title "Geração - Ponta - Ex06 - Investimento Único" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex06/imagens \
   --out-file geracao_ex06_ponta.png
 
@@ -682,6 +721,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex06.csv \
   --level Fora \
   --title "Geração - Fora - Ex06 - Investimento Único" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex06/imagens \
   --out-file geracao_ex06_fora.png
 
@@ -696,6 +736,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex06.csv \
   --plot-style bar \
   --title "Custos de Geração - Ex06 - Investimento Único" \
   --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex06/imagens \
   --out-file custos_geracao_ex06.png
 
@@ -730,6 +771,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex06_anualizado.csv \
   --level Ponta \
   --title "Geração - Ponta - Ex06 - Anualizado" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex06/imagens \
   --out-file geracao_ex06_anualizado_ponta.png
 
@@ -739,6 +781,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex06_anualizado.csv \
   --level Fora \
   --title "Geração - Fora - Ex06 - Anualizado" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex06/imagens \
   --out-file geracao_ex06_anualizado_fora.png
 
@@ -753,6 +796,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex06_anualizado.csv \
   --plot-style bar \
   --title "Custos de Geração - Ex06 - Anualizado" \
   --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex06/imagens \
   --out-file custos_geracao_ex06_anualizado.png
 # caso07, tabelas - investimento único
@@ -786,6 +830,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex07.csv \
   --level Ponta \
   --title "Geração - Ponta - Ex07 - Investimento Único" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex07/imagens \
   --out-file geracao_ex07_ponta.png
 
@@ -795,6 +840,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex07.csv \
   --level Fora \
   --title "Geração - Fora - Ex07 - Investimento Único" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex07/imagens \
   --out-file geracao_ex07_fora.png
 
@@ -809,6 +855,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex07.csv \
   --plot-style bar \
   --title "Custos de Geração - Ex07 - Investimento Único" \
   --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex07/imagens \
   --out-file custos_geracao_ex07.png
 
@@ -816,7 +863,8 @@ mdi-plot resultados/MDI/planejamento_expansao_ex07.csv\
   --mode plot --category BAT  \
   --plot-style bar \
   --title "Carga/Descarga das Baterias - Ex07 - Investimento Único" \
-  --ylabel "Carga/Dscarga (\$MWh/h\$)" \
+  --ylabel "Carga/Descarga (\$MWh/h\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios//MDI/ex07/imagens \
   --out-file carga_descarga_baterias_ex07.png
 
@@ -851,6 +899,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex07_anualizado.csv \
   --level Ponta \
   --title "Geração - Ponta - Ex07 - Anualizado" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex07/imagens \
   --out-file geracao_ex07_anualizado_ponta.png
 
@@ -860,6 +909,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex07_anualizado.csv \
   --level Fora \
   --title "Geração - Fora - Ex07 - Anualizado" \
   --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex07/imagens \
   --out-file geracao_ex07_anualizado_fora.png
 
@@ -874,6 +924,7 @@ mdi-plot resultados/MDI/planejamento_expansao_ex07_anualizado.csv \
   --plot-style bar \
   --title "Custos de Geração - Ex07 - Anualizado" \
   --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios/MDI/ex07/imagens \
   --out-file custos_geracao_ex07_anualizado.png
 
@@ -882,6 +933,243 @@ mdi-plot resultados/MDI/planejamento_expansao_ex07_anualizado.csv\
   --plot-style bar \
   --title "Carga/Descarga das Baterias - Ex07 - Anualizado" \
   --ylabel "Carga/Descarga (\$MWh/h\$)" \
+  --xlabel "Estágio (T)" \
   --out-dir relatorios//MDI/ex07/imagens \
   --out-file carga_descarga_baterias_ex07_anualizado.png
+
+
+# mdi-hybrid, tabelas - Investimento Anualizado
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid.csv \
+  --mode table --category GT \
+  --title "Tabela de Geração (\$MWh/h\$) - MODELO HÍBRIDO" \
+  --label tab:geracao_hybrid_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid/tabelas/ \
+  --out-file tabela_geracao_hybrid_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid.csv \
+  --mode table --category cost \
+  --title "Custos Operacionais e Investimento - MODELO HÍBRIDO" \
+  --label tab:custos_geracao_hybrid_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid/tabelas/ \
+  --out-file tabela_custos_hybrid_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid.csv \
+  --mode ctrl \
+  --title "Decisão de Construção e Existência de Usinas (X, Y) - MODELO HÍBRIDO" \
+  --label tab:ctrl_hybrid_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid/tabelas/ \
+  --out-file decisoes_hybrid_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid.csv \
+  --mode table --category CB \
+  --title "Demanda ($\MW\$), Déficit (\$MW\$) e Ângulos (\$\\mathrm{rad}\$) por barra - MODELO HÍBRIDO" \
+  --label tab:barras_hybrid_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid/tabelas/ \
+  --out-file barras_hybrid_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid.csv \
+  --mode table --category LT \
+  --title "Fluxos de Potência (\$MW\$) e Deriva Angular (\$\\mathrm{rad}\$) de Linhas - MODELO HÍBRIDO" \
+  --label tab:linhas_hybrid_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid/tabelas/ \
+  --out-file linhas_hybrid_anualizado.tex
+
+# mdi-hybrid, gráficos - Investimento Anualizado
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid.csv \
+  --mode plot --category G  \
+  --plot-style bar --stacked \
+  --level Ponta \
+  --title "Geração - Ponta - MODELO HÍBRIDO" \
+  --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid/imagens \
+  --out-file geracao_hybrid_anualizado_ponta.png
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid.csv \
+  --mode plot --category cost  \
+  --plot-style bar \
+  --title "Custos de Geração - MODELO HÍBRIDO" \
+  --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid/imagens \
+  --out-file custos_geracao_hybrid_anualizado.png
+
+
+# mdi-hybrid-alt, tabelas - Investimento Anualizado
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid-alt.csv \
+  --mode table --category GT \
+  --title "Tabela de Geração (\$MWh/h\$) - MODELO HÍBRIDO" \
+  --label tab:geracao_hybrid_alt_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid-alt/tabelas/ \
+  --out-file tabela_geracao_hybrid_alt_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid-alt.csv \
+  --mode table --category cost \
+  --title "Custos Operacionais e Investimento - MODELO HÍBRIDO" \
+  --label tab:custos_geracao_hybrid_alt_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid-alt/tabelas/ \
+  --out-file tabela_custos_hybrid_alt_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid-alt.csv \
+  --mode ctrl \
+  --title "Decisão de Construção e Existência de Usinas (X, Y) - MODELO HÍBRIDO" \
+  --label tab:ctrl_hybrid_alt_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid-alt/tabelas/ \
+  --out-file decisoes_hybrid_alt_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid-alt.csv \
+  --mode table --category CB \
+  --title "Demanda ($\MW\$), Déficit (\$MW\$) e Ângulos (\$\\mathrm{rad}\$) por barra - MODELO HÍBRIDO" \
+  --label tab:barras_hybrid_alt_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid-alt/tabelas/ \
+  --out-file barras_hybrid_alt_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid-alt.csv \
+  --mode table --category LT \
+  --title "Fluxos de Potência (\$MW\$) e Deriva Angular (\$\\mathrm{rad}\$) de Linhas - MODELO HÍBRIDO" \
+  --label tab:linhas_hybrid_alt_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid-alt/tabelas/ \
+  --out-file linhas_hybrid_alt_anualizado.tex
+
+# mdi-hybrid-alt, gráficos - Investimento Anualizado
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid-alt.csv \
+  --mode plot --category G  \
+  --plot-style bar --stacked \
+  --level Ponta \
+  --title "Geração - Ponta - MODELO HÍBRIDO" \
+  --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid-alt/imagens \
+  --out-file geracao_hybrid_alt_anualizado_ponta.png
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid-alt.csv \
+  --mode plot --category cost  \
+  --plot-style bar \
+  --title "Custos de Geração - MODELO HÍBRIDO" \
+  --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid-alt/imagens \
+  --out-file custos_geracao_hybrid_alt_anualizado.png
+
+# mdi-dc, tabelas - Investimento Anualizado
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc.csv \
+  --mode table --category GT \
+  --title "Tabela de Geração (\$MWh/h\$) - MODELO DC" \
+  --label tab:geracao_dc_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc/tabelas/ \
+  --out-file tabela_geracao_dc_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc.csv \
+  --mode table --category cost \
+  --title "Custos Operacionais e Investimento - MODELO DC" \
+  --label tab:custos_geracao_dc_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc/tabelas/ \
+  --out-file tabela_custos_dc_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc.csv \
+  --mode ctrl \
+  --title "Decisão de Construção e Existência de Usinas (X, Y) - MODELO DC" \
+  --label tab:ctrl_dc_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc/tabelas/ \
+  --out-file decisoes_dc_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc.csv \
+  --mode table --category CB \
+  --title "Demanda ($\MW\$), Déficit (\$MW\$) e Ângulos (\$\\mathrm{rad}\$) por barra - MODELO DC" \
+  --label tab:barras_dc_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc/tabelas/ \
+  --out-file barras_dc_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc.csv \
+  --mode table --category LT \
+  --title "Fluxos de Potência (\$MW\$) e Deriva Angular (\$\\mathrm{rad}\$) de Linhas - MODELO DC" \
+  --label tab:linhas_dc_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc/tabelas/ \
+  --out-file linhas_dc_anualizado.tex
+
+# mdi-dc, gráficos - Investimento Anualizado
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc.csv \
+  --mode plot --category G  \
+  --plot-style bar --stacked \
+  --level Ponta \
+  --title "Geração - Ponta - MODELO DC" \
+  --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc/imagens \
+  --out-file geracao_dc_anualizado_ponta.png
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc.csv \
+  --mode plot --category cost  \
+  --plot-style bar \
+  --title "Custos de Geração - MODELO DC" \
+  --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc/imagens \
+  --out-file custos_geracao_dc_anualizado.png
+
+
+# mdi-dc-alt, tabelas - Investimento Anualizado
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-alt.csv \
+  --mode table --category GT \
+  --title "Tabela de Geração (\$MWh/h\$) - MODELO DC" \
+  --label tab:geracao_dc_alt_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-alt/tabelas/ \
+  --out-file tabela_geracao_dc_alt_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-alt.csv \
+  --mode table --category cost \
+  --title "Custos Operacionais e Investimento - MODELO DC" \
+  --label tab:custos_geracao_dc_alt_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-alt/tabelas/ \
+  --out-file tabela_custos_dc_alt_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-alt.csv \
+  --mode ctrl \
+  --title "Decisão de Construção e Existência de Usinas (X, Y) - MODELO DC" \
+  --label tab:ctrl_dc_alt_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-alt/tabelas/ \
+  --out-file decisoes_dc_alt_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-alt.csv \
+  --mode table --category CB \
+  --title "Demanda ($\MW\$), Déficit (\$MW\$) e Ângulos (\$\\mathrm{rad}\$) por barra - MODELO DC" \
+  --label tab:barras_dc_alt_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-alt/tabelas/ \
+  --out-file barras_dc_alt_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-alt.csv \
+  --mode table --category LT \
+  --title "Fluxos de Potência (\$MW\$) e Deriva Angular (\$\\mathrm{rad}\$) de Linhas - MODELO DC" \
+  --label tab:linhas_dc_alt_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-alt/tabelas/ \
+  --out-file linhas_dc_alt_anualizado.tex
+
+# mdi-dc-alt, gráficos - Investimento Anualizado
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-alt.csv \
+  --mode plot --category G  \
+  --plot-style bar --stacked \
+  --level Ponta \
+  --title "Geração - Ponta - MODELO DC" \
+  --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-alt/imagens \
+  --out-file geracao_dc_alt_anualizado_ponta.png
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-alt.csv \
+  --mode plot --category cost  \
+  --plot-style bar \
+  --title "Custos de Geração - MODELO DC" \
+  --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-alt/imagens \
+  --out-file custos_geracao_dc_alt_anualizado.png
+
 deactivate

@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -171,6 +171,9 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">res</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tee</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
+        <span class="c1"># Optional: print/write results if available</span>
+        <span class="c1"># if hasattr(res, &#39;write&#39;):</span>
+        <span class="c1">#    res.write()</span>
 
         <span class="c1"># Check termination condition</span>
         <span class="n">term_cond</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">termination_condition</span>
@@ -186,6 +189,8 @@
     <span class="n">thermal_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">renewable_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">storage_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">connection_bar_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">transmission_line_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">case</span></div>
 

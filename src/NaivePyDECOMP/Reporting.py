@@ -57,8 +57,8 @@ def __compute_total_generation(model: ConcreteModel) -> float:
         total_generation += sum(value(model.renewable_gen[r, t])
                                 for r in model.RU for t in model.T)
     if has_storage_model(model):
-        total_generation += sum(value(model.storage_dis[s, t] 
-                                            - model.storage_ch[s, t])
+        total_generation += sum(value(model.storage_dis[s, t]
+                                      - model.storage_ch[s, t])
                                 for s in model.SU for t in model.T)
     return total_generation
 
@@ -101,19 +101,19 @@ def dispatch_summary(model: ConcreteModel) -> None:
     """
     print(f"\n{Fore.MAGENTA}{Style.BRIGHT}==================== DISPATCH SUMMARY ===================={Style.RESET_ALL}")
     total_generation = __compute_total_generation(model)
-    Cdef = value(model.Cdef) if hasattr(model, 'Cdef') else 1000.0
     print(f"  {Fore.CYAN}Total Generation{Style.RESET_ALL}: {Fore.RED}{total_generation:.2f} MWmed")
     required = [
         'D', 'd', 'OBJ'
     ]
     if all(hasattr(model, attr) for attr in required):
-        demand = sum(value(model.d[t]) for t in model.T)
+        demand = sum(value(model.d[b, t]) for b in model.CB for t in model.T)
         print(
             f"  {Fore.CYAN}Total Demand{Style.RESET_ALL}: {Fore.RED}{demand:.2f} MWmed")
-        deficit = sum(value(model.D[t]) for t in model.T)
+        deficit = sum(value(model.D[b, t]) for b in model.CB for t in model.T)
         print(
             f"  {Fore.CYAN}Total Deficit{Style.RESET_ALL}: {Fore.RED}{deficit:.2f} MWmed")
-        cost_deficit = deficit * Cdef
+        cost_deficit = sum(value(model.Cdef[b] * model.D[b, t])
+                           for b in model.CB for t in model.T)
         print(
             f"  {Fore.CYAN}Total Deficil Cost{Style.RESET_ALL}: {Fore.RED} $ {format_brl(cost_deficit)}")
 
@@ -127,6 +127,7 @@ def dispatch_summary(model: ConcreteModel) -> None:
         total_cost = value(model.OBJ)
         print(
             f"  {Fore.CYAN}Total Cost{Style.RESET_ALL}: {Fore.RED} $ {format_brl(total_cost)}")
+
 
 def hydro_dispatch_summary(model: ConcreteModel) -> None:
     """
@@ -144,6 +145,7 @@ def hydro_dispatch_summary(model: ConcreteModel) -> None:
             print(
                 f"  {Fore.CYAN}{h}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWmed")
 
+
 def thermal_dispatch_summary(model: ConcreteModel) -> None:
     """
     Print unit-level thermal generation summary in MWmed.
@@ -159,6 +161,7 @@ def thermal_dispatch_summary(model: ConcreteModel) -> None:
             dispatch = sum(value(model.thermal_p[g, t]) for t in model.T)
             print(
                 f"  {Fore.BLUE}{g}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWmed")
+
 
 def renewable_dispatch_summary(model: ConcreteModel) -> None:
     """
@@ -176,6 +179,7 @@ def renewable_dispatch_summary(model: ConcreteModel) -> None:
             dispatch = sum(value(model.renewable_gen[r, t]) for t in model.T)
             print(
                 f"  {Fore.GREEN}{r}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWmed")
+
 
 def storage_dispatch_summary(model: ConcreteModel) -> None:
     """
@@ -199,6 +203,77 @@ def storage_dispatch_summary(model: ConcreteModel) -> None:
                 f"  {Fore.MAGENTA}{s}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWmed")
         print(f"\n{Fore.YELLOW}Storage Delta:{Style.RESET_ALL}")
         for s in model.SU:
-            dispatch = sum(value(model.storage_dis[s, t] - model.storage_ch[s, t]) for t in model.T)
-            print(f"  {Fore.MAGENTA}{s}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWmed")
-        
+            dispatch = sum(
+                value(model.storage_dis[s, t] - model.storage_ch[s, t]) for t in model.T)
+            print(
+                f"  {Fore.MAGENTA}{s}{Style.RESET_ALL}: {Fore.RED}{dispatch:.2f} MWmed")
+
+
+def connection_bar_dispatch_summary(model: ConcreteModel) -> None:
+    """
+    Print a unit-level dispatch summary for each connection bar in MWmed.
+
+    Parameters
+    ----------
+    model : pyomo.environ.ConcreteModel
+        A solved Pyomo model containing a valid connection-bar subsystem,
+        verified via :func:`has_connection_bar_model`.
+
+    Returns
+    -------
+    None
+        Prints formatted results directly to the console.
+
+    """
+    if has_connection_bar_model(model):
+        if not model.unique_bar:
+            print(f"\n{Fore.YELLOW}Connection Bar Summary Dispatch:{Style.RESET_ALL}")
+
+            for b in model.CB:
+                total_demand = sum(value(model.d[b, t]) for t in model.T)
+                total_deficit = sum(value(model.D[b, t]) for t in model.T)
+                served = total_demand - total_deficit
+                avg_angle = 0.0
+                if not model.unique_bar:
+                    avg_angle = sum(value(model.theta[b, t])
+                                    for t in model.T) / len(model.T)
+                
+
+                print(f"\n{Fore.CYAN}Bar {b}:{Style.RESET_ALL}")
+                print(
+                    f"  {Fore.BLUE}Demand:{Style.RESET_ALL}   {Fore.RED}{total_demand:.2f} MWmed{Style.RESET_ALL}")
+                print(
+                    f"  {Fore.GREEN}Served:{Style.RESET_ALL}   {Fore.RED}{served:.2f} MWmed{Style.RESET_ALL}")
+                print(
+                    f"  {Fore.MAGENTA}Deficit:{Style.RESET_ALL}  {Fore.RED}{total_deficit:.2f} MWmed{Style.RESET_ALL}")
+                print(
+                    f"  {Fore.YELLOW}Avg θ:{Style.RESET_ALL}     {Fore.RED}{avg_angle:.4f} rad{Style.RESET_ALL}")
+
+
+def transmission_line_dispatch_summary(model: ConcreteModel) -> None:
+    """
+    Print a unit-level dispatch summary for each transmission line in MWmed.
+
+    Parameters
+    ----------
+    model : pyomo.environ.ConcreteModel
+        A solved Pyomo model containing a valid transmission line subsystem,
+        verified via :func:`has_transmission_line_model`.
+
+    Returns
+    -------
+    None
+        Prints formatted results directly to the console.
+
+    """
+    if has_transmission_line_model(model):
+
+        print(
+            f"\n{Fore.YELLOW}Transmission Line Summary Dispatch:{Style.RESET_ALL}")
+
+        for l in model.LT:
+            total_flow = sum(value(model.lines_flow[l, t]) for t in model.T)
+
+            print(f"\n{Fore.CYAN}Line {l}:{Style.RESET_ALL}")
+            print(
+                f"  {Fore.BLUE}Power Flow: {Style.RESET_ALL}   {Fore.RED}{total_flow:.2f} MWmed{Style.RESET_ALL}")

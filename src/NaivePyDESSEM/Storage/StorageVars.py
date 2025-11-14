@@ -100,6 +100,8 @@ def storage_add_sets_and_params(m: ConcreteModel,
     m.storage_eta_c = {u: data.units[u].eta_c for u in U}
     m.storage_eta_d = {u: data.units[u].eta_d for u in U}
     m.storage_M = {u: data.units[u].Emax for u in U}
+    m.storage_bars = {u: data.units[u].bar for u in U}
+    
 
     return m
 
@@ -119,8 +121,6 @@ def storage_add_variables(m: ConcreteModel) -> ConcreteModel:
         Charging power (MW) in period ``t``.
     storage_dis[s,t] : NonNegativeReals
         Discharging power (MW) in period ``t``.
-    D[t] : NonNegativeReals
-        Deficit (MW), created only if absent.
 
     Parameters
     ----------
@@ -132,8 +132,6 @@ def storage_add_variables(m: ConcreteModel) -> ConcreteModel:
     pyomo.environ.ConcreteModel
         The same model with storage variables attached.
     """
-    if not hasattr(m, "D"):
-        m.D = Var(m.T, domain=NonNegativeReals)
 
     m.storage_E = Var(m.SU, m.T, within=NonNegativeReals)
     m.storage_ch = Var(m.SU, m.T, within=NonNegativeReals)

@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -115,6 +115,7 @@
     <span class="n">add_storage_dispatch_to_dataframe</span>
 <span class="p">)</span>
 
+
 <div class="viewcode-block" id="add_hydro_dispatch_to_dataframe">
 <a class="viewcode-back" href="../../NaivePyDECOMP.html#NaivePyDECOMP.DataFrames.add_hydro_dispatch_to_dataframe">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">add_hydro_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
@@ -149,6 +150,7 @@
                     <span class="s2">&quot;The &#39;t&#39; column in df does not match model.T.&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">df</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># avoid fragmented DataFrame Warning</span>
 
         <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">h_list</span><span class="p">:</span>
             <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Q_</span><span class="se">{{</span><span class="s1">h_</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">hydro_Q</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
@@ -157,8 +159,9 @@
             <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;S_</span><span class="se">{{</span><span class="s1">h_</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">hydro_S</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;CMA&#39;</span><span class="p">):</span>
                 <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;CMA_</span><span class="se">{{</span><span class="s1">h_</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">CMA</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
-
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># avoid fragmented DataFrame Warning</span>
     <span class="k">return</span> <span class="n">df</span></div>
+
 
 
 <div class="viewcode-block" id="add_thermal_dispatch_to_dataframe">
@@ -197,12 +200,85 @@
                     <span class="s2">&quot;The &#39;t&#39; column in df does not match model.T.&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">df</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># avoid fragmented DataFrame Warning</span>
 
         <span class="c1"># Por usina</span>
         <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">:</span>
             <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;G_</span><span class="se">{{</span><span class="s1">t_</span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_p</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
-
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># avoid fragmented DataFrame Warning</span>
+        
     <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="add_transmission_line_dispatch_to_dataframe">
+<a class="viewcode-back" href="../../NaivePyDECOMP.html#NaivePyDECOMP.DataFrames.add_transmission_line_dispatch_to_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_transmission_line_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                                                <span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append transmission lines flow results to a pandas DataFrame.</span>
+
+<span class="sd">    This function extracts transmission lines flow values from the Pyomo model and</span>
+<span class="sd">    adds them as columns to the DataFrame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The DataFrame to which the results will be appended.</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        A Pyomo model instance containing transmission lines unit variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        The updated DataFrame including transmission lines flow dispatch results.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">has_transmission_line_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">LT</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">L</span><span class="p">:</span>
+            <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">lines_endpoints</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;F_</span><span class="se">{{{{</span><span class="s1">LT</span><span class="se">}}</span><span class="s1">_</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">lines_flow</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">Delta_</span><span class="se">{{\\</span><span class="s1">Theta_</span><span class="se">{{</span><span class="s1">LT_</span><span class="si">{</span><span class="n">l</span><span class="si">}</span><span class="se">}}}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># avoid fragmented DataFrame Warning</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="add_connection_bar_dispatch_to_dataframe">
+<a class="viewcode-back" href="../../NaivePyDECOMP.html#NaivePyDECOMP.DataFrames.add_connection_bar_dispatch_to_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_connection_bar_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                                             <span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Append connection bar angles results to a pandas DataFrame.</span>
+
+<span class="sd">    This function extracts angles values from the Pyomo model and</span>
+<span class="sd">    adds them as columns to the DataFrame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The DataFrame to which the results will be appended.</span>
+<span class="sd">    model : ConcreteModel</span>
+<span class="sd">        A Pyomo model instance containing storage unit variables.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        The updated DataFrame including storage dispatch results.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">has_connection_bar_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">CB</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">model</span><span class="o">.</span><span class="n">unique_bar</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">B</span><span class="p">:</span>
+                <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;\Theta_</span><span class="se">{{{{</span><span class="s1">CB</span><span class="se">}}</span><span class="s1">_</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># avoid fragmented DataFrame Warning</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
 
 
 <div class="viewcode-block" id="add_cost_to_dataframe">
@@ -263,13 +339,26 @@
                                                             <span class="n">renewable_generation</span><span class="p">,</span>
                                                             <span class="n">storage_generation</span><span class="p">)]</span>
 
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># avoid fragmented DataFrame Warning</span>
     <span class="c1"># ---------------------------</span>
     <span class="c1"># DEMANDA / DÉFICIT</span>
     <span class="c1"># ---------------------------</span>
-    <span class="k">if</span> <span class="n">has_d</span><span class="p">:</span>
-        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Demand&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">has_D</span><span class="p">:</span>
-        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Deficit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">has_connection_bar_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">CB</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">B</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;DemandBar_</span><span class="se">{{</span><span class="s1">b_</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;DeficitBar_</span><span class="se">{{</span><span class="s1">b_</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="se">}}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># avoid fragmented DataFrame Warning</span>
+
+        <span class="k">if</span> <span class="n">has_d</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Demand_</span><span class="si">{Total}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">CB</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">has_D</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Deficit_</span><span class="si">{Total}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+                                         <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">CB</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
+        
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># avoid fragmented DataFrame Warning</span>
 
     <span class="c1"># ---------------------------</span>
     <span class="c1"># CUSTOS</span>
@@ -280,13 +369,19 @@
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">:</span>
             <span class="n">c_thermal_t</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">thermal_Cost</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">thermal_p</span><span class="p">[</span><span class="n">g</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
                               <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">G</span><span class="p">)</span> <span class="k">if</span> <span class="n">has_y</span> <span class="ow">and</span> <span class="n">has_cost</span> <span class="k">else</span> <span class="mf">0.0</span>
-            <span class="n">c_def_t</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Cdef</span><span class="p">)</span> <span class="o">*</span> <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">if</span> <span class="n">has_def_cost</span> <span class="k">else</span> <span class="mf">0.0</span>
+            <span class="n">c_def_t</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">CB</span><span class="p">:</span>
+                <span class="n">c_def_t</span> <span class="o">+=</span> <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Cdef</span><span class="p">[</span><span class="n">b</span><span class="p">])</span> <span class="o">*</span> \
+                    <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">if</span> <span class="n">has_def_cost</span> <span class="k">else</span> <span class="mf">0.0</span>
             <span class="n">cost_var</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_thermal_t</span><span class="p">)</span>
             <span class="n">cost_def</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_def_t</span><span class="p">)</span>
             <span class="n">cost_t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_thermal_t</span> <span class="o">+</span> <span class="n">c_def_t</span><span class="p">)</span>
     <span class="k">elif</span> <span class="ow">not</span> <span class="n">has_cost</span> <span class="ow">and</span> <span class="n">has_def_cost</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">:</span>
-            <span class="n">c_def_t</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Cdef</span><span class="p">)</span> <span class="o">*</span> <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">if</span> <span class="n">has_def_cost</span> <span class="k">else</span> <span class="mf">0.0</span>
+            <span class="n">c_def_t</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">CB</span><span class="p">:</span>
+                <span class="n">c_def_t</span> <span class="o">+=</span> <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Cdef</span><span class="p">[</span><span class="n">b</span><span class="p">])</span> <span class="o">*</span> \
+                    <span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="k">if</span> <span class="n">has_def_cost</span> <span class="k">else</span> <span class="mf">0.0</span>
             <span class="n">cost_var</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
             <span class="n">cost_def</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_def_t</span><span class="p">)</span>
             <span class="n">cost_t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_def_t</span><span class="p">)</span>
@@ -299,6 +394,7 @@
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cost_</span><span class="si">{def}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_def</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Cost_</span><span class="si">{total}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_t</span>
 
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># avoid fragmented DataFrame Warning</span>
     <span class="n">cmo_series</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;CMO&quot;</span><span class="p">):</span>
         <span class="n">cmo_series</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">CMO</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
@@ -310,8 +406,9 @@
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;CMO&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmo_series</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;FC&#39;</span><span class="p">):</span>
         <span class="n">df</span><span class="p">[</span><span class="s1">&#39;FC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">FC</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">T</span><span class="p">]</span>
-
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># avoid fragmented DataFrame Warning</span>
     <span class="k">return</span> <span class="n">df</span></div>
+
 
 
 <div class="viewcode-block" id="build_dispatch_dataframe">
@@ -340,7 +437,10 @@
     <span class="n">df</span> <span class="o">=</span> <span class="n">add_hydro_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">add_thermal_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">add_renewable_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">add_connection_bar_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">add_transmission_line_dispatch_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">add_cost_to_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">df</span></div>
 
 </pre></div>

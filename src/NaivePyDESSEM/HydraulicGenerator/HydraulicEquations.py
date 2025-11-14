@@ -55,7 +55,7 @@ References
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023  
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023..
 """
-from typing import List, Any
+from typing import List, Dict, Any
 from pyomo.environ import ConcreteModel, Var, Expression
 
 
@@ -98,8 +98,8 @@ def add_hydraulic_cost_expression(
 def add_hydraulic_balance_expression(
     m: ConcreteModel,
     t: Any,
-    balance_array: List[Any]
-) -> List[Any]:
+    balance_array: Dict[str, List[Any]]
+) -> Dict[str, List[Any]]:
     """
     Append hydroelectric generation terms at time t to the power balance expression list.
 
@@ -114,12 +114,12 @@ def add_hydraulic_balance_expression(
         Pyomo model instance containing hydro generation variables.
     t : int
         Time index at which the hydro contribution is evaluated.
-    balance_array : list of expressions
+    balance_array : dict of list of expressions
         List of symbolic expressions representing components of the power balance.
 
     Returns
     -------
-    list of expressions
+    dict of list of expressions
         The updated list including the hydro generation term at time t.
 
     Notes
@@ -131,11 +131,15 @@ def add_hydraulic_balance_expression(
       that include thermal, hydraulic, and renewable sources.
     """
     required = [
-        'HG', 'T', 'hydro_G'
+        'HG', 'T', 'hydro_G', 'hydro_bars'
     ]
+
     if all(hasattr(m, attr) for attr in required):
-        expr = sum(m.hydro_G[h, t] for h in m.HG)
-        balance_array.append(expr)
-        return balance_array
+      for h in m.HG:
+          bar = m.hydro_bars[h]
+          if bar not in balance_array:
+              balance_array[bar] = list()
+          balance_array[bar].append(m.hydro_G[h, t])
+    
     return balance_array
 

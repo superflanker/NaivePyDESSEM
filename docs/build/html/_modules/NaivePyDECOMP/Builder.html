@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -134,30 +134,28 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">HydraulicData</span><span class="p">,</span> <span class="n">HydraulicUnit</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_hydro_problem</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.HydraulicGenerator.HydraulicEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">add_hydraulic_cost_expression</span><span class="p">,</span>
-    <span class="n">add_hydraulic_balance_expression</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.HydraulicGenerator.HydraulicEquations</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_hydraulic_cost_expression</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.ThermalGenerator.ThermalDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">ThermalData</span><span class="p">,</span> <span class="n">ThermalUnit</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_thermal_problem</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.ThermalGenerator.ThermalEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">add_thermal_cost_expression</span><span class="p">,</span>
-    <span class="n">add_thermal_balance_expression</span>
-<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.ThermalGenerator.ThermalEquations</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_thermal_cost_expression</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.RenewableGenerator.RenewableDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">RenewableData</span><span class="p">,</span> <span class="n">RenewableUnit</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.RenewableGenerator.RenewableGeneratorBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_renewable_problem</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.RenewableGenerator.RenewableEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">add_renewable_cost_expression</span><span class="p">,</span>
-    <span class="n">add_renewable_balance_expression</span>
-<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.RenewableGenerator.RenewableEquations</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_renewable_cost_expression</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.Storage.StorageDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">StorageData</span><span class="p">,</span> <span class="n">StorageUnit</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.Storage.StorageBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_storage_problem</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.Storage.StorageEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">add_storage_cost_expression</span><span class="p">,</span>
-    <span class="n">add_storage_balance_expression</span>
-<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.Storage.StorageEquations</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_storage_cost_expression</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.ConnectionBar.ConnectionBarDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConnectionBarData</span><span class="p">,</span> <span class="n">ConnectionBarUnit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_connection_bar_problem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.ConnectionBar.ConnectionBarEquations</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_connection_bar_cost_expression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_connection_bar_balance_constraints</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.TransmissionLine.TransmissionLineDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">TransmissionLineData</span><span class="p">,</span> <span class="n">TransmissionLineUnit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_transmission_line_problem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.TransmissionLine.TransmissionLineEquations</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_transmission_line_cost_expression</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">.YAMLLoader</span><span class="w"> </span><span class="kn">import</span> <span class="n">yaml_loader</span>
 
@@ -166,13 +164,18 @@
     <span class="n">_validate_demand</span><span class="p">,</span>
     <span class="n">_validate_renewable</span><span class="p">,</span>
     <span class="n">_validate_storage</span><span class="p">,</span>
+    <span class="n">_validate_connection_bars</span><span class="p">,</span>
+    <span class="n">_validate_transmission_lines</span><span class="p">,</span>
     <span class="n">_mk_renewable_data</span><span class="p">,</span>
-    <span class="n">_mk_storage_data</span>
+    <span class="n">_mk_storage_data</span><span class="p">,</span>
+    <span class="n">_mk_connection_bar_data</span><span class="p">,</span>
+    <span class="n">_mk_transmission_line_data</span>
 <span class="p">)</span>
 
 <span class="c1"># ============================================================================</span>
 <span class="c1"># Validators (lightweight sanity checks)</span>
 <span class="c1"># ============================================================================</span>
+
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_validate_hydro</span><span class="p">(</span><span class="n">hydro</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">T</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -210,6 +213,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;p&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;hydro.units[</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">] must satisfy p &lt;= 1.&quot;</span><span class="p">)</span>
 
+
 <span class="k">def</span><span class="w"> </span><span class="nf">_validate_thermal</span><span class="p">(</span><span class="n">thermal</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Validate thermal unit configuration for consistency.</span>
@@ -239,6 +243,7 @@
 <span class="c1"># Dataclass factories</span>
 <span class="c1"># ============================================================================</span>
 
+
 <span class="k">def</span><span class="w"> </span><span class="nf">_mk_hydraulic_data</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">HydraulicData</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Construct a HydraulicData object from parsed YAML root.</span>
@@ -261,11 +266,11 @@
     <span class="n">hydro</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;hydro&quot;</span><span class="p">]</span>
     <span class="c1"># demanda “global” veio em root[&quot;demand&quot;]</span>
     <span class="n">H</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;horizon&quot;</span><span class="p">]</span>
-    <span class="n">demand</span> <span class="o">=</span> <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">])}</span>
     <span class="n">units</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">hydro</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">units</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">HydraulicUnit</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">bar</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{BAR_</span><span class="si">{1}</span><span class="s2">}&quot;</span><span class="p">)),</span>
             <span class="n">Qmin</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;Qmin&quot;</span><span class="p">]),</span>
             <span class="n">Qmax</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;Qmax&quot;</span><span class="p">]),</span>
             <span class="n">Vmin</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;Vmin&quot;</span><span class="p">]),</span>
@@ -278,9 +283,7 @@
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">HydraulicData</span><span class="p">(</span>
         <span class="n">horizon</span><span class="o">=</span><span class="n">H</span><span class="p">,</span>
-        <span class="n">demand</span><span class="o">=</span><span class="n">demand</span><span class="p">,</span>
-        <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
-        <span class="n">Cdef</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Cdef&quot;</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)),</span>
+        <span class="n">units</span><span class="o">=</span><span class="n">units</span>
     <span class="p">)</span>
 
 
@@ -311,6 +314,7 @@
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">thermal</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">units</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ThermalUnit</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">bar</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{BAR_</span><span class="si">{1}</span><span class="s2">}&quot;</span><span class="p">)),</span>
             <span class="n">Gmin</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;Gmin&quot;</span><span class="p">]),</span>
             <span class="n">Gmax</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;Gmax&quot;</span><span class="p">]),</span>
             <span class="n">Cost</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;Cost&quot;</span><span class="p">])</span>
@@ -318,9 +322,7 @@
 
     <span class="k">return</span> <span class="n">ThermalData</span><span class="p">(</span>
         <span class="n">horizon</span><span class="o">=</span><span class="n">H</span><span class="p">,</span>
-        <span class="n">demand</span><span class="o">=</span><span class="n">demand</span><span class="p">,</span>
         <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
-        <span class="n">Cdef</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Cdef&quot;</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">))</span>
     <span class="p">)</span>
 
 
@@ -353,26 +355,11 @@
 <span class="sd">    ConcreteModel</span>
 <span class="sd">        The input model with balance constraints and objective function added.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="c1"># --------------------------</span>
-    <span class="c1"># BALANCE CONSTRAINT</span>
+    <span class="c1">#  BALANCE CONSTRAINT</span>
     <span class="c1"># --------------------------</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">power_balance_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-        <span class="n">balance_terms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="k">if</span> <span class="s1">&#39;thermal&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
-            <span class="n">add_thermal_balance_expression</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">balance_terms</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;hydro&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
-            <span class="n">add_hydraulic_balance_expression</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">balance_terms</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;storage&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
-            <span class="n">add_storage_balance_expression</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">balance_terms</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;renewable&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
-            <span class="n">add_renewable_balance_expression</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">balance_terms</span><span class="p">)</span>
-
-        <span class="c1"># Final balance expression</span>
-        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">balance_terms</span><span class="p">)</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
-
-    <span class="n">model</span><span class="o">.</span><span class="n">Balance</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">power_balance_rule</span><span class="p">)</span>
+    <span class="n">add_connection_bar_balance_constraints</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 
     <span class="c1"># --------------------------</span>
     <span class="c1"># OBJECTIVE FUNCTION</span>
@@ -387,10 +374,15 @@
         <span class="n">add_storage_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
     <span class="k">if</span> <span class="s1">&#39;renewable&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
         <span class="n">add_renewable_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
-    
+    <span class="k">if</span> <span class="s1">&#39;bars&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
+        <span class="n">add_connection_bar_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;lines&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
+        <span class="n">add_transmission_line_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
+
     <span class="c1"># a fonte déficit</span>
 
-    <span class="n">cost_terms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Cdef</span><span class="o">*</span><span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+    <span class="n">cost_terms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Cdef</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">*</span><span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+                      <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">CB</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
 
     <span class="n">model</span><span class="o">.</span><span class="n">OBJ</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">cost_terms</span><span class="p">),</span> <span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
 
@@ -456,8 +448,34 @@
     <span class="c1"># Basic validations</span>
     <span class="n">_validate_meta</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">])</span>
     <span class="n">T</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;horizon&quot;</span><span class="p">])</span>
-    <span class="n">_validate_demand</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;demand&quot;</span><span class="p">],</span> <span class="n">T</span><span class="p">)</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">p_base</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;p_base&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
     <span class="n">has_valid_units</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># first of all, the bars</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;bars&quot;</span> <span class="ow">in</span> <span class="n">root</span><span class="p">:</span>
+        <span class="c1"># default bar - described in meta section</span>
+        <span class="n">_validate_demand</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;demand&quot;</span><span class="p">],</span> <span class="n">T</span><span class="p">)</span>
+        <span class="n">slack</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">Cdef</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;Cdef&quot;</span><span class="p">])</span>
+        <span class="n">demand</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;demand&quot;</span><span class="p">]]</span>
+        <span class="n">root</span><span class="p">[</span><span class="s2">&quot;bars&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;{BAR_</span><span class="si">{1}</span><span class="s2">}&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;slack&quot;</span><span class="p">:</span> <span class="n">slack</span><span class="p">,</span>
+                                                <span class="s2">&quot;Cdef&quot;</span><span class="p">:</span> <span class="n">Cdef</span><span class="p">,</span>
+                                                <span class="s2">&quot;demand&quot;</span><span class="p">:</span> <span class="n">demand</span><span class="p">}}}</span>
+
+    <span class="k">if</span> <span class="s2">&quot;bars&quot;</span> <span class="ow">in</span> <span class="n">root</span> <span class="ow">and</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;bars&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_validate_connection_bars</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;bars&quot;</span><span class="p">],</span> <span class="n">T</span><span class="p">)</span>
+        <span class="n">bar_data</span> <span class="o">=</span> <span class="n">_mk_connection_bar_data</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">add_connection_bar_problem</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
+                                       <span class="n">data</span><span class="o">=</span><span class="n">bar_data</span><span class="p">,</span>
+                                       <span class="n">include_objective</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">&quot;lines&quot;</span> <span class="ow">in</span> <span class="n">root</span> <span class="ow">and</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;lines&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_validate_transmission_lines</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;lines&quot;</span><span class="p">])</span>
+        <span class="n">bar_data</span> <span class="o">=</span> <span class="n">_mk_transmission_line_data</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">add_transmission_line_problem</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
+                                          <span class="n">data</span><span class="o">=</span><span class="n">bar_data</span><span class="p">,</span>
+                                          <span class="n">include_objective</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="s2">&quot;hydro&quot;</span> <span class="ow">in</span> <span class="n">root</span> <span class="ow">and</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;hydro&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">_validate_hydro</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;hydro&quot;</span><span class="p">],</span> <span class="n">T</span><span class="p">)</span>
         <span class="n">hydro_data</span> <span class="o">=</span> <span class="n">_mk_hydraulic_data</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>

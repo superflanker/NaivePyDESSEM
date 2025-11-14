@@ -154,11 +154,19 @@ def _transform_units(
     for unit, data in units.items():
         new_key = key_replace(unit) if transform_names else unit
         value = copy.deepcopy(data)
-        if isinstance(value, dict) and "upstreams" in value and value["upstreams"] is not None:
-            value["upstreams"] = (
-                [key_replace(u) for u in value["upstreams"]] if transform_names
-                else list(value["upstreams"])
-            )
+        if isinstance(value, dict):
+            if "upstreams" in value and value["upstreams"] is not None:
+                value["upstreams"] = (
+                    [key_replace(u) for u in value["upstreams"]] if transform_names
+                    else list(value["upstreams"])
+                )
+            if "bar" in value and value["bar"] is not None:
+                value["bar"] = key_replace(value["bar"]) if transform_names else value["bar"]
+            if 'endpoints' in value and value['endpoints'] is not None:
+                value["endpoints"] = (
+                    [key_replace(u) for u in value["endpoints"]] if transform_names
+                    else list(value["endpoints"])
+                )
         out[new_key] = value
     return out
 

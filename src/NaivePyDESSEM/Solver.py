@@ -91,6 +91,9 @@ def solve(path: str) -> Tuple[ConcreteModel, Dict]:
         else:
             res = opt.solve(model, tee=False)
 
+        # Optional: print/write results if available
+        # if hasattr(res, 'write'):
+        #    res.write()
 
         # Check termination condition
         term_cond = res.solver.termination_condition
@@ -106,5 +109,7 @@ def solve(path: str) -> Tuple[ConcreteModel, Dict]:
     thermal_dispatch_summary(model)
     renewable_dispatch_summary(model)
     storage_dispatch_summary(model)
+    connection_bar_dispatch_summary(model)
+    transmission_line_dispatch_summary(model)
 
     return model, case

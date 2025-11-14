@@ -97,6 +97,7 @@ class GeneratorUnit:
       via the generator builder module.
     """
     name: str
+    bar: str
     state: int
     c_op: float
     c_inv: float
@@ -117,10 +118,6 @@ class GeneratorData:
     ----------
     horizon : int
         Number of time periods in the planning horizon.
-    demand : dict of {str: list of float}
-        Nested dictionary containing demand data per load level and time period.
-        Example structure:
-        ``{"Ponta": [500, 550, 600], "Fora": [300, 320, 350]}``
     level_hours : dict of {str: float}
         Mapping between demand levels (e.g., 'Ponta', 'Fora') and their
         respective duration in hours.
@@ -136,6 +133,4 @@ class GeneratorData:
       with other modules of the MDI framework.
     """
     horizon: int
-    demand: Dict[str, List[float]]
-    level_hours: Dict[str, float]
     units: Dict[str, GeneratorUnit]

@@ -41,6 +41,7 @@ from .BuilderPDDD import (
     build_pddd_data_from_file,
     build_pddd_balance_and_objective_from_yaml
 )
+from .Builder import build_model_from_file
 from .PDDDMergeModels import generate_dummy_model
 import copy
 
@@ -257,9 +258,9 @@ def solve_stage_pddd(yaml_data: Dict,
     # --------------------------
 
     results: Dict = {}
-    results['model'] = model
-    results['hydro'] = stage_hydros
-    results['storage'] = stage_storage
+    results['model'] = copy.deepcopy(model)
+    results['hydro'] = copy.deepcopy(stage_hydros)
+    results['storage'] = copy.deepcopy(stage_storage)
     results['total_cost'] = model.OBJ()
     results['alpha'] = model.alpha.value
     results['f_volume'] = {h: model.hydro_V[h, 1].value for h in model.HG}
@@ -336,6 +337,9 @@ def solve_pddd(path: str,
     - This implementation is pedagogical and emphasizes clarity and modularity 
       over computational performance.
     """
+    # === Compatibilidade com pl único ===
+    npl_model, npl_case = build_model_from_file(path)
+    print_welcome_message(npl_model, npl_case)
     # === Construção dos subproblemas ===
     case = build_pddd_data_from_file(path)
     original_case = copy.deepcopy(case)
@@ -476,5 +480,7 @@ def solve_pddd(path: str,
     thermal_dispatch_summary(model)
     renewable_dispatch_summary(model)
     storage_dispatch_summary(model)
+    connection_bar_dispatch_summary(model)
+    transmission_line_dispatch_summary(model)
 
     return model, case, alpha_values, z_limits

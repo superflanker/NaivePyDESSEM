@@ -116,6 +116,8 @@ def format_models(case: Dict) -> None:
     model_properties(case)
     format_generator_model(case)
     format_storage_model(case)
+    format_connection_bar_model(case)
+    format_line_transmission_model(case)
 
 
 def format_generator_model(case: Dict) -> None:
@@ -204,3 +206,74 @@ def format_storage_model(case: Dict) -> None:
                 f"      {Fore.BLUE}  Parameter: {Fore.CYAN}eta_c, {Fore.BLUE} Value: {Fore.CYAN}{eta_c}")
             print(
                 f"      {Fore.BLUE}  Parameter: {Fore.CYAN}eta_d, {Fore.BLUE} Value: {Fore.CYAN}{eta_d}")
+
+
+def format_connection_bar_model(case: Dict) -> None:
+    """
+    Print formatted information for each connection bar unit.
+
+    Parameters
+    ----------
+    case : dict
+        Dictionary containing 'bars' section with unit definitions.
+    """
+    connection_bars = case.get('bars', {})
+    connection_bars_units = connection_bars.get('units', {})
+    if len(connection_bars_units) > 0:
+        print(f"{Fore.MAGENTA}{Style.BRIGHT}" + "=" * 70)
+        print(f"{Fore.YELLOW}Connection Bar Units\n")
+
+        for name, u in connection_bars_units.items():
+            print(f"{Fore.BLUE}{Style.BRIGHT}{name}")
+            slack = u.get("slack", False)
+            cdef = u.get("Cdef", 0.0)
+            slack_text = "Yes" if slack else "No"
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Slack Bar?, {Fore.BLUE} Value: {Fore.CYAN}{slack_text}")
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Deficit Cost, {Fore.BLUE} Value: \$ {Fore.CYAN}{cdef}")
+
+
+def format_line_transmission_model(case: Dict) -> None:
+    """
+    Print formatted information for each transmission line unit.
+
+    Parameters
+    ----------
+    case : dict
+        Dictionary containing 'lines' section with unit definitions.
+    """
+    transmission_lines = case.get('lines', {})
+    transmission_lines_units = transmission_lines.get('units', {})
+    if len(transmission_lines_units) > 0:
+        print(f"{Fore.MAGENTA}{Style.BRIGHT}" + "=" * 70)
+        print(f"{Fore.YELLOW}Transmission Line Units\n")
+
+        for name, u in transmission_lines_units.items():
+            print(f"{Fore.BLUE}{Style.BRIGHT}{name}")
+            state = u.get("state", 0)
+            c_op = u.get("c_op", 0.0)
+            c_inv = u.get("c_inv", 0.0)
+            model = u.get("model", False)
+            b = u.get("b", 0.0)
+            pmax = u.get("pmax", 0.0)
+            endpoints = ",".join(u.get("endpoints"))
+            if state == 0:
+                state = "Candidate"
+            else:
+                state = "Existing"
+            
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}State, {Fore.BLUE} Value: {Fore.CYAN}{state} ")
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}C_op, {Fore.BLUE} Value: {Fore.CYAN}{c_op} $/MWh")
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}C_inv, {Fore.BLUE} Value: {Fore.CYAN}{c_inv} $")
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Model, {Fore.BLUE} Value: {Fore.CYAN}{model}")
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Line Susceptance , {Fore.BLUE} Value: {Fore.CYAN}{b} p.u")
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Max Power , {Fore.BLUE} Value: {Fore.CYAN}{pmax} MW")
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Endpoints , {Fore.BLUE} Value: {Fore.CYAN}{endpoints}")

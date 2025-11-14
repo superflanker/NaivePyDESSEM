@@ -19,6 +19,8 @@ Subpackages
    NaivePyDECOMP.RenewableGenerator
    NaivePyDECOMP.Storage
    NaivePyDECOMP.ThermalGenerator
+   NaivePyDECOMP.ConnectionBar
+   NaivePyDECOMP.TransmissionLine
    NaivePyDECOMP.cli
 
 Submodules

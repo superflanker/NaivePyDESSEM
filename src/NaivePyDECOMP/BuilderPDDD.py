@@ -64,29 +64,34 @@ from pyomo.environ import (
     minimize
 )
 
+import json
+from typing import Any, Dict, List, Tuple
+from pyomo.environ import ConcreteModel, Objective, Constraint, minimize
+
+from NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes import HydraulicData, HydraulicUnit
 from NaivePyDECOMP.HydraulicGenerator.HydraulicGeneratorBuilder import add_hydro_subproblem
-from NaivePyDECOMP.HydraulicGenerator.HydraulicEquations import (
-    add_hydraulic_cost_expression,
-    add_hydraulic_balance_expression
-)
+from NaivePyDECOMP.HydraulicGenerator.HydraulicEquations import add_hydraulic_cost_expression
 
+from NaivePyDECOMP.ThermalGenerator.ThermalDataTypes import ThermalData, ThermalUnit
 from NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder import add_thermal_subproblem
-from NaivePyDECOMP.ThermalGenerator.ThermalEquations import (
-    add_thermal_cost_expression,
-    add_thermal_balance_expression
-)
+from NaivePyDECOMP.ThermalGenerator.ThermalEquations import add_thermal_cost_expression
 
+from NaivePyDECOMP.RenewableGenerator.RenewableDataTypes import RenewableData, RenewableUnit
 from NaivePyDECOMP.RenewableGenerator.RenewableGeneratorBuilder import add_renewable_subproblem
-from NaivePyDECOMP.RenewableGenerator.RenewableEquations import (
-    add_renewable_cost_expression,
-    add_renewable_balance_expression
-)
+from NaivePyDECOMP.RenewableGenerator.RenewableEquations import add_renewable_cost_expression
 
+from NaivePyDECOMP.Storage.StorageDataTypes import StorageData, StorageUnit
 from NaivePyDECOMP.Storage.StorageBuilder import add_storage_subproblem
-from NaivePyDECOMP.Storage.StorageEquations import (
-    add_storage_cost_expression,
-    add_storage_balance_expression
-)
+from NaivePyDECOMP.Storage.StorageEquations import add_storage_cost_expression
+
+from NaivePyDECOMP.ConnectionBar.ConnectionBarDataTypes import ConnectionBarData, ConnectionBarUnit
+from NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder import add_connection_bar_subproblem
+from NaivePyDECOMP.ConnectionBar.ConnectionBarEquations import add_connection_bar_cost_expression
+from NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints import add_connection_bar_balance_constraints
+
+from NaivePyDECOMP.TransmissionLine.TransmissionLineDataTypes import TransmissionLineData, TransmissionLineUnit
+from NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder import add_transmission_line_subproblem
+from NaivePyDECOMP.TransmissionLine.TransmissionLineEquations import add_transmission_line_cost_expression
 
 from .YAMLLoader import yaml_loader
 
@@ -108,8 +113,12 @@ from NaivePyDESSEM.Builder import (
     _validate_demand,
     _validate_renewable,
     _validate_storage,
+    _validate_connection_bars,
+    _validate_transmission_lines,
     _mk_renewable_data,
-    _mk_storage_data
+    _mk_storage_data,
+    _mk_connection_bar_data,
+    _mk_transmission_line_data
 )
 
 # ============================================================================
@@ -127,7 +136,7 @@ def build_pddd_balance_and_objective_from_yaml(yaml_data: Dict[str, Any],
     This function scans the parsed YAML content to determine which technologies
     (thermal, hydro, storage, renewable) are present, and invokes their respective
     expression builders to construct:
-    
+
     - PDDD Model 
     - model.Balance: a time-indexed Constraint for supply-demand balance
     - model.OBJ: an Objective for cost minimization
@@ -149,25 +158,27 @@ def build_pddd_balance_and_objective_from_yaml(yaml_data: Dict[str, Any],
     # --------------------------
     # BALANCE CONSTRAINT
     # --------------------------
-    def power_balance_rule(m, t):
-        balance_terms: List[Any] = []
-
-        if 'thermal' in yaml_data:
-            add_thermal_balance_expression(m, t, balance_terms)
-        if 'hydro' in yaml_data:
-            add_hydraulic_balance_expression(m, t, balance_terms)
-        if 'storage' in yaml_data:
-            add_storage_balance_expression(m, t, balance_terms)
-        if 'renewable' in yaml_data:
-            add_renewable_balance_expression(m, t, balance_terms)
-
-        # Final balance expression
-        return sum(balance_terms) + m.D[t] == m.d[t]
 
     model = ConcreteModel()
 
+    model.p_base = float(yaml_data["meta"].get("p_base", 1.0))    
+
     model.dual = Suffix(direction=Suffix.IMPORT)
-    
+
+    # first of all, the bars
+
+    if "bars" in yaml_data and yaml_data["bars"] is not None:
+        bar_data = _mk_connection_bar_data(yaml_data)
+        model = add_connection_bar_subproblem(m=model,
+                                              data=bar_data,
+                                              stage=stage)
+
+    if "lines" in yaml_data and yaml_data["lines"] is not None:
+        bar_data = _mk_transmission_line_data(yaml_data)
+        model = add_transmission_line_subproblem(m=model,
+                                                 data=bar_data,
+                                                 stage=stage)
+
     if "hydro" in yaml_data and yaml_data["hydro"] is not None:
         hydro_data = _mk_hydraulic_data(yaml_data)
         model = add_hydro_subproblem(m=model,
@@ -200,8 +211,13 @@ def build_pddd_balance_and_objective_from_yaml(yaml_data: Dict[str, Any],
     if not has_valid_units:
         raise ValueError("No buildable sections found. Provide at least one of "
                          "{hydro, thermal, renewable, storage}.")
-    model.alpha = Var(domain=NonNegativeReals) 
-    model.Balance = Constraint(model.T, rule=power_balance_rule)
+    model.alpha = Var(domain=NonNegativeReals)
+    # --------------------------
+    #  BALANCE CONSTRAINT
+    # --------------------------
+
+    add_connection_bar_balance_constraints(model)
+
     model.cuts = ConstraintList()
 
     # --------------------------
@@ -227,8 +243,13 @@ def build_pddd_balance_and_objective_from_yaml(yaml_data: Dict[str, Any],
         add_storage_cost_expression(model, cost_terms)
     if 'renewable' in yaml_data:
         add_renewable_cost_expression(model, cost_terms)
+    if 'bars' in yaml_data:
+        add_connection_bar_cost_expression(model, cost_terms)
+    if 'lines' in yaml_data:
+        add_transmission_line_cost_expression(model, cost_terms)
 
-    cost_terms.append(sum(model.Cdef*model.D[t] for t in model.T))
+    cost_terms.append(sum(model.Cdef[b]*model.D[b, t]
+                      for b in model.CB for t in model.T))
 
     cost_terms.append(model.alpha)
 
@@ -278,5 +299,22 @@ def build_pddd_data_from_file(path: str) -> Dict:
 
     if "storage" in root and root["storage"] is not None:
         _validate_storage(root["storage"])
+
+    # first of all, the bars
+    if not "bars" in root:
+        # default bar - described in meta section
+        _validate_demand(root["meta"]["demand"], periods)
+        slack = True
+        Cdef = float(root["meta"]["Cdef"])
+        demand = [float(x) for x in root["meta"]["demand"]]
+        root["bars"] = {"units": {"{BAR_{1}}": {"slack": slack,
+                                                "Cdef": Cdef,
+                                                "demand": demand}}}
+
+    if "bars" in root and root["bars"] is not None:
+        _validate_connection_bars(root["bars"], periods)
+
+    if "lines" in root and root["lines"] is not None:
+        _validate_transmission_lines(root["lines"])
 
     return root

@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=05624691" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/katex.min.js?v=5cc8ed51"></script>
+      <script src="../../../_static/auto-render.min.js?v=af98beb9"></script>
+      <script src="../../../_static/katex_autorenderer.js?v=bebc588a"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NAIVE MODULES</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">USER GUIDE</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Module: Connection Bar — Model Builder</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">This module provides high-level routines for constructing and</span>
+<span class="sd">assembling Pyomo models representing electrical connection bars</span>
+<span class="sd">(buses) within DC power flow formulations. It integrates the</span>
+<span class="sd">components defined in submodules:</span>
+
+<span class="sd">    - :mod:`ConnectionBarDataTypes`</span>
+<span class="sd">    - :mod:`ConnectionBarVars`</span>
+<span class="sd">    - :mod:`ConnectionBarConstraints`</span>
+
+<span class="sd">The builder functions create or extend a ``ConcreteModel`` with</span>
+<span class="sd">sets, parameters, variables, and constraints associated with</span>
+<span class="sd">each connection bar. The formulation supports hybrid systems</span>
+<span class="sd">(hydro, thermal, renewable, and storage) as well as networked</span>
+<span class="sd">multi-bar expansion studies (e.g., MDI, DECOMP, DESSEM).</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">build_connection_bars(data, include_objective=True)</span>
+<span class="sd">    Create and return a complete Pyomo model representing</span>
+<span class="sd">    the connection-bar subsystem.</span>
+
+<span class="sd">add_connection_bar_problem(m, data, include_objective=False)</span>
+<span class="sd">    Attach all sets, parameters, variables, and constraints</span>
+<span class="sd">    related to connection bars to an existing Pyomo model.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- This module is the main interface between the connection-bar</span>
+<span class="sd">  data structures and their corresponding Pyomo model elements.</span>
+<span class="sd">- The resulting model includes:</span>
+<span class="sd">    * Sets and parameters (bars, demands, and slack identification)</span>
+<span class="sd">    * Variables (phase angles and deficits)</span>
+<span class="sd">    * Constraints:</span>
+<span class="sd">        - Slack-bar reference (θ = 0)</span>
+<span class="sd">        - Angular limits (-π ≤ θ ≤ π)</span>
+<span class="sd">        - Power balance per bar and time period</span>
+<span class="sd">- The functions are designed for integration with higher-level</span>
+<span class="sd">  system builders that include generators and transmission lines.</span>
+<span class="sd">- The optional argument ``include_objective`` is reserved for</span>
+<span class="sd">  compatibility with renewable-only formulations and may be</span>
+<span class="sd">  deprecated in future versions.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.</span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</span>
+<span class="sd">    Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">Objective</span><span class="p">,</span> <span class="n">minimize</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ConnectionBarVars</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">connection_bar_add_sets_and_params</span><span class="p">,</span>
+    <span class="n">connection_bar_add_variables</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ConnectionBarConstraints</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_connection_bar_angle_limits_constraints</span><span class="p">,</span>
+    <span class="n">add_connection_bar_slack_constraints</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ConnectionBarDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConnectionBarData</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDESSEM.ConnectionBar.ConnectionBarBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_connection_bars</span><span class="p">,</span>
+    <span class="n">add_connection_bar_problem</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="add_connection_bar_subproblem">
+<a class="viewcode-back" href="../../../NaivePyDECOMP.ConnectionBar.html#NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder.add_connection_bar_subproblem">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_connection_bar_subproblem</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span>
+                                  <span class="n">data</span><span class="p">:</span> <span class="n">ConnectionBarData</span><span class="p">,</span>
+                                  <span class="n">stage</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add a connection-bar subproblem structure to an existing Pyomo model.</span>
+
+<span class="sd">    This routine constructs the local connection-bar component corresponding</span>
+<span class="sd">    to a single stage of the overall planning horizon. It initializes the</span>
+<span class="sd">    sets, parameters, and decision variables related to nodal representation</span>
+<span class="sd">    (bars), and attaches the associated angular and slack-bar constraints.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model instance to which the connection-bar subproblem will be</span>
+<span class="sd">        added.</span>
+<span class="sd">    data : ConnectionBarData</span>
+<span class="sd">        Input data structure containing bar-level information such as</span>
+<span class="sd">        demand profiles, slack status, and other nodal parameters.</span>
+<span class="sd">    stage : int</span>
+<span class="sd">        Index of the planning stage for which this subproblem is created.</span>
+<span class="sd">        The function internally restricts the horizon to one stage to</span>
+<span class="sd">        enable decomposition or stage-wise simulation.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The updated model including the connection-bar subproblem for the</span>
+<span class="sd">        specified stage, with initialized sets, parameters, variables, and</span>
+<span class="sd">        angle-related constraints.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Components added:</span>
+<span class="sd">        * Bar sets and parameters (demand, slack status, etc.)</span>
+<span class="sd">        * Decision variables: deficit ``D[b,t]`` and phase angle ``θ[b,t]``</span>
+<span class="sd">        * Constraints:</span>
+<span class="sd">            - Angular bounds (−π ≤ θ ≤ π)</span>
+<span class="sd">            - Slack-bar reference (θ = 0)</span>
+<span class="sd">    - The horizon is automatically restricted to a single stage for</span>
+<span class="sd">      stage-wise decomposition or iterative expansion methods.</span>
+<span class="sd">    - This subproblem formulation is compatible with integrated models</span>
+<span class="sd">      combining multiple network or generation layers.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.</span>
+<span class="sd">    [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</span>
+<span class="sd">        Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># data copy</span>
+    <span class="n">subproblem_data</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">subproblem_data</span><span class="o">.</span><span class="n">horizon</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="c1"># demand</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">subproblem_data</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">subproblem_data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">demand</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">demand</span><span class="p">[</span><span class="n">stage</span><span class="p">]]</span>
+    <span class="c1"># sets &amp; params</span>
+    <span class="n">connection_bar_add_sets_and_params</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">subproblem_data</span><span class="p">)</span>
+    <span class="c1"># variables</span>
+    <span class="n">connection_bar_add_variables</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="c1"># constraints</span>
+    <span class="n">add_connection_bar_angle_limits_constraints</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">add_connection_bar_slack_constraints</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

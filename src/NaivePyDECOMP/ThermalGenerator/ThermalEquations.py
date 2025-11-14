@@ -54,7 +54,7 @@ References
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 """
 
-from typing import List, Any
+from typing import List, Dict, Any
 from pyomo.environ import ConcreteModel, Var, Expression
 
 
@@ -93,8 +93,8 @@ def add_thermal_cost_expression(
 def add_thermal_balance_expression(
     m: ConcreteModel,
     t: Any,  # normalmente int
-    balance_array: List[Any]
-) -> List[Any]:
+    balance_array: Dict[str, List[Any]]
+) -> Dict[str, List[Any]]:
     """
     Append the thermal generation expression at a given time step t
     to the balance equation expression list.
@@ -118,6 +118,10 @@ def add_thermal_balance_expression(
         The updated list including the thermal power contribution at time t.
     """
     if hasattr(m, 'TG') and hasattr(m, 'thermal_p'):
-        balance_array.append(sum(m.thermal_p[g, t] for g in m.TG))
+        for g in m.TG:
+            bar = m.thermal_bars[g]
+            if bar not in balance_array:
+                balance_array[bar] = list()
+            balance_array[bar].append(m.thermal_p[g, t])
     return balance_array
 

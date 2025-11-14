@@ -41,6 +41,18 @@ Storage
     charge/discharge power limits, efficiencies, and optional integration into
     the balance and objective.
 
+ConnectionBar (New in version 0.1.4)
+    Represents the nodal structure of the network, defining the electrical buses (bars) 
+    that aggregate demand, generation, deficit, and angular reference variables. Provides sets,
+    parameters, variables, and constraints for the nodal balance equations in MW, with optional 
+    angular limits and slack-bar reference handling.
+
+TransmissionLine (New in version 0.1.4)
+    Models the physical interconnections between bars, using the DC power flow or transport 
+    formulations. Defines sets, parameters, and variables for line flows, susceptances,
+    capacities, and investment states, including both existing  and candidate circuits. 
+    Fully compatible with hybrid DC/transport network representations.
+
 YAMLLoader
     Provides the interface for loading problem instances from structured YAML or JSON files,
     including validation and conversion into dataclass objects.
@@ -84,6 +96,8 @@ from .HydraulicGenerator import *
 from .ThermalGenerator import *
 from .RenewableGenerator import *
 from .Storage import *
+from .ConnectionBar import *
+from .TransmissionLine import *
 from .DataFrames import *
 from .PlotSeries import *
 from .Utils import *

@@ -116,22 +116,18 @@ def storage_add_sets_and_params(m: ConcreteModel,
     # Time horizon and basic sets
     T = data.horizon
     U = list(data.units.keys())
-    P = list(data.demand.keys())
-    level_hours = data.level_hours
 
     # Time and patamar sets
     if not hasattr(m, "T"):
         m.T = RangeSet(1, T)
 
-    if not hasattr(m, "P"):
-        m.P = Set(initialize=P)
-
-    if not hasattr(m, "level_hours"):
-        m.level_hours = level_hours
-
-    # Demand (non-symbolic fallback)
-    if not hasattr(m, "d"):
-        m.d = data.demand
+    # discounts
+    if not hasattr(m, 'discounts'):
+      m.discounts = Param(
+          m.T,
+          initialize={t: 1 / ((1 + m.interest_rate) ** (t - 1)) for t in m.T},
+          within=NonNegativeReals
+      )
 
     # Storage unit set
     m.SU = Set(initialize=U)
@@ -144,15 +140,17 @@ def storage_add_sets_and_params(m: ConcreteModel,
     m.storage_Emin = Param(m.SU, initialize={u: data.units[u].Emin for u in U})
     m.storage_Emax = Param(m.SU, initialize={u: data.units[u].Emax for u in U})
     m.storage_Eini = Param(m.SU, initialize={u: data.units[u].Eini for u in U})
-    m.storage_Pch_max = Param(m.SU, m.P, initialize={(u, p): data.units[u].Pch_max for u in U for p in P})
-    m.storage_Pdis_max = Param(m.SU, m.P, initialize={(u, p): data.units[u].Pdis_max for u in U for p in P})
+    m.storage_Pch_max = Param(m.SU, m.P, initialize={(u, p): data.units[u].Pch_max for u in U for p in m.P})
+    m.storage_Pdis_max = Param(m.SU, m.P, initialize={(u, p): data.units[u].Pdis_max for u in U for p in m.P})
     m.storage_eta_c = Param(m.SU, initialize={u: data.units[u].eta_c for u in U})
     m.storage_eta_d = Param(m.SU, initialize={u: data.units[u].eta_d for u in U})
+    m.storage_M = {u: data.units[u].Emax for u in U}
 
     # Cost and state parameters
     m.storage_c_inv = Param(m.SU, initialize={u: data.units[u].c_inv for u in U})
     m.storage_c_op = Param(m.SU, initialize={u: data.units[u].c_op for u in U})
     m.storage_state = Param(m.SU, initialize={u: data.units[u].state for u in U})
+    m.storage_bars = {u: data.units[u].bar for u in U}
 
     return m
 
@@ -181,6 +179,7 @@ def storage_add_variables(m: ConcreteModel) -> ConcreteModel:
     m.storage_ch = Var(m.SU, m.T, m.P, within=NonNegativeReals)
     m.storage_dis = Var(m.SU, m.T, m.P, within=NonNegativeReals)
     m.storage_cap = Var(m.SU, m.T, m.P, within=NonNegativeReals)
+    m.storage_mode = Var(m.SU, m.T, m.P, domain=Binary)
 
     # Investment and operational binary variables
     m.storage_y = Var(m.SU, m.T, within=Binary)  # Construction decision

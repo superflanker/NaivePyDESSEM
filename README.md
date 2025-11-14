@@ -1,10 +1,4 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/superflanker/NaivePyDESSEM/main/imagens/logo.png" alt="NaivePyDESSEM Logo" width="260"/>
-</p>
-
-<p align="center">
-  <strong><H2>NaivePyDESSEM — A Pedagogical Framework for Hydrothermal Operation and Expansion Planning</H2></strong>
-</p>
+# NaivePyDESSEM — A Pedagogical and Modular Framework for Hydrothermal Economic Dispatch and Expansion Planning in Pyomo (DESSEM, DECOMP, and MDI-like Solvers)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![PyPI Downloads](https://static.pepy.tech/personalized-badge/naivepydessem?period=total&units=INTERNATIONAL_SYSTEM&left_color=GRAY&right_color=GREEN&left_text=Downloads)](https://pepy.tech/projects/naivepydessem)
@@ -142,6 +136,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── Generator
 │   │   │   ├── __init__.py
 │   │   │   ├── GeneratorBuilder.py
@@ -158,6 +159,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── StorageEquations.py
 │   │   │   ├── StorageObjective.py
 │   │   │   └── StorageVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── DataFrames.py
@@ -175,6 +183,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── cli.py
 │   │   │   ├── pddd_cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
 │   │   │   ├── HydraulicConstraints.py
@@ -208,6 +223,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── ThermalGeneratorBuilder.py
 │   │   │   ├── ThermalObjectives.py
 │   │   │   └── ThermalVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── BuilderPDDD.py
@@ -227,6 +249,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
 │   │   │   ├── ConstantProductivityFPH.py
@@ -264,6 +293,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── ThermalObjectives.py
 │   │   │   ├── ThermalPieceWise.py
 │   │   │   └── ThermalVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── DataFrames.py
@@ -313,13 +349,13 @@ The following Python packages are required to run **NaivePyDESSEM**:
 pip install naivepydessem
 ```
 
-Optionally, install some open-source solvers:
+Optionally, install with some open-source solvers:
 
 ```bash
 pip install naivepydessem[solvers]
 ```
 
-Or from source:
+You can install  from source:
 
 ```bash
 git clone https://github.com/superflanker/NaivePyDESSEM.git
@@ -392,7 +428,6 @@ This implementation is aligned with the pedagogical materials of UFPR (Federal U
 - Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030, UFPR, 2023.
 
 - CEPEL. Manual de Metodologia do DESSEM, 2023.
-
 - EPE. Plano Decenal de Expansão de Energia (PDE) — Metodologia MDI, 2023.
 
 ---
@@ -406,6 +441,7 @@ Full API and usage documentation is built with **Sphinx** and available here:
 This project is hosted on GitHub at:
 
 👉 [NaivePyDessem GitHub Repo](https://github.com/superflanker/NaivePyDESSEM)
+
 ---
 
 ## 📚 How to Cite

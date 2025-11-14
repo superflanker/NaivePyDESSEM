@@ -58,6 +58,8 @@ class HydraulicUnit:
     ----------
     name : str
         Unique identifier of the hydro plant.
+    bar: str
+        Connection Bar/bus of the unit (defaults to BAR_1)
     Qmin : float
         Minimum allowed turbined flow (m^3/s).
     Qmax : float
@@ -109,6 +111,7 @@ class HydraulicUnit:
       the consuming code uses them for the selected ``mode``.
     """
     name: str
+    bar: str
     Qmin: float
     Qmax: float
     Vmin: float
@@ -136,8 +139,6 @@ class HydraulicData:
     ----------
     horizon : int
         Number of time periods in the planning horizon.
-    demand : Dict[int, float]
-        Mapping from period ``t`` (1-based) to system demand (MW).
     units : Dict[str, HydraulicUnit]
         Map from plant name to its ``HydraulicUnit`` data structure.
     zeta : float, optional
@@ -159,8 +160,6 @@ class HydraulicData:
       performed (inside the FPH callable or in the model).
     """
     horizon: int
-    demand: Dict[int, float]
     units: Dict[str, HydraulicUnit]
     zeta: float = 9.81 / 1000
     zeta_vol: float = 3600 / 1e6
-    Cdef: float = 1000.0

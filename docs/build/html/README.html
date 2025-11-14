@@ -45,11 +45,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -185,10 +185,10 @@ It integrates investment and operational decisions into a unified <strong>mixed-
 Formulates a multi-period optimization problem minimizing investment and operational costs under uncertainty.<br />
 Incorporates candidate projects for thermal, hydro, renewable, and storage technologies, as well as transmission reinforcements.</p></li>
 <li><p><strong>Specialized Submodules:</strong><br />
-Subpackages <code class="docutils literal notranslate"><span class="pre">MDI.Generator</span></code> and <code class="docutils literal notranslate"><span class="pre">MDI.Storage</span></code> define project-level variables, constraints, and cost components.<br />
+Subpackages <code class="docutils literal notranslate"><span class="pre">MDI.Generator</span></code>, <code class="docutils literal notranslate"><span class="pre">MDI.Storage</span></code>, <code class="docutils literal notranslate"><span class="pre">MDI.ConnectionBar</span></code> and <code class="docutils literal notranslate"><span class="pre">MDI.TransmissionLine</span></code> define project-level variables, constraints, and cost components.<br />
 The <code class="docutils literal notranslate"><span class="pre">Builder</span></code> module consolidates these into a system-wide energy balance, while <code class="docutils literal notranslate"><span class="pre">YAMLLoader</span></code> manages structured scenario data.</p></li>
 <li><p><strong>Solution and Analysis:</strong><br />
-Supports a variety of <em>Pyomo</em> solvers (<code class="docutils literal notranslate"><span class="pre">GLPK</span></code>, <code class="docutils literal notranslate"><span class="pre">CPLEX</span></code>, <code class="docutils literal notranslate"><span class="pre">IPOPT</span></code>, <code class="docutils literal notranslate"><span class="pre">MindtPy</span></code>) and provides post-solution tools (<code class="docutils literal notranslate"><span class="pre">Reporting</span></code>, <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code>, <code class="docutils literal notranslate"><span class="pre">PlotSeries</span></code>) for sensitivity and scenario analysis.</p></li>
+Supports a variety of <em>Pyomo</em> solvers (<code class="docutils literal notranslate"><span class="pre">GLPK</span></code>, <code class="docutils literal notranslate"><span class="pre">CBC</span></code>, <code class="docutils literal notranslate"><span class="pre">HIGHS</span></code>, <code class="docutils literal notranslate"><span class="pre">CPLEX</span></code>) and provides post-solution tools (<code class="docutils literal notranslate"><span class="pre">Reporting</span></code>, <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code>, <code class="docutils literal notranslate"><span class="pre">PlotSeries</span></code>) for sensitivity and scenario analysis.</p></li>
 <li><p><strong>Educational Design:</strong><br />
 Preserves the key structural and economic principles of real-world expansion models while maintaining tractability for academic exercises.</p></li>
 </ul>
@@ -203,6 +203,13 @@ Preserves the key structural and economic principles of real-world expansion mod
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── Generator
 │   │   │   ├── __init__.py
 │   │   │   ├── GeneratorBuilder.py
@@ -219,6 +226,13 @@ Preserves the key structural and economic principles of real-world expansion mod
 │   │   │   ├── StorageEquations.py
 │   │   │   ├── StorageObjective.py
 │   │   │   └── StorageVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── DataFrames.py
@@ -236,6 +250,13 @@ Preserves the key structural and economic principles of real-world expansion mod
 │   │   │   ├── cli.py
 │   │   │   ├── pddd_cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
 │   │   │   ├── HydraulicConstraints.py
@@ -269,6 +290,13 @@ Preserves the key structural and economic principles of real-world expansion mod
 │   │   │   ├── ThermalGeneratorBuilder.py
 │   │   │   ├── ThermalObjectives.py
 │   │   │   └── ThermalVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── BuilderPDDD.py
@@ -288,6 +316,13 @@ Preserves the key structural and economic principles of real-world expansion mod
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
 │   │   │   ├── ConstantProductivityFPH.py
@@ -325,6 +360,13 @@ Preserves the key structural and economic principles of real-world expansion mod
 │   │   │   ├── ThermalObjectives.py
 │   │   │   ├── ThermalPieceWise.py
 │   │   │   └── ThermalVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── DataFrames.py
@@ -465,6 +507,25 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 👉 <a class="reference external" href="https://superflanker.github.io/NaivePyDESSEM/">NaivePyDessem Documentation</a></p>
 <p>This project is hosted on GitHub at:</p>
 <p>👉 <a class="reference external" href="https://github.com/superflanker/NaivePyDESSEM">NaivePyDessem GitHub Repo</a></p>
+</section>
+<hr class="docutils" />
+<section id="get-involved">
+<h2>🌐 Get Involved<a class="headerlink" href="#get-involved" title="Link to this heading"></a></h2>
+<p>You are cordially invited to explore the repository, review the examples, and adapt the framework to your own studies or applications.<br />
+This project was designed with openness and reproducibility in mind — whether you are conducting academic research, developing optimization tools, or exploring hybrid energy models, your engagement is most welcome.</p>
+<section id="contribute-collaborate">
+<h3>🤝 Contribute &amp; Collaborate<a class="headerlink" href="#contribute-collaborate" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>🧩 <strong>Report Issues:</strong> <a class="reference external" href="https://github.com/superflanker/NaivePyDESSEM/issues">Open an Issue</a></p></li>
+<li><p>🍴 <strong>Fork the Project:</strong> <a class="reference external" href="https://github.com/superflanker/NaivePyDESSEM/fork">Create Your Own Branch</a></p></li>
+<li><p>🧠 <strong>Cite This Work:</strong> If used in research, please acknowledge it in your publication.</p></li>
+</ul>
+</section>
+<section id="contact">
+<h3>✉️ Contact<a class="headerlink" href="#contact" title="Link to this heading"></a></h3>
+<p>For collaboration, technical inquiries, or academic exchange:<br />
+📨 <strong>Augusto Mathias Adams</strong> — augusto.adams&#64;ufpr.br</p>
+</section>
 </section>
 <hr class="docutils" />
 <section id="how-to-cite">

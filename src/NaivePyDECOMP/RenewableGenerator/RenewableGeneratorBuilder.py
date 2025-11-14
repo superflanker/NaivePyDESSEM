@@ -96,7 +96,6 @@ def add_renewable_subproblem(m: ConcreteModel,
     # data copy
     subproblem_data = copy.deepcopy(data)
     subproblem_data.horizon = 1
-    subproblem_data.demand = {1: data.demand[stage+1]}
     for name in subproblem_data.units.keys():
         subproblem_data.units[name].gbar = [data.units[name].gbar[stage]]
 

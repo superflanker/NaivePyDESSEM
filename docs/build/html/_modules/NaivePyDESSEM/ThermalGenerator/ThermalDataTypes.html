@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -167,6 +167,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    name : str</span>
 <span class="sd">        Unique identifier of the thermal unit.</span>
+<span class="sd">    bar: str</span>
+<span class="sd">        Connection Bar of the Unit (defaults to BAR_1)</span>
 <span class="sd">    Pmin : float</span>
 <span class="sd">        Minimum operating power output (MW).</span>
 <span class="sd">    Pmax : float</span>
@@ -209,6 +211,7 @@
 <span class="sd">    - Piecewise approximations use ``pw_breaks`` and ``pw_costs`` for MILP models.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">bar</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">Pmin</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">Pmax</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">RU</span><span class="p">:</span> <span class="nb">float</span>
@@ -239,12 +242,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    horizon : int</span>
 <span class="sd">        Number of time periods in the planning horizon.</span>
-<span class="sd">    demand : Dict[int, float]</span>
-<span class="sd">        Mapping of each period ``t`` to system demand (MW).</span>
 <span class="sd">    units : Dict[str, ThermalUnit]</span>
 <span class="sd">        Dictionary mapping unit identifiers to their ``ThermalUnit`` objects.</span>
-<span class="sd">    Cdef : float, optional</span>
-<span class="sd">        Deficit penalty cost ($/MWh), default is 1000.0.</span>
 <span class="sd">    Rreq : Dict[int, float], optional</span>
 <span class="sd">        Mapping of each period ``t`` to spinning reserve requirement (MW).</span>
 <span class="sd">        Defaults to ``None``.</span>
@@ -254,12 +253,9 @@
 <span class="sd">    -----</span>
 <span class="sd">    - This class serves as a structured input for Pyomo-based UC models.</span>
 <span class="sd">    - ``Rreq`` is optional; if not provided, reserve constraints must be disabled.</span>
-<span class="sd">    - ``Cdef`` penalizes unmet demand in the optimization objective.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">horizon</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">demand</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
     <span class="n">units</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ThermalUnit</span><span class="p">]</span>
-    <span class="n">Cdef</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1000.0</span>
     <span class="n">Rreq</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">has_history</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span> </div>
 

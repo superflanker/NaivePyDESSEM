@@ -12,6 +12,9 @@ meta:
   horizon: 10                 # TODO: nº de períodos (ex.: 24)
   delta_t: 1.0                # duração do período (anos)
   parcel_investment: False    # investimento anualizado ou não
+  interest_rate: 0.0          # taxa de juros
+  Cdef: 5_000                 # custo de operação do deficit  
+  c_pmax: 10_000               # potência máxima do déficit
   Solver: cbc
   Solver_Options:
     mip_solver: glpk
@@ -27,6 +30,11 @@ meta:
   level_hours: {"Ponta": 2000,
                 "Fora": 6740}
   level_precedence: ["Ponta", "Fora"]
+
+# =========================
+# GENERATOR (GeneratorData)
+# =========================
+
 generator:
   units:                      # Dict[str, GeneratorUnit]
     UHE_1:                    # convenção: {GER}_{UNIT}
@@ -64,11 +72,5 @@ generator:
       p_max: 100              # potência máxima projetada
       c_op: 0                 # custos de operação
       c_inv: 10_000_000       # custos de investimento e O&M
-      include_cap: True       # incluir na restrição de capacidade
-    Def_1:                    # convenção: {GER}_{UNIT}
-      state: 1                # existente
-      p_max: 10000            # potência máxima projetada
-      c_op: 5000              # custos de operação
-      c_inv: 0                # custos de investimento e O&M
       include_cap: True       # incluir na restrição de capacidade
          

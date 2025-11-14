@@ -1,5 +1,5 @@
 """
-EELT 7030 — Operation and Expansion Planning of Electric Power Systems  
+EELT 7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)
 
 Utility: Welcome Message and Model Summary Printer
@@ -26,7 +26,7 @@ provide clarity and visual feedback about the simulation setup.
 
 References
 ----------
-[1] CEPEL, DESSEM. Manual de Metodologia, 2023  
+[1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 """
 
@@ -100,6 +100,10 @@ def model_properties(case: Dict) -> None:
         units.append("Renewable Units")
     if 'storage' in case.keys():
         units.append('Storage Units')
+    if 'bars' in case.keys():
+        units.append('Connection Bar Units')
+    if 'lines' in case.keys():
+        units.append('Line Transmission Units')
 
     units = ", ".join(units)
 
@@ -122,6 +126,8 @@ def format_models(case: Dict) -> None:
     format_thermal_model(case)
     format_renewable_model(case)
     format_storage_model(case)
+    format_connection_bar_model(case)
+    format_line_transmission_model(case)
 
 
 def format_hydro_model(case: Dict) -> None:
@@ -238,6 +244,7 @@ def format_storage_model(case: Dict) -> None:
             pdis_max = u.get("Pdis_max", 0.0)
             eta_c = u.get("eta_c", 0.0)
             eta_d = u.get("eta_d", 0.0)
+
             print(
                 f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Emin, {Fore.BLUE} Value: {Fore.CYAN}{emin} MWh")
             print(
@@ -252,3 +259,60 @@ def format_storage_model(case: Dict) -> None:
                 f"      {Fore.BLUE}  Parameter: {Fore.CYAN}eta_c, {Fore.BLUE} Value: {Fore.CYAN}{eta_c}")
             print(
                 f"      {Fore.BLUE}  Parameter: {Fore.CYAN}eta_d, {Fore.BLUE} Value: {Fore.CYAN}{eta_d}")
+
+
+def format_connection_bar_model(case: Dict) -> None:
+    """
+    Print formatted information for each connection bar unit.
+
+    Parameters
+    ----------
+    case : dict
+        Dictionary containing 'bars' section with unit definitions.
+    """
+    connection_bars = case.get('bars', {})
+    connection_bars_units = connection_bars.get('units', {})
+    if len(connection_bars_units) > 0:
+        print(f"{Fore.MAGENTA}{Style.BRIGHT}" + "=" * 70)
+        print(f"{Fore.YELLOW}Connection Bar Units\n")
+
+        for name, u in connection_bars_units.items():
+            print(f"{Fore.BLUE}{Style.BRIGHT}{name}")
+            slack = u.get("slack", False)
+            cdef = u.get("Cdef", 0.0)
+            slack_text = "Yes" if slack else "No"
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Slack Bar?, {Fore.BLUE} Value: {Fore.CYAN}{slack_text}")
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Deficit Cost, {Fore.BLUE} Value: \$ {Fore.CYAN}{cdef}")
+
+
+def format_line_transmission_model(case: Dict) -> None:
+    """
+    Print formatted information for each transmission line unit.
+
+    Parameters
+    ----------
+    case : dict
+        Dictionary containing 'lines' section with unit definitions.
+    """
+    transmission_lines = case.get('lines', {})
+    transmission_lines_units = transmission_lines.get('units', {})
+    if len(transmission_lines_units) > 0:
+        print(f"{Fore.MAGENTA}{Style.BRIGHT}" + "=" * 70)
+        print(f"{Fore.YELLOW}Transmission Line Units\n")
+
+        for name, u in transmission_lines_units.items():
+            print(f"{Fore.BLUE}{Style.BRIGHT}{name}")
+            model = u.get("model", False)
+            b = u.get("b", 0.0)
+            pmax = u.get("pmax", 0.0)
+            endpoints = ",".join(u.get("endpoints"))
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Model, {Fore.BLUE} Value: {Fore.CYAN}{model}")
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Line Susceptance , {Fore.BLUE} Value: {Fore.CYAN}{b} p.u")
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Max Power , {Fore.BLUE} Value: {Fore.CYAN}{pmax} MW")
+            print(
+                f"      {Fore.BLUE}  Parameter: {Fore.CYAN}Endpoints , {Fore.BLUE} Value: {Fore.CYAN}{endpoints}")

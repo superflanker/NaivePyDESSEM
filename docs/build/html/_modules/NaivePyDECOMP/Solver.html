@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -160,7 +160,7 @@
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">opt</span><span class="o">.</span><span class="n">available</span><span class="p">():</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Solver &#39;</span><span class="si">{</span><span class="n">solver_str</span><span class="si">}</span><span class="s2">&#39; is not available on this system.&quot;</span><span class="p">)</span>
+            <span class="sa">f</span><span class="s2">&quot;Solver &#39;</span><span class="si">{</span><span class="n">solver_str</span><span class="si">}</span><span class="s2">&#39; is not available on this systemodel.&quot;</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">solver_str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;mindtpy&#39;</span><span class="p">:</span>
@@ -184,12 +184,15 @@
 
     <span class="k">except</span> <span class="n">ApplicationError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Solver execution failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
+    
     <span class="n">dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">hydro_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">thermal_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">renewable_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
     <span class="n">storage_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">connection_bar_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">transmission_line_dispatch_summary</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    
     <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">case</span></div>
 
 </pre></div>

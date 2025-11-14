@@ -11,12 +11,12 @@ Augusto Mathias Adams <augusto.adams@ufpr.br>
 Description
 -----------
 This utility builds and solves a Pyomo optimization model using input
-data provided in a YAML or JSON configuration file. The solver is selected 
+data provided in a YAML configuration file. The solver is selected 
 based on metadata, and can include support for decomposition strategies 
 (e.g., MIN-DT via MindtPy).
 
 Features:
-- Automatic model construction via modular subsystems (thermal, hydro, storage, renewable).
+- Automatic model construction via modular subsystems (generator, storage, connection bar, transmission line).
 - Solver selection and configuration via YAML metadata.
 - Support for MINLP solvers such as MindtPy with strategy and time limits.
 - Termination condition validation to ensure feasibility or optimality.
@@ -31,6 +31,7 @@ References
 from pyomo.opt import SolverFactory, TerminationCondition
 from pyomo.common.errors import ApplicationError
 from pyomo.environ import ConcreteModel, Suffix, value
+from pyomo.contrib.latex_printer import latex_printer
 from typing import Any, Tuple, Dict
 from colorama import Fore, Style, init as colorama_init
 from .Builder import build_model_from_file
@@ -75,6 +76,8 @@ def solve(path: str) -> Tuple[ConcreteModel, Dict]:
     print_welcome_message(model, case)
     # Habilita captura dos valores duais
     model.dual = Suffix(direction=Suffix.IMPORT_EXPORT)
+    # print(latex_printer(model))
+    # exit()
     # Create solver instance
     opt = SolverFactory(solver_str)
 
@@ -108,5 +111,7 @@ def solve(path: str) -> Tuple[ConcreteModel, Dict]:
     dispatch_summary(model)
     generator_dispatch_summary(model)
     storage_dispatch_summary(model)
+    connection_bar_dispatch_summary(model)
+    transmission_line_dispatch_summary(model)
 
     return model, case

@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -156,7 +156,9 @@
     <span class="n">has_hydro_model</span><span class="p">,</span>
     <span class="n">has_thermal_model</span><span class="p">,</span>
     <span class="n">has_renewable_model</span><span class="p">,</span>
-    <span class="n">has_storage_model</span>
+    <span class="n">has_storage_model</span><span class="p">,</span>
+    <span class="n">has_connection_bar_model</span><span class="p">,</span>
+    <span class="n">has_transmission_line_model</span>
 <span class="p">)</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">.Builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_model_from_data</span> <span class="k">as</span> <span class="n">build_model</span>
@@ -177,6 +179,13 @@
     <span class="n">add_storage_cost_expression</span>
 <span class="p">)</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.ConnectionBar.ConnectionBarEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_connection_bar_cost_expression</span>
+<span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">NaivePyDECOMP.TransmissionLine.TransmissionLineEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_transmission_line_cost_expression</span>
+<span class="p">)</span>
 
 <div class="viewcode-block" id="generate_dummy_model">
 <a class="viewcode-back" href="../../NaivePyDECOMP.html#NaivePyDECOMP.PDDDMergeModels.generate_dummy_model">[docs]</a>
@@ -239,9 +248,6 @@
 
     <span class="n">start_model</span> <span class="o">=</span> <span class="n">pddd_solution</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span>
 
-    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
-        <span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span><span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-
     <span class="k">if</span> <span class="n">has_hydro_model</span><span class="p">(</span><span class="n">start_model</span><span class="p">):</span>
 
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
@@ -283,6 +289,18 @@
                     <span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
                 <span class="n">model</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span>
                     <span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    
+    <span class="k">if</span> <span class="n">has_connection_bar_model</span><span class="p">(</span><span class="n">start_model</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">CB</span><span class="p">:</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span><span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">model</span><span class="o">.</span><span class="n">unique_bar</span><span class="p">:</span>
+                    <span class="n">model</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span><span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+ 
+    <span class="k">if</span> <span class="n">has_transmission_line_model</span><span class="p">(</span><span class="n">start_model</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">LT</span><span class="p">:</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">lines_flow</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">(</span><span class="n">pddd_solution</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lines_flow</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 
     <span class="k">return</span> <span class="n">model</span></div>
 

@@ -86,7 +86,9 @@ class ThermalUnit:
     Parameters
     ----------
     name : str
-        Unique identifier of the thermal unit.
+        Unique identifier of the thermal unit.    
+    bar: str
+        Connection Bar of the Unit (defaults to BAR_1)
     Gmin : float
         Minimum operating power output (MWh).
     Gmax : float
@@ -95,6 +97,7 @@ class ThermalUnit:
         Operation cost per MWh
     """
     name: str
+    bar: str
     Gmin: float
     Gmax: float
     Cost: float
@@ -116,6 +119,4 @@ class ThermalData:
         Deficit penalty cost ($/MWh), default is 1000.0.
     """
     horizon: int
-    demand: Dict[int, float]
     units: Dict[str, ThermalUnit]
-    Cdef: float = 1000.0

@@ -98,6 +98,7 @@ def build_FPHs(m: ConcreteModel,
         unit = data.units[h]
         m.hydro_FPH[h] = simplified_constant_productivity_fph(unit.p)
 
+
 def build_hydro_dispatch(
     data: HydraulicData,
     include_objective: bool = True
@@ -226,7 +227,6 @@ def add_hydro_subproblem(m: ConcreteModel,
     # data copy
     subproblem_data = copy.deepcopy(data)
     subproblem_data.horizon = 1
-    subproblem_data.demand = {1: data.demand[stage+1]}
     for name in subproblem_data.units.keys():
         subproblem_data.units[name].afluencia = [
             data.units[name].afluencia[stage]]

@@ -40,7 +40,6 @@ mdit-py-plugins==0.5.0
 mdurl==0.1.2
 more-itertools==10.8.0
 myst-parser==4.0.1
--e git+ssh://git@github.com/superflanker/NaivePyDESSEM.git@9de55b39e7c7b2bc743f36409647c48ec1b62c27#egg=naivepydessem
 nh3==0.3.2
 numpy==2.2.6
 packaging==25.0

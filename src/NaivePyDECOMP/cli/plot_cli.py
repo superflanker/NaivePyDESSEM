@@ -32,7 +32,10 @@ Categories
 - 'Q'     : Turbine flow [hydro]
 - 'V'     : Volume [hydro]
 - 'S'     : Spillage [hydro]
+- 'F'     : Transmission Line Power Flow [TransmissionLine]
 - 'BAT'   : Battery-specific (charge/discharge/SoC)
+- 'CB'    : Connection Bar Variables
+- 'LT'    : Transmission Lines Variables
 - 'cost'  : Cost components per stage (var, start, deficit)
 
 Dependencies
@@ -165,7 +168,7 @@ def select_variable_columns(df: pd.DataFrame,
     df : pd.DataFrame
         The input DataFrame containing simulation results.
     category : str
-        One of: {"G", "Q", "S", "V", "BAT", "cost", "CTRL"}.
+        One of: {"G", "Q", "S", "V", "BAT", "CB", "LT", "cost", "CTRL"}.
 
     Returns
     -------
@@ -179,15 +182,21 @@ def select_variable_columns(df: pd.DataFrame,
     """
 
     if category == "GT":
-        return df.filter(regex=r"^(G_|Ge_|Deficit|Demand).*")
+        return df.filter(regex=r"^(G_|Ge_|Deficit_|Demand_).*")
     elif category == "G":
-        return df.filter(regex=r"^(G_|Deficit).*")
+        return df.filter(regex=r"^(G_|Deficit_).*")
     elif category == "Q":
         return df.filter(regex=r"^Q_.*")
     elif category == "S":
         return df.filter(regex=r"^S_.*")
     elif category == "V":
-        return df.filter(regex=r"^V_.*")
+        return df.filter(regex=r"^V_.*")    
+    elif category == "F":
+        return df.filter(regex=r"^F_.*")    
+    elif category == "CB":
+        return df.filter(regex=r"^(\\Theta_|DemandBar_|DeficitBar_).*")
+    elif category == "LT":
+        return df.filter(regex=r"^(\\Delta_|F_).*")
     elif category == "BAT":
         return df.filter(regex=r"^(D_|C_|E_).*")
     elif category.lower() == "cost":
@@ -304,6 +313,7 @@ def handle_plot(df: pd.DataFrame,
                 stacked: str = None,
                 title: str = None,
                 ylabel: str = None,
+                xlabel: str = None,
                 out_dir: str = None,
                 out_file: str = None):
     """
@@ -340,6 +350,7 @@ def handle_plot(df: pd.DataFrame,
     plot_style = (plot_style or prompt("Line or bar plot? (line/bar)")).lower()
     title = title or prompt("Enter the title of the plot [optional]")
     ylabel = ylabel or prompt("Enter the y-axis label [optional]")
+    xlabel = xlabel or prompt("Enter the x-axis label [optional]")
     out_dir = out_dir or prompt("Enter the output directory for the figure")
     out_file = out_file or prompt(
         "Enter the output file name (e.g., plot.png)")
@@ -348,6 +359,7 @@ def handle_plot(df: pd.DataFrame,
     t = df["T"] if "T" in df.columns else df.index
     title_use = title if title else ", ".join(categories)
     ylabel_use = ylabel if ylabel else ", ".join(categories)
+    xlabel_use = xlabel if xlabel else ", ".join(categories)
     path = os.path.join(out_dir, out_file)
     if plot_style == "line":
         plot_series(t, series.to_dict(orient="list"),
@@ -356,7 +368,7 @@ def handle_plot(df: pd.DataFrame,
         stacked = (stacked if stacked is not None else prompt(
             "Stacked bars? (y/n)").lower() == "y")
         plot_series_bar(t, series.to_dict(orient="list"), title=title_use,
-                        ylabel=ylabel_use, xlabel="Estágio T", file=path, stacked=stacked)
+                        ylabel=ylabel_use, xlabel=xlabel_use, file=path, stacked=stacked)
     else:
         print(f"{Fore.RED}Unrecognized plot style.{Style.RESET_ALL}")
     print(f"{Fore.GREEN}✔ Figure saved to:{Style.RESET_ALL} {Fore.CYAN}{path}{Style.RESET_ALL}")
@@ -419,23 +431,24 @@ def main():
                         help="Use stacked bars (bar plots only)")
     parser.add_argument("--title", help="Plot title or LaTeX caption")
     parser.add_argument("--ylabel", help="Y-axis label (plots)")
+    parser.add_argument("--xlabel", help="X-axis label (plots)")
     parser.add_argument("--out-dir", help="Output directory")
     parser.add_argument(
         "--out-file", help="Output file name (plot image or .tex)")
     parser.add_argument("--label", help="LaTeX label (tables)")
     args = parser.parse_args()
     df = load_dataframe(args.input_file)
-    print("Available categories: G (Generation), Q (Turbine flow), S (Spillage), V (Volume), cost, BAT, alpha, zlim")
+    print("Available categories: G (Generation), Q (Turbine flow), S (Spillage), V (Volume), CB (Connection Bars), \n LT (Transmission Lines), COST, BAT, alpha, zlim")
     mode = args.mode or prompt(
         "Generate table, plot, or CTRL matrix? (table/plot/ctrl)").lower()
-    categories = [c.upper() if c.lower() != "cost" else "cost" for c in (
+    categories = [c.upper() for c in (
         args.category or prompt("Enter category(ies) separated by spaces (e.g., G S V):").split())]
     if mode == "table":
         handle_table(df, categories, out_dir=args.out_dir,
                      out_file=args.out_file, caption=args.title, label=args.label)
     elif mode == "plot":
         handle_plot(df, categories, plot_style=args.plot_style, stacked=args.stacked,
-                    title=args.title, ylabel=args.ylabel, out_dir=args.out_dir, out_file=args.out_file)
+                    title=args.title, ylabel=args.ylabel, xlabel=args.xlabel, out_dir=args.out_dir, out_file=args.out_file)
     else:
         print("Unrecognized mode.")
 

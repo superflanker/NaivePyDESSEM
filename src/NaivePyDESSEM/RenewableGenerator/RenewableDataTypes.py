@@ -53,6 +53,8 @@ class RenewableUnit:
     ----------
     name : str
         Unique identifier for the renewable unit (e.g., ``'PV1'``, ``'WTG3'``).
+    bar: str
+        Connection bar of the Unit (defaults to BAR_1)
     gbar : List[float]
         Time series of expected available generation (MW) for each
         planning period. Typically derived from forecasts or
@@ -67,6 +69,7 @@ class RenewableUnit:
       this exogenous availability profile rather than decision variables.
     """
     name: str
+    bar: str
     gbar: List[float]
 
 
@@ -79,13 +82,9 @@ class RenewableData:
     ----------
     horizon : int
         Number of periods in the planning horizon.
-    demand : Dict[int, float]
-        Mapping of each period ``t`` (1-based) to system demand (MW).
     units : Dict[str, RenewableUnit]
         Dictionary mapping unit identifiers to their respective
         :class:`RenewableUnit` objects.
-    Cdef : float, optional
-        Penalty cost for unmet demand (R$/MWh), default is ``1000.0``.
 
     Notes
     -----
@@ -98,6 +97,4 @@ class RenewableData:
       for renewable-aware unit commitment or economic dispatch.
     """
     horizon: int
-    demand: Dict[int, float]
     units: Dict[str, RenewableUnit]
-    Cdef: float = 1000.0

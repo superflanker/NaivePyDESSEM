@@ -46,7 +46,9 @@ from pyomo.environ import ConcreteModel
 from NaivePyDESSEM.ModelCheck import (
     has_hydro_model, 
     has_renewable_model, 
-    has_storage_model
+    has_storage_model,
+    has_connection_bar_model,
+    has_transmission_line_model
 )
 
 

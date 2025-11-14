@@ -91,6 +91,8 @@ class StorageUnit:
     ----------
     name : str
         Identifier of the storage unit.
+    bar: str
+        Connection Bar of the Unit (defaults to BAR_1)
     state : int
         Initial state (0 = not installed, 1 = existing).
     c_op : float
@@ -113,6 +115,7 @@ class StorageUnit:
         Discharging efficiency (fraction between 0 and 1).
     """
     name: str
+    bar: str
     state: int
     c_op: float
     c_inv: float
@@ -145,8 +148,6 @@ class StorageData:
         Dictionary of storage units indexed by their identifiers.
     """
     horizon: int
-    demand: Dict[str, List[float]]
-    level_hours: Dict[str, float]
     delta_t: float
     units: Dict[str, StorageUnit]
 

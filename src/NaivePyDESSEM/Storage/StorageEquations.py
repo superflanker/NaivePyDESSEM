@@ -57,7 +57,7 @@ References
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023..
 """
 
-from typing import List, Any
+from typing import List, Dict, Any
 from pyomo.environ import ConcreteModel, Var, Expression
 
 
@@ -101,8 +101,8 @@ def add_storage_cost_expression(
 def add_storage_balance_expression(
     m: ConcreteModel,
     t: Any,
-    balance_array: List[Any]
-) -> List[Any]:
+    balance_array: Dict[str, List[Any]]
+) -> Dict[str, List[Any]]:
     """
     Append energy balance equations for storage units at time t to the constraint expression list.
 
@@ -121,13 +121,13 @@ def add_storage_balance_expression(
         Pyomo model instance containing storage variables and parameters.
     t : int
         Time index at which the storage energy balance is evaluated.
-    balance_array : list of expressions
-        List of constraint expressions to which the storage energy balance equation is appended.
+    balance_array : dict of list of expressions
+        List of symbolic expressions representing components of the power balance.
 
     Returns
     -------
-    list of expressions
-        The updated list including the storage energy balance constraint at time t.
+    dict of list of expressions
+        The updated list including the hydro generation term at time t.
 
     Notes
     -----
@@ -142,12 +142,13 @@ def add_storage_balance_expression(
     >>> model.StorageBalance.add(balance_terms[0])
     """
     required = [
-        'SU', 'T', 'storage_E'
+        'SU', 'T', 'storage_dis', 'storage_ch', 'storage_bars'
     ]
     if all(hasattr(m, attr) for attr in required):
-        expr = sum( m.storage_dis[s, t] 
-                   -  m.storage_ch[s, t] for s in m.SU)
-        # expr = sum(m.storage_eta_d[s] * m.storage_E[s, t]  for s in m.SU)
-        balance_array.append(expr)
-        return balance_array
+        for s in m.SU:
+            bar = m.storage_bars[s]
+            if bar not in balance_array:
+                balance_array[bar] = list()
+            balance_array[bar].append(m.storage_dis[s, t] 
+                   -  m.storage_ch[s, t])
     return balance_array

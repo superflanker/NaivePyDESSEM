@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=05624691" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/katex.min.js?v=5cc8ed51"></script>
+      <script src="../../../_static/auto-render.min.js?v=af98beb9"></script>
+      <script src="../../../_static/katex_autorenderer.js?v=bebc588a"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NAIVE MODULES</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">USER GUIDE</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Module: Transmission Line — Builder</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">Provides the high-level construction routine for assembling the</span>
+<span class="sd">transmission line subsystem within DC power flow formulations.</span>
+<span class="sd">This module integrates sets, variables, and constraints that</span>
+<span class="sd">represent line flows, capacity limits, and their relationship</span>
+<span class="sd">with nodal phase angles.</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">build_transmission_lines(m)</span>
+<span class="sd">    Create and attach all components of the transmission line</span>
+<span class="sd">    subsystem to the given Pyomo model, including variables</span>
+<span class="sd">    and constraints.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- This module orchestrates the routines from:</span>
+<span class="sd">    * :mod:`TransmissionLineVars`</span>
+<span class="sd">    * :mod:`TransmissionLineConstraints`</span>
+<span class="sd">- The formulation is consistent with the DC power flow approximation:</span>
+<span class="sd">    ``F_ij,t = b_ij (θ_i,t − θ_j,t)``</span>
+<span class="sd">- The resulting subsystem is compatible with both fixed-network</span>
+<span class="sd">  (operational) and mixed-integer (expansion) models.</span>
+<span class="sd">- Phase angles ``θ[b,t]`` must be declared before calling this builder.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.</span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</span>
+<span class="sd">    Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.TransmissionLineVars</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">transmission_line_add_variables</span><span class="p">,</span> 
+                                   <span class="n">transmission_line_add_sets_and_params</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.TransmissionLineConstraints</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_transmission_line_flow_constraints</span><span class="p">,</span>
+    <span class="n">add_transmission_line_flow_limits_constraints</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.TransmissionLineDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">TransmissionLineData</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span>
+
+<div class="viewcode-block" id="build_transmission_lines">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.TransmissionLine.html#NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder.build_transmission_lines">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_transmission_lines</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">TransmissionLineData</span><span class="p">,</span>
+                             <span class="n">include_objective</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Construct a standalone Pyomo model for the transmission-line subsystem.</span>
+
+<span class="sd">    This high-level builder creates a new :class:`~pyomo.environ.ConcreteModel`</span>
+<span class="sd">    instance and populates it with all sets, parameters, variables, and</span>
+<span class="sd">    constraints required to represent transmission lines in DC power flow</span>
+<span class="sd">    formulations. It serves as the main entry point for testing or integrating</span>
+<span class="sd">    the transmission-line subsystem independently from other components</span>
+<span class="sd">    (e.g., connection bars, generators, or storage).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : TransmissionLineData</span>
+<span class="sd">        Structured input data containing the planning horizon and the</span>
+<span class="sd">        collection of transmission lines with their respective physical</span>
+<span class="sd">        and economic attributes, including:</span>
+<span class="sd">            - ``b`` : susceptance (1/x_ij)</span>
+<span class="sd">            - ``pmax`` : maximum flow (MW)</span>
+<span class="sd">            - ``endpoints`` : list of connected bars [i, j]</span>
+<span class="sd">            - ``state`` : existing (1) or candidate (0)</span>
+<span class="sd">            - ``model`` : modeling type (&#39;dc&#39; or &#39;transport&#39;)</span>
+<span class="sd">    include_objective : bool, optional</span>
+<span class="sd">        Reserved for future use (default ``True``). Currently, this flag</span>
+<span class="sd">        has no effect, as transmission lines are typically passive network</span>
+<span class="sd">        elements without an explicit objective term. It is retained for</span>
+<span class="sd">        interface consistency with other subsystem builders.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        A new Pyomo model fully configured with the transmission-line</span>
+<span class="sd">        subsystem, including:</span>
+<span class="sd">            - Set of lines (``m.LT``)</span>
+<span class="sd">            - Time set (``m.T``)</span>
+<span class="sd">            - Line parameters (susceptance, capacity, endpoints)</span>
+<span class="sd">            - Decision variables (``m.lines_flow[l,t]``)</span>
+<span class="sd">            - Constraints:</span>
+<span class="sd">                * DC flow definition (for ``model = &#39;dc&#39;``)</span>
+<span class="sd">                * Flow capacity limits (for all lines)</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The function internally calls :func:`add_transmission_line_problem`,</span>
+<span class="sd">      which attaches the subsystem components to the newly created model.</span>
+<span class="sd">    - The resulting model can be later coupled with other subsystems via</span>
+<span class="sd">      shared variables such as bus angles (``θ[b,t]``) and power balances.</span>
+<span class="sd">    - Both DC and transport models are supported within the same formulation,</span>
+<span class="sd">      enabling hybrid operation and expansion studies.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.</span>
+<span class="sd">    [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</span>
+<span class="sd">        Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">unique_bar</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># avoid the unique bar restriction just for testing</span>
+    <span class="k">return</span> <span class="n">add_transmission_line_problem</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> 
+                                         <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> 
+                                         <span class="n">include_objective</span><span class="o">=</span><span class="n">include_objective</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="add_transmission_line_problem">
+<a class="viewcode-back" href="../../../NaivePyDESSEM.TransmissionLine.html#NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder.add_transmission_line_problem">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_transmission_line_problem</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span>
+                                  <span class="n">data</span><span class="p">:</span> <span class="n">TransmissionLineData</span><span class="p">,</span>
+                                  <span class="n">include_objective</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Attach the transmission-line subsystem to an existing Pyomo model.</span>
+
+<span class="sd">    This function populates a given :class:`~pyomo.environ.ConcreteModel`</span>
+<span class="sd">    with all sets, parameters, variables, and constraints related to</span>
+<span class="sd">    transmission lines under the DC power flow approximation. It forms</span>
+<span class="sd">    the network component of the system model, complementing the</span>
+<span class="sd">    connection-bar formulation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model to which the transmission-line subsystem will be added.</span>
+<span class="sd">        The model must contain or be prepared to receive:</span>
+<span class="sd">            - ``m.LT`` : set of transmission lines</span>
+<span class="sd">            - ``m.T`` : set of time periods</span>
+<span class="sd">            - ``m.lines_b[l]`` : susceptance (1/x_ij)</span>
+<span class="sd">            - ``m.lines_pmax[l]`` : flow capacity limit (MW)</span>
+<span class="sd">            - ``m.lines_endpoints[l]`` : list of connected bars [i, j]</span>
+<span class="sd">            - ``m.theta[b,t]`` : phase angle variable (radians)</span>
+<span class="sd">    data : TransmissionLineData</span>
+<span class="sd">        Structured input containing the system horizon and the physical</span>
+<span class="sd">        and operational parameters of each transmission line, including</span>
+<span class="sd">        endpoints, susceptance, and capacity.</span>
+<span class="sd">    include_objective : bool, optional, deprecated</span>
+<span class="sd">        Reserved argument for interface compatibility (default ``False``).</span>
+<span class="sd">        Currently unused, as transmission lines are passive network</span>
+<span class="sd">        elements without a direct cost component in the objective.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model, augmented with transmission-line sets, variables,</span>
+<span class="sd">        and constraints.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Steps performed:</span>
+<span class="sd">        1. Initialize sets and parameters from :class:`TransmissionLineData`.</span>
+<span class="sd">        2. Declare line flow decision variables (``lines_flow[l,t]``).</span>
+<span class="sd">        3. Add DC flow definition constraints:</span>
+<span class="sd">           ``F_ij,t = b_ij (θ_i,t − θ_j,t)``</span>
+<span class="sd">        4. Add flow capacity limit constraints:</span>
+<span class="sd">           ``−pmax_ij ≤ F_ij,t ≤ pmax_ij``.</span>
+<span class="sd">    - The order of addition ensures that variables are defined before</span>
+<span class="sd">      constraints that depend on them.</span>
+<span class="sd">    - The formulation is compatible with both pure DC models and</span>
+<span class="sd">      hybrid DC/transport formulations (lines marked with</span>
+<span class="sd">      ``model: &quot;transport&quot;`` are automatically excluded from the DC flow</span>
+<span class="sd">      constraint).</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.</span>
+<span class="sd">    [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</span>
+<span class="sd">        Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">unique_bar</span><span class="p">:</span>
+        <span class="n">transmission_line_add_sets_and_params</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">transmission_line_add_variables</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">add_transmission_line_flow_constraints</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">add_transmission_line_flow_limits_constraints</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

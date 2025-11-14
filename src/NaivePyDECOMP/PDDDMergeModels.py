@@ -78,7 +78,9 @@ from .ModelCheck import (
     has_hydro_model,
     has_thermal_model,
     has_renewable_model,
-    has_storage_model
+    has_storage_model,
+    has_connection_bar_model,
+    has_transmission_line_model
 )
 
 from .Builder import build_model_from_data as build_model
@@ -99,6 +101,13 @@ from NaivePyDECOMP.Storage.StorageEquations import (
     add_storage_cost_expression
 )
 
+from NaivePyDECOMP.ConnectionBar.ConnectionBarEquations import (
+    add_connection_bar_cost_expression
+)
+
+from NaivePyDECOMP.TransmissionLine.TransmissionLineEquations import (
+    add_transmission_line_cost_expression
+)
 
 def generate_dummy_model(pddd_solution: List[Any],
                          yaml_data: Dict) -> ConcreteModel:
@@ -159,9 +168,6 @@ def generate_dummy_model(pddd_solution: List[Any],
 
     start_model = pddd_solution[0]['model']
 
-    for t in model.T:
-        model.D[t] = value(pddd_solution[t-1]['model'].D[1])
-
     if has_hydro_model(start_model):
 
         for t in model.T:
@@ -203,5 +209,17 @@ def generate_dummy_model(pddd_solution: List[Any],
                     pddd_solution[t-1]['model'].storage_ch[s, 1])
                 model.storage_dis[s, t] = value(
                     pddd_solution[t-1]['model'].storage_dis[s, 1])
+    
+    if has_connection_bar_model(start_model):
+        for t in model.T:
+            for b in model.CB:
+                model.D[b, t] = value(pddd_solution[t-1]['model'].D[b, 1])
+                if not model.unique_bar:
+                    model.theta[b, t] = value(pddd_solution[t-1]['model'].theta[b, 1])
+ 
+    if has_transmission_line_model(start_model):
+        for t in model.T:
+            for l in model.LT:
+                model.lines_flow[l, t] = value(pddd_solution[t-1]['model'].lines_flow[l, 1])
 
     return model

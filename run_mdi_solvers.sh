@@ -15,4 +15,9 @@ mdi-solve examples/MDI/trabalho03_ex06.yaml --out_dir resultados/MDI/ --out_file
 mdi-solve examples/MDI/trabalho03_ex06_anualizado.yaml --out_dir resultados/MDI/ --out_file planejamento_expansao_ex06_anualizado.csv
 mdi-solve examples/MDI/trabalho03_ex07.yaml --out_dir resultados/MDI/ --out_file planejamento_expansao_ex07.csv
 mdi-solve examples/MDI/trabalho03_ex07_anualizado.yaml --out_dir resultados/MDI/ --out_file planejamento_expansao_ex07_anualizado.csv
+mdi-solve examples/TRANSMISSION_LINES/mdi-hybrid.yaml --out_dir resultados/TRANSMISSION_LINES/ --out_file mdi-hybrid.csv
+mdi-solve examples/TRANSMISSION_LINES/mdi-dc.yaml --out_dir resultados/TRANSMISSION_LINES/ --out_file mdi-dc.csv
+mdi-solve examples/TRANSMISSION_LINES/mdi-hybrid-alt.yaml --out_dir resultados/TRANSMISSION_LINES/ --out_file mdi-hybrid-alt.csv
+mdi-solve examples/TRANSMISSION_LINES/mdi-dc-alt.yaml --out_dir resultados/TRANSMISSION_LINES/ --out_file mdi-dc-alt.csv
+
 deactivate

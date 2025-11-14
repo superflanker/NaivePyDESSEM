@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "naivepydessem"
-version = "0.1.3"
+version = "0.1.4"
 description = "A modular and pedagogical framework for power system operation and expansion planning using Pyomo (DESSEM, DECOMP, MDI-like solvers)"
 readme = "README.md"
 license = { text = "GPL-3.0" }

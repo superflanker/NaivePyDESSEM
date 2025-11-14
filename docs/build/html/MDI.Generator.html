@@ -47,9 +47,9 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NAIVE MODULES</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="MDI.html">MDI package</a><ul class="current">
@@ -57,6 +57,8 @@
 <li class="toctree-l3 current"><a class="reference internal" href="MDI.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">MDI.Generator package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.Storage.html">MDI.Storage package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.ConnectionBar.html">MDI.ConnectionBar package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.TransmissionLine.html">MDI.TransmissionLine package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.cli.html">MDI.cli package</a></li>
 </ul>
 </li>
@@ -76,7 +78,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -93,7 +95,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">DESSEM/DECOMP/MDI</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">NAIVE MODULES</a></li>
           <li class="breadcrumb-item"><a href="MDI.html">MDI package</a></li>
       <li class="breadcrumb-item active">MDI.Generator package</li>
       <li class="wy-breadcrumbs-aside">
@@ -519,7 +521,7 @@ to facilitate reproducibility in energy system research.</p></li>
 </section>
 <dl class="py class">
 <dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorDataTypes.</span></span><span class="sig-name descname"><span class="pre">GeneratorData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level_hours</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit" title="MDI.Generator.GeneratorDataTypes.GeneratorUnit"><span class="pre">GeneratorUnit</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MDI/Generator/GeneratorDataTypes.html#GeneratorData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorData" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorDataTypes.</span></span><span class="sig-name descname"><span class="pre">GeneratorData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit" title="MDI.Generator.GeneratorDataTypes.GeneratorUnit"><span class="pre">GeneratorUnit</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MDI/Generator/GeneratorDataTypes.html#GeneratorData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorData" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Aggregated dataset for the generator subsystem.</p>
 <p>Encapsulates all time-related and unit-level data required to
@@ -529,9 +531,6 @@ demand series, temporal discretization, and technology set.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>horizon</strong> (<em>int</em>) – Number of time periods in the planning horizon.</p></li>
-<li><p><strong>demand</strong> (<em>dict</em><em> of </em><em>{str: list</em><em> of </em><em>float}</em>) – Nested dictionary containing demand data per load level and time period.
-Example structure:
-<code class="docutils literal notranslate"><span class="pre">{&quot;Ponta&quot;:</span> <span class="pre">[500,</span> <span class="pre">550,</span> <span class="pre">600],</span> <span class="pre">&quot;Fora&quot;:</span> <span class="pre">[300,</span> <span class="pre">320,</span> <span class="pre">350]}</span></code></p></li>
 <li><p><strong>level_hours</strong> (<em>dict</em><em> of </em><em>{str: float}</em>) – Mapping between demand levels (e.g., ‘Ponta’, ‘Fora’) and their
 respective duration in hours.</p></li>
 <li><p><strong>units</strong> (<em>dict</em><em> of </em><em>{str: GeneratorUnit}</em>) – Dictionary mapping unit identifiers to their respective
@@ -547,18 +546,8 @@ to <code class="docutils literal notranslate"><span class="pre">GeneratorBuilder
 with other modules of the MDI framework.</p></li>
 </ul>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorData.demand">
-<span class="sig-name descname"><span class="pre">demand</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorData.demand" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorData.horizon">
 <span class="sig-name descname"><span class="pre">horizon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorData.horizon" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorData.level_hours">
-<span class="sig-name descname"><span class="pre">level_hours</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorData.level_hours" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -570,7 +559,7 @@ with other modules of the MDI framework.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorUnit">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorDataTypes.</span></span><span class="sig-name descname"><span class="pre">GeneratorUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_inv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_cap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MDI/Generator/GeneratorDataTypes.html#GeneratorUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorDataTypes.</span></span><span class="sig-name descname"><span class="pre">GeneratorUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_inv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_cap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MDI/Generator/GeneratorDataTypes.html#GeneratorUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Representation of a single dispatchable generation unit.</p>
 <p>This dataclass stores the economic and technical parameters
@@ -595,6 +584,11 @@ within the planning horizon.</p></li>
 <li><p>These attributes are directly mapped into Pyomo parameters
 via the generator builder module.</p></li>
 </ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorUnit.bar">
+<span class="sig-name descname"><span class="pre">bar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit.bar" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="MDI.Generator.GeneratorDataTypes.GeneratorUnit.c_inv">
 <span class="sig-name descname"><span class="pre">c_inv</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#MDI.Generator.GeneratorDataTypes.GeneratorUnit.c_inv" title="Link to this definition"></a></dt>
@@ -709,7 +703,7 @@ or renewable modules) under a unified optimization framework.</p></li>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="MDI.Generator.GeneratorEquations.add_generator_balance_expression">
-<span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorEquations.</span></span><span class="sig-name descname"><span class="pre">add_generator_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/MDI/Generator/GeneratorEquations.html#add_generator_balance_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorEquations.add_generator_balance_expression" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MDI.Generator.GeneratorEquations.</span></span><span class="sig-name descname"><span class="pre">add_generator_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/MDI/Generator/GeneratorEquations.html#add_generator_balance_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.Generator.GeneratorEquations.add_generator_balance_expression" title="Link to this definition"></a></dt>
 <dd><p>Build and append the generation balance expression for a given time and level.</p>
 <p>Computes the total power generated across all units for the specified
 time period and demand level, and appends it to <code class="docutils literal notranslate"><span class="pre">balance_array</span></code>.
@@ -719,6 +713,7 @@ energy balance constraint.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model containing generator sets and variables.</p></li>
+<li><p><strong>b</strong> (<em>Any</em>) – Connection Bar Name</p></li>
 <li><p><strong>t</strong> (<em>Any</em>) – Time period index.</p></li>
 <li><p><strong>p</strong> (<em>Any</em>) – Load level index.</p></li>
 <li><p><strong>balance_array</strong> (<em>list</em><em> of </em><em>pyomo expressions</em>) – List to which the generation balance expression will be appended.</p></li>

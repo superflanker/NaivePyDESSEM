@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -135,7 +135,7 @@
 <span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023..</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">Var</span><span class="p">,</span> <span class="n">Expression</span>
 
 
@@ -184,8 +184,8 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">add_storage_balance_expression</span><span class="p">(</span>
     <span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span>
     <span class="n">t</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-    <span class="n">balance_array</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+    <span class="n">balance_array</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Append energy balance equations for storage units at time t to the constraint expression list.</span>
 
@@ -204,13 +204,13 @@
 <span class="sd">        Pyomo model instance containing storage variables and parameters.</span>
 <span class="sd">    t : int</span>
 <span class="sd">        Time index at which the storage energy balance is evaluated.</span>
-<span class="sd">    balance_array : list of expressions</span>
-<span class="sd">        List of constraint expressions to which the storage energy balance equation is appended.</span>
+<span class="sd">    balance_array : dict of list of expressions</span>
+<span class="sd">        List of symbolic expressions representing components of the power balance.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    list of expressions</span>
-<span class="sd">        The updated list including the storage energy balance constraint at time t.</span>
+<span class="sd">    dict of list of expressions</span>
+<span class="sd">        The updated list including the hydro generation term at time t.</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
@@ -225,14 +225,15 @@
 <span class="sd">    &gt;&gt;&gt; model.StorageBalance.add(balance_terms[0])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">required</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;SU&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_E&#39;</span>
+        <span class="s1">&#39;SU&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_dis&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_ch&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_bars&#39;</span>
     <span class="p">]</span>
     <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
-        <span class="n">expr</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> 
-                   <span class="o">-</span>  <span class="n">m</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">)</span>
-        <span class="c1"># expr = sum(m.storage_eta_d[s] * m.storage_E[s, t]  for s in m.SU)</span>
-        <span class="n">balance_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">balance_array</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">SU</span><span class="p">:</span>
+            <span class="n">bar</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">storage_bars</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">bar</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">balance_array</span><span class="p">:</span>
+                <span class="n">balance_array</span><span class="p">[</span><span class="n">bar</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="n">balance_array</span><span class="p">[</span><span class="n">bar</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">storage_dis</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span> 
+                   <span class="o">-</span>  <span class="n">m</span><span class="o">.</span><span class="n">storage_ch</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">balance_array</span></div>
 
 </pre></div>

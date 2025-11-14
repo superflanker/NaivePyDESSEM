@@ -205,7 +205,6 @@ def add_thermal_subproblem(m: ConcreteModel,
     # data copy
     subproblem_data = copy.deepcopy(data)
     subproblem_data.horizon = 1
-    subproblem_data.demand = {1: data.demand[stage+1]}
     thermal_add_sets_and_params(m, subproblem_data)
     thermal_add_variables_uc(m)
 
@@ -213,6 +212,3 @@ def add_thermal_subproblem(m: ConcreteModel,
 
     return m
 
-def thermo_update_model(m: ConcreteModel,
-                        data: Dict) -> ConcreteModel:
-    return m

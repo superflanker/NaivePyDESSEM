@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="NaivePyDECOMP package" href="NaivePyDECOMP.html" />
-    <link rel="prev" title="NaivePyDESSEM.ThermalGenerator package" href="NaivePyDESSEM.ThermalGenerator.html" /> 
+    <link rel="prev" title="NaivePyDESSEM.TransmissionLine package" href="NaivePyDESSEM.TransmissionLine.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,9 +47,9 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NAIVE MODULES</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM">Module contents</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="NaivePyDESSEM.html#subpackages">Subpackages</a><ul class="current">
@@ -57,6 +57,8 @@
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.html">NaivePyDESSEM.Storage package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html">NaivePyDESSEM.ConnectionBar package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html">NaivePyDESSEM.TransmissionLine package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">NaivePyDESSEM.cli package</a></li>
 </ul>
 </li>
@@ -78,7 +80,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -95,7 +97,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">DESSEM/DECOMP/MDI</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">NAIVE MODULES</a></li>
           <li class="breadcrumb-item"><a href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
       <li class="breadcrumb-item active">NaivePyDESSEM.cli package</li>
       <li class="wy-breadcrumbs-aside">
@@ -317,7 +319,10 @@ the results of a solved NaivePyDESSEM dispatch model.</p>
 <li><p>‘Q’     : Turbine flow [hydro]</p></li>
 <li><p>‘V’     : Volume [hydro]</p></li>
 <li><p>‘S’     : Spillage [hydro]</p></li>
+<li><p>‘F’     : Line Power Flow</p></li>
 <li><p>‘BAT’   : Battery-specific (charge/discharge/SoC)</p></li>
+<li><p>‘CB’    : Connection Bar Variables</p></li>
+<li><p>‘LT’    : Transmission Lines Variables</p></li>
 <li><p>‘cost’  : Cost components per stage (var, start, deficit)</p></li>
 <li><p>‘CTRL’  : Control variables (U, Y, W)</p></li>
 </ul>
@@ -381,7 +386,7 @@ color-coded scheme.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.cli.plot_cli.handle_plot">
-<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">handle_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacked</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/cli/plot_cli.html#handle_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.cli.plot_cli.handle_plot" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">handle_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacked</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/cli/plot_cli.html#handle_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.cli.plot_cli.handle_plot" title="Link to this definition"></a></dt>
 <dd><p>Generate and export plots for selected variable categories.</p>
 <p>Supports both line and bar charts, including stacked bar plots. If not
 fully specified via arguments, the function prompts the user for relevant
@@ -580,7 +585,7 @@ such as generation, flow, storage, control actions, and cost.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="NaivePyDESSEM.ThermalGenerator.html" class="btn btn-neutral float-left" title="NaivePyDESSEM.ThermalGenerator package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="NaivePyDESSEM.TransmissionLine.html" class="btn btn-neutral float-left" title="NaivePyDESSEM.TransmissionLine package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="NaivePyDECOMP.html" class="btn btn-neutral float-right" title="NaivePyDECOMP package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

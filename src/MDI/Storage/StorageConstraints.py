@@ -217,6 +217,35 @@ def add_storage_power_limits_constraint(m):
     m.storage_discharge_limit_constraint = Constraint(m.SU, m.T, m.P, rule=_dis_limit_rule)
     return m
 
+def add_storage_mutual_exclusion_constraint(m):
+    """
+    Prohibit simultaneous charge and discharge, considering construction state.
+
+    Enforces:
+        storage_ch[s,t,p]  <=  M[s] * storage_x[s,t]
+        storage_dis[s,t,p] <=  M[s] * storage_x[s,t]
+        storage_ch[s,t,p]  <=  M[s] * storage_mode[s,t,p]
+        storage_dis[s,t,p] <=  M[s] * (1 - storage_mode[s,t,p])
+    """
+    def _no_simul_ch_rule(m, s, t, p):
+        return m.storage_ch[s, t, p] <= m.storage_M[s] * m.storage_mode[s, t, p]
+
+    def _no_simul_dis_rule(m, s, t, p):
+        return m.storage_dis[s, t, p] <= m.storage_M[s] * (1 - m.storage_mode[s, t, p])
+
+    def _no_ch_if_not_built(m, s, t, p):
+        return m.storage_ch[s, t, p] <= m.storage_M[s] * m.storage_x[s, t]
+
+    def _no_dis_if_not_built(m, s, t, p):
+        return m.storage_dis[s, t, p] <= m.storage_M[s] * m.storage_x[s, t]
+
+    m.storage_no_simul_charge_constraint = Constraint(m.SU, m.T, m.P, rule=_no_simul_ch_rule)
+    m.storage_no_simul_discharge_constraint = Constraint(m.SU, m.T, m.P, rule=_no_simul_dis_rule)
+    m.storage_no_ch_if_not_built_constraint = Constraint(m.SU, m.T, m.P, rule=_no_ch_if_not_built)
+    m.storage_no_dis_if_not_built_constraint = Constraint(m.SU, m.T, m.P, rule=_no_dis_if_not_built)
+
+    return m
+
 
 def add_storage_investment_link_constraint(m):
     """

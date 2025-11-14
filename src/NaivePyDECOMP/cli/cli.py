@@ -146,7 +146,6 @@ def main():
     df = build_dispatch_dataframe(model)
     df[abs(df) < 1e-3] = 0.0
     save_dataframe(df, output_path)
-
     print(f"{Fore.CYAN}Results saved to:{Style.RESET_ALL} {output_path}")
 
 

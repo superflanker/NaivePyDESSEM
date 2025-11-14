@@ -1,0 +1,658 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDECOMP.ConnectionBar package &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=05624691" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/katex.min.js?v=5cc8ed51"></script>
+      <script src="_static/auto-render.min.js?v=af98beb9"></script>
+      <script src="_static/katex_autorenderer.js?v=bebc588a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NaivePyDECOMP.TransmissionLine package" href="NaivePyDECOMP.TransmissionLine.html" />
+    <link rel="prev" title="NaivePyDECOMP.ThermalGenerator package" href="NaivePyDECOMP.ThermalGenerator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NAIVE MODULES</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP">Module contents</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="NaivePyDECOMP.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html">NaivePyDECOMP.HydraulicGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html">NaivePyDECOMP.RenewableGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.Storage.html">NaivePyDECOMP.Storage package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html">NaivePyDECOMP.ThermalGenerator package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">NaivePyDECOMP.ConnectionBar package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html">NaivePyDECOMP.TransmissionLine package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.cli.html">NaivePyDECOMP.cli package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#id1">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Builder">NaivePyDECOMP.Builder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.BuilderPDDD">NaivePyDECOMP.BuilderPDDD module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.DataFrames">NaivePyDECOMP.DataFrames module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Formatters">NaivePyDECOMP.Formatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.ModelCheck">NaivePyDECOMP.ModelCheck module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.ModelFormatters">NaivePyDECOMP.ModelFormatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.PlotSeries">NaivePyDECOMP.PlotSeries module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.PDDDMergeModels">NaivePyDECOMP.PDDDMergeModels module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Reporting">NaivePyDECOMP.Reporting module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.SolverPDDD">NaivePyDECOMP.SolverPDDD module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Solver">NaivePyDECOMP.Solver module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Utils">NaivePyDECOMP.Utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.YAMLLoader">NaivePyDECOMP.YAMLLoader module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html">MDI package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">USER GUIDE</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">NAIVE MODULES</a></li>
+          <li class="breadcrumb-item"><a href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
+      <li class="breadcrumb-item active">NaivePyDECOMP.ConnectionBar package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/NaivePyDECOMP.ConnectionBar.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="naivepydecomp-connectionbar-package">
+<h1>NaivePyDECOMP.ConnectionBar package<a class="headerlink" href="#naivepydecomp-connectionbar-package" title="Link to this heading"></a></h1>
+<section id="module-NaivePyDECOMP.ConnectionBar">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-NaivePyDECOMP.ConnectionBar" title="Link to this heading"></a></h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Package: ConnectionBar</p>
+<section id="author">
+<h3>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="description">
+<h3>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">ConnectionBar</span></code> package defines a modular abstraction of electrical
+connection bars (buses) for DC power flow formulations within Pyomo-based
+optimization frameworks. It encapsulates data structures, variable
+definitions, constraint formulations, symbolic equation builders, and
+model assembly routines used in operation and expansion studies such as
+DECOMP, DESSEM, and the MDI model.</p>
+</section>
+<section id="modules">
+<h3>Modules<a class="headerlink" href="#modules" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>ConnectionBarDataTypes</dt><dd><p>Defines the data classes (<code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionBarUnit</span></code>,
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionBarData</span></code>) that describe the electrical and
+operational attributes of each bar, including demand, state,
+and slack configuration.</p>
+</dd>
+<dt>ConnectionBarVars</dt><dd><p>Declares sets, parameters, and decision variables for connection bars,
+such as phase angles (<code class="docutils literal notranslate"><span class="pre">θ_b</span></code>) and deficit variables (<code class="docutils literal notranslate"><span class="pre">D[b,t]</span></code>),
+ensuring consistency with system-wide formulations.</p>
+</dd>
+<dt>ConnectionBarConstraints</dt><dd><p>Implements the physical and operational constraints of the subsystem:
+- Slack-bar reference condition (θ = 0)
+- Angular limits for non-slack bars (−π ≤ θ ≤ π)
+- Nodal power balance (Kirchhoff’s 1st Law)</p>
+</dd>
+<dt>ConnectionBarEquations</dt><dd><p>Provides modular symbolic expression builders used to assemble the
+nodal power balance equation by integrating hydro, thermal, renewable,
+storage, and transmission contributions.</p>
+</dd>
+<dt>ConnectionBarBuilder</dt><dd><p>High-level model constructor that orchestrates all components,
+producing a complete Pyomo <code class="docutils literal notranslate"><span class="pre">ConcreteModel</span></code> configured with the
+relevant sets, variables, and constraints for each connection bar.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The package is designed for hierarchical integration with higher-level
+systems involving generation and transmission models.</p></li>
+<li><p>It serves as the foundation for hybrid and multi-bar DC formulations
+in short-term (DESSEM), medium-term (DECOMP), and long-term (MDI)
+optimization contexts.</p></li>
+<li><p>Each module can be used independently or assembled through
+<code class="xref py py-func docutils literal notranslate"><span class="pre">build_connection_bars()</span></code>.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints">
+<span id="naivepydecomp-connectionbar-connectionbarconstraints-module"></span><h2>NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints module<a class="headerlink" href="#module-NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints" title="Link to this heading"></a></h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Connection Bar — Balance Constraints</p>
+<section id="id1">
+<h3>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id2">
+<h3>Description<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>This module defines the nodal (per-bar) power balance constraints for
+Pyomo-based operation and expansion models. It enforces Kirchhoff’s
+Current Law (1st Law) at each connection bar and time period, ensuring
+that total injections (generation, inflows) and withdrawals (demand,
+outflows, and storage) are balanced.</p>
+</section>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>add_connection_bar_balance_constraint(m)</dt><dd><p>Assemble and add the nodal power balance constraints for all bars
+and time periods using the component expressions provided by
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">ConnectionBarEquations</span></code>.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The routine calls modular expression builders such as
+<code class="xref py py-func docutils literal notranslate"><span class="pre">add_hydraulic_balance_expression()</span></code>,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">add_thermal_balance_expression()</span></code>,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">add_renewable_balance_expression()</span></code>,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">add_storage_balance_expression()</span></code>, and
+<code class="xref py py-func docutils literal notranslate"><span class="pre">add_transmission_line_balance_expression()</span></code>.</p></li>
+<li><p>Each time period <code class="docutils literal notranslate"><span class="pre">t</span></code> generates a set of symbolic expressions by bar,
+which are then converted into Pyomo constraints and appended to
+<code class="docutils literal notranslate"><span class="pre">m.Balance</span></code> (a <code class="xref py py-class docutils literal notranslate"><span class="pre">pyomo.core.base.constraint.ConstraintList</span></code>).</p></li>
+<li><p>This formulation supports hybrid systems (hydro, thermal, renewable,
+storage) with multiple connection bars.</p></li>
+<li><p>The deficit variable <code class="docutils literal notranslate"><span class="pre">m.D[bar,t]</span></code> ensures model feasibility whenever
+the available generation and imports cannot fully meet local demand.</p></li>
+<li><p>For single-bus systems, the resulting formulation is equivalent to the
+traditional system-wide balance equation.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints.add_connection_bar_balance_constraints">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints.</span></span><span class="sig-name descname"><span class="pre">add_connection_bar_balance_constraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/ConnectionBar/ConnectionBarConstraints.html#add_connection_bar_balance_constraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints.add_connection_bar_balance_constraints" title="Link to this definition"></a></dt>
+<dd><p>Add nodal power balance constraints for all connection bars and time periods.</p>
+<p>For each period <code class="docutils literal notranslate"><span class="pre">t</span></code> in the planning horizon, this function assembles
+the power balance expressions by connection bar (node) using
+<code class="xref py py-func docutils literal notranslate"><span class="pre">add_connection_bar_balance_expression()</span></code>, and converts them into
+Pyomo constraints stored in <code class="docutils literal notranslate"><span class="pre">m.Balance</span></code>.</p>
+<p>Mathematically, for each bar <code class="docutils literal notranslate"><span class="pre">b</span></code> and period <code class="docutils literal notranslate"><span class="pre">t</span></code>:</p>
+<div class="math">
+\[\sum_{s \in S_b} P^{\text{gen}}_{s,t}
++ \sum_{i:(i,b)\in\mathcal{L}} F_{i b,t}
+- \sum_{j:(b,j)\in\mathcal{L}} F_{b j,t}
++ D_{b,t} = d_{b,t}\]</div>
+<dl class="simple">
+<dt>where:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">P^{gen}</span></code> represents generation injections (hydro, thermal, renewable, storage),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F_{ij,t}</span></code> are line flows between bars <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">D_{b,t}</span></code> is the local deficit variable,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d_{b,t}</span></code> is the active demand at bar <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing:
+- Sets: <code class="docutils literal notranslate"><span class="pre">m.BAR</span></code> (connection bars), <code class="docutils literal notranslate"><span class="pre">m.T</span></code> (time periods)
+- Variables: <code class="docutils literal notranslate"><span class="pre">m.D[bar,t]</span></code> (deficit), generation and flow variables
+- Parameters: <code class="docutils literal notranslate"><span class="pre">m.d[bar,t]</span></code> (demand per bar and time)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model with all bar-level power balance constraints
+added to <code class="docutils literal notranslate"><span class="pre">m.Balance</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The component <code class="docutils literal notranslate"><span class="pre">m.Balance</span></code> is created as a <code class="xref py py-class docutils literal notranslate"><span class="pre">ConstraintList</span></code>
+if not already present.</p></li>
+<li><p>Each call to this function appends constraints dynamically;
+it does not overwrite existing entries.</p></li>
+<li><p>The structure is compatible with both operation (short-term)
+and expansion (long-term) formulations.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.ConnectionBar.ConnectionBarDataTypes">
+<span id="naivepydecomp-connectionbar-connectionbardatatypes-module"></span><h2>NaivePyDECOMP.ConnectionBar.ConnectionBarDataTypes module<a class="headerlink" href="#module-NaivePyDECOMP.ConnectionBar.ConnectionBarDataTypes" title="Link to this heading"></a></h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Connection Bar Data Structures</p>
+<section id="id3">
+<h3>Author<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id4">
+<h3>Description<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>This module defines lightweight data classes for representing
+connection bars (buses) in power system operation and expansion
+models. Each connection bar encapsulates its electrical state,
+demand profile, and configuration parameters. The aggregated
+system-level data structure (<cite>ConnectionBarData</cite>) groups all
+bars with the planning horizon and deficit penalty cost.</p>
+</section>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>ConnectionBarUnit</dt><dd><p>Represents a single connection bar (bus) with demand profile,
+slack flag, and operational attributes.</p>
+</dd>
+<dt>ConnectionBarData</dt><dd><p>Aggregates multiple connection bars with common parameters
+such as planning horizon, system-level demand reference, and
+deficit cost.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The demand profile of each bar is expressed as a deterministic
+time series aligned with the planning horizon.</p></li>
+<li><p>These structures serve as standardized inputs for Pyomo-based
+formulations of DECOMP, DESSEM, or the abstracted MDI model.</p></li>
+<li><p>Extend as needed to include locational data, voltage levels,
+or stochastic demand scenarios.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="module-NaivePyDECOMP.ConnectionBar.ConnectionBarEquations">
+<span id="naivepydecomp-connectionbar-connectionbarequations-module"></span><h2>NaivePyDECOMP.ConnectionBar.ConnectionBarEquations module<a class="headerlink" href="#module-NaivePyDECOMP.ConnectionBar.ConnectionBarEquations" title="Link to this heading"></a></h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Connection Bar — Composite Balance Expression Builder</p>
+<section id="id5">
+<h3>Author<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id6">
+<h3>Description<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p>This module provides high-level expression utilities that construct
+the nodal power balance for each connection bar (bus) in Pyomo-based
+optimization models. It aggregates generation and flow contributions
+from all subsystems — hydraulic, thermal, renewable, storage, and
+transmission — and includes the deficit variable when present.</p>
+<p>The resulting symbolic expressions can be used to assemble the
+system-wide balance constraints in MW, ensuring dimensional and
+physical consistency across all integrated subsystems.</p>
+</section>
+<section id="id7">
+<h3>Functions<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>add_connection_bar_balance_expression(m, t, balance_array)</dt><dd><p>Assemble the complete nodal balance expression at period <code class="docutils literal notranslate"><span class="pre">t</span></code>
+by aggregating power injections and withdrawals from all
+subsystems connected to each bar.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This module acts as a bridge between subsystem formulations
+(hydro, thermal, renewable, storage, and transmission) and the
+connection-bar layer.</p></li>
+<li><p>All terms are represented in <strong>MW</strong>.</p></li>
+<li><p>The function is modular: if any subsystem is absent, its
+contribution is automatically skipped.</p></li>
+<li><dl class="simple">
+<dt>The aggregated balance for each bar includes:</dt><dd><ul>
+<li><p>Generation terms (hydro, thermal, renewable)</p></li>
+<li><p>Storage net injection (discharge − charge)</p></li>
+<li><p>Transmission inflow/outflow</p></li>
+<li><p>Deficit variable (if defined)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023
+[2] Unsihuay Vila, C. (2023). <em>Introdução aos Sistemas de Energia Elétrica</em>.</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR.</p>
+</div></blockquote>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.ConnectionBar.ConnectionBarEquations.add_connection_bar_balance_expression">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ConnectionBar.ConnectionBarEquations.</span></span><span class="sig-name descname"><span class="pre">add_connection_bar_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/ConnectionBar/ConnectionBarEquations.html#add_connection_bar_balance_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ConnectionBar.ConnectionBarEquations.add_connection_bar_balance_expression" title="Link to this definition"></a></dt>
+<dd><p>Assemble the complete nodal power balance expression by bar for period <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
+<p>This function aggregates all energy contributions associated with each
+connection bar, combining subsystem injections (generation and storage)
+and withdrawals (demand and deficit). The resulting symbolic expressions
+can be integrated into the global power balance constraints or stored for
+later use in decomposition-based algorithms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – <p>Pyomo model containing the subsystem components and decision variables.
+Expected elements include:</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">HG</span></code> : hydro unit set</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TG</span></code> : thermal unit set</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RU</span></code> : renewable unit set</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SU</span></code> : storage unit set</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LT</span></code> : transmission line set</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">D[b,t]</span></code> : deficit variable (MW)</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+<li><p><strong>t</strong> (<em>int</em>) – Time index for which the balance expressions are evaluated.</p></li>
+<li><p><strong>balance_array</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>expression</em><em>]</em><em>]</em>) – Dictionary mapping each bar to a list of symbolic expressions that
+contribute to its power balance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated dictionary including all subsystem contributions and the
+deficit term for each connection bar at time <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, list[expression]]</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>The final nodal balance for bar <code class="docutils literal notranslate"><span class="pre">b</span></code> at time <code class="docutils literal notranslate"><span class="pre">t</span></code> has the general form:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">Σ_generation</span> <span class="pre">+</span> <span class="pre">Σ_storage</span> <span class="pre">+</span> <span class="pre">Σ_transmission</span> <span class="pre">+</span> <span class="pre">D[b,t]</span> <span class="pre">=</span> <span class="pre">Demand[b,t]</span></code></p>
+</dd>
+</dl>
+</li>
+<li><p>The function ensures that only existing subsystems (declared in <code class="docutils literal notranslate"><span class="pre">m</span></code>)
+are considered, avoiding errors in partial model configurations.</p></li>
+<li><p>All terms are expressed in MW and consistent with the global system base.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">balance_terms</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_connection_bar_balance_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">balance_array</span><span class="o">=</span><span class="n">balance_terms</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">bar</span><span class="p">,</span> <span class="n">expr</span> <span class="ow">in</span> <span class="n">balance_terms</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">model</span><span class="o">.</span><span class="n">Balance</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="o">==</span> <span class="n">model</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">bar</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023
+[2] Unsihuay Vila, C. (2023). <em>Introdução aos Sistemas de Energia Elétrica</em>.</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR.</p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder">
+<span id="naivepydecomp-connectionbar-connectionbarbuilder-module"></span><h2>NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder module<a class="headerlink" href="#module-NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder" title="Link to this heading"></a></h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Connection Bar — Model Builder</p>
+<section id="id8">
+<h3>Author<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id9">
+<h3>Description<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p>This module provides high-level routines for constructing and
+assembling Pyomo models representing electrical connection bars
+(buses) within DC power flow formulations. It integrates the
+components defined in submodules:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">ConnectionBarDataTypes</span></code></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">ConnectionBarVars</span></code></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">ConnectionBarConstraints</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>The builder functions create or extend a <code class="docutils literal notranslate"><span class="pre">ConcreteModel</span></code> with
+sets, parameters, variables, and constraints associated with
+each connection bar. The formulation supports hybrid systems
+(hydro, thermal, renewable, and storage) as well as networked
+multi-bar expansion studies (e.g., MDI, DECOMP, DESSEM).</p>
+</section>
+<section id="id10">
+<h3>Functions<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>build_connection_bars(data, include_objective=True)</dt><dd><p>Create and return a complete Pyomo model representing
+the connection-bar subsystem.</p>
+</dd>
+<dt>add_connection_bar_problem(m, data, include_objective=False)</dt><dd><p>Attach all sets, parameters, variables, and constraints
+related to connection bars to an existing Pyomo model.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This module is the main interface between the connection-bar
+data structures and their corresponding Pyomo model elements.</p></li>
+<li><dl class="simple">
+<dt>The resulting model includes:</dt><dd><ul>
+<li><p>Sets and parameters (bars, demands, and slack identification)</p></li>
+<li><p>Variables (phase angles and deficits)</p></li>
+<li><dl class="simple">
+<dt>Constraints:</dt><dd><ul>
+<li><p>Slack-bar reference (θ = 0)</p></li>
+<li><p>Angular limits (-π ≤ θ ≤ π)</p></li>
+<li><p>Power balance per bar and time period</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>The functions are designed for integration with higher-level
+system builders that include generators and transmission lines.</p></li>
+<li><p>The optional argument <code class="docutils literal notranslate"><span class="pre">include_objective</span></code> is reserved for
+compatibility with renewable-only formulations and may be
+deprecated in future versions.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder.add_connection_bar_subproblem">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder.</span></span><span class="sig-name descname"><span class="pre">add_connection_bar_subproblem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData" title="NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData"><span class="pre">ConnectionBarData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/ConnectionBar/ConnectionBarBuilder.html#add_connection_bar_subproblem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder.add_connection_bar_subproblem" title="Link to this definition"></a></dt>
+<dd><p>Add a connection-bar subproblem structure to an existing Pyomo model.</p>
+<p>This routine constructs the local connection-bar component corresponding
+to a single stage of the overall planning horizon. It initializes the
+sets, parameters, and decision variables related to nodal representation
+(bars), and attaches the associated angular and slack-bar constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance to which the connection-bar subproblem will be
+added.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData" title="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData"><em>ConnectionBarData</em></a>) – Input data structure containing bar-level information such as
+demand profiles, slack status, and other nodal parameters.</p></li>
+<li><p><strong>stage</strong> (<em>int</em>) – Index of the planning stage for which this subproblem is created.
+The function internally restricts the horizon to one stage to
+enable decomposition or stage-wise simulation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated model including the connection-bar subproblem for the
+specified stage, with initialized sets, parameters, variables, and
+angle-related constraints.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Components added:</dt><dd><ul>
+<li><p>Bar sets and parameters (demand, slack status, etc.)</p></li>
+<li><p>Decision variables: deficit <code class="docutils literal notranslate"><span class="pre">D[b,t]</span></code> and phase angle <code class="docutils literal notranslate"><span class="pre">θ[b,t]</span></code></p></li>
+<li><dl class="simple">
+<dt>Constraints:</dt><dd><ul>
+<li><p>Angular bounds (−π ≤ θ ≤ π)</p></li>
+<li><p>Slack-bar reference (θ = 0)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>The horizon is automatically restricted to a single stage for
+stage-wise decomposition or iterative expansion methods.</p></li>
+<li><p>This subproblem formulation is compatible with integrated models
+combining multiple network or generation layers.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.ConnectionBar.ConnectionBarVars">
+<span id="naivepydecomp-connectionbar-connectionbarvars-module"></span><h2>NaivePyDECOMP.ConnectionBar.ConnectionBarVars module<a class="headerlink" href="#module-NaivePyDECOMP.ConnectionBar.ConnectionBarVars" title="Link to this heading"></a></h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Connection Bar — Sets, Parameters, and Variables</p>
+<section id="id11">
+<h3>Author<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id12">
+<h3>Description<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<p>This module defines initialization routines for connection bars (nodes)
+within power system operation and expansion models in Pyomo. It provides
+the sets, parameters, and decision variables associated with network
+buses, including demand, deficit, and phase angles for DC power flow
+formulations.</p>
+</section>
+<section id="id13">
+<h3>Functions<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>connection_bar_add_sets_and_params(m, data)</dt><dd><p>Initialize sets and parameters for connection bars, including
+demand profiles and bar-specific attributes (state, slack status, etc.).</p>
+</dd>
+<dt>connection_bar_add_variables(m)</dt><dd><p>Declare bar-level decision variables: deficit (unserved demand) and
+phase angle (for DC models).</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Designed for integration with hydrothermal and renewable subsystems.</p></li>
+<li><p>The time set <code class="docutils literal notranslate"><span class="pre">m.T</span></code> is assumed global and will only be created if
+not already defined.</p></li>
+<li><p>Each bar (bus) has a time-varying demand <code class="docutils literal notranslate"><span class="pre">demand[b,t]</span></code> and, optionally,
+a deficit variable <code class="docutils literal notranslate"><span class="pre">D[b,t]</span></code> penalized by <code class="docutils literal notranslate"><span class="pre">m.Cdef</span></code> in the objective.</p></li>
+<li><p>The slack bar is identified by <code class="docutils literal notranslate"><span class="pre">bar.slack</span> <span class="pre">=</span> <span class="pre">True</span></code> and its phase angle
+is fixed at zero.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM Methodology Manuals, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="NaivePyDECOMP.ThermalGenerator.html" class="btn btn-neutral float-left" title="NaivePyDECOMP.ThermalGenerator package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="NaivePyDECOMP.TransmissionLine.html" class="btn btn-neutral float-right" title="NaivePyDECOMP.TransmissionLine package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -132,24 +132,20 @@ def generator_add_sets_and_params(m: ConcreteModel,
     # Horizon and base collections
     T = data.horizon
     U = list(data.units.keys())
-    P = list(data.demand.keys())
-    level_hours = data.level_hours
 
     # Time, units, and load-level sets
     if not hasattr(m, "T"):
         m.T = RangeSet(1, T)
-
-    if not hasattr(m, "P"):
-        m.P = Set(initialize=P)
-
-    if not hasattr(m, "level_hours"):
-        m.level_hours = level_hours
+    
+    # discounts
+    if not hasattr(m, 'discounts'):
+      m.discounts = Param(
+          m.T,
+          initialize={t: 1 / ((1 + m.interest_rate) ** (t - 1)) for t in m.T},
+          within=NonNegativeReals
+      )
 
     m.GU = Set(initialize=U)  # Generator Units
-
-    # Demand data (non-symbolic dictionary structure)
-    if not hasattr(m, "d"):
-        m.d = data.demand
 
     # Generator parameters
     m.gen_pmax = Param(m.GU, initialize={u: data.units[u].p_max for u in U})
@@ -157,6 +153,7 @@ def generator_add_sets_and_params(m: ConcreteModel,
     m.gen_c_inv = Param(m.GU, initialize={u: data.units[u].c_inv for u in U})
     m.gen_state = Param(m.GU, initialize={u: data.units[u].state for u in U})
     m.gen_include_cap = Param(m.GU, initialize={u: data.units[u].include_cap for u in U})
+    m.gen_bars =  {u: data.units[u].bar for u in U}
 
     return m
 

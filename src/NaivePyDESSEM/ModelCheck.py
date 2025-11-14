@@ -186,3 +186,90 @@ def has_storage_model(model: ConcreteModel) -> bool:
     if all(hasattr(model, attr) for attr in required):
         return True
     return False
+
+def has_connection_bar_model(model: ConcreteModel) -> bool:
+    """
+    Check whether the given Pyomo model contains all components
+    required for a connection-bar subsystem.
+
+    This utility function verifies the structural integrity of a
+    :class:`~pyomo.environ.ConcreteModel` by testing the presence
+    of key sets, parameters, and variables associated with
+    connection bars (buses) in DC power flow formulations.
+
+    Parameters
+    ----------
+    model : pyomo.environ.ConcreteModel
+        Pyomo model instance to be inspected.
+
+    Returns
+    -------
+    bool
+        ``True`` if the model includes all required components for
+        the connection-bar subsystem, otherwise ``False``.
+
+    Notes
+    -----
+    The following components are required:
+        - ``T`` : time-period set
+        - ``CB`` : set of connection bars (buses)
+        - ``SB`` : set of slack bars (reference nodes)
+        - ``d`` : demand parameter (MW)
+        - ``Cdef`` : deficit penalty parameter (R$/MWh)
+        - ``D`` : deficit variable (MW)
+        - ``theta`` : voltage phase-angle variable (radians)
+
+    """
+    required = [
+        'T', 'CB', 'SB', 'd', 'Cdef', 'D'
+    ]
+    if all(hasattr(model, attr) for attr in required):
+        return True
+    return False
+
+
+def has_transmission_line_model(model: ConcreteModel) -> bool:
+    """
+    Check whether the given Pyomo model contains all components
+    required for a transmission-line subsystem.
+
+    This utility function validates the existence of sets, parameters,
+    and variables that define the transmission network in a DC power
+    flow formulation. It ensures that the model is structurally ready
+    to support flow equations and line constraints.
+
+    Parameters
+    ----------
+    model : pyomo.environ.ConcreteModel
+        Pyomo model instance to be inspected.
+
+    Returns
+    -------
+    bool
+        ``True`` if the model includes all required components for
+        the transmission-line subsystem, otherwise ``False``.
+
+    Notes
+    -----
+    The following components are required:
+        - ``T`` : time-period set
+        - ``LT`` : set of transmission lines
+        - ``lines_transmission_model`` : dictionary mapping each line to its modeling type ('dc' or 'transport')
+        - ``lines_b`` : line susceptance values (1/x_ij)
+        - ``lines_pmax`` : maximum line capacities (MW)
+        - ``lines_endpoints`` : mapping of line endpoints [bar_i, bar_j]
+        - ``lines_flow`` : power-flow variable (MW)
+
+    """
+    required = [
+        'T',
+        'LT',
+        'lines_transmission_model',
+        'lines_b',
+        'lines_pmax',
+        'lines_endpoints',
+        'lines_flow'
+    ]
+    if all(hasattr(model, attr) for attr in required):
+        return True
+    return False

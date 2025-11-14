@@ -1,0 +1,220 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MDI.ConnectionBar.ConnectionBarDataTypes &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=05624691" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/katex.min.js?v=5cc8ed51"></script>
+      <script src="../../../_static/auto-render.min.js?v=af98beb9"></script>
+      <script src="../../../_static/katex_autorenderer.js?v=bebc588a"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NAIVE MODULES</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">USER GUIDE</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">MDI.ConnectionBar.ConnectionBarDataTypes</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for MDI.ConnectionBar.ConnectionBarDataTypes</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Module: Connection Bar Data Structures</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">This module defines lightweight data classes for representing</span>
+<span class="sd">connection bars (buses) in power system operation and expansion</span>
+<span class="sd">models. Each connection bar encapsulates its electrical state,</span>
+<span class="sd">demand profile, and configuration parameters. The aggregated</span>
+<span class="sd">system-level data structure (`ConnectionBarData`) groups all</span>
+<span class="sd">bars with the planning horizon and deficit penalty cost.</span>
+
+<span class="sd">Classes</span>
+<span class="sd">-------</span>
+<span class="sd">ConnectionBarUnit</span>
+<span class="sd">    Represents a single connection bar (bus) with demand profile,</span>
+<span class="sd">    slack flag, and operational attributes.</span>
+
+<span class="sd">ConnectionBarData</span>
+<span class="sd">    Aggregates multiple connection bars with common parameters</span>
+<span class="sd">    such as planning horizon, system-level demand reference, and</span>
+<span class="sd">    deficit cost.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- The demand profile of each bar is expressed as a deterministic</span>
+<span class="sd">  time series aligned with the planning horizon.</span>
+<span class="sd">- These structures serve as standardized inputs for Pyomo-based</span>
+<span class="sd">  formulations of DECOMP, DESSEM, or the abstracted MDI model.</span>
+<span class="sd">- Extend as needed to include locational data, voltage levels,</span>
+<span class="sd">  or stochastic demand scenarios.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.</span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</span>
+<span class="sd">    Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+
+<div class="viewcode-block" id="ConnectionBarUnit">
+<a class="viewcode-back" href="../../../MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ConnectionBarUnit</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Data container for an electrical connection bar (bus).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        Unique identifier for the bar (e.g., ``&#39;BAR_1&#39;``).    </span>
+<span class="sd">    slack : bool</span>
+<span class="sd">        True if the bar is the system reference (angle fixed at 0 rad).</span>
+<span class="sd">    Cdef : float, optional</span>
+<span class="sd">        Penalty cost for unmet demand (R$/MWh). Default is ``500.0``.</span>
+<span class="sd">    c_pmax: float, optional</span>
+<span class="sd">        Max power of the deficit (MW)</span>
+<span class="sd">    demand : dict of {str: list of float}</span>
+<span class="sd">        Nested dictionary containing demand data per load level and time period.</span>
+<span class="sd">        Example structure:</span>
+<span class="sd">        ``{&quot;Ponta&quot;: [500, 550, 600], &quot;Fora&quot;: [300, 320, 350]}``</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The ``demand`` list length must equal the planning horizon.</span>
+<span class="sd">    - The attribute ``slack`` is used to define the voltage angle reference</span>
+<span class="sd">      in DC power flow formulations.</span>
+<span class="sd">    - The fields ``c_op`` and ``c_inv`` are placeholders for compatibility</span>
+<span class="sd">      with expansion models (MDI), though typically unused in operation models.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">slack</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">Cdef</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">c_pmax</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">demand</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span></div>
+
+
+
+<div class="viewcode-block" id="ConnectionBarData">
+<a class="viewcode-back" href="../../../MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ConnectionBarData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    System-wide data structure for connection bars.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    horizon : int</span>
+<span class="sd">        Number of planning periods.</span>
+<span class="sd">    units : Dict[str, ConnectionBarUnit]</span>
+<span class="sd">        Mapping of bar identifiers to their :class:`ConnectionBarUnit` instances.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The attribute ``units`` aggregates all bars of the system.</span>
+<span class="sd">    - ``Cdef`` is used to penalize deficit variables ``D[b,t]`` in the objective.</span>
+<span class="sd">    - In hierarchical models, this class provides the bar-level data consumed</span>
+<span class="sd">      by the module :mod:`ConnectionBarVariables`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">horizon</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ConnectionBarUnit</span><span class="p">]</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

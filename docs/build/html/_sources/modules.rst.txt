@@ -1,5 +1,5 @@
-DESSEM/DECOMP/MDI
-=================
+NAIVE MODULES
+=============
 
 .. toctree::
    :maxdepth: 4

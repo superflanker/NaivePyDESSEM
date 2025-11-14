@@ -24,7 +24,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="DESSEM/DECOMP/MDI" href="modules.html" /> 
+    <link rel="next" title="NAIVE MODULES" href="modules.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,11 +46,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -254,10 +254,10 @@ It integrates investment and operational decisions into a unified <strong>mixed-
 Formulates a multi-period optimization problem minimizing investment and operational costs under uncertainty.
 Incorporates candidate projects for thermal, hydro, renewable, and storage technologies, as well as transmission reinforcements.</p></li>
 <li><p><strong>Specialized Submodules:</strong>
-Subpackages <code class="docutils literal notranslate"><span class="pre">MDI.Generator</span></code> and <code class="docutils literal notranslate"><span class="pre">MDI.Storage</span></code> define project-level variables, constraints, and cost components.
+Subpackages <code class="docutils literal notranslate"><span class="pre">MDI.Generator</span></code>, <code class="docutils literal notranslate"><span class="pre">MDI.Storage</span></code>, <code class="docutils literal notranslate"><span class="pre">MDI.ConnectionBar</span></code> and <code class="docutils literal notranslate"><span class="pre">MDI.TransmissionLine</span></code> define project-level variables, constraints, and cost components.
 The <code class="docutils literal notranslate"><span class="pre">Builder</span></code> module consolidates these into a system-wide energy balance, while <code class="docutils literal notranslate"><span class="pre">YAMLLoader</span></code> manages structured scenario data.</p></li>
 <li><p><strong>Solution and Analysis:</strong>
-Supports a variety of <em>Pyomo</em> solvers (<code class="docutils literal notranslate"><span class="pre">GLPK</span></code>, <code class="docutils literal notranslate"><span class="pre">CPLEX</span></code>, <code class="docutils literal notranslate"><span class="pre">IPOPT</span></code>, <code class="docutils literal notranslate"><span class="pre">MindtPy</span></code>) and provides post-solution tools (<code class="docutils literal notranslate"><span class="pre">Reporting</span></code>, <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code>, <code class="docutils literal notranslate"><span class="pre">PlotSeries</span></code>) for sensitivity and scenario analysis.</p></li>
+Supports a variety of <em>Pyomo</em> solvers (<code class="docutils literal notranslate"><span class="pre">GLPK</span></code>, <code class="docutils literal notranslate"><span class="pre">CBC</span></code>, <code class="docutils literal notranslate"><span class="pre">HIGHS</span></code>, <code class="docutils literal notranslate"><span class="pre">CPLEX</span></code>) and provides post-solution tools (<code class="docutils literal notranslate"><span class="pre">Reporting</span></code>, <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code>, <code class="docutils literal notranslate"><span class="pre">PlotSeries</span></code>) for sensitivity and scenario analysis.</p></li>
 <li><p><strong>Educational Design:</strong>
 Preserves the key structural and economic principles of real-world expansion models while maintaining tractability for academic exercises.</p></li>
 </ul>
@@ -272,6 +272,13 @@ Preserves the key structural and economic principles of real-world expansion mod
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── Generator
 │   │   │   ├── __init__.py
 │   │   │   ├── GeneratorBuilder.py
@@ -288,6 +295,13 @@ Preserves the key structural and economic principles of real-world expansion mod
 │   │   │   ├── StorageEquations.py
 │   │   │   ├── StorageObjective.py
 │   │   │   └── StorageVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── DataFrames.py
@@ -305,6 +319,13 @@ Preserves the key structural and economic principles of real-world expansion mod
 │   │   │   ├── cli.py
 │   │   │   ├── pddd_cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
 │   │   │   ├── HydraulicConstraints.py
@@ -338,6 +359,13 @@ Preserves the key structural and economic principles of real-world expansion mod
 │   │   │   ├── ThermalGeneratorBuilder.py
 │   │   │   ├── ThermalObjectives.py
 │   │   │   └── ThermalVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── BuilderPDDD.py
@@ -357,6 +385,13 @@ Preserves the key structural and economic principles of real-world expansion mod
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
 │   │   │   ├── ConstantProductivityFPH.py
@@ -394,6 +429,13 @@ Preserves the key structural and economic principles of real-world expansion mod
 │   │   │   ├── ThermalObjectives.py
 │   │   │   ├── ThermalPieceWise.py
 │   │   │   └── ThermalVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── DataFrames.py
@@ -536,6 +578,25 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <p>👉 <a class="reference external" href="https://github.com/superflanker/NaivePyDESSEM">NaivePyDessem GitHub Repo</a></p>
 </section>
 <hr class="docutils" />
+<section id="get-involved">
+<h3>🌐 Get Involved<a class="headerlink" href="#get-involved" title="Link to this heading"></a></h3>
+<p>You are cordially invited to explore the repository, review the examples, and adapt the framework to your own studies or applications.
+This project was designed with openness and reproducibility in mind — whether you are conducting academic research, developing optimization tools, or exploring hybrid energy models, your engagement is most welcome.</p>
+<section id="contribute-collaborate">
+<h4>🤝 Contribute &amp; Collaborate<a class="headerlink" href="#contribute-collaborate" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>🧩 <strong>Report Issues:</strong> <a class="reference external" href="https://github.com/superflanker/NaivePyDESSEM/issues">Open an Issue</a></p></li>
+<li><p>🍴 <strong>Fork the Project:</strong> <a class="reference external" href="https://github.com/superflanker/NaivePyDESSEM/fork">Create Your Own Branch</a></p></li>
+<li><p>🧠 <strong>Cite This Work:</strong> If used in research, please acknowledge it in your publication.</p></li>
+</ul>
+</section>
+<section id="contact">
+<h4>✉️ Contact<a class="headerlink" href="#contact" title="Link to this heading"></a></h4>
+<p>For collaboration, technical inquiries, or academic exchange:
+📨 <strong>Augusto Mathias Adams</strong> — augusto.adams&#64;ufpr.br</p>
+</section>
+</section>
+<hr class="docutils" />
 <section id="how-to-cite">
 <h3>📚 How to Cite<a class="headerlink" href="#how-to-cite" title="Link to this heading"></a></h3>
 <p>If you use <strong>NaivePyDessem</strong> in teaching or research, please cite:</p>
@@ -550,9 +611,9 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </section>
 </section>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+<p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">NAIVE MODULES</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM">Module contents</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#author">Author</a></li>
@@ -837,6 +898,107 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html">NaivePyDESSEM.ConnectionBar package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#module-NaivePyDESSEM.ConnectionBar">Module contents</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#author">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#description">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#modules">Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#module-NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints">NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#id1">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#id2">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#functions">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints.add_connection_bar_angle_limits_constraints"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_angle_limits_constraints()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints.add_connection_bar_balance_constraints"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_balance_constraints()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints.add_connection_bar_slack_constraints"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_slack_constraints()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#module-NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes">NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#id3">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#id4">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#classes">Classes</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData"><code class="docutils literal notranslate"><span class="pre">ConnectionBarData</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit"><code class="docutils literal notranslate"><span class="pre">ConnectionBarUnit</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#module-NaivePyDESSEM.ConnectionBar.ConnectionBarEquations">NaivePyDESSEM.ConnectionBar.ConnectionBarEquations module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#id5">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#id6">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#intended-use">Intended Use</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#NaivePyDESSEM.ConnectionBar.ConnectionBarEquations.add_connection_bar_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_balance_expression()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#NaivePyDESSEM.ConnectionBar.ConnectionBarEquations.add_connection_bar_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_cost_expression()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#module-NaivePyDESSEM.ConnectionBar.ConnectionBarBuilder">NaivePyDESSEM.ConnectionBar.ConnectionBarBuilder module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#id7">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#id8">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#id9">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#NaivePyDESSEM.ConnectionBar.ConnectionBarBuilder.add_connection_bar_problem"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_problem()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#NaivePyDESSEM.ConnectionBar.ConnectionBarBuilder.build_connection_bars"><code class="docutils literal notranslate"><span class="pre">build_connection_bars()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#module-NaivePyDESSEM.ConnectionBar.ConnectionBarVars">NaivePyDESSEM.ConnectionBar.ConnectionBarVars module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#id10">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#id11">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#id12">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#NaivePyDESSEM.ConnectionBar.ConnectionBarVars.connection_bar_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">connection_bar_add_sets_and_params()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html#NaivePyDESSEM.ConnectionBar.ConnectionBarVars.connection_bar_add_variables"><code class="docutils literal notranslate"><span class="pre">connection_bar_add_variables()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html">NaivePyDESSEM.TransmissionLine package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#module-NaivePyDESSEM.TransmissionLine">Module contents</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#author">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#description">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#modules">Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#module-NaivePyDESSEM.TransmissionLine.TransmissionLineConstraints">NaivePyDESSEM.TransmissionLine.TransmissionLineConstraints module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#id1">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#id2">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#functions">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#NaivePyDESSEM.TransmissionLine.TransmissionLineConstraints.add_transmission_line_flow_constraints"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_flow_constraints()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#NaivePyDESSEM.TransmissionLine.TransmissionLineConstraints.add_transmission_line_flow_limits_constraints"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_flow_limits_constraints()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#module-NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes">NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#id3">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#id4">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#classes">Classes</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData"><code class="docutils literal notranslate"><span class="pre">TransmissionLineData</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit"><code class="docutils literal notranslate"><span class="pre">TransmissionLineUnit</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#module-NaivePyDESSEM.TransmissionLine.TransmissionLineEquations">NaivePyDESSEM.TransmissionLine.TransmissionLineEquations module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#id5">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#id6">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#id7">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#NaivePyDESSEM.TransmissionLine.TransmissionLineEquations.add_transmission_line_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_balance_expression()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#NaivePyDESSEM.TransmissionLine.TransmissionLineEquations.add_transmission_line_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_cost_expression()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#module-NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder">NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#id8">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#id9">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#id10">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder.add_transmission_line_problem"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_problem()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder.build_transmission_lines"><code class="docutils literal notranslate"><span class="pre">build_transmission_lines()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#module-NaivePyDESSEM.TransmissionLine.TransmissionLineVars">NaivePyDESSEM.TransmissionLine.TransmissionLineVars module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#id11">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#id12">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#id13">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#NaivePyDESSEM.TransmissionLine.TransmissionLineVars.transmission_line_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">transmission_line_add_sets_and_params()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#NaivePyDESSEM.TransmissionLine.TransmissionLineVars.transmission_line_add_variables"><code class="docutils literal notranslate"><span class="pre">transmission_line_add_variables()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="NaivePyDESSEM.cli.html#module-NaivePyDESSEM.cli">Module contents</a><ul>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDESSEM.cli.html#naivepydessem-cli-subpackage">NaivePyDESSEM – CLI Subpackage</a></li>
@@ -889,11 +1051,13 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.DataFrames">NaivePyDESSEM.DataFrames module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#id4">Author</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#id5">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.DataFrames.add_connection_bar_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.DataFrames.add_cost_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_cost_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.DataFrames.add_hydro_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_hydro_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.DataFrames.add_renewable_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_renewable_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.DataFrames.add_storage_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_storage_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.DataFrames.add_thermal_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_thermal_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.DataFrames.add_transmission_line_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.DataFrames.build_dispatch_dataframe"><code class="docutils literal notranslate"><span class="pre">build_dispatch_dataframe()</span></code></a></li>
 </ul>
 </li>
@@ -908,16 +1072,20 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#id9">Description</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#functions">Functions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#usage-example">Usage Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.ModelCheck.has_connection_bar_model"><code class="docutils literal notranslate"><span class="pre">has_connection_bar_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.ModelCheck.has_hydro_model"><code class="docutils literal notranslate"><span class="pre">has_hydro_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.ModelCheck.has_renewable_model"><code class="docutils literal notranslate"><span class="pre">has_renewable_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.ModelCheck.has_storage_model"><code class="docutils literal notranslate"><span class="pre">has_storage_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.ModelCheck.has_thermal_model"><code class="docutils literal notranslate"><span class="pre">has_thermal_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.ModelCheck.has_transmission_line_model"><code class="docutils literal notranslate"><span class="pre">has_transmission_line_model()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.ModelFormatters">NaivePyDESSEM.ModelFormatters module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#id10">Author</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#id11">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.ModelFormatters.format_connection_bar_model"><code class="docutils literal notranslate"><span class="pre">format_connection_bar_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.ModelFormatters.format_hydro_model"><code class="docutils literal notranslate"><span class="pre">format_hydro_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.ModelFormatters.format_line_transmission_model"><code class="docutils literal notranslate"><span class="pre">format_line_transmission_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.ModelFormatters.format_models"><code class="docutils literal notranslate"><span class="pre">format_models()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.ModelFormatters.format_renewable_model"><code class="docutils literal notranslate"><span class="pre">format_renewable_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.ModelFormatters.format_storage_model"><code class="docutils literal notranslate"><span class="pre">format_storage_model()</span></code></a></li>
@@ -940,11 +1108,13 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Reporting">NaivePyDESSEM.Reporting module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#id15">Author</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#id16">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.Reporting.connection_bar_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">connection_bar_dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.Reporting.dispatch_summary"><code class="docutils literal notranslate"><span class="pre">dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.Reporting.hydro_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">hydro_dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.Reporting.renewable_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">renewable_dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.Reporting.storage_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">storage_dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.Reporting.thermal_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">thermal_dispatch_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.html#NaivePyDESSEM.Reporting.transmission_line_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">transmission_line_dispatch_summary()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM.Solver">NaivePyDESSEM.Solver module</a><ul>
@@ -1178,7 +1348,6 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_problem"><code class="docutils literal notranslate"><span class="pre">add_thermal_problem()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_subproblem"><code class="docutils literal notranslate"><span class="pre">add_thermal_subproblem()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.build_thermal_uc"><code class="docutils literal notranslate"><span class="pre">build_thermal_uc()</span></code></a></li>
-<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.thermo_update_model"><code class="docutils literal notranslate"><span class="pre">thermo_update_model()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#module-NaivePyDECOMP.ThermalGenerator.ThermalObjectives">NaivePyDECOMP.ThermalGenerator.ThermalObjectives module</a><ul>
@@ -1196,6 +1365,90 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#id17">Usage</a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalVars.thermal_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">thermal_add_sets_and_params()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html#NaivePyDECOMP.ThermalGenerator.ThermalVars.thermal_add_variables_uc"><code class="docutils literal notranslate"><span class="pre">thermal_add_variables_uc()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html">NaivePyDECOMP.ConnectionBar package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#module-NaivePyDECOMP.ConnectionBar">Module contents</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#author">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#description">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#modules">Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#module-NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints">NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#id1">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#id2">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#functions">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints.add_connection_bar_balance_constraints"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_balance_constraints()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#module-NaivePyDECOMP.ConnectionBar.ConnectionBarDataTypes">NaivePyDECOMP.ConnectionBar.ConnectionBarDataTypes module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#id3">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#id4">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#module-NaivePyDECOMP.ConnectionBar.ConnectionBarEquations">NaivePyDECOMP.ConnectionBar.ConnectionBarEquations module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#id5">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#id6">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#id7">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#NaivePyDECOMP.ConnectionBar.ConnectionBarEquations.add_connection_bar_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_balance_expression()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#module-NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder">NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#id8">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#id9">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#id10">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder.add_connection_bar_subproblem"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_subproblem()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#module-NaivePyDECOMP.ConnectionBar.ConnectionBarVars">NaivePyDECOMP.ConnectionBar.ConnectionBarVars module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#id11">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#id12">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html#id13">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html">NaivePyDECOMP.TransmissionLine package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#module-NaivePyDECOMP.TransmissionLine">Module contents</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#author">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#description">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#modules">Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#module-NaivePyDECOMP.TransmissionLine.TransmissionLineConstraints">NaivePyDECOMP.TransmissionLine.TransmissionLineConstraints module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#id1">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#id2">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#module-NaivePyDECOMP.TransmissionLine.TransmissionLineDataTypes">NaivePyDECOMP.TransmissionLine.TransmissionLineDataTypes module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#id3">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#id4">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#module-NaivePyDECOMP.TransmissionLine.TransmissionLineEquations">NaivePyDECOMP.TransmissionLine.TransmissionLineEquations module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#id5">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#id6">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#id7">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#module-NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder">NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#id8">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#id9">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#id10">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder.add_transmission_line_subproblem"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_subproblem()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#module-NaivePyDECOMP.TransmissionLine.TransmissionLineVars">NaivePyDECOMP.TransmissionLine.TransmissionLineVars module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#id11">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#id12">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.html#id13">Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -1271,9 +1524,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.DataFrames">NaivePyDECOMP.DataFrames module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id7">Author</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id8">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.DataFrames.add_connection_bar_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.DataFrames.add_cost_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_cost_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.DataFrames.add_hydro_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_hydro_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.DataFrames.add_thermal_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_thermal_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.DataFrames.add_transmission_line_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.DataFrames.build_dispatch_dataframe"><code class="docutils literal notranslate"><span class="pre">build_dispatch_dataframe()</span></code></a></li>
 </ul>
 </li>
@@ -1320,11 +1575,13 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Reporting">NaivePyDECOMP.Reporting module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id20">Author</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#id21">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Reporting.connection_bar_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">connection_bar_dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Reporting.dispatch_summary"><code class="docutils literal notranslate"><span class="pre">dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Reporting.hydro_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">hydro_dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Reporting.renewable_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">renewable_dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Reporting.storage_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">storage_dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Reporting.thermal_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">thermal_dispatch_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.html#NaivePyDECOMP.Reporting.transmission_line_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">transmission_line_dispatch_summary()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.SolverPDDD">NaivePyDECOMP.SolverPDDD module</a><ul>
@@ -1430,6 +1687,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l6"><a class="reference internal" href="MDI.Storage.html#storage-constraints-module">Storage Constraints Module</a></li>
 <li class="toctree-l6"><a class="reference internal" href="MDI.Storage.html#MDI.Storage.StorageConstraints.add_storage_energy_balance_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_energy_balance_constraint()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="MDI.Storage.html#MDI.Storage.StorageConstraints.add_storage_investment_link_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_investment_link_constraint()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.Storage.html#MDI.Storage.StorageConstraints.add_storage_mutual_exclusion_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_mutual_exclusion_constraint()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="MDI.Storage.html#MDI.Storage.StorageConstraints.add_storage_power_limits_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_power_limits_constraint()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="MDI.Storage.html#MDI.Storage.StorageConstraints.add_storage_soc_bounds_constraint"><code class="docutils literal notranslate"><span class="pre">add_storage_soc_bounds_constraint()</span></code></a></li>
 </ul>
@@ -1456,6 +1714,110 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l6"><a class="reference internal" href="MDI.Storage.html#storage-variables-and-parameters-module">Storage Variables and Parameters Module</a></li>
 <li class="toctree-l6"><a class="reference internal" href="MDI.Storage.html#MDI.Storage.StorageVars.storage_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">storage_add_sets_and_params()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="MDI.Storage.html#MDI.Storage.StorageVars.storage_add_variables"><code class="docutils literal notranslate"><span class="pre">storage_add_variables()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.ConnectionBar.html">MDI.ConnectionBar package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="MDI.ConnectionBar.html#module-MDI.ConnectionBar">Module contents</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#author">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#description">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#modules">Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="MDI.ConnectionBar.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="MDI.ConnectionBar.html#module-MDI.ConnectionBar.ConnectionBarConstraints">MDI.ConnectionBar.ConnectionBarConstraints module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#id1">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#id2">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#functions">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_angle_limits_constraints"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_angle_limits_constraints()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_balance_constraints"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_balance_constraints()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_capacity_constraints"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_capacity_constraints()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_slack_constraints"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_slack_constraints()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="MDI.ConnectionBar.html#module-MDI.ConnectionBar.ConnectionBarDataTypes">MDI.ConnectionBar.ConnectionBarDataTypes module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#id3">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#id4">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#classes">Classes</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData"><code class="docutils literal notranslate"><span class="pre">ConnectionBarData</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit"><code class="docutils literal notranslate"><span class="pre">ConnectionBarUnit</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="MDI.ConnectionBar.html#module-MDI.ConnectionBar.ConnectionBarEquations">MDI.ConnectionBar.ConnectionBarEquations module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#id5">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#id6">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#intended-use">Intended Use</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarEquations.add_connection_bar_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_balance_expression()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarEquations.add_connection_bar_capacity_expression"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_capacity_expression()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarEquations.add_connection_bar_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_cost_expression()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="MDI.ConnectionBar.html#module-MDI.ConnectionBar.ConnectionBarBuilder">MDI.ConnectionBar.ConnectionBarBuilder module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#id7">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#id8">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#id9">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarBuilder.add_connection_bar_problem"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_problem()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarBuilder.build_connection_bars"><code class="docutils literal notranslate"><span class="pre">build_connection_bars()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="MDI.ConnectionBar.html#module-MDI.ConnectionBar.ConnectionBarVars">MDI.ConnectionBar.ConnectionBarVars module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#id10">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#id11">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#id12">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarVars.connection_bar_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">connection_bar_add_sets_and_params()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarVars.connection_bar_add_variables"><code class="docutils literal notranslate"><span class="pre">connection_bar_add_variables()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.TransmissionLine.html">MDI.TransmissionLine package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="MDI.TransmissionLine.html#module-MDI.TransmissionLine">Module contents</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#author">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#description">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#modules">Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="MDI.TransmissionLine.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="MDI.TransmissionLine.html#module-MDI.TransmissionLine.TransmissionLineConstraints">MDI.TransmissionLine.TransmissionLineConstraints module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#id1">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#id2">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#functions">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineConstraints.add_transmission_line_flow_constraints"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_flow_constraints()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineConstraints.add_transmission_line_flow_limits_constraints"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_flow_limits_constraints()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineConstraints.add_transmission_line_investment_link_constraints"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_investment_link_constraints()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="MDI.TransmissionLine.html#module-MDI.TransmissionLine.TransmissionLineDataTypes">MDI.TransmissionLine.TransmissionLineDataTypes module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#id3">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#id4">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#classes">Classes</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData"><code class="docutils literal notranslate"><span class="pre">TransmissionLineData</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit"><code class="docutils literal notranslate"><span class="pre">TransmissionLineUnit</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="MDI.TransmissionLine.html#module-MDI.TransmissionLine.TransmissionLineEquations">MDI.TransmissionLine.TransmissionLineEquations module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#id5">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#id6">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#id7">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineEquations.add_transmission_line_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_balance_expression()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineEquations.add_transmission_line_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_cost_expression()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="MDI.TransmissionLine.html#module-MDI.TransmissionLine.TransmissionLineBuilder">MDI.TransmissionLine.TransmissionLineBuilder module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#id8">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#id9">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#id10">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineBuilder.add_transmission_line_problem"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_problem()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineBuilder.build_transmission_lines"><code class="docutils literal notranslate"><span class="pre">build_transmission_lines()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="MDI.TransmissionLine.html#module-MDI.TransmissionLine.TransmissionLineVars">MDI.TransmissionLine.TransmissionLineVars module</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#id11">Author</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#id12">Description</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#id13">Functions</a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineVars.transmission_line_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">transmission_line_add_sets_and_params()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineVars.transmission_line_add_variables"><code class="docutils literal notranslate"><span class="pre">transmission_line_add_variables()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1517,9 +1879,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l5"><a class="reference internal" href="MDI.html#id8">Functions</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.DataFrames.add_connection_bar_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.DataFrames.add_cost_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_cost_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.DataFrames.add_generator_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_generator_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.DataFrames.add_storage_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_storage_dispatch_to_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.DataFrames.add_transmission_line_dispatch_to_dataframe"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_dispatch_to_dataframe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.DataFrames.build_dispatch_dataframe"><code class="docutils literal notranslate"><span class="pre">build_dispatch_dataframe()</span></code></a></li>
 </ul>
 </li>
@@ -1537,14 +1901,18 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l5"><a class="reference internal" href="MDI.html#usage-example">Usage Example</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.ModelCheck.has_connection_bar_model"><code class="docutils literal notranslate"><span class="pre">has_connection_bar_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.ModelCheck.has_generator_model"><code class="docutils literal notranslate"><span class="pre">has_generator_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.ModelCheck.has_storage_model"><code class="docutils literal notranslate"><span class="pre">has_storage_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.ModelCheck.has_transmission_line_model"><code class="docutils literal notranslate"><span class="pre">has_transmission_line_model()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.ModelFormatters">MDI.ModelFormatters module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#id15">Author</a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#id16">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.ModelFormatters.format_connection_bar_model"><code class="docutils literal notranslate"><span class="pre">format_connection_bar_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.ModelFormatters.format_generator_model"><code class="docutils literal notranslate"><span class="pre">format_generator_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.ModelFormatters.format_line_transmission_model"><code class="docutils literal notranslate"><span class="pre">format_line_transmission_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.ModelFormatters.format_models"><code class="docutils literal notranslate"><span class="pre">format_models()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.ModelFormatters.format_storage_model"><code class="docutils literal notranslate"><span class="pre">format_storage_model()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.ModelFormatters.model_properties"><code class="docutils literal notranslate"><span class="pre">model_properties()</span></code></a></li>
@@ -1565,9 +1933,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Reporting">MDI.Reporting module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#id20">Author</a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#id21">Description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.Reporting.connection_bar_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">connection_bar_dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.Reporting.dispatch_summary"><code class="docutils literal notranslate"><span class="pre">dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.Reporting.generator_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">generator_dispatch_summary()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.Reporting.storage_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">storage_dispatch_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.html#MDI.Reporting.transmission_line_dispatch_summary"><code class="docutils literal notranslate"><span class="pre">transmission_line_dispatch_summary()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="MDI.html#module-MDI.Solver">MDI.Solver module</a><ul>
@@ -1603,7 +1973,6 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </li>
 <li class="toctree-l1"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#objectives">OBJECTIVES</a></li>
-<li class="toctree-l2"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#cheatsheet-content-organogram">CHEATSHEET – CONTENT ORGANOGRAM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#overview-and-structure-of-the-electric-power-sector">OVERVIEW AND STRUCTURE OF THE ELECTRIC POWER SECTOR</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#full-competition">FULL COMPETITION</a></li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#spot-market-and-settlement-price-pld">SPOT MARKET AND SETTLEMENT PRICE (PLD)</a></li>
@@ -1692,52 +2061,61 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#modular-structure-of-the-model">MODULAR STRUCTURE OF THE MODEL</a></li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#integration-with-other-models">INTEGRATION WITH OTHER MODELS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#practical-applications">PRACTICAL APPLICATIONS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#mathematical-modeling-of-dessem">Mathematical Modeling of DESSEM</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#hydropower-plants">Hydropower Plants</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#sets-and-indices">Sets and Indices</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#parameters-data">Parameters (Data)</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id2">Decision Variables</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#hydraulic-polynomial-functions-for-plant-h">Hydraulic Polynomial Functions for Plant <span class="math">\(h\)</span></a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#hydropower-production-function-hpf">Hydropower Production Function (HPF)</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#total-instantaneous-inflow-cascade-without-delay">Total Instantaneous Inflow (Cascade without Delay)</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#constraints">Constraints</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#generation">Generation</a></li>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#reservoir-mass-balance">Reservoir Mass Balance</a></li>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#targets-and-operational-limits">Targets and Operational Limits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#mathematical-modeling-of-dessem">MATHEMATICAL MODELING OF DESSEM</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#hydropower-plants">HYDROPOWER PLANTS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#sets-and-indices">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#parameters-data">PARAMETERS (DATA)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id2">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#hydraulic-polynomial-functions-for-plant-h">HYDRAULIC POLYNOMIAL FUNCTIONS FOR PLANT <span class="math">\(h\)</span></a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#hydropower-production-function-hpf">HYDROPOWER PRODUCTION FUNCTION (HPF)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#total-instantaneous-inflow-cascade-without-delay">TOTAL INSTANTANEOUS INFLOW (CASCADE WITHOUT DELAY)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#constraints">CONSTRAINTS</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#generation">GENERATION</a></li>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#reservoir-mass-balance">RESERVOIR MASS BALANCE</a></li>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#targets-and-operational-limits">TARGETS AND OPERATIONAL LIMITS</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#thermal-power-plants">Thermal Power Plants</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id3">Sets and Indices</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#parameters">Parameters</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id4">Decision Variables</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id5">Constraints</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#power-balance">Power Balance</a></li>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#conditional-capacity">Conditional Capacity</a></li>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#startup-shutdown-logic">Startup/Shutdown Logic</a></li>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#ramping-limits">Ramping Limits</a></li>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#minimum-up-down-time">Minimum Up/Down Time</a></li>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#consistent-initial-conditions">Consistent Initial Conditions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#thermal-power-plants">THERMAL POWER PLANTS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id3">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#parameters">PARAMETERS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id4">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id5">CONSTRAINTS</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#power-balance">POWER BALANCE</a></li>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#conditional-capacity">CONDITIONAL CAPACITY</a></li>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#startup-shutdown-logic">STARTUP/SHUTDOWN LOGIC</a></li>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#ramping-limits">RAMPING LIMITS</a></li>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#minimum-up-down-time">MINIMUM UP/DOWN TIME</a></li>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#consistent-initial-conditions">CONSISTENT INITIAL CONDITIONS</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#renewable-energies-and-storage">Renewable Energies and Storage</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id6">Sets and Indices</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id7">Parameters</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id8">Decision Variables</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id9">Constraints</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#renewable-generation-availability-limit">Renewable Generation — Availability Limit</a></li>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#storage-energy-balance-soc">Storage — Energy Balance (SoC)</a></li>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#storage-state-of-charge-soc-limits">Storage — State of Charge (SoC) Limits</a></li>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#storage-power-limits">Storage — Power Limits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#renewable-energies-and-storage">RENEWABLE ENERGIES AND STORAGE</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id6">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id7">PARAMETERS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id8">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id9">CONSTRAINTS</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#renewable-generation-availability-limit">RENEWABLE GENERATION — AVAILABILITY LIMIT</a></li>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#storage-energy-balance-soc">STORAGE — ENERGY BALANCE (SoC)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#storage-state-of-charge-soc-limits">STORAGE — STATE OF CHARGE (SoC) LIMITS</a></li>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#storage-power-limits">STORAGE — POWER LIMITS</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id10">Objective Function</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#power-balance-load-supply">Power Balance (Load Supply)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#transmission-lines-and-connection-bars">TRANSMISSION LINES AND CONNECTION BARS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id10">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id11">PARAMETERS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id12">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#dc-flow-approximation">DC FLOW APPROXIMATION</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#transmission-capacity-limits">TRANSMISSION CAPACITY LIMITS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#power-balance-at-each-bus">POWER BALANCE AT EACH BUS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#network-reference-slack-bus">NETWORK REFERENCE (SLACK BUS)</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id13">OBJECTIVE FUNCTION</a></li>
 </ul>
 </li>
 </ul>
@@ -1745,76 +2123,85 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l2"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#technical-appendix-summary-of-the-decomp-manual">TECHNICAL APPENDIX: SUMMARY OF THE DECOMP MANUAL</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#strategic-planning">STRATEGIC PLANNING</a></li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#immediate-future-and-total-cost-functions-in-strategic-planning">IMMEDIATE, FUTURE, AND TOTAL COST FUNCTIONS IN STRATEGIC PLANNING</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#immediate-cost-function-fci">Immediate Cost Function (FCI)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#future-cost-function-fcf">Future Cost Function (FCF)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#total-cost-function-fct">Total Cost Function (FCT)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#application">Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#immediate-cost-function-fci">IMMEDIATE COST FUNCTION (FCI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#future-cost-function-fcf">FUTURE COST FUNCTION (FCF)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#total-cost-function-fct">TOTAL COST FUNCTION (FCT)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#application">APPLICATION</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id11">MARGINAL OPERATING COST (CMO)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#definition">Definition</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#relationship-with-cost-functions">Relationship with Cost Functions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#role-in-planning">Role in Planning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id14">MARGINAL OPERATING COST (CMO)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#definition">DEFINITION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#relationship-with-cost-functions">RELATIONSHIP WITH COST FUNCTIONS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#role-in-planning">ROLE IN PLANNING</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#advanced-concepts-in-strategic-operation-planning">ADVANCED CONCEPTS IN STRATEGIC OPERATION PLANNING</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#risk-aversion">Risk Aversion</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id12">Spatial Coupling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#curse-of-dimensionality-and-decomposition">Curse of Dimensionality and Decomposition</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#integration-with-price-formation">Integration with Price Formation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#risk-aversion">RISK AVERSION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id15">SPATIAL COUPLING</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#curse-of-dimensionality-and-decomposition">CURSE OF DIMENSIONALITY AND DECOMPOSITION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#integration-with-price-formation">INTEGRATION WITH PRICE FORMATION</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#solution-strategies-for-strategic-operation-planning">SOLUTION STRATEGIES FOR STRATEGIC OPERATION PLANNING</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#multistage-linear-programming-lp">Multistage Linear Programming (LP)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#deterministic-dynamic-programming-pdd">Deterministic Dynamic Programming (PDD)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#deterministic-dual-dynamic-programming-pddd">Deterministic Dual Dynamic Programming (PDDD)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#stochastic-dual-dynamic-programming-pdde">Stochastic Dual Dynamic Programming (PDDE)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#very-short-term-deterministic-formulations">Very Short-Term Deterministic Formulations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#multistage-linear-programming-lp">MULTISTAGE LINEAR PROGRAMMING (LP)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#deterministic-dynamic-programming-pdd">DETERMINISTIC DYNAMIC PROGRAMMING (PDD)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#deterministic-dual-dynamic-programming-pddd">DETERMINISTIC DUAL DYNAMIC PROGRAMMING (PDDD)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#stochastic-dual-dynamic-programming-pdde">STOCHASTIC DUAL DYNAMIC PROGRAMMING (PDDE)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#very-short-term-deterministic-formulations">VERY SHORT-TERM DETERMINISTIC FORMULATIONS</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#comparative-overview-of-strategies">COMPARATIVE OVERVIEW OF STRATEGIES</a></li>
-<li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#mathematical-modeling-of-decomp">Mathematical Modeling of DECOMP</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id13">Hydropower Plants</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id14">Sets and Indices</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id15">Parameters (Data)</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id16">Decision Variables</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id17">Hydropower Production Function (HPF)</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id18">Constraints</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id19">Total Instantaneous Inflow (Cascade without Delay)</a></li>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id20">Reservoir Mass Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#mathematical-modeling-of-decomp">MATHEMATICAL MODELING OF DECOMP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id16">HYDROPOWER PLANTS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id17">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id18">PARAMETERS (DATA)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id19">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id20">HYDROPOWER PRODUCTION FUNCTION (HPF)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id21">CONSTRAINTS</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id22">TOTAL INSTANTANEOUS INFLOW (CASCADE WITHOUT DELAY)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id23">RESERVOIR MASS BALANCE</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#thermal-units">Thermal Units</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id21">Sets and Indices</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id22">Parameters</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id23">Decision Variables</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id24">Constraints</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#capacity">Capacity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#thermal-units">THERMAL UNITS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id24">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id25">PARAMETERS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id26">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id27">CONSTRAINTS</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#capacity">CAPACITY</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id25">Renewable Energies and Storage</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id26">Sets and Indices</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id27">Parameters</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id28">Decision Variables</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id29">Constraints</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#renewable-sources-availability-limit">Renewable Sources — Availability Limit</a></li>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id30">Storage — Energy Balance (SoC)</a></li>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id31">Storage — State of Charge (SoC) Limits</a></li>
-<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id32">Storage — Power Limits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id28">RENEWABLE ENERGIES AND STORAGE</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id29">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id30">PARAMETERS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id31">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id32">CONSTRAINTS</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#renewable-sources-availability-limit">RENEWABLE SOURCES — AVAILABILITY LIMIT</a></li>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id33">STORAGE — ENERGY BALANCE (SoC)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id34">STORAGE - STATE OF CHARGE (SoC) LIMITS</a></li>
+<li class="toctree-l6"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id35">STORAGE — POWER LIMITS</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id33">Objective Function</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#single-lp-objective-function">Single LP Objective Function</a></li>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#objective-function-for-pddd">Objective Function for PDDD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id36">TRANSMISSION LINES AND CONNECTION BARS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id37">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id38">PARAMETERS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id39">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id40">DC FLOW APPROXIMATION</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id41">TRANSMISSION CAPACITY LIMITS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id42">POWER BALANCE AT EACH BUS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id43">NETWORK REFERENCE (SLACK BUS)</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#power-balance-load-requirement">Power Balance (Load Requirement)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id44">OBJECTIVE FUNCTION</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#single-lp-objective-function">SINGLE LP OBJECTIVE FUNCTION</a></li>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#objective-function-for-pddd">OBJECTIVE FUNCTION FOR PDDD</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1822,52 +2209,55 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l2"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#technical-appendix-summary-of-epe-manuals-on-the-mdi">TECHNICAL APPENDIX: SUMMARY OF EPE MANUALS ON THE MDI</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#central-concept">CENTRAL CONCEPT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#model-structure">MODEL STRUCTURE</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id34">Demand Representation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#system-components">System Components</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id35">Objective Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id45">DEMAND REPRESENTATION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#system-components">SYSTEM COMPONENTS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id46">OBJECTIVE FUNCTION</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#fundamental-constraints">FUNDAMENTAL CONSTRAINTS</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#energy-balance">Energy Balance</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#capacity-adequacy">Capacity Adequacy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#source-availability">Source Availability</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#system-representation">System Representation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#investment-restrictions">Investment Restrictions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#additional-policy-constraints">Additional Policy Constraints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#energy-balance">ENERGY BALANCE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#capacity-adequacy">CAPACITY ADEQUACY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#source-availability">SOURCE AVAILABILITY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#system-representation">SYSTEM REPRESENTATION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#investment-restrictions">INVESTMENT RESTRICTIONS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#additional-policy-constraints">ADDITIONAL POLICY CONSTRAINTS</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#generation-source-modeling">GENERATION SOURCE MODELING</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#hydroelectric-plants">Hydroelectric Plants</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#thermal-plants">Thermal Plants</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#renewable-sources">Renewable Sources</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#energy-storage-projects">Energy Storage Projects</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#hydroelectric-plants">HYDROELECTRIC PLANTS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#thermal-plants">THERMAL PLANTS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#renewable-sources">RENEWABLE SOURCES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#energy-storage-projects">ENERGY STORAGE PROJECTs</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#uncertainty-scenarios">UNCERTAINTY SCENARIOS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#marginal-expansion-cost-cme">MARGINAL EXPANSION COST (CME)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id36">Definition</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#calculation">Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id47">DEFINITION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#calculation">CALCULATION</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#key-concepts">KEY CONCEPTS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#mathematical-modeling-of-mdi">Mathematical Modeling of MDI</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#sets">Sets</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id37">Parameters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id38">Decision Variables</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id39">Constraints</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#demand-requirement">Demand Requirement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#mathematical-modeling-of-mdi">MATHEMATICAL MODELING OF MDI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#sets">SETS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id48">PARAMETERS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id49">DECISION VARIABLES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id50">CONSTRAINTS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#demand-requirement-per-bus">DEMAND REQUIREMENT PER BUS</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id40">Capacity Adequacy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#generation-limits">Generation Limits</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#storage-dynamics">Storage Dynamics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#state-of-charge-limits">State of Charge Limits</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#charge-discharge-power-limits">Charge/Discharge Power Limits</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#initial-state">Initial State</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#expansion-dynamics-existence-accumulation">Expansion Dynamics (Existence Accumulation)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#unique-construction">Unique Construction</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#monotonic-growth">Monotonic Growth</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id41">Objective Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#capacity-adequacy-per-bus">CAPACITY ADEQUACY PER BUS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#generation-limits">GENERATION LIMITS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#storage-dynamics">STORAGE DYNAMICS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#state-of-charge-limits">STATE OF CHARGE LIMITS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#charge-discharge-power-limits">CHARGE/DISCHARGE POWER LIMITS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#initial-state">INITIAL STATE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#expansion-dynamics-existence-accumulation">EXPANSION DYNAMICS (EXISTENCE ACCUMULATION)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id51">DC FLOW APPROXIMATION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id52">TRANSMISSION CAPACITY LIMITS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id53">NETWORK REFERENCE (SLACK BUS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#unique-construction">UNIQUE CONSTRUCTION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#monotonic-growth">MONOTONIC GROWTH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#id54">OBJECTIVE FUNCTION</a></li>
 </ul>
 </li>
 </ul>
@@ -1879,215 +2269,240 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#miqp-mixed-integer-quadratic-programming-convex-formulation">MIQP (MIXED-INTEGER QUADRATIC PROGRAMMING – CONVEX FORMULATION)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#nlp-nonlinear-programming-continuous-nonlinear-programming">NLP (NONLINEAR PROGRAMMING – CONTINUOUS NONLINEAR PROGRAMMING)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#minlp-mixed-integer-nonlinear-programming">MINLP (MIXED-INTEGER NONLINEAR PROGRAMMING)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#summary-table">Summary Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#summary-table">SUMMARY TABLE</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#supplementary-appendix-uncertainties-and-d-opf">SUPPLEMENTARY APPENDIX: UNCERTAINTIES AND D-OPF</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#optimization-under-uncertainty">OPTIMIZATION UNDER UNCERTAINTY</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#stochastic-programming-sp">Stochastic Programming (SP)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#robust-optimization-ro">Robust Optimization (RO)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#data-driven-distributionally-robust-optimization-dddro">Data-Driven Distributionally Robust Optimization (DDDRO)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#stochastic-programming-sp">STOCHASTIC PROGRAMMING (SP)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#robust-optimization-ro">ROBUST OPTIMIZATION (RO)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#data-driven-distributionally-robust-optimization-dddro">DATA-DRIVEN DISTRIBUTIONALLY ROBUST OPTIMIZATION (DDDRO)</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#d-opf-formulations-optimal-power-flow-in-distribution-networks">D-OPF FORMULATIONS (OPTIMAL POWER FLOW IN DISTRIBUTION NETWORKS)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#exact-ac-formulation">Exact AC Formulation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#convex-relaxations">Convex Relaxations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#mixed-integer-extensions">Mixed-Integer Extensions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#exact-ac-formulation">EXACT AC FORMULATION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#convex-relaxations">CONVEX RELAXATIONS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#mixed-integer-extensions">MIXED-INTEGER EXTENSIONS</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#summary-of-d-opf-formulations">Summary of D-OPF Formulations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html#summary-of-d-opf-formulations">SUMMARY OF D-OPF FORMULATIONS</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="userguide.html">NaivePyDESSEM User Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="userguide.html#introduction">1. Introduction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#purpose-and-scope">Purpose and Scope</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#conceptual-foundations">Conceptual Foundations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#target-audience">Target Audience</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#system-requirements">System Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">USER GUIDE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#introduction">1. INTRODUCTION</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#purpose-and-scope">PURPOSE AND SCOPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#conceptual-foundations">CONCEPTUAL FOUNDATIONS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#target-audience">TARGET AUDIENCE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#system-requirements">SYSTEM REQUIREMENTS</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="userguide.html#installation-guide">2. Installation Guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#create-and-activate-a-virtual-environment">1. Create and Activate a Virtual Environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#install-naivepydessem">2. Install NaivePyDESSEM</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#option-a-from-pypi-recommended-for-most-users">Option A – From PyPI (recommended for most users)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#option-b-from-source-https">Option B – From Source (HTTPS)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#option-c-from-source-ssh">Option C – From Source (SSH)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#installation-guide">2. INSTALLATION GUIDE</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#create-and-activate-a-virtual-environment">1. CREATE AND ACTIVATE A VIRTUAL ENVIRONMENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#install-naivepydessem">2. INSTALL NaivePyDESSEM</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#option-a-from-pypi-recommended-for-most-users">OPTION A – FROM PyPI (RECOMMENDED FOR MOST USERS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#option-b-from-source-https">OPTION B – FROM SOURCE (HTTPS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#option-c-from-source-ssh">OPTION C – FROM SOURCE (SSH)</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#build-pyomo-extensions">3. Build Pyomo Extensions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#install-and-configure-optimization-solvers">4. Install and Configure Optimization Solvers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#build-pyomo-extensions">3. BUILD PYOMO EXTENSIONS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#install-and-configure-optimization-solvers">4. INSTALL AND CONFIGURE OPTIMIZATION SOLVERS</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="userguide.html#ibm-cplex"><strong>IBM CPLEX</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#gurobi"><strong>Gurobi</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#gurobi"><strong>GUROBI</strong></a></li>
 <li class="toctree-l4"><a class="reference internal" href="userguide.html#scip"><strong>SCIP</strong></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#validate-the-environment">5. Validate the Environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#optional-upgrade-or-uninstall">6. (Optional) Upgrade or Uninstall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#validate-the-environment">5. VALIDATE THE ENVIRONMENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#optional-upgrade-or-uninstall">6. (OPTIONAL) UPGRADE OR UNINSTALL</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="userguide.html#problem-formulation-and-mathematical-modeling">3. Problem Formulation and Mathematical Modeling</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#mathematical-modeling-of-dessem">Mathematical Modeling of DESSEM</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#hydropower-plants">Hydropower Plants</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#sets-and-indices">Sets and Indices</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#parameters-data">Parameters (Data)</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#decision-variables">Decision Variables</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#hydraulic-polynomial-functions-for-plant-h">Hydraulic Polynomial Functions for Plant <span class="math">\(h\)</span></a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#hydropower-production-function-hpf">Hydropower Production Function (HPF)</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#total-instantaneous-inflow-cascade-without-delay">Total Instantaneous Inflow (Cascade without Delay)</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#constraints">Constraints</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#generation">Generation</a></li>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#reservoir-mass-balance">Reservoir Mass Balance</a></li>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#targets-and-operational-limits">Targets and Operational Limits</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#thermal-power-plants">Thermal Power Plants</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id1">Sets and Indices</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#parameters">Parameters</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id2">Decision Variables</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id3">Constraints</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#power-balance">Power Balance</a></li>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#conditional-capacity">Conditional Capacity</a></li>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#startup-shutdown-logic">Startup/Shutdown Logic</a></li>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#ramping-limits">Ramping Limits</a></li>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#minimum-up-down-time">Minimum Up/Down Time</a></li>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#consistent-initial-conditions">Consistent Initial Conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#problem-formulation-and-mathematical-modeling">3. PROBLEM FORMULATION AND MATHEMATICAL MODELING</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#mathematical-modeling-of-dessem">MATHEMATICAL MODELING OF DESSEM</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#hydropower-plants">HYDROPOWER PLANTS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#sets-and-indices">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#parameters-data">PARAMETERS (DATA)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#decision-variables">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#hydraulic-polynomial-functions-for-plant-h">HYDRAULIC POLYNOMIAL FUNCTIONS FOR PLANT <span class="math">\(h\)</span></a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#hydropower-production-function-hpf">HYDROPOWER PRODUCTION FUNCTION (HPF)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#total-instantaneous-inflow-cascade-without-delay">TOTAL INSTANTANEOUS INFLOW (CASCADE WITHOUT DELAY)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#constraints">CONSTRAINTS</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#generation">GENERATION</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#reservoir-mass-balance">RESERVOIR MASS BALANCE</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#targets-and-operational-limits">TARGETS AND OPERATIONAL LIMITS</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#renewable-energies-and-storage">Renewable Energies and Storage</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id4">Sets and Indices</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id5">Parameters</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id6">Decision Variables</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id7">Constraints</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#renewable-generation-availability-limit">Renewable Generation — Availability Limit</a></li>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#storage-energy-balance-soc">Storage — Energy Balance (SoC)</a></li>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#storage-state-of-charge-soc-limits">Storage — State of Charge (SoC) Limits</a></li>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#storage-power-limits">Storage — Power Limits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#thermal-power-plants">THERMAL POWER PLANTS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id1">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#parameters">PARAMETERS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id2">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id3">CONSTRAINTS</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#power-balance">POWER BALANCE</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#conditional-capacity">CONDITIONAL CAPACITY</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#startup-shutdown-logic">STARTUP/SHUTDOWN LOGIC</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#ramping-limits">RAMPING LIMITS</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#minimum-up-down-time">MINIMUM UP/DOWN TIME</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#consistent-initial-conditions">CONSISTENT INITIAL CONDITIONS</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#objective-function">Objective Function</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#power-balance-load-supply">Power Balance (Load Supply)</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#mathematical-modeling-of-decomp">Mathematical Modeling of DECOMP</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id8">Hydropower Plants</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id9">Sets and Indices</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id10">Parameters (Data)</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id11">Decision Variables</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id12">Hydropower Production Function (HPF)</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id13">Constraints</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#id14">Total Instantaneous Inflow (Cascade without Delay)</a></li>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#id15">Reservoir Mass Balance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#renewable-energies-and-storage">RENEWABLE ENERGIES AND STORAGE</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id4">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id5">PARAMETERS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id6">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id7">CONSTRAINTS</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#renewable-generation-availability-limit">RENEWABLE GENERATION — AVAILABILITY LIMIT</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#storage-energy-balance-soc">STORAGE — ENERGY BALANCE (SoC)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#storage-state-of-charge-soc-limits">STORAGE — STATE OF CHARGE (SoC) LIMITS</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#storage-power-limits">STORAGE — POWER LIMITS</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#thermal-units">Thermal Units</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id16">Sets and Indices</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id17">Parameters</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id18">Decision Variables</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id19">Constraints</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#capacity">Capacity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#transmission-lines-and-connection-bars">TRANSMISSION LINES AND CONNECTION BARS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id8">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id9">PARAMETERS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id10">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#dc-flow-approximation">DC FLOW APPROXIMATION</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#transmission-capacity-limits">TRANSMISSION CAPACITY LIMITS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#power-balance-at-each-bus">POWER BALANCE AT EACH BUS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#network-reference-slack-bus">NETWORK REFERENCE (SLACK BUS)</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#objective-function">OBJECTIVE FUNCTION</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#mathematical-modeling-of-decomp">MATHEMATICAL MODELING OF DECOMP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id11">HYDROPOWER PLANTS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id12">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id13">PARAMETERS (DATA)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id14">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id15">HYDROPOWER PRODUCTION FUNCTION (HPF)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id16">CONSTRAINTS</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#id17">TOTAL INSTANTANEOUS INFLOW (CASCADE WITHOUT DELAY)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#id18">RESERVOIR MASS BALANCE</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id20">Renewable Energies and Storage</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id21">Sets and Indices</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id22">Parameters</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id23">Decision Variables</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#id24">Constraints</a><ul>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#renewable-sources-availability-limit">Renewable Sources — Availability Limit</a></li>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#id25">Storage — Energy Balance (SoC)</a></li>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#id26">Storage — State of Charge (SoC) Limits</a></li>
-<li class="toctree-l6"><a class="reference internal" href="userguide.html#id27">Storage — Power Limits</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#thermal-units">THERMAL UNITS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id19">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id20">PARAMETERS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id21">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id22">CONSTRAINTS</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#capacity">CAPACITY</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id28">Objective Function</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#single-lp-objective-function">Single LP Objective Function</a></li>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#objective-function-for-pddd">Objective Function for PDDD</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#power-balance-load-requirement">Power Balance (Load Requirement)</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#mathematical-modeling-of-mdi">Mathematical Modeling of MDI</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#sets">Sets</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id29">Parameters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id30">Decision Variables</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id31">Constraints</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="userguide.html#demand-requirement">Demand Requirement</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#capacity-adequacy">Capacity Adequacy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#generation-limits">Generation Limits</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#storage-dynamics">Storage Dynamics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#state-of-charge-limits">State of Charge Limits</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#charge-discharge-power-limits">Charge/Discharge Power Limits</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#initial-state">Initial State</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#expansion-dynamics-existence-accumulation">Expansion Dynamics (Existence Accumulation)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#unique-construction">Unique Construction</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#monotonic-growth">Monotonic Growth</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id32">Objective Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id23">RENEWABLE ENERGIES AND STORAGE</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id24">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id25">PARAMETERS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id26">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id27">CONSTRAINTS</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#renewable-sources-availability-limit">RENEWABLE SOURCES — AVAILABILITY LIMIT</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#id28">STORAGE — ENERGY BALANCE (SoC)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#id29">STORAGE - STATE OF CHARGE (SoC) LIMITS</a></li>
+<li class="toctree-l6"><a class="reference internal" href="userguide.html#id30">STORAGE — POWER LIMITS</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="userguide.html#model-architecture">4. Model Architecture</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#overview"><strong>Overview</strong></a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#package-hierarchy"><strong>Package Hierarchy</strong></a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#design-overview">Design Overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#command-line-interface-cli">🧭 Command-Line Interface (CLI)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#solving-a-model"><strong>1. Solving a Model</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#plotting-results">2. Plotting Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id31">TRANSMISSION LINES AND CONNECTION BARS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id32">SETS AND INDICES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id33">PARAMETERS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id34">DECISION VARIABLES</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id35">DC FLOW APPROXIMATION</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id36">TRANSMISSION CAPACITY LIMITS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id37">POWER BALANCE AT EACH BUS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#id38">NETWORK REFERENCE (SLACK BUS)</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id39">OBJECTIVE FUNCTION</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#single-lp-objective-function">SINGLE LP OBJECTIVE FUNCTION</a></li>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#objective-function-for-pddd">OBJECTIVE FUNCTION FOR PDDD</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="userguide.html#cli-arguments">5. CLI Arguments</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#solver-cli">1. Solver CLI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#plot-cli">2. Plot CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#mathematical-modeling-of-mdi">MATHEMATICAL MODELING OF MDI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#sets">SETS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id40">PARAMETERS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id41">DECISION VARIABLES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id42">CONSTRAINTS</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="userguide.html#demand-requirement-per-bus">DEMAND REQUIREMENT PER BUS</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="userguide.html#yaml-configuration">6. YAML Configuration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#step-by-step-building-a-dessem-configuration-file">🧩 Step-by-Step: Building a DESSEM Configuration File</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#header-and-metadata-meta">🪶 1. Header and Metadata (<code class="docutils literal notranslate"><span class="pre">meta</span></code>)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#hydropower-data-hydro">🌊 2. Hydropower Data (<code class="docutils literal notranslate"><span class="pre">hydro</span></code>)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#thermal-data-thermal">🔥 3. Thermal Data (<code class="docutils literal notranslate"><span class="pre">thermal</span></code>)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#renewable-data-renewable">🌬️ 4. Renewable Data (<code class="docutils literal notranslate"><span class="pre">renewable</span></code>)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#storage-data-storage">⚡ 5. Storage Data (<code class="docutils literal notranslate"><span class="pre">storage</span></code>)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#final-checks">✅ 6. Final Checks</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#step-by-step-building-a-decomp-configuration-file">🧩 Step-by-Step: Building a DECOMP Configuration File</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id33">🪶 1. Header and Metadata (<code class="docutils literal notranslate"><span class="pre">meta</span></code>)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id34">🌊 2. Hydropower Data (<code class="docutils literal notranslate"><span class="pre">hydro</span></code>)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id35">🔥 3. Thermal Data (<code class="docutils literal notranslate"><span class="pre">thermal</span></code>)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id36">🌬️ 4. Renewable Data (<code class="docutils literal notranslate"><span class="pre">renewable</span></code>)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id37">⚡ 5. Storage Data (<code class="docutils literal notranslate"><span class="pre">storage</span></code>)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id38">✅ 6. Final Checks</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="userguide.html#step-by-step-building-an-mdi-configuration-file">🧩 Step-by-Step: Building an MDI Configuration File</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id39">🪶 1. Header and Metadata (<code class="docutils literal notranslate"><span class="pre">meta</span></code>)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#generator-data-generator">⚙️ 2. Generator Data (<code class="docutils literal notranslate"><span class="pre">generator</span></code>)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id40">⚡ 3. Storage Data (<code class="docutils literal notranslate"><span class="pre">storage</span></code>)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="userguide.html#id41">✅ 4. Final Checks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#capacity-adequacy-per-bus">CAPACITY ADEQUACY PER BUS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#generation-limits">GENERATION LIMITS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#storage-dynamics">STORAGE DYNAMICS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#state-of-charge-limits">STATE OF CHARGE LIMITS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#charge-discharge-power-limits">CHARGE/DISCHARGE POWER LIMITS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#initial-state">INITIAL STATE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#expansion-dynamics-existence-accumulation">EXPANSION DYNAMICS (EXISTENCE ACCUMULATION)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id43">DC FLOW APPROXIMATION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id44">TRANSMISSION CAPACITY LIMITS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id45">NETWORK REFERENCE (SLACK BUS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#unique-construction">UNIQUE CONSTRUCTION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#monotonic-growth">MONOTONIC GROWTH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id46">OBJECTIVE FUNCTION</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#model-architecture">4. MODEL ARCHITECTURE</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#overview"><strong>OVERVIEW</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#package-hierarchy"><strong>PACKAGE HIERARCHY</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#design-overview">DESIGN OVERVIEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#command-line-interface-cli">🧭 COMMAND-LINE INTERFACE (CLI)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#solving-a-model"><strong>1. SOLVING A MODEL</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#plotting-results">2. PLOTTING RESULTS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#cli-arguments">5. CLI ARGUMENTS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#solver-cli">1. SOLVER CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#plot-cli">2. PLOT CLI</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#yaml-configuration">6. YAML CONFIGURATION</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#step-by-step-building-a-dessem-configuration-file">🧩 STEP-BY-STEP: BUILDING A DESSEM CONFIGURATION FILE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#header-and-metadata-meta">🪶 1. HEADER AND METADATA (<code class="docutils literal notranslate"><span class="pre">meta</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#hydropower-data-hydro">🌊 2. HYDROPOWER DATA (<code class="docutils literal notranslate"><span class="pre">hydro</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#thermal-data-thermal">🔥 3. THERMAL DATA (<code class="docutils literal notranslate"><span class="pre">thermal</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#renewable-data-renewable">🌬️ 4. RENEWABLE DATA (<code class="docutils literal notranslate"><span class="pre">renewable</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#storage-data-storage">⚡ 5. STORAGE DATA (<code class="docutils literal notranslate"><span class="pre">storage</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id47">🔌🔲 6. TRANSMISSION LINES AND CONNECTION BARS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#final-checks">✅ 7. FINAL CHECKS</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#step-by-step-building-a-decomp-configuration-file">🧩 STEP-BY-STEP: BUILDING A DECOMP CONFIGURATION FILE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id48">🪶 1. HEADER AND METADATA (<code class="docutils literal notranslate"><span class="pre">meta</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id49">🌊 2. HYDROPOWER DATA (<code class="docutils literal notranslate"><span class="pre">hydro</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id50">🔥 3. THERMAL DATA (<code class="docutils literal notranslate"><span class="pre">thermal</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id51">🌬️ 4. RENEWABLE DATA (<code class="docutils literal notranslate"><span class="pre">renewable</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id52">⚡ 5. STORAGE DATA (<code class="docutils literal notranslate"><span class="pre">storage</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id53">🔌🔲 6. TRANSMISSION LINES AND CONNECTION BARS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id54">✅ 7. FINAL CHECKS</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#step-by-step-building-an-mdi-configuration-file">🧩 STEP-BY-STEP: BUILDING AN MDI CONFIGURATION FILE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id55">🪶 1. HEADER AND METADATA (<code class="docutils literal notranslate"><span class="pre">meta</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#generator-data-generator">⚙️ 2. GENERATOR DATA (<code class="docutils literal notranslate"><span class="pre">generator</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id56">⚡ 3. STORAGE DATA (<code class="docutils literal notranslate"><span class="pre">storage</span></code>)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id57">🔌🔲 4. TRANSMISSION LINES AND CONNECTION BARS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#id58">✅ 5. FINAL CHECKS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#more-examples">7. MORE EXAMPLES</a></li>
 </ul>
 </li>
 </ul>
@@ -2105,7 +2520,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="modules.html" class="btn btn-neutral float-right" title="DESSEM/DECOMP/MDI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="modules.html" class="btn btn-neutral float-right" title="NAIVE MODULES" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

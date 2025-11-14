@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -178,6 +178,8 @@
         
     <span class="n">m</span><span class="o">.</span><span class="n">RU</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">R</span><span class="p">)</span>
 
+    <span class="n">m</span><span class="o">.</span><span class="n">renewable_bars</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">R</span><span class="p">}</span>
+
     <span class="n">m</span><span class="o">.</span><span class="n">renewable_gbar</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">RU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="n">_gbar_init</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">m</span></div>
@@ -214,8 +216,6 @@
 <span class="sd">      other subsystems (thermal, hydro, batteries).</span>
 <span class="sd">    - Both variables are continuous and non-negative.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">):</span>
-        <span class="n">m</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>          <span class="c1"># déficit</span>
     
     <span class="n">m</span><span class="o">.</span><span class="n">renewable_gen</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">RU</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">m</span></div>

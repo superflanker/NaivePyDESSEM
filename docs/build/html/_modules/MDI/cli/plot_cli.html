@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -108,6 +108,8 @@
 <span class="sd">----------</span>
 <span class="sd">- &#39;G&#39;     : Generation (thermal, renewable, battery)</span>
 <span class="sd">- &#39;BAT&#39;   : Battery-specific (charge/discharge/SoC)</span>
+<span class="sd">- &#39;CB&#39;    : Connection Bar Variables</span>
+<span class="sd">- &#39;LT&#39;    : Transmission Lines Variables</span>
 <span class="sd">- &#39;cost&#39;  : Cost components per stage</span>
 <span class="sd">- &#39;CTRL&#39;  : Control variables (Y, X)</span>
 
@@ -259,7 +261,7 @@
 <span class="sd">    df : pd.DataFrame</span>
 <span class="sd">        The input DataFrame containing simulation results.</span>
 <span class="sd">    category : str</span>
-<span class="sd">        One of: {&quot;G&quot;, &quot;Q&quot;, &quot;S&quot;, &quot;V&quot;, &quot;BAT&quot;, &quot;cost&quot;, &quot;CTRL&quot;}.</span>
+<span class="sd">        One of: {&quot;G&quot;, &quot;BAT&quot;, &quot;cost&quot;, &quot;CTRL&quot;}.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -272,31 +274,31 @@
 <span class="sd">        If the category is unrecognized.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;GT&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(G_|Ge_|Deficit|Demand).*&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;G&quot;</span><span class="p">:</span>
-        <span class="c1"># Se um level (patamar) for fornecido, a regex filtra por ele.</span>
-        <span class="c1"># Ex: Se level=&quot;Ponta&quot;, a regex se torna r&quot;^(G_.*Ponta).*$&quot;</span>
-        <span class="c1"># Caso contrário, mantém a regex original r&quot;^(G_).*$&quot;</span>
-        <span class="k">if</span> <span class="n">level</span><span class="p">:</span>
-            <span class="c1"># Garante que o level termine a string da variável ou seja seguido por &#39;_&#39;</span>
-            <span class="c1"># para evitar correspondências parciais indesejadas</span>
-            <span class="c1"># Ex: r&quot;^(G_.*Ponta).*$&quot;</span>
-            <span class="n">regex_str</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;^(G_.*&quot;</span> <span class="o">+</span> <span class="n">level</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;*).*$&quot;</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">Filtering G with level regex: </span><span class="si">{</span><span class="n">regex_str</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="n">regex_str</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(G_).*&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;BAT&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(D_|C_|E_).*&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">category</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;cost&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(Cost_|CMO|CME).*&quot;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">category</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;CTRL&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^(X_|Y_).*&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="si">}</span><span class="s2">Unrecognized category: </span><span class="si">{</span><span class="n">category</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+    <span class="n">category</span> <span class="o">=</span> <span class="n">category</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 
+    <span class="k">if</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;GT&quot;</span><span class="p">:</span>
+        <span class="n">regex_str</span> <span class="o">=</span> <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^(G_|Ge_|Deficit_|Demand_).*&quot;</span> <span class="o">+</span> <span class="n">level</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;.*$&quot;</span> <span class="k">if</span> <span class="n">level</span>
+                     <span class="k">else</span> <span class="sa">r</span><span class="s2">&quot;^(G_|Ge_|Deficit_|Demand_).*&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;G&quot;</span><span class="p">:</span>
+        <span class="n">regex_str</span> <span class="o">=</span> <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^(G_).*&quot;</span> <span class="o">+</span> <span class="n">level</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;.*$&quot;</span> <span class="k">if</span> <span class="n">level</span>
+                     <span class="k">else</span> <span class="sa">r</span><span class="s2">&quot;^(G_).*&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;CB&quot;</span><span class="p">:</span>
+        <span class="n">regex_str</span> <span class="o">=</span> <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^(</span><span class="se">\\</span><span class="s2">Theta_|DemandBar_|DeficitBar_|CMOBar_|CMEBar_).*&quot;</span> <span class="o">+</span> <span class="n">level</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;.*$&quot;</span> <span class="k">if</span> <span class="n">level</span>
+                     <span class="k">else</span> <span class="sa">r</span><span class="s2">&quot;^(</span><span class="se">\\</span><span class="s2">Theta_|DemandBar_|DeficitBar_|CMOBar_|CMEBar_).*&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;LT&quot;</span><span class="p">:</span>
+        <span class="n">regex_str</span> <span class="o">=</span> <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^(</span><span class="se">\\</span><span class="s2">Delta_|F_|CMOT_|CMET_|CRT_|UR_).*&quot;</span> <span class="o">+</span> <span class="n">level</span> <span class="o">+</span> <span class="sa">r</span><span class="s2">&quot;.*$&quot;</span> <span class="k">if</span> <span class="n">level</span>
+                     <span class="k">else</span> <span class="sa">r</span><span class="s2">&quot;^(</span><span class="se">\\</span><span class="s2">Delta_|F_|CMOT_|CMET_|CRT_|UR_).*&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;BAT&quot;</span><span class="p">:</span>
+        <span class="n">regex_str</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;^(D_|C_|E_).*&quot;</span>
+    <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;COST&quot;</span><span class="p">:</span>
+        <span class="n">regex_str</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;^(Cost_|CMO_|CME_).*&quot;</span>
+    <span class="k">elif</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;CTRL&quot;</span><span class="p">:</span>
+        <span class="n">regex_str</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;^(X_|Y_).*&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="si">}</span><span class="s2">Unrecognized category: </span><span class="si">{</span><span class="n">category</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="si">}</span><span class="s2">Filtering columns with regex: </span><span class="si">{</span><span class="n">regex_str</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="n">regex_str</span><span class="p">)</span></div>
 
 
 
@@ -471,6 +473,7 @@
                 <span class="n">stacked</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">ylabel</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">xlabel</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">out_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">out_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span> 
@@ -494,7 +497,9 @@
 <span class="sd">    title : str, optional</span>
 <span class="sd">        Title of the plot. Prompted if not provided.</span>
 <span class="sd">    ylabel : str, optional</span>
-<span class="sd">        Label for the Y-axis. Prompted if not provided.</span>
+<span class="sd">        Label for the Y-axis. Prompted if not provided.    </span>
+<span class="sd">    xlabel : str, optional</span>
+<span class="sd">        Label for the X-axis. Prompted if not provided.</span>
 <span class="sd">    out_dir : str, optional</span>
 <span class="sd">        Directory to save the plot. Prompted if not provided.</span>
 <span class="sd">    out_file : str, optional</span>
@@ -507,6 +512,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">title</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;Enter the title of the plot [optional]&quot;</span><span class="p">)</span>
     <span class="n">ylabel</span> <span class="o">=</span> <span class="n">ylabel</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;Enter the y-axis label [optional]&quot;</span><span class="p">)</span>
+    <span class="n">xlabel</span> <span class="o">=</span> <span class="n">xlabel</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;Enter the x-axis label [optional]&quot;</span><span class="p">)</span>
     <span class="n">out_dir</span> <span class="o">=</span> <span class="n">out_dir</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span><span class="s2">&quot;Enter the output directory for the figure&quot;</span><span class="p">)</span>
     <span class="n">out_file</span> <span class="o">=</span> <span class="n">out_file</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span>
         <span class="s2">&quot;Enter the output file name (e.g., plot.png)&quot;</span><span class="p">)</span>
@@ -519,6 +525,7 @@
     <span class="n">t</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;T&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">else</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
     <span class="n">title_use</span> <span class="o">=</span> <span class="n">title</span> <span class="k">if</span> <span class="n">title</span> <span class="k">else</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">categories</span><span class="p">)</span>
     <span class="n">ylabel_use</span> <span class="o">=</span> <span class="n">ylabel</span> <span class="k">if</span> <span class="n">ylabel</span> <span class="k">else</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">categories</span><span class="p">)</span>
+    <span class="n">xlabel_use</span> <span class="o">=</span> <span class="n">xlabel</span> <span class="k">if</span> <span class="n">xlabel</span> <span class="k">else</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">categories</span><span class="p">)</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">out_file</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">plot_style</span> <span class="o">==</span> <span class="s2">&quot;line&quot;</span><span class="p">:</span>
         <span class="n">plot_series</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">series</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;list&quot;</span><span class="p">),</span>
@@ -527,7 +534,7 @@
         <span class="n">stacked</span> <span class="o">=</span> <span class="p">(</span><span class="n">stacked</span> <span class="k">if</span> <span class="n">stacked</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">prompt</span><span class="p">(</span>
             <span class="s2">&quot;Stacked bars? (y/n)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">)</span>
         <span class="n">plot_series_bar</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">series</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;list&quot;</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="n">title_use</span><span class="p">,</span>
-                        <span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel_use</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="n">stacked</span><span class="p">)</span>
+                        <span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel_use</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="n">xlabel_use</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="n">stacked</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="si">}</span><span class="s2">Unrecognized plot style.</span><span class="si">{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="si">}</span><span class="s2">✔ Figure saved to:</span><span class="si">{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="si">}{</span><span class="n">path</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
@@ -594,13 +601,14 @@
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--level&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Generation level for G/GT categories (e.g., Ponta, Fora)&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--title&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Plot title or LaTeX caption&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--ylabel&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Y-axis label (plots)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--xlabel&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;X-axis label (plots)&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--out-dir&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output directory&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
         <span class="s2">&quot;--out-file&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output file name (plot image or .tex)&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--label&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;LaTeX label (tables)&quot;</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">load_dataframe</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">input_file</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available categories: G (Generation), cost, CTRL (Y/X), BAT&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available categories: G (Generation), CB (Connection Bars), </span><span class="se">\n</span><span class="s2"> LT (Transmission Lines), COST, CTRL (X/Y), BAT&quot;</span><span class="p">)</span>
     <span class="n">mode</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mode</span> <span class="ow">or</span> <span class="n">prompt</span><span class="p">(</span>
         <span class="s2">&quot;Generate table, plot, or CTRL matrix? (table/plot/ctrl)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;ctrl&quot;</span><span class="p">:</span>
@@ -614,7 +622,7 @@
                      <span class="n">out_file</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">out_file</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;plot&quot;</span><span class="p">:</span>
         <span class="n">handle_plot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">categories</span><span class="p">,</span> <span class="n">plot_style</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">plot_style</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">stacked</span><span class="p">,</span>
-                            <span class="n">title</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> 
+                            <span class="n">title</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">xlabel</span><span class="p">,</span><span class="n">out_dir</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">out_dir</span><span class="p">,</span> 
                             <span class="n">out_file</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">out_file</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">level</span><span class="p">)</span> <span class="c1"># Passar args.level</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unrecognized mode.&quot;</span><span class="p">)</span></div>

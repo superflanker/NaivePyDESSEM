@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MDI.ConnectionBar.ConnectionBarConstraints &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/katex-math.css?v=05624691" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/katex.min.js?v=5cc8ed51"></script>
+      <script src="../../../_static/auto-render.min.js?v=af98beb9"></script>
+      <script src="../../../_static/katex_autorenderer.js?v=bebc588a"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NAIVE MODULES</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">USER GUIDE</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">MDI.ConnectionBar.ConnectionBarConstraints</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for MDI.ConnectionBar.ConnectionBarConstraints</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">EELT7030 — Operation and Expansion Planning of Electric Power Systems</span>
+<span class="sd">Federal University of Paraná (UFPR)</span>
+
+<span class="sd">Module: Connection Bar — Balance Constraints</span>
+
+<span class="sd">Author</span>
+<span class="sd">------</span>
+<span class="sd">Augusto Mathias Adams &lt;augusto.adams@ufpr.br&gt;</span>
+
+<span class="sd">Description</span>
+<span class="sd">-----------</span>
+<span class="sd">This module defines the nodal (per-bar) power balance constraints for</span>
+<span class="sd">Pyomo-based operation and expansion models. It enforces Kirchhoff’s</span>
+<span class="sd">Current Law (1st Law) at each connection bar and time period, ensuring</span>
+<span class="sd">that total injections (generation, inflows) and withdrawals (demand,</span>
+<span class="sd">outflows, and storage) are balanced.</span>
+
+<span class="sd">Functions</span>
+<span class="sd">---------</span>
+<span class="sd">add_connection_bar_balance_constraint(m)</span>
+<span class="sd">    Assemble and add the nodal power balance constraints for all bars</span>
+<span class="sd">    and time periods using the component expressions provided by</span>
+<span class="sd">    :mod:`ConnectionBarEquations`.</span>
+
+<span class="sd">Notes</span>
+<span class="sd">-----</span>
+<span class="sd">- The routine calls modular expression builders such as</span>
+<span class="sd">  :func:`add_hydraulic_balance_expression`,</span>
+<span class="sd">  :func:`add_thermal_balance_expression`,</span>
+<span class="sd">  :func:`add_renewable_balance_expression`,</span>
+<span class="sd">  :func:`add_storage_balance_expression`, and</span>
+<span class="sd">  :func:`add_transmission_line_balance_expression`.</span>
+<span class="sd">- Each time period ``t`` generates a set of symbolic expressions by bar,</span>
+<span class="sd">  which are then converted into Pyomo constraints and appended to</span>
+<span class="sd">  ``m.Balance`` (a :class:`pyomo.core.base.constraint.ConstraintList`).</span>
+<span class="sd">- This formulation supports hybrid systems (hydro, thermal, renewable,</span>
+<span class="sd">  storage) with multiple connection bars.</span>
+<span class="sd">- The deficit variable ``m.D[bar,t]`` ensures model feasibility whenever</span>
+<span class="sd">  the available generation and imports cannot fully meet local demand.</span>
+<span class="sd">- For single-bus systems, the resulting formulation is equivalent to the</span>
+<span class="sd">  traditional system-wide balance equation.</span>
+
+<span class="sd">References</span>
+<span class="sd">----------</span>
+<span class="sd">[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.</span>
+<span class="sd">[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</span>
+<span class="sd">    Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConstraintList</span><span class="p">,</span> <span class="n">Constraint</span><span class="p">,</span> <span class="n">ConcreteModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ConnectionBarEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_connection_bar_balance_expression</span><span class="p">,</span> 
+    <span class="n">add_connection_bar_capacity_expression</span>
+<span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<div class="viewcode-block" id="add_connection_bar_capacity_constraints">
+<a class="viewcode-back" href="../../../MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_capacity_constraints">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_connection_bar_capacity_constraints</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add system adequacy (generation capacity) constraints to the model.</span>
+
+<span class="sd">    This function enforces that the total available generation and storage</span>
+<span class="sd">    capacity across all bars, time periods, and load levels must be at least</span>
+<span class="sd">    equal to the total system demand. It represents the *resource adequacy*</span>
+<span class="sd">    condition of the model and defines, in its dual form, the</span>
+<span class="sd">    **Custo Marginal de Expansão (CME)** or *Expansion Marginal Cost*.</span>
+
+<span class="sd">    Mathematically</span>
+<span class="sd">    ---------------</span>
+<span class="sd">    For each time period t and load level p:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \\sum_{g \\in G} P^{max}_g \\; x_{g,t}</span>
+<span class="sd">        \\; + \\;</span>
+<span class="sd">        \\sum_{s \\in S} \\frac{P^{max}_{dis,s,p}}{h_p} \\; x_{s,t}</span>
+<span class="sd">        \\; \\geq \\;</span>
+<span class="sd">        \\sum_{b \\in B} D_{b,t,p}</span>
+
+<span class="sd">    where:</span>
+<span class="sd">        - :math:`x_{g,t}` is the investment or operational existence variable for generator g,</span>
+<span class="sd">        - :math:`x_{s,t}` is the existence variable for storage unit s,</span>
+<span class="sd">        - :math:`P^{max}_g` is the maximum generation capacity of unit g (MW),</span>
+<span class="sd">        - :math:`P^{max}_{dis,s,p}` is the maximum discharge power of storage unit s (MWh/patamar),</span>
+<span class="sd">        - :math:`h_p` is the number of hours in load level p,</span>
+<span class="sd">        - :math:`D_{b,t,p}` is the demand at bus b, time t, and level p.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        The Pyomo model containing the sets, parameters, and variables for</span>
+<span class="sd">        generation, storage, and demand. It must include:</span>
+<span class="sd">        - ``GU`` : set of generators,</span>
+<span class="sd">        - ``SU`` : set of storage units,</span>
+<span class="sd">        - ``CB`` : set of connection bars,</span>
+<span class="sd">        - ``T``  : set of time periods,</span>
+<span class="sd">        - ``P``  : set of load levels.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model instance, augmented with the adequacy constraints.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_adequacy_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="n">balance_terms</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">add_connection_bar_capacity_expression</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">balance_terms</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">balance_terms</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">CB</span><span class="p">)</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">Adequacy</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_adequacy_rule</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+<div class="viewcode-block" id="add_connection_bar_balance_constraints">
+<a class="viewcode-back" href="../../../MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_balance_constraints">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_connection_bar_balance_constraints</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add nodal power balance constraints for all connection bars and time periods.</span>
+
+<span class="sd">    For each period ``t`` in the planning horizon, this function assembles</span>
+<span class="sd">    the power balance expressions by connection bar (node) using</span>
+<span class="sd">    :func:`add_connection_bar_balance_expression`, and converts them into</span>
+<span class="sd">    Pyomo constraints stored in ``m.Balance``.</span>
+
+<span class="sd">    Mathematically, for each bar ``b`` and period ``t``:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \\sum_{s \\in S_b} P^{\\text{gen}}_{s,t}</span>
+<span class="sd">        + \\sum_{i:(i,b)\\in\\mathcal{L}} F_{i b,t}</span>
+<span class="sd">        - \\sum_{j:(b,j)\\in\\mathcal{L}} F_{b j,t}</span>
+<span class="sd">        + D_{b,t} = d_{b,t}</span>
+
+<span class="sd">    where:</span>
+<span class="sd">        - ``P^{gen}`` represents generation injections (hydro, thermal, renewable, storage),</span>
+<span class="sd">        - ``F_{ij,t}`` are line flows between bars ``i`` and ``j``,</span>
+<span class="sd">        - ``D_{b,t}`` is the local deficit variable,</span>
+<span class="sd">        - ``d_{b,t}`` is the active demand at bar ``b``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model instance containing:</span>
+<span class="sd">        - Sets: ``m.BAR`` (connection bars), ``m.T`` (time periods)</span>
+<span class="sd">        - Variables: ``m.D[bar,t]`` (deficit), generation and flow variables</span>
+<span class="sd">        - Parameters: ``m.d[bar,t]`` (demand per bar and time)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model with all bar-level power balance constraints</span>
+<span class="sd">        added to ``m.Balance``.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_balance_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="n">balance_exprs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">add_connection_bar_balance_expression</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">balance_exprs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">balance_exprs</span><span class="p">)</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">D</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span>
+
+    <span class="n">m</span><span class="o">.</span><span class="n">Balance</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">CB</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_balance_rule</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+<div class="viewcode-block" id="add_connection_bar_angle_limits_constraints">
+<a class="viewcode-back" href="../../../MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_angle_limits_constraints">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_connection_bar_angle_limits_constraints</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add angular bounds for non-slack connection bars.</span>
+
+<span class="sd">    Enforces -π ≤ θ_b ≤ π for all bars that are not marked as slack.</span>
+<span class="sd">    This constraint bounds the nodal phase angles in DC power flow</span>
+<span class="sd">    formulations, preventing unrealistic or numerically unstable</span>
+<span class="sd">    solutions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model instance containing:</span>
+<span class="sd">        - ``m.BAR`` : set of all bars</span>
+<span class="sd">        - ``m.SB`` : set of slack bars</span>
+<span class="sd">        - ``m.theta[b]`` : voltage phase angle variable (radians)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model with constraint block ``m.AngleLimits``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The bounds are symbolic (±π radians) and apply only to non-slack bars.</span>
+<span class="sd">    - The restriction helps numerical stability when solving large MILP</span>
+<span class="sd">      or MINLP systems involving binary investment variables.</span>
+<span class="sd">    - This function complements :func:`add_connection_bar_slack_constraints`.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.</span>
+<span class="sd">    [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</span>
+<span class="sd">        Lecture Notes, EELT7030/UFPR, 2023.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_angle_sup_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_angle_inf_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+    
+    <span class="n">non_slack</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">CB</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;SB&quot;</span><span class="p">,</span> <span class="nb">set</span><span class="p">())</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="n">b</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">unique_bar</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">non_slack</span><span class="p">:</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">AngleLimitsSupConstraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">non_slack</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_angle_sup_rule</span><span class="p">)</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">AngleLimitsInfConstraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">non_slack</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_angle_inf_rule</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+<div class="viewcode-block" id="add_connection_bar_slack_constraints">
+<a class="viewcode-back" href="../../../MDI.ConnectionBar.html#MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_slack_constraints">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_connection_bar_slack_constraints</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add the slack-bar reference constraints to fix phase angles.</span>
+
+<span class="sd">    Enforces θ_b = 0 for all bars marked as slack in the system data,</span>
+<span class="sd">    establishing the angular reference for the DC power flow model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model instance containing:</span>
+<span class="sd">        - ``m.theta[b]`` : voltage phase angle variable (radians)</span>
+<span class="sd">        - ``m.SB`` : set of bars designated as reference</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pyomo.environ.ConcreteModel</span>
+<span class="sd">        The same model with constraint block ``m.SlackConstraint``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - The DC power flow equations determine only angle differences,</span>
+<span class="sd">      so a reference (slack) bar must be fixed to zero to avoid</span>
+<span class="sd">      singularity in the system Jacobian.</span>
+<span class="sd">    - In multi-slack configurations (rare but possible), all selected</span>
+<span class="sd">      bars are fixed to θ = 0.</span>
+<span class="sd">    - This constraint should be added **after** variable declaration</span>
+<span class="sd">      and set initialization (i.e., after :mod:`ConnectionBarVariables`).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_slack_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">theta</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.0</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">unique_bar</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;SB&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;theta&quot;</span><span class="p">):</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">SlackConstraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">SB</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">_slack_rule</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

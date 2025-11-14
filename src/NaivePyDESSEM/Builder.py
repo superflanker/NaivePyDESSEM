@@ -56,30 +56,28 @@ from pyomo.environ import ConcreteModel, Objective, Constraint, minimize
 
 from NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes import HydraulicData, HydraulicUnit
 from NaivePyDESSEM.HydraulicGenerator.HydraulicGeneratorBuilder import add_hydro_problem
-from NaivePyDESSEM.HydraulicGenerator.HydraulicEquations import (
-    add_hydraulic_cost_expression,
-    add_hydraulic_balance_expression)
+from NaivePyDESSEM.HydraulicGenerator.HydraulicEquations import add_hydraulic_cost_expression
 
 from NaivePyDESSEM.ThermalGenerator.ThermalDataTypes import ThermalData, ThermalUnit
 from NaivePyDESSEM.ThermalGenerator.ThermalGeneratorBuilder import add_thermal_problem
-from NaivePyDESSEM.ThermalGenerator.ThermalEquations import (
-    add_thermal_cost_expression,
-    add_thermal_balance_expression
-)
+from NaivePyDESSEM.ThermalGenerator.ThermalEquations import add_thermal_cost_expression
 
 from NaivePyDESSEM.RenewableGenerator.RenewableDataTypes import RenewableData, RenewableUnit
 from NaivePyDESSEM.RenewableGenerator.RenewableGeneratorBuilder import add_renewable_problem
-from NaivePyDESSEM.RenewableGenerator.RenewableEquations import (
-    add_renewable_cost_expression,
-    add_renewable_balance_expression
-)
+from NaivePyDESSEM.RenewableGenerator.RenewableEquations import add_renewable_cost_expression
 
 from NaivePyDESSEM.Storage.StorageDataTypes import StorageData, StorageUnit
 from NaivePyDESSEM.Storage.StorageBuilder import add_storage_problem
-from NaivePyDESSEM.Storage.StorageEquations import (
-    add_storage_cost_expression,
-    add_storage_balance_expression
-)
+from NaivePyDESSEM.Storage.StorageEquations import add_storage_cost_expression
+
+from NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes import ConnectionBarData, ConnectionBarUnit
+from NaivePyDESSEM.ConnectionBar.ConnectionBarBuilder import add_connection_bar_problem
+from NaivePyDESSEM.ConnectionBar.ConnectionBarEquations import add_connection_bar_cost_expression
+from NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints import add_connection_bar_balance_constraints
+
+from NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes import TransmissionLineData, TransmissionLineUnit
+from NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder import add_transmission_line_problem
+from NaivePyDESSEM.TransmissionLine.TransmissionLineEquations import add_transmission_line_cost_expression
 
 from .YAMLLoader import yaml_loader
 
@@ -257,9 +255,58 @@ def _validate_storage(storage: Dict[str, Any]) -> None:
                     f"storage.units[{name}].{k} must be in (0, 1].")
 
 
+def _validate_connection_bars(bars: Dict[str, Any], T: int) -> None:
+    """
+    Validate connection bars unit parameters.
+
+    Parameters
+    ----------
+    storage : dict
+        Dictionary containing connection bar unit configurations.
+
+    Raises
+    ------
+    ValueError
+        If connection bar unit is malformed
+    """
+    units = bars.get("units")
+    required = ['slack', 'Cdef']
+    for name, u in units.items():
+        if not all(attr in u for attr in required):
+            raise ValueError(
+                f"bars.units[{name}] is malformed.")
+        demand = u.get("demand", [])
+        if len(demand) != T:
+            raise ValueError(
+                f"bars.units[{name}].demand must have length {T}.")
+
+
+def _validate_transmission_lines(lines: Dict[str, Any]) -> None:
+    """
+    Validate transmission line unit parameters.
+
+    Parameters
+    ----------
+    storage : dict
+        Dictionary containing transmission lines unit configurations.
+
+    Raises
+    ------
+    ValueError
+        If transmission line unit is malformed
+    """
+    units = lines.get("units")
+    required = ['model', 'b', 'pmax', 'endpoints']
+
+    for name, u in units.items():
+        if not all(attr in u for attr in required):
+            raise ValueError(
+                f"lines.units[{name}] is malformed.")
+
 # ============================================================================
 # Dataclass factories
 # ============================================================================
+
 
 def _mk_hydraulic_data(root: Dict[str, Any]) -> HydraulicData:
     """
@@ -283,11 +330,11 @@ def _mk_hydraulic_data(root: Dict[str, Any]) -> HydraulicData:
     hydro = root["hydro"]
     # demanda “global” veio em root["demand"]
     H = meta["horizon"]
-    demand = {int(k+1): float(v) for k, v in enumerate(meta["demand"])}
     units = {}
     for name, u in hydro["units"].items():
         units[name] = HydraulicUnit(
             name=name,
+            bar=str(u.get("bar", r"{BAR_{1}}")),
             Qmin=float(u["Qmin"]),
             Qmax=float(u["Qmax"]),
             Vmin=float(u["Vmin"]),
@@ -307,11 +354,9 @@ def _mk_hydraulic_data(root: Dict[str, Any]) -> HydraulicData:
         )
     return HydraulicData(
         horizon=H,
-        demand=demand,
         units=units,
         zeta=float(hydro.get("zeta", 9.81/1000)),
         zeta_vol=float(hydro.get("zeta_vol", 3600/1e6)),
-        Cdef=float(meta.get("Cdef", 1000.0)),
     )
 
 
@@ -336,12 +381,12 @@ def _mk_thermal_data(root: Dict[str, Any]) -> ThermalData:
     meta = root["meta"]
     thermal = root["thermal"]
     H = meta["horizon"]
-    demand = {int(k+1): float(v) for k, v in enumerate(meta["demand"])}
 
     units = {}
     for name, u in thermal["units"].items():
         units[name] = ThermalUnit(
             name=name,
+            bar=str(u.get("bar", r"{BAR_{1}}")),
             Pmin=float(u["Pmin"]),
             Pmax=float(u["Pmax"]),
             RU=float(u["RU"]),
@@ -367,9 +412,7 @@ def _mk_thermal_data(root: Dict[str, Any]) -> ThermalData:
 
     return ThermalData(
         horizon=H,
-        demand=demand,
         units=units,
-        Cdef=float(meta.get("Cdef", 1000.0)),
         Rreq=Rreq,
         has_history=meta.get("has_history", False)
     )
@@ -396,20 +439,18 @@ def _mk_renewable_data(root: Dict[str, Any]) -> RenewableData:
     meta = root["meta"]
     ren = root["renewable"]
     H = meta["horizon"]
-    demand = {int(k+1): float(v) for k, v in enumerate(meta["demand"])}
 
     units = {}
     for name, u in ren["units"].items():
         units[name] = RenewableUnit(
             name=name,
+            bar=str(u.get("bar", r"{BAR_{1}}")),
             gbar=[float(x) for x in u["gbar"]],
         )
 
     return RenewableData(
         horizon=H,
-        demand=demand,
         units=units,
-        Cdef=float(meta.get("Cdef", 1000.0)),
     )
 
 
@@ -435,11 +476,11 @@ def _mk_storage_data(root: Dict[str, Any]) -> StorageData:
     meta = root["meta"]
     H = meta["horizon"]
     delta_t = float(storage.get("delta_t", meta.get("delta_t", 1.0)))
-    demand = {int(k+1): float(v) for k, v in enumerate(meta["demand"])}
     units = {}
     for name, u in storage["units"].items():
         units[name] = StorageUnit(
             name=name,
+            bar=str(u.get("bar", r"{BAR_{1}}")),
             Emin=float(u["Emin"]),
             Emax=float(u["Emax"]),
             Eini=float(u["Eini"]),
@@ -450,16 +491,79 @@ def _mk_storage_data(root: Dict[str, Any]) -> StorageData:
         )
     return StorageData(
         horizon=H,
-        demand=demand,
         units=units,
         delta_t=delta_t,
-        Cdef=float(meta.get("Cdef", 1000.0)),
     )
 
+
+def _mk_connection_bar_data(root: Dict[str, Any]) -> ConnectionBarData:
+    """
+    Construct a ConnectionBarData object from parsed YAML root.
+
+    Parameters
+    ----------
+    root : dict
+        YAML-parsed dictionary containing 'meta' and 'bars' sections.
+
+    Returns
+    -------
+    ConnectionBarData
+        Structured dataclass containing all parsed connection bar data.
+    """
+    connection_bars = root["bars"]
+    meta = root["meta"]
+    H = meta["horizon"]
+    units = {}
+    for name, u in connection_bars["units"].items():
+        units[name] = ConnectionBarUnit(
+            name=name,
+            slack=bool(u.get("slack", False)),
+            Cdef=float(u.get("Cdef", 1000.0)),
+            c_pmax=float(u.get("c_pmax", 10000.0)),
+            demand=[float(x) for x in u.get("demand", [])]
+        )
+    return ConnectionBarData(
+        horizon=H,
+        units=units
+    )
+
+
+def _mk_transmission_line_data(root: Dict[str, Any]) -> TransmissionLineData:
+    """
+    Construct a TransmissionLineData object from parsed YAML root.
+
+    Parameters
+    ----------
+    root : dict
+        YAML-parsed dictionary containing 'meta' and 'lines' sections.
+
+    Returns
+    -------
+    TransmissionLineData
+        Structured dataclass containing all parsed transmission lines data.
+    """
+    transmission_lines = root["lines"]
+    meta = root["meta"]
+    H = meta["horizon"]
+    units = {}
+    for name, u in transmission_lines["units"].items():
+        units[name] = TransmissionLineUnit(
+            name=name,
+            model=str(u.get("model", "dc")).lower(),
+            b=float(u.get("b", 0.01)),
+            pmax=float(u.get("pmax", 100.0)),
+            endpoints=[str(x) for x in u.get("endpoints", [])]
+        )
+    return TransmissionLineData(
+        horizon=H,
+        units=units
+    )
 
 # ============================================================================
 # Master entry point
 # ============================================================================
+
+
 def build_balance_and_objective_from_yaml(model: ConcreteModel, yaml_data: Dict[str, Any]) -> ConcreteModel:
     """
     Construct the system-wide power balance constraint and total cost objective.
@@ -485,24 +589,10 @@ def build_balance_and_objective_from_yaml(model: ConcreteModel, yaml_data: Dict[
     """
 
     # --------------------------
-    # BALANCE CONSTRAINT
+    #  BALANCE CONSTRAINT
     # --------------------------
-    def power_balance_rule(m, t):
-        balance_terms: List[Any] = []
-
-        if 'thermal' in yaml_data:
-            add_thermal_balance_expression(m, t, balance_terms)
-        if 'hydro' in yaml_data:
-            add_hydraulic_balance_expression(m, t, balance_terms)
-        if 'storage' in yaml_data:
-            add_storage_balance_expression(m, t, balance_terms)
-        if 'renewable' in yaml_data:
-            add_renewable_balance_expression(m, t, balance_terms)
-
-        # Final balance expression
-        return sum(balance_terms) + m.D[t] == m.d[t]
-
-    model.Balance = Constraint(model.T, rule=power_balance_rule)
+    
+    add_connection_bar_balance_constraints(model)
 
     # --------------------------
     # OBJECTIVE FUNCTION
@@ -517,10 +607,15 @@ def build_balance_and_objective_from_yaml(model: ConcreteModel, yaml_data: Dict[
         add_storage_cost_expression(model, cost_terms)
     if 'renewable' in yaml_data:
         add_renewable_cost_expression(model, cost_terms)
-    
+    if 'bars' in yaml_data:
+        add_connection_bar_cost_expression(model, cost_terms)
+    if 'lines' in yaml_data:
+        add_transmission_line_cost_expression(model, cost_terms)
+
     # a fonte déficit
 
-    cost_terms.append(sum(model.Cdef*model.D[t] for t in model.T))
+    cost_terms.append(sum(model.Cdef[b]*model.D[b, t]
+                      for b in model.CB for t in model.T))
 
     model.OBJ = Objective(expr=sum(cost_terms), sense=minimize)
 
@@ -535,7 +630,7 @@ def build_model_from_file(path: str) -> Tuple[ConcreteModel, Dict]:
     ----------
     path : str
         Path to a YAML file with sections: meta, demand, and one or
-        more of {hydro, thermal, renewable, storage}.
+        more of {hydro, thermal, renewable, storage, bars, lines}.
 
     Returns
     -------
@@ -549,18 +644,45 @@ def build_model_from_file(path: str) -> Tuple[ConcreteModel, Dict]:
     """
 
     root = yaml_loader(path)
+
     if "meta" not in root:
-        raise ValueError("File must contain 'meta' sections.")
+        raise ValueError("File must contain 'meta' section.")
 
     m = ConcreteModel()
+    m.p_base = float(root["meta"].get("p_base", 1.0))
 
     balance_expressions = []
 
     # Basic validations
     _validate_meta(root["meta"])
     T = int(root["meta"]["horizon"])
-    _validate_demand(root["meta"]["demand"], T)
     has_valid_units = False
+    
+    # first of all, the bars
+    if not "bars" in root:
+        # default bar - described in meta section
+        _validate_demand(root["meta"]["demand"], T)
+        slack = True
+        Cdef = float(root["meta"]["Cdef"])
+        demand = [float(x) for x in root["meta"]["demand"]]
+        root["bars"] = {"units": {"{BAR_{1}}":{"slack": slack,
+                                               "Cdef": Cdef,
+                                               "demand": demand}}}
+
+    if "bars" in root and root["bars"] is not None:
+        _validate_connection_bars(root["bars"], T)
+        bar_data = _mk_connection_bar_data(root)
+        m = add_connection_bar_problem(m=m,
+                                       data=bar_data,
+                                       include_objective=False)
+        
+    if "lines" in root and root["lines"] is not None:
+        _validate_transmission_lines(root["lines"])
+        bar_data = _mk_transmission_line_data(root)
+        m = add_transmission_line_problem(m=m,
+                                          data=bar_data,
+                                          include_objective=False)
+        
     if "hydro" in root and root["hydro"] is not None:
         _validate_hydro(root["hydro"], T)
         hydro_data = _mk_hydraulic_data(root)
@@ -597,7 +719,7 @@ def build_model_from_file(path: str) -> Tuple[ConcreteModel, Dict]:
 
     if not has_valid_units:
         raise ValueError("No buildable sections found. Provide at least one of "
-                         "{hydro, thermal, renewable, storage}.")
+                         "{hydro, thermal, renewable, storage, bars, lines}.")
     m = build_balance_and_objective_from_yaml(m, root)
 
     return m, root

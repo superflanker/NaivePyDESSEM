@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaivePyDECOMP.TransmissionLine package &mdash; NaivePyDESSEM 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/katex-math.css?v=05624691" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/katex.min.js?v=5cc8ed51"></script>
+      <script src="_static/auto-render.min.js?v=af98beb9"></script>
+      <script src="_static/katex_autorenderer.js?v=bebc588a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NaivePyDECOMP.cli package" href="NaivePyDECOMP.cli.html" />
+    <link rel="prev" title="NaivePyDECOMP.ConnectionBar package" href="NaivePyDECOMP.ConnectionBar.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            NaivePyDESSEM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NAIVE MODULES</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP">Module contents</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="NaivePyDECOMP.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.html">NaivePyDECOMP.HydraulicGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.RenewableGenerator.html">NaivePyDECOMP.RenewableGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.Storage.html">NaivePyDECOMP.Storage package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.html">NaivePyDECOMP.ThermalGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.html">NaivePyDECOMP.ConnectionBar package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">NaivePyDECOMP.TransmissionLine package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.cli.html">NaivePyDECOMP.cli package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#id1">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Builder">NaivePyDECOMP.Builder module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.BuilderPDDD">NaivePyDECOMP.BuilderPDDD module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.DataFrames">NaivePyDECOMP.DataFrames module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Formatters">NaivePyDECOMP.Formatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.ModelCheck">NaivePyDECOMP.ModelCheck module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.ModelFormatters">NaivePyDECOMP.ModelFormatters module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.PlotSeries">NaivePyDECOMP.PlotSeries module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.PDDDMergeModels">NaivePyDECOMP.PDDDMergeModels module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Reporting">NaivePyDECOMP.Reporting module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.SolverPDDD">NaivePyDECOMP.SolverPDDD module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Solver">NaivePyDECOMP.Solver module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.Utils">NaivePyDECOMP.Utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.html#module-NaivePyDECOMP.YAMLLoader">NaivePyDECOMP.YAMLLoader module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MDI.html">MDI package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">USER GUIDE</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NaivePyDESSEM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">NAIVE MODULES</a></li>
+          <li class="breadcrumb-item"><a href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
+      <li class="breadcrumb-item active">NaivePyDECOMP.TransmissionLine package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/NaivePyDECOMP.TransmissionLine.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="naivepydecomp-transmissionline-package">
+<h1>NaivePyDECOMP.TransmissionLine package<a class="headerlink" href="#naivepydecomp-transmissionline-package" title="Link to this heading"></a></h1>
+<section id="module-NaivePyDECOMP.TransmissionLine">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-NaivePyDECOMP.TransmissionLine" title="Link to this heading"></a></h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Package: TransmissionLine</p>
+<section id="author">
+<h3>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="description">
+<h3>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">TransmissionLine</span></code> package defines the modular representation of
+transmission circuits for DC power flow formulations within Pyomo-based
+optimization frameworks. It encapsulates the data structures, variables,
+symbolic equations, constraints, and builder routines that describe the
+physical and operational behavior of power transmission networks.</p>
+</section>
+<section id="modules">
+<h3>Modules<a class="headerlink" href="#modules" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>TransmissionLineDataTypes</dt><dd><p>Defines the data classes (<code class="xref py py-class docutils literal notranslate"><span class="pre">TransmissionLineUnit</span></code>,
+<code class="xref py py-class docutils literal notranslate"><span class="pre">TransmissionLineData</span></code>) describing the physical and
+economic characteristics of each circuit, including
+susceptance, power limits, and endpoints.</p>
+</dd>
+<dt>TransmissionLineVars</dt><dd><p>Declares decision variables associated with transmission lines,
+such as active power flow for each line and time period.</p>
+</dd>
+<dt>TransmissionLineEquations</dt><dd><p>Provides symbolic equations that express DC power flow relations
+and nodal contributions of line flows to system balance.</p>
+</dd>
+<dt>TransmissionLineConstraints</dt><dd><p>Implements physical constraints for transmission lines:
+- DC flow definition: <code class="docutils literal notranslate"><span class="pre">F_ij,t</span> <span class="pre">=</span> <span class="pre">b_ij</span> <span class="pre">(θ_i,t</span> <span class="pre">−</span> <span class="pre">θ_j,t)</span></code>
+- For transport model power flow is just as is
+- Symmetric flow limits: <code class="docutils literal notranslate"><span class="pre">−pmax_ij</span> <span class="pre">≤</span> <span class="pre">F_ij,t</span> <span class="pre">≤</span> <span class="pre">pmax_ij</span></code></p>
+</dd>
+<dt>TransmissionLineBuilder</dt><dd><p>High-level model constructor that integrates variables and
+constraints, assembling the complete transmission-line
+subsystem for DC power flow models.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The package is designed for hierarchical integration with
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">ConnectionBar</span></code> modules, forming the complete DC power
+flow network.</p></li>
+<li><p>The formulation supports both operational (fixed network)
+and expansion (candidate lines) applications, consistent
+with the methodologies of DECOMP, DESSEM, and MDI.</p></li>
+<li><p>Each module can be used independently or through the
+unified builder <code class="xref py py-func docutils literal notranslate"><span class="pre">build_transmission_lines()</span></code>.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-NaivePyDECOMP.TransmissionLine.TransmissionLineConstraints">
+<span id="naivepydecomp-transmissionline-transmissionlineconstraints-module"></span><h2>NaivePyDECOMP.TransmissionLine.TransmissionLineConstraints module<a class="headerlink" href="#module-NaivePyDECOMP.TransmissionLine.TransmissionLineConstraints" title="Link to this heading"></a></h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Transmission Line — Constraints</p>
+<section id="id1">
+<h3>Author<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id2">
+<h3>Description<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>Defines the physical and operational constraints for transmission
+lines in DC power flow formulations. These constraints link line
+flows to phase-angle differences through susceptance and limit
+the flow magnitude according to each line’s capacity.</p>
+</section>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>add_transmission_line_flow_constraints(m)</dt><dd><p>Enforce the DC flow definition:
+<code class="docutils literal notranslate"><span class="pre">F_ij,t</span> <span class="pre">=</span> <span class="pre">b_ij</span> <span class="pre">(θ_i,t</span> <span class="pre">−</span> <span class="pre">θ_j,t)</span></code> for all lines and time periods.</p>
+</dd>
+<dt>add_transmission_line_flow_limits_constraints(m)</dt><dd><p>Apply the flow capacity limits:
+<code class="docutils literal notranslate"><span class="pre">−pmax_ij</span> <span class="pre">≤</span> <span class="pre">F_ij,t</span> <span class="pre">≤</span> <span class="pre">pmax_ij</span></code> for all lines and time periods.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Each line is characterized by:
+- <code class="docutils literal notranslate"><span class="pre">b_ij</span></code> : susceptance (1/x_ij)
+- <code class="docutils literal notranslate"><span class="pre">pmax_ij</span></code> : maximum active power flow (MW)
+- <code class="docutils literal notranslate"><span class="pre">endpoints</span></code> : list of two bars [i, j]</p></li>
+<li><p>These constraints are suitable for both static (operational)
+and mixed-integer (expansion) formulations.</p></li>
+<li><p>Phase angles <code class="docutils literal notranslate"><span class="pre">θ_i,t</span></code> and <code class="docutils literal notranslate"><span class="pre">θ_j,t</span></code> must exist in the model
+before these constraints are declared.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="module-NaivePyDECOMP.TransmissionLine.TransmissionLineDataTypes">
+<span id="naivepydecomp-transmissionline-transmissionlinedatatypes-module"></span><h2>NaivePyDECOMP.TransmissionLine.TransmissionLineDataTypes module<a class="headerlink" href="#module-NaivePyDECOMP.TransmissionLine.TransmissionLineDataTypes" title="Link to this heading"></a></h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Transmission Line — Data Structures</p>
+<section id="id3">
+<h3>Author<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id4">
+<h3>Description<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>Defines lightweight data classes for representing transmission lines
+in DC power flow formulations. Each line connects two connection bars
+(endpoints), has a specified susceptance and maximum power limit.</p>
+<p>These structures serve as standardized inputs for Pyomo-based
+optimization models, supporting both operational (DCOPF) and
+expansion (MDI) formulations.</p>
+</section>
+<section id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>TransmissionLineUnit</dt><dd><p>Encapsulates the physical andproperties of a single
+transmission line or circuit, including endpoints and flow limits.</p>
+</dd>
+<dt>TransmissionLineData</dt><dd><p>Aggregates multiple line units along with global configuration
+parameters such as planning horizon and reference data.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The line susceptance <code class="docutils literal notranslate"><span class="pre">b</span></code> is defined as the inverse of the series
+reactance <code class="docutils literal notranslate"><span class="pre">x_ij</span></code> in per-unit.</p></li>
+<li><p>The endpoints are represented as a list <code class="docutils literal notranslate"><span class="pre">[bar_i,</span> <span class="pre">bar_j]</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">state</span></code> attribute allows distinguishing between existing (1)
+and candidate (0) lines for expansion studies.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="module-NaivePyDECOMP.TransmissionLine.TransmissionLineEquations">
+<span id="naivepydecomp-transmissionline-transmissionlineequations-module"></span><h2>NaivePyDECOMP.TransmissionLine.TransmissionLineEquations module<a class="headerlink" href="#module-NaivePyDECOMP.TransmissionLine.TransmissionLineEquations" title="Link to this heading"></a></h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Transmission Line — Symbolic Equations</p>
+<section id="id5">
+<h3>Author<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id6">
+<h3>Description<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p>Defines symbolic expressions for the active power flow on transmission
+lines under the DC power flow approximation. These expressions are
+used as intermediate components for nodal balance equations and other
+network-level constraints.</p>
+</section>
+<section id="id7">
+<h3>Functions<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>add_transmission_line_flow_expression(m, t, flow_dict)</dt><dd><p>Construct symbolic expressions for each line’s power flow at period <code class="docutils literal notranslate"><span class="pre">t</span></code>
+and append them to the supplied dictionary.</p>
+</dd>
+<dt>add_transmission_line_balance_expression(m, t, balance_dict)</dt><dd><p>Aggregate inflow and outflow terms for each bar at time <code class="docutils literal notranslate"><span class="pre">t</span></code> to be used
+in connection-bar power balance constraints.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>The DC power flow model assumes:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">F_ij,t</span> <span class="pre">=</span> <span class="pre">b_ij</span> <span class="pre">(θ_i,t</span> <span class="pre">−</span> <span class="pre">θ_j,t)</span></code></p>
+</dd>
+<dt>where:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">F_ij,t</span></code> : active power flow (MW)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b_ij</span></code> : susceptance (1/x_ij)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">θ_i,t</span></code> : voltage phase angle at bar i (radians)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Line flows are positive from the first to the second endpoint in the
+<code class="docutils literal notranslate"><span class="pre">endpoints</span></code> list, and negative in the opposite direction.</p></li>
+<li><p>This module produces expressions only; the corresponding constraints
+are enforced in <code class="xref py py-mod docutils literal notranslate"><span class="pre">TransmissionLineConstraints</span></code>.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="module-NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder">
+<span id="naivepydecomp-transmissionline-transmissionlinebuilder-module"></span><h2>NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder module<a class="headerlink" href="#module-NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder" title="Link to this heading"></a></h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Transmission Line — Builder</p>
+<section id="id8">
+<h3>Author<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id9">
+<h3>Description<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p>Provides the high-level construction routine for assembling the
+transmission line subsystem within DC power flow formulations.
+This module integrates sets, variables, and constraints that
+represent line flows, capacity limits, and their relationship
+with nodal phase angles.</p>
+</section>
+<section id="id10">
+<h3>Functions<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>build_transmission_lines(m)</dt><dd><p>Create and attach all components of the transmission line
+subsystem to the given Pyomo model, including variables
+and constraints.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This module orchestrates the routines from:</dt><dd><ul>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">TransmissionLineVars</span></code></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">TransmissionLineConstraints</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>The formulation is consistent with the DC power flow approximation:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">F_ij,t</span> <span class="pre">=</span> <span class="pre">b_ij</span> <span class="pre">(θ_i,t</span> <span class="pre">−</span> <span class="pre">θ_j,t)</span></code></p>
+</dd>
+</dl>
+</li>
+<li><p>The resulting subsystem is compatible with both fixed-network
+(operational) and mixed-integer (expansion) models.</p></li>
+<li><p>Phase angles <code class="docutils literal notranslate"><span class="pre">θ[b,t]</span></code> must be declared before calling this builder.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder.add_transmission_line_subproblem">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder.</span></span><span class="sig-name descname"><span class="pre">add_transmission_line_subproblem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData" title="NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData"><span class="pre">TransmissionLineData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span><a class="reference internal" href="_modules/NaivePyDECOMP/TransmissionLine/TransmissionLineBuilder.html#add_transmission_line_subproblem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder.add_transmission_line_subproblem" title="Link to this definition"></a></dt>
+<dd><p>Attach the transmission-line subsystem to an existing Pyomo model.</p>
+<p>This function populates a given <code class="xref py py-class docutils literal notranslate"><span class="pre">ConcreteModel</span></code>
+with all sets, parameters, variables, and constraints related to
+transmission lines under the DC power flow approximation. It forms
+the network component of the system model, complementing the
+connection-bar formulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – <p>Pyomo model to which the transmission-line subsystem will be added.
+The model must contain or be prepared to receive:</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">m.LT</span></code> : set of transmission lines</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m.T</span></code> : set of time periods</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m.lines_b[l]</span></code> : susceptance (1/x_ij)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m.lines_pmax[l]</span></code> : flow capacity limit (MW)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m.lines_endpoints[l]</span></code> : list of connected bars [i, j]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m.theta[b,t]</span></code> : phase angle variable (radians)</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="MDI.TransmissionLine.html#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData" title="MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData"><em>TransmissionLineData</em></a>) – Structured input containing the system horizon and the physical
+and operational parameters of each transmission line, including
+endpoints, susceptance, and capacity.</p></li>
+<li><p><strong>stage</strong> (<em>int</em>) – the stage subproblem, informed for data copying</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model, augmented with transmission-line sets, variables,
+and constraints.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Steps performed:</dt><dd><ol class="arabic simple">
+<li><p>Initialize sets and parameters from <code class="xref py py-class docutils literal notranslate"><span class="pre">TransmissionLineData</span></code>.</p></li>
+<li><p>Declare line flow decision variables (<code class="docutils literal notranslate"><span class="pre">lines_flow[l,t]</span></code>).</p></li>
+<li><p>Add DC flow definition constraints:
+<code class="docutils literal notranslate"><span class="pre">F_ij,t</span> <span class="pre">=</span> <span class="pre">b_ij</span> <span class="pre">(θ_i,t</span> <span class="pre">−</span> <span class="pre">θ_j,t)</span></code></p></li>
+<li><p>Add flow capacity limit constraints:
+<code class="docutils literal notranslate"><span class="pre">−pmax_ij</span> <span class="pre">≤</span> <span class="pre">F_ij,t</span> <span class="pre">≤</span> <span class="pre">pmax_ij</span></code>.</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p>The order of addition ensures that variables are defined before
+constraints that depend on them.</p></li>
+<li><p>The formulation is compatible with both pure DC models and
+hybrid DC/transport formulations (lines marked with
+<code class="docutils literal notranslate"><span class="pre">model:</span> <span class="pre">&quot;transport&quot;</span></code> are automatically excluded from the DC flow
+constraint).</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+<section id="module-NaivePyDECOMP.TransmissionLine.TransmissionLineVars">
+<span id="naivepydecomp-transmissionline-transmissionlinevars-module"></span><h2>NaivePyDECOMP.TransmissionLine.TransmissionLineVars module<a class="headerlink" href="#module-NaivePyDECOMP.TransmissionLine.TransmissionLineVars" title="Link to this heading"></a></h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Transmission Line — Sets, Parameters, and Variables</p>
+<section id="id11">
+<h3>Author<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id12">
+<h3>Description<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<p>This module defines initialization routines for transmission lines
+within DC power flow formulations in Pyomo. It provides the sets,
+parameters, and decision variables associated with transmission
+circuits, including susceptance, flow limits, and endpoint
+connectivity between connection bars.</p>
+</section>
+<section id="id13">
+<h3>Functions<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>transmission_line_add_sets_and_params(m, data)</dt><dd><p>Initialize sets and parameters for transmission lines, including
+susceptance, flow capacity, and bar-to-bar connectivity.</p>
+</dd>
+<dt>transmission_line_add_variables(m)</dt><dd><p>Declare line-level decision variables representing active power
+flows for each line and time period.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Designed for integration with connection-bar models and other
+subsystems (hydro, thermal, renewable, storage).</p></li>
+<li><p>The time set <code class="docutils literal notranslate"><span class="pre">m.T</span></code> is assumed global and will only be created if
+not already defined.</p></li>
+<li><p>Each line connects two bars defined by its <code class="docutils literal notranslate"><span class="pre">endpoints</span></code> attribute.</p></li>
+<li><p>The parameters <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">pmax</span></code> and <code class="docutils literal notranslate"><span class="pre">endpoints</span></code> are initialized
+directly from the data structure <code class="xref py py-class docutils literal notranslate"><span class="pre">TransmissionLineData</span></code>.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="NaivePyDECOMP.ConnectionBar.html" class="btn btn-neutral float-left" title="NaivePyDECOMP.ConnectionBar package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="NaivePyDECOMP.cli.html" class="btn btn-neutral float-right" title="NaivePyDECOMP.cli package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Augusto Mathias Adams.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

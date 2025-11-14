@@ -129,7 +129,7 @@ def main():
     colorama_init(autoreset=True)
 
     parser = argparse.ArgumentParser(
-        description=f"{Fore.GREEN}{Style.BRIGHT}NaivePyDECOMP CLI: {Style.NORMAL}Solver CLI based on {Fore.MAGENTA}PyOMO{Style.RESET_ALL}"
+        description=f"{Fore.GREEN}{Style.BRIGHT}NaivePyDECOMP-PDDD CLI: {Style.NORMAL}Solver CLI based on {Fore.MAGENTA}PyOMO{Style.RESET_ALL}"
     )
     print_welcome_banner()
     parser.add_argument("yaml", help="YAML input file")

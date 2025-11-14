@@ -47,9 +47,9 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NAIVE MODULES</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.html#module-NaivePyDESSEM">Module contents</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="NaivePyDESSEM.html#subpackages">Subpackages</a><ul class="current">
@@ -57,6 +57,8 @@
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.html">NaivePyDESSEM.RenewableGenerator package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">NaivePyDESSEM.Storage package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.html">NaivePyDESSEM.ThermalGenerator package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.html">NaivePyDESSEM.ConnectionBar package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.html">NaivePyDESSEM.TransmissionLine package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.cli.html">NaivePyDESSEM.cli package</a></li>
 </ul>
 </li>
@@ -78,7 +80,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -95,7 +97,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">DESSEM/DECOMP/MDI</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">NAIVE MODULES</a></li>
           <li class="breadcrumb-item"><a href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
       <li class="breadcrumb-item active">NaivePyDESSEM.Storage package</li>
       <li class="wy-breadcrumbs-aside">
@@ -481,17 +483,15 @@ instantiation.</p></li>
 </section>
 <dl class="py class">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageDataTypes.</span></span><span class="sig-name descname"><span class="pre">StorageData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit"><span class="pre">StorageUnit</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cdef</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageDataTypes.html#StorageData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageDataTypes.</span></span><span class="sig-name descname"><span class="pre">StorageData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit"><span class="pre">StorageUnit</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageDataTypes.html#StorageData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>System-wide data container for storage modeling.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>horizon</strong> (<em>int</em>) – Number of time periods in the planning horizon.</p></li>
-<li><p><strong>demand</strong> (<em>Dict</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – Mapping of each period <code class="docutils literal notranslate"><span class="pre">t</span></code> (1-based) to system demand (MW).</p></li>
 <li><p><strong>units</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit"><em>StorageUnit</em></a><em>]</em>) – Mapping from unit identifier to <a class="reference internal" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit" title="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit"><code class="xref py py-class docutils literal notranslate"><span class="pre">StorageUnit</span></code></a>.</p></li>
 <li><p><strong>delta_t</strong> (<em>float</em>) – Time-step duration (hours), used to convert MW to MWh.</p></li>
-<li><p><strong>Cdef</strong> (<em>float</em><em>, </em><em>optional</em>) – Sets the deficit cost. Default is 1000.0</p></li>
 </ul>
 </dd>
 </dl>
@@ -500,18 +500,8 @@ instantiation.</p></li>
 <li><p>Typical values for <code class="docutils literal notranslate"><span class="pre">delta_t</span></code> are 1.0 (hourly) or 0.5 (30 minutes).</p></li>
 </ul>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageData.Cdef">
-<span class="sig-name descname"><span class="pre">Cdef</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1000.0</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.Cdef" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageData.delta_t">
 <span class="sig-name descname"><span class="pre">delta_t</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.delta_t" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageData.demand">
-<span class="sig-name descname"><span class="pre">demand</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.demand" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -528,13 +518,14 @@ instantiation.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageDataTypes.</span></span><span class="sig-name descname"><span class="pre">StorageUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eini</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pch_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pdis_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageDataTypes.html#StorageUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageDataTypes.</span></span><span class="sig-name descname"><span class="pre">StorageUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eini</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pch_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pdis_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageDataTypes.html#StorageUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Data container for a battery energy storage unit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – Unique identifier of the storage unit.</p></li>
+<li><p><strong>bar</strong> (<em>str</em>) – Connection Bar of the Unit (defaults to BAR_1)</p></li>
 <li><p><strong>Emin</strong> (<em>float</em>) – Minimum energy content (MWh).</p></li>
 <li><p><strong>Emax</strong> (<em>float</em>) – Maximum energy content (MWh).</p></li>
 <li><p><strong>Eini</strong> (<em>float</em>) – Initial energy content at the beginning of the horizon (MWh).</p></li>
@@ -574,6 +565,11 @@ instantiation.</p></li>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Pdis_max">
 <span class="sig-name descname"><span class="pre">Pdis_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Pdis_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.bar">
+<span class="sig-name descname"><span class="pre">bar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.bar" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -652,7 +648,7 @@ sources (e.g., thermal, hydro) in hybrid dispatch models.</p></li>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Storage.StorageEquations.add_storage_balance_expression">
-<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageEquations.</span></span><span class="sig-name descname"><span class="pre">add_storage_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageEquations.html#add_storage_balance_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageEquations.add_storage_balance_expression" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Storage.StorageEquations.</span></span><span class="sig-name descname"><span class="pre">add_storage_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/NaivePyDESSEM/Storage/StorageEquations.html#add_storage_balance_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#NaivePyDESSEM.Storage.StorageEquations.add_storage_balance_expression" title="Link to this definition"></a></dt>
 <dd><p>Append energy balance equations for storage units at time t to the constraint expression list.</p>
 <p>This function constructs and appends symbolic expressions that enforce the
 state-of-charge (SoC) evolution for each storage unit at time step <cite>t</cite>. The energy
@@ -666,14 +662,14 @@ the SoC from the previous period.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>ConcreteModel</em>) – Pyomo model instance containing storage variables and parameters.</p></li>
 <li><p><strong>t</strong> (<em>int</em>) – Time index at which the storage energy balance is evaluated.</p></li>
-<li><p><strong>balance_array</strong> (<em>list</em><em> of </em><em>expressions</em>) – List of constraint expressions to which the storage energy balance equation is appended.</p></li>
+<li><p><strong>balance_array</strong> (<em>dict</em><em> of </em><em>list</em><em> of </em><em>expressions</em>) – List of symbolic expressions representing components of the power balance.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The updated list including the storage energy balance constraint at time t.</p>
+<dd class="field-even"><p>The updated list including the hydro generation term at time t.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of expressions</p>
+<dd class="field-odd"><p>dict of list of expressions</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
@@ -871,8 +867,6 @@ variable does not exist in the model, a non-negative <code class="docutils liter
 <dt>storage_ch[s,t]<span class="classifier">NonNegativeReals</span></dt><dd><p>Charging power (MW) in period <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
 </dd>
 <dt>storage_dis[s,t]<span class="classifier">NonNegativeReals</span></dt><dd><p>Discharging power (MW) in period <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
-</dd>
-<dt>D[t]<span class="classifier">NonNegativeReals</span></dt><dd><p>Deficit (MW), created only if absent.</p>
 </dd>
 </dl>
 <dl class="field-list simple">

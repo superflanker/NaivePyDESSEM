@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -150,26 +150,29 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyomo.environ</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">Objective</span><span class="p">,</span> <span class="n">Constraint</span><span class="p">,</span> <span class="n">minimize</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Generator.GeneratorDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeneratorData</span><span class="p">,</span> <span class="n">GeneratorUnit</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Generator.GeneratorBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_generator_problem</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Generator.GeneratorEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">add_generator_cost_expression</span><span class="p">,</span>
-    <span class="n">add_generator_balance_expression</span><span class="p">,</span>
-    <span class="n">add_generator_capacity_expression</span>
-<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Generator.GeneratorEquations</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_generator_cost_expression</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Storage.StorageDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">StorageData</span><span class="p">,</span> <span class="n">StorageUnit</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Storage.StorageBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_storage_problem</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Storage.StorageEquations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">add_storage_cost_expression</span><span class="p">,</span>
-    <span class="n">add_storage_balance_expression</span><span class="p">,</span>
-    <span class="n">add_storage_capacity_expression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">MDI.Storage.StorageEquations</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_storage_cost_expression</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">MDI.ConnectionBar.ConnectionBarDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConnectionBarData</span><span class="p">,</span> <span class="n">ConnectionBarUnit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">MDI.ConnectionBar.ConnectionBarBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_connection_bar_problem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">MDI.ConnectionBar.ConnectionBarConstraints</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">add_connection_bar_balance_constraints</span><span class="p">,</span> 
+    <span class="n">add_connection_bar_capacity_constraints</span>
 <span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">MDI.ConnectionBar.ConnectionBarEquations</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_connection_bar_cost_expression</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">MDI.TransmissionLine.TransmissionLineDataTypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">TransmissionLineData</span><span class="p">,</span> <span class="n">TransmissionLineUnit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">MDI.TransmissionLine.TransmissionLineBuilder</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_transmission_line_problem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">MDI.TransmissionLine.TransmissionLineEquations</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_transmission_line_cost_expression</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">.YAMLLoader</span><span class="w"> </span><span class="kn">import</span> <span class="n">yaml_loader</span>
 
@@ -179,20 +182,55 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_validate_meta</span><span class="p">(</span><span class="n">meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-   
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validate meta parameter.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    storage : dict</span>
+<span class="sd">        Dictionary containing meta configuration.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If meta is malformed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">horizon</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;horizon&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">horizon</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="n">horizon</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;meta.horizon must be a positive integer.&quot;</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_validate_demand</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">T</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-   
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validate demand parameter.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    storage : dict</span>
+<span class="sd">        Dictionary containing demand configuration .</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If demand is malformed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span>
 
 
-
 <span class="k">def</span><span class="w"> </span><span class="nf">_validate_storage</span><span class="p">(</span><span class="n">storage</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-   
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validate storage unit parameters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    storage : dict</span>
+<span class="sd">        Dictionary containing storage unit configurations.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If storage unit is malformed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">units</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="p">{})</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">units</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;Emin&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">u</span><span class="p">[</span><span class="s2">&quot;Eini&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">u</span><span class="p">[</span><span class="s2">&quot;Emax&quot;</span><span class="p">]):</span>
@@ -204,9 +242,20 @@
                     <span class="sa">f</span><span class="s2">&quot;storage.units[</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">].</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> must be in (0, 1].&quot;</span><span class="p">)</span>
 
 
-            
 <span class="k">def</span><span class="w"> </span><span class="nf">_validate_generator</span><span class="p">(</span><span class="n">generators</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validate generator unit parameters.</span>
 
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    storage : dict</span>
+<span class="sd">        Dictionary containing generator unit configurations.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If generator unit is malformed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">required</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;GU&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span>
         <span class="s1">&#39;gen_P&#39;</span><span class="p">,</span> <span class="s1">&#39;gen_c_op&#39;</span><span class="p">,</span> <span class="s1">&#39;gen_c_inv&#39;</span><span class="p">,</span>
@@ -217,24 +266,78 @@
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">units</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;generator.units[</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">] is invalid.&quot;</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;generator.units[</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">] is invalid.&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_validate_connection_bars</span><span class="p">(</span><span class="n">bars</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">T</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">levels</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validate connection bars unit parameters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    storage : dict</span>
+<span class="sd">        Dictionary containing connection bar unit configurations.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If connection bar unit is malformed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="n">bars</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;units&quot;</span><span class="p">)</span>
+    <span class="n">required</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;slack&#39;</span><span class="p">,</span> <span class="s1">&#39;Cdef&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">units</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">attr</span> <span class="ow">in</span> <span class="n">u</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;bars.units[</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">] is malformed.&quot;</span><span class="p">)</span>
+
+        <span class="n">demand</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;demand&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">demand</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">!=</span> <span class="n">levels</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;bars.units[</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">].demand must have length </span><span class="si">{</span><span class="n">levels</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">level</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">demand</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">!=</span> <span class="n">T</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;bars.units[</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">].demand[</span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">] must have length </span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_validate_transmission_lines</span><span class="p">(</span><span class="n">lines</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Validate transmission line unit parameters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    storage : dict</span>
+<span class="sd">        Dictionary containing transmission lines unit configurations.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If transmission line unit is malformed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;units&quot;</span><span class="p">)</span>
+    <span class="n">required</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;pmax&#39;</span><span class="p">,</span> <span class="s1">&#39;endpoints&#39;</span><span class="p">,</span> <span class="s1">&#39;c_op&#39;</span><span class="p">,</span> <span class="s1">&#39;c_inv&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">units</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">attr</span> <span class="ow">in</span> <span class="n">u</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;lines.units[</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">] is malformed.&quot;</span><span class="p">)</span>
+
 
 <span class="c1"># ============================================================================</span>
 <span class="c1"># Dataclass factories</span>
 <span class="c1"># ============================================================================</span>
 
+
 <span class="k">def</span><span class="w"> </span><span class="nf">_mk_generator_data</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">GeneratorData</span><span class="p">:</span>
-   
+
     <span class="n">meta</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">]</span>
     <span class="n">generators</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;generator&quot;</span><span class="p">]</span>
-    <span class="c1"># demanda “global” veio em root[&quot;demand&quot;]</span>
     <span class="n">H</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;horizon&quot;</span><span class="p">]</span>
-    <span class="n">level_hours</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;level_hours&quot;</span><span class="p">]</span>
-    <span class="n">demand</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">]</span>
     <span class="n">units</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">generators</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">units</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">GeneratorUnit</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">bar</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{BAR_</span><span class="si">{1}</span><span class="s2">}&quot;</span><span class="p">)),</span>
             <span class="n">state</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]),</span>
             <span class="n">c_op</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;c_op&quot;</span><span class="p">]),</span>
             <span class="n">c_inv</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;c_inv&quot;</span><span class="p">]),</span>
@@ -243,24 +346,21 @@
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">GeneratorData</span><span class="p">(</span>
         <span class="n">horizon</span><span class="o">=</span><span class="n">H</span><span class="p">,</span>
-        <span class="n">demand</span><span class="o">=</span><span class="n">demand</span><span class="p">,</span>
-        <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
-        <span class="n">level_hours</span><span class="o">=</span><span class="n">level_hours</span>
+        <span class="n">units</span><span class="o">=</span><span class="n">units</span>
     <span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_mk_storage_data</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">StorageData</span><span class="p">:</span>
-    
+
     <span class="n">storage</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;storage&quot;</span><span class="p">]</span>
     <span class="n">meta</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">]</span>
     <span class="n">H</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;horizon&quot;</span><span class="p">]</span>
-    <span class="n">level_hours</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;level_hours&quot;</span><span class="p">]</span>
     <span class="n">delta_t</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">storage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;delta_t&quot;</span><span class="p">,</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;delta_t&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)))</span>
-    <span class="n">demand</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;demand&quot;</span><span class="p">]</span>
     <span class="n">units</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">storage</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">units</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">StorageUnit</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>            
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">bar</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;{BAR_</span><span class="si">{1}</span><span class="s2">}&quot;</span><span class="p">)),</span>
             <span class="n">state</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]),</span>
             <span class="n">c_op</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;c_op&quot;</span><span class="p">]),</span>
             <span class="n">c_inv</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;c_inv&quot;</span><span class="p">]),</span>
@@ -274,50 +374,98 @@
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">StorageData</span><span class="p">(</span>
         <span class="n">horizon</span><span class="o">=</span><span class="n">H</span><span class="p">,</span>
-        <span class="n">demand</span><span class="o">=</span><span class="n">demand</span><span class="p">,</span>
         <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span>
-        <span class="n">delta_t</span><span class="o">=</span><span class="n">delta_t</span><span class="p">,</span>
-        <span class="n">level_hours</span><span class="o">=</span><span class="n">level_hours</span>
+        <span class="n">delta_t</span><span class="o">=</span><span class="n">delta_t</span>
     <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mk_connection_bar_data</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ConnectionBarData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Construct a ConnectionBarData object from parsed YAML root.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    root : dict</span>
+<span class="sd">        YAML-parsed dictionary containing &#39;meta&#39; and &#39;bars&#39; sections.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ConnectionBarData</span>
+<span class="sd">        Structured dataclass containing all parsed connection bar data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">connection_bars</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;bars&quot;</span><span class="p">]</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">]</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;horizon&quot;</span><span class="p">]</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">connection_bars</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">units</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ConnectionBarUnit</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">slack</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;slack&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)),</span>
+            <span class="n">Cdef</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Cdef&quot;</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)),</span>
+            <span class="n">c_pmax</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;c_pmax&quot;</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">)),</span>
+            <span class="n">demand</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;demand&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">ConnectionBarData</span><span class="p">(</span>
+        <span class="n">horizon</span><span class="o">=</span><span class="n">H</span><span class="p">,</span>
+        <span class="n">units</span><span class="o">=</span><span class="n">units</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mk_transmission_line_data</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">TransmissionLineData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Construct a TransmissionLineData object from parsed YAML root.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    root : dict</span>
+<span class="sd">        YAML-parsed dictionary containing &#39;meta&#39; and &#39;lines&#39; sections.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    TransmissionLineData</span>
+<span class="sd">        Structured dataclass containing all parsed transmission lines data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">transmission_lines</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;lines&quot;</span><span class="p">]</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">]</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;horizon&quot;</span><span class="p">]</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">transmission_lines</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">units</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">TransmissionLineUnit</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">state</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]),</span>
+            <span class="n">c_op</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;c_op&quot;</span><span class="p">]),</span>
+            <span class="n">c_inv</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="s2">&quot;c_inv&quot;</span><span class="p">]),</span>
+            <span class="n">model</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="s2">&quot;dc&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+            <span class="n">b</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)),</span>
+            <span class="n">pmax</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pmax&quot;</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)),</span>
+            <span class="n">endpoints</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;endpoints&quot;</span><span class="p">,</span> <span class="p">[])]</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">TransmissionLineData</span><span class="p">(</span>
+        <span class="n">horizon</span><span class="o">=</span><span class="n">H</span><span class="p">,</span>
+        <span class="n">units</span><span class="o">=</span><span class="n">units</span>
+    <span class="p">)</span>
+
 
 <span class="c1"># ============================================================================</span>
 <span class="c1"># Master entry point</span>
 <span class="c1"># ============================================================================</span>
+
+
 <div class="viewcode-block" id="build_balance_and_objective_from_yaml">
 <a class="viewcode-back" href="../../MDI.html#MDI.Builder.build_balance_and_objective_from_yaml">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">build_balance_and_objective_from_yaml</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">yaml_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ConcreteModel</span><span class="p">:</span>
-    
+
     <span class="c1"># --------------------------</span>
     <span class="c1"># ADEQUACY CONSTRAINT</span>
     <span class="c1"># --------------------------</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">capacity_balance_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-        <span class="n">capacity_terms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        
-        
-        <span class="k">if</span> <span class="s1">&#39;generator&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
-            <span class="n">add_generator_capacity_expression</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">capacity_terms</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;storage&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
-            <span class="n">add_storage_capacity_expression</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">capacity_terms</span><span class="p">)</span>
-
-        <span class="n">idx</span> <span class="o">=</span> <span class="n">t</span><span class="o">-</span><span class="mi">1</span>
-        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">capacity_terms</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">model</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>
-
-    <span class="n">model</span><span class="o">.</span><span class="n">Adequacy</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">capacity_balance_rule</span><span class="p">)</span>
     
+    <span class="n">add_connection_bar_capacity_constraints</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
     <span class="c1"># --------------------------</span>
     <span class="c1"># BALANCE CONSTRAINT</span>
     <span class="c1"># --------------------------</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">power_balance_rule</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-        <span class="n">balance_terms</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="s1">&#39;generator&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
-            <span class="n">add_generator_balance_expression</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">balance_terms</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;storage&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
-            <span class="n">add_storage_balance_expression</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">balance_terms</span><span class="p">)</span>
 
-        <span class="c1"># Final balance expression</span>
-        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">balance_terms</span><span class="p">)</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">d</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="n">model</span><span class="o">.</span><span class="n">Balance</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">rule</span><span class="o">=</span><span class="n">power_balance_rule</span><span class="p">)</span>
+    <span class="n">add_connection_bar_balance_constraints</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 
     <span class="c1"># --------------------------</span>
     <span class="c1"># OBJECTIVE FUNCTION</span>
@@ -328,7 +476,11 @@
         <span class="n">add_generator_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
     <span class="k">if</span> <span class="s1">&#39;storage&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
         <span class="n">add_storage_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
-    
+    <span class="k">if</span> <span class="s1">&#39;lines&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
+        <span class="n">add_transmission_line_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;bars&#39;</span> <span class="ow">in</span> <span class="n">yaml_data</span><span class="p">:</span>
+        <span class="n">add_connection_bar_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
+
     <span class="n">model</span><span class="o">.</span><span class="n">OBJ</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">cost_terms</span><span class="p">),</span> <span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">model</span></div>
@@ -338,30 +490,61 @@
 <div class="viewcode-block" id="build_model_from_file">
 <a class="viewcode-back" href="../../MDI.html#MDI.Builder.build_model_from_file">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">build_model_from_file</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ConcreteModel</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]:</span>
-   
+
     <span class="n">root</span> <span class="o">=</span> <span class="n">yaml_loader</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-    <span class="n">level_precedence</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;level_precedence&quot;</span><span class="p">]</span>
-    <span class="n">parcel_investment</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;parcel_investment&quot;</span><span class="p">])</span>
 
     <span class="k">if</span> <span class="s2">&quot;meta&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">root</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;File must contain &#39;meta&#39; sections.&quot;</span><span class="p">)</span>
 
+    <span class="n">level_precedence</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;level_precedence&quot;</span><span class="p">]</span>
+    <span class="n">level_hours</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;level_hours&quot;</span><span class="p">]</span>
+    <span class="n">parcel_investment</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;parcel_investment&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+    <span class="n">interest_rate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;interest_rate&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+    <span class="n">p_base</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;p_base&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
     <span class="n">m</span> <span class="o">=</span> <span class="n">ConcreteModel</span><span class="p">()</span>
 
+    <span class="n">m</span><span class="o">.</span><span class="n">p_base</span> <span class="o">=</span> <span class="n">p_base</span>
     <span class="n">m</span><span class="o">.</span><span class="n">level_precedence</span> <span class="o">=</span> <span class="n">level_precedence</span>
     <span class="n">m</span><span class="o">.</span><span class="n">parcel_investment</span> <span class="o">=</span> <span class="n">parcel_investment</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">interest_rate</span> <span class="o">=</span> <span class="n">interest_rate</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">level_hours</span> <span class="o">=</span> <span class="n">level_hours</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="n">level_precedence</span>
 
     <span class="c1"># Basic validations</span>
     <span class="n">_validate_meta</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">])</span>
     <span class="n">T</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;horizon&quot;</span><span class="p">])</span>
-    <span class="n">_validate_demand</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;demand&quot;</span><span class="p">],</span> <span class="n">T</span><span class="p">)</span>
+
     <span class="n">has_valid_units</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="c1"># first of all, the bars</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;bars&quot;</span> <span class="ow">in</span> <span class="n">root</span><span class="p">:</span>
+        <span class="c1"># default bar - described in meta section</span>
+        <span class="n">_validate_demand</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;demand&quot;</span><span class="p">],</span> <span class="n">T</span><span class="p">)</span>
+        <span class="n">slack</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">Cdef</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;Cdef&quot;</span><span class="p">])</span>
+        <span class="n">demand</span> <span class="o">=</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="s2">&quot;demand&quot;</span><span class="p">]</span>
+        <span class="n">root</span><span class="p">[</span><span class="s2">&quot;bars&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;{BAR_</span><span class="si">{1}</span><span class="s2">}&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;slack&quot;</span><span class="p">:</span> <span class="n">slack</span><span class="p">,</span>
+                                                <span class="s2">&quot;Cdef&quot;</span><span class="p">:</span> <span class="n">Cdef</span><span class="p">,</span>
+                                                <span class="s2">&quot;demand&quot;</span><span class="p">:</span> <span class="n">demand</span><span class="p">}}}</span>
+    <span class="k">if</span> <span class="s2">&quot;bars&quot;</span> <span class="ow">in</span> <span class="n">root</span> <span class="ow">and</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;bars&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_validate_connection_bars</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;bars&quot;</span><span class="p">],</span> <span class="n">T</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">level_precedence</span><span class="p">))</span>
+        <span class="n">bar_data</span> <span class="o">=</span> <span class="n">_mk_connection_bar_data</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">add_connection_bar_problem</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
+                                       <span class="n">data</span><span class="o">=</span><span class="n">bar_data</span><span class="p">,</span>
+                                       <span class="n">include_objective</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">&quot;lines&quot;</span> <span class="ow">in</span> <span class="n">root</span> <span class="ow">and</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;lines&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_validate_transmission_lines</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;lines&quot;</span><span class="p">])</span>
+        <span class="n">bar_data</span> <span class="o">=</span> <span class="n">_mk_transmission_line_data</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">add_transmission_line_problem</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
+                                          <span class="n">data</span><span class="o">=</span><span class="n">bar_data</span><span class="p">,</span>
+                                          <span class="n">include_objective</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="s2">&quot;generator&quot;</span> <span class="ow">in</span> <span class="n">root</span> <span class="ow">and</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;generator&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">_validate_generator</span><span class="p">(</span><span class="n">root</span><span class="p">[</span><span class="s2">&quot;generator&quot;</span><span class="p">])</span>
         <span class="n">generator_data</span> <span class="o">=</span> <span class="n">_mk_generator_data</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
         <span class="n">m</span> <span class="o">=</span> <span class="n">add_generator_problem</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="p">,</span>
-                              <span class="n">data</span><span class="o">=</span><span class="n">generator_data</span><span class="p">,</span>
-                              <span class="n">include_objective</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                                  <span class="n">data</span><span class="o">=</span><span class="n">generator_data</span><span class="p">,</span>
+                                  <span class="n">include_objective</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">has_valid_units</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">if</span> <span class="s2">&quot;storage&quot;</span> <span class="ow">in</span> <span class="n">root</span> <span class="ow">and</span> <span class="n">root</span><span class="p">[</span><span class="s2">&quot;storage&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

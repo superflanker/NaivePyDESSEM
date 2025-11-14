@@ -52,7 +52,9 @@ class HydraulicUnit:
     Parameters
     ----------
     name : str
-        Unique identifier of the hydro plant.
+        Unique identifier of the hydro plant.    
+    bar: str
+        Connection Bar of the Unit (defaults to BAR_1)
     Qmin : float
         Minimum allowed turbined flow (hm^3).
     Qmax : float
@@ -82,6 +84,7 @@ class HydraulicUnit:
         Default is ``True``.
     """
     name: str
+    bar: str
     Qmin: float
     Qmax: float
     Vmin: float
@@ -102,13 +105,8 @@ class HydraulicData:
     ----------
     horizon : int
         Number of time periods in the planning horizon.
-    demand : Dict[int, float]
-        Mapping from period ``t`` (1-based) to system demand (MW).
     units : Dict[str, HydraulicUnit]
         Map from plant name to its ``HydraulicUnit`` data structure.
-    Cdef : float, optional
-        Penalty cost for unmet demand (R$/MWh), to be used by objectives in
-        optimization models. Default is ``1000.0``.
 
     Notes
     -----
@@ -119,6 +117,4 @@ class HydraulicData:
       performed (inside the FPH callable or in the model).
     """
     horizon: int
-    demand: Dict[int, float]
     units: Dict[str, HydraulicUnit]
-    Cdef: float = 1000.0

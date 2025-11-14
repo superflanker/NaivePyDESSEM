@@ -26,11 +26,6 @@ Happy studying!
 
 ---
 
-## CHEATSHEET – CONTENT ORGANOGRAM
-
-![Quick Reference to Summary Sections](imagens/organogram.png)
-*Figure 1 – Quick Reference to the Summary Sections*
-
 ## OVERVIEW AND STRUCTURE OF THE ELECTRIC POWER SECTOR
 
 ### FULL COMPETITION
@@ -269,7 +264,7 @@ Additionally, the model identifies **transmission bottlenecks** and quantifies t
 ### RELATIONSHIP WITH THE MARGINAL EXPANSION COST (CME)
 The **Marginal Expansion Cost (CME)** is directly derived from the MDI through the **dual multipliers** associated with energy and capacity constraints. It represents the **incremental cost of meeting an additional unit of demand**, simultaneously reflecting the need for **energy expansion** and **peak capacity**. The CME is calculated by introducing a **1 MW increase in demand** for each load level and observing the resulting impact on total expansion cost.  
 
-In the **PDE 2030** horizon, the **average CME** was estimated at **R$ 187.46/MWh**, with energy and capacity components of **R$ 105.65/MWh** and **R$ 688.18/kW/year**, respectively. This metric provides a unified reference for assessing **economic efficiency** and **investment adequacy** in Brazil’s long-term power sector planning.
+In the **PDE 2030** horizon, the **average CME** was estimated at **R\$ 187.46/MWh**, with energy and capacity components of **R$ 105.65/MWh** and **R\$ 688.18/kW/year**, respectively. This metric provides a unified reference for assessing **economic efficiency** and **investment adequacy** in Brazil’s long-term power sector planning.
 ## TECHNICAL APPENDIX: SUMMARY OF THE DESSEM MANUAL
 
 ### PURPOSE OF DESSEM
@@ -317,16 +312,20 @@ In practice, DESSEM is used to:
 - Conduct **electrical security analyses**, such as transmission limits and load shedding assessments.  
 
 The model is particularly critical in systems with **high shares of variable renewable generation**, as it can integrate **hourly wind and solar forecasts**. In doing so, DESSEM provides a **robust decision-support framework** for operation planning in increasingly complex and dynamic energy environments.
-### Mathematical Modeling of DESSEM
 
-#### Hydropower Plants
 
-##### Sets and Indices
+### MATHEMATICAL MODELING OF DESSEM
+
+#### HYDROPOWER PLANTS
+
+##### SETS AND INDICES
+
 - $\mathcal{T} = \{1,\dots,T\}$ – hourly periods
 - $\mathcal{H} = \{\text{UHE}_1, \dots, \text{UHE}_{n_h}\}$ – hydropower plants
 - $\mathcal{U}(h) \subseteq \mathcal{H}$ – set of upstream hydropower plants of $h$
 
-##### Parameters (Data)
+##### PARAMETERS (DATA)
+
 - $a_{h,t}$ – natural inflow to plant $h$ in period $t$ (m$^3$/s)
 - $d_t$ – demand in period $t$ (MWh/h) 
 - $\zeta_{\text{vol}}$ – volume–flow conversion factor (hm$^3$/h) $\Rightarrow \frac{3600}{10^6}$
@@ -339,7 +338,7 @@ The model is particularly critical in systems with **high shares of variable ren
 - $\alpha_{h,k},\,\beta_{h,k},\,\gamma_{h,k}$ – polynomial coefficients for $h_{\text{up}}$, $h_{\text{down}}$, $h_{\text{loss}}$
 - $\rho_{h,k}$ – polynomial coefficients of the specific productivity $\rho_h$
 
-##### Decision Variables
+##### DECISION VARIABLES
 
 - $Q_{h,t} \ge 0$ – turbined flow (m$^3$/s)
 - $S_{h,t} \ge 0$ – spillage (m$^3$/s)
@@ -347,7 +346,7 @@ The model is particularly critical in systems with **high shares of variable ren
 - $G_{h,t} \ge 0$ – hydropower generation (MWh/h)
 - $D_t \ge 0$ – energy deficit (MWh/h)
 
-##### Hydraulic Polynomial Functions for Plant $h$
+##### HYDRAULIC POLYNOMIAL FUNCTIONS FOR PLANT $h$
 
 - $\rho(Q, H_{\text{net}}) = \zeta \,\Big( \rho_0 + \rho_1 Q + \rho_2 H_{\text{net}} + \rho_3 Q H_{\text{net}} + \rho_4 Q^2 + \rho_5 H_{\text{net}}^2
 \Big), \text{ (CEPEL, 2023)}$ 
@@ -355,31 +354,35 @@ The model is particularly critical in systems with **high shares of variable ren
 - $h_{\text{down},h}(q) = \sum_{k=0}^{K_b} \beta_{h,k}\, q^k,$ 
 - $h_{\text{loss},h}(Q) = \sum_{k=0}^{K_\gamma} \gamma_{h,k}\, Q^k.$
 
-##### Hydropower Production Function (HPF)
+##### HYDROPOWER PRODUCTION FUNCTION (HPF)
+
 - $H_{{\text{net}}_{h,t}} = h_{\text{up},h}(V_{h,t})- h_{\text{down},h}(Q_{h,t}+S_{h,t}) - h_{\text{loss},h}(Q_{h,t}),$
 - $G_{h,t} = \zeta \, Q_{h,t}\, \rho_h(Q_{h,t}, H_{{\text{net}}_{h,t}})\, H_{{\text{net}}_{h,t}} \quad \textbf{(Exact HPF)},$
 - $G_{h,t} = \zeta \mathrm{PE} H_{{\mathrm{net}}_{h,t}} Q_{h,t} \quad \textbf{(HPF with constant PE)},$
 - $G_{h,t} = \mathrm{P}  Q_{h,t} \quad \textbf{(Linearized HPF)}.$
 
-##### Total Instantaneous Inflow (Cascade without Delay)
+##### TOTAL INSTANTANEOUS INFLOW (CASCADE WITHOUT DELAY)
+
 $$
 I_{h,t} = a_{h,t} + \sum_{u \in \mathcal{U}(h)} ( Q_{u,t} + S_{u,t} ), 
 \quad \forall h\in\mathcal{H},\; \forall t\in\mathcal{T}.
 $$
 
-##### Constraints
+##### CONSTRAINTS
 
-###### Generation
+###### GENERATION
+
 $$
 G_{h,t} = HPF(Q,V,S), \quad \forall h\in\mathcal{H},\, t\in\mathcal{T}.
 $$
 
-###### Reservoir Mass Balance
+###### RESERVOIR MASS BALANCE
+
 - $V_{h,1} = V_{{\text{ini}}_h} + \zeta_{\text{vol}} ( I_{h,1} - Q_{h,1} - S_{h,1}),$
 - $V_{h,t} = V_{h,t-1} + \zeta_{\text{vol}} ( I_{h,t} - Q_{h,t} - S_{h,t}),
 \quad \forall t=2,\dots,T.$
 
-###### Targets and Operational Limits
+###### TARGETS AND OPERATIONAL LIMITS
 
 - $V_{h,T} \ge V_{{\text{meta}}_h},$
 - $V_{{\min}_h} \le V_{h,t} \le V_{{\max}_h},$
@@ -388,14 +391,14 @@ $$
 
 ---
 
-#### Thermal Power Plants
+#### THERMAL POWER PLANTS
 
-##### Sets and Indices
+##### SETS AND INDICES
 
 - $\mathcal{T} = \{1,\dots,T\}, \quad$
 - $\mathcal{G} = \{\text{UTE}_1,\dots,\text{UTE}_{n_g}\}.$
 
-##### Parameters
+##### PARAMETERS
 - $d_t$ – system demand (MW)
 - $P_{{\min}_g},\, P_{{\max}_g}$ – generation limits of plant $g$ (MW) (CEPEL, 2023)
 - $a_g,\, b_g,\, c_g$ – thermal cost coefficients of plant $g$ 
@@ -405,7 +408,7 @@ $$
 - $C_{\text{def}}$ – deficit penalty cost (R\$/MWh) 
 - $u_{g,0},\, p_{g,0}$ – initial on/off status and generation (from initial status data)
 
-##### Decision Variables
+##### DECISION VARIABLES
 
 - $p_{g,t}\ge 0,\quad$
 - $u_{g,t}, y_{g,t}, w_{g,t}\in\{0,1\},\quad$
@@ -413,33 +416,38 @@ $$
 
 (where $u$ = on, $y$ = startup, $w$ = shutdown.)
 
-##### Constraints
+##### CONSTRAINTS
 
-###### Power Balance
+###### POWER BALANCE
+
 $$
 \sum_{g\in\mathcal{G}} p_{g,t} + D_t = d_t, \quad \forall t.
 $$
 
-###### Conditional Capacity
+###### CONDITIONAL CAPACITY
+
 $$
 P_{{\min}_g} u_{g,t} \le p_{g,t} \le P_{{\max}_g} u_{g,t}.
 $$
 
-###### Startup/Shutdown Logic
+###### STARTUP/SHUTDOWN LOGIC
+
 $$
 u_{g,t} - u_{g,t-1} = y_{g,t} - w_{g,t}.
 $$
 
-###### Ramping Limits
+###### RAMPING LIMITS
+
 - $p_{g,t} - p_{g,t-1} \le RU_g + P_{{\max}_g} y_{g,t}$
 - $p_{g,t-1} - p_{g,t} \le RD_g + P_{{\max}_g} w_{g,t}$
 
-###### Minimum Up/Down Time
+###### MINIMUM UP/DOWN TIME
 
 - $\sum_{\tau=t-t^{\uparrow}_g+1}^{t} y_{g,\tau} \le u_{g,t},$
 - $\sum_{\tau=t-t^{\downarrow}_g+1}^{t} w_{g,\tau} \le 1-u_{g,t}.$
 
-###### Consistent Initial Conditions
+###### CONSISTENT INITIAL CONDITIONS
+
 $$
 p_{g,0}\in
 \begin{cases}
@@ -450,15 +458,15 @@ $$
 
 ---
 
-#### Renewable Energies and Storage
+#### RENEWABLE ENERGIES AND STORAGE
 
-##### Sets and Indices
+##### SETS AND INDICES
 
 - $\mathcal{T} = \{1,\dots,T\},\quad$
 - $\mathcal{R} = \{1,\dots,R_{n_r}\},\quad$
 - $\mathcal{S} = \{1,\dots,S_{n_s}\}.$
 
-##### Parameters
+##### PARAMETERS
 
 - $\overline{g}_{r,t}$ – exogenous renewable availability profile (MW avg) 
 - $\Delta t$ – time step (typically 1 h) 
@@ -467,30 +475,35 @@ $$
 - $\overline{P}_{{\mathrm{ch}}_{s}},\,\overline{P}_{{\mathrm{dis}}_{s}}$ – max charge/discharge power (MW)
 - $\eta_{{\mathrm{c}}_{s}},\,\eta_{{\mathrm{d}}_{s}}$ – charge and discharge efficiencies
 
-##### Decision Variables
+##### DECISION VARIABLES
 
 - $g_{{\mathrm{ren}}_{r,t}} \ge 0$ – dispatched renewable generation (MW)
 - $E_{s,t} \ge 0$ – stored energy (MWh)
 - $P_{{\mathrm{ch}}_{s,t}},\,P_{{\mathrm{dis}}_{s,t}} \ge 0$ – charging/discharging power (MW)
 
-##### Constraints
+##### CONSTRAINTS
 
-###### Renewable Generation — Availability Limit
+###### RENEWABLE GENERATION — AVAILABILITY LIMIT
+
 $$
 0 \le g_{{\mathrm{ren}}_{r,t}} \le \overline{g}_{r,t}, \quad \forall r,t.
 $$
 
-###### Storage — Energy Balance (SoC)
+###### STORAGE — ENERGY BALANCE (SoC)
+
 $$
 E_{s,1} = E_{{\mathrm{ini}}_s} + \eta_{{\mathrm{c}}_{s}} P_{{\mathrm{ch}}_{s,1}} \Delta t - \frac{1}{\eta_{{\mathrm{d}}_{s}}} P_{{\mathrm{dis}}_{s,1}} \Delta t,\\
 E_{s,t} = E_{s,t-1} + \eta_{{\mathrm{c}}_{s}} P_{{\mathrm{ch}}_{s,t}} \Delta t - \frac{1}{\eta_{{\mathrm{d}}_{s}}} P_{{\mathrm{dis}}_{s,t}} \Delta t, \quad \forall t=2,\dots,T.
 $$
-###### Storage — State of Charge (SoC) Limits
+
+###### STORAGE — STATE OF CHARGE (SoC) LIMITS
+
 $$
 E_{{\min}_s} \le E_{s,t} \le E_{{\max}_s}.
 $$
 
-###### Storage — Power Limits
+###### STORAGE — POWER LIMITS
+
 $$
 0 \le P_{{\mathrm{ch}}_{s,t}} \le \overline{P}_{{\mathrm{ch}}_{s}},\\
 0 \le P_{{\mathrm{dis}}_{s,t}} \le \overline{P}_{{\mathrm{dis}}_{s}}.
@@ -498,7 +511,67 @@ $$
 
 ---
 
-#### Objective Function
+#### TRANSMISSION LINES AND CONNECTION BARS
+
+##### SETS AND INDICES
+
+- $\mathcal{T} = \{1,\dots,T\}$ – time periods (typically hourly)  
+- $\mathcal{L} = \{\text{LINE}_{1}, \dots, \text{LINE}_{n_\ell}\}$ – transmission lines  
+- $\mathcal{CB} = \{\text{BAR}_{1}, \dots, \text{BAR}_{n_b}\}$ – connection bars (buses)  
+- $(i,j) \in \mathcal{E} \subseteq \mathcal{B}\times\mathcal{B}$ – ordered pair of bars defining endpoints of line $\ell$  
+- $\mathcal{L}(b)$ – set of lines incident to bar $b$
+
+##### PARAMETERS
+
+- $b_{\ell}$ – susceptance of line $\ell$ (p.u. or 1/x)  
+- $\overline{F}_{\ell}$ – transmission capacity limit (MW)   
+- $\theta_{b,0}$ – reference (slack) bus angle (rad)  
+- $p_{\text{base}}$ – system base power (MW)  r  
+- $\text{CB} \in \mathcal{CB}$ – subset of bars with associated demand $d_{b,t}$  
+
+
+##### DECISION VARIABLES
+
+- $F_{\ell,t}$ – active power flow through line $\ell$ (MW)  
+- $\theta_{b,t}$ – phase angle at bus $b$ (radians)  
+
+##### DC FLOW APPROXIMATION
+
+For each line $\ell = (i,j)$ and time $t$:
+
+$$
+F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}).
+$$
+
+##### TRANSMISSION CAPACITY LIMITS
+
+$$
+-\,\overline{F}_{\ell} \le F_{\ell,t} \le \overline{F}_{\ell}\,,
+\quad \forall \ell \in \mathcal{L},\; t \in \mathcal{T}.
+$$
+
+##### POWER BALANCE AT EACH BUS
+
+Each bar $b$ satisfies Kirchhoff’s Current Law (KCL) in the DC approximation:
+
+$$
+\sum_{\ell\in\mathcal{L}(b)} \delta_{b,\ell}\,F_{\ell,t} + \sum_{h \in \mathcal{H}(b)} G_{h,t} + \sum_{g \in \mathcal{G}(b)} p_{g,t} + \sum_{r \in \mathcal{R}(b)} g_{\mathrm{ren}_{r,t}}+ \sum_{s \in \mathcal{S}(b)} (P_{\mathrm{dis}_{s,t}} - P_{\mathrm{ch}_{s,t}}) + D_{b,t}
+= d_{b,t}, \quad \forall b,t,
+$$
+
+where $\delta_{b,\ell} = +1$ if bar $b$ is the sending end of $\ell$, $-1$ if the receiving end, and $0$ otherwise.
+
+##### NETWORK REFERENCE (SLACK BUS)
+
+One bar must be defined as the phase-angle reference:
+
+$$
+\theta_{b_0,t} = 0, \quad \forall t \in \mathcal{T}.
+$$
+
+---
+
+#### OBJECTIVE FUNCTION
 
 The hydrothermal dispatch problem is formulated as a minimization of total generation and deficit costs, including:
 - Thermal generation costs;
@@ -509,21 +582,8 @@ $$
 \begin{aligned}
 \min Z =\; &\sum_{g\in\mathcal{G}}\sum_{t\in\mathcal{T}} c_g\,p_{g,t} \\
 &+ 0.3\sum_{h\in\mathcal{H}}\sum_{t\in\mathcal{T}} S_{h,t} \\
-&+ C_{def}\sum_{t\in\mathcal{T}} D_t
+&+ \sum_{t\in\mathcal{T}} \sum_{b\in\mathcal{CB}} C_{{def}_{b}} D_{b,t}
 \end{aligned}
-$$
-
-
----
-
-#### Power Balance (Load Supply)
-
-$$
-\sum_{h \in \mathcal{H}} G_{h,t} +
-\sum_{g \in \mathcal{G}} p_{g,t} +
-\sum_{r \in \mathcal{R}} g_{{\mathrm{ren}}_{r,t}} +
-\sum_{s \in \mathcal{S}} ( P_{{\mathrm{dis}}_{s,t}} - P_{{\mathrm{ch}}_{s,t}} ) +
-D_t = d_t, \quad \forall t \in \mathcal{T}.
 $$
 
 ## TECHNICAL APPENDIX: SUMMARY OF THE DECOMP MANUAL
@@ -546,39 +606,47 @@ This hierarchical modeling chain, developed by **CEPEL**, ensures consistency ac
 
 ### IMMEDIATE, FUTURE, AND TOTAL COST FUNCTIONS IN STRATEGIC PLANNING
 
-#### Immediate Cost Function (FCI)
+#### IMMEDIATE COST FUNCTION (FCI)
 The **FCI** represents the cost arising from decisions at the current stage.  
 - If demand is met by hydropower, the cost is nearly zero.  
 - If thermal plants are dispatched, the FCI reflects **fuel costs**.  
 - If demand is unmet, the **deficit cost** (penalty) is included.
 
 Formally, for a stage \( t \):
+
 $$
 \text{FCI}_t = C_T \cdot g_t + C_D \cdot DEF_t
 $$
+
 where \( C_T \) is the thermal generation cost, \( g_t \) the thermal generation, \( C_D \) the deficit cost, and \( DEF_t \) the unserved energy.
 
-#### Future Cost Function (FCF)
+#### FUTURE COST FUNCTION (FCF)
 The **FCF** represents the expected cost of current decisions on future stages. When reservoirs are low, future costs rise due to increased thermal dispatch; when full, future costs drop.  
 The **Bellman equation** expresses this recursive relationship:
+
 $$
 \alpha_t(v_{t-1}) = \min \Big\{ C_T \cdot g_t + C_D \cdot def_t + \alpha_{t+1}(v_t) \Big\}
 $$
+
 subject to water balance and demand constraints.  
 The slope of the FCF defines the **value of water**, representing the **marginal opportunity cost** of stored energy.
 
-#### Total Cost Function (FCT)
+#### TOTAL COST FUNCTION (FCT)
 The total cost is:
+
 $$
 \text{FCT} = \text{FCI} + \text{FCF}
 $$
+
 The optimal policy satisfies:
+
 $$
 \frac{\partial \text{FCI}}{\partial V} = - \frac{\partial \text{FCF}}{\partial V}
 $$
+
 ensuring equilibrium between immediate and future costs — the **marginal water value** equals the **marginal thermal cost**.
 
-#### Application
+#### APPLICATION
 The joint use of FCI, FCF, and FCT enables robust **multi-period water management**. These functions form the conceptual foundation of **NEWAVE, DECOMP, and DESSEM**, where the **FCF** links successive planning horizons.
 
 ### MARGINAL OPERATING COST (CMO)
@@ -586,33 +654,33 @@ The joint use of FCI, FCF, and FCT enables robust **multi-period water managemen
 The **Marginal Operating Cost (CMO)** quantifies the **incremental cost** of supplying one additional megawatt-hour.  
 It reflects the **marginal opportunity cost of water** or the **benefit of retaining water** for future use.
 
-#### Definition
+#### DEFINITION
 According to **DESSEM’s methodology**, the CMO is determined in two steps:
 1. **Marginal Cost per Bus (CMB):** obtained from the dual multipliers of bus power balance constraints.
 2. **Submarket CMO:** the weighted average of bus CMOs, with weights based on bus demand.
 
-#### Relationship with Cost Functions
+#### RELATIONSHIP WITH COST FUNCTIONS
 - **FCI:** immediate thermal and deficit costs → CMO equals current marginal thermal cost.  
 - **FCF:** captures future water value → implicit marginal hydro cost.  
 - **FCT:** derivative equals total system CMO, balancing present and future costs.
 
 Thus, CMO reflects the **optimal equilibrium** between water usage and conservation.
 
-#### Role in Planning
+#### ROLE IN PLANNING
 The **CMO** guides hydrothermal dispatch, market price formation (short-term PLD), and ensures **inter-horizon consistency** across NEWAVE, DECOMP, and DESSEM.
 
 ### ADVANCED CONCEPTS IN STRATEGIC OPERATION PLANNING
 
-#### Risk Aversion
+#### RISK AVERSION
 Traditional planning minimizes **expected cost**, assuming **risk neutrality**. To address hydrological uncertainty, **risk-averse measures** such as **Value-at-Risk (VaR)** and **Conditional Value-at-Risk (CVaR)** are introduced, penalizing extreme deficit scenarios and promoting **more secure operational policies**.
 
-#### Spatial Coupling
+#### SPATIAL COUPLING
 Spatial coupling arises from hydraulic interdependence among cascade plants and inter-area energy exchanges. It makes the **FCF multidimensional**, as it depends on multiple reservoir volumes simultaneously, greatly increasing model complexity.
 
-#### Curse of Dimensionality and Decomposition
+#### CURSE OF DIMENSIONALITY AND DECOMPOSITION
 Classical Dynamic Programming (DP) suffers from exponential state-space growth. The **Stochastic Dual Dynamic Programming (SDDP)** approach mitigates this through **Benders decomposition**, approximating the FCF with **piecewise-linear cuts**, enabling multi-year tractable planning.
 
-#### Integration with Price Formation
+#### INTEGRATION WITH PRICE FORMATION
 The **CMO**, derived from optimization duals, is the foundation for Brazil’s **Short-Term Settlement Price (PLD)**. Thus, planning results not only guide dispatch but also **transmit economic signals**, ensuring efficient and stable market operation.
 
 ### SOLUTION STRATEGIES FOR STRATEGIC OPERATION PLANNING
@@ -623,19 +691,19 @@ The **Strategic Operation Planning Problem** of the SIN is complex, involving hy
 - **Dual and Stochastic Extensions (PDD, PDDE)**  
 - **Decomposition-based methods** (as in CEPEL’s models).
 
-#### Multistage Linear Programming (LP)
+#### MULTISTAGE LINEAR PROGRAMMING (LP)
 Represents the entire planning horizon as a single linear model, with hydraulic and operational constraints. Provides global optimality but is computationally intractable for large systems.
 
-#### Deterministic Dynamic Programming (PDD)
+#### DETERMINISTIC DYNAMIC PROGRAMMING (PDD)
 Solves the problem recursively via **Bellman’s principle**, assuming known inflows. Pedagogically useful but limited by dimensionality.
 
-#### Deterministic Dual Dynamic Programming (PDDD)
+#### DETERMINISTIC DUAL DYNAMIC PROGRAMMING (PDDD)
 Approximates the FCF via **Benders cuts**, iteratively refined through forward and backward passes until convergence. Foundation of **DECOMP**.
 
-#### Stochastic Dual Dynamic Programming (PDDE)
+#### STOCHASTIC DUAL DYNAMIC PROGRAMMING (PDDE)
 Extends the dual formulation to stochastic inflows (NEWAVE model), evaluating **expected future costs** under probability distributions.
 
-#### Very Short-Term Deterministic Formulations
+#### VERY SHORT-TERM DETERMINISTIC FORMULATIONS
 Used in **DESSEM**, which employs a **Mixed-Integer Linear Program (MILP)** to represent hourly hydrothermal dispatch and network constraints, coupled with DECOMP via the **Future Cost Function**.
 
 ### COMPARATIVE OVERVIEW OF STRATEGIES
@@ -657,16 +725,17 @@ These methods form a **hierarchical chain**:
 
 Together, they ensure **temporal and economic consistency** across Brazil’s entire energy planning framework.
 
-### Mathematical Modeling of DECOMP
+### MATHEMATICAL MODELING OF DECOMP
 
-#### Hydropower Plants
+#### HYDROPOWER PLANTS
 
-##### Sets and Indices
+##### SETS AND INDICES
+
 - $\mathcal{T} = \{1,\dots,T\}$ – periods
 - $\mathcal{H} = \{\text{UHE}_1, \dots, \text{UHE}_{n_h}\}$ – hydropower plants
 - $\mathcal{U}(h) \subseteq \mathcal{H}$ – set of upstream hydropower plants of $h$
 
-##### Parameters (Data)
+##### PARAMETERS (DATA)
 
 - $a_{h,t}$ – natural inflow to plant $h$ in period $t$ (hm$^3$)
 - $d_t$ – demand in period $t$ (MWh)
@@ -676,7 +745,7 @@ Together, they ensure **temporal and economic consistency** across Brazil’s en
 - $V_{{\text{meta}}_h}$ – target terminal volume (hm$^3$)
 - $C_{{\text{def}}}$ – unitary cost of deficit (\$/MWh) 
 
-##### Decision Variables
+##### DECISION VARIABLES
 
 - $Q_{h,t} \ge 0$ – turbined flow (hm$^3$)
 - $S_{h,t} \ge 0$ – spillage (m$^3$)
@@ -684,19 +753,22 @@ Together, they ensure **temporal and economic consistency** across Brazil’s en
 - $G_{h,t} \ge 0$ – hydropower generation (MWmed)
 - $D_t \ge 0$ – energy deficit (MWh/h)
 
-##### Hydropower Production Function (HPF)
+##### HYDROPOWER PRODUCTION FUNCTION (HPF)
+
 $$
 G_{h,t} = P\, Q_{h,t} \quad \textbf{(Linearized HPF)}
 $$
 
-##### Constraints
+##### CONSTRAINTS
 
-###### Total Instantaneous Inflow (Cascade without Delay)
+###### TOTAL INSTANTANEOUS INFLOW (CASCADE WITHOUT DELAY)
+
 $$
 I_{h,t} = a_{h,t} + \sum_{u \in \mathcal{U}(h)} ( Q_{u,t} + S_{u,t} ), \quad \forall h \in \mathcal{H}, \; \forall t \in \mathcal{T}
 $$
 
-###### Reservoir Mass Balance
+###### RESERVOIR MASS BALANCE
+
 $$
 V_{h,1} = V_{\text{ini}_h} + ( I_{h,1} - Q_{h,1} - S_{h,1} ), \quad \forall h, \; t = 1\\
 V_{h,t} = V_{h,t-1} + ( I_{h,t} - Q_{h,t} - S_{h,t} ), \quad \forall h, \; t = 2,\dots,T
@@ -704,42 +776,48 @@ $$
 
 ---
 
-#### Thermal Units
+#### THERMAL UNITS
 
-##### Sets and Indices
+##### SETS AND INDICES
+
 $$
     \mathcal{T} = \{1,\dots,T\}, \quad\\
     \mathcal{G} = \{\text{UTE}_1,\dots,\text{UTE}_{n}\}.
 $$
-##### Parameters
+
+##### PARAMETERS
+
 $$
 G_{\min_g}, G_{\max_g} \text{ — generation limits of unit } g \text{ (MW)}\\
 c_g \text{ — thermal generation cost of unit } g
 $$
 
-##### Decision Variables
+##### DECISION VARIABLES
+
 $$
 p_{g,t} \ge 0 \text{ (MW)}
 $$
 
-##### Constraints
+##### CONSTRAINTS
 
-###### Capacity
+###### CAPACITY
+
 $$
 G_{\min_g} \le p_{g,t} \le G_{\max_g}, \quad \forall g, t
 $$
 
 ---
 
-#### Renewable Energies and Storage
+#### RENEWABLE ENERGIES AND STORAGE
 
-##### Sets and Indices
+##### SETS AND INDICES
 
 - $\mathcal{T} = \{1,2,\dots,T\} \quad$ — periods
 - $\mathcal{R} = \{1,2,\dots,N_R\} \quad$ — set of renewable units (wind/solar)
 - $\mathcal{S} = \{1,2,\dots,N_S\} \quad$ — set of storage units (batteries)
 
-##### Parameters
+##### PARAMETERS
+
 For each $t \in \mathcal{T}$, $r \in \mathcal{R}$, and $s \in \mathcal{S}$:
 
 - $\overline{g}_{r,t} \text{ — exogenous renewable availability profile (MWmed)}$
@@ -750,29 +828,34 @@ For each $t \in \mathcal{T}$, $r \in \mathcal{R}$, and $s \in \mathcal{S}$:
 - $\eta_{\text{c}_s}, \eta_{\text{d}_s} \in (0,1] – \text{ — charging and discharging efficiencies}$
 
 
-##### Decision Variables
+##### DECISION VARIABLES
+
 - $g_{\text{ren}_{r,t}} \ge 0 \text{ — dispatched renewable generation of unit } r \text{ at } t \text{ (MWavg)}$
 - $E_{s,t} \ge 0 \text{ — stored energy (SoC) of battery } s \text{ at } t \text{ (MWh)}$
 - $P_{\text{ch}_{s,t}}, P_{\text{dis}_{s,t}} \ge 0 \text{ — charge/discharge powers (MW)}$
 
-##### Constraints
+##### CONSTRAINTS
 
-###### Renewable Sources — Availability Limit
+###### RENEWABLE SOURCES — AVAILABILITY LIMIT
+
 $$
 0 \le g_{\text{ren}_{r,t}} \le \overline{g}_{r,t}, \quad \forall r \in \mathcal{R}, \; \forall t \in \mathcal{T}
 $$
 
-###### Storage — Energy Balance (SoC)
+###### STORAGE — ENERGY BALANCE (SoC)
+
 $$
 E_{s,1} = – E_{\text{ini}_s} + \eta_{\text{c}_s} P_{\text{ch}_{s,1}} \Delta t - \frac{1}{\eta_{\text{d}_s}} P_{\text{dis}_{s,1}} \Delta t, \quad \forall s \in \mathcal{S}\\
 E_{s,t} = – E_{s,t-1} + \eta_{\text{c}_s} P_{\text{ch}_{s,t}} \Delta t - \frac{1}{\eta_{\text{d}_s}} P_{\text{dis}_{s,t}} \Delta t, \quad \forall s \in \mathcal{S}, \; t=2,\dots,T
 $$
-###### Storage — State of Charge (SoC) Limits
+
+###### STORAGE - STATE OF CHARGE (SoC) LIMITS
+
 $$
 E_{\min_s} \le E_{s,t} \le E_{\max_s}, \quad \forall s \in \mathcal{S}, \; \forall t \in \mathcal{T}
 $$
 
-###### Storage — Power Limits
+###### STORAGE — POWER LIMITS
 
 $$
 0 \le P_{\text{ch}_{s,t}} \le \overline{P}_{\text{ch}_s}, – \quad \forall s \in \mathcal{S}, \; \forall t \in \mathcal{T}\\
@@ -781,7 +864,66 @@ $$
 
 ---
 
-#### Objective Function
+#### TRANSMISSION LINES AND CONNECTION BARS
+
+##### SETS AND INDICES
+
+- $\mathcal{T} = \{1,\dots,T\}$ – time periods (typically hourly)  
+- $\mathcal{L} = \{\text{LINE}_{1}, \dots, \text{LINE}_{n_\ell}\}$ – transmission lines  
+- $\mathcal{CB} = \{\text{BAR}_{1}, \dots, \text{BAR}_{n_b}\}$ – connection bars (buses)  
+- $(i,j) \in \mathcal{E} \subseteq \mathcal{B}\times\mathcal{B}$ – ordered pair of bars defining endpoints of line $\ell$  
+- $\mathcal{L}(b)$ – set of lines incident to bar $b$
+
+##### PARAMETERS
+
+- $b_{\ell}$ – susceptance of line $\ell$ (p.u. or 1/x)  
+- $\overline{F}_{\ell}$ – transmission capacity limit (MW)   
+- $\theta_{b,0}$ – reference (slack) bus angle (rad)  
+- $p_{\text{base}}$ – system base power (MW)  r  
+- $\text{CB} \in \mathcal{CB}$ – subset of bars with associated demand $d_{b,t}$  
+
+##### DECISION VARIABLES
+
+- $F_{\ell,t}$ – active power flow through line $\ell$ (MW)  
+- $\theta_{b,t}$ – phase angle at bus $b$ (radians)  
+
+##### DC FLOW APPROXIMATION
+
+For each line $\ell = (i,j)$ and time $t$:
+
+$$
+F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}).
+$$
+
+##### TRANSMISSION CAPACITY LIMITS
+
+$$
+-\,\overline{F}_{\ell} \le F_{\ell,t} \le \overline{F}_{\ell}\,,
+\quad \forall \ell \in \mathcal{L},\; t \in \mathcal{T}.
+$$
+
+##### POWER BALANCE AT EACH BUS
+
+Each bar $b$ satisfies Kirchhoff’s Current Law (KCL) in the DC approximation:
+
+$$
+\sum_{\ell\in\mathcal{L}(b)} \delta_{b,\ell}\,F_{\ell,t} + \sum_{h \in \mathcal{H}(b)} G_{h,t} + \sum_{g \in \mathcal{G}(b)} p_{g,t} + \sum_{r \in \mathcal{R}(b)} g_{\mathrm{ren}_{r,t}}+ \sum_{s \in \mathcal{S}(b)} (P_{\mathrm{dis}_{s,t}} - P_{\mathrm{ch}_{s,t}}) + D_{b,t}
+= d_{b,t}, \quad \forall b,t,
+$$
+
+where $\delta_{b,\ell} = +1$ if bar $b$ is the sending end of $\ell$, $-1$ if the receiving end, and $0$ otherwise.
+
+##### NETWORK REFERENCE (SLACK BUS)
+
+One bar must be defined as the phase-angle reference:
+
+$$
+\theta_{b_0,t} = 0, \quad \forall t \in \mathcal{T}.
+$$
+
+---
+
+#### OBJECTIVE FUNCTION
 
 The hydrothermal dispatch problem is formulated as the minimization of total generation and deficit costs, namely:
 
@@ -790,25 +932,19 @@ The hydrothermal dispatch problem is formulated as the minimization of total gen
 - Spillage penalty (energy waste)  
 - For the PDDD case, the future cost term $\alpha$ (FCF) is included  
 
-##### Single LP Objective Function
+##### SINGLE LP OBJECTIVE FUNCTION
+
 $$
-\min Z = \sum_{g\in\mathcal{G}} \sum_{t\in\mathcal{T}} (c_g p_{g,t}) + 0.3 \sum_{h\in\mathcal{H}} \sum_{t\in\mathcal{T}} S_{h,t} + C_{\text{def}} \sum_{t\in\mathcal{T}} D_t
+\min Z = \sum_{g\in\mathcal{G}} \sum_{t\in\mathcal{T}} (c_g p_{g,t}) + 0.3 \sum_{h\in\mathcal{H}} \sum_{t\in\mathcal{T}} S_{h,t} + \sum_{t\in\mathcal{T}} \sum_{b\in\mathcal{CB}} C_{{def}_{b}} D_{b,t}
 $$
 
-##### Objective Function for PDDD
+##### OBJECTIVE FUNCTION FOR PDDD
+
 $$
-\min Z = \sum_{g\in\mathcal{G}} \sum_{t\in\mathcal{T}} (c_g p_{g,t}) + 0.3 \sum_{h\in\mathcal{H}} \sum_{t\in\mathcal{T}} S_{h,t} + C_{\text{def}} \sum_{t\in\mathcal{T}} D_t + \sum_{t\in\mathcal{T}} \alpha_{k_t}
+\min Z = \sum_{g\in\mathcal{G}} \sum_{t\in\mathcal{T}} (c_g p_{g,t}) + 0.3 \sum_{h\in\mathcal{H}} \sum_{t\in\mathcal{T}} S_{h,t} + \sum_{t\in\mathcal{T}} \sum_{b\in\mathcal{CB}} C_{{def}_{b}} D_{b,t} + \sum_{t\in\mathcal{T}} \alpha_{k_t}
 $$
 
 ---
-
-#### Power Balance (Load Requirement)
-
-The load balance constraint requires that the total generation from all available sources, plus battery discharge and any incurred deficit, exactly meets the system demand:
-
-$$
-\sum_{h \in \mathcal{H}} G_{h,t} + \sum_{g \in \mathcal{G}} p_{g,t} + \sum_{r \in \mathcal{R}} g_{\text{ren}_{r,t}} + \sum_{s \in \mathcal{S}} ( P_{\text{dis}_{s,t}} - P_{\text{ch}_{s,t}} ) + D_t = d_t, \quad \forall t \in \mathcal{T}
-$$
 
 ## TECHNICAL APPENDIX: SUMMARY OF EPE MANUALS ON THE MDI
 
@@ -827,7 +963,7 @@ It is formulated as a **Mixed-Integer Linear Programming (MILP)** problem, imple
 
 ### MODEL STRUCTURE
 
-#### Demand Representation
+#### DEMAND REPRESENTATION
 Electricity demand is segmented into **load levels**—light, medium, heavy, and peak—each with its own duration and intensity. The total energy across levels equals the monthly average demand:
 
 $$
@@ -836,17 +972,17 @@ $$
 
 This representation allows a more accurate assessment of how generation technologies meet the system’s load profile.
 
-#### System Components
+#### SYSTEM COMPONENTS
 The MDI explicitly models:
 - Existing, planned, and candidate generation units;  
 - Interconnections between subsystems (represented as a capacitated graph);  
 - Operational reserves and capacity constraints.
 
-#### Objective Function
+#### OBJECTIVE FUNCTION
 The objective is to **minimize the expected total discounted cost** of expansion, with or without perpetuity:
 
 $$
-\min Z = \sum_{k \in K} \frac{1}{(1 + tx)^k}
+\min Z = \sum_{k \in K} \frac{1}{(1 + t_x)^k}
 \left[C_{\text{operation}} + C_{\text{investment}} + C_{\text{penalties}}\right]
 $$
 
@@ -856,34 +992,36 @@ The function includes fixed costs (investment, O&M, capital charges) and variabl
 
 ### FUNDAMENTAL CONSTRAINTS
 
-#### Energy Balance
+#### ENERGY BALANCE
 $$
 G + I + D - B \ge D_{\text{demand}}
 $$
 
 The sum of **generation**, **interchanges**, and **deficits**, minus **stored energy**, must meet or exceed the demand in each subsystem, scenario, and load level.
 
-#### Capacity Adequacy
+#### CAPACITY ADEQUACY
 $$
 P_{\text{thermal}} + P_{\text{other sources}} + I_{\text{cap}} + D_{\text{cap}} \ge (1 + \text{Reserve}) \, D_{\text{max}}
 $$
 
 Ensures that **peak demand plus reserve margin** (typically 104% in PDE 2030) is met across all subsystems.
 
-#### Source Availability
+#### SOURCE AVAILABILITY
 Establishes lower and upper bounds for generation and prevents **disinvestment**, ensuring that installed capacity does not decline over time.
 
-#### System Representation
+#### SYSTEM REPRESENTATION
 Limits energy interchange between subsystems:
+
 $$
 I_{ij,p} \le C_{ij,\text{existing}} + C_{ij,\text{expansion}}
 $$
+
 incorporating **losses**, **regional aggregation**, and **dynamic limits**.
 
-#### Investment Restrictions
-Each project is represented by a **binary decision variable** (\(x_{i,t} \in \{0,1\}\)) indicating the period of investment. A project can only be built **once** within the planning horizon.
+#### INVESTMENT RESTRICTIONS
+Each project is represented by a **binary decision variable** ($x_{i,t} \in \{0,1\}$) indicating the period of investment. A project can only be built **once** within the planning horizon.
 
-#### Additional Policy Constraints
+#### ADDITIONAL POLICY CONSTRAINTS
 Used to enforce regulatory or strategic rules, such as:
 - Uniform or stepwise expansion;  
 - Annual and incremental limits;  
@@ -894,16 +1032,16 @@ Used to enforce regulatory or strategic rules, such as:
 
 ### GENERATION SOURCE MODELING
 
-#### Hydroelectric Plants
+#### HYDROELECTRIC PLANTS
 Hydropower generation is represented using **energy and capacity time series** obtained from **SUISHI** and **NEWAVE** simulations. The investment decision is binary (installed or not), and capacity is assumed to increase linearly after commissioning.
 
-#### Thermal Plants
+#### THERMAL PLANTS
 Thermal generation is dispatched by load level. Projects can be **continuous** (generic expansion) or **integer** (specific projects). The **Variable Operating Cost (CVU)** is adjusted annually based on **EIA** projections.
 
-#### Renewable Sources
+#### RENEWABLE SOURCES
 Includes **wind**, **solar**, and **small hydro (PCH)** plants. They are modeled using **monthly seasonality** and **average contribution factors** by load level.
 
-#### Energy Storage Projects
+#### ENERGY STORAGE PROJECTs
 Models both charging and discharging in the same period, considering **round-trip efficiency losses** and **energy purchase costs** for recharging.
 
 ---
@@ -922,14 +1060,14 @@ Each scenario branch represents possible outcomes of future conditions, with cor
 
 ### MARGINAL EXPANSION COST (CME)
 
-#### Definition
+#### DEFINITION
 The **Marginal Expansion Cost (CME)** quantifies the **incremental cost** of meeting an additional unit of demand:
 
 $$
 CME = CME_{\text{energy}} + CME_{\text{capacity}}
 $$
 
-#### Calculation
+#### CALCULATION
 CME is derived from the **dual variables** of the energy and capacity constraints. The procedure adds **one unit of demand** per load level and measures the incremental cost impact.  
 To preserve the load shape:
 - +1 unit to **energy demand**,  
@@ -955,8 +1093,7 @@ This yields the **energy and capacity components** of the CME.
 
 In summary, the **MDI** integrates **economic, technical, and stochastic modeling** to produce a consistent, cost-optimal expansion plan for Brazil’s power system, bridging the gap between **hydrothermal simulation** and **long-term investment strategy**.
 
-
-### Mathematical Modeling of MDI
+### MATHEMATICAL MODELING OF MDI
 
 The objective of this model is to determine the **optimal expansion plan** of the electric generation system, minimizing the total investment and operation cost, considering the availability of multiple technologies (hydroelectric, thermal, solar, wind, and battery storage), the demand satisfaction in two load levels (peak and off-peak), and the distinction between existing and candidate units.
 
@@ -964,7 +1101,7 @@ This constitutes a **Mixed-Integer Linear Programming (MILP)** problem, solved b
 
 ---
 
-#### Sets
+#### SETS
 
 - $\mathcal{G}$ – total set of generating units (hydroelectric, thermal, solar, and wind)  
 - $\mathcal{G}_E \subset \mathcal{G}$ – subset of existing plants  
@@ -974,16 +1111,22 @@ This constitutes a **Mixed-Integer Linear Programming (MILP)** problem, solved b
 - $\mathcal{B}_C \subset \mathcal{B}$ – subset of candidate batteries  
 - $\mathcal{T}$ – planning periods ($t = 1,\dots,10$)  
 - $\mathcal{P}$ – load levels (peak and off-peak)
+- $\mathcal{L} = \{\text{LINE}_{1}, \dots, \text{LINE}_{n_\ell}\}$ – transmission lines  
+- $\mathcal{CB} = \{\text{BAR}_{1}, \dots, \text{BAR}_{n_b}\}$ – connection bars (buses)  
+- $(i,j) \in \mathcal{E} \subseteq \mathcal{B}\times\mathcal{B}$ – ordered pair of bars defining endpoints of line $\ell$  
+- $\mathcal{L}(b)$ – set of lines incident to bar $b$
 
 ---
 
-#### Parameters
+#### PARAMETERS
 
 - $C_{\text{inv}_g}$ – investment cost of generator $g$ [R\$ /MW]  
 - $C_{\text{op}_g}$ – operating cost of generator $g$ [R\$ /MWh]  
 - $P_{\text{max}_g}$ – maximum capacity of generator $g$ [MW]  
 - $C_{\text{inv}_b}$ – investment cost of battery $b$ [R\$ /MW]  
-- $C_{\text{op}_b}$ – operating cost of battery $b$ [R\$ /MWh]  
+- $C_{\text{op}_b}$ – operating cost of battery $b$ [R\$ /MWh] 
+- $C_{\text{inv},\ell}$ – investment cost of line $\ell$ 
+- $C_{\text{op},\ell}$ – operation cost of line $\ell$ (if candidate)
 - $E_{\text{max}_b}$, $E_{\text{min}_b}$ – state-of-charge limits for battery $b$ [MWh]  
 - $P_{\text{bat}_{\text{max}_b}}$ – maximum charge/discharge power of battery $b$ [MW]  
 - $E_{0_b}$ – initial state of charge of battery $b$ [MWh]  
@@ -991,11 +1134,18 @@ This constitutes a **Mixed-Integer Linear Programming (MILP)** problem, solved b
 - $D_{p,t}$ – demand in load level $p$ and period $t$ [MW]  
 - $h_p$ – duration of load level $p$ [h/year]  
 - $x_{g,0}$ – 1 if generator $g$ exists at the beginning of the horizon, 0 otherwise  
-- $x_{b,0}$ – 1 if battery $b$ exists at the beginning of the horizon, 0 otherwise  
+- $x_{b,0}$ – 1 if battery $b$ exists at the beginning of the horizon, 0 otherwise 
+- $x_{\ell,0}$ – 1 if line $\ell$ exists at the beginning of the horizon, 0 otherwise 
+- $b_{\ell}$ – susceptance of line $\ell$ (p.u. or 1/x)  
+- $\overline{F}_{\ell}$ – transmission capacity limit (MW)   
+- $\theta_{b,0}$ – reference (slack) bus angle (rad)  
+- $p_{\text{base}}$ – system base power (MW)  
+- $\zeta_{\ell}$ – availability or transmission scaling factor  
+- $C_{\text{inv},\ell}$ – investment cost of line $\ell$ (if candidate)
 
 ---
 
-#### Decision Variables
+#### DECISION VARIABLES
 
 - $y_{g,t} \in \{0,1\}$ – construction (1) or not (0) of candidate generator $g$ in period $t$  
 - $y_{b,t} \in \{0,1\}$ – construction (1) or not (0) of candidate battery $b$ in period $t$  
@@ -1004,33 +1154,38 @@ This constitutes a **Mixed-Integer Linear Programming (MILP)** problem, solved b
 - $P_{g,p,t} \ge 0$ – generation of unit $g$ in load level $p$ and period $t$ [MW]  
 - $P^{c}_{b,p,t} \ge 0$ – charging power of battery $b$ [MW]  
 - $P^{d}_{b,p,t} \ge 0$ – discharging power of battery $b$ [MW]  
-- $E_{b,p,t}$ – state of charge (SoC) of battery $b$ [MWh]  
+- $E_{b,p,t}$ – state of charge (SoC) of battery $b$ [MWh] 
+- $F_{\ell,t}$ – active power flow through line $\ell$ (MW)  
+- $\theta_{b,t}$ – phase angle at bus $b$ (radians)  
+- $x_{\ell,t} \in \{0,1\}$ – binary expansion variable (1 if line built by $t$)  
+- $y_{\ell,t} \in \{0,1\}$ – binary decision of construction in period $t$
 
 ---
 
----
+#### CONSTRAINTS
 
-#### Constraints
+##### DEMAND REQUIREMENT PER BUS
 
-##### Demand Requirement
 $$
-\sum_{g \in \mathcal{G}} P_{g,t,p} + \sum_{b \in \mathcal{B}} ( P^{d}_{b,t,p} - P^{c}_{b,t,p} ) = D_{t,p}, \quad \forall t \in \mathcal{T}, \, p \in \mathcal{P}
+\sum_{\ell\in\mathcal{L}(b)}\delta_{b,\ell}\,F_{\ell,t}  + \sum_{g \in \mathcal{G}} P_{g,b,t,p} + \sum_{b \in \mathcal{B}} ( P^{d}_{s,b,t,p} - P^{c}_{s,b,t,p} ) = D_{b,t,p}, \quad \forall b \in \mathcal{CB}, \, t \in \mathcal{T}, \, p \in \mathcal{P}
 $$
 
 This ensures power balance at each period and load level: total net generation (generation plus storage balance) equals system demand.
 
 ---
 
-#### Capacity Adequacy
+#### CAPACITY ADEQUACY PER BUS
+
 $$
-\sum_{g \in \mathcal{G}} G^{\max}_g x_{g,t} + \sum_{s \in \mathcal{S}} P^{\text{dis,max}}_{s,p} x_{s,t} \ge D_{t,p}, \quad \forall t,p
+\sum_{g \in \mathcal{G}} G^{\max}_g x_{g,t} + \sum_{s \in \mathcal{S}} P^{\text{dis,max}}_{s,p} x_{s,t} \ge d_{b,t,p}, \quad \forall b \in \mathcal{CB}, t \in \mathcal{T}, p \in \mathcal{P}
 $$
 
 Guarantees that total available capacity (generation + discharge) is sufficient to meet demand in all time steps.
 
 ---
 
-#### Generation Limits
+#### GENERATION LIMITS
+
 $$
 0 \le P_{g,t,p} \le P^{\max}_g x_{g,t}, \quad \forall g,t,p
 $$
@@ -1039,7 +1194,8 @@ Ensures that generation of each unit does not exceed its maximum capacity and is
 
 ---
 
-#### Storage Dynamics
+#### STORAGE DYNAMICS
+
 $$
 E_{s,t,p} = \begin{cases} 
 E_{\text{ini},s} x_{s,t}, & t = 1, p = p_1, \\
@@ -1052,7 +1208,8 @@ Ensures energy continuity across load levels and periods, applying charge/discha
 
 ---
 
-#### State of Charge Limits
+#### STATE OF CHARGE LIMITS
+
 $$
 E^{\min}_b x_{b,t} \le E_{b,t,p} \le E^{\max}_b x_{b,t}, \quad \forall b,t,p
 $$
@@ -1061,7 +1218,8 @@ Keeps the state of charge within the operational range, proportional to the unit
 
 ---
 
-#### Charge/Discharge Power Limits
+#### CHARGE/DISCHARGE POWER LIMITS
+
 $$
 0 \le P^{c}_{b,t,p}, P^{d}_{b,t,p} \le P^{\max}_{\text{bat}_b} x_{b,t}, \quad \forall b,t,p
 $$
@@ -1070,7 +1228,8 @@ Restricts charging and discharging powers according to the installed battery cap
 
 ---
 
-#### Initial State
+#### INITIAL STATE
+
 $$
 E_{b,1,p} = E_{0_b}, \quad \forall b,p
 $$
@@ -1079,53 +1238,93 @@ Defines the initial energy level for each battery, ensuring consistency in the d
 
 ---
 
-#### Expansion Dynamics (Existence Accumulation)
+#### EXPANSION DYNAMICS (EXISTENCE ACCUMULATION)
+
 $$
-    x_{g,t} = x_{g,t-1} + y_{g,t}, \quad\\
+x_{g,t} = x_{g,t-1} + y_{g,t}, \quad\\
 x_{b,t} = x_{b,t-1} + y_{b,t}, \quad \\
-\forall g,b,t>1\\
-x_{g,0}, x_{b,0} \text{ given (initial existence)}
+x_{\ell,t} = x_{\ell,t-1} + y_{\ell,t}, \quad \\
+\forall g,b,\ell,t>1\\
+x_{g,0}, x_{b,0}, x_{\ell, 0} \text{ given (initial existence)}
 $$
 
 Guarantees temporal coherence of the expansion plan: units exist only if previously constructed.
 
 ---
 
-#### Unique Construction
+#### DC FLOW APPROXIMATION
+
+For each line $\ell = (i,j)$ and time $t$:
+
+$$
+F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t})\, x_{\ell,t}.
+$$
+
+---
+
+#### TRANSMISSION CAPACITY LIMITS
+
+$$
+-\,\overline{F}_{\ell}\,x_{\ell,t} \le F_{\ell,t} \le \overline{F}_{\ell}\,x_{\ell,t},
+\quad \forall \ell \in \mathcal{L},\; t \in \mathcal{T}.
+$$
+
+---
+
+#### NETWORK REFERENCE (SLACK BUS)
+
+One bar must be defined as the phase-angle reference:
+
+$$
+\theta_{b_0,t} = 0, \quad \forall t \in \mathcal{T}.
+$$
+
+---
+
+#### UNIQUE CONSTRUCTION
+
 $$
 \sum_{t \in \mathcal{T}} y_{g,t} \le 1, \quad
-\sum_{t \in \mathcal{T}} y_{b,t} \le 1, \quad \forall g \in \mathcal{G}_C, b \in \mathcal{B}_C
+\sum_{t \in \mathcal{T}} y_{b,t} \le 1, \quad
+\sum_{t \in \mathcal{T}} y_{\ell,t} \le 1, \quad \forall g \in \mathcal{G}_C, b \in \mathcal{B}_C
 $$
 
 Prevents multiple constructions of the same unit within the planning horizon.
 
 ---
 
-#### Monotonic Growth
+#### MONOTONIC GROWTH
+
 $$
 x_{g,t} \ge x_{g,t-1}, \quad
-x_{b,t} \ge x_{b,t-1}, \quad \forall g,b,t
+x_{b,t} \ge x_{b,t-1}, \quad 
+x_{\ell,t} \ge x_{\ell,t-1}, \quad \forall g,b,\ell,t
 $$
 
 Ensures that the set of existing units grows monotonically, avoiding deactivation after construction and maintaining temporal consistency in expansion.
 
-#### Objective Function
+---
+
+#### OBJECTIVE FUNCTION
 
 $$
-\min Z = \sum_{t \in \mathcal{T}} \Bigg[\sum_{g \in \mathcal{G}} C^{\text{inv}}_g x_{g,t}+ \sum_{b \in \mathcal{B}} C^{\text{inv}}_b x_{b,t} + \sum_{p \in \mathcal{P}} h_p \Big( \sum_{g \in \mathcal{G}} C^{\text{op}}_g P_{g,t,p} + \sum_{b \in \mathcal{B}} C^{\text{op}}_b (P^{d}_{b,t,p} +  P^{c}_{b,t,p}) \Big) \Bigg]
+\min Z = \sum_{t \in \mathcal{T}} \frac{1}{(1 + t_x)^t}\Bigg[\sum_{g \in \mathcal{G}} C^{\text{inv}}_g x_{g,t} + \sum_{b \in \mathcal{B}} C^{\text{inv}}_b x_{b,t}+ \sum_{\ell \in \mathcal{L}} C^{\text{inv}}_\ell x_{b,t} + \sum_{p \in \mathcal{P}} h_p \Big( \sum_{g \in \mathcal{G}} C^{\text{op}}_g P_{g,t,p} +\sum_{\ell \in \mathcal{L}} C^{\text{op}}_\ell F_{l,t,p} + \sum_{b \in \mathcal{B}} C^{\text{op}}_b (P^{d}_{b,t,p} +  P^{c}_{b,t,p}) \Big) \Bigg]
 $$
 
 Where:
 
 - $Z$ — total objective function value (minimum system cost)  
-- $C^{\text{inv}}_{g}, C^{\text{inv}}_{b}$ — investment costs for generation and storage units [\$]  
-- $C^{\text{op}}_{g}, C^{\text{op}}_{b}$ — operating costs for generation and storage units [\$/MWh]  
-- $x_{g,t}, x_{b,t}$ — binary variables for existence of generation/storage units  
+- $t_x$ — discount rate ($t_x \in [0,1)$)
+- $C^{\text{inv}}_{g}, C^{\text{inv}}_{b} , C^{\text{inv}}_{\ell}$ — investment costs for generation and storage units [\$]  
+- $C^{\text{op}}_{g}, C^{\text{op}}_{b}, C^{\text{op}}_{\ell}$ — operating costs for generation and storage units [\$/MWh]  
+- $x_{g,t}, x_{b,t}, x_{\ell,t}$ — binary variables for existence of generation/storage units  
 - $P_{g,t,p}$ — generated power [MW]  
 - $P^{d}_{b,t,p}, P^{c}_{b,t,p}$ — discharging and charging powers [MW]  
+- $F_{l,t,p}$ - transmission line power flux [MW]
 - $h_p$ — duration of load level $p$ [h]  
 
 This objective minimizes total system cost across the planning horizon, combining investment and operating costs weighted by the duration of each load level. The formulation captures the trade-off between capacity expansion and operation, ensuring an economically optimal solution under technical and energy constraints.
+
 
 ## TECHNICAL APPENDIX: OPTIMIZATION METHODS
 
@@ -1184,7 +1383,7 @@ They provide **maximum modeling realism** at the expense of computational comple
 
 ---
 
-#### Summary Table
+#### SUMMARY TABLE
 
 | **Method** | **Variable Type** | **Objective Type** | **Typical Application** | **Main Solvers** |
 |-------------|-------------------|--------------------|--------------------------|------------------|
@@ -1205,7 +1404,7 @@ In conclusion, these optimization paradigms form the **computational backbone** 
 The operation of modern electric power systems is subject to significant **uncertainties**, primarily related to **hydrological inflows**, **renewable generation**, and **load variability**.  
 To address these sources of uncertainty, several mathematical paradigms of optimization have been developed, each with different trade-offs between **robustness**, **complexity**, and **economic efficiency**.
 
-#### Stochastic Programming (SP)
+#### STOCHASTIC PROGRAMMING (SP)
 **Stochastic Programming** explicitly models uncertainty using **probabilistic scenarios**, each associated with a likelihood of occurrence.  
 The objective is to **minimize the expected operational cost** across all scenarios:
 
@@ -1216,7 +1415,7 @@ $$
 where \( p_s \) is the probability of scenario \( s \), \( C(x_s, \xi_s) \) the corresponding cost, and \( x_s \) the decision variables.  
 SP captures the statistical nature of uncertainty but can become **computationally intractable** as the number of scenarios grows, due to the **curse of dimensionality**.
 
-#### Robust Optimization (RO)
+#### ROBUST OPTIMIZATION (RO)
 **Robust Optimization** takes a different stance: instead of relying on probabilistic information, it defines an **uncertainty set** \( \mathcal{U} \) within which all possible realizations of uncertain parameters must lie.  
 The optimization then seeks the **best worst-case solution**:
 
@@ -1227,7 +1426,7 @@ $$
 This approach **sacrifices part of optimality** under nominal conditions in exchange for **guaranteed feasibility** across all admissible realizations.  
 RO is particularly useful in operational contexts requiring **high reliability**, such as critical infrastructure and distribution network operation.
 
-#### Data-Driven Distributionally Robust Optimization (DDDRO)
+#### DATA-DRIVEN DISTRIBUTIONALLY ROBUST OPTIMIZATION (DDDRO)
 A more recent and advanced approach, **Data-Driven Distributionally Robust Optimization (DDDRO)**, combines the strengths of SP and RO.  
 It constructs **ambiguity sets** of probability distributions based on **historical data**, typically using **Wasserstein distances** or **moment-based metrics**.  
 The objective is to ensure robustness against **unknown or misspecified distributions**, minimizing the **worst-case expected cost** across all plausible distributions:
@@ -1246,7 +1445,7 @@ These methods enable **resilient and adaptive energy planning** under deep uncer
 The **Distribution Optimal Power Flow (D-OPF)** problem determines the **optimal power dispatch** and **network configuration** in **distribution systems** that include **Distributed Energy Resources (DERs)**, **energy storage**, and **ancillary services**.  
 Unlike transmission-level OPF, the D-OPF must handle **radial or weakly meshed topologies**, **voltage-dependent losses**, and **bidirectional power flows**.
 
-#### Exact AC Formulation
+#### EXACT AC FORMULATION
 The **AC D-OPF** formulation is based on nonlinear and non-convex power flow equations derived from **Kirchhoff’s laws**:
 
 $$
@@ -1259,7 +1458,7 @@ $$
 where \( P_i, Q_i \) are active and reactive powers, \( V_i \) the voltage magnitude, and \( \theta_{ij} \) the phase angle difference.  
 Due to their **non-convexity**, these equations make the AC-OPF problem **NP-hard**.
 
-#### Convex Relaxations
+#### CONVEX RELAXATIONS
 To make D-OPF computationally tractable, **convex relaxations** are often applied:
 
 1. **Second-Order Cone Programming (SOCP)**  
@@ -1272,7 +1471,7 @@ To make D-OPF computationally tractable, **convex relaxations** are often applie
 
 These relaxations transform the D-OPF into a **convex optimization problem**, solvable by efficient algorithms and modern solvers.
 
-#### Mixed-Integer Extensions
+#### MIXED-INTEGER EXTENSIONS
 Real-world distribution systems include **discrete operational decisions**—such as switching configurations, capacitor banks, or DER activation.  
 These are modeled using **Mixed-Integer Second-Order Cone Programming (MISOCP)**, which combines the tractability of SOCP with the **binary decision modeling** of MILP:
 
@@ -1285,7 +1484,7 @@ MISOCP formulations are essential for **Active Distribution Networks (ADNs)** an
 
 ---
 
-### Summary of D-OPF Formulations
+### SUMMARY OF D-OPF FORMULATIONS
 
 | **Formulation** | **Nature** | **Convexity** | **Typical Application** | **Solver Examples** |
 |------------------|------------|----------------|--------------------------|----------------------|

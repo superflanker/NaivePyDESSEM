@@ -98,6 +98,8 @@ def renewable_add_sets_and_params(m: ConcreteModel,
         
     m.RU = Set(initialize=R)
 
+    m.renewable_bars = {r: data.units[r].bar for r in R}
+
     m.renewable_gbar = Param(m.RU, m.T, initialize=_gbar_init, within=NonNegativeReals)
 
     return m
@@ -131,8 +133,6 @@ def renewable_add_variables(m: ConcreteModel) -> ConcreteModel:
       other subsystems (thermal, hydro, batteries).
     - Both variables are continuous and non-negative.
     """
-    if not hasattr(m, 'D'):
-        m.D = Var(m.T, domain=NonNegativeReals)          # déficit
     
     m.renewable_gen = Var(m.RU, m.T, within=NonNegativeReals)
     return m

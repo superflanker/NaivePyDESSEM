@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -271,6 +271,99 @@
 
     <span class="n">required</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;SU&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_dis&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_ch&#39;</span><span class="p">,</span> <span class="s1">&#39;storage_E&#39;</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="has_connection_bar_model">
+<a class="viewcode-back" href="../../NaivePyDESSEM.html#NaivePyDESSEM.ModelCheck.has_connection_bar_model">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">has_connection_bar_model</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check whether the given Pyomo model contains all components</span>
+<span class="sd">    required for a connection-bar subsystem.</span>
+
+<span class="sd">    This utility function verifies the structural integrity of a</span>
+<span class="sd">    :class:`~pyomo.environ.ConcreteModel` by testing the presence</span>
+<span class="sd">    of key sets, parameters, and variables associated with</span>
+<span class="sd">    connection bars (buses) in DC power flow formulations.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model instance to be inspected.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool</span>
+<span class="sd">        ``True`` if the model includes all required components for</span>
+<span class="sd">        the connection-bar subsystem, otherwise ``False``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The following components are required:</span>
+<span class="sd">        - ``T`` : time-period set</span>
+<span class="sd">        - ``CB`` : set of connection bars (buses)</span>
+<span class="sd">        - ``SB`` : set of slack bars (reference nodes)</span>
+<span class="sd">        - ``d`` : demand parameter (MW)</span>
+<span class="sd">        - ``Cdef`` : deficit penalty parameter (R$/MWh)</span>
+<span class="sd">        - ``D`` : deficit variable (MW)</span>
+<span class="sd">        - ``theta`` : voltage phase-angle variable (radians)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">required</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;CB&#39;</span><span class="p">,</span> <span class="s1">&#39;SB&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;Cdef&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+<div class="viewcode-block" id="has_transmission_line_model">
+<a class="viewcode-back" href="../../NaivePyDESSEM.html#NaivePyDESSEM.ModelCheck.has_transmission_line_model">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">has_transmission_line_model</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">ConcreteModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check whether the given Pyomo model contains all components</span>
+<span class="sd">    required for a transmission-line subsystem.</span>
+
+<span class="sd">    This utility function validates the existence of sets, parameters,</span>
+<span class="sd">    and variables that define the transmission network in a DC power</span>
+<span class="sd">    flow formulation. It ensures that the model is structurally ready</span>
+<span class="sd">    to support flow equations and line constraints.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : pyomo.environ.ConcreteModel</span>
+<span class="sd">        Pyomo model instance to be inspected.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool</span>
+<span class="sd">        ``True`` if the model includes all required components for</span>
+<span class="sd">        the transmission-line subsystem, otherwise ``False``.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The following components are required:</span>
+<span class="sd">        - ``T`` : time-period set</span>
+<span class="sd">        - ``LT`` : set of transmission lines</span>
+<span class="sd">        - ``lines_transmission_model`` : dictionary mapping each line to its modeling type (&#39;dc&#39; or &#39;transport&#39;)</span>
+<span class="sd">        - ``lines_b`` : line susceptance values (1/x_ij)</span>
+<span class="sd">        - ``lines_pmax`` : maximum line capacities (MW)</span>
+<span class="sd">        - ``lines_endpoints`` : mapping of line endpoints [bar_i, bar_j]</span>
+<span class="sd">        - ``lines_flow`` : power-flow variable (MW)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">required</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;T&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;LT&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lines_transmission_model&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lines_b&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lines_pmax&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lines_endpoints&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lines_flow&#39;</span>
     <span class="p">]</span>
     <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">required</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">True</span>

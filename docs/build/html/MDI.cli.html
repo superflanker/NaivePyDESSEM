@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING" href="topics_on_planning_and_expansion_of_power_systems.html" />
-    <link rel="prev" title="MDI.Storage package" href="MDI.Storage.html" /> 
+    <link rel="prev" title="MDI.TransmissionLine package" href="MDI.TransmissionLine.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,9 +47,9 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">DESSEM/DECOMP/MDI</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">NAIVE MODULES</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.html">NaivePyDESSEM package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.html">NaivePyDECOMP package</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="MDI.html">MDI package</a><ul class="current">
@@ -57,6 +57,8 @@
 <li class="toctree-l3 current"><a class="reference internal" href="MDI.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="MDI.Generator.html">MDI.Generator package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="MDI.Storage.html">MDI.Storage package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.ConnectionBar.html">MDI.ConnectionBar package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="MDI.TransmissionLine.html">MDI.TransmissionLine package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">MDI.cli package</a></li>
 </ul>
 </li>
@@ -76,7 +78,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -93,7 +95,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">DESSEM/DECOMP/MDI</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">NAIVE MODULES</a></li>
           <li class="breadcrumb-item"><a href="MDI.html">MDI package</a></li>
       <li class="breadcrumb-item active">MDI.cli package</li>
       <li class="wy-breadcrumbs-aside">
@@ -352,6 +354,8 @@ the results of a solved NaivePyDESSEM dispatch model.</p>
 <ul class="simple">
 <li><p>‘G’     : Generation (thermal, renewable, battery)</p></li>
 <li><p>‘BAT’   : Battery-specific (charge/discharge/SoC)</p></li>
+<li><p>‘CB’    : Connection Bar Variables</p></li>
+<li><p>‘LT’    : Transmission Lines Variables</p></li>
 <li><p>‘cost’  : Cost components per stage</p></li>
 <li><p>‘CTRL’  : Control variables (Y, X)</p></li>
 </ul>
@@ -415,7 +419,7 @@ color-coded scheme.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="MDI.cli.plot_cli.handle_plot">
-<span class="sig-prename descclassname"><span class="pre">MDI.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">handle_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacked</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MDI/cli/plot_cli.html#handle_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.cli.plot_cli.handle_plot" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">MDI.cli.plot_cli.</span></span><span class="sig-name descname"><span class="pre">handle_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stacked</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/MDI/cli/plot_cli.html#handle_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#MDI.cli.plot_cli.handle_plot" title="Link to this definition"></a></dt>
 <dd><p>Generate and export plots for selected variable categories.</p>
 <p>Supports both line and bar charts, including stacked bar plots. If not
 fully specified via arguments, the function prompts the user for relevant
@@ -429,6 +433,7 @@ plot metadata and output settings.</p>
 <li><p><strong>stacked</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to stack bars (applies only to bar plots).</p></li>
 <li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – Title of the plot. Prompted if not provided.</p></li>
 <li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the Y-axis. Prompted if not provided.</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the X-axis. Prompted if not provided.</p></li>
 <li><p><strong>out_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – Directory to save the plot. Prompted if not provided.</p></li>
 <li><p><strong>out_file</strong> (<em>str</em><em>, </em><em>optional</em>) – File name for the saved image. Prompted if not provided.</p></li>
 </ul>
@@ -592,7 +597,7 @@ such as generation, flow, storage, control actions, and cost.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input DataFrame containing simulation results.</p></li>
-<li><p><strong>category</strong> (<em>str</em>) – One of: {“G”, “Q”, “S”, “V”, “BAT”, “cost”, “CTRL”}.</p></li>
+<li><p><strong>category</strong> (<em>str</em>) – One of: {“G”, “BAT”, “cost”, “CTRL”}.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -614,7 +619,7 @@ such as generation, flow, storage, control actions, and cost.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="MDI.Storage.html" class="btn btn-neutral float-left" title="MDI.Storage package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="MDI.TransmissionLine.html" class="btn btn-neutral float-left" title="MDI.TransmissionLine package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="topics_on_planning_and_expansion_of_power_systems.html" class="btn btn-neutral float-right" title="TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

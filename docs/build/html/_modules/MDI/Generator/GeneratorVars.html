@@ -44,11 +44,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Main modules (DESSEM/DECOMP/MDI):</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Main modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">DESSEM/DECOMP/MDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">NAIVE MODULES</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../topics_on_planning_and_expansion_of_power_systems.html">TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">NaivePyDESSEM User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../userguide.html">USER GUIDE</a></li>
 </ul>
 
         </div>
@@ -212,24 +212,20 @@
     <span class="c1"># Horizon and base collections</span>
     <span class="n">T</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">horizon</span>
     <span class="n">U</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-    <span class="n">P</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">demand</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-    <span class="n">level_hours</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">level_hours</span>
 
     <span class="c1"># Time, units, and load-level sets</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">):</span>
         <span class="n">m</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">RangeSet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">):</span>
-        <span class="n">m</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">P</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;level_hours&quot;</span><span class="p">):</span>
-        <span class="n">m</span><span class="o">.</span><span class="n">level_hours</span> <span class="o">=</span> <span class="n">level_hours</span>
+    
+    <span class="c1"># discounts</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s1">&#39;discounts&#39;</span><span class="p">):</span>
+      <span class="n">m</span><span class="o">.</span><span class="n">discounts</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span>
+          <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+          <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">t</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">interest_rate</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">},</span>
+          <span class="n">within</span><span class="o">=</span><span class="n">NonNegativeReals</span>
+      <span class="p">)</span>
 
     <span class="n">m</span><span class="o">.</span><span class="n">GU</span> <span class="o">=</span> <span class="n">Set</span><span class="p">(</span><span class="n">initialize</span><span class="o">=</span><span class="n">U</span><span class="p">)</span>  <span class="c1"># Generator Units</span>
-
-    <span class="c1"># Demand data (non-symbolic dictionary structure)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">):</span>
-        <span class="n">m</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">demand</span>
 
     <span class="c1"># Generator parameters</span>
     <span class="n">m</span><span class="o">.</span><span class="n">gen_pmax</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">p_max</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">})</span>
@@ -237,6 +233,7 @@
     <span class="n">m</span><span class="o">.</span><span class="n">gen_c_inv</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">c_inv</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">})</span>
     <span class="n">m</span><span class="o">.</span><span class="n">gen_state</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">state</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">})</span>
     <span class="n">m</span><span class="o">.</span><span class="n">gen_include_cap</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GU</span><span class="p">,</span> <span class="n">initialize</span><span class="o">=</span><span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">include_cap</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">})</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">gen_bars</span> <span class="o">=</span>  <span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">units</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">U</span><span class="p">}</span>
 
     <span class="k">return</span> <span class="n">m</span></div>
 
