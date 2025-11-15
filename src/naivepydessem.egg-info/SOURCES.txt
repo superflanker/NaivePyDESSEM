@@ -58,9 +58,12 @@ examples/MDI/trabalho03_ex07_anualizado.yaml
 examples/TRANSMISSION_LINES/decomp.yaml
 examples/TRANSMISSION_LINES/dessem.yaml
 examples/TRANSMISSION_LINES/mdi-dc-alt.yaml
+examples/TRANSMISSION_LINES/mdi-dc-corrected.yaml
 examples/TRANSMISSION_LINES/mdi-dc.yaml
 examples/TRANSMISSION_LINES/mdi-hybrid-alt.yaml
+examples/TRANSMISSION_LINES/mdi-hybrid-corrected.yaml
 examples/TRANSMISSION_LINES/mdi-hybrid.yaml
+examples/TRANSMISSION_LINES/mdi-transport.yaml
 src/MDI/Builder.py
 src/MDI/DataFrames.py
 src/MDI/Formatters.py

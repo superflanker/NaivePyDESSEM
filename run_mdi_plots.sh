@@ -1172,4 +1172,178 @@ mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-alt.csv \
   --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-alt/imagens \
   --out-file custos_geracao_dc_alt_anualizado.png
 
+# mdi-transport, tabelas - Investimento Anualizado
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-transport.csv \
+  --mode table --category GT \
+  --title "Tabela de Geração (\$MWh/h\$) - MODELO TRANSPORTE" \
+  --label tab:geracao_transporte_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-transport/tabelas/ \
+  --out-file tabela_geracao_transporte_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-transport.csv \
+  --mode table --category cost \
+  --title "Custos Operacionais e Investimento - MODELO TRANSPORTE" \
+  --label tab:custos_geracao_transporte_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-transport/tabelas/ \
+  --out-file tabela_custos_dc_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-transport.csv \
+  --mode ctrl \
+  --title "Decisão de Construção e Existência de Usinas (X, Y) - MODELO TRANSPORTE" \
+  --label tab:ctrl_transporte_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-transport/tabelas/ \
+  --out-file decisoes_transporte_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-transport.csv \
+  --mode table --category CB \
+  --title "Demanda ($\MW\$), Déficit (\$MW\$) e Ângulos (\$\\mathrm{rad}\$) por barra - MODELO TRANSPORTE" \
+  --label tab:barras_transporte_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-transport/tabelas/ \
+  --out-file barras_transporte_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-transport.csv \
+  --mode table --category LT \
+  --title "Fluxos de Potência (\$MW\$) e Deriva Angular (\$\\mathrm{rad}\$) de Linhas - MODELO TRANSPORTE" \
+  --label tab:linhas_transporte_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-transport/tabelas/ \
+  --out-file linhas_transporte_anualizado.tex
+
+# mdi-transport, gráficos - Investimento Anualizado
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-transport.csv \
+  --mode plot --category G  \
+  --plot-style bar --stacked \
+  --level Ponta \
+  --title "Geração - Ponta - MODELO TRANSPORTE" \
+  --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-transport/imagens \
+  --out-file geracao_transporte_anualizado_ponta.png
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-transport.csv \
+  --mode plot --category cost  \
+  --plot-style bar \
+  --title "Custos de Geração - MODELO TRANSPORTE" \
+  --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-transport/imagens \
+  --out-file custos_geracao_transporte_anualizado.png
+
+# mdi-dc-corrected, tabelas - Investimento Anualizado
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-corrected.csv \
+  --mode table --category GT \
+  --title "Tabela de Geração (\$MWh/h\$) - MODELO DC CORRIGIDO" \
+  --label tab:geracao_dc_corrigido_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-corrected/tabelas/ \
+  --out-file tabela_geracao_dc_corrigido_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-corrected.csv \
+  --mode table --category cost \
+  --title "Custos Operacionais e Investimento - MODELO DC CORRIGIDO" \
+  --label tab:custos_geracao_dc_corrigido_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-corrected/tabelas/ \
+  --out-file tabela_custos_dc_corrigido_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-corrected.csv \
+  --mode ctrl \
+  --title "Decisão de Construção e Existência de Usinas (X, Y) - MODELO DC CORRIGIDO" \
+  --label tab:ctrl_dc_corrigido_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-corrected/tabelas/ \
+  --out-file decisoes_dc_corrigido_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-corrected.csv \
+  --mode table --category CB \
+  --title "Demanda ($\MW\$), Déficit (\$MW\$) e Ângulos (\$\\mathrm{rad}\$) por barra - MODELO DC CORRIGIDO" \
+  --label tab:barras_dc_corrigido_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-corrected/tabelas/ \
+  --out-file barras_dc_corrigido_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-corrected.csv \
+  --mode table --category LT \
+  --title "Fluxos de Potência (\$MW\$) e Deriva Angular (\$\\mathrm{rad}\$) de Linhas - MODELO DC CORRIGIDO" \
+  --label tab:linhas_dc_corrigido_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-corrected/tabelas/ \
+  --out-file linhas_dc_corrigido_anualizado.tex
+
+# mdi-dc-corrected, gráficos - Investimento Anualizado
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-corrected.csv \
+  --mode plot --category G  \
+  --plot-style bar --stacked \
+  --level Ponta \
+  --title "Geração - Ponta - MODELO DC CORRIGIDO" \
+  --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-corrected/imagens \
+  --out-file geracao_dc_corrigido_anualizado_ponta.png
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-dc-corrected.csv \
+  --mode plot --category cost  \
+  --plot-style bar \
+  --title "Custos de Geração - MODELO DC CORRIGIDO" \
+  --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-dc-corrected/imagens \
+  --out-file custos_geracao_dc_corrigido_anualizado.png
+
+# mdi-hybrid-corrected, tabelas - Investimento Anualizado
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid-corrected.csv \
+  --mode table --category GT \
+  --title "Tabela de Geração (\$MWh/h\$) - MODELO HÍBRIDO CORRIGIDO" \
+  --label tab:geracao_hybrid_corrigido_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid-corrected/tabelas/ \
+  --out-file tabela_geracao_hybrid_corrigido_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid-corrected.csv \
+  --mode table --category cost \
+  --title "Custos Operacionais e Investimento - MODELO HÍBRIDO CORRIGIDO" \
+  --label tab:custos_geracao_hybrid_corrigido_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid-corrected/tabelas/ \
+  --out-file tabela_custos_hybrid_corrigido_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid-corrected.csv \
+  --mode ctrl \
+  --title "Decisão de Construção e Existência de Usinas (X, Y) - MODELO HÍBRIDO CORRIGIDO" \
+  --label tab:ctrl_hybrid_corrigido_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid-corrected/tabelas/ \
+  --out-file decisoes_hybrid_corrigido_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid-corrected.csv \
+  --mode table --category CB \
+  --title "Demanda ($\MW\$), Déficit (\$MW\$) e Ângulos (\$\\mathrm{rad}\$) por barra - MODELO HÍBRIDO CORRIGIDO" \
+  --label tab:barras_hybrid_corrigido_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid-corrected/tabelas/ \
+  --out-file barras_hybrid_corrigido_anualizado.tex
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid-corrected.csv \
+  --mode table --category LT \
+  --title "Fluxos de Potência (\$MW\$) e Deriva Angular (\$\\mathrm{rad}\$) de Linhas - MODELO HÍBRIDO CORRIGIDO" \
+  --label tab:linhas_hybrid_corrigido_anualizado \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid-corrected/tabelas/ \
+  --out-file linhas_hybrid_corrigido_anualizado.tex
+
+# mdi-hybrid-corrected, gráficos - Investimento Anualizado
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid-corrected.csv \
+  --mode plot --category G  \
+  --plot-style bar --stacked \
+  --level Ponta \
+  --title "Geração - Ponta - MODELO HÍBRIDO CORRIGIDO" \
+  --ylabel "Geração (\$MWmed\$)" \
+  --xlabel "Estágio (T)" \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid-corrected/imagens \
+  --out-file geracao_hybrid_corrigido_anualizado_ponta.png
+
+mdi-plot resultados/TRANSMISSION_LINES/mdi-hybrid-corrected.csv \
+  --mode plot --category cost  \
+  --plot-style bar \
+  --title "Custos de Geração - MODELO HÍBRIDO CORRIGIDO" \
+  --ylabel "Custos (\\$)" \
+  --xlabel "Estágio (T)" \
+  --out-dir relatorios/TRANSMISSION_LINES/mdi-hybrid-corrected/imagens \
+  --out-file custos_geracao_hybrid_corrigido_anualizado.png
+
 deactivate

@@ -25,13 +25,15 @@ meta:
   # -------------------------
   # Demanda do sistema
   # -------------------------
-  demand: {"Ponta": [380,      # demanda global - não utilizado se houver mais 
-                     544,      # de uma barra
-                     850,
-                     1100, 
-                     1270]}
+  demand:                     # demanda global - não utilizado se houver mais de uma barra
+    Ponta": [380,      
+             544,      
+             850,
+             1100, 
+             1270]
   
-  level_hours: {"Ponta": 8740} # horários por patamar
+  level_hours: 
+    Ponta: 8740               # horários por patamar
   level_precedence: ["Ponta"]  # precedência de patamares
 
 # ==========================
@@ -79,47 +81,52 @@ bars:
       slack: True                   # barra de referência
       Cdef: 500                     # Custo do Déficit
       c_pmax: 10_000                # potência máxima do déficit
-      demand: {"Ponta": [40,        # demanda na barra
-                         80, 
-                         100, 
-                         150, 
-                         200]}
+      demand:                       # demanda na barra
+        Ponta: [40,        
+                80, 
+                100, 
+                150, 
+                200]
     BAR_2:                          # Dict[str, ConnectionBar]
       slack: False                  # barra de referência
       Cdef: 500                     # Custo do Déficit
       c_pmax: 10_000                # potência máxima do déficit
-      demand: {"Ponta": [120,       # demanda na barra
-                         240, 
-                         250, 
-                         300, 
-                         350]}
+      demand:                       # demanda na barra
+        Ponta: [120,
+                240, 
+                250, 
+                300, 
+                350]
     BAR_3:
       slack: False                  # barra de referência
       Cdef: 500                     # Custo do Déficit
       c_pmax: 10_000                # potência máxima do déficit
-      demand: {"Ponta": [20,        # demanda na barra
-                         40, 
-                         50, 
-                         100,
-                         150]}
+      demand:                       # demanda na barra
+        Ponta: [20,
+                40, 
+                50, 
+                100,
+                150]
     BAR_4:
       slack: False                  # barra de referência
       Cdef: 500                     # Custo do Déficit
       c_pmax: 10_000                # potência máxima do déficit
-      demand: {"Ponta": [80,        # demanda na barra
-                         160, 
-                         200, 
-                         250, 
-                         250]}
+      demand:                       # demanda na barra
+        Ponta: [80,
+                160, 
+                200, 
+                250, 
+                250]
     BAR_5:
       slack: False                  # barra de referência
       Cdef: 500                     # Custo do Déficit
       c_pmax: 10_000                # potência máxima do déficit
-      demand: {"Ponta": [120,       # demanda na barra
-                         240, 
-                         250, 
-                         300, 
-                         320]}
+      demand:                       # demanda na barra
+        Ponta: [120,       
+                240, 
+                250, 
+                300, 
+                320]
 
 # =========================
 # LINES (TransmissionLine) 
@@ -130,7 +137,7 @@ lines:
     LINE_120:                       # convenção {LINE}_{UNIT}
       model: "dc"                   # modelo utilizado (transport, dc)
       state: 0                      # candidata
-      b: 0.5                       # suceptância da linha (pu) - o inverso da reatância
+      b: 0.5                        # suceptância da linha (pu) - o inverso da reatância
       pmax: 200                     # potência máxima da linha (MW)
       c_op: 0.0                     # custo de operação
       c_inv:  4_000_000             # custo de investimento e O&M
@@ -138,7 +145,7 @@ lines:
     LINE_130:                       # convenção {LINE}_{UNIT}
       model: "dc"                   # modelo utilizado (transport, dc)
       state: 0                      # candidata
-      b: 0.5                       # suceptância da linha (pu) - o inverso da reatância
+      b: 0.5                        # suceptância da linha (pu) - o inverso da reatância
       pmax: 200                     # potência máxima da linha (MW)
       c_op: 0.0                     # custo de operação
       c_inv:  3_800_000             # custo de investimento e O&M
@@ -146,7 +153,7 @@ lines:
     LINE_140:                       # convenção {LINE}_{UNIT}
       model: "dc"                   # modelo utilizado (transport, dc)
       state: 1                      # existente
-      b: 0.5                       # suceptância da linha (pu) - o inverso da reatância
+      b: 0.5                        # suceptância da linha (pu) - o inverso da reatância
       pmax: 200                     # potência máxima da linha (MW)
       c_op: 0.0                     # custo de operação
       c_inv:  0.0                   # custo de investimento e O&M
@@ -154,7 +161,7 @@ lines:
     LINE_141:                       # convenção {LINE}_{UNIT}
       model: "dc"                   # modelo utilizado (transport, dc)
       state: 0                      # candidata
-      b: 0.5                       # suceptância da linha (pu) - o inverso da reatância
+      b: 0.5                        # suceptância da linha (pu) - o inverso da reatância
       pmax: 200                     # potência máxima da linha (MW)
       c_op: 0.0                     # custo de operação
       c_inv:  6_000_000             # custo de investimento e O&M
@@ -162,7 +169,7 @@ lines:
     LINE_150:                       # convenção {LINE}_{UNIT}
       model: "dc"                   # modelo utilizado (transport, dc)
       state: 1                      # existente
-      b: 0.5                       # suceptância da linha (pu) - o inverso da reatância
+      b: 0.5                        # suceptância da linha (pu) - o inverso da reatância
       pmax: 100                     # potência máxima da linha (MW)
       c_op: 0.0                     # custo de operação
       c_inv:  0.0                   # custo de investimento e O&M
@@ -170,7 +177,7 @@ lines:
     LINE_151:                       # convenção {LINE}_{UNIT}
       model: "dc"                   # modelo utilizado (transport, dc)
       state: 0                      # candidata
-      b: 0.5                       # suceptância da linha (pu) - o inverso da reatância
+      b: 0.5                        # suceptância da linha (pu) - o inverso da reatância
       pmax: 100                     # potência máxima da linha (MW)
       c_op: 0.0                     # custo de operação
       c_inv:  3_000_000             # custo de investimento e O&M
@@ -178,7 +185,7 @@ lines:
     LINE_152:                       # convenção {LINE}_{UNIT}
       model: "dc"                   # modelo utilizado (transport, dc)
       state: 0                      # candidata
-      b: 0.5                       # suceptância da linha (pu) - o inverso da reatância
+      b: 0.5                        # suceptância da linha (pu) - o inverso da reatância
       pmax: 100                     # potência máxima da linha (MW)
       c_op: 0.0                     # custo de operação
       c_inv:  3_000_000             # custo de investimento e O&M
@@ -186,7 +193,7 @@ lines:
     LINE_230:                       # convenção {LINE}_{UNIT}
       model: "dc"                   # modelo utilizado (transport, dc)
       state: 1                      # existente
-      b: 0.5                       # suceptância da linha (pu) - o inverso da reatância
+      b: 0.5                        # suceptância da linha (pu) - o inverso da reatância
       pmax: 200                     # potência máxima da linha (MW)
       c_op: 0.0                     # custo de operação
       c_inv:  0.0                   # custo de investimento e O&M
@@ -194,7 +201,7 @@ lines:
     LINE_231:                       # convenção {LINE}_{UNIT}
       model: "dc"                   # modelo utilizado (transport, dc)
       state: 0                      # candidata
-      b: 0.5                       # suceptância da linha (pu) - o inverso da reatância
+      b: 0.5                        # suceptância da linha (pu) - o inverso da reatância
       pmax: 200                     # potência máxima da linha (MW)
       c_op: 0.0                     # custo de operação
       c_inv:  2_000_000             # custo de investimento e O&M
@@ -202,7 +209,7 @@ lines:
     LINE_250:                       # convenção {LINE}_{UNIT}
       model: "dc"                   # modelo utilizado (transport, dc)
       state: 0                      # candidata
-      b: 0.5                       # suceptância da linha (pu) - o inverso da reatância
+      b: 0.5                        # suceptância da linha (pu) - o inverso da reatância
       pmax: 200                     # potência máxima da linha (MW)
       c_op: 0.0                     # custo de operação
       c_inv:  3_100_000             # custo de investimento e O&M
@@ -210,7 +217,7 @@ lines:
     LINE_340:                       # convenção {LINE}_{UNIT}
       model: "dc"                   # modelo utilizado (transport, dc)
       state: 0                      # candidata
-      b: 0.5                       # suceptância da linha (pu) - o inverso da reatância
+      b: 0.5                        # suceptância da linha (pu) - o inverso da reatância
       pmax: 250                     # potência máxima da linha (MW)
       c_op: 0.0                     # custo de operação
       c_inv:  6_000_000             # custo de investimento e O&M
@@ -218,7 +225,7 @@ lines:
     LINE_350:                       # convenção {LINE}_{UNIT}
       model: "dc"                   # modelo utilizado (transport, dc)
       state: 1                      # existente
-      b: 0.5                       # suceptância da linha (pu) - o inverso da reatância
+      b: 0.5                        # suceptância da linha (pu) - o inverso da reatância
       pmax: 150                     # potência máxima da linha (MW)
       c_op: 0.0                     # custo de operação
       c_inv:  0.0                   # custo de investimento e O&M
@@ -226,7 +233,7 @@ lines:
     LINE_351:                       # convenção {LINE}_{UNIT}
       model: "dc"                   # modelo utilizado (transport, dc)
       state: 0                      # candidata
-      b: 0.5                       # suceptância da linha (pu) - o inverso da reatância
+      b: 0.5                        # suceptância da linha (pu) - o inverso da reatância
       pmax: 150                     # potência máxima da linha (MW)
       c_op: 0.0                     # custo de operação
       c_inv:  2_000_000             # custo de investimento e O&M
@@ -234,7 +241,7 @@ lines:
     LINE_450:                       # convenção {LINE}_{UNIT}
       model: "dc"                   # modelo utilizado (transport, dc)
       state: 0                      # candidata
-      b: 0.5                       # suceptância da linha (pu) - o inverso da reatância
+      b: 0.5                        # suceptância da linha (pu) - o inverso da reatância
       pmax: 200                     # potência máxima da linha (MW)
       c_op: 0.0                     # custo de operação
       c_inv:  6_300_000             # custo de investimento e O&M

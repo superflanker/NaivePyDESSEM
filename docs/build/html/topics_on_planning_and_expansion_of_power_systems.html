@@ -186,7 +186,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#thermal-units">THERMAL UNITS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id28">RENEWABLE ENERGIES AND STORAGE</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id36">TRANSMISSION LINES AND CONNECTION BARS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id44">OBJECTIVE FUNCTION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id45">OBJECTIVE FUNCTION</a></li>
 </ul>
 </li>
 </ul>
@@ -194,9 +194,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#technical-appendix-summary-of-epe-manuals-on-the-mdi">TECHNICAL APPENDIX: SUMMARY OF EPE MANUALS ON THE MDI</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#central-concept">CENTRAL CONCEPT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#model-structure">MODEL STRUCTURE</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id45">DEMAND REPRESENTATION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id46">DEMAND REPRESENTATION</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#system-components">SYSTEM COMPONENTS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id46">OBJECTIVE FUNCTION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id47">OBJECTIVE FUNCTION</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#fundamental-constraints">FUNDAMENTAL CONSTRAINTS</a><ul>
@@ -217,29 +217,29 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#uncertainty-scenarios">UNCERTAINTY SCENARIOS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#marginal-expansion-cost-cme">MARGINAL EXPANSION COST (CME)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id47">DEFINITION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id48">DEFINITION</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#calculation">CALCULATION</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#key-concepts">KEY CONCEPTS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mathematical-modeling-of-mdi">MATHEMATICAL MODELING OF MDI</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#sets">SETS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id48">PARAMETERS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id49">DECISION VARIABLES</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id50">CONSTRAINTS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#capacity-adequacy-per-bus">CAPACITY ADEQUACY PER BUS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id49">PARAMETERS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id50">DECISION VARIABLES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id51">CONSTRAINTS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id52">CAPACITY ADEQUACY</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#generation-limits">GENERATION LIMITS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#storage-dynamics">STORAGE DYNAMICS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#state-of-charge-limits">STATE OF CHARGE LIMITS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#charge-discharge-power-limits">CHARGE/DISCHARGE POWER LIMITS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#initial-state">INITIAL STATE</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#expansion-dynamics-existence-accumulation">EXPANSION DYNAMICS (EXISTENCE ACCUMULATION)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id51">DC FLOW APPROXIMATION</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id52">TRANSMISSION CAPACITY LIMITS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id53">NETWORK REFERENCE (SLACK BUS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id53">DC FLOW APPROXIMATION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id54">TRANSMISSION CAPACITY LIMITS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id55">NETWORK REFERENCE (SLACK BUS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id56">BUS ANGLE LIMITS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#unique-construction">UNIQUE CONSTRUCTION</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#monotonic-growth">MONOTONIC GROWTH</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id54">OBJECTIVE FUNCTION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id57">OBJECTIVE FUNCTION</a></li>
 </ul>
 </li>
 </ul>
@@ -743,7 +743,7 @@ Thus, ONS is a <strong>key institution</strong> ensuring both the reliability an
 <li><p><span class="math">\(S_{h,t} \ge 0\)</span> – spillage (m<span class="math">\(^3\)</span>/s)</p></li>
 <li><p><span class="math">\(V_{h,t} \ge 0\)</span> – stored volume (hm<span class="math">\(^3\)</span>)</p></li>
 <li><p><span class="math">\(G_{h,t} \ge 0\)</span> – hydropower generation (MWh/h)</p></li>
-<li><p><span class="math">\(D_t \ge 0\)</span> – energy deficit (MWh/h)</p></li>
+<li><p><span class="math">\(D_{b,t} \ge 0\)</span> – energy deficit (MWh/h)</p></li>
 </ul>
 </section>
 <section id="hydraulic-polynomial-functions-for-plant-h">
@@ -956,8 +956,9 @@ E_{{\min}_s} \le E_{s,t} \le E_{{\max}_s}.
 <li><p><span class="math">\(\mathcal{T} = \{1,\dots,T\}\)</span> – time periods (typically hourly)</p></li>
 <li><p><span class="math">\(\mathcal{L} = \{\text{LINE}_{1}, \dots, \text{LINE}_{n_\ell}\}\)</span> – transmission lines</p></li>
 <li><p><span class="math">\(\mathcal{CB} = \{\text{BAR}_{1}, \dots, \text{BAR}_{n_b}\}\)</span> – connection bars (buses)</p></li>
-<li><p><span class="math">\((i,j) \in \mathcal{E} \subseteq \mathcal{B}\times\mathcal{B}\)</span> – ordered pair of bars defining endpoints of line <span class="math">\(\ell\)</span></p></li>
+<li><p><span class="math">\((i,j) \in \mathcal{E} \subseteq \mathcal{CB}\times\mathcal{CB}\)</span> – ordered pair of bars defining endpoints of line <span class="math">\(\ell\)</span></p></li>
 <li><p><span class="math">\(\mathcal{L}(b)\)</span> – set of lines incident to bar <span class="math">\(b\)</span></p></li>
+<li><p><span class="math">\(\mathcal{H}(b)\)</span>, <span class="math">\(\mathcal{G}(b)\)</span>, <span class="math">\(\mathcal{R}(b)\)</span>, <span class="math">\(\mathcal{S}(b)\)</span> - generator attached to bar <span class="math">\(b\)</span></p></li>
 </ul>
 </section>
 <section id="id11">
@@ -966,8 +967,8 @@ E_{{\min}_s} \le E_{s,t} \le E_{{\max}_s}.
 <li><p><span class="math">\(b_{\ell}\)</span> – susceptance of line <span class="math">\(\ell\)</span> (p.u. or 1/x)</p></li>
 <li><p><span class="math">\(\overline{F}_{\ell}\)</span> – transmission capacity limit (MW)</p></li>
 <li><p><span class="math">\(\theta_{b,0}\)</span> – reference (slack) bus angle (rad)</p></li>
-<li><p><span class="math">\(p_{\text{base}}\)</span> – system base power (MW)  r</p></li>
-<li><p><span class="math">\(\text{CB} \in \mathcal{CB}\)</span> – subset of bars with associated demand <span class="math">\(d_{b,t}\)</span></p></li>
+<li><p><span class="math">\(p_{\text{base}}\)</span> – system base power (MW)</p></li>
+<li><p><span class="math">\(b \in \mathcal{CB}\)</span> – bar with associated demand <span class="math">\(d_{b,t}\)</span> and deficit <span class="math">\(D_{b, t}\)</span></p></li>
 </ul>
 </section>
 <section id="id12">
@@ -982,7 +983,7 @@ E_{{\min}_s} \le E_{s,t} \le E_{{\max}_s}.
 <p>For each line <span class="math">\(\ell = (i,j)\)</span> and time <span class="math">\(t\)</span>:</p>
 <div class="math">
 \[
-F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}).
+F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}) \quad \forall \ell \in \mathcal{L}, \; \forall t \in \mathcal{T}.
 \]</div>
 </section>
 <section id="transmission-capacity-limits">
@@ -990,7 +991,7 @@ F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}).
 <div class="math">
 \[
 -\,\overline{F}_{\ell} \le F_{\ell,t} \le \overline{F}_{\ell}\,,
-\quad \forall \ell \in \mathcal{L},\; t \in \mathcal{T}.
+\quad \forall \ell \in \mathcal{L},\; \forall t \in \mathcal{T}.
 \]</div>
 </section>
 <section id="power-balance-at-each-bus">
@@ -999,7 +1000,7 @@ F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}).
 <div class="math">
 \[
 \sum_{\ell\in\mathcal{L}(b)} \delta_{b,\ell}\,F_{\ell,t} + \sum_{h \in \mathcal{H}(b)} G_{h,t} + \sum_{g \in \mathcal{G}(b)} p_{g,t} + \sum_{r \in \mathcal{R}(b)} g_{\mathrm{ren}_{r,t}}+ \sum_{s \in \mathcal{S}(b)} (P_{\mathrm{dis}_{s,t}} - P_{\mathrm{ch}_{s,t}}) + D_{b,t}
-= d_{b,t}, \quad \forall b,t,
+= d_{b,t}, \quad \forall b \in \mathcal{CB}, \forall t \in \mathcal{T}.
 \]</div>
 <p>where <span class="math">\(\delta_{b,\ell} = +1\)</span> if bar <span class="math">\(b\)</span> is the sending end of <span class="math">\(\ell\)</span>, <span class="math">\(-1\)</span> if the receiving end, and <span class="math">\(0\)</span> otherwise.</p>
 </section>
@@ -1009,6 +1010,14 @@ F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}).
 <div class="math">
 \[
 \theta_{b_0,t} = 0, \quad \forall t \in \mathcal{T}.
+\]</div>
+</section>
+<section id="bus-angle-limits">
+<h5>BUS ANGLE LIMITS<a class="headerlink" href="#bus-angle-limits" title="Link to this heading"></a></h5>
+<p>For non-slack buses, the phase-angle is restricted as follows:</p>
+<div class="math">
+\[
+-\pi \leq \theta_{b,t} \leq \pi.
 \]</div>
 </section>
 </section>
@@ -1258,7 +1267,7 @@ It reflects the <strong>marginal opportunity cost of water</strong> or the <stro
 <li><p><span class="math">\(Q_{{\min}_h},\,Q_{{\max}_h}\)</span> – turbined flow limits (hm<span class="math">\(^3\)</span>)</p></li>
 <li><p><span class="math">\(V_{{\text{ini}}_h}\)</span> – initial reservoir volume (hm<span class="math">\(^3\)</span>)</p></li>
 <li><p><span class="math">\(V_{{\text{meta}}_h}\)</span> – target terminal volume (hm<span class="math">\(^3\)</span>)</p></li>
-<li><p><span class="math">\(C_{{\text{def}}}\)</span> – unitary cost of deficit ($/MWh)</p></li>
+<li><p><span class="math">\(C_{{\text{def}_b}}\)</span> – unitary cost of deficit ($/MWh)</p></li>
 </ul>
 </section>
 <section id="id19">
@@ -1268,7 +1277,7 @@ It reflects the <strong>marginal opportunity cost of water</strong> or the <stro
 <li><p><span class="math">\(S_{h,t} \ge 0\)</span> – spillage (m<span class="math">\(^3\)</span>)</p></li>
 <li><p><span class="math">\(V_{h,t} \ge 0\)</span> – stored volume (hm<span class="math">\(^3\)</span>)</p></li>
 <li><p><span class="math">\(G_{h,t} \ge 0\)</span> – hydropower generation (MWmed)</p></li>
-<li><p><span class="math">\(D_t \ge 0\)</span> – energy deficit (MWh/h)</p></li>
+<li><p><span class="math">\(D_{b,t} \ge 0\)</span> – energy deficit (MWh/h)</p></li>
 </ul>
 </section>
 <section id="id20">
@@ -1408,8 +1417,9 @@ E_{\min_s} \le E_{s,t} \le E_{\max_s}, \quad \forall s \in \mathcal{S}, \; \fora
 <li><p><span class="math">\(\mathcal{T} = \{1,\dots,T\}\)</span> – time periods (typically hourly)</p></li>
 <li><p><span class="math">\(\mathcal{L} = \{\text{LINE}_{1}, \dots, \text{LINE}_{n_\ell}\}\)</span> – transmission lines</p></li>
 <li><p><span class="math">\(\mathcal{CB} = \{\text{BAR}_{1}, \dots, \text{BAR}_{n_b}\}\)</span> – connection bars (buses)</p></li>
-<li><p><span class="math">\((i,j) \in \mathcal{E} \subseteq \mathcal{B}\times\mathcal{B}\)</span> – ordered pair of bars defining endpoints of line <span class="math">\(\ell\)</span></p></li>
+<li><p><span class="math">\((i,j) \in \mathcal{E} \subseteq \mathcal{CB}\times\mathcal{CB}\)</span> – ordered pair of bars defining endpoints of line <span class="math">\(\ell\)</span></p></li>
 <li><p><span class="math">\(\mathcal{L}(b)\)</span> – set of lines incident to bar <span class="math">\(b\)</span></p></li>
+<li><p><span class="math">\(\mathcal{H}(b)\)</span>, <span class="math">\(\mathcal{G}(b)\)</span>, <span class="math">\(\mathcal{R}(b)\)</span>, <span class="math">\(\mathcal{S}(b)\)</span> - generator attached to bar <span class="math">\(b\)</span></p></li>
 </ul>
 </section>
 <section id="id38">
@@ -1418,8 +1428,8 @@ E_{\min_s} \le E_{s,t} \le E_{\max_s}, \quad \forall s \in \mathcal{S}, \; \fora
 <li><p><span class="math">\(b_{\ell}\)</span> – susceptance of line <span class="math">\(\ell\)</span> (p.u. or 1/x)</p></li>
 <li><p><span class="math">\(\overline{F}_{\ell}\)</span> – transmission capacity limit (MW)</p></li>
 <li><p><span class="math">\(\theta_{b,0}\)</span> – reference (slack) bus angle (rad)</p></li>
-<li><p><span class="math">\(p_{\text{base}}\)</span> – system base power (MW)  r</p></li>
-<li><p><span class="math">\(\text{CB} \in \mathcal{CB}\)</span> – subset of bars with associated demand <span class="math">\(d_{b,t}\)</span></p></li>
+<li><p><span class="math">\(p_{\text{base}}\)</span> – system base power (MW)</p></li>
+<li><p><span class="math">\(b \in \mathcal{CB}\)</span> – bar with associated demand <span class="math">\(d_{b,t}\)</span> and deficit <span class="math">\(D_{b, t}\)</span></p></li>
 </ul>
 </section>
 <section id="id39">
@@ -1434,7 +1444,7 @@ E_{\min_s} \le E_{s,t} \le E_{\max_s}, \quad \forall s \in \mathcal{S}, \; \fora
 <p>For each line <span class="math">\(\ell = (i,j)\)</span> and time <span class="math">\(t\)</span>:</p>
 <div class="math">
 \[
-F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}).
+F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}) \quad \forall \ell \in \mathcal{L}, \; \forall t \in \mathcal{T}.
 \]</div>
 </section>
 <section id="id41">
@@ -1442,7 +1452,7 @@ F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}).
 <div class="math">
 \[
 -\,\overline{F}_{\ell} \le F_{\ell,t} \le \overline{F}_{\ell}\,,
-\quad \forall \ell \in \mathcal{L},\; t \in \mathcal{T}.
+\quad \forall \ell \in \mathcal{L},\; \forall t \in \mathcal{T}.
 \]</div>
 </section>
 <section id="id42">
@@ -1451,7 +1461,7 @@ F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}).
 <div class="math">
 \[
 \sum_{\ell\in\mathcal{L}(b)} \delta_{b,\ell}\,F_{\ell,t} + \sum_{h \in \mathcal{H}(b)} G_{h,t} + \sum_{g \in \mathcal{G}(b)} p_{g,t} + \sum_{r \in \mathcal{R}(b)} g_{\mathrm{ren}_{r,t}}+ \sum_{s \in \mathcal{S}(b)} (P_{\mathrm{dis}_{s,t}} - P_{\mathrm{ch}_{s,t}}) + D_{b,t}
-= d_{b,t}, \quad \forall b,t,
+= d_{b,t}, \quad \forall b \in \mathcal{CB}, \forall t \in \mathcal{T}.
 \]</div>
 <p>where <span class="math">\(\delta_{b,\ell} = +1\)</span> if bar <span class="math">\(b\)</span> is the sending end of <span class="math">\(\ell\)</span>, <span class="math">\(-1\)</span> if the receiving end, and <span class="math">\(0\)</span> otherwise.</p>
 </section>
@@ -1463,10 +1473,18 @@ F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}).
 \theta_{b_0,t} = 0, \quad \forall t \in \mathcal{T}.
 \]</div>
 </section>
+<section id="id44">
+<h5>BUS ANGLE LIMITS<a class="headerlink" href="#id44" title="Link to this heading"></a></h5>
+<p>For non-slack buses, the phase-angle is restricted as follows:</p>
+<div class="math">
+\[
+-\pi \leq \theta_{b,t} \leq \pi.
+\]</div>
+</section>
 </section>
 <hr class="docutils" />
-<section id="id44">
-<h4>OBJECTIVE FUNCTION<a class="headerlink" href="#id44" title="Link to this heading"></a></h4>
+<section id="id45">
+<h4>OBJECTIVE FUNCTION<a class="headerlink" href="#id45" title="Link to this heading"></a></h4>
 <p>The hydrothermal dispatch problem is formulated as the minimization of total generation and deficit costs, namely:</p>
 <ul class="simple">
 <li><p>Thermal generation costs</p></li>
@@ -1507,8 +1525,8 @@ C_{\text{total}} = C_{\text{investment}} + C_{\text{operation}}
 <hr class="docutils" />
 <section id="model-structure">
 <h3>MODEL STRUCTURE<a class="headerlink" href="#model-structure" title="Link to this heading"></a></h3>
-<section id="id45">
-<h4>DEMAND REPRESENTATION<a class="headerlink" href="#id45" title="Link to this heading"></a></h4>
+<section id="id46">
+<h4>DEMAND REPRESENTATION<a class="headerlink" href="#id46" title="Link to this heading"></a></h4>
 <p>Electricity demand is segmented into <strong>load levels</strong>—light, medium, heavy, and peak—each with its own duration and intensity. The total energy across levels equals the monthly average demand:</p>
 <div class="math">
 \[
@@ -1525,8 +1543,8 @@ C_{\text{total}} = C_{\text{investment}} + C_{\text{operation}}
 <li><p>Operational reserves and capacity constraints.</p></li>
 </ul>
 </section>
-<section id="id46">
-<h4>OBJECTIVE FUNCTION<a class="headerlink" href="#id46" title="Link to this heading"></a></h4>
+<section id="id47">
+<h4>OBJECTIVE FUNCTION<a class="headerlink" href="#id47" title="Link to this heading"></a></h4>
 <p>The objective is to <strong>minimize the expected total discounted cost</strong> of expansion, with or without perpetuity:</p>
 <div class="math">
 \[
@@ -1617,8 +1635,8 @@ The goal is to minimize the <strong>expected value of total cost</strong> across
 <hr class="docutils" />
 <section id="marginal-expansion-cost-cme">
 <h3>MARGINAL EXPANSION COST (CME)<a class="headerlink" href="#marginal-expansion-cost-cme" title="Link to this heading"></a></h3>
-<section id="id47">
-<h4>DEFINITION<a class="headerlink" href="#id47" title="Link to this heading"></a></h4>
+<section id="id48">
+<h4>DEFINITION<a class="headerlink" href="#id48" title="Link to this heading"></a></h4>
 <p>The <strong>Marginal Expansion Cost (CME)</strong> quantifies the <strong>incremental cost</strong> of meeting an additional unit of demand:</p>
 <div class="math">
 \[
@@ -1683,81 +1701,83 @@ To preserve the load shape:</p>
 <li><p><span class="math">\(\mathcal{G}\)</span> – total set of generating units (hydroelectric, thermal, solar, and wind)</p></li>
 <li><p><span class="math">\(\mathcal{G}_E \subset \mathcal{G}\)</span> – subset of existing plants</p></li>
 <li><p><span class="math">\(\mathcal{G}_C \subset \mathcal{G}\)</span> – subset of candidate plants</p></li>
-<li><p><span class="math">\(\mathcal{B}\)</span> – total set of storage units (batteries)</p></li>
-<li><p><span class="math">\(\mathcal{B}_E \subset \mathcal{B}\)</span> – subset of existing batteries</p></li>
-<li><p><span class="math">\(\mathcal{B}_C \subset \mathcal{B}\)</span> – subset of candidate batteries</p></li>
-<li><p><span class="math">\(\mathcal{T}\)</span> – planning periods (<span class="math">\(t = 1,\dots,10\)</span>)</p></li>
-<li><p><span class="math">\(\mathcal{P}\)</span> – load levels (peak and off-peak)</p></li>
+<li><p><span class="math">\(\mathcal{S}\)</span> – total set of storage units (batteries)</p></li>
+<li><p><span class="math">\(\mathcal{S}_E \subset \mathcal{S}\)</span> – subset of existing batteries</p></li>
+<li><p><span class="math">\(\mathcal{S}_C \subset \mathcal{S}\)</span> – subset of candidate batteries</p></li>
+<li><p><span class="math">\(\mathcal{T}\)</span> – planning periods</p></li>
+<li><p><span class="math">\(\mathcal{P}\)</span> – load levels</p></li>
 <li><p><span class="math">\(\mathcal{L} = \{\text{LINE}_{1}, \dots, \text{LINE}_{n_\ell}\}\)</span> – transmission lines</p></li>
+<li><p><span class="math">\(\mathcal{L}_E \subset \mathcal{L}\)</span> – subset of existing transmission lines</p></li>
+<li><p><span class="math">\(\mathcal{L}_C \subset \mathcal{L}\)</span> – subset of candidate transmission lines</p></li>
 <li><p><span class="math">\(\mathcal{CB} = \{\text{BAR}_{1}, \dots, \text{BAR}_{n_b}\}\)</span> – connection bars (buses)</p></li>
-<li><p><span class="math">\((i,j) \in \mathcal{E} \subseteq \mathcal{B}\times\mathcal{B}\)</span> – ordered pair of bars defining endpoints of line <span class="math">\(\ell\)</span></p></li>
+<li><p><span class="math">\((i,j) \in \mathcal{E} \subseteq \mathcal{CB}\times\mathcal{CB}\)</span> – ordered pair of bars defining endpoints of line <span class="math">\(\ell\)</span></p></li>
 <li><p><span class="math">\(\mathcal{L}(b)\)</span> – set of lines incident to bar <span class="math">\(b\)</span></p></li>
-</ul>
-</section>
-<hr class="docutils" />
-<section id="id48">
-<h4>PARAMETERS<a class="headerlink" href="#id48" title="Link to this heading"></a></h4>
-<ul class="simple">
-<li><p><span class="math">\(C_{\text{inv}_g}\)</span> – investment cost of generator <span class="math">\(g\)</span> [R$ /MW]</p></li>
-<li><p><span class="math">\(C_{\text{op}_g}\)</span> – operating cost of generator <span class="math">\(g\)</span> [R$ /MWh]</p></li>
-<li><p><span class="math">\(P_{\text{max}_g}\)</span> – maximum capacity of generator <span class="math">\(g\)</span> [MW]</p></li>
-<li><p><span class="math">\(C_{\text{inv}_b}\)</span> – investment cost of battery <span class="math">\(b\)</span> [R$ /MW]</p></li>
-<li><p><span class="math">\(C_{\text{op}_b}\)</span> – operating cost of battery <span class="math">\(b\)</span> [R$ /MWh]</p></li>
-<li><p><span class="math">\(C_{\text{inv},\ell}\)</span> – investment cost of line <span class="math">\(\ell\)</span></p></li>
-<li><p><span class="math">\(C_{\text{op},\ell}\)</span> – operation cost of line <span class="math">\(\ell\)</span> (if candidate)</p></li>
-<li><p><span class="math">\(E_{\text{max}_b}\)</span>, <span class="math">\(E_{\text{min}_b}\)</span> – state-of-charge limits for battery <span class="math">\(b\)</span> [MWh]</p></li>
-<li><p><span class="math">\(P_{\text{bat}_{\text{max}_b}}\)</span> – maximum charge/discharge power of battery <span class="math">\(b\)</span> [MW]</p></li>
-<li><p><span class="math">\(E_{0_b}\)</span> – initial state of charge of battery <span class="math">\(b\)</span> [MWh]</p></li>
-<li><p><span class="math">\(\eta_{c_b}\)</span>, <span class="math">\(\eta_{d_b}\)</span> – charge/discharge efficiencies (0.95)</p></li>
-<li><p><span class="math">\(D_{p,t}\)</span> – demand in load level <span class="math">\(p\)</span> and period <span class="math">\(t\)</span> [MW]</p></li>
-<li><p><span class="math">\(h_p\)</span> – duration of load level <span class="math">\(p\)</span> [h/year]</p></li>
-<li><p><span class="math">\(x_{g,0}\)</span> – 1 if generator <span class="math">\(g\)</span> exists at the beginning of the horizon, 0 otherwise</p></li>
-<li><p><span class="math">\(x_{b,0}\)</span> – 1 if battery <span class="math">\(b\)</span> exists at the beginning of the horizon, 0 otherwise</p></li>
-<li><p><span class="math">\(x_{\ell,0}\)</span> – 1 if line <span class="math">\(\ell\)</span> exists at the beginning of the horizon, 0 otherwise</p></li>
-<li><p><span class="math">\(b_{\ell}\)</span> – susceptance of line <span class="math">\(\ell\)</span> (p.u. or 1/x)</p></li>
-<li><p><span class="math">\(\overline{F}_{\ell}\)</span> – transmission capacity limit (MW)</p></li>
-<li><p><span class="math">\(\theta_{b,0}\)</span> – reference (slack) bus angle (rad)</p></li>
-<li><p><span class="math">\(p_{\text{base}}\)</span> – system base power (MW)</p></li>
-<li><p><span class="math">\(\zeta_{\ell}\)</span> – availability or transmission scaling factor</p></li>
-<li><p><span class="math">\(C_{\text{inv},\ell}\)</span> – investment cost of line <span class="math">\(\ell\)</span> (if candidate)</p></li>
+<li><p><span class="math">\(\mathcal{G}(b)\)</span> – set of generators attached to bar <span class="math">\(b\)</span></p></li>
+<li><p><span class="math">\(\mathcal{S}(b)\)</span> – set of batteries attached to bar <span class="math">\(b\)</span></p></li>
 </ul>
 </section>
 <hr class="docutils" />
 <section id="id49">
-<h4>DECISION VARIABLES<a class="headerlink" href="#id49" title="Link to this heading"></a></h4>
+<h4>PARAMETERS<a class="headerlink" href="#id49" title="Link to this heading"></a></h4>
 <ul class="simple">
-<li><p><span class="math">\(y_{g,t} \in \{0,1\}\)</span> – construction (1) or not (0) of candidate generator <span class="math">\(g\)</span> in period <span class="math">\(t\)</span></p></li>
-<li><p><span class="math">\(y_{b,t} \in \{0,1\}\)</span> – construction (1) or not (0) of candidate battery <span class="math">\(b\)</span> in period <span class="math">\(t\)</span></p></li>
-<li><p><span class="math">\(x_{g,t} \in \{0,1\}\)</span> – existence of generator <span class="math">\(g\)</span> in period <span class="math">\(t\)</span> (1 if built up to <span class="math">\(t\)</span>)</p></li>
-<li><p><span class="math">\(x_{b,t} \in \{0,1\}\)</span> – existence of battery <span class="math">\(b\)</span> in period <span class="math">\(t\)</span> (1 if built up to <span class="math">\(t\)</span>)</p></li>
-<li><p><span class="math">\(P_{g,p,t} \ge 0\)</span> – generation of unit <span class="math">\(g\)</span> in load level <span class="math">\(p\)</span> and period <span class="math">\(t\)</span> [MW]</p></li>
-<li><p><span class="math">\(P^{c}_{b,p,t} \ge 0\)</span> – charging power of battery <span class="math">\(b\)</span> [MW]</p></li>
-<li><p><span class="math">\(P^{d}_{b,p,t} \ge 0\)</span> – discharging power of battery <span class="math">\(b\)</span> [MW]</p></li>
-<li><p><span class="math">\(E_{b,p,t}\)</span> – state of charge (SoC) of battery <span class="math">\(b\)</span> [MWh]</p></li>
-<li><p><span class="math">\(F_{\ell,t}\)</span> – active power flow through line <span class="math">\(\ell\)</span> (MW)</p></li>
-<li><p><span class="math">\(\theta_{b,t}\)</span> – phase angle at bus <span class="math">\(b\)</span> (radians)</p></li>
-<li><p><span class="math">\(x_{\ell,t} \in \{0,1\}\)</span> – binary expansion variable (1 if line built by <span class="math">\(t\)</span>)</p></li>
-<li><p><span class="math">\(y_{\ell,t} \in \{0,1\}\)</span> – binary decision of construction in period <span class="math">\(t\)</span></p></li>
+<li><p><span class="math">\(C_{\text{inv}_g}\)</span> – investment cost of generator <span class="math">\(g\)</span></p></li>
+<li><p><span class="math">\(C_{\text{op}_g}\)</span> – operating cost of generator <span class="math">\(g\)</span> [$ /MWh]</p></li>
+<li><p><span class="math">\(C_{\text{inv}_s}\)</span> – investment cost of battery <span class="math">\(s\)</span></p></li>
+<li><p><span class="math">\(C_{\text{op}_s}\)</span> – operating cost of battery <span class="math">\(s\)</span> [$ /MWh]</p></li>
+<li><p><span class="math">\(C_{\text{inv},\ell}\)</span> – investment cost of line <span class="math">\(\ell\)</span></p></li>
+<li><p><span class="math">\(C_{\text{op},\ell}\)</span> – operation cost of line <span class="math">\(\ell\)</span> [$ /MWh]</p></li>
+<li><p><span class="math">\(P_{\text{max}_g}\)</span> – maximum capacity of generator <span class="math">\(g\)</span> [MW]</p></li>
+<li><p><span class="math">\(E_{\text{max}_s}\)</span>, <span class="math">\(E_{\text{min}_s}\)</span> – state-of-charge limits for battery <span class="math">\(s\)</span> [MWh]</p></li>
+<li><p><span class="math">\(P_{\text{ch}_{\text{max}_s}}\)</span>, <span class="math">\(P_{\text{dis}_{\text{max}_s}}\)</span> – maximum charge/discharge power of battery <span class="math">\(s\)</span> [MW]</p></li>
+<li><p><span class="math">\(E_{0_s}\)</span> – initial state of charge of battery <span class="math">\(s\)</span> [MWh]</p></li>
+<li><p><span class="math">\(\eta_{c_s}\)</span>, <span class="math">\(\eta_{d_s}\)</span> – charge/discharge efficiencies (0.95)</p></li>
+<li><p><span class="math">\(D_{b,p,t}\)</span> – demand in load level <span class="math">\(p\)</span> and period <span class="math">\(t\)</span> [MW] per bus</p></li>
+<li><p><span class="math">\(h_p\)</span> – duration of load level <span class="math">\(p\)</span> [h/year]</p></li>
+<li><p><span class="math">\(x_{g,0}\)</span> – 1 if generator <span class="math">\(g\)</span> exists at the beginning of the horizon, 0 otherwise</p></li>
+<li><p><span class="math">\(x_{s,0}\)</span> – 1 if battery <span class="math">\(s\)</span> exists at the beginning of the horizon, 0 otherwise</p></li>
+<li><p><span class="math">\(x_{\ell,0}\)</span> – 1 if line <span class="math">\(\ell\)</span> exists at the beginning of the horizon, 0 otherwise</p></li>
+<li><p><span class="math">\(b_{\ell}\)</span> – susceptance of line <span class="math">\(\ell\)</span> (p.u. or 1/x)</p></li>
+<li><p><span class="math">\(\overline{F}_{\ell}\)</span> – transmission capacity limit (MW)</p></li>
+<li><p><span class="math">\(\theta_{b,0,p}\)</span> – reference (slack) bus angle (rad)</p></li>
+<li><p><span class="math">\(p_{\text{base}}\)</span> – system base power (MW) (only for line transmission power conversion - optional if the system has no explicit topology)</p></li>
 </ul>
 </section>
 <hr class="docutils" />
 <section id="id50">
-<h4>CONSTRAINTS<a class="headerlink" href="#id50" title="Link to this heading"></a></h4>
+<h4>DECISION VARIABLES<a class="headerlink" href="#id50" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><span class="math">\(y_{g,t} \in \{0,1\}\)</span> – construction (1) or not (0) of candidate generator <span class="math">\(g\)</span> in period <span class="math">\(t\)</span></p></li>
+<li><p><span class="math">\(y_{s,t} \in \{0,1\}\)</span> – construction (1) or not (0) of candidate battery <span class="math">\(s\)</span> in period <span class="math">\(t\)</span></p></li>
+<li><p><span class="math">\(y_{\ell,t} \in \{0,1\}\)</span> – construction (1) or not (0) of candidate transmission line <span class="math">\(\ell\)</span> in period <span class="math">\(t\)</span></p></li>
+<li><p><span class="math">\(x_{g,t} \in \{0,1\}\)</span> – existence of generator <span class="math">\(g\)</span> in period <span class="math">\(t\)</span> (1 if built up to <span class="math">\(t\)</span>)</p></li>
+<li><p><span class="math">\(x_{s,t} \in \{0,1\}\)</span> – existence of battery <span class="math">\(s\)</span> in period <span class="math">\(t\)</span> (1 if built up to <span class="math">\(t\)</span>)  _</p></li>
+<li><p><span class="math">\(x_{\ell,t} \in \{0,1\}\)</span> – existence of transmission line <span class="math">\(\ell\)</span> in period <span class="math">\(t\)</span> (1 if built up to <span class="math">\(t\)</span>)</p></li>
+<li><p><span class="math">\(P_{g,t,p} \ge 0\)</span> – generation of unit <span class="math">\(g\)</span> in load level <span class="math">\(p\)</span> and period <span class="math">\(t\)</span> [MW]</p></li>
+<li><p><span class="math">\(P^{c}_{s,t,p} \ge 0\)</span> – charging power of battery <span class="math">\(s\)</span> in load level <span class="math">\(p\)</span> and period <span class="math">\(t\)</span> [MW/level]</p></li>
+<li><p><span class="math">\(P^{d}_{s,t,p} \ge 0\)</span> – discharging power of battery <span class="math">\(s\)</span> in load level <span class="math">\(p\)</span> and period <span class="math">\(t\)</span> [MW/level]</p></li>
+<li><p><span class="math">\(E_{s,t,p}\)</span> – state of charge (SoC) of battery <span class="math">\(s\)</span> [MWh]</p></li>
+<li><p><span class="math">\(F_{\ell,t,p}\)</span> – active power flow through line <span class="math">\(\ell\)</span> (MW)</p></li>
+<li><p><span class="math">\(\theta_{b,t,p}\)</span> – phase angle at bus <span class="math">\(b\)</span> (radians) and level <span class="math">\(p\)</span></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id51">
+<h4>CONSTRAINTS<a class="headerlink" href="#id51" title="Link to this heading"></a></h4>
 <section id="demand-requirement-per-bus">
 <h5>DEMAND REQUIREMENT PER BUS<a class="headerlink" href="#demand-requirement-per-bus" title="Link to this heading"></a></h5>
 <div class="math">
 \[
-\sum_{\ell\in\mathcal{L}(b)}\delta_{b,\ell}\,F_{\ell,t}  + \sum_{g \in \mathcal{G}} P_{g,b,t,p} + \sum_{b \in \mathcal{B}} ( P^{d}_{s,b,t,p} - P^{c}_{s,b,t,p} ) = D_{b,t,p}, \quad \forall b \in \mathcal{CB}, \, t \in \mathcal{T}, \, p \in \mathcal{P}
+\sum_{\ell\in\mathcal{L}(b)}\delta_{b,\ell}\,F_{\ell,t}  + \sum_{g \in \mathcal{G}(b)} P_{g,t,p} + \sum_{s \in \mathcal{S}(b)} ( P^{d}_{s,t,p} - P^{c}_{s,t,p} ) = d_{b,t,p}, \quad \forall b \in \mathcal{CB}, \, \forall t \in \mathcal{T}, \, \forall p \in \mathcal{P}
 \]</div>
 <p>This ensures power balance at each period and load level: total net generation (generation plus storage balance) equals system demand.</p>
 </section>
 </section>
 <hr class="docutils" />
-<section id="capacity-adequacy-per-bus">
-<h4>CAPACITY ADEQUACY PER BUS<a class="headerlink" href="#capacity-adequacy-per-bus" title="Link to this heading"></a></h4>
+<section id="id52">
+<h4>CAPACITY ADEQUACY<a class="headerlink" href="#id52" title="Link to this heading"></a></h4>
 <div class="math">
 \[
-\sum_{g \in \mathcal{G}} G^{\max}_g x_{g,t} + \sum_{s \in \mathcal{S}} P^{\text{dis,max}}_{s,p} x_{s,t} \ge d_{b,t,p}, \quad \forall b \in \mathcal{CB}, t \in \mathcal{T}, p \in \mathcal{P}
+\sum_{g \in \mathcal{G}} G^{\max}_g x_{g,t} + \sum_{s \in \mathcal{S}} P^{\text{dis,max}}_{s,p} x_{s,t} \ge d_{b,t,p}, \quad \forall b \in \mathcal{CB}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P}
 \]</div>
 <p>Guarantees that total available capacity (generation + discharge) is sufficient to meet demand in all time steps.</p>
 </section>
@@ -1766,7 +1786,7 @@ To preserve the load shape:</p>
 <h4>GENERATION LIMITS<a class="headerlink" href="#generation-limits" title="Link to this heading"></a></h4>
 <div class="math">
 \[
-0 \le P_{g,t,p} \le P^{\max}_g x_{g,t}, \quad \forall g,t,p
+0 \le P_{g,t,p} \le P^{\max}_g x_{g,t}, \quad \forall g \in \mathcal{G}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P}
 \]</div>
 <p>Ensures that generation of each unit does not exceed its maximum capacity and is zero when inactive.</p>
 </section>
@@ -1779,7 +1799,8 @@ E_{s,t,p} = \begin{cases}
 E_{\text{ini},s} x_{s,t}, & t = 1, p = p_1, \\
 E_{s,t-1,p_{|\mathcal{P}|}} + E_{\text{ini},s} y_{s,t} + \eta_c P^{ch}_{s,t,p} \Delta t_p - \dfrac{P^{dis}_{s,t,p}}{\eta_d} \Delta t_p, & t > 1, p = p_1, \\
 E_{s,t,p-1} + \eta_c P^{ch}_{s,t,p} \Delta t_p - \dfrac{P^{dis}_{s,t,p}}{\eta_d} \Delta t_p, & p \neq p_1
-\end{cases}
+\end{cases} \quad
+\forall s \in \mathcal{S}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P} 
 \]</div>
 <p>Ensures energy continuity across load levels and periods, applying charge/discharge efficiencies and introducing initial energy only when the unit is built.</p>
 </section>
@@ -1788,7 +1809,7 @@ E_{s,t,p-1} + \eta_c P^{ch}_{s,t,p} \Delta t_p - \dfrac{P^{dis}_{s,t,p}}{\eta_d}
 <h4>STATE OF CHARGE LIMITS<a class="headerlink" href="#state-of-charge-limits" title="Link to this heading"></a></h4>
 <div class="math">
 \[
-E^{\min}_b x_{b,t} \le E_{b,t,p} \le E^{\max}_b x_{b,t}, \quad \forall b,t,p
+E^{\min}_s x_{s,t} \le E_{s,t,p} \le E^{\max}_s x_{s,t}, \quad \forall s \in \mathcal{S}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P}
 \]</div>
 <p>Keeps the state of charge within the operational range, proportional to the unit’s availability.</p>
 </section>
@@ -1797,57 +1818,59 @@ E^{\min}_b x_{b,t} \le E_{b,t,p} \le E^{\max}_b x_{b,t}, \quad \forall b,t,p
 <h4>CHARGE/DISCHARGE POWER LIMITS<a class="headerlink" href="#charge-discharge-power-limits" title="Link to this heading"></a></h4>
 <div class="math">
 \[
-0 \le P^{c}_{b,t,p}, P^{d}_{b,t,p} \le P^{\max}_{\text{bat}_b} x_{b,t}, \quad \forall b,t,p
+0 \le P^{c}_{s,t,p}\le P_{\text{ch}_{\text{max}_s}} x_{s,t}, \quad \forall s \in \mathcal{S}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P}\\
+0 \le P^{d}_{s,t,p}\le P_{\text{dis}_{\text{max}_s}} x_{s,t}, \quad \forall s \in \mathcal{S}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P}\\
 \]</div>
 <p>Restricts charging and discharging powers according to the installed battery capacity and availability.</p>
-</section>
-<hr class="docutils" />
-<section id="initial-state">
-<h4>INITIAL STATE<a class="headerlink" href="#initial-state" title="Link to this heading"></a></h4>
-<div class="math">
-\[
-E_{b,1,p} = E_{0_b}, \quad \forall b,p
-\]</div>
-<p>Defines the initial energy level for each battery, ensuring consistency in the dynamic storage model.</p>
 </section>
 <hr class="docutils" />
 <section id="expansion-dynamics-existence-accumulation">
 <h4>EXPANSION DYNAMICS (EXISTENCE ACCUMULATION)<a class="headerlink" href="#expansion-dynamics-existence-accumulation" title="Link to this heading"></a></h4>
 <div class="math">
 \[
-x_{g,t} = x_{g,t-1} + y_{g,t}, \quad\\
-x_{b,t} = x_{b,t-1} + y_{b,t}, \quad \\
-x_{\ell,t} = x_{\ell,t-1} + y_{\ell,t}, \quad \\
-\forall g,b,\ell,t>1\\
-x_{g,0}, x_{b,0}, x_{\ell, 0} \text{ given (initial existence)}
+x_{g,t} = x_{g,t-1} + y_{g,t}, \\
+x_{b,t} = x_{b,t-1} + y_{b,t}, \\
+x_{\ell,t} = x_{\ell,t-1} + y_{\ell,t}\\
+\quad \forall t \leq 1 \in \mathcal{T}\\
+x_{g,0}, x_{s,0}, x_{\ell, 0} \text{ given (initial existence)}.
 \]</div>
 <p>Guarantees temporal coherence of the expansion plan: units exist only if previously constructed.</p>
 </section>
 <hr class="docutils" />
-<section id="id51">
-<h4>DC FLOW APPROXIMATION<a class="headerlink" href="#id51" title="Link to this heading"></a></h4>
-<p>For each line <span class="math">\(\ell = (i,j)\)</span> and time <span class="math">\(t\)</span>:</p>
-<div class="math">
-\[
-F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t})\, x_{\ell,t}.
-\]</div>
-</section>
-<hr class="docutils" />
-<section id="id52">
-<h4>TRANSMISSION CAPACITY LIMITS<a class="headerlink" href="#id52" title="Link to this heading"></a></h4>
-<div class="math">
-\[
--\,\overline{F}_{\ell}\,x_{\ell,t} \le F_{\ell,t} \le \overline{F}_{\ell}\,x_{\ell,t},
-\quad \forall \ell \in \mathcal{L},\; t \in \mathcal{T}.
-\]</div>
-</section>
-<hr class="docutils" />
 <section id="id53">
-<h4>NETWORK REFERENCE (SLACK BUS)<a class="headerlink" href="#id53" title="Link to this heading"></a></h4>
+<h4>DC FLOW APPROXIMATION<a class="headerlink" href="#id53" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+F_{\ell,t, p} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t,p} - \theta_{j,t,p})\, x_{\ell,t}.\\
+\forall \ell \in \mathcal{L}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P}
+\]</div>
+<p>For the DC model, this constraint ensures that the power flow is proportional to the angular difference between the buses connected by the transmission line. In the transportation model, this constraint is disregarded. It is worth noting that the formulation of this constraint is valid only in cases where <span class="math">\(\sin(\theta_{i,t,p} - \theta_{j,t,p}) \approx \theta_{i,t,p} - \theta_{j,t,p}\)</span>, that is, for angular differences up to <span class="math">\(\frac{\pi}{6}\)</span>.</p>
+</section>
+<hr class="docutils" />
+<section id="id54">
+<h4>TRANSMISSION CAPACITY LIMITS<a class="headerlink" href="#id54" title="Link to this heading"></a></h4>
+<div class="math">
+\[
+-\,\overline{F}_{\ell}\,x_{\ell,t} \le F_{\ell,t,p} \le \overline{F}_{\ell}\,x_{\ell,t},
+\quad \forall \ell \in \mathcal{L},\; \forall t \in \mathcal{T}, \; \forall p \in \mathcal{P}.
+\]</div>
+<p>Ensures that transmission power flow of each transmission line unit does not exceed its maximum capacity and is zero when inactive.</p>
+</section>
+<hr class="docutils" />
+<section id="id55">
+<h4>NETWORK REFERENCE (SLACK BUS)<a class="headerlink" href="#id55" title="Link to this heading"></a></h4>
 <p>One bar must be defined as the phase-angle reference:</p>
 <div class="math">
 \[
-\theta_{b_0,t} = 0, \quad \forall t \in \mathcal{T}.
+\theta_{b_0,t,p} = 0, \quad \forall t \in \mathcal{T}, \forall p \in \mathcal{P}.
+\]</div>
+</section>
+<section id="id56">
+<h4>BUS ANGLE LIMITS<a class="headerlink" href="#id56" title="Link to this heading"></a></h4>
+<p>For non-slack buses, the phase-angle is restricted as follows:</p>
+<div class="math">
+\[
+-\pi \leq \theta_{b,t,p} \leq \pi
 \]</div>
 </section>
 <hr class="docutils" />
@@ -1855,9 +1878,9 @@ F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t})\, x_{\el
 <h4>UNIQUE CONSTRUCTION<a class="headerlink" href="#unique-construction" title="Link to this heading"></a></h4>
 <div class="math">
 \[
-\sum_{t \in \mathcal{T}} y_{g,t} \le 1, \quad
-\sum_{t \in \mathcal{T}} y_{b,t} \le 1, \quad
-\sum_{t \in \mathcal{T}} y_{\ell,t} \le 1, \quad \forall g \in \mathcal{G}_C, b \in \mathcal{B}_C
+\sum_{t \in \mathcal{T}} y_{g,t} \le 1, \quad\\
+\sum_{t \in \mathcal{T}} y_{s,t} \le 1, \quad\\
+\sum_{t \in \mathcal{T}} y_{\ell,t} \le 1, \quad\\ \forall g \in \mathcal{G}_C, b \in \mathcal{B}_C
 \]</div>
 <p>Prevents multiple constructions of the same unit within the planning horizon.</p>
 </section>
@@ -1866,28 +1889,30 @@ F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t})\, x_{\el
 <h4>MONOTONIC GROWTH<a class="headerlink" href="#monotonic-growth" title="Link to this heading"></a></h4>
 <div class="math">
 \[
-x_{g,t} \ge x_{g,t-1}, \quad
-x_{b,t} \ge x_{b,t-1}, \quad 
-x_{\ell,t} \ge x_{\ell,t-1}, \quad \forall g,b,\ell,t
+x_{g,t} \ge x_{g,t-1}, \quad\\
+x_{s,t} \ge x_{s,t-1}, \quad\\
+x_{\ell,t} \ge x_{\ell,t-1}, \quad\\
+\forall g \in \mathcal{G}_C,\forall s \in \mathcal{S}_C, \forall \ell \in \mathcal{L}_C
 \]</div>
 <p>Ensures that the set of existing units grows monotonically, avoiding deactivation after construction and maintaining temporal consistency in expansion.</p>
 </section>
 <hr class="docutils" />
-<section id="id54">
-<h4>OBJECTIVE FUNCTION<a class="headerlink" href="#id54" title="Link to this heading"></a></h4>
+<section id="id57">
+<h4>OBJECTIVE FUNCTION<a class="headerlink" href="#id57" title="Link to this heading"></a></h4>
 <div class="math">
 \[
-\min Z = \sum_{t \in \mathcal{T}} \frac{1}{(1 + t_x)^t}\Bigg[\sum_{g \in \mathcal{G}} C^{\text{inv}}_g x_{g,t} + \sum_{b \in \mathcal{B}} C^{\text{inv}}_b x_{b,t}+ \sum_{\ell \in \mathcal{L}} C^{\text{inv}}_\ell x_{b,t} + \sum_{p \in \mathcal{P}} h_p \Big( \sum_{g \in \mathcal{G}} C^{\text{op}}_g P_{g,t,p} +\sum_{\ell \in \mathcal{L}} C^{\text{op}}_\ell F_{l,t,p} + \sum_{b \in \mathcal{B}} C^{\text{op}}_b (P^{d}_{b,t,p} +  P^{c}_{b,t,p}) \Big) \Bigg]
+\min Z =\sum_{t \in \mathcal{T}}\frac{1}{(1+t_x)^t}
+\Bigg[\sum_{g \in \mathcal{G}} C^{\text{inv}}_{g} x_{g,t} + \sum_{s \in \mathcal{S}} C^{\text{inv}}_{s} x_{s,t} + \sum_{\ell \in \mathcal{L}} C^{\text{inv}}_{\ell} x_{\ell,t} \\+ \sum_{p \in \mathcal{P}} h_p \bigg(\sum_{g \in \mathcal{G}} C^{\text{op}}_{g} P_{g,t,p} + \sum_{\ell \in \mathcal{L}} C^{\text{op}}_{\ell} F_{\ell,t} + \sum_{s \in \mathcal{S}} C^{\text{op}}_{s} (P^{d}_{s,t,p} + P^{c}_{s,t,p})\bigg)\Bigg].
 \]</div>
 <p>Where:</p>
 <ul class="simple">
 <li><p><span class="math">\(Z\)</span> — total objective function value (minimum system cost)</p></li>
 <li><p><span class="math">\(t_x\)</span> — discount rate (<span class="math">\(t_x \in [0,1)\)</span>)</p></li>
-<li><p><span class="math">\(C^{\text{inv}}_{g}, C^{\text{inv}}_{b} , C^{\text{inv}}_{\ell}\)</span> — investment costs for generation and storage units [$]</p></li>
-<li><p><span class="math">\(C^{\text{op}}_{g}, C^{\text{op}}_{b}, C^{\text{op}}_{\ell}\)</span> — operating costs for generation and storage units [$/MWh]</p></li>
-<li><p><span class="math">\(x_{g,t}, x_{b,t}, x_{\ell,t}\)</span> — binary variables for existence of generation/storage units</p></li>
+<li><p><span class="math">\(C^{\text{inv}}_{g}, C^{\text{inv}}_{s} , C^{\text{inv}}_{\ell}\)</span> — investment costs for generation and storage units [$]</p></li>
+<li><p><span class="math">\(C^{\text{op}}_{g}, C^{\text{op}}_{s}, C^{\text{op}}_{\ell}\)</span> — operating costs for generation and storage units [$/MWh]</p></li>
+<li><p><span class="math">\(x_{g,t}, x_{s,t}, x_{\ell,t}\)</span> — binary variables for existence of generation/storage units</p></li>
 <li><p><span class="math">\(P_{g,t,p}\)</span> — generated power [MW]</p></li>
-<li><p><span class="math">\(P^{d}_{b,t,p}, P^{c}_{b,t,p}\)</span> — discharging and charging powers [MW]</p></li>
+<li><p><span class="math">\(P^{d}_{s,t,p}, P^{c}_{s,t,p}\)</span> — discharging and charging powers [MW]</p></li>
 <li><p><span class="math">\(F_{l,t,p}\)</span> - transmission line power flux [MW]</p></li>
 <li><p><span class="math">\(h_p\)</span> — duration of load level <span class="math">\(p\)</span> [h]</p></li>
 </ul>
@@ -1895,6 +1920,7 @@ x_{\ell,t} \ge x_{\ell,t-1}, \quad \forall g,b,\ell,t
 </section>
 </section>
 </section>
+<hr class="docutils" />
 <section id="technical-appendix-optimization-methods">
 <h2>TECHNICAL APPENDIX: OPTIMIZATION METHODS<a class="headerlink" href="#technical-appendix-optimization-methods" title="Link to this heading"></a></h2>
 <section id="lp-linear-programming-continuous-linear-programming">

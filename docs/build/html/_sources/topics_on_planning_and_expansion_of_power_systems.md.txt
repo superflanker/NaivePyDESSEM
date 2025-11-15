@@ -344,7 +344,7 @@ The model is particularly critical in systems with **high shares of variable ren
 - $S_{h,t} \ge 0$ – spillage (m$^3$/s)
 - $V_{h,t} \ge 0$ – stored volume (hm$^3$)
 - $G_{h,t} \ge 0$ – hydropower generation (MWh/h)
-- $D_t \ge 0$ – energy deficit (MWh/h)
+- $D_{b,t} \ge 0$ – energy deficit (MWh/h)
 
 ##### HYDRAULIC POLYNOMIAL FUNCTIONS FOR PLANT $h$
 
@@ -518,16 +518,17 @@ $$
 - $\mathcal{T} = \{1,\dots,T\}$ – time periods (typically hourly)  
 - $\mathcal{L} = \{\text{LINE}_{1}, \dots, \text{LINE}_{n_\ell}\}$ – transmission lines  
 - $\mathcal{CB} = \{\text{BAR}_{1}, \dots, \text{BAR}_{n_b}\}$ – connection bars (buses)  
-- $(i,j) \in \mathcal{E} \subseteq \mathcal{B}\times\mathcal{B}$ – ordered pair of bars defining endpoints of line $\ell$  
+- $(i,j) \in \mathcal{E} \subseteq \mathcal{CB}\times\mathcal{CB}$ – ordered pair of bars defining endpoints of line $\ell$  
 - $\mathcal{L}(b)$ – set of lines incident to bar $b$
+- $\mathcal{H}(b)$, $\mathcal{G}(b)$, $\mathcal{R}(b)$, $\mathcal{S}(b)$ - generator attached to bar $b$
 
 ##### PARAMETERS
 
 - $b_{\ell}$ – susceptance of line $\ell$ (p.u. or 1/x)  
 - $\overline{F}_{\ell}$ – transmission capacity limit (MW)   
 - $\theta_{b,0}$ – reference (slack) bus angle (rad)  
-- $p_{\text{base}}$ – system base power (MW)  r  
-- $\text{CB} \in \mathcal{CB}$ – subset of bars with associated demand $d_{b,t}$  
+- $p_{\text{base}}$ – system base power (MW)
+- $b \in \mathcal{CB}$ – bar with associated demand $d_{b,t}$ and deficit $D_{b, t}$
 
 
 ##### DECISION VARIABLES
@@ -540,14 +541,14 @@ $$
 For each line $\ell = (i,j)$ and time $t$:
 
 $$
-F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}).
+F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}) \quad \forall \ell \in \mathcal{L}, \; \forall t \in \mathcal{T}.
 $$
 
 ##### TRANSMISSION CAPACITY LIMITS
 
 $$
 -\,\overline{F}_{\ell} \le F_{\ell,t} \le \overline{F}_{\ell}\,,
-\quad \forall \ell \in \mathcal{L},\; t \in \mathcal{T}.
+\quad \forall \ell \in \mathcal{L},\; \forall t \in \mathcal{T}.
 $$
 
 ##### POWER BALANCE AT EACH BUS
@@ -556,7 +557,7 @@ Each bar $b$ satisfies Kirchhoff’s Current Law (KCL) in the DC approximation:
 
 $$
 \sum_{\ell\in\mathcal{L}(b)} \delta_{b,\ell}\,F_{\ell,t} + \sum_{h \in \mathcal{H}(b)} G_{h,t} + \sum_{g \in \mathcal{G}(b)} p_{g,t} + \sum_{r \in \mathcal{R}(b)} g_{\mathrm{ren}_{r,t}}+ \sum_{s \in \mathcal{S}(b)} (P_{\mathrm{dis}_{s,t}} - P_{\mathrm{ch}_{s,t}}) + D_{b,t}
-= d_{b,t}, \quad \forall b,t,
+= d_{b,t}, \quad \forall b \in \mathcal{CB}, \forall t \in \mathcal{T}.
 $$
 
 where $\delta_{b,\ell} = +1$ if bar $b$ is the sending end of $\ell$, $-1$ if the receiving end, and $0$ otherwise.
@@ -567,6 +568,14 @@ One bar must be defined as the phase-angle reference:
 
 $$
 \theta_{b_0,t} = 0, \quad \forall t \in \mathcal{T}.
+$$
+
+##### BUS ANGLE LIMITS
+
+For non-slack buses, the phase-angle is restricted as follows:
+
+$$
+-\pi \leq \theta_{b,t} \leq \pi.
 $$
 
 ---
@@ -743,7 +752,7 @@ Together, they ensure **temporal and economic consistency** across Brazil’s en
 - $Q_{{\min}_h},\,Q_{{\max}_h}$ – turbined flow limits (hm$^3$)
 - $V_{{\text{ini}}_h}$ – initial reservoir volume (hm$^3$)
 - $V_{{\text{meta}}_h}$ – target terminal volume (hm$^3$)
-- $C_{{\text{def}}}$ – unitary cost of deficit (\$/MWh) 
+- $C_{{\text{def}_b}}$ – unitary cost of deficit (\$/MWh) 
 
 ##### DECISION VARIABLES
 
@@ -751,7 +760,7 @@ Together, they ensure **temporal and economic consistency** across Brazil’s en
 - $S_{h,t} \ge 0$ – spillage (m$^3$)
 - $V_{h,t} \ge 0$ – stored volume (hm$^3$)
 - $G_{h,t} \ge 0$ – hydropower generation (MWmed)
-- $D_t \ge 0$ – energy deficit (MWh/h)
+- $D_{b,t} \ge 0$ – energy deficit (MWh/h)
 
 ##### HYDROPOWER PRODUCTION FUNCTION (HPF)
 
@@ -871,16 +880,18 @@ $$
 - $\mathcal{T} = \{1,\dots,T\}$ – time periods (typically hourly)  
 - $\mathcal{L} = \{\text{LINE}_{1}, \dots, \text{LINE}_{n_\ell}\}$ – transmission lines  
 - $\mathcal{CB} = \{\text{BAR}_{1}, \dots, \text{BAR}_{n_b}\}$ – connection bars (buses)  
-- $(i,j) \in \mathcal{E} \subseteq \mathcal{B}\times\mathcal{B}$ – ordered pair of bars defining endpoints of line $\ell$  
+- $(i,j) \in \mathcal{E} \subseteq \mathcal{CB}\times\mathcal{CB}$ – ordered pair of bars defining endpoints of line $\ell$  
 - $\mathcal{L}(b)$ – set of lines incident to bar $b$
+- $\mathcal{H}(b)$, $\mathcal{G}(b)$, $\mathcal{R}(b)$, $\mathcal{S}(b)$ - generator attached to bar $b$
 
 ##### PARAMETERS
 
 - $b_{\ell}$ – susceptance of line $\ell$ (p.u. or 1/x)  
 - $\overline{F}_{\ell}$ – transmission capacity limit (MW)   
 - $\theta_{b,0}$ – reference (slack) bus angle (rad)  
-- $p_{\text{base}}$ – system base power (MW)  r  
-- $\text{CB} \in \mathcal{CB}$ – subset of bars with associated demand $d_{b,t}$  
+- $p_{\text{base}}$ – system base power (MW)
+- $b \in \mathcal{CB}$ – bar with associated demand $d_{b,t}$ and deficit $D_{b, t}$
+
 
 ##### DECISION VARIABLES
 
@@ -892,14 +903,14 @@ $$
 For each line $\ell = (i,j)$ and time $t$:
 
 $$
-F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}).
+F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t}) \quad \forall \ell \in \mathcal{L}, \; \forall t \in \mathcal{T}.
 $$
 
 ##### TRANSMISSION CAPACITY LIMITS
 
 $$
 -\,\overline{F}_{\ell} \le F_{\ell,t} \le \overline{F}_{\ell}\,,
-\quad \forall \ell \in \mathcal{L},\; t \in \mathcal{T}.
+\quad \forall \ell \in \mathcal{L},\; \forall t \in \mathcal{T}.
 $$
 
 ##### POWER BALANCE AT EACH BUS
@@ -908,7 +919,7 @@ Each bar $b$ satisfies Kirchhoff’s Current Law (KCL) in the DC approximation:
 
 $$
 \sum_{\ell\in\mathcal{L}(b)} \delta_{b,\ell}\,F_{\ell,t} + \sum_{h \in \mathcal{H}(b)} G_{h,t} + \sum_{g \in \mathcal{G}(b)} p_{g,t} + \sum_{r \in \mathcal{R}(b)} g_{\mathrm{ren}_{r,t}}+ \sum_{s \in \mathcal{S}(b)} (P_{\mathrm{dis}_{s,t}} - P_{\mathrm{ch}_{s,t}}) + D_{b,t}
-= d_{b,t}, \quad \forall b,t,
+= d_{b,t}, \quad \forall b \in \mathcal{CB}, \forall t \in \mathcal{T}.
 $$
 
 where $\delta_{b,\ell} = +1$ if bar $b$ is the sending end of $\ell$, $-1$ if the receiving end, and $0$ otherwise.
@@ -919,6 +930,14 @@ One bar must be defined as the phase-angle reference:
 
 $$
 \theta_{b_0,t} = 0, \quad \forall t \in \mathcal{T}.
+$$
+
+##### BUS ANGLE LIMITS
+
+For non-slack buses, the phase-angle is restricted as follows:
+
+$$
+-\pi \leq \theta_{b,t} \leq \pi.
 $$
 
 ---
@@ -1106,59 +1125,60 @@ This constitutes a **Mixed-Integer Linear Programming (MILP)** problem, solved b
 - $\mathcal{G}$ – total set of generating units (hydroelectric, thermal, solar, and wind)  
 - $\mathcal{G}_E \subset \mathcal{G}$ – subset of existing plants  
 - $\mathcal{G}_C \subset \mathcal{G}$ – subset of candidate plants  
-- $\mathcal{B}$ – total set of storage units (batteries)  
-- $\mathcal{B}_E \subset \mathcal{B}$ – subset of existing batteries  
-- $\mathcal{B}_C \subset \mathcal{B}$ – subset of candidate batteries  
-- $\mathcal{T}$ – planning periods ($t = 1,\dots,10$)  
-- $\mathcal{P}$ – load levels (peak and off-peak)
+- $\mathcal{S}$ – total set of storage units (batteries)  
+- $\mathcal{S}_E \subset \mathcal{S}$ – subset of existing batteries  
+- $\mathcal{S}_C \subset \mathcal{S}$ – subset of candidate batteries  
+- $\mathcal{T}$ – planning periods 
+- $\mathcal{P}$ – load levels
 - $\mathcal{L} = \{\text{LINE}_{1}, \dots, \text{LINE}_{n_\ell}\}$ – transmission lines  
+- $\mathcal{L}_E \subset \mathcal{L}$ – subset of existing transmission lines  
+- $\mathcal{L}_C \subset \mathcal{L}$ – subset of candidate transmission lines  
 - $\mathcal{CB} = \{\text{BAR}_{1}, \dots, \text{BAR}_{n_b}\}$ – connection bars (buses)  
-- $(i,j) \in \mathcal{E} \subseteq \mathcal{B}\times\mathcal{B}$ – ordered pair of bars defining endpoints of line $\ell$  
-- $\mathcal{L}(b)$ – set of lines incident to bar $b$
-
+- $(i,j) \in \mathcal{E} \subseteq \mathcal{CB}\times\mathcal{CB}$ – ordered pair of bars defining endpoints of line $\ell$  
+- $\mathcal{L}(b)$ – set of lines incident to bar $b$ 
+- $\mathcal{G}(b)$ – set of generators attached to bar $b$
+- $\mathcal{S}(b)$ – set of batteries attached to bar $b$
 ---
 
 #### PARAMETERS
 
-- $C_{\text{inv}_g}$ – investment cost of generator $g$ [R\$ /MW]  
-- $C_{\text{op}_g}$ – operating cost of generator $g$ [R\$ /MWh]  
-- $P_{\text{max}_g}$ – maximum capacity of generator $g$ [MW]  
-- $C_{\text{inv}_b}$ – investment cost of battery $b$ [R\$ /MW]  
-- $C_{\text{op}_b}$ – operating cost of battery $b$ [R\$ /MWh] 
+- $C_{\text{inv}_g}$ – investment cost of generator $g$ 
+- $C_{\text{op}_g}$ – operating cost of generator $g$ [\$ /MWh]  
+- $C_{\text{inv}_s}$ – investment cost of battery $s$
+- $C_{\text{op}_s}$ – operating cost of battery $s$ [\$ /MWh] 
 - $C_{\text{inv},\ell}$ – investment cost of line $\ell$ 
-- $C_{\text{op},\ell}$ – operation cost of line $\ell$ (if candidate)
-- $E_{\text{max}_b}$, $E_{\text{min}_b}$ – state-of-charge limits for battery $b$ [MWh]  
-- $P_{\text{bat}_{\text{max}_b}}$ – maximum charge/discharge power of battery $b$ [MW]  
-- $E_{0_b}$ – initial state of charge of battery $b$ [MWh]  
-- $\eta_{c_b}$, $\eta_{d_b}$ – charge/discharge efficiencies (0.95)  
-- $D_{p,t}$ – demand in load level $p$ and period $t$ [MW]  
+- $C_{\text{op},\ell}$ – operation cost of line $\ell$ [\$ /MWh]
+- $P_{\text{max}_g}$ – maximum capacity of generator $g$ [MW]  
+- $E_{\text{max}_s}$, $E_{\text{min}_s}$ – state-of-charge limits for battery $s$ [MWh]  
+- $P_{\text{ch}_{\text{max}_s}}$, $P_{\text{dis}_{\text{max}_s}}$ – maximum charge/discharge power of battery $s$ [MW]  
+- $E_{0_s}$ – initial state of charge of battery $s$ [MWh]  
+- $\eta_{c_s}$, $\eta_{d_s}$ – charge/discharge efficiencies (0.95)  
+- $D_{b,p,t}$ – demand in load level $p$ and period $t$ [MW] per bus  
 - $h_p$ – duration of load level $p$ [h/year]  
 - $x_{g,0}$ – 1 if generator $g$ exists at the beginning of the horizon, 0 otherwise  
-- $x_{b,0}$ – 1 if battery $b$ exists at the beginning of the horizon, 0 otherwise 
+- $x_{s,0}$ – 1 if battery $s$ exists at the beginning of the horizon, 0 otherwise 
 - $x_{\ell,0}$ – 1 if line $\ell$ exists at the beginning of the horizon, 0 otherwise 
 - $b_{\ell}$ – susceptance of line $\ell$ (p.u. or 1/x)  
 - $\overline{F}_{\ell}$ – transmission capacity limit (MW)   
-- $\theta_{b,0}$ – reference (slack) bus angle (rad)  
-- $p_{\text{base}}$ – system base power (MW)  
-- $\zeta_{\ell}$ – availability or transmission scaling factor  
-- $C_{\text{inv},\ell}$ – investment cost of line $\ell$ (if candidate)
+- $\theta_{b,0,p}$ – reference (slack) bus angle (rad)  
+- $p_{\text{base}}$ – system base power (MW) (only for line transmission power conversion - optional if the system has no explicit topology)   
 
 ---
 
 #### DECISION VARIABLES
 
 - $y_{g,t} \in \{0,1\}$ – construction (1) or not (0) of candidate generator $g$ in period $t$  
-- $y_{b,t} \in \{0,1\}$ – construction (1) or not (0) of candidate battery $b$ in period $t$  
+- $y_{s,t} \in \{0,1\}$ – construction (1) or not (0) of candidate battery $s$ in period $t$   
+- $y_{\ell,t} \in \{0,1\}$ – construction (1) or not (0) of candidate transmission line $\ell$ in period $t$
 - $x_{g,t} \in \{0,1\}$ – existence of generator $g$ in period $t$ (1 if built up to $t$)  
-- $x_{b,t} \in \{0,1\}$ – existence of battery $b$ in period $t$ (1 if built up to $t$)  
-- $P_{g,p,t} \ge 0$ – generation of unit $g$ in load level $p$ and period $t$ [MW]  
-- $P^{c}_{b,p,t} \ge 0$ – charging power of battery $b$ [MW]  
-- $P^{d}_{b,p,t} \ge 0$ – discharging power of battery $b$ [MW]  
-- $E_{b,p,t}$ – state of charge (SoC) of battery $b$ [MWh] 
-- $F_{\ell,t}$ – active power flow through line $\ell$ (MW)  
-- $\theta_{b,t}$ – phase angle at bus $b$ (radians)  
-- $x_{\ell,t} \in \{0,1\}$ – binary expansion variable (1 if line built by $t$)  
-- $y_{\ell,t} \in \{0,1\}$ – binary decision of construction in period $t$
+- $x_{s,t} \in \{0,1\}$ – existence of battery $s$ in period $t$ (1 if built up to $t$)  _
+- $x_{\ell,t} \in \{0,1\}$ – existence of transmission line $\ell$ in period $t$ (1 if built up to $t$)  
+- $P_{g,t,p} \ge 0$ – generation of unit $g$ in load level $p$ and period $t$ [MW]  
+- $P^{c}_{s,t,p} \ge 0$ – charging power of battery $s$ in load level $p$ and period $t$ [MW/level]  
+- $P^{d}_{s,t,p} \ge 0$ – discharging power of battery $s$ in load level $p$ and period $t$ [MW/level]  
+- $E_{s,t,p}$ – state of charge (SoC) of battery $s$ [MWh] 
+- $F_{\ell,t,p}$ – active power flow through line $\ell$ (MW)  
+- $\theta_{b,t,p}$ – phase angle at bus $b$ (radians) and level $p$ 
 
 ---
 
@@ -1167,17 +1187,17 @@ This constitutes a **Mixed-Integer Linear Programming (MILP)** problem, solved b
 ##### DEMAND REQUIREMENT PER BUS
 
 $$
-\sum_{\ell\in\mathcal{L}(b)}\delta_{b,\ell}\,F_{\ell,t}  + \sum_{g \in \mathcal{G}} P_{g,b,t,p} + \sum_{b \in \mathcal{B}} ( P^{d}_{s,b,t,p} - P^{c}_{s,b,t,p} ) = D_{b,t,p}, \quad \forall b \in \mathcal{CB}, \, t \in \mathcal{T}, \, p \in \mathcal{P}
+\sum_{\ell\in\mathcal{L}(b)}\delta_{b,\ell}\,F_{\ell,t}  + \sum_{g \in \mathcal{G}(b)} P_{g,t,p} + \sum_{s \in \mathcal{S}(b)} ( P^{d}_{s,t,p} - P^{c}_{s,t,p} ) = d_{b,t,p}, \quad \forall b \in \mathcal{CB}, \, \forall t \in \mathcal{T}, \, \forall p \in \mathcal{P}
 $$
 
 This ensures power balance at each period and load level: total net generation (generation plus storage balance) equals system demand.
 
 ---
 
-#### CAPACITY ADEQUACY PER BUS
+#### CAPACITY ADEQUACY
 
 $$
-\sum_{g \in \mathcal{G}} G^{\max}_g x_{g,t} + \sum_{s \in \mathcal{S}} P^{\text{dis,max}}_{s,p} x_{s,t} \ge d_{b,t,p}, \quad \forall b \in \mathcal{CB}, t \in \mathcal{T}, p \in \mathcal{P}
+\sum_{g \in \mathcal{G}} G^{\max}_g x_{g,t} + \sum_{s \in \mathcal{S}} P^{\text{dis,max}}_{s,p} x_{s,t} \ge d_{b,t,p}, \quad \forall b \in \mathcal{CB}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P}
 $$
 
 Guarantees that total available capacity (generation + discharge) is sufficient to meet demand in all time steps.
@@ -1187,7 +1207,7 @@ Guarantees that total available capacity (generation + discharge) is sufficient 
 #### GENERATION LIMITS
 
 $$
-0 \le P_{g,t,p} \le P^{\max}_g x_{g,t}, \quad \forall g,t,p
+0 \le P_{g,t,p} \le P^{\max}_g x_{g,t}, \quad \forall g \in \mathcal{G}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P}
 $$
 
 Ensures that generation of each unit does not exceed its maximum capacity and is zero when inactive.
@@ -1201,7 +1221,8 @@ E_{s,t,p} = \begin{cases}
 E_{\text{ini},s} x_{s,t}, & t = 1, p = p_1, \\
 E_{s,t-1,p_{|\mathcal{P}|}} + E_{\text{ini},s} y_{s,t} + \eta_c P^{ch}_{s,t,p} \Delta t_p - \dfrac{P^{dis}_{s,t,p}}{\eta_d} \Delta t_p, & t > 1, p = p_1, \\
 E_{s,t,p-1} + \eta_c P^{ch}_{s,t,p} \Delta t_p - \dfrac{P^{dis}_{s,t,p}}{\eta_d} \Delta t_p, & p \neq p_1
-\end{cases}
+\end{cases} \quad
+\forall s \in \mathcal{S}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P} 
 $$
 
 Ensures energy continuity across load levels and periods, applying charge/discharge efficiencies and introducing initial energy only when the unit is built.
@@ -1211,7 +1232,7 @@ Ensures energy continuity across load levels and periods, applying charge/discha
 #### STATE OF CHARGE LIMITS
 
 $$
-E^{\min}_b x_{b,t} \le E_{b,t,p} \le E^{\max}_b x_{b,t}, \quad \forall b,t,p
+E^{\min}_s x_{s,t} \le E_{s,t,p} \le E^{\max}_s x_{s,t}, \quad \forall s \in \mathcal{S}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P}
 $$
 
 Keeps the state of charge within the operational range, proportional to the unit’s availability.
@@ -1221,31 +1242,22 @@ Keeps the state of charge within the operational range, proportional to the unit
 #### CHARGE/DISCHARGE POWER LIMITS
 
 $$
-0 \le P^{c}_{b,t,p}, P^{d}_{b,t,p} \le P^{\max}_{\text{bat}_b} x_{b,t}, \quad \forall b,t,p
+0 \le P^{c}_{s,t,p}\le P_{\text{ch}_{\text{max}_s}} x_{s,t}, \quad \forall s \in \mathcal{S}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P}\\
+0 \le P^{d}_{s,t,p}\le P_{\text{dis}_{\text{max}_s}} x_{s,t}, \quad \forall s \in \mathcal{S}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P}\\
 $$
 
 Restricts charging and discharging powers according to the installed battery capacity and availability.
 
 ---
 
-#### INITIAL STATE
-
-$$
-E_{b,1,p} = E_{0_b}, \quad \forall b,p
-$$
-
-Defines the initial energy level for each battery, ensuring consistency in the dynamic storage model.
-
----
-
 #### EXPANSION DYNAMICS (EXISTENCE ACCUMULATION)
 
 $$
-x_{g,t} = x_{g,t-1} + y_{g,t}, \quad\\
-x_{b,t} = x_{b,t-1} + y_{b,t}, \quad \\
-x_{\ell,t} = x_{\ell,t-1} + y_{\ell,t}, \quad \\
-\forall g,b,\ell,t>1\\
-x_{g,0}, x_{b,0}, x_{\ell, 0} \text{ given (initial existence)}
+x_{g,t} = x_{g,t-1} + y_{g,t}, \\
+x_{b,t} = x_{b,t-1} + y_{b,t}, \\
+x_{\ell,t} = x_{\ell,t-1} + y_{\ell,t}\\
+\quad \forall t \leq 1 \in \mathcal{T}\\
+x_{g,0}, x_{s,0}, x_{\ell, 0} \text{ given (initial existence)}.
 $$
 
 Guarantees temporal coherence of the expansion plan: units exist only if previously constructed.
@@ -1254,20 +1266,24 @@ Guarantees temporal coherence of the expansion plan: units exist only if previou
 
 #### DC FLOW APPROXIMATION
 
-For each line $\ell = (i,j)$ and time $t$:
+$$
+F_{\ell,t, p} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t,p} - \theta_{j,t,p})\, x_{\ell,t}.\\
+\forall \ell \in \mathcal{L}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P}
+$$
 
-$$
-F_{\ell,t} = p_{\text{base}}\, b_{\ell}\, (\theta_{i,t} - \theta_{j,t})\, x_{\ell,t}.
-$$
+For the DC model, this constraint ensures that the power flow is proportional to the angular difference between the buses connected by the transmission line. In the transportation model, this constraint is disregarded. It is worth noting that the formulation of this constraint is valid only in cases where $\sin(\theta_{i,t,p} - \theta_{j,t,p}) \approx \theta_{i,t,p} - \theta_{j,t,p}$, that is, for angular differences up to $\frac{\pi}{6}$.
 
 ---
 
 #### TRANSMISSION CAPACITY LIMITS
 
 $$
--\,\overline{F}_{\ell}\,x_{\ell,t} \le F_{\ell,t} \le \overline{F}_{\ell}\,x_{\ell,t},
-\quad \forall \ell \in \mathcal{L},\; t \in \mathcal{T}.
+-\,\overline{F}_{\ell}\,x_{\ell,t} \le F_{\ell,t,p} \le \overline{F}_{\ell}\,x_{\ell,t},
+\quad \forall \ell \in \mathcal{L},\; \forall t \in \mathcal{T}, \; \forall p \in \mathcal{P}.
 $$
+
+Ensures that transmission power flow of each transmission line unit does not exceed its maximum capacity and is zero when inactive.
+
 
 ---
 
@@ -1276,7 +1292,15 @@ $$
 One bar must be defined as the phase-angle reference:
 
 $$
-\theta_{b_0,t} = 0, \quad \forall t \in \mathcal{T}.
+\theta_{b_0,t,p} = 0, \quad \forall t \in \mathcal{T}, \forall p \in \mathcal{P}.
+$$
+
+#### BUS ANGLE LIMITS
+
+For non-slack buses, the phase-angle is restricted as follows:
+
+$$
+-\pi \leq \theta_{b,t,p} \leq \pi
 $$
 
 ---
@@ -1284,9 +1308,9 @@ $$
 #### UNIQUE CONSTRUCTION
 
 $$
-\sum_{t \in \mathcal{T}} y_{g,t} \le 1, \quad
-\sum_{t \in \mathcal{T}} y_{b,t} \le 1, \quad
-\sum_{t \in \mathcal{T}} y_{\ell,t} \le 1, \quad \forall g \in \mathcal{G}_C, b \in \mathcal{B}_C
+\sum_{t \in \mathcal{T}} y_{g,t} \le 1, \quad\\
+\sum_{t \in \mathcal{T}} y_{s,t} \le 1, \quad\\
+\sum_{t \in \mathcal{T}} y_{\ell,t} \le 1, \quad\\ \forall g \in \mathcal{G}_C, b \in \mathcal{B}_C
 $$
 
 Prevents multiple constructions of the same unit within the planning horizon.
@@ -1296,9 +1320,10 @@ Prevents multiple constructions of the same unit within the planning horizon.
 #### MONOTONIC GROWTH
 
 $$
-x_{g,t} \ge x_{g,t-1}, \quad
-x_{b,t} \ge x_{b,t-1}, \quad 
-x_{\ell,t} \ge x_{\ell,t-1}, \quad \forall g,b,\ell,t
+x_{g,t} \ge x_{g,t-1}, \quad\\
+x_{s,t} \ge x_{s,t-1}, \quad\\
+x_{\ell,t} \ge x_{\ell,t-1}, \quad\\
+\forall g \in \mathcal{G}_C,\forall s \in \mathcal{S}_C, \forall \ell \in \mathcal{L}_C
 $$
 
 Ensures that the set of existing units grows monotonically, avoiding deactivation after construction and maintaining temporal consistency in expansion.
@@ -1308,23 +1333,25 @@ Ensures that the set of existing units grows monotonically, avoiding deactivatio
 #### OBJECTIVE FUNCTION
 
 $$
-\min Z = \sum_{t \in \mathcal{T}} \frac{1}{(1 + t_x)^t}\Bigg[\sum_{g \in \mathcal{G}} C^{\text{inv}}_g x_{g,t} + \sum_{b \in \mathcal{B}} C^{\text{inv}}_b x_{b,t}+ \sum_{\ell \in \mathcal{L}} C^{\text{inv}}_\ell x_{b,t} + \sum_{p \in \mathcal{P}} h_p \Big( \sum_{g \in \mathcal{G}} C^{\text{op}}_g P_{g,t,p} +\sum_{\ell \in \mathcal{L}} C^{\text{op}}_\ell F_{l,t,p} + \sum_{b \in \mathcal{B}} C^{\text{op}}_b (P^{d}_{b,t,p} +  P^{c}_{b,t,p}) \Big) \Bigg]
+\min Z =\sum_{t \in \mathcal{T}}\frac{1}{(1+t_x)^t}
+\Bigg[\sum_{g \in \mathcal{G}} C^{\text{inv}}_{g} x_{g,t} + \sum_{s \in \mathcal{S}} C^{\text{inv}}_{s} x_{s,t} + \sum_{\ell \in \mathcal{L}} C^{\text{inv}}_{\ell} x_{\ell,t} \\+ \sum_{p \in \mathcal{P}} h_p \bigg(\sum_{g \in \mathcal{G}} C^{\text{op}}_{g} P_{g,t,p} + \sum_{\ell \in \mathcal{L}} C^{\text{op}}_{\ell} F_{\ell,t} + \sum_{s \in \mathcal{S}} C^{\text{op}}_{s} (P^{d}_{s,t,p} + P^{c}_{s,t,p})\bigg)\Bigg].
 $$
 
 Where:
 
 - $Z$ — total objective function value (minimum system cost)  
-- $t_x$ — discount rate ($t_x \in [0,1)$)
-- $C^{\text{inv}}_{g}, C^{\text{inv}}_{b} , C^{\text{inv}}_{\ell}$ — investment costs for generation and storage units [\$]  
-- $C^{\text{op}}_{g}, C^{\text{op}}_{b}, C^{\text{op}}_{\ell}$ — operating costs for generation and storage units [\$/MWh]  
-- $x_{g,t}, x_{b,t}, x_{\ell,t}$ — binary variables for existence of generation/storage units  
+- $t_x$ — discount rate ($t_x \in [0,1)$)  
+- $C^{\text{inv}}_{g}, C^{\text{inv}}_{s} , C^{\text{inv}}_{\ell}$ — investment costs for generation and storage units [\$]  
+- $C^{\text{op}}_{g}, C^{\text{op}}_{s}, C^{\text{op}}_{\ell}$ — operating costs for generation and storage units [\$/MWh]  
+- $x_{g,t}, x_{s,t}, x_{\ell,t}$ — binary variables for existence of generation/storage units  
 - $P_{g,t,p}$ — generated power [MW]  
-- $P^{d}_{b,t,p}, P^{c}_{b,t,p}$ — discharging and charging powers [MW]  
+- $P^{d}_{s,t,p}, P^{c}_{s,t,p}$ — discharging and charging powers [MW]  
 - $F_{l,t,p}$ - transmission line power flux [MW]
 - $h_p$ — duration of load level $p$ [h]  
 
 This objective minimizes total system cost across the planning horizon, combining investment and operating costs weighted by the duration of each load level. The formulation captures the trade-off between capacity expansion and operation, ensuring an economically optimal solution under technical and energy constraints.
 
+---
 
 ## TECHNICAL APPENDIX: OPTIMIZATION METHODS
 
