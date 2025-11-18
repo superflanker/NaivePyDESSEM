@@ -1197,7 +1197,7 @@ This ensures power balance at each period and load level: total net generation (
 #### CAPACITY ADEQUACY
 
 $$
-\sum_{g \in \mathcal{G}} G^{\max}_g x_{g,t} + \sum_{s \in \mathcal{S}} P^{\text{dis,max}}_{s,p} x_{s,t} \ge d_{b,t,p}, \quad \forall b \in \mathcal{CB}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P}
+\sum_{g \in \mathcal{G}} G^{\max}_g x_{g,t} + \sum_{s \in \mathcal{S}} P^{\text{dis,max}}_{s,p} x_{s,t} \ge \sum_{b \in \mathcal{CB}}d_{b,t,p}, \quad \forall b \in \mathcal{CB}, \forall t \in \mathcal{T}, \forall p \in \mathcal{P}
 $$
 
 Guarantees that total available capacity (generation + discharge) is sufficient to meet demand in all time steps.

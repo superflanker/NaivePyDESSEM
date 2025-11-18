@@ -1,7 +1,7 @@
 # NaivePyDESSEM — A Pedagogical and Modular Framework for Hydrothermal Economic Dispatch and Expansion Planning in Pyomo (DESSEM, DECOMP, and MDI-like Solvers)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![CI](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml/badge.svg)](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/ci.yml)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/naivepydessem?period=total&units=INTERNATIONAL_SYSTEM&left_color=GRAY&right_color=GREEN&left_text=Downloads)](https://pepy.tech/projects/naivepydessem)
 [![Docs](https://github.com/superflanker/NaivePyDESSEM/actions/workflows/docs.yml/badge.svg)](https://superflanker.github.io/NaivePyDESSEM/)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-NaivePyDESSEM-181717?logo=github)](https://github.com/superflanker/NaivePyDESSEM)
 
@@ -128,12 +128,12 @@ It integrates investment and operational decisions into a unified **mixed-intege
   Incorporates candidate projects for thermal, hydro, renewable, and storage technologies, as well as transmission reinforcements.
 - **Specialized Submodules:**<br />
   \\\\
-  Subpackages `MDI.Generator` and `MDI.Storage` define project-level variables, constraints, and cost components.<br />
+  Subpackages `MDI.Generator`, `MDI.Storage`, `MDI.ConnectionBar` and `MDI.TransmissionLine` define project-level variables, constraints, and cost components.<br />
   \\\\
   The `Builder` module consolidates these into a system-wide energy balance, while `YAMLLoader` manages structured scenario data.
 - **Solution and Analysis:**<br />
   \\\\
-  Supports a variety of *Pyomo* solvers (`GLPK`, `CPLEX`, `IPOPT`, `MindtPy`) and provides post-solution tools (`Reporting`, `DataFrames`, `PlotSeries`) for sensitivity and scenario analysis.
+  Supports a variety of *Pyomo* solvers (`GLPK`, `CBC`, `HIGHS`, `CPLEX`) and provides post-solution tools (`Reporting`, `DataFrames`, `PlotSeries`) for sensitivity and scenario analysis.
 - **Educational Design:**<br />
   \\\\
   Preserves the key structural and economic principles of real-world expansion models while maintaining tractability for academic exercises.
@@ -143,223 +143,19 @@ It integrates investment and operational decisions into a unified **mixed-intege
 ## 📂 Project Structure
 
 ```text
-├── examples
-│   ├── DECOMP
-│   │   ├── trabalho02_caso01.yaml
-│   │   ├── trabalho02_caso02.yaml
-│   │   ├── trabalho02_caso03.yaml
-│   │   └── trabalho02_caso04.yaml
-│   ├── DESSEM
-│   │   ├── exemplo_despacho_hibrido.yaml
-│   │   ├── trabalho01_caso01_1.yaml
-│   │   ├── trabalho01_caso01_2.yaml
-│   │   ├── trabalho01_caso01_3.yaml
-│   │   ├── trabalho01_caso02.yaml
-│   │   ├── trabalho01_caso03.yaml
-│   │   ├── trabalho01_caso04.yaml
-│   │   └── trabalho01_caso05.yaml
-│   └── MDI
-│       ├── trabalho03_ex01.yaml
-│       ├── trabalho03_ex01_anualizado.yaml
-│       ├── trabalho03_ex01_anualizado_alternativo.yaml
-│       ├── trabalho03_ex02.yaml
-│       └── trabalho03_ex02_anualizado.yaml
-├── relatorios
-│   ├── DECOMP
-│   │   ├── caso01
-│   │   │   ├── imagens
-│   │   │   │   ├── custo_futuro_caso01_pddd.png
-│   │   │   │   ├── custos_geracao_caso01_pddd.png
-│   │   │   │   ├── custos_geracao_caso01_single_pl.png
-│   │   │   │   ├── geracao_caso01_pddd.png
-│   │   │   │   ├── geracao_caso01_single_pl.png
-│   │   │   │   ├── limites_convergencia_caso01_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso01_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso01_single_pl.png
-│   │   │   │   ├── volume_armazenado_caso01_pddd.png
-│   │   │   │   └── volume_armazenado_caso01_single_pl.png
-│   │   │   └── tabelas
-│   │   │       ├── custos_caso01_pddd.tex
-│   │   │       ├── custos_caso01_single_pl.tex
-│   │   │       ├── parametros_hidraulicos_caso01_pddd.tex
-│   │   │       ├── parametros_hidraulicos_caso01_single_pl.tex
-│   │   │       ├── tabela_geracao_caso01_pddd.tex
-│   │   │       └── tabela_geracao_caso01_single_pl.tex
-│   │   ├── caso02
-│   │   │   ├── imagens
-│   │   │   │   ├── custo_futuro_caso02_pddd.png
-│   │   │   │   ├── custos_geracao_caso02_pddd.png
-│   │   │   │   ├── custos_geracao_caso02_single_pl.png
-│   │   │   │   ├── geracao_caso02_pddd.png
-│   │   │   │   ├── geracao_caso02_single_pl.png
-│   │   │   │   ├── limites_convergencia_caso02_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso02_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso02_single_pl.png
-│   │   │   │   ├── volume_armazenado_caso02_pddd.png
-│   │   │   │   └── volume_armazenado_caso02_single_pl.png
-│   │   │   └── tabelas
-│   │   │       ├── custos_caso02_pddd.tex
-│   │   │       ├── custos_caso02_single_pl.tex
-│   │   │       ├── parametros_hidraulicos_caso02_pddd.tex
-│   │   │       ├── parametros_hidraulicos_caso02_single_pl.tex
-│   │   │       ├── tabela_geracao_caso02_pddd.tex
-│   │   │       └── tabela_geracao_caso02_single_pl.tex
-│   │   ├── caso03
-│   │   │   ├── imagens
-│   │   │   │   ├── carga_descarga_baterias_caso03_pddd.png
-│   │   │   │   ├── carga_descarga_baterias_caso03_single_pl.png
-│   │   │   │   ├── custo_futuro_caso03_pddd.png
-│   │   │   │   ├── custos_geracao_caso03_pddd.png
-│   │   │   │   ├── custos_geracao_caso03_single_pl.png
-│   │   │   │   ├── geracao_caso03_pddd.png
-│   │   │   │   ├── geracao_caso03_single_pl.png
-│   │   │   │   ├── limites_convergencia_caso03_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso03_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso03_single_pl.png
-│   │   │   │   ├── volume_armazenado_caso03_pddd.png
-│   │   │   │   └── volume_armazenado_caso03_single_pl.png
-│   │   │   └── tabelas
-│   │   │       ├── carga_descarga_baterias_caso03_pddd.tex
-│   │   │       ├── carga_descarga_baterias_caso03_single_pl.tex
-│   │   │       ├── custos_caso03_pddd.tex
-│   │   │       ├── custos_caso03_single_pl.tex
-│   │   │       ├── parametros_hidraulicos_caso03_pddd.tex
-│   │   │       ├── parametros_hidraulicos_caso03_single_pl.tex
-│   │   │       ├── tabela_geracao_caso03_pddd.tex
-│   │   │       └── tabela_geracao_caso03_single_pl.tex
-│   │   ├── caso04
-│   │   │   ├── imagens
-│   │   │   │   ├── carga_descarga_baterias_caso04_pddd.png
-│   │   │   │   ├── carga_descarga_baterias_caso04_single_pl.png
-│   │   │   │   ├── custo_futuro_caso04_pddd.png
-│   │   │   │   ├── custos_geracao_caso04_pddd.png
-│   │   │   │   ├── custos_geracao_caso04_single_pl.png
-│   │   │   │   ├── geracao_caso04_pddd.png
-│   │   │   │   ├── geracao_caso04_single_pl.png
-│   │   │   │   ├── limites_convergencia_caso04_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso04_pddd.png
-│   │   │   │   ├── vazao_turbinada_caso04_single_pl.png
-│   │   │   │   ├── volume_armazenado_caso04_pddd.png
-│   │   │   │   └── volume_armazenado_caso04_single_pl.png
-│   │   │   └── tabelas
-│   │   │       ├── carga_descarga_baterias_caso04_pddd.tex
-│   │   │       ├── carga_descarga_baterias_caso04_single_pl.tex
-│   │   │       ├── custos_caso04_pddd.tex
-│   │   │       ├── custos_caso04_single_pl.tex
-│   │   │       ├── parametros_hidraulicos_caso04_pddd.tex
-│   │   │       ├── parametros_hidraulicos_caso04_single_pl.tex
-│   │   │       ├── tabela_geracao_caso04_pddd.tex
-│   │   │       └── tabela_geracao_caso04_single_pl.tex
-│   │   └── arquivos.txt
-│   ├── DESSEM
-│   │   └── caso_345
-│   │       ├── imagens
-│   │       │   ├── carga_descarga_baterias_caso04.png
-│   │       │   ├── carga_descarga_baterias_caso05.png
-│   │       │   ├── custos_geracao_caso03.png
-│   │       │   ├── custos_geracao_caso04.png
-│   │       │   ├── custos_geracao_caso05.png
-│   │       │   ├── geracao_caso03.png
-│   │       │   ├── geracao_caso04.png
-│   │       │   ├── geracao_caso05.png
-│   │       │   ├── geracao_desempilhada_caso04.png
-│   │       │   ├── geracao_desempilhada_caso05.png
-│   │       │   ├── vazao_turbinada_caso03.png
-│   │       │   ├── vazao_turbinada_caso04.png
-│   │       │   ├── vazao_turbinada_caso05.png
-│   │       │   ├── volume_armazenado_caso03.png
-│   │       │   ├── volume_armazenado_caso04.png
-│   │       │   └── volume_armazenado_caso05.png
-│   │       ├── controle_termicas_caso03.tex
-│   │       ├── controle_termicas_caso04.tex
-│   │       ├── controle_termicas_caso05.tex
-│   │       ├── custos_caso03.tex
-│   │       ├── custos_caso04.tex
-│   │       ├── custos_caso05.tex
-│   │       ├── parametros_hidraulicos_caso03.tex
-│   │       ├── parametros_hidraulicos_caso04.tex
-│   │       ├── parametros_hidraulicos_caso05.tex
-│   │       ├── tabela_geracao_caso03.tex
-│   │       ├── tabela_geracao_caso04.tex
-│   │       └── tabela_geracao_caso05.tex
-│   └── MDI
-│       ├── ex01
-│       │   ├── imagens
-│       │   │   ├── carga_descarga_baterias_ex01.png
-│       │   │   ├── carga_descarga_baterias_ex01_anualizado.png
-│       │   │   ├── custos_geracao_ex01.png
-│       │   │   ├── custos_geracao_ex01_anualizado.png
-│       │   │   ├── geracao_ex01.png
-│       │   │   ├── geracao_ex01_anualizado.png
-│       │   │   ├── geracao_ex01_anualizado_fora.png
-│       │   │   ├── geracao_ex01_anualizado_ponta.png
-│       │   │   ├── geracao_ex01_fora.png
-│       │   │   └── geracao_ex01_ponta.png
-│       │   └── tabelas
-│       │       ├── decisoes_ex01.tex
-│       │       ├── decisoes_ex01_anualizado.tex
-│       │       ├── tabela_custos_ex01.tex
-│       │       ├── tabela_custos_ex01_anualizado.tex
-│       │       ├── tabela_geracao_ex01.tex
-│       │       └── tabela_geracao_ex01_anualizado.tex
-│       └── ex02
-│           ├── imagens
-│           │   ├── carga_descarga_baterias_ex02.png
-│           │   ├── carga_descarga_baterias_ex02_anualizado.png
-│           │   ├── custos_geracao_ex02.png
-│           │   ├── custos_geracao_ex02_anualizado.png
-│           │   ├── geracao_ex02.png
-│           │   ├── geracao_ex02_anualizado.png
-│           │   ├── geracao_ex02_anualizado_fora.png
-│           │   ├── geracao_ex02_anualizado_ponta.png
-│           │   ├── geracao_ex02_fora.png
-│           │   └── geracao_ex02_ponta.png
-│           └── tabelas
-│               ├── decisoes_ex02.tex
-│               ├── decisoes_ex02_anualizado.tex
-│               ├── tabela_custos_ex02.tex
-│               ├── tabela_custos_ex02_anualizado.tex
-│               ├── tabela_geracao_ex02.tex
-│               └── tabela_geracao_ex02_anualizado.tex
-├── resultados
-│   ├── DECOMP
-│   │   ├── despacho_caso01_pddd.csv
-│   │   ├── despacho_caso01_pddd_alpha.csv
-│   │   ├── despacho_caso01_pddd_zlimits.csv
-│   │   ├── despacho_caso01_single_pl.csv
-│   │   ├── despacho_caso02_pddd.csv
-│   │   ├── despacho_caso02_pddd_alpha.csv
-│   │   ├── despacho_caso02_pddd_zlimits.csv
-│   │   ├── despacho_caso02_single_pl.csv
-│   │   ├── despacho_caso03_pddd.csv
-│   │   ├── despacho_caso03_pddd_alpha.csv
-│   │   ├── despacho_caso03_pddd_zlimits.csv
-│   │   ├── despacho_caso03_single_pl.csv
-│   │   ├── despacho_caso04.csv
-│   │   ├── despacho_caso04_pddd.csv
-│   │   ├── despacho_caso04_pddd_alpha.csv
-│   │   ├── despacho_caso04_pddd_zlimits.csv
-│   │   └── despacho_caso04_single_pl.csv
-│   ├── DESSEM
-│   │   ├── despacho_caso01_1.csv
-│   │   ├── despacho_caso01_2.csv
-│   │   ├── despacho_caso01_3.csv
-│   │   ├── despacho_caso02.csv
-│   │   ├── despacho_caso03.csv
-│   │   ├── despacho_caso04.csv
-│   │   └── despacho_caso05.csv
-│   └── MDI
-│       ├── planejamento_expansao_ex01.csv
-│       ├── planejamento_expansao_ex01_anualizado.csv
-│       ├── planejamento_expansao_ex01_anualizado_alternativo.csv
-│       ├── planejamento_expansao_ex02.csv
-│       └── planejamento_expansao_ex02_anualizado.csv
 ├── src
 │   ├── MDI
 │   │   ├── cli
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── Generator
 │   │   │   ├── __init__.py
 │   │   │   ├── GeneratorBuilder.py
@@ -376,6 +172,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── StorageEquations.py
 │   │   │   ├── StorageObjective.py
 │   │   │   └── StorageVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── DataFrames.py
@@ -393,6 +196,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── cli.py
 │   │   │   ├── pddd_cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
 │   │   │   ├── HydraulicConstraints.py
@@ -426,6 +236,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── ThermalGeneratorBuilder.py
 │   │   │   ├── ThermalObjectives.py
 │   │   │   └── ThermalVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── BuilderPDDD.py
@@ -445,6 +262,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
 │   │   │   └── plot_cli.py
+│   │   ├── ConnectionBar
+│   │   │   ├── __init__.py
+│   │   │   ├── ConnectionBarBuilder.py
+│   │   │   ├── ConnectionBarConstraints.py
+│   │   │   ├── ConnectionBarDataTypes.py
+│   │   │   ├── ConnectionBarEquations.py
+│   │   │   └── ConnectionBarVars.py
 │   │   ├── HydraulicGenerator
 │   │   │   ├── __init__.py
 │   │   │   ├── ConstantProductivityFPH.py
@@ -482,6 +306,13 @@ It integrates investment and operational decisions into a unified **mixed-intege
 │   │   │   ├── ThermalObjectives.py
 │   │   │   ├── ThermalPieceWise.py
 │   │   │   └── ThermalVars.py
+│   │   ├── TransmissionLine
+│   │   │   ├── __init__.py
+│   │   │   ├── TransmissionLineBuilder.py
+│   │   │   ├── TransmissionLineConstraints.py
+│   │   │   ├── TransmissionLineDataTypes.py
+│   │   │   ├── TransmissionLineEquations.py
+│   │   │   └── TransmissionLineVars.py
 │   │   ├── __init__.py
 │   │   ├── Builder.py
 │   │   ├── DataFrames.py
@@ -531,7 +362,13 @@ The following Python packages are required to run **NaivePyDESSEM**:
 pip install naivepydessem
 ```
 
-Or from source:
+Optionally, install with some open-source solvers:
+
+```bash
+pip install naivepydessem[solvers]
+```
+
+You can install  from source:
 
 ```bash
 git clone https://github.com/superflanker/NaivePyDESSEM.git
@@ -603,7 +440,6 @@ This implementation is aligned with the pedagogical materials of UFPR (Federal U
 
 - Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030, UFPR, 2023.
 - CEPEL. Manual de Metodologia do DESSEM, 2023.
-- CEPEL. Modelo DECOMP — Manual de Referência Técnica, 2022.
 - EPE. Plano Decenal de Expansão de Energia (PDE) — Metodologia MDI, 2023.
 
 ---
@@ -613,6 +449,30 @@ This implementation is aligned with the pedagogical materials of UFPR (Federal U
 Full API and usage documentation is built with **Sphinx** and available here:<br />
 \\\\
 👉 [NaivePyDessem Documentation](https://superflanker.github.io/NaivePyDESSEM/)
+
+This project is hosted on GitHub at:
+
+👉 [NaivePyDessem GitHub Repo](https://github.com/superflanker/NaivePyDESSEM)
+
+---
+
+## 🌐 Get Involved
+
+You are cordially invited to explore the repository, review the examples, and adapt the framework to your own studies or applications.<br />
+\\\\
+This project was designed with openness and reproducibility in mind — whether you are conducting academic research, developing optimization tools, or exploring hybrid energy models, your engagement is most welcome.
+
+### 🤝 Contribute & Collaborate
+
+- 🧩 **Report Issues:** [Open an Issue](https://github.com/superflanker/NaivePyDESSEM/issues)
+- 🍴 **Fork the Project:** [Create Your Own Branch](https://github.com/superflanker/NaivePyDESSEM/fork)
+- 🧠 **Cite This Work:** If used in research, please acknowledge it in your publication.
+
+### ✉️ Contact
+
+For collaboration, technical inquiries, or academic exchange:<br />
+\\\\
+📨 **Augusto Mathias Adams** — augusto.adams@ufpr.br
 
 ---
 

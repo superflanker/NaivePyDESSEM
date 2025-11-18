@@ -43,6 +43,18 @@ Storage
   charge/discharge power limits, efficiencies, and optional integration into
   the balance and objective.
 
+ConnectionBar (New in version 0.1.4)
+: Represents the nodal structure of the network, defining the electrical buses (bars)
+  that aggregate demand, generation, deficit, and angular reference variables. Provides sets,
+  parameters, variables, and constraints for the nodal balance equations in MW, with optional
+  angular limits and slack-bar reference handling.
+
+TransmissionLine (New in version 0.1.4)
+: Models the physical interconnections between bars, using the DC power flow or transport
+  formulations. Defines sets, parameters, and variables for line flows, susceptances,
+  capacities, and investment states, including both existing  and candidate circuits.
+  Fully compatible with hybrid DC/transport network representations.
+
 YAMLLoader
 : Provides the interface for loading problem instances from structured YAML or JSON files,
   including validation and conversion into dataclass objects.
@@ -74,7 +86,7 @@ Utils, Formatters, Reporting
   allowing students and researchers to explore, extend, and test new ideas.
 - Extensions such as emission penalties, pumped storage, stochastic scenarios,
   or multi-area coupling can be added atop this foundation.
-- Fully compatible with Pyomo’s expressive modeling capabilities and solver interface.
+- Fully compatible with Pyomo’s modeling capabilities and solver interface.
 
 ### References
 
@@ -118,8 +130,6 @@ Utils, Formatters, Reporting
       * [Overview](NaivePyDESSEM.HydraulicGenerator.md#overview)
       * [Conventions and Units](NaivePyDESSEM.HydraulicGenerator.md#conventions-and-units)
     * [`HydraulicData`](NaivePyDESSEM.HydraulicGenerator.md#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData)
-      * [`HydraulicData.Cdef`](NaivePyDESSEM.HydraulicGenerator.md#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.Cdef)
-      * [`HydraulicData.demand`](NaivePyDESSEM.HydraulicGenerator.md#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.demand)
       * [`HydraulicData.horizon`](NaivePyDESSEM.HydraulicGenerator.md#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.horizon)
       * [`HydraulicData.units`](NaivePyDESSEM.HydraulicGenerator.md#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.units)
       * [`HydraulicData.zeta`](NaivePyDESSEM.HydraulicGenerator.md#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.zeta)
@@ -134,6 +144,7 @@ Utils, Formatters, Reporting
       * [`HydraulicUnit.a`](NaivePyDESSEM.HydraulicGenerator.md#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.a)
       * [`HydraulicUnit.afluencia`](NaivePyDESSEM.HydraulicGenerator.md#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.afluencia)
       * [`HydraulicUnit.b`](NaivePyDESSEM.HydraulicGenerator.md#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.b)
+      * [`HydraulicUnit.bar`](NaivePyDESSEM.HydraulicGenerator.md#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.bar)
       * [`HydraulicUnit.compute_total_inflow`](NaivePyDESSEM.HydraulicGenerator.md#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.compute_total_inflow)
       * [`HydraulicUnit.losses`](NaivePyDESSEM.HydraulicGenerator.md#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.losses)
       * [`HydraulicUnit.mode`](NaivePyDESSEM.HydraulicGenerator.md#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.mode)
@@ -192,11 +203,10 @@ Utils, Formatters, Reporting
     * [Description](NaivePyDESSEM.RenewableGenerator.md#id5)
     * [Classes](NaivePyDESSEM.RenewableGenerator.md#classes)
     * [`RenewableData`](NaivePyDESSEM.RenewableGenerator.md#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData)
-      * [`RenewableData.Cdef`](NaivePyDESSEM.RenewableGenerator.md#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.Cdef)
-      * [`RenewableData.demand`](NaivePyDESSEM.RenewableGenerator.md#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.demand)
       * [`RenewableData.horizon`](NaivePyDESSEM.RenewableGenerator.md#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.horizon)
       * [`RenewableData.units`](NaivePyDESSEM.RenewableGenerator.md#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.units)
     * [`RenewableUnit`](NaivePyDESSEM.RenewableGenerator.md#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit)
+      * [`RenewableUnit.bar`](NaivePyDESSEM.RenewableGenerator.md#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit.bar)
       * [`RenewableUnit.gbar`](NaivePyDESSEM.RenewableGenerator.md#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit.gbar)
       * [`RenewableUnit.name`](NaivePyDESSEM.RenewableGenerator.md#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit.name)
   * [NaivePyDESSEM.RenewableGenerator.RenewableEquations module](NaivePyDESSEM.RenewableGenerator.md#module-NaivePyDESSEM.RenewableGenerator.RenewableEquations)
@@ -248,9 +258,7 @@ Utils, Formatters, Reporting
     * [Description](NaivePyDESSEM.Storage.md#id8)
     * [Classes](NaivePyDESSEM.Storage.md#classes)
     * [`StorageData`](NaivePyDESSEM.Storage.md#NaivePyDESSEM.Storage.StorageDataTypes.StorageData)
-      * [`StorageData.Cdef`](NaivePyDESSEM.Storage.md#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.Cdef)
       * [`StorageData.delta_t`](NaivePyDESSEM.Storage.md#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.delta_t)
-      * [`StorageData.demand`](NaivePyDESSEM.Storage.md#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.demand)
       * [`StorageData.horizon`](NaivePyDESSEM.Storage.md#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.horizon)
       * [`StorageData.units`](NaivePyDESSEM.Storage.md#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.units)
     * [`StorageUnit`](NaivePyDESSEM.Storage.md#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit)
@@ -259,6 +267,7 @@ Utils, Formatters, Reporting
       * [`StorageUnit.Emin`](NaivePyDESSEM.Storage.md#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Emin)
       * [`StorageUnit.Pch_max`](NaivePyDESSEM.Storage.md#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Pch_max)
       * [`StorageUnit.Pdis_max`](NaivePyDESSEM.Storage.md#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Pdis_max)
+      * [`StorageUnit.bar`](NaivePyDESSEM.Storage.md#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.bar)
       * [`StorageUnit.eta_c`](NaivePyDESSEM.Storage.md#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.eta_c)
       * [`StorageUnit.eta_d`](NaivePyDESSEM.Storage.md#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.eta_d)
       * [`StorageUnit.name`](NaivePyDESSEM.Storage.md#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.name)
@@ -304,9 +313,7 @@ Utils, Formatters, Reporting
     * [Usage](NaivePyDESSEM.ThermalGenerator.md#id6)
     * [Intended pairing](NaivePyDESSEM.ThermalGenerator.md#intended-pairing)
     * [`ThermalData`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData)
-      * [`ThermalData.Cdef`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.Cdef)
       * [`ThermalData.Rreq`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.Rreq)
-      * [`ThermalData.demand`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.demand)
       * [`ThermalData.has_history`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.has_history)
       * [`ThermalData.horizon`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.horizon)
       * [`ThermalData.units`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.units)
@@ -318,6 +325,7 @@ Utils, Formatters, Reporting
       * [`ThermalUnit.SC`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.SC)
       * [`ThermalUnit.a`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.a)
       * [`ThermalUnit.b`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.b)
+      * [`ThermalUnit.bar`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.bar)
       * [`ThermalUnit.c`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.c)
       * [`ThermalUnit.gamma`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.gamma)
       * [`ThermalUnit.init_status_h`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.init_status_h)
@@ -362,6 +370,93 @@ Utils, Formatters, Reporting
     * [Usage](NaivePyDESSEM.ThermalGenerator.md#id22)
     * [`thermal_add_sets_and_params()`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalVars.thermal_add_sets_and_params)
     * [`thermal_add_variables_uc()`](NaivePyDESSEM.ThermalGenerator.md#NaivePyDESSEM.ThermalGenerator.ThermalVars.thermal_add_variables_uc)
+* [NaivePyDESSEM.ConnectionBar package](NaivePyDESSEM.ConnectionBar.md)
+  * [Module contents](NaivePyDESSEM.ConnectionBar.md#module-NaivePyDESSEM.ConnectionBar)
+    * [Author](NaivePyDESSEM.ConnectionBar.md#author)
+    * [Description](NaivePyDESSEM.ConnectionBar.md#description)
+    * [Modules](NaivePyDESSEM.ConnectionBar.md#modules)
+  * [Submodules](NaivePyDESSEM.ConnectionBar.md#submodules)
+  * [NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints module](NaivePyDESSEM.ConnectionBar.md#module-NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints)
+    * [Author](NaivePyDESSEM.ConnectionBar.md#id1)
+    * [Description](NaivePyDESSEM.ConnectionBar.md#id2)
+    * [Functions](NaivePyDESSEM.ConnectionBar.md#functions)
+    * [`add_connection_bar_angle_limits_constraints()`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints.add_connection_bar_angle_limits_constraints)
+    * [`add_connection_bar_balance_constraints()`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints.add_connection_bar_balance_constraints)
+    * [`add_connection_bar_slack_constraints()`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints.add_connection_bar_slack_constraints)
+  * [NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes module](NaivePyDESSEM.ConnectionBar.md#module-NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes)
+    * [Author](NaivePyDESSEM.ConnectionBar.md#id3)
+    * [Description](NaivePyDESSEM.ConnectionBar.md#id4)
+    * [Classes](NaivePyDESSEM.ConnectionBar.md#classes)
+    * [`ConnectionBarData`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData)
+      * [`ConnectionBarData.horizon`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData.horizon)
+      * [`ConnectionBarData.units`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData.units)
+    * [`ConnectionBarUnit`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit)
+      * [`ConnectionBarUnit.Cdef`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.Cdef)
+      * [`ConnectionBarUnit.c_pmax`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.c_pmax)
+      * [`ConnectionBarUnit.demand`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.demand)
+      * [`ConnectionBarUnit.name`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.name)
+      * [`ConnectionBarUnit.slack`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.slack)
+  * [NaivePyDESSEM.ConnectionBar.ConnectionBarEquations module](NaivePyDESSEM.ConnectionBar.md#module-NaivePyDESSEM.ConnectionBar.ConnectionBarEquations)
+    * [Author](NaivePyDESSEM.ConnectionBar.md#id5)
+    * [Description](NaivePyDESSEM.ConnectionBar.md#id6)
+    * [Intended Use](NaivePyDESSEM.ConnectionBar.md#intended-use)
+    * [`add_connection_bar_balance_expression()`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarEquations.add_connection_bar_balance_expression)
+    * [`add_connection_bar_cost_expression()`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarEquations.add_connection_bar_cost_expression)
+  * [NaivePyDESSEM.ConnectionBar.ConnectionBarBuilder module](NaivePyDESSEM.ConnectionBar.md#module-NaivePyDESSEM.ConnectionBar.ConnectionBarBuilder)
+    * [Author](NaivePyDESSEM.ConnectionBar.md#id7)
+    * [Description](NaivePyDESSEM.ConnectionBar.md#id8)
+    * [Functions](NaivePyDESSEM.ConnectionBar.md#id9)
+    * [`add_connection_bar_problem()`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarBuilder.add_connection_bar_problem)
+    * [`build_connection_bars()`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarBuilder.build_connection_bars)
+  * [NaivePyDESSEM.ConnectionBar.ConnectionBarVars module](NaivePyDESSEM.ConnectionBar.md#module-NaivePyDESSEM.ConnectionBar.ConnectionBarVars)
+    * [Author](NaivePyDESSEM.ConnectionBar.md#id10)
+    * [Description](NaivePyDESSEM.ConnectionBar.md#id11)
+    * [Functions](NaivePyDESSEM.ConnectionBar.md#id12)
+    * [`connection_bar_add_sets_and_params()`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarVars.connection_bar_add_sets_and_params)
+    * [`connection_bar_add_variables()`](NaivePyDESSEM.ConnectionBar.md#NaivePyDESSEM.ConnectionBar.ConnectionBarVars.connection_bar_add_variables)
+* [NaivePyDESSEM.TransmissionLine package](NaivePyDESSEM.TransmissionLine.md)
+  * [Module contents](NaivePyDESSEM.TransmissionLine.md#module-NaivePyDESSEM.TransmissionLine)
+    * [Author](NaivePyDESSEM.TransmissionLine.md#author)
+    * [Description](NaivePyDESSEM.TransmissionLine.md#description)
+    * [Modules](NaivePyDESSEM.TransmissionLine.md#modules)
+  * [Submodules](NaivePyDESSEM.TransmissionLine.md#submodules)
+  * [NaivePyDESSEM.TransmissionLine.TransmissionLineConstraints module](NaivePyDESSEM.TransmissionLine.md#module-NaivePyDESSEM.TransmissionLine.TransmissionLineConstraints)
+    * [Author](NaivePyDESSEM.TransmissionLine.md#id1)
+    * [Description](NaivePyDESSEM.TransmissionLine.md#id2)
+    * [Functions](NaivePyDESSEM.TransmissionLine.md#functions)
+    * [`add_transmission_line_flow_constraints()`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineConstraints.add_transmission_line_flow_constraints)
+    * [`add_transmission_line_flow_limits_constraints()`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineConstraints.add_transmission_line_flow_limits_constraints)
+  * [NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes module](NaivePyDESSEM.TransmissionLine.md#module-NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes)
+    * [Author](NaivePyDESSEM.TransmissionLine.md#id3)
+    * [Description](NaivePyDESSEM.TransmissionLine.md#id4)
+    * [Classes](NaivePyDESSEM.TransmissionLine.md#classes)
+    * [`TransmissionLineData`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData)
+      * [`TransmissionLineData.horizon`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData.horizon)
+      * [`TransmissionLineData.units`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData.units)
+    * [`TransmissionLineUnit`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit)
+      * [`TransmissionLineUnit.b`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.b)
+      * [`TransmissionLineUnit.endpoints`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.endpoints)
+      * [`TransmissionLineUnit.model`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.model)
+      * [`TransmissionLineUnit.name`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.name)
+      * [`TransmissionLineUnit.pmax`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.pmax)
+  * [NaivePyDESSEM.TransmissionLine.TransmissionLineEquations module](NaivePyDESSEM.TransmissionLine.md#module-NaivePyDESSEM.TransmissionLine.TransmissionLineEquations)
+    * [Author](NaivePyDESSEM.TransmissionLine.md#id5)
+    * [Description](NaivePyDESSEM.TransmissionLine.md#id6)
+    * [Functions](NaivePyDESSEM.TransmissionLine.md#id7)
+    * [`add_transmission_line_balance_expression()`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineEquations.add_transmission_line_balance_expression)
+    * [`add_transmission_line_cost_expression()`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineEquations.add_transmission_line_cost_expression)
+  * [NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder module](NaivePyDESSEM.TransmissionLine.md#module-NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder)
+    * [Author](NaivePyDESSEM.TransmissionLine.md#id8)
+    * [Description](NaivePyDESSEM.TransmissionLine.md#id9)
+    * [Functions](NaivePyDESSEM.TransmissionLine.md#id10)
+    * [`add_transmission_line_problem()`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder.add_transmission_line_problem)
+    * [`build_transmission_lines()`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder.build_transmission_lines)
+  * [NaivePyDESSEM.TransmissionLine.TransmissionLineVars module](NaivePyDESSEM.TransmissionLine.md#module-NaivePyDESSEM.TransmissionLine.TransmissionLineVars)
+    * [Author](NaivePyDESSEM.TransmissionLine.md#id11)
+    * [Description](NaivePyDESSEM.TransmissionLine.md#id12)
+    * [Functions](NaivePyDESSEM.TransmissionLine.md#id13)
+    * [`transmission_line_add_sets_and_params()`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineVars.transmission_line_add_sets_and_params)
+    * [`transmission_line_add_variables()`](NaivePyDESSEM.TransmissionLine.md#NaivePyDESSEM.TransmissionLine.TransmissionLineVars.transmission_line_add_variables)
 * [NaivePyDESSEM.cli package](NaivePyDESSEM.cli.md)
   * [Module contents](NaivePyDESSEM.cli.md#module-NaivePyDESSEM.cli)
     * [NaivePyDESSEM – CLI Subpackage](NaivePyDESSEM.cli.md#naivepydessem-cli-subpackage)
@@ -474,7 +569,7 @@ Load master data from YAML/JSON and build subsystem models.
 
 * **Parameters:**
   **path** (*str*) – Path to a YAML file with sections: meta, demand, and one or
-  more of {hydro, thermal, renewable, storage}.
+  more of {hydro, thermal, renewable, storage, bars, lines}.
 * **Returns:**
   A tuple with the builded model and the parsed case file
 * **Return type:**
@@ -512,6 +607,21 @@ Main components extracted:
 
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
+
+### NaivePyDESSEM.DataFrames.add_connection_bar_dispatch_to_dataframe(df: DataFrame, model: ConcreteModel) → DataFrame
+
+Append connection bar angles results to a pandas DataFrame.
+
+This function extracts angles values from the Pyomo model and
+adds them as columns to the DataFrame.
+
+* **Parameters:**
+  * **df** (*pd.DataFrame*) – The DataFrame to which the results will be appended.
+  * **model** (*ConcreteModel*) – A Pyomo model instance containing storage unit variables.
+* **Returns:**
+  The updated DataFrame including storage dispatch results.
+* **Return type:**
+  pd.DataFrame
 
 ### NaivePyDESSEM.DataFrames.add_cost_to_dataframe(df: DataFrame, model: ConcreteModel) → DataFrame
 
@@ -590,6 +700,21 @@ shutdown (w) are included if present.
   * **model** (*ConcreteModel*) – A Pyomo model instance containing thermal generation variables.
 * **Returns:**
   The updated DataFrame including thermal dispatch results.
+* **Return type:**
+  pd.DataFrame
+
+### NaivePyDESSEM.DataFrames.add_transmission_line_dispatch_to_dataframe(df: DataFrame, model: ConcreteModel) → DataFrame
+
+Append transmission lines flow results to a pandas DataFrame.
+
+This function extracts transmission lines flow values from the Pyomo model and
+adds them as columns to the DataFrame.
+
+* **Parameters:**
+  * **df** (*pd.DataFrame*) – The DataFrame to which the results will be appended.
+  * **model** (*ConcreteModel*) – A Pyomo model instance containing transmission lines unit variables.
+* **Returns:**
+  The updated DataFrame including transmission lines flow dispatch results.
 * **Return type:**
   pd.DataFrame
 
@@ -723,6 +848,35 @@ such as cost extraction, result formatting, or diagnostics on a per-subsystem ba
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 
+### NaivePyDESSEM.ModelCheck.has_connection_bar_model(model: ConcreteModel) → bool
+
+Check whether the given Pyomo model contains all components
+required for a connection-bar subsystem.
+
+This utility function verifies the structural integrity of a
+`ConcreteModel` by testing the presence
+of key sets, parameters, and variables associated with
+connection bars (buses) in DC power flow formulations.
+
+* **Parameters:**
+  **model** (*pyomo.environ.ConcreteModel*) – Pyomo model instance to be inspected.
+* **Returns:**
+  `True` if the model includes all required components for
+  the connection-bar subsystem, otherwise `False`.
+* **Return type:**
+  bool
+
+### Notes
+
+The following components are required:
+: - `T` : time-period set
+  - `CB` : set of connection bars (buses)
+  - `SB` : set of slack bars (reference nodes)
+  - `d` : demand parameter (MW)
+  - `Cdef` : deficit penalty parameter (R$/MWh)
+  - `D` : deficit variable (MW)
+  - `theta` : voltage phase-angle variable (radians)
+
 ### NaivePyDESSEM.ModelCheck.has_hydro_model(model: ConcreteModel) → bool
 
 Check whether the given Pyomo model contains all components of a hydro subsystem.
@@ -817,6 +971,35 @@ The required attributes are:
 - thermal_y     : Startup indicator variable (binary).
 - thermal_SC    : Start-up cost parameter.
 
+### NaivePyDESSEM.ModelCheck.has_transmission_line_model(model: ConcreteModel) → bool
+
+Check whether the given Pyomo model contains all components
+required for a transmission-line subsystem.
+
+This utility function validates the existence of sets, parameters,
+and variables that define the transmission network in a DC power
+flow formulation. It ensures that the model is structurally ready
+to support flow equations and line constraints.
+
+* **Parameters:**
+  **model** (*pyomo.environ.ConcreteModel*) – Pyomo model instance to be inspected.
+* **Returns:**
+  `True` if the model includes all required components for
+  the transmission-line subsystem, otherwise `False`.
+* **Return type:**
+  bool
+
+### Notes
+
+The following components are required:
+: - `T` : time-period set
+  - `LT` : set of transmission lines
+  - `lines_transmission_model` : dictionary mapping each line to its modeling type (‘dc’ or ‘transport’)
+  - `lines_b` : line susceptance values (1/x_ij)
+  - `lines_pmax` : maximum line capacities (MW)
+  - `lines_endpoints` : mapping of line endpoints [bar_i, bar_j]
+  - `lines_flow` : power-flow variable (MW)
+
 ## NaivePyDESSEM.ModelFormatters module
 
 EELT 7030 — Operation and Expansion Planning of Electric Power Systems
@@ -849,12 +1032,26 @@ provide clarity and visual feedback about the simulation setup.
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 
+### NaivePyDESSEM.ModelFormatters.format_connection_bar_model(case: Dict) → None
+
+Print formatted information for each connection bar unit.
+
+* **Parameters:**
+  **case** (*dict*) – Dictionary containing ‘bars’ section with unit definitions.
+
 ### NaivePyDESSEM.ModelFormatters.format_hydro_model(case: Dict) → None
 
 Print formatted information for each hydropower unit.
 
 * **Parameters:**
   **case** (*dict*) – Dictionary containing ‘hydro’ section with unit definitions.
+
+### NaivePyDESSEM.ModelFormatters.format_line_transmission_model(case: Dict) → None
+
+Print formatted information for each transmission line unit.
+
+* **Parameters:**
+  **case** (*dict*) – Dictionary containing ‘lines’ section with unit definitions.
 
 ### NaivePyDESSEM.ModelFormatters.format_models(case: Dict) → None
 
@@ -1104,6 +1301,18 @@ Features:
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 
+### NaivePyDESSEM.Reporting.connection_bar_dispatch_summary(model: ConcreteModel) → None
+
+Print a unit-level dispatch summary for each connection bar in MWh.
+
+* **Parameters:**
+  **model** (*pyomo.environ.ConcreteModel*) – A solved Pyomo model containing a valid connection-bar subsystem,
+  verified via `has_connection_bar_model()`.
+* **Returns:**
+  Prints formatted results directly to the console.
+* **Return type:**
+  None
+
 ### NaivePyDESSEM.Reporting.dispatch_summary(model: ConcreteModel) → None
 
 Print a complete dispatch and cost summary including:
@@ -1142,6 +1351,18 @@ Print unit-level thermal generation summary in MWh.
 
 * **Parameters:**
   **model** (*ConcreteModel*) – Solved Pyomo model with thermal subsystem.
+
+### NaivePyDESSEM.Reporting.transmission_line_dispatch_summary(model: ConcreteModel) → None
+
+Print a unit-level dispatch summary for each transmission line in MWh.
+
+* **Parameters:**
+  **model** (*pyomo.environ.ConcreteModel*) – A solved Pyomo model containing a valid transmission line subsystem,
+  verified via `has_transmission_line_model()`.
+* **Returns:**
+  Prints formatted results directly to the console.
+* **Return type:**
+  None
 
 ## NaivePyDESSEM.Solver module
 

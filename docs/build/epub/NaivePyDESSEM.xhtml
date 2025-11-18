@@ -7,7 +7,9 @@
 
     <title>NaivePyDESSEM package</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/epub.css" /> 
+    <link rel="stylesheet" type="text/css" href="_static/epub.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" /> 
   </head><body>
 
     <div class="document">
@@ -53,6 +55,16 @@ enforcing production bounds based on availability (gbar).</p>
 charge/discharge power limits, efficiencies, and optional integration into
 the balance and objective.</p>
 </dd>
+<dt>ConnectionBar (New in version 0.1.4)</dt><dd><p>Represents the nodal structure of the network, defining the electrical buses (bars)
+that aggregate demand, generation, deficit, and angular reference variables. Provides sets,
+parameters, variables, and constraints for the nodal balance equations in MW, with optional
+angular limits and slack-bar reference handling.</p>
+</dd>
+<dt>TransmissionLine (New in version 0.1.4)</dt><dd><p>Models the physical interconnections between bars, using the DC power flow or transport
+formulations. Defines sets, parameters, and variables for line flows, susceptances,
+capacities, and investment states, including both existing  and candidate circuits.
+Fully compatible with hybrid DC/transport network representations.</p>
+</dd>
 <dt>YAMLLoader</dt><dd><p>Provides the interface for loading problem instances from structured YAML or JSON files,
 including validation and conversion into dataclass objects.</p>
 </dd>
@@ -79,7 +91,7 @@ can be activated or omitted via the YAML interface.</p></li>
 allowing students and researchers to explore, extend, and test new ideas.</p></li>
 <li><p>Extensions such as emission penalties, pumped storage, stochastic scenarios,
 or multi-area coupling can be added atop this foundation.</p></li>
-<li><p>Fully compatible with Pyomo’s expressive modeling capabilities and solver interface.</p></li>
+<li><p>Fully compatible with Pyomo’s modeling capabilities and solver interface.</p></li>
 </ul>
 <p class="rubric">References</p>
 <p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
@@ -137,8 +149,6 @@ or multi-area coupling can be added atop this foundation.</p></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><code class="docutils literal notranslate"><span class="pre">HydraulicData</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.Cdef"><code class="docutils literal notranslate"><span class="pre">HydraulicData.Cdef</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.demand"><code class="docutils literal notranslate"><span class="pre">HydraulicData.demand</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.horizon"><code class="docutils literal notranslate"><span class="pre">HydraulicData.horizon</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.units"><code class="docutils literal notranslate"><span class="pre">HydraulicData.units</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicData.zeta"><code class="docutils literal notranslate"><span class="pre">HydraulicData.zeta</span></code></a></li>
@@ -155,6 +165,7 @@ or multi-area coupling can be added atop this foundation.</p></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.a"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.a</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.afluencia"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.afluencia</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.b"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.b</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.bar"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.bar</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.compute_total_inflow"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.compute_total_inflow</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.losses"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.losses</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.HydraulicGenerator.xhtml#NaivePyDESSEM.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.mode"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.mode</span></code></a></li>
@@ -241,13 +252,12 @@ or multi-area coupling can be added atop this foundation.</p></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#id5">Description</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#classes">Classes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData"><code class="docutils literal notranslate"><span class="pre">RenewableData</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.Cdef"><code class="docutils literal notranslate"><span class="pre">RenewableData.Cdef</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.demand"><code class="docutils literal notranslate"><span class="pre">RenewableData.demand</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.horizon"><code class="docutils literal notranslate"><span class="pre">RenewableData.horizon</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.units"><code class="docutils literal notranslate"><span class="pre">RenewableData.units</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit"><code class="docutils literal notranslate"><span class="pre">RenewableUnit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit.bar"><code class="docutils literal notranslate"><span class="pre">RenewableUnit.bar</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit.gbar"><code class="docutils literal notranslate"><span class="pre">RenewableUnit.gbar</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.RenewableGenerator.xhtml#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit.name"><code class="docutils literal notranslate"><span class="pre">RenewableUnit.name</span></code></a></li>
 </ul>
@@ -319,9 +329,7 @@ or multi-area coupling can be added atop this foundation.</p></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#id8">Description</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#classes">Classes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#NaivePyDESSEM.Storage.StorageDataTypes.StorageData"><code class="docutils literal notranslate"><span class="pre">StorageData</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.Cdef"><code class="docutils literal notranslate"><span class="pre">StorageData.Cdef</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.delta_t"><code class="docutils literal notranslate"><span class="pre">StorageData.delta_t</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.demand"><code class="docutils literal notranslate"><span class="pre">StorageData.demand</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.horizon"><code class="docutils literal notranslate"><span class="pre">StorageData.horizon</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#NaivePyDESSEM.Storage.StorageDataTypes.StorageData.units"><code class="docutils literal notranslate"><span class="pre">StorageData.units</span></code></a></li>
 </ul>
@@ -332,6 +340,7 @@ or multi-area coupling can be added atop this foundation.</p></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Emin"><code class="docutils literal notranslate"><span class="pre">StorageUnit.Emin</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Pch_max"><code class="docutils literal notranslate"><span class="pre">StorageUnit.Pch_max</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.Pdis_max"><code class="docutils literal notranslate"><span class="pre">StorageUnit.Pdis_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.bar"><code class="docutils literal notranslate"><span class="pre">StorageUnit.bar</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.eta_c"><code class="docutils literal notranslate"><span class="pre">StorageUnit.eta_c</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.eta_d"><code class="docutils literal notranslate"><span class="pre">StorageUnit.eta_d</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.Storage.xhtml#NaivePyDESSEM.Storage.StorageDataTypes.StorageUnit.name"><code class="docutils literal notranslate"><span class="pre">StorageUnit.name</span></code></a></li>
@@ -393,9 +402,7 @@ or multi-area coupling can be added atop this foundation.</p></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#id6">Usage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#intended-pairing">Intended pairing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData"><code class="docutils literal notranslate"><span class="pre">ThermalData</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.Cdef"><code class="docutils literal notranslate"><span class="pre">ThermalData.Cdef</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.Rreq"><code class="docutils literal notranslate"><span class="pre">ThermalData.Rreq</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.demand"><code class="docutils literal notranslate"><span class="pre">ThermalData.demand</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.has_history"><code class="docutils literal notranslate"><span class="pre">ThermalData.has_history</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.horizon"><code class="docutils literal notranslate"><span class="pre">ThermalData.horizon</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalData.units"><code class="docutils literal notranslate"><span class="pre">ThermalData.units</span></code></a></li>
@@ -409,6 +416,7 @@ or multi-area coupling can be added atop this foundation.</p></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.SC"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.SC</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.a"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.a</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.b"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.b</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.bar"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.bar</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.c"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.c</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.gamma"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.gamma</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalDataTypes.ThermalUnit.init_status_h"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.init_status_h</span></code></a></li>
@@ -465,6 +473,129 @@ or multi-area coupling can be added atop this foundation.</p></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#id22">Usage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalVars.thermal_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">thermal_add_sets_and_params()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ThermalGenerator.xhtml#NaivePyDESSEM.ThermalGenerator.ThermalVars.thermal_add_variables_uc"><code class="docutils literal notranslate"><span class="pre">thermal_add_variables_uc()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml">NaivePyDESSEM.ConnectionBar package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#module-NaivePyDESSEM.ConnectionBar">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#author">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#modules">Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#module-NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints">NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#id1">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#id2">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints.add_connection_bar_angle_limits_constraints"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_angle_limits_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints.add_connection_bar_balance_constraints"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_balance_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarConstraints.add_connection_bar_slack_constraints"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_slack_constraints()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#module-NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes">NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#id3">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#id4">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData"><code class="docutils literal notranslate"><span class="pre">ConnectionBarData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData.horizon"><code class="docutils literal notranslate"><span class="pre">ConnectionBarData.horizon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData.units"><code class="docutils literal notranslate"><span class="pre">ConnectionBarData.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit"><code class="docutils literal notranslate"><span class="pre">ConnectionBarUnit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.Cdef"><code class="docutils literal notranslate"><span class="pre">ConnectionBarUnit.Cdef</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.c_pmax"><code class="docutils literal notranslate"><span class="pre">ConnectionBarUnit.c_pmax</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.demand"><code class="docutils literal notranslate"><span class="pre">ConnectionBarUnit.demand</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.name"><code class="docutils literal notranslate"><span class="pre">ConnectionBarUnit.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.slack"><code class="docutils literal notranslate"><span class="pre">ConnectionBarUnit.slack</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#module-NaivePyDESSEM.ConnectionBar.ConnectionBarEquations">NaivePyDESSEM.ConnectionBar.ConnectionBarEquations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#id5">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#id6">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#intended-use">Intended Use</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarEquations.add_connection_bar_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_balance_expression()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarEquations.add_connection_bar_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_cost_expression()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#module-NaivePyDESSEM.ConnectionBar.ConnectionBarBuilder">NaivePyDESSEM.ConnectionBar.ConnectionBarBuilder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#id7">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#id8">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#id9">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarBuilder.add_connection_bar_problem"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarBuilder.build_connection_bars"><code class="docutils literal notranslate"><span class="pre">build_connection_bars()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#module-NaivePyDESSEM.ConnectionBar.ConnectionBarVars">NaivePyDESSEM.ConnectionBar.ConnectionBarVars module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#id10">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#id11">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#id12">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarVars.connection_bar_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">connection_bar_add_sets_and_params()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.ConnectionBar.xhtml#NaivePyDESSEM.ConnectionBar.ConnectionBarVars.connection_bar_add_variables"><code class="docutils literal notranslate"><span class="pre">connection_bar_add_variables()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml">NaivePyDESSEM.TransmissionLine package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#module-NaivePyDESSEM.TransmissionLine">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#author">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#modules">Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#module-NaivePyDESSEM.TransmissionLine.TransmissionLineConstraints">NaivePyDESSEM.TransmissionLine.TransmissionLineConstraints module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#id1">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#id2">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineConstraints.add_transmission_line_flow_constraints"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_flow_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineConstraints.add_transmission_line_flow_limits_constraints"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_flow_limits_constraints()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#module-NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes">NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#id3">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#id4">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData"><code class="docutils literal notranslate"><span class="pre">TransmissionLineData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData.horizon"><code class="docutils literal notranslate"><span class="pre">TransmissionLineData.horizon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData.units"><code class="docutils literal notranslate"><span class="pre">TransmissionLineData.units</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit"><code class="docutils literal notranslate"><span class="pre">TransmissionLineUnit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.b"><code class="docutils literal notranslate"><span class="pre">TransmissionLineUnit.b</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.endpoints"><code class="docutils literal notranslate"><span class="pre">TransmissionLineUnit.endpoints</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.model"><code class="docutils literal notranslate"><span class="pre">TransmissionLineUnit.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.name"><code class="docutils literal notranslate"><span class="pre">TransmissionLineUnit.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.pmax"><code class="docutils literal notranslate"><span class="pre">TransmissionLineUnit.pmax</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#module-NaivePyDESSEM.TransmissionLine.TransmissionLineEquations">NaivePyDESSEM.TransmissionLine.TransmissionLineEquations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#id5">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#id6">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#id7">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineEquations.add_transmission_line_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_balance_expression()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineEquations.add_transmission_line_cost_expression"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_cost_expression()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#module-NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder">NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#id8">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#id9">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#id10">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder.add_transmission_line_problem"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_problem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineBuilder.build_transmission_lines"><code class="docutils literal notranslate"><span class="pre">build_transmission_lines()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#module-NaivePyDESSEM.TransmissionLine.TransmissionLineVars">NaivePyDESSEM.TransmissionLine.TransmissionLineVars module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#id11">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#id12">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#id13">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineVars.transmission_line_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">transmission_line_add_sets_and_params()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDESSEM.TransmissionLine.xhtml#NaivePyDESSEM.TransmissionLine.TransmissionLineVars.transmission_line_add_variables"><code class="docutils literal notranslate"><span class="pre">transmission_line_add_variables()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -604,7 +735,7 @@ expression builders to construct:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path to a YAML file with sections: meta, demand, and one or
-more of {hydro, thermal, renewable, storage}.</p>
+more of {hydro, thermal, renewable, storage, bars, lines}.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A tuple with the builded model and the parsed case file</p>
@@ -645,6 +776,28 @@ to CSV.</p>
 <p>[1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.DataFrames.add_connection_bar_dispatch_to_dataframe">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.DataFrames.</span></span><span class="sig-name descname"><span class="pre">add_connection_bar_dispatch_to_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span></dt>
+<dd><p>Append connection bar angles results to a pandas DataFrame.</p>
+<p>This function extracts angles values from the Pyomo model and
+adds them as columns to the DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame to which the results will be appended.</p></li>
+<li><p><strong>model</strong> (<em>ConcreteModel</em>) – A Pyomo model instance containing storage unit variables.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated DataFrame including storage dispatch results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.DataFrames.add_cost_to_dataframe">
 <span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.DataFrames.</span></span><span class="sig-name descname"><span class="pre">add_cost_to_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span></dt>
@@ -753,6 +906,28 @@ shutdown (<cite>w</cite>) are included if present.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The updated DataFrame including thermal dispatch results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.DataFrames.add_transmission_line_dispatch_to_dataframe">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.DataFrames.</span></span><span class="sig-name descname"><span class="pre">add_transmission_line_dispatch_to_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span></dt>
+<dd><p>Append transmission lines flow results to a pandas DataFrame.</p>
+<p>This function extracts transmission lines flow values from the Pyomo model and
+adds them as columns to the DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame to which the results will be appended.</p></li>
+<li><p><strong>model</strong> (<em>ConcreteModel</em>) – A Pyomo model instance containing transmission lines unit variables.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated DataFrame including transmission lines flow dispatch results.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
@@ -888,6 +1063,42 @@ such as cost extraction, result formatting, or diagnostics on a per-subsystem ba
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ModelCheck.has_connection_bar_model">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ModelCheck.</span></span><span class="sig-name descname"><span class="pre">has_connection_bar_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span></dt>
+<dd><p>Check whether the given Pyomo model contains all components
+required for a connection-bar subsystem.</p>
+<p>This utility function verifies the structural integrity of a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ConcreteModel</span></code> by testing the presence
+of key sets, parameters, and variables associated with
+connection bars (buses) in DC power flow formulations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance to be inspected.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the model includes all required components for
+the connection-bar subsystem, otherwise <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>The following components are required:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> : time-period set</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CB</span></code> : set of connection bars (buses)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SB</span></code> : set of slack bars (reference nodes)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d</span></code> : demand parameter (MW)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Cdef</span></code> : deficit penalty parameter (R$/MWh)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">D</span></code> : deficit variable (MW)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">theta</span></code> : voltage phase-angle variable (radians)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.ModelCheck.has_hydro_model">
 <span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ModelCheck.</span></span><span class="sig-name descname"><span class="pre">has_hydro_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span></dt>
 <dd><p>Check whether the given Pyomo model contains all components of a hydro subsystem.</p>
@@ -993,6 +1204,42 @@ including generation, commitment status, and startup/shutdown indicators.</p>
 - thermal_SC    : Start-up cost parameter.</p>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ModelCheck.has_transmission_line_model">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ModelCheck.</span></span><span class="sig-name descname"><span class="pre">has_transmission_line_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span></dt>
+<dd><p>Check whether the given Pyomo model contains all components
+required for a transmission-line subsystem.</p>
+<p>This utility function validates the existence of sets, parameters,
+and variables that define the transmission network in a DC power
+flow formulation. It ensures that the model is structurally ready
+to support flow equations and line constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance to be inspected.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the model includes all required components for
+the transmission-line subsystem, otherwise <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<dl class="simple">
+<dt>The following components are required:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> : time-period set</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LT</span></code> : set of transmission lines</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lines_transmission_model</span></code> : dictionary mapping each line to its modeling type (‘dc’ or ‘transport’)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lines_b</span></code> : line susceptance values (1/x_ij)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lines_pmax</span></code> : maximum line capacities (MW)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lines_endpoints</span></code> : mapping of line endpoints [bar_i, bar_j]</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lines_flow</span></code> : power-flow variable (MW)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-NaivePyDESSEM.ModelFormatters">
 <span id="naivepydessem-modelformatters-module"></span><h2>NaivePyDESSEM.ModelFormatters module</h2>
@@ -1021,12 +1268,34 @@ provide clarity and visual feedback about the simulation setup.</p>
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ModelFormatters.format_connection_bar_model">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ModelFormatters.</span></span><span class="sig-name descname"><span class="pre">format_connection_bar_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">case</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span></dt>
+<dd><p>Print formatted information for each connection bar unit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>case</strong> (<em>dict</em>) – Dictionary containing ‘bars’ section with unit definitions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.ModelFormatters.format_hydro_model">
 <span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ModelFormatters.</span></span><span class="sig-name descname"><span class="pre">format_hydro_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">case</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span></dt>
 <dd><p>Print formatted information for each hydropower unit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>case</strong> (<em>dict</em>) – Dictionary containing ‘hydro’ section with unit definitions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.ModelFormatters.format_line_transmission_model">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.ModelFormatters.</span></span><span class="sig-name descname"><span class="pre">format_line_transmission_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">case</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span></dt>
+<dd><p>Print formatted information for each transmission line unit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>case</strong> (<em>dict</em>) – Dictionary containing ‘lines’ section with unit definitions.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1314,6 +1583,24 @@ and unit-level summaries for hydropower, thermal, renewable, and storage technol
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Reporting.connection_bar_dispatch_summary">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Reporting.</span></span><span class="sig-name descname"><span class="pre">connection_bar_dispatch_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span></dt>
+<dd><p>Print a unit-level dispatch summary for each connection bar in MWh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>pyomo.environ.ConcreteModel</em>) – A solved Pyomo model containing a valid connection-bar subsystem,
+verified via <code class="xref py py-func docutils literal notranslate"><span class="pre">has_connection_bar_model()</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Prints formatted results directly to the console.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.Reporting.dispatch_summary">
 <span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Reporting.</span></span><span class="sig-name descname"><span class="pre">dispatch_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span></dt>
 <dd><p>Print a complete dispatch and cost summary including:
@@ -1368,6 +1655,24 @@ and unit-level summaries for hydropower, thermal, renewable, and storage technol
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>model</strong> (<em>ConcreteModel</em>) – Solved Pyomo model with thermal subsystem.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDESSEM.Reporting.transmission_line_dispatch_summary">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.Reporting.</span></span><span class="sig-name descname"><span class="pre">transmission_line_dispatch_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span></dt>
+<dd><p>Print a unit-level dispatch summary for each transmission line in MWh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>pyomo.environ.ConcreteModel</em>) – A solved Pyomo model containing a valid transmission line subsystem,
+verified via <code class="xref py py-func docutils literal notranslate"><span class="pre">has_transmission_line_model()</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Prints formatted results directly to the console.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

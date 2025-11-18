@@ -7,7 +7,9 @@
 
     <title>MDI.Storage package</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/epub.css" /> 
+    <link rel="stylesheet" type="text/css" href="_static/epub.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" /> 
   </head><body>
 
     <div class="document">
@@ -382,6 +384,19 @@ over the planning horizon.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="MDI.Storage.StorageConstraints.add_storage_mutual_exclusion_constraint">
+<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageConstraints.</span></span><span class="sig-name descname"><span class="pre">add_storage_mutual_exclusion_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Prohibit simultaneous charge and discharge, considering construction state.</p>
+<dl class="simple">
+<dt>Enforces:</dt><dd><p>storage_ch[s,t,p]  &lt;=  M[s] * storage_x[s,t]
+storage_dis[s,t,p] &lt;=  M[s] * storage_x[s,t]
+storage_ch[s,t,p]  &lt;=  M[s] * storage_mode[s,t,p]
+storage_dis[s,t,p] &lt;=  M[s] * (1 - storage_mode[s,t,p])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="MDI.Storage.StorageConstraints.add_storage_power_limits_constraint">
 <span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageConstraints.</span></span><span class="sig-name descname"><span class="pre">add_storage_power_limits_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Add charging and discharging power limit constraints.</p>
@@ -505,7 +520,7 @@ monetary units for costs.</p></li>
 </section>
 <dl class="py class">
 <dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageDataTypes.</span></span><span class="sig-name descname"><span class="pre">StorageData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level_hours</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#MDI.Storage.StorageDataTypes.StorageUnit" title="MDI.Storage.StorageDataTypes.StorageUnit"><span class="pre">StorageUnit</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageDataTypes.</span></span><span class="sig-name descname"><span class="pre">StorageData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#MDI.Storage.StorageDataTypes.StorageUnit" title="MDI.Storage.StorageDataTypes.StorageUnit"><span class="pre">StorageUnit</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Aggregates all data required for the storage optimization problem.</p>
 <dl class="py attribute">
@@ -571,21 +586,11 @@ patamar and time index.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="id12">
-<span class="sig-name descname"><span class="pre">demand</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id13">
 <span class="sig-name descname"><span class="pre">horizon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id14">
-<span class="sig-name descname"><span class="pre">level_hours</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id15">
+<dt class="sig sig-object py" id="id13">
 <span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#MDI.Storage.StorageDataTypes.StorageUnit" title="MDI.Storage.StorageDataTypes.StorageUnit"><span class="pre">StorageUnit</span></a><span class="p"><span class="pre">]</span></span></em></dt>
 <dd></dd></dl>
 
@@ -593,13 +598,24 @@ patamar and time index.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageDataTypes.</span></span><span class="sig-name descname"><span class="pre">StorageUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_inv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eini</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pch_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pdis_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageDataTypes.</span></span><span class="sig-name descname"><span class="pre">StorageUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_inv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Emax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Eini</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pch_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pdis_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta_d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Defines the parameters of a single storage unit.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit.name">
 <span class="sig-name descname"><span class="pre">name</span></span></dt>
 <dd><p>Identifier of the storage unit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.Storage.StorageDataTypes.StorageUnit.bar">
+<span class="sig-name descname"><span class="pre">bar</span></span></dt>
+<dd><p>Connection Bar of the Unit (defaults to BAR_1)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
@@ -718,57 +734,62 @@ patamar and time index.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id16">
+<dt class="sig sig-object py" id="id14">
 <span class="sig-name descname"><span class="pre">Eini</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id17">
+<dt class="sig sig-object py" id="id15">
 <span class="sig-name descname"><span class="pre">Emax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id18">
+<dt class="sig sig-object py" id="id16">
 <span class="sig-name descname"><span class="pre">Emin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id19">
+<dt class="sig sig-object py" id="id17">
 <span class="sig-name descname"><span class="pre">Pch_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id20">
+<dt class="sig sig-object py" id="id18">
 <span class="sig-name descname"><span class="pre">Pdis_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id21">
+<dt class="sig sig-object py" id="id19">
+<span class="sig-name descname"><span class="pre">bar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id20">
 <span class="sig-name descname"><span class="pre">c_inv</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id22">
+<dt class="sig sig-object py" id="id21">
 <span class="sig-name descname"><span class="pre">c_op</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id23">
+<dt class="sig sig-object py" id="id22">
 <span class="sig-name descname"><span class="pre">eta_c</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id24">
+<dt class="sig sig-object py" id="id23">
 <span class="sig-name descname"><span class="pre">eta_d</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id25">
+<dt class="sig sig-object py" id="id24">
 <span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id26">
+<dt class="sig sig-object py" id="id25">
 <span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em></dt>
 <dd></dd></dl>
 
@@ -781,18 +802,18 @@ patamar and time index.</p>
 <h3>Storage Equations Module</h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="id27">
+<section id="id26">
 <h4>Author</h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id28">
+<section id="id27">
 <h4>Summary</h4>
 <p>This module defines <strong>symbolic expressions</strong> for energy storage subsystems,
 used in the model composition phase to aggregate costs and power balances.
 It provides reusable components for constructing higher-level formulations
 (e.g., integrated generation–storage–transmission systems).</p>
 </section>
-<section id="id29">
+<section id="id28">
 <h4>Description</h4>
 <p>Two main symbolic functions are defined:</p>
 <ol class="arabic simple">
@@ -807,7 +828,7 @@ power balance in each time step and load level.</p></li>
 <p>These expressions are not constraints by themselves, but <strong>building blocks</strong>
 that can be embedded in multi-component optimization formulations.</p>
 </section>
-<section id="id30">
+<section id="id29">
 <h4>Mathematical Formulation</h4>
 <p>1. <strong>Cost Expression</strong>
 [
@@ -828,7 +849,7 @@ rac{1}{eta_c} , P^{ch}_{s,t,p}
 <div class="line-block">
 <div class="line">Symbol | Description |</div>
 </div>
-<p><a href="#id44"><span class="problematic" id="id45">|:--------|</span></a>:————|
+<p><a href="#id43"><span class="problematic" id="id44">|:--------|</span></a>:————|
 | (h_p) | Duration of load level (p) (hours) |
 | (c^{op}_s) | Operational cost per MWh |
 | (c^{inv}_s) | Investment cost |
@@ -837,7 +858,7 @@ rac{1}{eta_c} , P^{ch}_{s,t,p}
 | (x_{s,t}) | Binary existence variable |
 | (SU, T, P) | Sets of storage units, time periods, and load levels |</p>
 </section>
-<section id="id31">
+<section id="id30">
 <h4>Functions</h4>
 <dl class="simple">
 <dt>add_storage_cost_expression(m, cost_array)</dt><dd><p>Appends the total storage cost expression to a given list of cost terms.</p>
@@ -861,7 +882,7 @@ allowing modular model assembly.</p></li>
 <div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
 </div></blockquote>
 </section>
-<section id="id32">
+<section id="id31">
 <h4>Module Dependencies</h4>
 <ul class="simple">
 <li><p><strong>Internal:</strong> None</p></li>
@@ -871,7 +892,7 @@ allowing modular model assembly.</p></li>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="MDI.Storage.StorageEquations.add_storage_balance_expression">
-<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageEquations.</span></span><span class="sig-name descname"><span class="pre">add_storage_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageEquations.</span></span><span class="sig-name descname"><span class="pre">add_storage_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span></dt>
 <dd><p>Add the net storage balance expression to the balance array.</p>
 <p>The expression represents the net contribution of storage units
 to the system power balance in each time period and load level,
@@ -880,8 +901,9 @@ considering both charge and discharge efficiencies.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing the relevant storage variables and parameters.</p></li>
+<li><p><strong>b</strong> (<em>Any</em>) – Connection Bar Name</p></li>
 <li><p><strong>t</strong> (<em>Any</em>) – Time index for which the balance expression is computed.</p></li>
-<li><p><strong>p</strong> (<em>Any</em>) – Load level index corresponding to the current balance term.</p></li>
+<li><p><strong>p</strong> (<em>str</em>) – Load level index corresponding to the current balance term.</p></li>
 <li><p><strong>balance_array</strong> (<em>list</em><em> of </em><em>Any</em>) – External list to which the resulting expression will be appended.</p></li>
 </ul>
 </dd>
@@ -897,20 +919,21 @@ considering both charge and discharge efficiencies.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="MDI.Storage.StorageEquations.add_storage_capacity_expression">
 <span class="sig-prename descclassname"><span class="pre">MDI.Storage.StorageEquations.</span></span><span class="sig-name descname"><span class="pre">add_storage_capacity_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capacity_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span></dt>
-<dd><p>Add the net storage capacity expression to the capacity array.</p>
-<p>The expression represents the net contribution of storage units
-to the system capacity in each time period and load level.</p>
+<dd><p>Add the net storage capacity expression to the capacity array,
+considering only storage units that exist (x[s,t] = 1).</p>
+<p>The expression represents the net power contribution (discharge minus charge)
+weighted by the operational existence of the unit in the given period.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing the relevant storage variables and parameters.</p></li>
-<li><p><strong>t</strong> (<em>Any</em>) – Time index for which the capacity expression is computed.</p></li>
-<li><p><strong>p</strong> (<em>Any</em>) – Load level index corresponding to the current capacity term.</p></li>
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Model instance containing storage sets, parameters, and variables.</p></li>
+<li><p><strong>t</strong> (<em>Any</em>) – Time index.</p></li>
+<li><p><strong>p</strong> (<em>Any</em>) – Load level index corresponding to the current balance term.</p></li>
 <li><p><strong>capacity_array</strong> (<em>list</em><em> of </em><em>Any</em>) – External list to which the resulting expression will be appended.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The updated list of capacity expressions including the storage term.</p>
+<dd class="field-even"><p>Updated list of capacity expressions.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list of Any</p>
@@ -948,17 +971,17 @@ of the storage subsystem.</p></li>
 <h3>Storage Objective Function Module</h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="id33">
+<section id="id32">
 <h4>Author</h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id34">
+<section id="id33">
 <h4>Summary</h4>
 <p>This module defines the <strong>objective function</strong> for the energy storage subsystem,
 used in the Mixed-Integer Linear Programming (MILP) formulation of the
 operation and expansion planning problem.</p>
 </section>
-<section id="id35">
+<section id="id34">
 <h4>Description</h4>
 <p>The objective function represents the <strong>total system cost</strong> associated
 with the operation and investment of storage units.
@@ -972,7 +995,7 @@ capacity throughout the planning horizon.</p></li>
 <p>Both cost components are expressed as additive terms in a global minimization
 objective, consistent with standard formulations in expansion planning models.</p>
 </section>
-<section id="id36">
+<section id="id35">
 <h4>Mathematical Formulation</h4>
 <p>The objective function is defined as:</p>
 <p>[
@@ -990,7 +1013,7 @@ c^{inv}_s , x_{s,t}</p></li>
 <div class="line-block">
 <div class="line">Symbol | Description |</div>
 </div>
-<p><a href="#id46"><span class="problematic" id="id47">|:--------|</span></a>:————|
+<p><a href="#id45"><span class="problematic" id="id46">|:--------|</span></a>:————|
 | (h_p) | Duration of load level (p) (hours) |
 | (c^{op}_s) | Operational cost of unit (s) (per MWh) |
 | (c^{inv}_s) | Investment cost of unit (s) |
@@ -999,7 +1022,7 @@ c^{inv}_s , x_{s,t}</p></li>
 | (x_{s,t}) | Binary existence variable |
 | (SU, T, P) | Sets of storage units, time steps, and load levels |</p>
 </section>
-<section id="id37">
+<section id="id36">
 <h4>Functions</h4>
 <dl class="simple">
 <dt>set_objective_storage(m)</dt><dd><p>Adds the objective function to the Pyomo model, minimizing total storage costs.</p>
@@ -1058,18 +1081,18 @@ named <cite>OBJ</cite>.</p>
 <h3>Storage Variables and Parameters Module</h3>
 <p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
 Federal University of Paraná (UFPR)</p>
-<section id="id38">
+<section id="id37">
 <h4>Author</h4>
 <p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
 </section>
-<section id="id39">
+<section id="id38">
 <h4>Summary</h4>
 <p>This module defines all <strong>sets, parameters, and decision variables</strong>
 related to the <strong>energy storage subsystem</strong> of the MDI optimization framework.
 It provides the symbolic foundation required by the storage constraints
 and objective function.</p>
 </section>
-<section id="id40">
+<section id="id39">
 <h4>Description</h4>
 <p>Two main functions are implemented:</p>
 <ol class="arabic simple">
@@ -1084,7 +1107,7 @@ energy state, and investment decisions.</p></li>
 and can be embedded seamlessly within larger optimization systems
 that couple generation, transmission, and storage components.</p>
 </section>
-<section id="id41">
+<section id="id40">
 <h4>Mathematical Overview</h4>
 <p><strong>Continuous variables</strong>
 [
@@ -1106,7 +1129,7 @@ end{align}
 - State (x_{0})
 - Duration of time step (Delta t)</p>
 </section>
-<section id="id42">
+<section id="id41">
 <h4>Functions</h4>
 <dl class="simple">
 <dt>storage_add_sets_and_params(m, data)</dt><dd><p>Define the sets and parameters related to the storage subsystem.</p>
@@ -1128,7 +1151,7 @@ when they are not yet defined in the parent model.</p></li>
 <div><p>EELT7030/UFPR, 2023.</p>
 </div></blockquote>
 </section>
-<section id="id43">
+<section id="id42">
 <h4>Module Dependencies</h4>
 <ul class="simple">
 <li><p><strong>Internal:</strong> <code class="docutils literal notranslate"><span class="pre">StorageDataTypes</span></code></p></li>

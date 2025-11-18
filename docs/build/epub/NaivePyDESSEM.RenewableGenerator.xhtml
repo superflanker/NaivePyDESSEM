@@ -7,7 +7,9 @@
 
     <title>NaivePyDESSEM.RenewableGenerator package</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/epub.css" /> 
+    <link rel="stylesheet" type="text/css" href="_static/epub.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" /> 
   </head><body>
 
     <div class="document">
@@ -213,17 +215,15 @@ uncertainty modeling for renewable availability.</p></li>
 </section>
 <dl class="py class">
 <dt class="sig sig-object py" id="NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.</span></span><span class="sig-name descname"><span class="pre">RenewableData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit" title="NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit"><span class="pre">RenewableUnit</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cdef</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000.0</span></span></em><span class="sig-paren">)</span></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.</span></span><span class="sig-name descname"><span class="pre">RenewableData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit" title="NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit"><span class="pre">RenewableUnit</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>System-wide data structure for renewable generation modeling.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>horizon</strong> (<em>int</em>) – Number of periods in the planning horizon.</p></li>
-<li><p><strong>demand</strong> (<em>Dict</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – Mapping of each period <code class="docutils literal notranslate"><span class="pre">t</span></code> (1-based) to system demand (MW).</p></li>
 <li><p><strong>units</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit" title="NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit"><em>RenewableUnit</em></a><em>]</em>) – Dictionary mapping unit identifiers to their respective
 <a class="reference internal" href="#NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit" title="NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit"><code class="xref py py-class docutils literal notranslate"><span class="pre">RenewableUnit</span></code></a> objects.</p></li>
-<li><p><strong>Cdef</strong> (<em>float</em><em>, </em><em>optional</em>) – Penalty cost for unmet demand (R$/MWh), default is <code class="docutils literal notranslate"><span class="pre">1000.0</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -238,16 +238,6 @@ objective when renewables are integrated into dispatch problems.</p></li>
 for renewable-aware unit commitment or economic dispatch.</p></li>
 </ul>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.Cdef">
-<span class="sig-name descname"><span class="pre">Cdef</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1000.0</span></em></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.demand">
-<span class="sig-name descname"><span class="pre">demand</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableData.horizon">
 <span class="sig-name descname"><span class="pre">horizon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em></dt>
 <dd></dd></dl>
@@ -261,13 +251,14 @@ for renewable-aware unit commitment or economic dispatch.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.</span></span><span class="sig-name descname"><span class="pre">RenewableUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gbar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.</span></span><span class="sig-name descname"><span class="pre">RenewableUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gbar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Data container for a renewable generating unit (e.g., wind or solar).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – Unique identifier for the renewable unit (e.g., <code class="docutils literal notranslate"><span class="pre">'PV1'</span></code>, <code class="docutils literal notranslate"><span class="pre">'WTG3'</span></code>).</p></li>
+<li><p><strong>bar</strong> (<em>str</em>) – Connection bar of the Unit (defaults to BAR_1)</p></li>
 <li><p><strong>gbar</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – Time series of expected available generation (MW) for each
 planning period. Typically derived from forecasts or
 historical profiles.</p></li>
@@ -282,6 +273,11 @@ period <code class="docutils literal notranslate"><span class="pre">t</span></co
 <li><p>Variability and uncertainty of renewables are represented through
 this exogenous availability profile rather than decision variables.</p></li>
 </ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit.bar">
+<span class="sig-name descname"><span class="pre">bar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="NaivePyDESSEM.RenewableGenerator.RenewableDataTypes.RenewableUnit.gbar">
 <span class="sig-name descname"><span class="pre">gbar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em></dt>
@@ -350,7 +346,7 @@ penalties or market mechanisms.</p></li>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDESSEM.RenewableGenerator.RenewableEquations.add_renewable_balance_expression">
-<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.RenewableGenerator.RenewableEquations.</span></span><span class="sig-name descname"><span class="pre">add_renewable_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<span class="sig-prename descclassname"><span class="pre">NaivePyDESSEM.RenewableGenerator.RenewableEquations.</span></span><span class="sig-name descname"><span class="pre">add_renewable_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span></dt>
 <dd><p>Append renewable generation terms at time t to the power balance expression list.</p>
 <p>This function constructs a symbolic expression representing the total power
 injected by renewable sources at a given time step <cite>t</cite>, and appends it to
@@ -361,14 +357,14 @@ balance construction in hybrid energy system models.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>m</strong> (<em>ConcreteModel</em>) – Pyomo model instance containing renewable generation variables.</p></li>
 <li><p><strong>t</strong> (<em>int</em>) – Time index for which the renewable generation is evaluated.</p></li>
-<li><p><strong>balance_array</strong> (<em>list</em><em> of </em><em>expressions</em>) – List of symbolic expressions contributing to the power balance equation.</p></li>
+<li><p><strong>balance_array</strong> (<em>dict</em><em> of </em><em>list</em><em> of </em><em>expressions</em>) – List of symbolic expressions representing components of the power balance.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The updated list including the total renewable generation at time t.</p>
+<dd class="field-even"><p>The updated list including the hydro generation term at time t.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of expressions</p>
+<dd class="field-odd"><p>dict of list of expressions</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>

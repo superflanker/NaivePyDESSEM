@@ -43,6 +43,18 @@ Storage
   charge/discharge power limits, efficiencies, and optional integration into
   the balance and objective.
 
+ConnectionBar (New in version 0.1.4)
+: Represents the nodal structure of the network, defining the electrical buses (bars)
+  that aggregate demand, generation, deficit, and angular reference variables. Provides sets,
+  parameters, variables, and constraints for the nodal balance equations in MW, with optional
+  angular limits and slack-bar reference handling.
+
+TransmissionLine (New in version 0.1.4)
+: Models the physical interconnections between bars, using the DC power flow or transport
+  formulations. Defines sets, parameters, and variables for line flows, susceptances,
+  capacities, and investment states, including both existing  and candidate circuits.
+  Fully compatible with hybrid DC/transport network representations.
+
 YAMLLoader
 : Provides the interface for loading problem instances from structured YAML or JSON files,
   including validation and conversion into dataclass objects.
@@ -100,8 +112,6 @@ Utils, Formatters, Reporting
     * [Overview](NaivePyDECOMP.HydraulicGenerator.md#overview)
     * [Conventions and Units](NaivePyDECOMP.HydraulicGenerator.md#conventions-and-units)
     * [`HydraulicData`](NaivePyDECOMP.HydraulicGenerator.md#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData)
-      * [`HydraulicData.Cdef`](NaivePyDECOMP.HydraulicGenerator.md#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.Cdef)
-      * [`HydraulicData.demand`](NaivePyDECOMP.HydraulicGenerator.md#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.demand)
       * [`HydraulicData.horizon`](NaivePyDECOMP.HydraulicGenerator.md#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.horizon)
       * [`HydraulicData.units`](NaivePyDECOMP.HydraulicGenerator.md#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.units)
     * [`HydraulicUnit`](NaivePyDECOMP.HydraulicGenerator.md#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit)
@@ -111,6 +121,7 @@ Utils, Formatters, Reporting
       * [`HydraulicUnit.Vmax`](NaivePyDECOMP.HydraulicGenerator.md#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Vmax)
       * [`HydraulicUnit.Vmin`](NaivePyDECOMP.HydraulicGenerator.md#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Vmin)
       * [`HydraulicUnit.afluencia`](NaivePyDECOMP.HydraulicGenerator.md#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.afluencia)
+      * [`HydraulicUnit.bar`](NaivePyDECOMP.HydraulicGenerator.md#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.bar)
       * [`HydraulicUnit.compute_total_inflow`](NaivePyDECOMP.HydraulicGenerator.md#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.compute_total_inflow)
       * [`HydraulicUnit.name`](NaivePyDECOMP.HydraulicGenerator.md#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.name)
       * [`HydraulicUnit.p`](NaivePyDECOMP.HydraulicGenerator.md#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.p)
@@ -223,14 +234,13 @@ Utils, Formatters, Reporting
     * [Usage](NaivePyDECOMP.ThermalGenerator.md#id6)
     * [Intended pairing](NaivePyDECOMP.ThermalGenerator.md#intended-pairing)
     * [`ThermalData`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData)
-      * [`ThermalData.Cdef`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.Cdef)
-      * [`ThermalData.demand`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.demand)
       * [`ThermalData.horizon`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.horizon)
       * [`ThermalData.units`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.units)
     * [`ThermalUnit`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit)
       * [`ThermalUnit.Cost`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.Cost)
       * [`ThermalUnit.Gmax`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.Gmax)
       * [`ThermalUnit.Gmin`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.Gmin)
+      * [`ThermalUnit.bar`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.bar)
       * [`ThermalUnit.name`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.name)
   * [NaivePyDECOMP.ThermalGenerator.ThermalEquations module](NaivePyDECOMP.ThermalGenerator.md#module-NaivePyDECOMP.ThermalGenerator.ThermalEquations)
     * [Author](NaivePyDECOMP.ThermalGenerator.md#id7)
@@ -246,7 +256,6 @@ Utils, Formatters, Reporting
     * [`add_thermal_problem()`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_problem)
     * [`add_thermal_subproblem()`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_subproblem)
     * [`build_thermal_uc()`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.build_thermal_uc)
-    * [`thermo_update_model()`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.thermo_update_model)
   * [NaivePyDECOMP.ThermalGenerator.ThermalObjectives module](NaivePyDECOMP.ThermalGenerator.md#module-NaivePyDECOMP.ThermalGenerator.ThermalObjectives)
     * [Author](NaivePyDECOMP.ThermalGenerator.md#id12)
     * [Description](NaivePyDECOMP.ThermalGenerator.md#id13)
@@ -260,6 +269,62 @@ Utils, Formatters, Reporting
     * [Usage](NaivePyDECOMP.ThermalGenerator.md#id17)
     * [`thermal_add_sets_and_params()`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalVars.thermal_add_sets_and_params)
     * [`thermal_add_variables_uc()`](NaivePyDECOMP.ThermalGenerator.md#NaivePyDECOMP.ThermalGenerator.ThermalVars.thermal_add_variables_uc)
+* [NaivePyDECOMP.ConnectionBar package](NaivePyDECOMP.ConnectionBar.md)
+  * [Module contents](NaivePyDECOMP.ConnectionBar.md#module-NaivePyDECOMP.ConnectionBar)
+    * [Author](NaivePyDECOMP.ConnectionBar.md#author)
+    * [Description](NaivePyDECOMP.ConnectionBar.md#description)
+    * [Modules](NaivePyDECOMP.ConnectionBar.md#modules)
+  * [Submodules](NaivePyDECOMP.ConnectionBar.md#submodules)
+  * [NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints module](NaivePyDECOMP.ConnectionBar.md#module-NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints)
+    * [Author](NaivePyDECOMP.ConnectionBar.md#id1)
+    * [Description](NaivePyDECOMP.ConnectionBar.md#id2)
+    * [Functions](NaivePyDECOMP.ConnectionBar.md#functions)
+    * [`add_connection_bar_balance_constraints()`](NaivePyDECOMP.ConnectionBar.md#NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints.add_connection_bar_balance_constraints)
+  * [NaivePyDECOMP.ConnectionBar.ConnectionBarDataTypes module](NaivePyDECOMP.ConnectionBar.md#module-NaivePyDECOMP.ConnectionBar.ConnectionBarDataTypes)
+    * [Author](NaivePyDECOMP.ConnectionBar.md#id3)
+    * [Description](NaivePyDECOMP.ConnectionBar.md#id4)
+    * [Classes](NaivePyDECOMP.ConnectionBar.md#classes)
+  * [NaivePyDECOMP.ConnectionBar.ConnectionBarEquations module](NaivePyDECOMP.ConnectionBar.md#module-NaivePyDECOMP.ConnectionBar.ConnectionBarEquations)
+    * [Author](NaivePyDECOMP.ConnectionBar.md#id5)
+    * [Description](NaivePyDECOMP.ConnectionBar.md#id6)
+    * [Functions](NaivePyDECOMP.ConnectionBar.md#id7)
+    * [`add_connection_bar_balance_expression()`](NaivePyDECOMP.ConnectionBar.md#NaivePyDECOMP.ConnectionBar.ConnectionBarEquations.add_connection_bar_balance_expression)
+  * [NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder module](NaivePyDECOMP.ConnectionBar.md#module-NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder)
+    * [Author](NaivePyDECOMP.ConnectionBar.md#id8)
+    * [Description](NaivePyDECOMP.ConnectionBar.md#id9)
+    * [Functions](NaivePyDECOMP.ConnectionBar.md#id10)
+    * [`add_connection_bar_subproblem()`](NaivePyDECOMP.ConnectionBar.md#NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder.add_connection_bar_subproblem)
+  * [NaivePyDECOMP.ConnectionBar.ConnectionBarVars module](NaivePyDECOMP.ConnectionBar.md#module-NaivePyDECOMP.ConnectionBar.ConnectionBarVars)
+    * [Author](NaivePyDECOMP.ConnectionBar.md#id11)
+    * [Description](NaivePyDECOMP.ConnectionBar.md#id12)
+    * [Functions](NaivePyDECOMP.ConnectionBar.md#id13)
+* [NaivePyDECOMP.TransmissionLine package](NaivePyDECOMP.TransmissionLine.md)
+  * [Module contents](NaivePyDECOMP.TransmissionLine.md#module-NaivePyDECOMP.TransmissionLine)
+    * [Author](NaivePyDECOMP.TransmissionLine.md#author)
+    * [Description](NaivePyDECOMP.TransmissionLine.md#description)
+    * [Modules](NaivePyDECOMP.TransmissionLine.md#modules)
+  * [Submodules](NaivePyDECOMP.TransmissionLine.md#submodules)
+  * [NaivePyDECOMP.TransmissionLine.TransmissionLineConstraints module](NaivePyDECOMP.TransmissionLine.md#module-NaivePyDECOMP.TransmissionLine.TransmissionLineConstraints)
+    * [Author](NaivePyDECOMP.TransmissionLine.md#id1)
+    * [Description](NaivePyDECOMP.TransmissionLine.md#id2)
+    * [Functions](NaivePyDECOMP.TransmissionLine.md#functions)
+  * [NaivePyDECOMP.TransmissionLine.TransmissionLineDataTypes module](NaivePyDECOMP.TransmissionLine.md#module-NaivePyDECOMP.TransmissionLine.TransmissionLineDataTypes)
+    * [Author](NaivePyDECOMP.TransmissionLine.md#id3)
+    * [Description](NaivePyDECOMP.TransmissionLine.md#id4)
+    * [Classes](NaivePyDECOMP.TransmissionLine.md#classes)
+  * [NaivePyDECOMP.TransmissionLine.TransmissionLineEquations module](NaivePyDECOMP.TransmissionLine.md#module-NaivePyDECOMP.TransmissionLine.TransmissionLineEquations)
+    * [Author](NaivePyDECOMP.TransmissionLine.md#id5)
+    * [Description](NaivePyDECOMP.TransmissionLine.md#id6)
+    * [Functions](NaivePyDECOMP.TransmissionLine.md#id7)
+  * [NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder module](NaivePyDECOMP.TransmissionLine.md#module-NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder)
+    * [Author](NaivePyDECOMP.TransmissionLine.md#id8)
+    * [Description](NaivePyDECOMP.TransmissionLine.md#id9)
+    * [Functions](NaivePyDECOMP.TransmissionLine.md#id10)
+    * [`add_transmission_line_subproblem()`](NaivePyDECOMP.TransmissionLine.md#NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder.add_transmission_line_subproblem)
+  * [NaivePyDECOMP.TransmissionLine.TransmissionLineVars module](NaivePyDECOMP.TransmissionLine.md#module-NaivePyDECOMP.TransmissionLine.TransmissionLineVars)
+    * [Author](NaivePyDECOMP.TransmissionLine.md#id11)
+    * [Description](NaivePyDECOMP.TransmissionLine.md#id12)
+    * [Functions](NaivePyDECOMP.TransmissionLine.md#id13)
 * [NaivePyDECOMP.cli package](NaivePyDECOMP.cli.md)
   * [Module contents](NaivePyDECOMP.cli.md#module-NaivePyDECOMP.cli)
     * [NaivePyDECOMP – CLI Subpackage](NaivePyDECOMP.cli.md#naivepydecomp-cli-subpackage)
@@ -516,6 +581,21 @@ Main components extracted:
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 
+### NaivePyDECOMP.DataFrames.add_connection_bar_dispatch_to_dataframe(df: DataFrame, model: ConcreteModel) → DataFrame
+
+Append connection bar angles results to a pandas DataFrame.
+
+This function extracts angles values from the Pyomo model and
+adds them as columns to the DataFrame.
+
+* **Parameters:**
+  * **df** (*pd.DataFrame*) – The DataFrame to which the results will be appended.
+  * **model** (*ConcreteModel*) – A Pyomo model instance containing storage unit variables.
+* **Returns:**
+  The updated DataFrame including storage dispatch results.
+* **Return type:**
+  pd.DataFrame
+
 ### NaivePyDECOMP.DataFrames.add_cost_to_dataframe(df: DataFrame, model: ConcreteModel) → DataFrame
 
 Append cost components, demand/deficit, total generation,
@@ -560,6 +640,21 @@ shutdown (w) are included if present.
   * **model** (*ConcreteModel*) – A Pyomo model instance containing thermal generation variables.
 * **Returns:**
   The updated DataFrame including thermal dispatch results.
+* **Return type:**
+  pd.DataFrame
+
+### NaivePyDECOMP.DataFrames.add_transmission_line_dispatch_to_dataframe(df: DataFrame, model: ConcreteModel) → DataFrame
+
+Append transmission lines flow results to a pandas DataFrame.
+
+This function extracts transmission lines flow values from the Pyomo model and
+adds them as columns to the DataFrame.
+
+* **Parameters:**
+  * **df** (*pd.DataFrame*) – The DataFrame to which the results will be appended.
+  * **model** (*ConcreteModel*) – A Pyomo model instance containing transmission lines unit variables.
+* **Returns:**
+  The updated DataFrame including transmission lines flow dispatch results.
 * **Return type:**
   pd.DataFrame
 
@@ -966,6 +1061,18 @@ Features:
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 
+### NaivePyDECOMP.Reporting.connection_bar_dispatch_summary(model: ConcreteModel) → None
+
+Print a unit-level dispatch summary for each connection bar in MWmed.
+
+* **Parameters:**
+  **model** (*pyomo.environ.ConcreteModel*) – A solved Pyomo model containing a valid connection-bar subsystem,
+  verified via `has_connection_bar_model()`.
+* **Returns:**
+  Prints formatted results directly to the console.
+* **Return type:**
+  None
+
 ### NaivePyDECOMP.Reporting.dispatch_summary(model: ConcreteModel) → None
 
 Print a complete dispatch and cost summary including:
@@ -1004,6 +1111,18 @@ Print unit-level thermal generation summary in MWmed.
 
 * **Parameters:**
   **model** (*ConcreteModel*) – Solved Pyomo model with thermal subsystem.
+
+### NaivePyDECOMP.Reporting.transmission_line_dispatch_summary(model: ConcreteModel) → None
+
+Print a unit-level dispatch summary for each transmission line in MWmed.
+
+* **Parameters:**
+  **model** (*pyomo.environ.ConcreteModel*) – A solved Pyomo model containing a valid transmission line subsystem,
+  verified via `has_transmission_line_model()`.
+* **Returns:**
+  Prints formatted results directly to the console.
+* **Return type:**
+  None
 
 ## NaivePyDECOMP.SolverPDDD module
 

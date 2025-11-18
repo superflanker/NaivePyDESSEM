@@ -7,7 +7,9 @@
 
     <title>NaivePyDECOMP package</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/epub.css" /> 
+    <link rel="stylesheet" type="text/css" href="_static/epub.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" /> 
   </head><body>
 
     <div class="document">
@@ -52,6 +54,16 @@ enforcing production bounds based on availability (gbar).</p>
 <dt>Storage</dt><dd><p>Models energy storage systems (e.g., batteries), capturing state-of-charge dynamics,
 charge/discharge power limits, efficiencies, and optional integration into
 the balance and objective.</p>
+</dd>
+<dt>ConnectionBar (New in version 0.1.4)</dt><dd><p>Represents the nodal structure of the network, defining the electrical buses (bars)
+that aggregate demand, generation, deficit, and angular reference variables. Provides sets,
+parameters, variables, and constraints for the nodal balance equations in MW, with optional
+angular limits and slack-bar reference handling.</p>
+</dd>
+<dt>TransmissionLine (New in version 0.1.4)</dt><dd><p>Models the physical interconnections between bars, using the DC power flow or transport
+formulations. Defines sets, parameters, and variables for line flows, susceptances,
+capacities, and investment states, including both existing  and candidate circuits.
+Fully compatible with hybrid DC/transport network representations.</p>
 </dd>
 <dt>YAMLLoader</dt><dd><p>Provides the interface for loading problem instances from structured YAML or JSON files,
 including validation and conversion into dataclass objects.</p>
@@ -113,8 +125,6 @@ or multi-area coupling can be added atop this foundation.</p></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#overview">Overview</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#conventions-and-units">Conventions and Units</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData"><code class="docutils literal notranslate"><span class="pre">HydraulicData</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.Cdef"><code class="docutils literal notranslate"><span class="pre">HydraulicData.Cdef</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.demand"><code class="docutils literal notranslate"><span class="pre">HydraulicData.demand</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.horizon"><code class="docutils literal notranslate"><span class="pre">HydraulicData.horizon</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicData.units"><code class="docutils literal notranslate"><span class="pre">HydraulicData.units</span></code></a></li>
 </ul>
@@ -126,6 +136,7 @@ or multi-area coupling can be added atop this foundation.</p></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Vmax"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.Vmax</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.Vmin"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.Vmin</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.afluencia"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.afluencia</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.bar"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.bar</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.compute_total_inflow"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.compute_total_inflow</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.name"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.HydraulicGenerator.xhtml#NaivePyDECOMP.HydraulicGenerator.HydraulicDataTypes.HydraulicUnit.p"><code class="docutils literal notranslate"><span class="pre">HydraulicUnit.p</span></code></a></li>
@@ -290,8 +301,6 @@ or multi-area coupling can be added atop this foundation.</p></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#id6">Usage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#intended-pairing">Intended pairing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData"><code class="docutils literal notranslate"><span class="pre">ThermalData</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.Cdef"><code class="docutils literal notranslate"><span class="pre">ThermalData.Cdef</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.demand"><code class="docutils literal notranslate"><span class="pre">ThermalData.demand</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.horizon"><code class="docutils literal notranslate"><span class="pre">ThermalData.horizon</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.units"><code class="docutils literal notranslate"><span class="pre">ThermalData.units</span></code></a></li>
 </ul>
@@ -300,6 +309,7 @@ or multi-area coupling can be added atop this foundation.</p></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.Cost"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.Cost</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.Gmax"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.Gmax</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.Gmin"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.Gmin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.bar"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.bar</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.name"><code class="docutils literal notranslate"><span class="pre">ThermalUnit.name</span></code></a></li>
 </ul>
 </li>
@@ -321,7 +331,6 @@ or multi-area coupling can be added atop this foundation.</p></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_problem"><code class="docutils literal notranslate"><span class="pre">add_thermal_problem()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.add_thermal_subproblem"><code class="docutils literal notranslate"><span class="pre">add_thermal_subproblem()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.build_thermal_uc"><code class="docutils literal notranslate"><span class="pre">build_thermal_uc()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.thermo_update_model"><code class="docutils literal notranslate"><span class="pre">thermo_update_model()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#module-NaivePyDECOMP.ThermalGenerator.ThermalObjectives">NaivePyDECOMP.ThermalGenerator.ThermalObjectives module</a><ul>
@@ -339,6 +348,90 @@ or multi-area coupling can be added atop this foundation.</p></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#id17">Usage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalVars.thermal_add_sets_and_params"><code class="docutils literal notranslate"><span class="pre">thermal_add_sets_and_params()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ThermalGenerator.xhtml#NaivePyDECOMP.ThermalGenerator.ThermalVars.thermal_add_variables_uc"><code class="docutils literal notranslate"><span class="pre">thermal_add_variables_uc()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml">NaivePyDECOMP.ConnectionBar package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#module-NaivePyDECOMP.ConnectionBar">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#author">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#modules">Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#module-NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints">NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#id1">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#id2">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#NaivePyDECOMP.ConnectionBar.ConnectionBarConstraints.add_connection_bar_balance_constraints"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_balance_constraints()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#module-NaivePyDECOMP.ConnectionBar.ConnectionBarDataTypes">NaivePyDECOMP.ConnectionBar.ConnectionBarDataTypes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#id3">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#id4">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#module-NaivePyDECOMP.ConnectionBar.ConnectionBarEquations">NaivePyDECOMP.ConnectionBar.ConnectionBarEquations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#id5">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#id6">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#id7">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#NaivePyDECOMP.ConnectionBar.ConnectionBarEquations.add_connection_bar_balance_expression"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_balance_expression()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#module-NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder">NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#id8">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#id9">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#id10">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#NaivePyDECOMP.ConnectionBar.ConnectionBarBuilder.add_connection_bar_subproblem"><code class="docutils literal notranslate"><span class="pre">add_connection_bar_subproblem()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#module-NaivePyDECOMP.ConnectionBar.ConnectionBarVars">NaivePyDECOMP.ConnectionBar.ConnectionBarVars module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#id11">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#id12">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.ConnectionBar.xhtml#id13">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml">NaivePyDECOMP.TransmissionLine package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#module-NaivePyDECOMP.TransmissionLine">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#author">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#modules">Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#module-NaivePyDECOMP.TransmissionLine.TransmissionLineConstraints">NaivePyDECOMP.TransmissionLine.TransmissionLineConstraints module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#id1">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#id2">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#module-NaivePyDECOMP.TransmissionLine.TransmissionLineDataTypes">NaivePyDECOMP.TransmissionLine.TransmissionLineDataTypes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#id3">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#id4">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#classes">Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#module-NaivePyDECOMP.TransmissionLine.TransmissionLineEquations">NaivePyDECOMP.TransmissionLine.TransmissionLineEquations module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#id5">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#id6">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#id7">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#module-NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder">NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#id8">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#id9">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#id10">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#NaivePyDECOMP.TransmissionLine.TransmissionLineBuilder.add_transmission_line_subproblem"><code class="docutils literal notranslate"><span class="pre">add_transmission_line_subproblem()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#module-NaivePyDECOMP.TransmissionLine.TransmissionLineVars">NaivePyDECOMP.TransmissionLine.TransmissionLineVars module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#id11">Author</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#id12">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NaivePyDECOMP.TransmissionLine.xhtml#id13">Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -651,6 +744,28 @@ to CSV.</p>
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.DataFrames.add_connection_bar_dispatch_to_dataframe">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.DataFrames.</span></span><span class="sig-name descname"><span class="pre">add_connection_bar_dispatch_to_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span></dt>
+<dd><p>Append connection bar angles results to a pandas DataFrame.</p>
+<p>This function extracts angles values from the Pyomo model and
+adds them as columns to the DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame to which the results will be appended.</p></li>
+<li><p><strong>model</strong> (<em>ConcreteModel</em>) – A Pyomo model instance containing storage unit variables.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated DataFrame including storage dispatch results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDECOMP.DataFrames.add_cost_to_dataframe">
 <span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.DataFrames.</span></span><span class="sig-name descname"><span class="pre">add_cost_to_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span></dt>
 <dd><p>Append cost components, demand/deficit, total generation,
@@ -712,6 +827,28 @@ shutdown (<cite>w</cite>) are included if present.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The updated DataFrame including thermal dispatch results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.DataFrames.add_transmission_line_dispatch_to_dataframe">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.DataFrames.</span></span><span class="sig-name descname"><span class="pre">add_transmission_line_dispatch_to_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span></dt>
+<dd><p>Append transmission lines flow results to a pandas DataFrame.</p>
+<p>This function extracts transmission lines flow values from the Pyomo model and
+adds them as columns to the DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The DataFrame to which the results will be appended.</p></li>
+<li><p><strong>model</strong> (<em>ConcreteModel</em>) – A Pyomo model instance containing transmission lines unit variables.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated DataFrame including transmission lines flow dispatch results.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
@@ -1141,6 +1278,24 @@ and unit-level summaries for hydropower, thermal, renewable, and storage technol
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.</p>
 </section>
 <dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.Reporting.connection_bar_dispatch_summary">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.Reporting.</span></span><span class="sig-name descname"><span class="pre">connection_bar_dispatch_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span></dt>
+<dd><p>Print a unit-level dispatch summary for each connection bar in MWmed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>pyomo.environ.ConcreteModel</em>) – A solved Pyomo model containing a valid connection-bar subsystem,
+verified via <code class="xref py py-func docutils literal notranslate"><span class="pre">has_connection_bar_model()</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Prints formatted results directly to the console.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDECOMP.Reporting.dispatch_summary">
 <span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.Reporting.</span></span><span class="sig-name descname"><span class="pre">dispatch_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span></dt>
 <dd><p>Print a complete dispatch and cost summary including:
@@ -1195,6 +1350,24 @@ and unit-level summaries for hydropower, thermal, renewable, and storage technol
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>model</strong> (<em>ConcreteModel</em>) – Solved Pyomo model with thermal subsystem.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="NaivePyDECOMP.Reporting.transmission_line_dispatch_summary">
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.Reporting.</span></span><span class="sig-name descname"><span class="pre">transmission_line_dispatch_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span></dt>
+<dd><p>Print a unit-level dispatch summary for each transmission line in MWmed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>model</strong> (<em>pyomo.environ.ConcreteModel</em>) – A solved Pyomo model containing a valid transmission line subsystem,
+verified via <code class="xref py py-func docutils literal notranslate"><span class="pre">has_transmission_line_model()</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Prints formatted results directly to the console.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

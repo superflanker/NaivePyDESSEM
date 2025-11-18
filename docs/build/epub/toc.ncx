@@ -18,12 +18,12 @@
     </navPoint>
     <navPoint id="navPoint2" playOrder="2">
       <navLabel>
-        <text>DESSEM/DECOMP/MDI</text>
+        <text>NAIVE MODULES</text>
       </navLabel>
       <content src="modules.xhtml" />  
       <navPoint id="navPoint3" playOrder="2">
         <navLabel>
-          <text>DESSEM/DECOMP/MDI</text>
+          <text>NAIVE MODULES</text>
         </navLabel>
         <content src="modules.xhtml" />  
       </navPoint>
@@ -314,6 +314,942 @@
           </navLabel>
           <content src="MDI.xhtml#module-MDI.YAMLLoader" />  
         </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint52" playOrder="48">
+      <navLabel>
+        <text>TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</text>
+      </navLabel>
+      <content src="topics_on_planning_and_expansion_of_power_systems.xhtml" />  
+      <navPoint id="navPoint53" playOrder="48">
+        <navLabel>
+          <text>TOPICS IN POWER SYSTEM GENERATION AND EXPANSION PLANNING</text>
+        </navLabel>
+        <content src="topics_on_planning_and_expansion_of_power_systems.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint54" playOrder="49">
+        <navLabel>
+          <text>OBJECTIVES</text>
+        </navLabel>
+        <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#objectives" />  
+      </navPoint>
+      <navPoint id="navPoint55" playOrder="50">
+        <navLabel>
+          <text>OVERVIEW AND STRUCTURE OF THE ELECTRIC POWER SECTOR</text>
+        </navLabel>
+        <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#overview-and-structure-of-the-electric-power-sector" />  
+        <navPoint id="navPoint56" playOrder="50">
+          <navLabel>
+            <text>OVERVIEW AND STRUCTURE OF THE ELECTRIC POWER SECTOR</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#overview-and-structure-of-the-electric-power-sector" />  
+        </navPoint>
+        <navPoint id="navPoint57" playOrder="51">
+          <navLabel>
+            <text>FULL COMPETITION</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#full-competition" />  
+        </navPoint>
+        <navPoint id="navPoint58" playOrder="52">
+          <navLabel>
+            <text>SPOT MARKET AND SETTLEMENT PRICE (PLD)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#spot-market-and-settlement-price-pld" />  
+        </navPoint>
+        <navPoint id="navPoint59" playOrder="53">
+          <navLabel>
+            <text>FUNCTIONS OF THE NATIONAL SYSTEM OPERATOR (ONS)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#functions-of-the-national-system-operator-ons" />  
+        </navPoint>
+        <navPoint id="navPoint60" playOrder="54">
+          <navLabel>
+            <text>RENEWABLE ENERGY VS. CLEAN ENERGY</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#renewable-energy-vs-clean-energy" />  
+        </navPoint>
+        <navPoint id="navPoint61" playOrder="55">
+          <navLabel>
+            <text>ENERGY TRANSITION</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#energy-transition" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint62" playOrder="56">
+        <navLabel>
+          <text>THERMAL AND HYDRAULIC GENERATION</text>
+        </navLabel>
+        <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#thermal-and-hydraulic-generation" />  
+        <navPoint id="navPoint63" playOrder="56">
+          <navLabel>
+            <text>THERMAL AND HYDRAULIC GENERATION</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#thermal-and-hydraulic-generation" />  
+        </navPoint>
+        <navPoint id="navPoint64" playOrder="57">
+          <navLabel>
+            <text>ENERGY TRANSITION</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#id1" />  
+        </navPoint>
+        <navPoint id="navPoint65" playOrder="58">
+          <navLabel>
+            <text>ADVANTAGES OF THERMAL POWER PLANTS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#advantages-of-thermal-power-plants" />  
+        </navPoint>
+        <navPoint id="navPoint66" playOrder="59">
+          <navLabel>
+            <text>DISADVANTAGES OF THERMAL POWER PLANTS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#disadvantages-of-thermal-power-plants" />  
+        </navPoint>
+        <navPoint id="navPoint67" playOrder="60">
+          <navLabel>
+            <text>ECONOMIC DISPATCH</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#economic-dispatch" />  
+        </navPoint>
+        <navPoint id="navPoint68" playOrder="61">
+          <navLabel>
+            <text>UNIT COMMITMENT</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#unit-commitment" />  
+        </navPoint>
+        <navPoint id="navPoint69" playOrder="62">
+          <navLabel>
+            <text>LAGRANGE MULTIPLIERS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#lagrange-multipliers" />  
+        </navPoint>
+        <navPoint id="navPoint70" playOrder="63">
+          <navLabel>
+            <text>RESERVOIRS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#reservoirs" />  
+        </navPoint>
+        <navPoint id="navPoint71" playOrder="64">
+          <navLabel>
+            <text>WATER BALANCE EQUATION</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#water-balance-equation" />  
+        </navPoint>
+        <navPoint id="navPoint72" playOrder="65">
+          <navLabel>
+            <text>CASCADING HYDRO PLANTS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#cascading-hydro-plants" />  
+        </navPoint>
+        <navPoint id="navPoint73" playOrder="66">
+          <navLabel>
+            <text>HYDROPOWER PRODUCTION FUNCTION</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#hydropower-production-function" />  
+        </navPoint>
+        <navPoint id="navPoint74" playOrder="67">
+          <navLabel>
+            <text>HYDRAULIC LOSSES</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#hydraulic-losses" />  
+        </navPoint>
+        <navPoint id="navPoint75" playOrder="68">
+          <navLabel>
+            <text>TURBINE-GENERATOR EFFICIENCY</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#turbine-generator-efficiency" />  
+        </navPoint>
+        <navPoint id="navPoint76" playOrder="69">
+          <navLabel>
+            <text>PROHIBITED OPERATING ZONES</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#prohibited-operating-zones" />  
+        </navPoint>
+        <navPoint id="navPoint77" playOrder="70">
+          <navLabel>
+            <text>SPILLAGE</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#spillage" />  
+        </navPoint>
+        <navPoint id="navPoint78" playOrder="71">
+          <navLabel>
+            <text>TEMPORAL COUPLING</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#temporal-coupling" />  
+        </navPoint>
+        <navPoint id="navPoint79" playOrder="72">
+          <navLabel>
+            <text>SPATIAL COUPLING</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#spatial-coupling" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint80" playOrder="73">
+        <navLabel>
+          <text>HYDROTHERMAL PLANNING AND OPTIMIZATION</text>
+        </navLabel>
+        <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#hydrothermal-planning-and-optimization" />  
+        <navPoint id="navPoint81" playOrder="73">
+          <navLabel>
+            <text>HYDROTHERMAL PLANNING AND OPTIMIZATION</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#hydrothermal-planning-and-optimization" />  
+        </navPoint>
+        <navPoint id="navPoint82" playOrder="74">
+          <navLabel>
+            <text>MAIN OBJECTIVE OF HYDROTHERMAL PLANNING</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#main-objective-of-hydrothermal-planning" />  
+        </navPoint>
+        <navPoint id="navPoint83" playOrder="75">
+          <navLabel>
+            <text>MEDIUM-TERM PLANNING (NEWAVE)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#medium-term-planning-newave" />  
+        </navPoint>
+        <navPoint id="navPoint84" playOrder="76">
+          <navLabel>
+            <text>SHORT-TERM PLANNING (DECOMP)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#short-term-planning-decomp" />  
+        </navPoint>
+        <navPoint id="navPoint85" playOrder="77">
+          <navLabel>
+            <text>VERY SHORT-TERM PLANNING (DESSEM)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#very-short-term-planning-dessem" />  
+        </navPoint>
+        <navPoint id="navPoint86" playOrder="78">
+          <navLabel>
+            <text>MARGINAL OPERATING COST (CMO)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#marginal-operating-cost-cmo" />  
+        </navPoint>
+        <navPoint id="navPoint87" playOrder="79">
+          <navLabel>
+            <text>FUTURE COST (CF)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#future-cost-cf" />  
+        </navPoint>
+        <navPoint id="navPoint88" playOrder="80">
+          <navLabel>
+            <text>IMMEDIATE COST (CI)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#immediate-cost-ci" />  
+        </navPoint>
+        <navPoint id="navPoint89" playOrder="81">
+          <navLabel>
+            <text>BELLMAN’S PRINCIPLE OF OPTIMALITY</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#bellmans-principle-of-optimality" />  
+        </navPoint>
+        <navPoint id="navPoint90" playOrder="82">
+          <navLabel>
+            <text>CURSE OF DIMENSIONALITY</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#curse-of-dimensionality" />  
+        </navPoint>
+        <navPoint id="navPoint91" playOrder="83">
+          <navLabel>
+            <text>FUTURE COST FUNCTION USING BENDERS CUTS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#future-cost-function-using-benders-cuts" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint92" playOrder="84">
+        <navLabel>
+          <text>RELIABILITY AND EMERGING ENERGY SOURCES</text>
+        </navLabel>
+        <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#reliability-and-emerging-energy-sources" />  
+        <navPoint id="navPoint93" playOrder="84">
+          <navLabel>
+            <text>RELIABILITY AND EMERGING ENERGY SOURCES</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#reliability-and-emerging-energy-sources" />  
+        </navPoint>
+        <navPoint id="navPoint94" playOrder="85">
+          <navLabel>
+            <text>ADEQUACY</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#adequacy" />  
+        </navPoint>
+        <navPoint id="navPoint95" playOrder="86">
+          <navLabel>
+            <text>SECURITY</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#security" />  
+        </navPoint>
+        <navPoint id="navPoint96" playOrder="87">
+          <navLabel>
+            <text>TRADITIONAL RELIABILITY INDICATORS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#traditional-reliability-indicators" />  
+        </navPoint>
+        <navPoint id="navPoint97" playOrder="88">
+          <navLabel>
+            <text>NEW RELIABILITY INDICATORS WITH RENEWABLES</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#new-reliability-indicators-with-renewables" />  
+        </navPoint>
+        <navPoint id="navPoint98" playOrder="89">
+          <navLabel>
+            <text>DUNKELFLAUTE</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#dunkelflaute" />  
+        </navPoint>
+        <navPoint id="navPoint99" playOrder="90">
+          <navLabel>
+            <text>BIOENERGY</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#bioenergy" />  
+        </navPoint>
+        <navPoint id="navPoint100" playOrder="91">
+          <navLabel>
+            <text>LOW-CARBON HYDROGEN</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#low-carbon-hydrogen" />  
+        </navPoint>
+        <navPoint id="navPoint101" playOrder="92">
+          <navLabel>
+            <text>ENERGY STORAGE SYSTEMS (ESS)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#energy-storage-systems-ess" />  
+        </navPoint>
+        <navPoint id="navPoint102" playOrder="93">
+          <navLabel>
+            <text>ELECTRIC VEHICLES (EVs)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#electric-vehicles-evs" />  
+        </navPoint>
+        <navPoint id="navPoint103" playOrder="94">
+          <navLabel>
+            <text>CARBON CAPTURE, UTILIZATION, AND STORAGE (CCUS)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#carbon-capture-utilization-and-storage-ccus" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint104" playOrder="95">
+        <navLabel>
+          <text>DISTRIBUTION NETWORKS, MICROGRIDS, AND UNCERTAINTIES</text>
+        </navLabel>
+        <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#distribution-networks-microgrids-and-uncertainties" />  
+        <navPoint id="navPoint105" playOrder="95">
+          <navLabel>
+            <text>DISTRIBUTION NETWORKS, MICROGRIDS, AND UNCERTAINTIES</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#distribution-networks-microgrids-and-uncertainties" />  
+        </navPoint>
+        <navPoint id="navPoint106" playOrder="96">
+          <navLabel>
+            <text>DISTRIBUTION NETWORK ASSETS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#distribution-network-assets" />  
+        </navPoint>
+        <navPoint id="navPoint107" playOrder="97">
+          <navLabel>
+            <text>ACTIVE DISTRIBUTION NETWORKS (ADNs)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#active-distribution-networks-adns" />  
+        </navPoint>
+        <navPoint id="navPoint108" playOrder="98">
+          <navLabel>
+            <text>MICROGRIDS (MGs)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#microgrids-mgs" />  
+        </navPoint>
+        <navPoint id="navPoint109" playOrder="99">
+          <navLabel>
+            <text>DEMAND RESPONSE (DR)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#demand-response-dr" />  
+        </navPoint>
+        <navPoint id="navPoint110" playOrder="100">
+          <navLabel>
+            <text>SMART TRANSFORMERS (ST)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#smart-transformers-st" />  
+        </navPoint>
+        <navPoint id="navPoint111" playOrder="101">
+          <navLabel>
+            <text>CHALLENGES OF DISTRIBUTED ENERGY RESOURCES (DERs)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#challenges-of-distributed-energy-resources-ders" />  
+        </navPoint>
+        <navPoint id="navPoint112" playOrder="102">
+          <navLabel>
+            <text>CURTAILMENT</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#curtailment" />  
+        </navPoint>
+        <navPoint id="navPoint113" playOrder="103">
+          <navLabel>
+            <text>HIERARCHICAL OPTIMIZATION IN ADNs</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#hierarchical-optimization-in-adns" />  
+        </navPoint>
+        <navPoint id="navPoint114" playOrder="104">
+          <navLabel>
+            <text>ROBUSTNESS AGAINST UNCERTAINTIES</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#robustness-against-uncertainties" />  
+        </navPoint>
+        <navPoint id="navPoint115" playOrder="105">
+          <navLabel>
+            <text>THE THREE Ds OF ENERGY</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#the-three-ds-of-energy" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint116" playOrder="106">
+        <navLabel>
+          <text>GENERATION AND TRANSMISSION EXPANSION</text>
+        </navLabel>
+        <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#generation-and-transmission-expansion" />  
+        <navPoint id="navPoint117" playOrder="106">
+          <navLabel>
+            <text>GENERATION AND TRANSMISSION EXPANSION</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#generation-and-transmission-expansion" />  
+        </navPoint>
+        <navPoint id="navPoint118" playOrder="107">
+          <navLabel>
+            <text>CONCEPT AND PURPOSE</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#concept-and-purpose" />  
+        </navPoint>
+        <navPoint id="navPoint119" playOrder="108">
+          <navLabel>
+            <text>STRUCTURE OF THE MDI</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#structure-of-the-mdi" />  
+        </navPoint>
+        <navPoint id="navPoint120" playOrder="109">
+          <navLabel>
+            <text>DEMAND REPRESENTATION</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#demand-representation" />  
+        </navPoint>
+        <navPoint id="navPoint121" playOrder="110">
+          <navLabel>
+            <text>MODELED GENERATION SOURCES</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#modeled-generation-sources" />  
+        </navPoint>
+        <navPoint id="navPoint122" playOrder="111">
+          <navLabel>
+            <text>OBJECTIVE FUNCTION</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#objective-function" />  
+        </navPoint>
+        <navPoint id="navPoint123" playOrder="112">
+          <navLabel>
+            <text>MAIN CONSTRAINTS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#main-constraints" />  
+        </navPoint>
+        <navPoint id="navPoint124" playOrder="113">
+          <navLabel>
+            <text>UNCERTAINTY TREATMENT</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#uncertainty-treatment" />  
+        </navPoint>
+        <navPoint id="navPoint125" playOrder="114">
+          <navLabel>
+            <text>DECISION VARIABLES</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#decision-variables" />  
+        </navPoint>
+        <navPoint id="navPoint126" playOrder="115">
+          <navLabel>
+            <text>MODEL OUTPUTS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#model-outputs" />  
+        </navPoint>
+        <navPoint id="navPoint127" playOrder="116">
+          <navLabel>
+            <text>RELATIONSHIP WITH THE MARGINAL EXPANSION COST (CME)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#relationship-with-the-marginal-expansion-cost-cme" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint128" playOrder="117">
+        <navLabel>
+          <text>TECHNICAL APPENDIX: SUMMARY OF THE DESSEM MANUAL</text>
+        </navLabel>
+        <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#technical-appendix-summary-of-the-dessem-manual" />  
+        <navPoint id="navPoint129" playOrder="117">
+          <navLabel>
+            <text>TECHNICAL APPENDIX: SUMMARY OF THE DESSEM MANUAL</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#technical-appendix-summary-of-the-dessem-manual" />  
+        </navPoint>
+        <navPoint id="navPoint130" playOrder="118">
+          <navLabel>
+            <text>PURPOSE OF DESSEM</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#purpose-of-dessem" />  
+        </navPoint>
+        <navPoint id="navPoint131" playOrder="119">
+          <navLabel>
+            <text>MATHEMATICAL FORMULATION</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#mathematical-formulation" />  
+        </navPoint>
+        <navPoint id="navPoint132" playOrder="120">
+          <navLabel>
+            <text>HYDRAULIC REPRESENTATION</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#hydraulic-representation" />  
+        </navPoint>
+        <navPoint id="navPoint133" playOrder="121">
+          <navLabel>
+            <text>THERMAL REPRESENTATION</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#thermal-representation" />  
+        </navPoint>
+        <navPoint id="navPoint134" playOrder="122">
+          <navLabel>
+            <text>ELECTRICAL NETWORK REPRESENTATION</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#electrical-network-representation" />  
+        </navPoint>
+        <navPoint id="navPoint135" playOrder="123">
+          <navLabel>
+            <text>MODULAR STRUCTURE OF THE MODEL</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#modular-structure-of-the-model" />  
+        </navPoint>
+        <navPoint id="navPoint136" playOrder="124">
+          <navLabel>
+            <text>INTEGRATION WITH OTHER MODELS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#integration-with-other-models" />  
+        </navPoint>
+        <navPoint id="navPoint137" playOrder="125">
+          <navLabel>
+            <text>PRACTICAL APPLICATIONS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#practical-applications" />  
+        </navPoint>
+        <navPoint id="navPoint138" playOrder="126">
+          <navLabel>
+            <text>MATHEMATICAL MODELING OF DESSEM</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#mathematical-modeling-of-dessem" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint139" playOrder="127">
+        <navLabel>
+          <text>TECHNICAL APPENDIX: SUMMARY OF THE DECOMP MANUAL</text>
+        </navLabel>
+        <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#technical-appendix-summary-of-the-decomp-manual" />  
+        <navPoint id="navPoint140" playOrder="127">
+          <navLabel>
+            <text>TECHNICAL APPENDIX: SUMMARY OF THE DECOMP MANUAL</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#technical-appendix-summary-of-the-decomp-manual" />  
+        </navPoint>
+        <navPoint id="navPoint141" playOrder="128">
+          <navLabel>
+            <text>STRATEGIC PLANNING</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#strategic-planning" />  
+        </navPoint>
+        <navPoint id="navPoint142" playOrder="129">
+          <navLabel>
+            <text>IMMEDIATE, FUTURE, AND TOTAL COST FUNCTIONS IN STRATEGIC PLANNING</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#immediate-future-and-total-cost-functions-in-strategic-planning" />  
+        </navPoint>
+        <navPoint id="navPoint143" playOrder="130">
+          <navLabel>
+            <text>MARGINAL OPERATING COST (CMO)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#id14" />  
+        </navPoint>
+        <navPoint id="navPoint144" playOrder="131">
+          <navLabel>
+            <text>ADVANCED CONCEPTS IN STRATEGIC OPERATION PLANNING</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#advanced-concepts-in-strategic-operation-planning" />  
+        </navPoint>
+        <navPoint id="navPoint145" playOrder="132">
+          <navLabel>
+            <text>SOLUTION STRATEGIES FOR STRATEGIC OPERATION PLANNING</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#solution-strategies-for-strategic-operation-planning" />  
+        </navPoint>
+        <navPoint id="navPoint146" playOrder="133">
+          <navLabel>
+            <text>COMPARATIVE OVERVIEW OF STRATEGIES</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#comparative-overview-of-strategies" />  
+        </navPoint>
+        <navPoint id="navPoint147" playOrder="134">
+          <navLabel>
+            <text>MATHEMATICAL MODELING OF DECOMP</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#mathematical-modeling-of-decomp" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint148" playOrder="135">
+        <navLabel>
+          <text>TECHNICAL APPENDIX: SUMMARY OF EPE MANUALS ON THE MDI</text>
+        </navLabel>
+        <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#technical-appendix-summary-of-epe-manuals-on-the-mdi" />  
+        <navPoint id="navPoint149" playOrder="135">
+          <navLabel>
+            <text>TECHNICAL APPENDIX: SUMMARY OF EPE MANUALS ON THE MDI</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#technical-appendix-summary-of-epe-manuals-on-the-mdi" />  
+        </navPoint>
+        <navPoint id="navPoint150" playOrder="136">
+          <navLabel>
+            <text>CENTRAL CONCEPT</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#central-concept" />  
+        </navPoint>
+        <navPoint id="navPoint151" playOrder="137">
+          <navLabel>
+            <text>MODEL STRUCTURE</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#model-structure" />  
+        </navPoint>
+        <navPoint id="navPoint152" playOrder="138">
+          <navLabel>
+            <text>FUNDAMENTAL CONSTRAINTS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#fundamental-constraints" />  
+        </navPoint>
+        <navPoint id="navPoint153" playOrder="139">
+          <navLabel>
+            <text>GENERATION SOURCE MODELING</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#generation-source-modeling" />  
+        </navPoint>
+        <navPoint id="navPoint154" playOrder="140">
+          <navLabel>
+            <text>UNCERTAINTY SCENARIOS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#uncertainty-scenarios" />  
+        </navPoint>
+        <navPoint id="navPoint155" playOrder="141">
+          <navLabel>
+            <text>MARGINAL EXPANSION COST (CME)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#marginal-expansion-cost-cme" />  
+        </navPoint>
+        <navPoint id="navPoint156" playOrder="142">
+          <navLabel>
+            <text>KEY CONCEPTS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#key-concepts" />  
+        </navPoint>
+        <navPoint id="navPoint157" playOrder="143">
+          <navLabel>
+            <text>MATHEMATICAL MODELING OF MDI</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#mathematical-modeling-of-mdi" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint158" playOrder="144">
+        <navLabel>
+          <text>TECHNICAL APPENDIX: OPTIMIZATION METHODS</text>
+        </navLabel>
+        <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#technical-appendix-optimization-methods" />  
+        <navPoint id="navPoint159" playOrder="144">
+          <navLabel>
+            <text>TECHNICAL APPENDIX: OPTIMIZATION METHODS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#technical-appendix-optimization-methods" />  
+        </navPoint>
+        <navPoint id="navPoint160" playOrder="145">
+          <navLabel>
+            <text>LP (LINEAR PROGRAMMING – CONTINUOUS LINEAR PROGRAMMING)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#lp-linear-programming-continuous-linear-programming" />  
+        </navPoint>
+        <navPoint id="navPoint161" playOrder="146">
+          <navLabel>
+            <text>MILP (MIXED-INTEGER LINEAR PROGRAMMING)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#milp-mixed-integer-linear-programming" />  
+        </navPoint>
+        <navPoint id="navPoint162" playOrder="147">
+          <navLabel>
+            <text>QP (QUADRATIC PROGRAMMING – CONVEX CONTINUOUS QUADRATIC PROGRAMMING)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#qp-quadratic-programming-convex-continuous-quadratic-programming" />  
+        </navPoint>
+        <navPoint id="navPoint163" playOrder="148">
+          <navLabel>
+            <text>MIQP (MIXED-INTEGER QUADRATIC PROGRAMMING – CONVEX FORMULATION)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#miqp-mixed-integer-quadratic-programming-convex-formulation" />  
+        </navPoint>
+        <navPoint id="navPoint164" playOrder="149">
+          <navLabel>
+            <text>NLP (NONLINEAR PROGRAMMING – CONTINUOUS NONLINEAR PROGRAMMING)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#nlp-nonlinear-programming-continuous-nonlinear-programming" />  
+        </navPoint>
+        <navPoint id="navPoint165" playOrder="150">
+          <navLabel>
+            <text>MINLP (MIXED-INTEGER NONLINEAR PROGRAMMING)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#minlp-mixed-integer-nonlinear-programming" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint166" playOrder="151">
+        <navLabel>
+          <text>SUPPLEMENTARY APPENDIX: UNCERTAINTIES AND D-OPF</text>
+        </navLabel>
+        <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#supplementary-appendix-uncertainties-and-d-opf" />  
+        <navPoint id="navPoint167" playOrder="151">
+          <navLabel>
+            <text>SUPPLEMENTARY APPENDIX: UNCERTAINTIES AND D-OPF</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#supplementary-appendix-uncertainties-and-d-opf" />  
+        </navPoint>
+        <navPoint id="navPoint168" playOrder="152">
+          <navLabel>
+            <text>OPTIMIZATION UNDER UNCERTAINTY</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#optimization-under-uncertainty" />  
+        </navPoint>
+        <navPoint id="navPoint169" playOrder="153">
+          <navLabel>
+            <text>D-OPF FORMULATIONS (OPTIMAL POWER FLOW IN DISTRIBUTION NETWORKS)</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#d-opf-formulations-optimal-power-flow-in-distribution-networks" />  
+        </navPoint>
+        <navPoint id="navPoint170" playOrder="154">
+          <navLabel>
+            <text>SUMMARY OF D-OPF FORMULATIONS</text>
+          </navLabel>
+          <content src="topics_on_planning_and_expansion_of_power_systems.xhtml#summary-of-d-opf-formulations" />  
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint171" playOrder="155">
+      <navLabel>
+        <text>USER GUIDE</text>
+      </navLabel>
+      <content src="userguide.xhtml" />  
+      <navPoint id="navPoint172" playOrder="155">
+        <navLabel>
+          <text>USER GUIDE</text>
+        </navLabel>
+        <content src="userguide.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint173" playOrder="156">
+        <navLabel>
+          <text>1. INTRODUCTION</text>
+        </navLabel>
+        <content src="userguide.xhtml#introduction" />  
+        <navPoint id="navPoint174" playOrder="156">
+          <navLabel>
+            <text>1. INTRODUCTION</text>
+          </navLabel>
+          <content src="userguide.xhtml#introduction" />  
+        </navPoint>
+        <navPoint id="navPoint175" playOrder="157">
+          <navLabel>
+            <text>PURPOSE AND SCOPE</text>
+          </navLabel>
+          <content src="userguide.xhtml#purpose-and-scope" />  
+        </navPoint>
+        <navPoint id="navPoint176" playOrder="158">
+          <navLabel>
+            <text>CONCEPTUAL FOUNDATIONS</text>
+          </navLabel>
+          <content src="userguide.xhtml#conceptual-foundations" />  
+        </navPoint>
+        <navPoint id="navPoint177" playOrder="159">
+          <navLabel>
+            <text>TARGET AUDIENCE</text>
+          </navLabel>
+          <content src="userguide.xhtml#target-audience" />  
+        </navPoint>
+        <navPoint id="navPoint178" playOrder="160">
+          <navLabel>
+            <text>SYSTEM REQUIREMENTS</text>
+          </navLabel>
+          <content src="userguide.xhtml#system-requirements" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint179" playOrder="161">
+        <navLabel>
+          <text>2. INSTALLATION GUIDE</text>
+        </navLabel>
+        <content src="userguide.xhtml#installation-guide" />  
+        <navPoint id="navPoint180" playOrder="161">
+          <navLabel>
+            <text>2. INSTALLATION GUIDE</text>
+          </navLabel>
+          <content src="userguide.xhtml#installation-guide" />  
+        </navPoint>
+        <navPoint id="navPoint181" playOrder="162">
+          <navLabel>
+            <text>1. CREATE AND ACTIVATE A VIRTUAL ENVIRONMENT</text>
+          </navLabel>
+          <content src="userguide.xhtml#create-and-activate-a-virtual-environment" />  
+        </navPoint>
+        <navPoint id="navPoint182" playOrder="163">
+          <navLabel>
+            <text>2. INSTALL NaivePyDESSEM</text>
+          </navLabel>
+          <content src="userguide.xhtml#install-naivepydessem" />  
+        </navPoint>
+        <navPoint id="navPoint183" playOrder="164">
+          <navLabel>
+            <text>3. BUILD PYOMO EXTENSIONS</text>
+          </navLabel>
+          <content src="userguide.xhtml#build-pyomo-extensions" />  
+        </navPoint>
+        <navPoint id="navPoint184" playOrder="165">
+          <navLabel>
+            <text>4. INSTALL AND CONFIGURE OPTIMIZATION SOLVERS</text>
+          </navLabel>
+          <content src="userguide.xhtml#install-and-configure-optimization-solvers" />  
+        </navPoint>
+        <navPoint id="navPoint185" playOrder="166">
+          <navLabel>
+            <text>5. VALIDATE THE ENVIRONMENT</text>
+          </navLabel>
+          <content src="userguide.xhtml#validate-the-environment" />  
+        </navPoint>
+        <navPoint id="navPoint186" playOrder="167">
+          <navLabel>
+            <text>6. (OPTIONAL) UPGRADE OR UNINSTALL</text>
+          </navLabel>
+          <content src="userguide.xhtml#optional-upgrade-or-uninstall" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint187" playOrder="168">
+        <navLabel>
+          <text>3. PROBLEM FORMULATION AND MATHEMATICAL MODELING</text>
+        </navLabel>
+        <content src="userguide.xhtml#problem-formulation-and-mathematical-modeling" />  
+        <navPoint id="navPoint188" playOrder="168">
+          <navLabel>
+            <text>3. PROBLEM FORMULATION AND MATHEMATICAL MODELING</text>
+          </navLabel>
+          <content src="userguide.xhtml#problem-formulation-and-mathematical-modeling" />  
+        </navPoint>
+        <navPoint id="navPoint189" playOrder="169">
+          <navLabel>
+            <text>MATHEMATICAL MODELING OF DESSEM</text>
+          </navLabel>
+          <content src="userguide.xhtml#mathematical-modeling-of-dessem" />  
+        </navPoint>
+        <navPoint id="navPoint190" playOrder="170">
+          <navLabel>
+            <text>MATHEMATICAL MODELING OF DECOMP</text>
+          </navLabel>
+          <content src="userguide.xhtml#mathematical-modeling-of-decomp" />  
+        </navPoint>
+        <navPoint id="navPoint191" playOrder="171">
+          <navLabel>
+            <text>MATHEMATICAL MODELING OF MDI</text>
+          </navLabel>
+          <content src="userguide.xhtml#mathematical-modeling-of-mdi" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint192" playOrder="172">
+        <navLabel>
+          <text>4. MODEL ARCHITECTURE</text>
+        </navLabel>
+        <content src="userguide.xhtml#model-architecture" />  
+        <navPoint id="navPoint193" playOrder="172">
+          <navLabel>
+            <text>4. MODEL ARCHITECTURE</text>
+          </navLabel>
+          <content src="userguide.xhtml#model-architecture" />  
+        </navPoint>
+        <navPoint id="navPoint194" playOrder="173">
+          <navLabel>
+            <text>OVERVIEW</text>
+          </navLabel>
+          <content src="userguide.xhtml#overview" />  
+        </navPoint>
+        <navPoint id="navPoint195" playOrder="174">
+          <navLabel>
+            <text>PACKAGE HIERARCHY</text>
+          </navLabel>
+          <content src="userguide.xhtml#package-hierarchy" />  
+        </navPoint>
+        <navPoint id="navPoint196" playOrder="175">
+          <navLabel>
+            <text>DESIGN OVERVIEW</text>
+          </navLabel>
+          <content src="userguide.xhtml#design-overview" />  
+        </navPoint>
+        <navPoint id="navPoint197" playOrder="176">
+          <navLabel>
+            <text>🧭 COMMAND-LINE INTERFACE (CLI)</text>
+          </navLabel>
+          <content src="userguide.xhtml#command-line-interface-cli" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint198" playOrder="177">
+        <navLabel>
+          <text>5. CLI ARGUMENTS</text>
+        </navLabel>
+        <content src="userguide.xhtml#cli-arguments" />  
+        <navPoint id="navPoint199" playOrder="177">
+          <navLabel>
+            <text>5. CLI ARGUMENTS</text>
+          </navLabel>
+          <content src="userguide.xhtml#cli-arguments" />  
+        </navPoint>
+        <navPoint id="navPoint200" playOrder="178">
+          <navLabel>
+            <text>1. SOLVER CLI</text>
+          </navLabel>
+          <content src="userguide.xhtml#solver-cli" />  
+        </navPoint>
+        <navPoint id="navPoint201" playOrder="179">
+          <navLabel>
+            <text>2. PLOT CLI</text>
+          </navLabel>
+          <content src="userguide.xhtml#plot-cli" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint202" playOrder="180">
+        <navLabel>
+          <text>6. YAML CONFIGURATION</text>
+        </navLabel>
+        <content src="userguide.xhtml#yaml-configuration" />  
+        <navPoint id="navPoint203" playOrder="180">
+          <navLabel>
+            <text>6. YAML CONFIGURATION</text>
+          </navLabel>
+          <content src="userguide.xhtml#yaml-configuration" />  
+        </navPoint>
+        <navPoint id="navPoint204" playOrder="181">
+          <navLabel>
+            <text>🧩 STEP-BY-STEP: BUILDING A DESSEM CONFIGURATION FILE</text>
+          </navLabel>
+          <content src="userguide.xhtml#step-by-step-building-a-dessem-configuration-file" />  
+        </navPoint>
+        <navPoint id="navPoint205" playOrder="182">
+          <navLabel>
+            <text>🧩 STEP-BY-STEP: BUILDING A DECOMP CONFIGURATION FILE</text>
+          </navLabel>
+          <content src="userguide.xhtml#step-by-step-building-a-decomp-configuration-file" />  
+        </navPoint>
+        <navPoint id="navPoint206" playOrder="183">
+          <navLabel>
+            <text>🧩 STEP-BY-STEP: BUILDING AN MDI CONFIGURATION FILE</text>
+          </navLabel>
+          <content src="userguide.xhtml#step-by-step-building-an-mdi-configuration-file" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint207" playOrder="184">
+        <navLabel>
+          <text>7. MORE EXAMPLES</text>
+        </navLabel>
+        <content src="userguide.xhtml#more-examples" />  
       </navPoint>
     </navPoint>
   </navMap>

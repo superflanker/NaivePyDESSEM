@@ -341,7 +341,7 @@ bars:
 lines:                             
   units:                            # Dict[str, TransmissionLine]
     LINE_1:                         # convenção {LINE}_{UNIT}
-      model: "dc"            # modelo utilizado (transport, dc)
-      b: 2                          # reatãncia da linha (pu)
-      pmax: 1_000                  # potência máxima da linha (MW)
+      model: "dc"                   # modelo utilizado (transport, dc)
+      b: 2.0                        # reatãncia da linha (pu)
+      pmax: 2_000                   # potência máxima da linha (MW)
       endpoints: ["BAR_1", "BAR_2"] # circuito

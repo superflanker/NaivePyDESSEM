@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>MDI.ConnectionBar package</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/epub.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="mdi-connectionbar-package">
+<h1>MDI.ConnectionBar package</h1>
+<section id="module-MDI.ConnectionBar">
+<span id="module-contents"></span><h2>Module contents</h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Package: ConnectionBar</p>
+<section id="author">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="description">
+<h3>Description</h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">ConnectionBar</span></code> package defines a modular abstraction of electrical
+connection bars (buses) for DC power flow formulations within Pyomo-based
+optimization frameworks. It encapsulates data structures, variable
+definitions, constraint formulations, symbolic equation builders, and
+model assembly routines used in operation and expansion studies such as
+DECOMP, DESSEM, and the MDI model.</p>
+</section>
+<section id="modules">
+<h3>Modules</h3>
+<dl class="simple">
+<dt>ConnectionBarDataTypes</dt><dd><p>Defines the data classes (<code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionBarUnit</span></code>,
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionBarData</span></code>) that describe the electrical and
+operational attributes of each bar, including demand, state,
+and slack configuration.</p>
+</dd>
+<dt>ConnectionBarVars</dt><dd><p>Declares sets, parameters, and decision variables for connection bars,
+such as phase angles (<code class="docutils literal notranslate"><span class="pre">θ_b</span></code>) and deficit variables (<code class="docutils literal notranslate"><span class="pre">D[b,t]</span></code>),
+ensuring consistency with system-wide formulations.</p>
+</dd>
+<dt>ConnectionBarConstraints</dt><dd><p>Implements the physical and operational constraints of the subsystem:
+- Slack-bar reference condition (θ = 0)
+- Angular limits for non-slack bars (−π ≤ θ ≤ π)
+- Nodal power balance (Kirchhoff’s 1st Law)</p>
+</dd>
+<dt>ConnectionBarEquations</dt><dd><p>Provides modular symbolic expression builders used to assemble the
+nodal power balance equation by integrating hydro, thermal, renewable,
+storage, and transmission contributions.</p>
+</dd>
+<dt>ConnectionBarBuilder</dt><dd><p>High-level model constructor that orchestrates all components,
+producing a complete Pyomo <code class="docutils literal notranslate"><span class="pre">ConcreteModel</span></code> configured with the
+relevant sets, variables, and constraints for each connection bar.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The package is designed for hierarchical integration with higher-level
+systems involving generation and transmission models.</p></li>
+<li><p>It serves as the foundation for hybrid and multi-bar DC formulations
+in short-term (DESSEM), medium-term (DECOMP), and long-term (MDI)
+optimization contexts.</p></li>
+<li><p>Each module can be used independently or assembled through
+<code class="xref py py-func docutils literal notranslate"><span class="pre">build_connection_bars()</span></code>.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="submodules">
+<h2>Submodules</h2>
+</section>
+<section id="module-MDI.ConnectionBar.ConnectionBarConstraints">
+<span id="mdi-connectionbar-connectionbarconstraints-module"></span><h2>MDI.ConnectionBar.ConnectionBarConstraints module</h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Connection Bar — Balance Constraints</p>
+<section id="id1">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id2">
+<h3>Description</h3>
+<p>This module defines the nodal (per-bar) power balance constraints for
+Pyomo-based operation and expansion models. It enforces Kirchhoff’s
+Current Law (1st Law) at each connection bar and time period, ensuring
+that total injections (generation, inflows) and withdrawals (demand,
+outflows, and storage) are balanced.</p>
+</section>
+<section id="functions">
+<h3>Functions</h3>
+<dl class="simple">
+<dt>add_connection_bar_balance_constraint(m)</dt><dd><p>Assemble and add the nodal power balance constraints for all bars
+and time periods using the component expressions provided by
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">ConnectionBarEquations</span></code>.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The routine calls modular expression builders such as
+<code class="xref py py-func docutils literal notranslate"><span class="pre">add_hydraulic_balance_expression()</span></code>,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">add_thermal_balance_expression()</span></code>,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">add_renewable_balance_expression()</span></code>,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">add_storage_balance_expression()</span></code>, and
+<code class="xref py py-func docutils literal notranslate"><span class="pre">add_transmission_line_balance_expression()</span></code>.</p></li>
+<li><p>Each time period <code class="docutils literal notranslate"><span class="pre">t</span></code> generates a set of symbolic expressions by bar,
+which are then converted into Pyomo constraints and appended to
+<code class="docutils literal notranslate"><span class="pre">m.Balance</span></code> (a <code class="xref py py-class docutils literal notranslate"><span class="pre">pyomo.core.base.constraint.ConstraintList</span></code>).</p></li>
+<li><p>This formulation supports hybrid systems (hydro, thermal, renewable,
+storage) with multiple connection bars.</p></li>
+<li><p>The deficit variable <code class="docutils literal notranslate"><span class="pre">m.D[bar,t]</span></code> ensures model feasibility whenever
+the available generation and imports cannot fully meet local demand.</p></li>
+<li><p>For single-bus systems, the resulting formulation is equivalent to the
+traditional system-wide balance equation.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_angle_limits_constraints">
+<span class="sig-prename descclassname"><span class="pre">MDI.ConnectionBar.ConnectionBarConstraints.</span></span><span class="sig-name descname"><span class="pre">add_connection_bar_angle_limits_constraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Add angular bounds for non-slack connection bars.</p>
+<p>Enforces -π ≤ θ_b ≤ π for all bars that are not marked as slack.
+This constraint bounds the nodal phase angles in DC power flow
+formulations, preventing unrealistic or numerically unstable
+solutions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing:
+- <code class="docutils literal notranslate"><span class="pre">m.BAR</span></code> : set of all bars
+- <code class="docutils literal notranslate"><span class="pre">m.SB</span></code> : set of slack bars
+- <code class="docutils literal notranslate"><span class="pre">m.theta[b]</span></code> : voltage phase angle variable (radians)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model with constraint block <code class="docutils literal notranslate"><span class="pre">m.AngleLimits</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The bounds are symbolic (±π radians) and apply only to non-slack bars.</p></li>
+<li><p>The restriction helps numerical stability when solving large MILP
+or MINLP systems involving binary investment variables.</p></li>
+<li><p>This function complements <a class="reference internal" href="#MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_slack_constraints" title="MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_slack_constraints"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_connection_bar_slack_constraints()</span></code></a>.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_balance_constraints">
+<span class="sig-prename descclassname"><span class="pre">MDI.ConnectionBar.ConnectionBarConstraints.</span></span><span class="sig-name descname"><span class="pre">add_connection_bar_balance_constraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Add nodal power balance constraints for all connection bars and time periods.</p>
+<p>For each period <code class="docutils literal notranslate"><span class="pre">t</span></code> in the planning horizon, this function assembles
+the power balance expressions by connection bar (node) using
+<code class="xref py py-func docutils literal notranslate"><span class="pre">add_connection_bar_balance_expression()</span></code>, and converts them into
+Pyomo constraints stored in <code class="docutils literal notranslate"><span class="pre">m.Balance</span></code>.</p>
+<p>Mathematically, for each bar <code class="docutils literal notranslate"><span class="pre">b</span></code> and period <code class="docutils literal notranslate"><span class="pre">t</span></code>:</p>
+<div class="math">
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><munder><mo>∑</mo><mrow><mi>s</mi><mo>∈</mo><msub><mi>S</mi><mi>b</mi></msub></mrow></munder><msubsup><mi>P</mi><mrow><mi>s</mi><mo separator="true">,</mo><mi>t</mi></mrow><mtext>gen</mtext></msubsup><mo>+</mo><munder><mo>∑</mo><mrow><mi>i</mi><mo>:</mo><mo stretchy="false">(</mo><mi>i</mi><mo separator="true">,</mo><mi>b</mi><mo stretchy="false">)</mo><mo>∈</mo><mi mathvariant="script">L</mi></mrow></munder><msub><mi>F</mi><mrow><mi>i</mi><mi>b</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><mo>−</mo><munder><mo>∑</mo><mrow><mi>j</mi><mo>:</mo><mo stretchy="false">(</mo><mi>b</mi><mo separator="true">,</mo><mi>j</mi><mo stretchy="false">)</mo><mo>∈</mo><mi mathvariant="script">L</mi></mrow></munder><msub><mi>F</mi><mrow><mi>b</mi><mi>j</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><mo>+</mo><msub><mi>D</mi><mrow><mi>b</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><mo>=</mo><msub><mi>d</mi><mrow><mi>b</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\sum_{s \in S_b} P^{\text{gen}}_{s,t}
++ \sum_{i:(i,b)\in\mathcal{L}} F_{i b,t}
+- \sum_{j:(b,j)\in\mathcal{L}} F_{b j,t}
++ D_{b,t} = d_{b,t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.4502em;vertical-align:-1.4002em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8557em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mrel mtight">∈</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:-0.0576em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.4002em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7823em;"><span style="top:-2.4542em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span><span style="top:-3.1809em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">gen</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3819em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.566em;vertical-align:-1.516em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.809em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">:</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">b</span><span class="mclose mtight">)</span><span class="mrel mtight">∈</span><span class="mord mathcal mtight">L</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.516em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ib</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.566em;vertical-align:-1.516em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.809em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mrel mtight">:</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight">b</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mclose mtight">)</span><span class="mrel mtight">∈</span><span class="mord mathcal mtight">L</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.516em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">bj</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">b</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">b</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span></div><dl class="simple">
+<dt>where:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">P^{gen}</span></code> represents generation injections (hydro, thermal, renewable, storage),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F_{ij,t}</span></code> are line flows between bars <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code>,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">D_{b,t}</span></code> is the local deficit variable,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d_{b,t}</span></code> is the active demand at bar <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing:
+- Sets: <code class="docutils literal notranslate"><span class="pre">m.BAR</span></code> (connection bars), <code class="docutils literal notranslate"><span class="pre">m.T</span></code> (time periods)
+- Variables: <code class="docutils literal notranslate"><span class="pre">m.D[bar,t]</span></code> (deficit), generation and flow variables
+- Parameters: <code class="docutils literal notranslate"><span class="pre">m.d[bar,t]</span></code> (demand per bar and time)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model with all bar-level power balance constraints
+added to <code class="docutils literal notranslate"><span class="pre">m.Balance</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_capacity_constraints">
+<span class="sig-prename descclassname"><span class="pre">MDI.ConnectionBar.ConnectionBarConstraints.</span></span><span class="sig-name descname"><span class="pre">add_connection_bar_capacity_constraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Add system adequacy (generation capacity) constraints to the model.</p>
+<p>This function enforces that the total available generation and storage
+capacity across all bars, time periods, and load levels must be at least
+equal to the total system demand. It represents the <em>resource adequacy</em>
+condition of the model and defines, in its dual form, the
+<strong>Custo Marginal de Expansão (CME)</strong> or <em>Expansion Marginal Cost</em>.</p>
+<section id="mathematically">
+<h3>Mathematically</h3>
+<p>For each time period t and load level p:</p>
+<div class="math">
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><munder><mo>∑</mo><mrow><mi>g</mi><mo>∈</mo><mi>G</mi></mrow></munder><msubsup><mi>P</mi><mi>g</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msubsup><mtext>  </mtext><msub><mi>x</mi><mrow><mi>g</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><mtext>  </mtext><mo>+</mo><mtext>  </mtext><munder><mo>∑</mo><mrow><mi>s</mi><mo>∈</mo><mi>S</mi></mrow></munder><mfrac><msubsup><mi>P</mi><mrow><mi>d</mi><mi>i</mi><mi>s</mi><mo separator="true">,</mo><mi>s</mi><mo separator="true">,</mo><mi>p</mi></mrow><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msubsup><msub><mi>h</mi><mi>p</mi></msub></mfrac><mtext>  </mtext><msub><mi>x</mi><mrow><mi>s</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><mtext>  </mtext><mo>≥</mo><mtext>  </mtext><munder><mo>∑</mo><mrow><mi>b</mi><mo>∈</mo><mi>B</mi></mrow></munder><msub><mi>D</mi><mrow><mi>b</mi><mo separator="true">,</mo><mi>t</mi><mo separator="true">,</mo><mi>p</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\sum_{g \in G} P^{max}_g \; x_{g,t}
+\; + \;
+\sum_{s \in S} \frac{P^{max}_{dis,s,p}}{h_p} \; x_{s,t}
+\; \geq \;
+\sum_{b \in B} D_{b,t,p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.4804em;vertical-align:-1.4304em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8557em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight">G</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.4304em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-2.453em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3831em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.8143em;vertical-align:-1.3217em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8557em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3217em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4925em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.8092em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-2.4169em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">s</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">s</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">p</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4192em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9721em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.3795em;vertical-align:-1.3295em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8479em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">b</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3295em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">b</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">p</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span></div><dl class="simple">
+<dt>where:</dt><dd><ul class="simple">
+<li><p><span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mi>g</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">x_{g,t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span> is the investment or operational existence variable for generator g,</p></li>
+<li><p><span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mi>s</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">x_{s,t}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span> is the existence variable for storage unit s,</p></li>
+<li><p><span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>P</mi><mi>g</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msubsup></mrow><annotation encoding="application/x-tex">P^{max}_g</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0664em;vertical-align:-0.3831em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-2.453em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3831em;"><span></span></span></span></span></span></span></span></span></span></span> is the maximum generation capacity of unit g (MW),</p></li>
+<li><p><span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>P</mi><mrow><mi>d</mi><mi>i</mi><mi>s</mi><mo separator="true">,</mo><mi>s</mi><mo separator="true">,</mo><mi>p</mi></mrow><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msubsup></mrow><annotation encoding="application/x-tex">P^{max}_{dis,s,p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1025em;vertical-align:-0.4192em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-2.4169em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">s</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">s</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">p</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4192em;"><span></span></span></span></span></span></span></span></span></span></span> is the maximum discharge power of storage unit s (MWh/patamar),</p></li>
+<li><p><span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">h_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span> is the number of hours in load level p,</p></li>
+<li><p><span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>D</mi><mrow><mi>b</mi><mo separator="true">,</mo><mi>t</mi><mo separator="true">,</mo><mi>p</mi></mrow></msub></mrow><annotation encoding="application/x-tex">D_{b,t,p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">b</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">p</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span> is the demand at bus b, time t, and level p.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">param m<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The Pyomo model containing the sets, parameters, and variables for
+generation, storage, and demand. It must include:
+- <code class="docutils literal notranslate"><span class="pre">GU</span></code> : set of generators,
+- <code class="docutils literal notranslate"><span class="pre">SU</span></code> : set of storage units,
+- <code class="docutils literal notranslate"><span class="pre">CB</span></code> : set of connection bars,
+- <code class="docutils literal notranslate"><span class="pre">T</span></code>  : set of time periods,
+- <code class="docutils literal notranslate"><span class="pre">P</span></code>  : set of load levels.</p>
+</dd>
+<dt class="field-even">type m<span class="colon">:</span></dt>
+<dd class="field-even"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The same model instance, augmented with the adequacy constraints.</p>
+</dd>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
+<dd class="field-even"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_slack_constraints">
+<span class="sig-prename descclassname"><span class="pre">MDI.ConnectionBar.ConnectionBarConstraints.</span></span><span class="sig-name descname"><span class="pre">add_connection_bar_slack_constraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Add the slack-bar reference constraints to fix phase angles.</p>
+<p>Enforces θ_b = 0 for all bars marked as slack in the system data,
+establishing the angular reference for the DC power flow model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance containing:
+- <code class="docutils literal notranslate"><span class="pre">m.theta[b]</span></code> : voltage phase angle variable (radians)
+- <code class="docutils literal notranslate"><span class="pre">m.SB</span></code> : set of bars designated as reference</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model with constraint block <code class="docutils literal notranslate"><span class="pre">m.SlackConstraint</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The DC power flow equations determine only angle differences,
+so a reference (slack) bar must be fixed to zero to avoid
+singularity in the system Jacobian.</p></li>
+<li><p>In multi-slack configurations (rare but possible), all selected
+bars are fixed to θ = 0.</p></li>
+<li><p>This constraint should be added <strong>after</strong> variable declaration
+and set initialization (i.e., after <code class="xref py py-mod docutils literal notranslate"><span class="pre">ConnectionBarVariables</span></code>).</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-MDI.ConnectionBar.ConnectionBarDataTypes">
+<span id="mdi-connectionbar-connectionbardatatypes-module"></span><h2>MDI.ConnectionBar.ConnectionBarDataTypes module</h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Connection Bar Data Structures</p>
+<section id="id3">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id4">
+<h3>Description</h3>
+<p>This module defines lightweight data classes for representing
+connection bars (buses) in power system operation and expansion
+models. Each connection bar encapsulates its electrical state,
+demand profile, and configuration parameters. The aggregated
+system-level data structure (<cite>ConnectionBarData</cite>) groups all
+bars with the planning horizon and deficit penalty cost.</p>
+</section>
+<section id="classes">
+<h3>Classes</h3>
+<dl class="simple">
+<dt>ConnectionBarUnit</dt><dd><p>Represents a single connection bar (bus) with demand profile,
+slack flag, and operational attributes.</p>
+</dd>
+<dt>ConnectionBarData</dt><dd><p>Aggregates multiple connection bars with common parameters
+such as planning horizon, system-level demand reference, and
+deficit cost.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The demand profile of each bar is expressed as a deterministic
+time series aligned with the planning horizon.</p></li>
+<li><p>These structures serve as standardized inputs for Pyomo-based
+formulations of DECOMP, DESSEM, or the abstracted MDI model.</p></li>
+<li><p>Extend as needed to include locational data, voltage levels,
+or stochastic demand scenarios.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.ConnectionBar.ConnectionBarDataTypes.</span></span><span class="sig-name descname"><span class="pre">ConnectionBarData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit" title="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit"><span class="pre">ConnectionBarUnit</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>System-wide data structure for connection bars.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>horizon</strong> (<em>int</em>) – Number of planning periods.</p></li>
+<li><p><strong>units</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit" title="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit"><em>ConnectionBarUnit</em></a><em>]</em>) – Mapping of bar identifiers to their <a class="reference internal" href="#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit" title="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConnectionBarUnit</span></code></a> instances.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The attribute <code class="docutils literal notranslate"><span class="pre">units</span></code> aggregates all bars of the system.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Cdef</span></code> is used to penalize deficit variables <code class="docutils literal notranslate"><span class="pre">D[b,t]</span></code> in the objective.</p></li>
+<li><p>In hierarchical models, this class provides the bar-level data consumed
+by the module <code class="xref py py-mod docutils literal notranslate"><span class="pre">ConnectionBarVariables</span></code>.</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData.horizon">
+<span class="sig-name descname"><span class="pre">horizon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit" title="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit"><span class="pre">ConnectionBarUnit</span></a><span class="p"><span class="pre">]</span></span></em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">MDI.ConnectionBar.ConnectionBarDataTypes.</span></span><span class="sig-name descname"><span class="pre">ConnectionBarUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cdef</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_pmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Data container for an electrical connection bar (bus).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Unique identifier for the bar (e.g., <code class="docutils literal notranslate"><span class="pre">'BAR_1'</span></code>).</p></li>
+<li><p><strong>slack</strong> (<em>bool</em>) – True if the bar is the system reference (angle fixed at 0 rad).</p></li>
+<li><p><strong>Cdef</strong> (<em>float</em><em>, </em><em>optional</em>) – Penalty cost for unmet demand (R$/MWh). Default is <code class="docutils literal notranslate"><span class="pre">500.0</span></code>.</p></li>
+<li><p><strong>c_pmax</strong> (<em>float</em><em>, </em><em>optional</em>) – Max power of the deficit (MW)</p></li>
+<li><p><strong>demand</strong> (<em>dict</em><em> of </em><em>{str: list</em><em> of </em><em>float}</em>) – Nested dictionary containing demand data per load level and time period.
+Example structure:
+<code class="docutils literal notranslate"><span class="pre">{&quot;Ponta&quot;:</span> <span class="pre">[500,</span> <span class="pre">550,</span> <span class="pre">600],</span> <span class="pre">&quot;Fora&quot;:</span> <span class="pre">[300,</span> <span class="pre">320,</span> <span class="pre">350]}</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">demand</span></code> list length must equal the planning horizon.</p></li>
+<li><p>The attribute <code class="docutils literal notranslate"><span class="pre">slack</span></code> is used to define the voltage angle reference
+in DC power flow formulations.</p></li>
+<li><p>The fields <code class="docutils literal notranslate"><span class="pre">c_op</span></code> and <code class="docutils literal notranslate"><span class="pre">c_inv</span></code> are placeholders for compatibility
+with expansion models (MDI), though typically unused in operation models.</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.Cdef">
+<span class="sig-name descname"><span class="pre">Cdef</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.c_pmax">
+<span class="sig-name descname"><span class="pre">c_pmax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.demand">
+<span class="sig-name descname"><span class="pre">demand</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.slack">
+<span class="sig-name descname"><span class="pre">slack</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-MDI.ConnectionBar.ConnectionBarEquations">
+<span id="mdi-connectionbar-connectionbarequations-module"></span><h2>MDI.ConnectionBar.ConnectionBarEquations module</h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Connection Bar — Symbolic Expressions for Pyomo Models</p>
+<section id="id5">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id6">
+<h3>Description</h3>
+<p>This module defines symbolic expressions for connection bars (buses) in
+the context of integrated operation and expansion planning models (MDI).
+It provides functions to build cost and balance expressions that integrate
+generation, storage, and transmission subsystems within a unified
+mathematical formulation.</p>
+<p>The functions are designed for modular assembly of Pyomo-based models,
+allowing each subsystem to contribute its respective terms to the global
+objective function and nodal power balance constraints.</p>
+<p>Each function performs internal verification of required components,
+ensuring flexibility when operating within partially defined or staged
+model configurations (e.g., single-node, multi-bar, or hybrid systems).</p>
+</section>
+<section id="intended-use">
+<h3>Intended Use</h3>
+<ul class="simple">
+<li><p>To assemble total system cost expressions including generation,
+storage, deficit, and network effects.</p></li>
+<li><p>To construct nodal (bus-level) power balance equations that ensure
+Kirchhoff’s law compliance across the network.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cost_terms</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_connection_bar_cost_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cost_terms</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">TotalCost</span> <span class="o">=</span> <span class="n">Objective</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">cost_terms</span><span class="p">),</span> <span class="n">sense</span><span class="o">=</span><span class="n">minimize</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">balance_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_connection_bar_balance_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;Ponta&quot;</span><span class="p">,</span> <span class="n">balance_array</span><span class="o">=</span><span class="n">balance_dict</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">bar</span><span class="p">,</span> <span class="n">expr</span> <span class="ow">in</span> <span class="n">balance_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">model</span><span class="o">.</span><span class="n">PowerBalance</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This module assumes that the model contains:
+<cite>CB</cite> (connection bars), <cite>T</cite> (time set), <cite>P</cite> (load levels),
+and subsystem modules with balance functions for
+generation, storage, and transmission.</p></li>
+<li><p>Cost expressions include deficit penalties (<cite>Cdef * D[b,t,p]</cite>)
+weighted by discount factors and load duration.</p></li>
+<li><p>The resulting symbolic expressions are compatible with both
+ConstraintList and indexed Constraint formulations in Pyomo.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM — Metodologia de Modelagem Hidrotérmica, 2023
+[2] Unsihuay Vila, C. (2023). Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarEquations.add_connection_bar_balance_expression">
+<span class="sig-prename descclassname"><span class="pre">MDI.ConnectionBar.ConnectionBarEquations.</span></span><span class="sig-name descname"><span class="pre">add_connection_bar_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dd><p>Construct the nodal power balance expressions for each connection bar.</p>
+<p>Aggregates all inflows and outflows of power at time <code class="docutils literal notranslate"><span class="pre">t</span></code> and load
+level <code class="docutils literal notranslate"><span class="pre">p</span></code> for each connection bar. Includes generation, storage,
+transmission, and deficit components.</p>
+<p>Mathematically, for each bar <code class="docutils literal notranslate"><span class="pre">b</span></code>:</p>
+<div class="math">
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><munder><mo>∑</mo><mrow><mi>g</mi><mo>∈</mo><msub><mi>G</mi><mi>b</mi></msub></mrow></munder><msub><mi>P</mi><mrow><mi>g</mi><mo separator="true">,</mo><mi>t</mi><mo separator="true">,</mo><mi>p</mi></mrow></msub><mo>+</mo><munder><mo>∑</mo><mrow><mi>s</mi><mo>∈</mo><msub><mi>S</mi><mi>b</mi></msub></mrow></munder><mo stretchy="false">(</mo><mi>d</mi><mi>i</mi><msub><mi>s</mi><mi>s</mi></msub><mo>−</mo><mi>c</mi><msub><mi>h</mi><mi>s</mi></msub><mo stretchy="false">)</mo><mo>+</mo><munder><mo>∑</mo><mrow><mi mathvariant="normal">ℓ</mi><mo>∈</mo><msubsup><mi mathvariant="normal">Ω</mi><mi>b</mi><mrow><mi>i</mi><mi>n</mi></mrow></msubsup></mrow></munder><msub><mi>F</mi><mrow><mi mathvariant="normal">ℓ</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><mo>−</mo><munder><mo>∑</mo><mrow><mi mathvariant="normal">ℓ</mi><mo>∈</mo><msubsup><mi mathvariant="normal">Ω</mi><mi>b</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msubsup></mrow></munder><msub><mi>F</mi><mrow><mi mathvariant="normal">ℓ</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><mo>+</mo><msub><mi>D</mi><mrow><mi>b</mi><mo separator="true">,</mo><mi>t</mi><mo separator="true">,</mo><mi>p</mi></mrow></msub><mo>=</mo><msubsup><mi>D</mi><mrow><mi>b</mi><mo separator="true">,</mo><mi>t</mi><mo separator="true">,</mo><mi>p</mi></mrow><mrow><mi>d</mi><mi>e</mi><mi>m</mi></mrow></msubsup></mrow><annotation encoding="application/x-tex">\sum_{g \in G_b} P_{g,t,p}
++ \sum_{s \in S_b} (dis_s - ch_s)
++ \sum_{ℓ \in Ω_b^{in}} F_{ℓ,t}
+- \sum_{ℓ \in Ω_b^{out}} F_{ℓ,t}
++ D_{b,t,p}
+= D_{b,t,p}^{dem}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.4804em;vertical-align:-1.4304em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8557em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="mrel mtight">∈</span><span class="mord mtight"><span class="mord mathnormal mtight">G</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.4304em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">g</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">p</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.4502em;vertical-align:-1.4002em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8557em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mrel mtight">∈</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:-0.0576em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.4002em;"><span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mord mathnormal">i</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">c</span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.6802em;vertical-align:-1.6302em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.7629em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">ℓ</span><span class="mrel mtight">∈</span><span class="mord mtight"><span class="mord mtight">Ω</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8159em;"><span style="top:-2.1528em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">b</span></span></span><span style="top:-2.8448em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3472em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.6302em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">ℓ</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.658em;vertical-align:-1.608em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.7851em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">ℓ</span><span class="mrel mtight">∈</span><span class="mord mtight"><span class="mord mtight">Ω</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7841em;"><span style="top:-2.1528em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">b</span></span></span><span style="top:-2.8448em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3472em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.608em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">ℓ</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">b</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">p</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2822em;vertical-align:-0.3831em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-2.453em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">b</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">p</span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight">m</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3831em;"><span></span></span></span></span></span></span></span></span></span></span></div><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>ConcreteModel</em>) – Pyomo model instance containing subsystems and bars.</p></li>
+<li><p><strong>t</strong> (<em>int</em>) – Time period index.</p></li>
+<li><p><strong>p</strong> (<em>str</em>) – Load level (e.g., “Ponta” or “Fora”).</p></li>
+<li><p><strong>balance_array</strong> (<em>dict</em>) – Dictionary mapping each bar to a list of symbolic expressions
+contributing to its power balance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated dictionary of symbolic expressions for each bar.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul>
+<li><p>The resulting expressions can be added as constraints via:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">bar</span><span class="p">,</span> <span class="n">expr</span> <span class="ow">in</span> <span class="n">balance_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">model</span><span class="o">.</span><span class="n">PowerBalance</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Each bar’s balance includes the local deficit term <cite>D[b,t,p]</cite>.</p></li>
+<li><p>Transmission flows contribute with positive sign for inflow
+and negative for outflow.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarEquations.add_connection_bar_capacity_expression">
+<span class="sig-prename descclassname"><span class="pre">MDI.ConnectionBar.ConnectionBarEquations.</span></span><span class="sig-name descname"><span class="pre">add_connection_bar_capacity_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capacity_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarEquations.add_connection_bar_cost_expression">
+<span class="sig-prename descclassname"><span class="pre">MDI.ConnectionBar.ConnectionBarEquations.</span></span><span class="sig-name descname"><span class="pre">add_connection_bar_cost_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dd><p>Append deficit penalty terms to the total cost expression.</p>
+<p>Constructs and appends the total cost expression associated with
+unmet demand (deficit) across all bars, time periods, and load levels.
+The cost is discounted over time and weighted by load duration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>ConcreteModel</em>) – Pyomo model containing bars, time periods, and load levels.</p></li>
+<li><p><strong>cost_array</strong> (<em>list</em><em> of </em><em>Pyomo expressions</em>) – List of symbolic expressions to which the total deficit cost term
+will be appended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same list, extended with the deficit cost expression.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of Pyomo expressions</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul>
+<li><p>The expression added is of the form:</p>
+<div class="math">
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>C</mi><mrow><mi>d</mi><mi>e</mi><mi>f</mi></mrow></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>b</mi><mo separator="true">,</mo><mi>t</mi><mo separator="true">,</mo><mi>p</mi></mrow></munder><mo stretchy="false">(</mo><mi>d</mi><mi>i</mi><mi>s</mi><mi>c</mi><mi>o</mi><mi>u</mi><mi>n</mi><msub><mi>t</mi><mi>t</mi></msub><mo>⋅</mo><msub><mi>h</mi><mi>p</mi></msub><mo>⋅</mo><mi>C</mi><mi>d</mi><mi>e</mi><msub><mi>f</mi><mi>b</mi></msub><mo>⋅</mo><msub><mi>D</mi><mrow><mi>b</mi><mo separator="true">,</mo><mi>t</mi><mo separator="true">,</mo><mi>p</mi></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">C_{def} = \sum_{b,t,p} (discount_t \cdot h_p \cdot Cdef_b \cdot D_{b,t,p})
+
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4882em;vertical-align:-1.4382em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8479em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">b</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">p</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.4382em;"><span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">d</span><span class="mord mathnormal">i</span><span class="mord mathnormal">sco</span><span class="mord mathnormal">u</span><span class="mord mathnormal">n</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">b</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">p</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></div></li>
+<li><p>The cost reflects the economic penalty of unserved energy and
+integrates directly into the objective function of the MDI model.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-MDI.ConnectionBar.ConnectionBarBuilder">
+<span id="mdi-connectionbar-connectionbarbuilder-module"></span><h2>MDI.ConnectionBar.ConnectionBarBuilder module</h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Connection Bar — Model Builder</p>
+<section id="id7">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id8">
+<h3>Description</h3>
+<p>This module provides high-level routines for constructing and
+assembling Pyomo models representing electrical connection bars
+(buses) within DC power flow formulations. It integrates the
+components defined in submodules:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">ConnectionBarDataTypes</span></code></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">ConnectionBarVars</span></code></p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">ConnectionBarConstraints</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>The builder functions create or extend a <code class="docutils literal notranslate"><span class="pre">ConcreteModel</span></code> with
+sets, parameters, variables, and constraints associated with
+each connection bar. The formulation supports hybrid systems
+(hydro, thermal, renewable, and storage) as well as networked
+multi-bar expansion studies (e.g., MDI, DECOMP, DESSEM).</p>
+</section>
+<section id="id9">
+<h3>Functions</h3>
+<dl class="simple">
+<dt>build_connection_bars(data, include_objective=True)</dt><dd><p>Create and return a complete Pyomo model representing
+the connection-bar subsystem.</p>
+</dd>
+<dt>add_connection_bar_problem(m, data, include_objective=False)</dt><dd><p>Attach all sets, parameters, variables, and constraints
+related to connection bars to an existing Pyomo model.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>This module is the main interface between the connection-bar
+data structures and their corresponding Pyomo model elements.</p></li>
+<li><dl class="simple">
+<dt>The resulting model includes:</dt><dd><ul>
+<li><p>Sets and parameters (bars, demands, and slack identification)</p></li>
+<li><p>Variables (phase angles and deficits)</p></li>
+<li><dl class="simple">
+<dt>Constraints:</dt><dd><ul>
+<li><p>Slack-bar reference (θ = 0)</p></li>
+<li><p>Angular limits (-π ≤ θ ≤ π)</p></li>
+<li><p>Power balance per bar and time period</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>The functions are designed for integration with higher-level
+system builders that include generators and transmission lines.</p></li>
+<li><p>The optional argument <code class="docutils literal notranslate"><span class="pre">include_objective</span></code> is reserved for
+compatibility with renewable-only formulations and may be
+deprecated in future versions.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM. Manuais de Metodologia, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarBuilder.add_connection_bar_problem">
+<span class="sig-prename descclassname"><span class="pre">MDI.ConnectionBar.ConnectionBarBuilder.</span></span><span class="sig-name descname"><span class="pre">add_connection_bar_problem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData" title="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData"><span class="pre">ConnectionBarData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Attach connection-bar components and constraints to a Pyomo model.</p>
+<p>Populates an existing <code class="xref py py-class docutils literal notranslate"><span class="pre">ConcreteModel</span></code> with all
+connection-bar-related elements, including sets, parameters, variables,
+and the fundamental constraints for DC power flow consistency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model instance to which connection-bar elements will be added.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData" title="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData"><em>ConnectionBarData</em></a>) – <dl class="simple">
+<dt>Input data containing:</dt><dd><ul>
+<li><p>Planning horizon (<code class="docutils literal notranslate"><span class="pre">horizon</span></code>)</p></li>
+<li><p>Bar-level demand profiles</p></li>
+<li><p>Slack-bar configuration</p></li>
+<li><p>Deficit cost (<code class="docutils literal notranslate"><span class="pre">Cdef</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – Reserved parameter for compatibility with legacy renewable-only
+builders. Currently unused (default <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated model containing all connection-bar components.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Functions called:</dt><dd><ul>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">connection_bar_add_sets_and_params()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">connection_bar_add_variables()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">add_connection_bar_slack_constraints()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">add_connection_bar_angle_limits_constraints()</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>The sequence ensures that:</dt><dd><ol class="arabic simple">
+<li><p>Sets and parameters are initialized.</p></li>
+<li><p>Variables are declared with appropriate bounds.</p></li>
+<li><p>The slack bar is fixed (θ = 0).</p></li>
+<li><p>Non-slack bars are bounded between ±π.</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p>The routine can be reused within multi-bar or multi-region models,
+such as those in DECOMP and MDI formulations.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarBuilder.build_connection_bars">
+<span class="sig-prename descclassname"><span class="pre">MDI.ConnectionBar.ConnectionBarBuilder.</span></span><span class="sig-name descname"><span class="pre">build_connection_bars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData" title="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData"><span class="pre">ConnectionBarData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_objective</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Build a complete Pyomo model representing the connection-bar subsystem.</p>
+<p>Creates a new <code class="xref py py-class docutils literal notranslate"><span class="pre">ConcreteModel</span></code> and populates it with
+all components associated with connection bars (sets, parameters,
+variables, and constraints). It serves as the main entry point for
+standalone tests or integration into larger system models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData" title="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData"><em>ConnectionBarData</em></a>) – Structured data containing the planning horizon, bar demands,
+slack-bar configuration, and deficit penalty cost.</p></li>
+<li><p><strong>include_objective</strong> (<em>bool</em><em>, </em><em>optional</em>) – Reserved argument for backward compatibility with renewable-only
+dispatch models (default is <code class="docutils literal notranslate"><span class="pre">True</span></code>). Currently unused.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A fully initialized Pyomo model containing connection-bar elements.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>The created model includes:</dt><dd><ul>
+<li><p>Time set <code class="docutils literal notranslate"><span class="pre">m.T</span></code> and bar set <code class="docutils literal notranslate"><span class="pre">m.BAR</span></code></p></li>
+<li><p>Demand and deficit penalty parameters</p></li>
+<li><p>Phase-angle (<code class="docutils literal notranslate"><span class="pre">θ_b</span></code>) and deficit (<code class="docutils literal notranslate"><span class="pre">D[b,t]</span></code>) variables</p></li>
+<li><p>Slack-bar, angular-limit, and balance constraints</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Intended for modular integration with generation and transmission
+builders in network expansion formulations.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="module-MDI.ConnectionBar.ConnectionBarVars">
+<span id="mdi-connectionbar-connectionbarvars-module"></span><h2>MDI.ConnectionBar.ConnectionBarVars module</h2>
+<p>EELT7030 — Operation and Expansion Planning of Electric Power Systems
+Federal University of Paraná (UFPR)</p>
+<p>Module: Connection Bar — Sets, Parameters, and Variables</p>
+<section id="id10">
+<h3>Author</h3>
+<p>Augusto Mathias Adams &lt;<a class="reference external" href="mailto:augusto&#46;adams&#37;&#52;&#48;ufpr&#46;br">augusto<span>&#46;</span>adams<span>&#64;</span>ufpr<span>&#46;</span>br</a>&gt;</p>
+</section>
+<section id="id11">
+<h3>Description</h3>
+<p>This module defines initialization routines for connection bars (nodes)
+within power system operation and expansion models in Pyomo. It provides
+the sets, parameters, and decision variables associated with network
+buses, including demand, deficit, and phase angles for DC power flow
+formulations.</p>
+</section>
+<section id="id12">
+<h3>Functions</h3>
+<dl class="simple">
+<dt>connection_bar_add_sets_and_params(m, data)</dt><dd><p>Initialize sets and parameters for connection bars, including
+demand profiles and bar-specific attributes (state, slack status, etc.).</p>
+</dd>
+<dt>connection_bar_add_variables(m)</dt><dd><p>Declare bar-level decision variables: deficit (unserved demand) and
+phase angle (for DC models).</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Designed for integration with hydrothermal and renewable subsystems.</p></li>
+<li><p>The time set <code class="docutils literal notranslate"><span class="pre">m.T</span></code> is assumed global and will only be created if
+not already defined.</p></li>
+<li><p>Each bar (bus) has a time-varying demand <code class="docutils literal notranslate"><span class="pre">demand[b,t]</span></code> and, optionally,
+a deficit variable <code class="docutils literal notranslate"><span class="pre">D[b,t]</span></code> penalized by <code class="docutils literal notranslate"><span class="pre">m.Cdef</span></code> in the objective.</p></li>
+<li><p>The slack bar is identified by <code class="docutils literal notranslate"><span class="pre">bar.slack</span> <span class="pre">=</span> <span class="pre">True</span></code> and its phase angle
+is fixed at zero.</p></li>
+</ul>
+<p class="rubric">References</p>
+<p>[1] CEPEL, DECOMP / DESSEM Methodology Manuals, 2023.
+[2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica,</p>
+<blockquote>
+<div><p>Lecture Notes, EELT7030/UFPR, 2023.</p>
+</div></blockquote>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarVars.connection_bar_add_sets_and_params">
+<span class="sig-prename descclassname"><span class="pre">MDI.ConnectionBar.ConnectionBarVars.</span></span><span class="sig-name descname"><span class="pre">connection_bar_add_sets_and_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Initialize sets and parameters for connection bars.</p>
+<p>Adds the connection bar set <code class="docutils literal notranslate"><span class="pre">m.BAR</span></code>, the demand parameter
+<code class="docutils literal notranslate"><span class="pre">m.demand[b,t]</span></code>, and the deficit penalty <code class="docutils literal notranslate"><span class="pre">m.Cdef</span></code>. It also records
+which bars are slack (reference) for the DC model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model to which the bar sets and parameters will be added.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData" title="MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData"><em>ConnectionBarData</em></a>) – <p>Data structure containing:
+- horizon (int): number of time periods.
+- demand (dict[str, list[float]]): demand time series per bar.
+- Cdef (float): deficit cost.
+- units (dict[str, ConnectionBar]): each bar object has</p>
+<blockquote>
+<div><p>attributes <code class="docutils literal notranslate"><span class="pre">state</span></code>, <code class="docutils literal notranslate"><span class="pre">slack</span></code>, <code class="docutils literal notranslate"><span class="pre">demand</span></code>.</p>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model, augmented with bar-related sets and parameters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>If the model already defines <code class="docutils literal notranslate"><span class="pre">m.T</span></code> or <code class="docutils literal notranslate"><span class="pre">m.Cdef</span></code>, they are not overwritten.</p></li>
+<li><p>The time set is defined as <code class="docutils literal notranslate"><span class="pre">RangeSet(1,</span> <span class="pre">horizon)</span></code> if absent.</p></li>
+<li><p>Each bar’s demand is initialized using its <code class="docutils literal notranslate"><span class="pre">demand</span></code> array
+with 0-based indexing, so <code class="docutils literal notranslate"><span class="pre">t-1</span></code> is used during initialization.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="MDI.ConnectionBar.ConnectionBarVars.connection_bar_add_variables">
+<span class="sig-prename descclassname"><span class="pre">MDI.ConnectionBar.ConnectionBarVars.</span></span><span class="sig-name descname"><span class="pre">connection_bar_add_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
+<dd><p>Declare decision variables associated with connection bars.</p>
+<p>Adds the following variables:
+- <code class="docutils literal notranslate"><span class="pre">m.D[b,t,p]</span></code> : non-negative deficit (unserved demand) per bar and time and level.
+- <code class="docutils literal notranslate"><span class="pre">m.theta[b,t,</span> <span class="pre">p]</span></code> : phase angle of the bus voltage (radians), continuous real.</p>
+<p>For DC power flow models, the reference (slack) bar has its angle fixed
+to zero through a constraint or by setting bounds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> (<em>pyomo.environ.ConcreteModel</em>) – Pyomo model to which bar variables will be added.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same model with bar variables included.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyomo.environ.ConcreteModel</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">m.D[b,t]</span></code> is created even if a global deficit variable exists; each
+bar has its own local deficit component.</p></li>
+<li><p>The variable <code class="docutils literal notranslate"><span class="pre">m.theta[b]</span></code> represents the voltage angle used in
+linearized DC power flow equations.</p></li>
+<li><p>The fixing of the slack bar angle (<code class="docutils literal notranslate"><span class="pre">theta</span> <span class="pre">=</span> <span class="pre">0</span></code>) should be performed
+externally by a constraint after this routine.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

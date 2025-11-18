@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Executive Summary / Sumário Executivo</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/epub.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="executive-summary-sumario-executivo">
+<h1>Executive Summary / Sumário Executivo</h1>
+<section id="english-version">
+<h2>English Version 🇬🇧</h2>
+<p><strong>NaivePyDESSEM</strong> is an educational and modular framework designed for teaching and research in <strong>hydrothermal operation and expansion planning</strong> of electric power systems.<br />
+Developed as part of the graduate course <strong>EELT7030 – Planning of Operation and Expansion of Electric Power Systems</strong> at the <strong>Federal University of Paraná (UFPR)</strong>, this initiative aims to bridge the gap between academic theory and computational practice.</p>
+<p>The framework implements simplified versions of Brazil’s main optimization models — <strong>DESSEM, DECOMP, and MDI</strong> — using <strong>Pyomo</strong> as the modeling environment.<br />
+It provides transparent access to mathematical formulations, datasets, and solver configurations, supporting both <strong>didactic exploration</strong> and <strong>research replication</strong>.</p>
+<p>This documentation consolidates the theoretical foundation of the course, covering:</p>
+<ul class="simple">
+<li><p>The mathematical modeling of DESSEM, DECOMP, and MDI;</p></li>
+<li><p>The hierarchy of short-, medium-, and long-term operation planning;</p></li>
+<li><p>Key optimization paradigms (LP, MILP, MIQP, MINLP, etc.);</p></li>
+<li><p>Advanced topics such as uncertainty modeling, stochastic programming, and D-OPF formulations.</p></li>
+</ul>
+<p>By unifying theory, models, and reproducible examples, <strong>NaivePyDESSEM</strong> aspires to serve as an <strong>open reference for energy planning education worldwide</strong>, fostering knowledge exchange between academia, research centers, and the power industry.</p>
+</section>
+<hr class="docutils" />
+<section id="versao-em-portugues">
+<h2>Versão em Português 🇧🇷</h2>
+<p>O <strong>NaivePyDESSEM</strong> é um framework educacional e modular voltado ao ensino e à pesquisa em <strong>planejamento da operação e expansão hidrotérmica</strong> de sistemas elétricos de potência.<br />
+Desenvolvido no contexto da disciplina <strong>EELT7030 – Planejamento da Operação e Expansão de Sistemas Elétricos de Potência</strong> da <strong>Universidade Federal do Paraná (UFPR)</strong>, o projeto busca conectar a teoria acadêmica à prática computacional.</p>
+<p>O framework implementa versões didáticas dos principais modelos de otimização do setor elétrico brasileiro — <strong>DESSEM, DECOMP e MDI</strong> — utilizando o ambiente <strong>Pyomo</strong> para formulação e resolução.<br />
+Oferece acesso transparente às formulações matemáticas, conjuntos de dados e configurações de solver, permitindo a <strong>exploração didática</strong> e a <strong>reprodução de experimentos de pesquisa</strong>.</p>
+<p>Esta documentação reúne os fundamentos teóricos da disciplina, abrangendo:</p>
+<ul class="simple">
+<li><p>A modelagem matemática dos modelos DESSEM, DECOMP e MDI;</p></li>
+<li><p>A hierarquia do planejamento de operação de curto, médio e longo prazo;</p></li>
+<li><p>Os principais paradigmas de otimização (LP, MILP, MIQP, MINLP, etc.);</p></li>
+<li><p>Tópicos avançados como incertezas, programação estocástica e formulações D-OPF.</p></li>
+</ul>
+<p>Ao unificar teoria, modelos e exemplos reprodutíveis, o <strong>NaivePyDESSEM</strong> busca consolidar-se como uma <strong>referência aberta e global para o ensino de planejamento energético</strong>, promovendo o intercâmbio de conhecimento entre universidades, centros de pesquisa e o setor elétrico.</p>
+</section>
+<hr class="docutils" />
+<section id="institutional-credits-creditos-institucionais">
+<h2>Institutional Credits / Créditos Institucionais</h2>
+<p>Developed within the<br />
+<strong>Federal University of Paraná (UFPR)</strong> – <em>Post-Graduate Program in Electrical Engineering (PPGEE)</em><br />
+<strong>Department of Electrical Engineering (DELT)</strong></p>
+<p>Supervised by faculty of the professor Dr. Clodomiro Unsihuay Vila, Phd,<br />
+in collaboration with a student of the course <strong>EELT7030</strong>, Augusto Mathias Adams.</p>
+<p>Desenvolvido no âmbito da<br />
+<strong>Universidade Federal do Paraná (UFPR)</strong> – <em>Programa de Pós-Graduação em Engenharia Elétrica (PPGEE)</em><br />
+<strong>Departamento de Engenharia Elétrica (DELT)</strong></p>
+<p>Com orientação docente do professor Dr. Clodomiro Unsihuay Vila, Phd,<br />
+em colaboração com o discente da disciplina <strong>EELT7030</strong>, Augusto Mathias Adams.</p>
+</section>
+<hr class="docutils" />
+<section id="license-licenca">
+<h2>License / Licença</h2>
+<p>This project is licensed under the <strong>GNU General Public License, version 3 (GPL-3.0)</strong>.<br />
+You may freely use, modify, and distribute this work, provided that all copies and derivative works remain under the same license.<br />
+No warranty of any kind is provided. For more information, see: <a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0.html">https://www.gnu.org/licenses/gpl-3.0.html</a></p>
+<p>Este projeto está licenciado sob a <strong>Licença Pública Geral GNU, versão 3 (GPL-3.0)</strong>.<br />
+É permitido o uso, modificação e redistribuição deste trabalho, desde que todas as cópias e obras derivadas mantenham a mesma licença.<br />
+Nenhuma garantia é fornecida. Para mais informações, consulte: <a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0.html">https://www.gnu.org/licenses/gpl-3.0.html</a></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

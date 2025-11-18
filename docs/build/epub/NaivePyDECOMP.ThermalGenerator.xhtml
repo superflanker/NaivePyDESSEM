@@ -7,7 +7,9 @@
 
     <title>NaivePyDECOMP.ThermalGenerator package</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/epub.css" /> 
+    <link rel="stylesheet" type="text/css" href="_static/epub.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/katex-math.css" /> 
   </head><body>
 
     <div class="document">
@@ -237,7 +239,7 @@ keeping a * u and SC * y in the linear objective.</p>
 </section>
 <dl class="py class">
 <dt class="sig sig-object py" id="NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.</span></span><span class="sig-name descname"><span class="pre">ThermalData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit" title="NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit"><span class="pre">ThermalUnit</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cdef</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000.0</span></span></em><span class="sig-paren">)</span></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.</span></span><span class="sig-name descname"><span class="pre">ThermalData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit" title="NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit"><span class="pre">ThermalUnit</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>System-wide data container for thermal unit commitment problems.</p>
 <dl class="field-list simple">
@@ -250,16 +252,6 @@ keeping a * u and SC * y in the linear objective.</p>
 </ul>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.Cdef">
-<span class="sig-name descname"><span class="pre">Cdef</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1000.0</span></em></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.demand">
-<span class="sig-name descname"><span class="pre">demand</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalData.horizon">
 <span class="sig-name descname"><span class="pre">horizon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em></dt>
@@ -274,13 +266,14 @@ keeping a * u and SC * y in the linear objective.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.</span></span><span class="sig-name descname"><span class="pre">ThermalUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Gmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Gmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cost</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.</span></span><span class="sig-name descname"><span class="pre">ThermalUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Gmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Gmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cost</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Data container for a thermal generating unit with unit commitment attributes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – Unique identifier of the thermal unit.</p></li>
+<li><p><strong>bar</strong> (<em>str</em>) – Connection Bar of the Unit (defaults to BAR_1)</p></li>
 <li><p><strong>Gmin</strong> (<em>float</em>) – Minimum operating power output (MWh).</p></li>
 <li><p><strong>Gmax</strong> (<em>float</em>) – Maximum operating power output (MWh).</p></li>
 <li><p><strong>Cost</strong> (<em>float</em>) – Operation cost per MWh</p></li>
@@ -300,6 +293,11 @@ keeping a * u and SC * y in the linear objective.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.Gmin">
 <span class="sig-name descname"><span class="pre">Gmin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="NaivePyDECOMP.ThermalGenerator.ThermalDataTypes.ThermalUnit.bar">
+<span class="sig-name descname"><span class="pre">bar</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -365,7 +363,7 @@ contributions from thermal and other sources.</p></li>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="NaivePyDECOMP.ThermalGenerator.ThermalEquations.add_thermal_balance_expression">
-<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ThermalGenerator.ThermalEquations.</span></span><span class="sig-name descname"><span class="pre">add_thermal_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ThermalGenerator.ThermalEquations.</span></span><span class="sig-name descname"><span class="pre">add_thermal_balance_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span></dt>
 <dd><p>Append the thermal generation expression at a given time step t
 to the balance equation expression list.</p>
 <p>This is intended for use in constructing hybrid or modular power
@@ -582,11 +580,6 @@ with a MILP/MIQP solver.</p>
 </pre></div>
 </div>
 </dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.thermo_update_model">
-<span class="sig-prename descclassname"><span class="pre">NaivePyDECOMP.ThermalGenerator.ThermalGeneratorBuilder.</span></span><span class="sig-name descname"><span class="pre">thermo_update_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ConcreteModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ConcreteModel</span></span></span></dt>
-<dd></dd></dl>
 
 </section>
 <section id="module-NaivePyDECOMP.ThermalGenerator.ThermalObjectives">
@@ -811,19 +804,8 @@ reserve and piecewise cost variables.</p>
 <div><ul class="simple">
 <li><p><strong>m.p[g, t]</strong> : generation [MW].</p></li>
 <li><p><strong>m.D[t]</strong> : deficit [MW].</p></li>
-<li><p><strong>m.r[g, t]</strong> : reserve [MW], optional.</p></li>
-<li><p><strong>m.Cvar[g, t]</strong> : piecewise cost variable, optional.</p></li>
 </ul>
 </div></blockquote>
-<ul class="simple">
-<li><p>Binary:</p>
-<ul>
-<li><p><strong>m.u[g, t]</strong> : commitment (on/off).</p></li>
-<li><p><strong>m.y[g, t]</strong> : startup indicator.</p></li>
-<li><p><strong>m.w[g, t]</strong> : shutdown indicator.</p></li>
-</ul>
-</li>
-</ul>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -840,25 +822,6 @@ reserve and piecewise cost variables.</p>
 <span class="go">Domain: NonNegativeReals</span>
 </pre></div>
 </div>
-<p class="rubric">Notes</p>
-<p><strong>Reserve modeling (**include_reserve=True</strong>)**</p>
-<ul class="simple">
-<li><p><strong>Advantages</strong>: Captures spinning reserve obligations; ensures reliability
-under contingencies; critical for adequacy/security studies.</p></li>
-<li><p><strong>Trade-offs</strong>: Increases model size with additional variables
-<strong>m.r[g, t]</strong> and constraints; may slow down MILP/MIQP solution.</p></li>
-<li><p><strong>Guidance</strong>: Use if reserve margins are central to the study; omit in
-purely economic dispatch tests for simplicity.</p></li>
-</ul>
-<p><strong>Piecewise costs (**use_pwl=True</strong>)**4</p>
-<ul class="simple">
-<li><p><strong>Advantages</strong>: Converts quadratic costs to MILP form; exploits strong
-LP relaxations; often faster and more scalable on large systems.</p></li>
-<li><p><strong>Trade-offs</strong>: Approximation error unless sufficient breakpoints are
-used; adds SOS2 or convex-combination variables, increasing model size.</p></li>
-<li><p><strong>Guidance</strong>: Use when quadratic costs cannot be handled efficiently
-by the chosen solver, or when MILP-only solvers are required.</p></li>
-</ul>
 </dd></dl>
 
 </section>

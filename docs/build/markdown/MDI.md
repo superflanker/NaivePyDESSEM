@@ -45,6 +45,18 @@ Storage
   dynamics, charge/discharge limits, efficiencies, and integration into
   system-wide balance and cost formulations.
 
+ConnectionBar (New in version 0.1.4)
+: Represents the nodal structure of the network, defining the electrical buses (bars)
+  that aggregate demand, generation, deficit, and angular reference variables. Provides sets,
+  parameters, variables, and constraints for the nodal balance equations in MW, with optional
+  angular limits and slack-bar reference handling.
+
+TransmissionLine (New in version 0.1.4)
+: Models the physical interconnections between bars, using the DC power flow or transport
+  formulations. Defines sets, parameters, and variables for line flows, susceptances,
+  capacities, and investment states, including both existing  and candidate circuits.
+  Fully compatible with hybrid DC/transport network representations.
+
 YAMLLoader
 : Provides a structured interface for loading problem instances from YAML
   or JSON files, including schema validation and automatic conversion
@@ -125,11 +137,10 @@ Utils, Formatters, Reporting
       * [Classes](MDI.Generator.md#classes)
       * [Module Dependencies](MDI.Generator.md#id11)
     * [`GeneratorData`](MDI.Generator.md#MDI.Generator.GeneratorDataTypes.GeneratorData)
-      * [`GeneratorData.demand`](MDI.Generator.md#MDI.Generator.GeneratorDataTypes.GeneratorData.demand)
       * [`GeneratorData.horizon`](MDI.Generator.md#MDI.Generator.GeneratorDataTypes.GeneratorData.horizon)
-      * [`GeneratorData.level_hours`](MDI.Generator.md#MDI.Generator.GeneratorDataTypes.GeneratorData.level_hours)
       * [`GeneratorData.units`](MDI.Generator.md#MDI.Generator.GeneratorDataTypes.GeneratorData.units)
     * [`GeneratorUnit`](MDI.Generator.md#MDI.Generator.GeneratorDataTypes.GeneratorUnit)
+      * [`GeneratorUnit.bar`](MDI.Generator.md#MDI.Generator.GeneratorDataTypes.GeneratorUnit.bar)
       * [`GeneratorUnit.c_inv`](MDI.Generator.md#MDI.Generator.GeneratorDataTypes.GeneratorUnit.c_inv)
       * [`GeneratorUnit.c_op`](MDI.Generator.md#MDI.Generator.GeneratorDataTypes.GeneratorUnit.c_op)
       * [`GeneratorUnit.include_cap`](MDI.Generator.md#MDI.Generator.GeneratorDataTypes.GeneratorUnit.include_cap)
@@ -194,6 +205,7 @@ Utils, Formatters, Reporting
       * [Module Dependencies](MDI.Storage.md#id8)
     * [`add_storage_energy_balance_constraint()`](MDI.Storage.md#MDI.Storage.StorageConstraints.add_storage_energy_balance_constraint)
     * [`add_storage_investment_link_constraint()`](MDI.Storage.md#MDI.Storage.StorageConstraints.add_storage_investment_link_constraint)
+    * [`add_storage_mutual_exclusion_constraint()`](MDI.Storage.md#MDI.Storage.StorageConstraints.add_storage_mutual_exclusion_constraint)
     * [`add_storage_power_limits_constraint()`](MDI.Storage.md#MDI.Storage.StorageConstraints.add_storage_power_limits_constraint)
     * [`add_storage_soc_bounds_constraint()`](MDI.Storage.md#MDI.Storage.StorageConstraints.add_storage_soc_bounds_constraint)
   * [MDI.Storage.StorageDataTypes module](MDI.Storage.md#module-MDI.Storage.StorageDataTypes)
@@ -211,12 +223,11 @@ Utils, Formatters, Reporting
       * [`StorageData.delta_t`](MDI.Storage.md#MDI.Storage.StorageDataTypes.StorageData.delta_t)
       * [`StorageData.units`](MDI.Storage.md#MDI.Storage.StorageDataTypes.StorageData.units)
       * [`StorageData.delta_t`](MDI.Storage.md#id0)
-      * [`StorageData.demand`](MDI.Storage.md#id12)
-      * [`StorageData.horizon`](MDI.Storage.md#id13)
-      * [`StorageData.level_hours`](MDI.Storage.md#id14)
-      * [`StorageData.units`](MDI.Storage.md#id15)
+      * [`StorageData.horizon`](MDI.Storage.md#id12)
+      * [`StorageData.units`](MDI.Storage.md#id13)
     * [`StorageUnit`](MDI.Storage.md#MDI.Storage.StorageDataTypes.StorageUnit)
       * [`StorageUnit.name`](MDI.Storage.md#MDI.Storage.StorageDataTypes.StorageUnit.name)
+      * [`StorageUnit.bar`](MDI.Storage.md#MDI.Storage.StorageDataTypes.StorageUnit.bar)
       * [`StorageUnit.state`](MDI.Storage.md#MDI.Storage.StorageDataTypes.StorageUnit.state)
       * [`StorageUnit.c_op`](MDI.Storage.md#MDI.Storage.StorageDataTypes.StorageUnit.c_op)
       * [`StorageUnit.c_inv`](MDI.Storage.md#MDI.Storage.StorageDataTypes.StorageUnit.c_inv)
@@ -227,46 +238,140 @@ Utils, Formatters, Reporting
       * [`StorageUnit.Pdis_max`](MDI.Storage.md#MDI.Storage.StorageDataTypes.StorageUnit.Pdis_max)
       * [`StorageUnit.eta_c`](MDI.Storage.md#MDI.Storage.StorageDataTypes.StorageUnit.eta_c)
       * [`StorageUnit.eta_d`](MDI.Storage.md#MDI.Storage.StorageDataTypes.StorageUnit.eta_d)
-      * [`StorageUnit.Eini`](MDI.Storage.md#id16)
-      * [`StorageUnit.Emax`](MDI.Storage.md#id17)
-      * [`StorageUnit.Emin`](MDI.Storage.md#id18)
-      * [`StorageUnit.Pch_max`](MDI.Storage.md#id19)
-      * [`StorageUnit.Pdis_max`](MDI.Storage.md#id20)
-      * [`StorageUnit.c_inv`](MDI.Storage.md#id21)
-      * [`StorageUnit.c_op`](MDI.Storage.md#id22)
-      * [`StorageUnit.eta_c`](MDI.Storage.md#id23)
-      * [`StorageUnit.eta_d`](MDI.Storage.md#id24)
-      * [`StorageUnit.name`](MDI.Storage.md#id25)
-      * [`StorageUnit.state`](MDI.Storage.md#id26)
+      * [`StorageUnit.Eini`](MDI.Storage.md#id14)
+      * [`StorageUnit.Emax`](MDI.Storage.md#id15)
+      * [`StorageUnit.Emin`](MDI.Storage.md#id16)
+      * [`StorageUnit.Pch_max`](MDI.Storage.md#id17)
+      * [`StorageUnit.Pdis_max`](MDI.Storage.md#id18)
+      * [`StorageUnit.bar`](MDI.Storage.md#id19)
+      * [`StorageUnit.c_inv`](MDI.Storage.md#id20)
+      * [`StorageUnit.c_op`](MDI.Storage.md#id21)
+      * [`StorageUnit.eta_c`](MDI.Storage.md#id22)
+      * [`StorageUnit.eta_d`](MDI.Storage.md#id23)
+      * [`StorageUnit.name`](MDI.Storage.md#id24)
+      * [`StorageUnit.state`](MDI.Storage.md#id25)
   * [MDI.Storage.StorageEquations module](MDI.Storage.md#module-MDI.Storage.StorageEquations)
     * [Storage Equations Module](MDI.Storage.md#storage-equations-module)
-      * [Author](MDI.Storage.md#id27)
-      * [Summary](MDI.Storage.md#id28)
-      * [Description](MDI.Storage.md#id29)
-      * [Mathematical Formulation](MDI.Storage.md#id30)
-      * [Functions](MDI.Storage.md#id31)
-      * [Module Dependencies](MDI.Storage.md#id32)
+      * [Author](MDI.Storage.md#id26)
+      * [Summary](MDI.Storage.md#id27)
+      * [Description](MDI.Storage.md#id28)
+      * [Mathematical Formulation](MDI.Storage.md#id29)
+      * [Functions](MDI.Storage.md#id30)
+      * [Module Dependencies](MDI.Storage.md#id31)
     * [`add_storage_balance_expression()`](MDI.Storage.md#MDI.Storage.StorageEquations.add_storage_balance_expression)
     * [`add_storage_capacity_expression()`](MDI.Storage.md#MDI.Storage.StorageEquations.add_storage_capacity_expression)
     * [`add_storage_cost_expression()`](MDI.Storage.md#MDI.Storage.StorageEquations.add_storage_cost_expression)
   * [MDI.Storage.StorageObjective module](MDI.Storage.md#module-MDI.Storage.StorageObjective)
     * [Storage Objective Function Module](MDI.Storage.md#storage-objective-function-module)
-      * [Author](MDI.Storage.md#id33)
-      * [Summary](MDI.Storage.md#id34)
-      * [Description](MDI.Storage.md#id35)
-      * [Mathematical Formulation](MDI.Storage.md#id36)
-      * [Functions](MDI.Storage.md#id37)
+      * [Author](MDI.Storage.md#id32)
+      * [Summary](MDI.Storage.md#id33)
+      * [Description](MDI.Storage.md#id34)
+      * [Mathematical Formulation](MDI.Storage.md#id35)
+      * [Functions](MDI.Storage.md#id36)
     * [`set_objective_storage()`](MDI.Storage.md#MDI.Storage.StorageObjective.set_objective_storage)
   * [MDI.Storage.StorageVars module](MDI.Storage.md#module-MDI.Storage.StorageVars)
     * [Storage Variables and Parameters Module](MDI.Storage.md#storage-variables-and-parameters-module)
-      * [Author](MDI.Storage.md#id38)
-      * [Summary](MDI.Storage.md#id39)
-      * [Description](MDI.Storage.md#id40)
-      * [Mathematical Overview](MDI.Storage.md#id41)
-      * [Functions](MDI.Storage.md#id42)
-      * [Module Dependencies](MDI.Storage.md#id43)
+      * [Author](MDI.Storage.md#id37)
+      * [Summary](MDI.Storage.md#id38)
+      * [Description](MDI.Storage.md#id39)
+      * [Mathematical Overview](MDI.Storage.md#id40)
+      * [Functions](MDI.Storage.md#id41)
+      * [Module Dependencies](MDI.Storage.md#id42)
     * [`storage_add_sets_and_params()`](MDI.Storage.md#MDI.Storage.StorageVars.storage_add_sets_and_params)
     * [`storage_add_variables()`](MDI.Storage.md#MDI.Storage.StorageVars.storage_add_variables)
+* [MDI.ConnectionBar package](MDI.ConnectionBar.md)
+  * [Module contents](MDI.ConnectionBar.md#module-MDI.ConnectionBar)
+    * [Author](MDI.ConnectionBar.md#author)
+    * [Description](MDI.ConnectionBar.md#description)
+    * [Modules](MDI.ConnectionBar.md#modules)
+  * [Submodules](MDI.ConnectionBar.md#submodules)
+  * [MDI.ConnectionBar.ConnectionBarConstraints module](MDI.ConnectionBar.md#module-MDI.ConnectionBar.ConnectionBarConstraints)
+    * [Author](MDI.ConnectionBar.md#id1)
+    * [Description](MDI.ConnectionBar.md#id2)
+    * [Functions](MDI.ConnectionBar.md#functions)
+    * [`add_connection_bar_angle_limits_constraints()`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_angle_limits_constraints)
+    * [`add_connection_bar_balance_constraints()`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_balance_constraints)
+    * [`add_connection_bar_capacity_constraints()`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_capacity_constraints)
+    * [`add_connection_bar_slack_constraints()`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarConstraints.add_connection_bar_slack_constraints)
+  * [MDI.ConnectionBar.ConnectionBarDataTypes module](MDI.ConnectionBar.md#module-MDI.ConnectionBar.ConnectionBarDataTypes)
+    * [Author](MDI.ConnectionBar.md#id3)
+    * [Description](MDI.ConnectionBar.md#id4)
+    * [Classes](MDI.ConnectionBar.md#classes)
+    * [`ConnectionBarData`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData)
+      * [`ConnectionBarData.horizon`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData.horizon)
+      * [`ConnectionBarData.units`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarData.units)
+    * [`ConnectionBarUnit`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit)
+      * [`ConnectionBarUnit.Cdef`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.Cdef)
+      * [`ConnectionBarUnit.c_pmax`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.c_pmax)
+      * [`ConnectionBarUnit.demand`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.demand)
+      * [`ConnectionBarUnit.name`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.name)
+      * [`ConnectionBarUnit.slack`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarDataTypes.ConnectionBarUnit.slack)
+  * [MDI.ConnectionBar.ConnectionBarEquations module](MDI.ConnectionBar.md#module-MDI.ConnectionBar.ConnectionBarEquations)
+    * [Author](MDI.ConnectionBar.md#id5)
+    * [Description](MDI.ConnectionBar.md#id6)
+    * [Intended Use](MDI.ConnectionBar.md#intended-use)
+    * [`add_connection_bar_balance_expression()`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarEquations.add_connection_bar_balance_expression)
+    * [`add_connection_bar_capacity_expression()`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarEquations.add_connection_bar_capacity_expression)
+    * [`add_connection_bar_cost_expression()`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarEquations.add_connection_bar_cost_expression)
+  * [MDI.ConnectionBar.ConnectionBarBuilder module](MDI.ConnectionBar.md#module-MDI.ConnectionBar.ConnectionBarBuilder)
+    * [Author](MDI.ConnectionBar.md#id7)
+    * [Description](MDI.ConnectionBar.md#id8)
+    * [Functions](MDI.ConnectionBar.md#id9)
+    * [`add_connection_bar_problem()`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarBuilder.add_connection_bar_problem)
+    * [`build_connection_bars()`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarBuilder.build_connection_bars)
+  * [MDI.ConnectionBar.ConnectionBarVars module](MDI.ConnectionBar.md#module-MDI.ConnectionBar.ConnectionBarVars)
+    * [Author](MDI.ConnectionBar.md#id10)
+    * [Description](MDI.ConnectionBar.md#id11)
+    * [Functions](MDI.ConnectionBar.md#id12)
+    * [`connection_bar_add_sets_and_params()`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarVars.connection_bar_add_sets_and_params)
+    * [`connection_bar_add_variables()`](MDI.ConnectionBar.md#MDI.ConnectionBar.ConnectionBarVars.connection_bar_add_variables)
+* [MDI.TransmissionLine package](MDI.TransmissionLine.md)
+  * [Module contents](MDI.TransmissionLine.md#module-MDI.TransmissionLine)
+    * [Author](MDI.TransmissionLine.md#author)
+    * [Description](MDI.TransmissionLine.md#description)
+    * [Modules](MDI.TransmissionLine.md#modules)
+  * [Submodules](MDI.TransmissionLine.md#submodules)
+  * [MDI.TransmissionLine.TransmissionLineConstraints module](MDI.TransmissionLine.md#module-MDI.TransmissionLine.TransmissionLineConstraints)
+    * [Author](MDI.TransmissionLine.md#id1)
+    * [Description](MDI.TransmissionLine.md#id2)
+    * [Functions](MDI.TransmissionLine.md#functions)
+    * [`add_transmission_line_flow_constraints()`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineConstraints.add_transmission_line_flow_constraints)
+    * [`add_transmission_line_flow_limits_constraints()`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineConstraints.add_transmission_line_flow_limits_constraints)
+    * [`add_transmission_line_investment_link_constraints()`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineConstraints.add_transmission_line_investment_link_constraints)
+  * [MDI.TransmissionLine.TransmissionLineDataTypes module](MDI.TransmissionLine.md#module-MDI.TransmissionLine.TransmissionLineDataTypes)
+    * [Author](MDI.TransmissionLine.md#id3)
+    * [Description](MDI.TransmissionLine.md#id4)
+    * [Classes](MDI.TransmissionLine.md#classes)
+    * [`TransmissionLineData`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData)
+      * [`TransmissionLineData.horizon`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData.horizon)
+      * [`TransmissionLineData.units`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineData.units)
+    * [`TransmissionLineUnit`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit)
+      * [`TransmissionLineUnit.b`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.b)
+      * [`TransmissionLineUnit.c_inv`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.c_inv)
+      * [`TransmissionLineUnit.c_op`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.c_op)
+      * [`TransmissionLineUnit.endpoints`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.endpoints)
+      * [`TransmissionLineUnit.model`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.model)
+      * [`TransmissionLineUnit.name`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.name)
+      * [`TransmissionLineUnit.pmax`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.pmax)
+      * [`TransmissionLineUnit.state`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineDataTypes.TransmissionLineUnit.state)
+  * [MDI.TransmissionLine.TransmissionLineEquations module](MDI.TransmissionLine.md#module-MDI.TransmissionLine.TransmissionLineEquations)
+    * [Author](MDI.TransmissionLine.md#id5)
+    * [Description](MDI.TransmissionLine.md#id6)
+    * [Functions](MDI.TransmissionLine.md#id7)
+    * [`add_transmission_line_balance_expression()`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineEquations.add_transmission_line_balance_expression)
+    * [`add_transmission_line_cost_expression()`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineEquations.add_transmission_line_cost_expression)
+  * [MDI.TransmissionLine.TransmissionLineBuilder module](MDI.TransmissionLine.md#module-MDI.TransmissionLine.TransmissionLineBuilder)
+    * [Author](MDI.TransmissionLine.md#id8)
+    * [Description](MDI.TransmissionLine.md#id9)
+    * [Functions](MDI.TransmissionLine.md#id10)
+    * [`add_transmission_line_problem()`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineBuilder.add_transmission_line_problem)
+    * [`build_transmission_lines()`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineBuilder.build_transmission_lines)
+  * [MDI.TransmissionLine.TransmissionLineVars module](MDI.TransmissionLine.md#module-MDI.TransmissionLine.TransmissionLineVars)
+    * [Author](MDI.TransmissionLine.md#id11)
+    * [Description](MDI.TransmissionLine.md#id12)
+    * [Functions](MDI.TransmissionLine.md#id13)
+    * [`transmission_line_add_sets_and_params()`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineVars.transmission_line_add_sets_and_params)
+    * [`transmission_line_add_variables()`](MDI.TransmissionLine.md#MDI.TransmissionLine.TransmissionLineVars.transmission_line_add_variables)
 * [MDI.cli package](MDI.cli.md)
   * [Module contents](MDI.cli.md#module-MDI.cli)
     * [NaivePyDESSEM – CLI Subpackage](MDI.cli.md#naivepydessem-cli-subpackage)
@@ -451,6 +556,24 @@ build_dispatch_dataframe(model)
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 
+### MDI.DataFrames.add_connection_bar_dispatch_to_dataframe(df: DataFrame, model: ConcreteModel) → DataFrame
+
+Append connection bar voltage angles and marginal costs (CMO, CME)
+to a pandas DataFrame.
+
+This function extracts the following quantities from the Pyomo model:
+: - Voltage angle θ[b, t, p] for each bar, period, and load level.
+  - Marginal Operation Cost (CMO) per bar and period.
+  - Marginal Expansion Cost (CME) per bar and period.
+
+* **Parameters:**
+  * **df** (*pd.DataFrame*) – DataFrame to which the results will be appended.
+  * **model** (*pyomo.environ.ConcreteModel*)
+* **Returns:**
+  Updated DataFrame including θ, CMO, and CME per bar.
+* **Return type:**
+  pd.DataFrame
+
 ### MDI.DataFrames.add_cost_to_dataframe(df: DataFrame, model: ConcreteModel) → DataFrame
 
 Append cost components and total demand/deficit to the DataFrame.
@@ -471,15 +594,14 @@ It also includes total generation, demand, and deficit series.
 
 Append generator dispatch results to a pandas DataFrame.
 
-This function extracts the turbined flow, storage volume, hydropower
-generation, and spillage from a Pyomo model and appends them to the
-given DataFrame, one column per unit and variable.
+This function extracts the generation from a Pyomo model and
+appends them to the given DataFrame, one column per unit and variable.
 
 * **Parameters:**
   * **df** (*pd.DataFrame*) – The DataFrame to which the results will be appended. It may be empty.
-  * **model** (*ConcreteModel*) – A Pyomo model instance containing hydropower variables.
+  * **model** (*ConcreteModel*) – A Pyomo model instance containing generator variables.
 * **Returns:**
-  The updated DataFrame including hydropower dispatch results.
+  The updated DataFrame including generator dispatch results.
 * **Return type:**
   pd.DataFrame
 
@@ -499,6 +621,21 @@ adds them as columns to the DataFrame.
 * **Return type:**
   pd.DataFrame
 
+### MDI.DataFrames.add_transmission_line_dispatch_to_dataframe(df: DataFrame, model: ConcreteModel) → DataFrame
+
+Append transmission lines flow results to a pandas DataFrame.
+
+This function extracts transmission lines flow values from the Pyomo model and
+adds them as columns to the DataFrame.
+
+* **Parameters:**
+  * **df** (*pd.DataFrame*) – The DataFrame to which the results will be appended.
+  * **model** (*ConcreteModel*) – A Pyomo model instance containing transmission lines unit variables.
+* **Returns:**
+  The updated DataFrame including transmission lines flow dispatch results.
+* **Return type:**
+  pd.DataFrame
+
 ### MDI.DataFrames.build_dispatch_dataframe(model: ConcreteModel) → DataFrame
 
 Build a full dispatch DataFrame with generation, cost, and balance data.
@@ -513,28 +650,6 @@ into a single structured pandas DataFrame.
   A DataFrame with all relevant dispatch results and economic metrics.
 * **Return type:**
   pd.DataFrame
-
-### MDI.DataFrames.compute_CME_by_period(model: ConcreteModel, solver_name: str = 'glpk', delta_E: float = 1.0, reserve_margin: float = 0.15) → dict
-
-Compute CME (Custo Marginal de Energia) and CME de Expansão
-for each time period individually via incremental perturbation.
-
-* **Parameters:**
-  * **model** (*ConcreteModel*) – Pyomo model with ‘Adequacy’ and ‘Balance’ constraints.
-  * **solver_name** (*str* *,* *optional*) – MILP solver name (default: ‘glpk’).
-  * **delta_E** (*float* *,* *optional*) – Increment applied to demand in each period (default: 1.0).
-  * **reserve_margin** (*float* *,* *optional*) – Fractional capacity increase used in expansion case (default: 0.15).
-* **Returns:**
-  {
-  : “Custo_Base”: float,
-    “CME_energia_por_periodo”: { (p,t): value },
-    “CME_expansao_por_periodo”: { (p,t): value },
-    “CME_global”: float,
-    “CME_expansao_global”: float
-
-  }
-* **Return type:**
-  dict
 
 ## MDI.Formatters module
 
@@ -646,6 +761,35 @@ True
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 
+### MDI.ModelCheck.has_connection_bar_model(model: ConcreteModel) → bool
+
+Check whether the given Pyomo model contains all components
+required for a connection-bar subsystem.
+
+This utility function verifies the structural integrity of a
+`ConcreteModel` by testing the presence
+of key sets, parameters, and variables associated with
+connection bars (buses) in DC power flow formulations.
+
+* **Parameters:**
+  **model** (*pyomo.environ.ConcreteModel*) – Pyomo model instance to be inspected.
+* **Returns:**
+  `True` if the model includes all required components for
+  the connection-bar subsystem, otherwise `False`.
+* **Return type:**
+  bool
+
+### Notes
+
+The following components are required:
+: - `T` : time-period set
+  - `CB` : set of connection bars (buses)
+  - `SB` : set of slack bars (reference nodes)
+  - `d` : demand parameter (MW)
+  - `Cdef` : deficit penalty parameter (R$/MWh)
+  - `D` : deficit variable (MW)
+  - `theta` : voltage phase-angle variable (radians)
+
 ### MDI.ModelCheck.has_generator_model(model: ConcreteModel) → bool
 
 Check whether the given Pyomo model contains all components of a geerator subsystem.
@@ -674,6 +818,35 @@ are defined for energy storage modeling.
   True if all required storage components are present, False otherwise.
 * **Return type:**
   bool
+
+### MDI.ModelCheck.has_transmission_line_model(model: ConcreteModel) → bool
+
+Check whether the given Pyomo model contains all components
+required for a transmission-line subsystem.
+
+This utility function validates the existence of sets, parameters,
+and variables that define the transmission network in a DC power
+flow formulation. It ensures that the model is structurally ready
+to support flow equations and line constraints.
+
+* **Parameters:**
+  **model** (*pyomo.environ.ConcreteModel*) – Pyomo model instance to be inspected.
+* **Returns:**
+  `True` if the model includes all required components for
+  the transmission-line subsystem, otherwise `False`.
+* **Return type:**
+  bool
+
+### Notes
+
+The following components are required:
+: - `T` : time-period set
+  - `LT` : set of transmission lines
+  - `lines_transmission_model` : dictionary mapping each line to its modeling type (‘dc’ or ‘transport’)
+  - `lines_b` : line susceptance values (1/x_ij)
+  - `lines_pmax` : maximum line capacities (MW)
+  - `lines_endpoints` : mapping of line endpoints [bar_i, bar_j]
+  - `lines_flow` : power-flow variable (MW)
 
 ## MDI.ModelFormatters module
 
@@ -707,12 +880,26 @@ provide clarity and visual feedback about the simulation setup.
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 
+### MDI.ModelFormatters.format_connection_bar_model(case: Dict) → None
+
+Print formatted information for each connection bar unit.
+
+* **Parameters:**
+  **case** (*dict*) – Dictionary containing ‘bars’ section with unit definitions.
+
 ### MDI.ModelFormatters.format_generator_model(case: Dict) → None
 
 Print formatted information for each generator power unit.
 
 * **Parameters:**
   **case** (*dict*) – Dictionary containing ‘generator’ section with unit definitions.
+
+### MDI.ModelFormatters.format_line_transmission_model(case: Dict) → None
+
+Print formatted information for each transmission line unit.
+
+* **Parameters:**
+  **case** (*dict*) – Dictionary containing ‘lines’ section with unit definitions.
 
 ### MDI.ModelFormatters.format_models(case: Dict) → None
 
@@ -851,6 +1038,18 @@ Features:
 [1] CEPEL, DESSEM. Manual de Metodologia, 2023
 [2] Unsihuay Vila, C. Introdução aos Sistemas de Energia Elétrica, Lecture Notes, EELT7030/UFPR, 2023.
 
+### MDI.Reporting.connection_bar_dispatch_summary(model: ConcreteModel) → None
+
+Print a unit-level dispatch summary for each connection bar in MWh.
+
+* **Parameters:**
+  **model** (*pyomo.environ.ConcreteModel*) – A solved Pyomo model containing a valid connection-bar subsystem,
+  verified via `has_connection_bar_model()`.
+* **Returns:**
+  Prints formatted results directly to the console.
+* **Return type:**
+  None
+
 ### MDI.Reporting.dispatch_summary(model: ConcreteModel) → None
 
 Print a complete dispatch and cost summary including:
@@ -876,6 +1075,18 @@ Print unit-level storage discharge summary in MWh.
 * **Parameters:**
   **model** (*ConcreteModel*) – Solved Pyomo model with storage subsystem.
 
+### MDI.Reporting.transmission_line_dispatch_summary(model: ConcreteModel) → None
+
+Print a unit-level dispatch summary for each transmission line in MWh.
+
+* **Parameters:**
+  **model** (*pyomo.environ.ConcreteModel*) – A solved Pyomo model containing a valid transmission line subsystem,
+  verified via `has_transmission_line_model()`.
+* **Returns:**
+  Prints formatted results directly to the console.
+* **Return type:**
+  None
+
 ## MDI.Solver module
 
 EELT 7030 — Operation and Expansion Planning of Electric Power Systems
@@ -890,12 +1101,12 @@ Augusto Mathias Adams <[augusto.adams@ufpr.br](mailto:augusto.adams@ufpr.br)>
 ### Description
 
 This utility builds and solves a Pyomo optimization model using input
-data provided in a YAML or JSON configuration file. The solver is selected
+data provided in a YAML configuration file. The solver is selected
 based on metadata, and can include support for decomposition strategies
 (e.g., MIN-DT via MindtPy).
 
 Features:
-- Automatic model construction via modular subsystems (thermal, hydro, storage, renewable).
+- Automatic model construction via modular subsystems (generator, storage, connection bar, transmission line).
 - Solver selection and configuration via YAML metadata.
 - Support for MINLP solvers such as MindtPy with strategy and time limits.
 - Termination condition validation to ensure feasibility or optimality.
