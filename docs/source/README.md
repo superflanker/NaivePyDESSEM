@@ -394,7 +394,7 @@ pydecomp-solve path/to/case.yaml --out_dir results/ --out_file dispatch.csv
 Using PDDD:
 
 ```bash
-pydecomp-pddsolve path/to/case.yaml --out_dir results/ --out_file dispatch.csv
+pydecomp-pddd-solve path/to/case.yaml --out_dir results/ --out_file dispatch.csv
 ```
 
 **MDI Like Generation Expansion Planning**
